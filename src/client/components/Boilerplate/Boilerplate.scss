@@ -1,0 +1,18 @@
+.Boilerplate {
+  padding: 10rem;
+  &__title {
+    font-size: 22rem;
+    margin-bottom: 5rem;
+  }
+  &__sub-title {
+    font-size: 18rem;
+    font-weight: 400;
+    margin-bottom: 5rem;
+  }
+  &__icon {
+    margin-bottom: 5rem;
+  }
+  &__pre {
+    font-size: 16rem;
+  }
+}

@@ -1,0 +1,21 @@
+.Songs {
+  font-size: 16rem;
+  &__table {
+    width: 100%;
+    box-shadow: 0 1px 4px 0 rgba(#333333,.3);
+    border-collapse: collapse; }
+    &__tableHead {
+      border-bottom: 1px solid #e0e0e0; }
+      &__tableHeadRow {
+        height: 38px; }
+        &__tableHeadCol {
+          text-align: left;
+          font-weight: 700;
+          text-transform: uppercase;
+          font-size: 15rem; }
+        &__tableHeadCover {
+          width: 50px;
+          padding: 3px 0 0 12px; }
+          &__tableHeadIcon {
+            font-size: 22rem; }
+}

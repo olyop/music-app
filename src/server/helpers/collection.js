@@ -6,7 +6,7 @@ const serializeDocument = doc => {
   const { _id, ...values } = temp
   return {
     ...values,
-    key: _id,
+    id: _id,
     createdAt: ObjectId(_id).getTimestamp()
   }
 }

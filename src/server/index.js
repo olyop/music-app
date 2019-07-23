@@ -1,9 +1,9 @@
 const express = require("express")
 
-const { connect } = require("mongoose")
+const { createConnection } = require("mongoose")
 
 // import api server
-const apolloServer = require("./db/apolloServer")
+const apolloServer = require("./db/apolloMiddleware")
 
 // import middleware
 const { globalHeaders } = require("./middleware")
@@ -15,16 +15,8 @@ const logger = require("morgan")
 const helmet = require("helmet")
 const cors = require("cors")
 
-const {
-  HOST, PORT,
-  DB_URL, MONGOOSE_CONFIG,
-  BUILD_PATH, BUILD_PATH_ENTRY
-} = require("./globals")
-
+const { HOST, PORT, BUILD_PATH, BUILD_PATH_ENTRY } = require("./globals")
 const { onError, onListening } = require("./helpers/server")
-
-// connect to mongodb server
-connect(DB_URL, MONGOOSE_CONFIG)
 
 const app = express()
 

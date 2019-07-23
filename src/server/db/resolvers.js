@@ -1,31 +1,70 @@
-const { serializeCollection, sortCollection } = require("../helpers/collection")
-const { pipe } = require("../helpers/misc")
+const { Artist, Album, Song } = require("./models")
 
-const { User, Post, Comment } = require("./models")
+const { serializeDocument, serializeCollection, sortCollection } = require("../helpers/collection")
+const { pipe } = require("../helpers/misc")
 
 const resolvers = {
   Query: {
-    users: async () => {
-      const users = await User.find({}).exec()
-      return pipe(users)(
+    artist: async (_parent, { id }) => (
+      serializeDocument(await Artist.findById(id).exec())
+    ),
+    album: async (_parent, { id }) => (
+      serializeDocument(await Album.findById(id).exec())
+    ),
+    song: async (_parent, { id }) => (
+      serializeDocument(await Song.findById(id).exec())
+    ),
+    artists: async () => (
+      pipe(await Artist.find({}).exec())(
         serializeCollection,
         sortCollection("name")
       )
-    },
-    posts: async () => {
-      const posts = await Post.find({}).exec()
-      return pipe(posts)(
+    ),
+    albums: async () => (
+      pipe(await Album.find({}).exec())(
         serializeCollection,
         sortCollection("title")
       )
-    },
-    comments: async () => {
-      const comments = await Comment.find({}).exec()
-      return pipe(comments)(
+    ),
+    songs: async () => (
+      pipe(await Song.find({}).exec())(
         serializeCollection,
-        sortCollection("text")
+        sortCollection("title")
       )
-    }
+    )
+  },
+  Artist: {
+    albums: async ({ id }) => (
+      pipe(await Album.find({ artist: id }).exec())(
+        serializeCollection,
+        sortCollection("title")
+      )
+    ),
+    songs: async ({ id }) => (
+      pipe(await Song.find({ artist: id }).exec())(
+        serializeCollection,
+        sortCollection("title")
+      )
+    )
+  },
+  Album: {
+    artist: async ({ artist }) => (
+      serializeDocument(await Artist.findById(artist).exec())
+    ),
+    songs: async ({ id }) => (
+      pipe(await Song.find({ album: id }).exec())(
+        serializeCollection,
+        sortCollection("title")
+      )
+    )
+  },
+  Song: {
+    artist: async ({ artist }) => (
+      serializeDocument(await Artist.findById(artist).exec())
+    ),
+    album: async ({ album }) => (
+      serializeDocument(await Album.findById(album).exec())
+    )
   }
 }
 

@@ -3,31 +3,34 @@ const gql = require("graphql-tag")
 const typeDefs = gql`
 
   type Query {
-    users: [User!]!
-    posts: [Post!]!
-    comments: [Comment!]!
+    artist(id: ID!): Artist!
+    album(id: ID!): Album!
+    song(id: ID!): Song!
+    artists: [Artist!]!
+    albums: [Album!]!
+    songs: [Song]!
   }
 
-  type User {
-    key: ID!
-    createdAt: String!
+  type Artist {
+    id: ID!
     name: String!
+    albums: [Album!]!
+    songs: [Song!]!
   }
 
-  type Post {
-    key: ID!
-    createdAt: String!
+  type Album {
+    id: ID!
     title: String!
-    body: String!
-    userKey: ID!
+    year: Int!
+    artist: Artist!
+    songs: [Song!]!
   }
 
-  type Comment {
-    key: ID!
-    createdAt: String!
-    text: String!
-    userKey: ID!
-    postKey: ID!
+  type Song {
+    id: ID!
+    title: String!
+    artist: Artist!
+    album: Album!
   }
   
 `

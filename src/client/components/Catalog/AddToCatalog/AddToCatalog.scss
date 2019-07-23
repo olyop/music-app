@@ -1,0 +1,22 @@
+.AddToCatalog {
+  display: grid;
+  grid-gap: 20px;
+  grid-template-columns: 1fr 1fr 1fr;
+  &__form {
+    box-shadow: 0 1px 4px 0 rgba(#333333,.3);
+    border: 1px solid #e0e0e0;
+    padding: 20px; }
+    &__formTitle {
+      font-size: 18rem;
+      margin-bottom: 20px;
+      font-weight: 700; }
+      &__formLabel {
+        display: block;
+        width: 100%;
+        margin-bottom: 10px; }
+        &__formLabelText {
+          margin-right: 5px;
+          font-size: 16rem; }
+        &__formInput {
+          width: 100%; }
+}

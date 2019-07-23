@@ -9,7 +9,7 @@ const curryMap = func => collection => collection.map(func)
 const curryFilter = func => collection => collection.filter(func)
 const curryReduce = (func, accumulator) => collection => collection.reduce(func, accumulator)
 const curryConcat = newItem => collection => collection.concat(newItem)
-const currySortBy = func => collection => sortBy(collection, func)
+const currySortBy = func => collection => sortBy(collection, func) 
 
 Object.assign(exports, {
   pipe,

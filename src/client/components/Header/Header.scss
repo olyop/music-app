@@ -1,0 +1,11 @@
+.Header {
+  width: 100vw;
+  height: 60px;
+  font-size: 16rem;
+  border-bottom: 1px solid #e0e0e0;
+  &__hamburger {
+    font-size: 48rem;
+    line-height: 48rem;
+    outline: none;
+    padding: 6px 10px; }
+}

@@ -1,0 +1,21 @@
+.Song {
+  height: 44px;
+  cursor: pointer;
+  border-bottom: 1px solid #e0e0e0;
+  &:hover {
+    background-color: #eeeeee; }
+  &__tableCol {
+    text-align: left;}
+    &__albumCover {
+      margin-bottom: -3px;
+      width: 30px;
+      height: 30px; }
+    &__tableHeadCover {
+      width: 50px;
+      padding: 0 0 0 8px; }
+    &__tableColSpan {
+      font-size: 16rem;
+      &:hover {
+        text-decoration: underline; }
+    }
+}

@@ -1,0 +1,16 @@
+import componentClassNames from "../helpers/componentClassNames"
+
+export const Album = componentClassNames("Album")
+export const Albums = componentClassNames("Albums")
+export const Artist = componentClassNames("Artist")
+export const Artists = componentClassNames("Artists")
+export const Catalog = componentClassNames("Catalog")
+export const AddToCatalog = componentClassNames("AddToCatalog")
+export const Header = componentClassNames("Header")
+export const Icon = componentClassNames("Icon")
+export const Library = componentClassNames("Library")
+export const Loading = componentClassNames("Loading")
+export const Pages = componentClassNames("Pages")
+export const Sidebar = componentClassNames("Sidebar")
+export const Song = componentClassNames("Song")
+export const Songs = componentClassNames("Songs")

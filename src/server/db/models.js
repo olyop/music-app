@@ -1,17 +1,23 @@
-const { model } = require("mongoose")
+const { Catalog } = require("./databases")
+const { Schema } = require("mongoose")
 
-const {
-  userSchema,
-  postSchema,
-  commentSchema
-} = require('./schemas')
+const artistSchema = new Schema({
+  name: { type: String, required: true }
+})
 
-const User = model("User", userSchema, "users")
-const Post = model("Post", postSchema, "posts")
-const Comment = model("Comment", commentSchema, "comments")
+const albumSchema = new Schema({
+  title: { type: String, required: true },
+  year: { type: Number, required: true }
+})
+
+const songSchema = new Schema({
+  title: { type: String, required: true },
+})
+
+const Artist = Catalog.model("Artist", artistSchema, "artists")
+const Album = Catalog.model("Album", albumSchema, "albums")
+const Song = Catalog.model("Song", songSchema, "songs")
 
 Object.assign(exports, {
-  User,
-  Post,
-  Comment
+  Artist, Album, Song
 })

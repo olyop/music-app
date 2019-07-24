@@ -1,62 +1,42 @@
-import React, { Component } from "react"
+import React from "react"
 
 import Loading from "../Loading"
+import { Query } from "react-apollo"
 import Album from "../Album"
 
-import { fetchQuery, serializeDatabase } from "../../apollo/helpers"
+import { serializeCollection } from "../../apollo/helpers"
 import { Albums as bem } from "../../globals/bem"
-import { isEmpty, find } from "lodash"
-import { propTypes } from "./props"
+import { isEmpty, isUndefined } from "lodash"
 import query from "./query"
 
 import "./Albums.scss"
 
-class Albums extends Component {
-  componentDidMount() {
-    fetchQuery(
-      query,
-      ({ data }) => {
-        const { props } = this
-        const { syncAlbums, syncArtists } = props
-        const { hasReceivedAlbums, hasReceivedArtists } = props
-        const { albums, artists } = serializeDatabase(data)
-        syncAlbums(albums)
-        syncArtists(artists)
-        hasReceivedAlbums()
-        hasReceivedArtists()
-      }
-    )
-  }
-  renderAlbumsList = () => {
-    const { albums, artists, hasReceived } = this.props
-    if (!hasReceived.albums) {
-      return <Loading/>
-    } else if (isEmpty(albums)) {
-      return "No Albums."
-    } else {
-      return albums.map(album => {
-        const { artistKey } = album
-        const artist = find(artists, { key: artistKey }) || { name: "Loading..." }
-        return (
-          <Album
-            {...album}
-            albumKey={album.key}
-            artistName={artist.name}
-          />
-        )
-      })
-    }
-  }
-  render() {
-    const { renderAlbumsList } = this
-    return (
-      <div className={bem("")}>
-        {renderAlbumsList()}
-      </div>
-    )
-  }
-}
-
-Albums.propTypes = propTypes
+const Albums = () => (
+  <div className={bem("")}>
+    <Query query={query}>
+      {({ loading, error, data }) => {
+        if (loading) {
+          return <Loading/>
+        } else if (!isUndefined(error)) {
+          return console.error(error)
+        } else if (isEmpty(data.albums)) {
+          return "Empty."
+        } else {
+          const albums = serializeCollection(data.albums)
+          return albums.map(
+            ({ id, title, artist }) => (
+              <Album
+                id={id}
+                key={id}
+                title={title}
+                artistName={artist.name}
+              />
+            )
+          )
+        }
+      }}
+    </Query>
+  </div>
+)
 
 export default Albums

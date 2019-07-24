@@ -1,55 +1,41 @@
-import React, { Component } from "react"
+import React from "react"
 
 import Loading from "../Loading"
+import { Query } from "react-apollo"
 import Artist from "../Artist"
 
-import { fetchQuery, serializeCollection } from "../../apollo/helpers"
+import { serializeCollection } from "../../apollo/helpers"
 import { Artists as bem } from "../../globals/bem"
-import { propTypes } from "./props"
-import { isEmpty } from "lodash"
+import { isEmpty, isUndefined } from "lodash"
 import query from "./query"
 
 import "./Artists.scss"
 
-class Artists extends Component {
-  componentDidMount() {
-    fetchQuery(
-      query,
-      ({ data }) => {
-        const { props } = this
-        const { syncArtists } = props
-        const { hasReceivedArtists } = props
-        const artists = serializeCollection(data.artists)
-        syncArtists(artists)
-        hasReceivedArtists()
-      }
-    )
-  }
-  renderArtistsList = () => {
-    const { artists, hasReceived } = this.props
-    if (!hasReceived.artists) {
-      return <Loading/>
-    } else if (isEmpty(artists)) {
-      return "No Artists."
-    } else {
-      return artists.map(artist => (
-        <Artist
-          {...artist}
-          artistKey={artist.key}
-        />
-      ))
-    }
-  }
-  render() {
-    const { renderArtistsList } = this
-    return (
-      <div className={bem("")}>
-        {renderArtistsList()}
-      </div>
-    )
-  }
-}
-
-Artists.propTypes = propTypes
+const Artists = () => (
+  <div className={bem("")}>
+    <Query query={query}>
+      {({ loading, error, data }) => {
+        if (loading) {
+          return <Loading/>
+        } else if (!isUndefined(error)) {
+          return console.error(error)
+        } else if (isEmpty(data.artists)) {
+          return "Empty."
+        } else {
+          const artists = serializeCollection(data.artists)
+          return artists.map(
+            ({ id, name }) => (
+              <Artist
+                id={id}
+                key={id}
+                name={name}
+              />
+            )
+          )
+        }
+      }}
+    </Query>
+  </div>
+)
 
 export default Artists

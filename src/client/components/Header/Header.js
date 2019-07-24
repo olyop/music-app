@@ -3,21 +3,19 @@ import React from "react"
 import Icon from "../Icon"
 
 import { Header as bem } from "../../globals/bem"
-import { propTypes } from "./props"
+import { noop } from "lodash"
 
 import "./Header.scss"
 
-const Header = ({ sidebar, toggleSidebar }) => (
+const Header = () => (
   <header className={bem("")}>
     <Icon
       bem={bem}
       className="hamburger"
-      onClick={toggleSidebar}
-      icon={sidebar ? "clear" : "menu"}
+      onClick={noop}
+      icon="menu"
     />
   </header>
 )
-
-Header.propTypes = propTypes
 
 export default Header

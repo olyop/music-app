@@ -1,6 +1,6 @@
 import { string } from "prop-types"
 
 export const propTypes = {
-  artistKey: string.isRequired,
+  id: string.isRequired,
   name: string.isRequired
 }

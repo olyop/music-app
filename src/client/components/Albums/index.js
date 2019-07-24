@@ -1,3 +1,3 @@
-import Albums from "./connect"
+import Albums from "./Albums"
 
 export default Albums

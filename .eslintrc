@@ -29,6 +29,7 @@
     "array-bracket-spacing": ["warn", "always"],
     "react/jsx-filename-extension": [0],
     "react/no-children-prop": [0],
-    "react/jsx-tag-spacing": [0]
+    "react/jsx-tag-spacing": [0],
+    "jsx-a11y/click-events-have-key-events": [0]
   }
 }

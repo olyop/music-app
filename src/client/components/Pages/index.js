@@ -1,3 +1,3 @@
-import Pages from "./connect"
+import Pages from "./Pages"
 
 export default Pages

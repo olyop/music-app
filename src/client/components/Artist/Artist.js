@@ -5,12 +5,12 @@ import { propTypes } from "./props"
 
 import "./Artist.scss"
 
-const Artist = ({ artistKey, name }) => (
+const Artist = ({ id, name }) => (
   <div className={bem("")}>
     <img
       alt="artistPhoto"
       className={bem("artistPhoto")}
-      src={`/images/catalog/artistPhotos/${artistKey}.jpg`}
+      src={`/images/catalog/artistPhotos/${id}.jpg`}
     />
     <h2 className={bem("name")}>
       {name}

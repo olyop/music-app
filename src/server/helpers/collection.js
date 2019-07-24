@@ -13,12 +13,12 @@ const serializeDocument = doc => {
 
 const serializeCollection = collection => collection.map(serializeDocument)
 
-const sortCollection = (keyName, direction = "asc") => collection => (
-  orderBy(collection, keyName, direction)
+const orderCollection = (iteratees, orders) => collection => (
+  orderBy(collection, iteratees, orders)
 )
 
 Object.assign(exports, {  
   serializeDocument,
   serializeCollection,
-  sortCollection
+  orderCollection
 })

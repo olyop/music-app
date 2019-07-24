@@ -1,9 +1,7 @@
 const express = require("express")
 
-const { createConnection } = require("mongoose")
-
 // import api server
-const apolloServer = require("./db/apolloMiddleware")
+const apollo = require("./db/apollo")
 
 // import middleware
 const { globalHeaders } = require("./middleware")
@@ -32,7 +30,7 @@ app.use(cookieParser())
 app.use(globalHeaders())
 
 // apply api middleware to app
-apolloServer.applyMiddleware({
+apollo.applyMiddleware({
   app,
   bodyParserConfig: false,
   cors: false

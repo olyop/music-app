@@ -3,19 +3,16 @@ import gql from "graphql-tag"
 const query = gql`
   {
     songs {
-      key
+      id
       title
-      trackNumber
-      artistKey
-      albumKey
-    }
-    albums {
-      key
-      title
-    }
-    artists {
-      key
-      name
+      artist {
+        id
+        name
+      }
+      album {
+        id
+        title
+      }
     }
   }
 `

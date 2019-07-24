@@ -1,4 +1,4 @@
-const { serializePort } = require("../helpers/server")
+const { serializePort } = require("./helpers/server")
 const path = require("path")
 
 const HOST = "localhost"

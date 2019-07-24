@@ -5,7 +5,7 @@ import { noop } from "lodash"
 
 import "./AddToCatalog.scss"
 
-const AddToCatalog = ({ addToCatalog }) => (
+const AddToCatalog = () => (
   <div className={bem("")}>
     <form className={bem("form")} onSubmit={noop}>
       <h2 className={bem("formTitle")}>Add Song</h2>
@@ -19,7 +19,7 @@ const AddToCatalog = ({ addToCatalog }) => (
         />
         <input
           className={bem("formInput")}
-          value={""}
+          value=""
           onChange={noop}
           type="text"
           id="title"
@@ -35,7 +35,7 @@ const AddToCatalog = ({ addToCatalog }) => (
         />
         <input
           className={bem("formInput")}
-          value={""}
+          value=""
           onChange={noop}
           id="artistKey"
           type="text"
@@ -51,7 +51,7 @@ const AddToCatalog = ({ addToCatalog }) => (
         />
         <input
           className={bem("formInput")}
-          value={""}
+          value=""
           onChange={noop}
           id="albumKey"
           type="text"

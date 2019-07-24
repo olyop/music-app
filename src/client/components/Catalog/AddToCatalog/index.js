@@ -1,3 +1,3 @@
-import AddToCatalog from "./connect"
+import AddToCatalog from "./AddToCatalog"
 
 export default AddToCatalog

@@ -1,7 +1,7 @@
 import { string } from "prop-types"
 
 export const propTypes = {
-  albumKey: string.isRequired,
+  id: string.isRequired,
   title: string.isRequired,
   artistName: string.isRequired
 }

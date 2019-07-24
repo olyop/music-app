@@ -3,14 +3,13 @@ import gql from "graphql-tag"
 const query = gql`
   {
     albums {
-      key
+      id
       title
       year
-      artistKey
-    }
-    artists {
-      key
-      name
+      artist {
+        id
+        name
+      }
     }
   }
 `

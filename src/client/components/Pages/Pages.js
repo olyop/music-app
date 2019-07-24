@@ -1,17 +1,14 @@
 import React from "react"
 
 import { Switch, Route } from "react-router-dom"
-import Sidebar from "../Sidebar"
 
 import { Pages as bem } from "../../globals/bem"
-import { propTypes } from "./props"
 import routes from "./routes"
 
 import "./Pages.scss"
 
-const Pages = ({ sidebar }) => (
+const Pages = () => (
   <main className={bem("")}>
-    {sidebar ? <Sidebar/> : null}
     <Switch>
       {routes.map(route => (
         <Route
@@ -23,7 +20,5 @@ const Pages = ({ sidebar }) => (
     </Switch>
   </main>
 )
-
-Pages.propTypes = propTypes
 
 export default Pages

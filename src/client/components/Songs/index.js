@@ -1,3 +1,3 @@
-import Songs from "./connect"
+import Songs from "./Songs"
 
 export default Songs

@@ -6,7 +6,7 @@ import "./Loading.scss"
 
 const Loading = () => (
   <div className={bem("")}>
-    Loading...
+    Loading....
   </div>
 )
 

@@ -16,6 +16,8 @@ const cors = require("cors")
 const { HOST, PORT, BUILD_PATH, BUILD_PATH_ENTRY } = require("./globals")
 const { onError, onListening } = require("./helpers/server")
 
+// require("./test")
+
 const app = express()
 
 // middleware stack

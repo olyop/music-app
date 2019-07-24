@@ -1,5 +1,6 @@
+@import "../../globals/index.scss";
+
 .Pages {
   width: 100vw;
-  height: calc(100vh - 60px);
-  position: relative;
+  height: calc(100vh - $HEADER_HEIGHT);
 }

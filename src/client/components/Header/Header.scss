@@ -1,6 +1,9 @@
+@import "../../globals/index.scss";
+
 .Header {
+  position: relative;
   width: 100vw;
-  height: 60px;
+  height: $HEADER_HEIGHT;
   font-size: 16rem;
   border-bottom: 1px solid #e0e0e0;
   &__hamburger {

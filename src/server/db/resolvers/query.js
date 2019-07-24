@@ -9,15 +9,9 @@ const {
 } = require("../../helpers/collection")
 
 const queryResolver = {
-  artist: async (_parent, { id }) => (
-    serializeDocument(await Artist.findById(id).exec())
-  ),
-  album: async (_parent, { id }) => (
-    serializeDocument(await Album.findById(id).exec())
-  ),
-  song: async (_parent, { id }) => (
-    serializeDocument(await Song.findById(id).exec())
-  ),
+  artist: async (parent, { id }) => serializeDocument(await Artist.findById(id).exec()),
+  album: async (parent, { id }) => serializeDocument(await Album.findById(id).exec()),
+  song: async (parent, { id }) => serializeDocument(await Song.findById(id).exec()),
   artists: async () => (
     pipe(await Artist.find({}).exec())(
       serializeCollection,

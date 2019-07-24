@@ -1,4 +1,5 @@
 const { serializePort } = require("./helpers/server")
+const { assign } = require("lodash")
 const path = require("path")
 
 const HOST = "localhost"
@@ -24,7 +25,7 @@ const GLOBAL_HEADERS = {
 const BUILD_PATH = path.resolve("src", "server", "build")
 const BUILD_PATH_ENTRY = path.join(BUILD_PATH, "index.html")
 
-Object.assign(exports, {
+assign(exports, {
   HOST,
   PORT,
   GET_DB_URL, MONGOOSE_OPTIONS,

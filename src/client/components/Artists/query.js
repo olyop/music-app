@@ -3,7 +3,7 @@ import gql from "graphql-tag"
 const query = gql`
   {
     artists {
-      key
+      id
       name
     }
   }

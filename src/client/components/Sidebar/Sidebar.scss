@@ -1,10 +1,12 @@
+@import "../../globals/index.scss";
+
 .Sidebar {
   position: absolute;
-  top: 0;
+  top: $HEADER_HEIGHT;
   left: 0;
   font-size: 16rem;
   width: 100vw;
-  height: calc(100vh - 60px);
+  height: calc(100vh - #{$HEADER_HEIGHT});
   background-color: rgba(#333333, .6);
   &__nav {
     padding: 20px;
@@ -12,7 +14,7 @@
     top: 0;
     left: 0;
     width: 300px;
-    height: calc(100vh - 60px);
+    height: calc(100vh - #{$HEADER_HEIGHT});
     background-color: #ffffff; }
     &__links {
       flex-direction: column;

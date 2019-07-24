@@ -30,7 +30,7 @@ module.exports = ({ mode }) => ({
     compress: true,
     contentBase: publicPath,
     historyApiFallback: true,
-    open: false,
+    open: true,
     stats: "errors-only"
   },
   module: {

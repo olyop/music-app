@@ -1,4 +1,4 @@
-const { sortBy } = require("lodash")
+const { sortBy, assign } = require("lodash")
 
 const pipe = x => (...funcs) => funcs.reduce((val, func) => func(val), x)
 
@@ -11,7 +11,7 @@ const curryReduce = (func, accumulator) => collection => collection.reduce(func,
 const curryConcat = newItem => collection => collection.concat(newItem)
 const currySortBy = func => collection => sortBy(collection, func) 
 
-Object.assign(exports, {
+assign(exports, {
   pipe,
   stringify, stringifyFormat,
   curryMap, curryFilter, curryReduce, curryConcat, currySortBy

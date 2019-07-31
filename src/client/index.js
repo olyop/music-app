@@ -5,7 +5,7 @@ import { ApolloProvider } from "react-apollo"
 import Header from "./components/Header"
 import Pages from "./components/Pages"
 
-import apolloClient from "./apollo/client"
+import apolloClient from "./apolloClient"
 import { ROOT_ELEMENT } from "./globals"
 import { render } from "react-dom"
 

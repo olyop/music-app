@@ -1,0 +1,24 @@
+mutation addSong(
+  $title: String!,
+  $trackNumber: Int!,
+  $artist: ID!,
+  $album: ID!
+) {
+  addSong(
+    title: $title,
+    trackNumber: $trackNumber,
+    artist: $artist,
+    album: $album
+  ) {
+    id
+    title
+    artist {
+      id
+      name
+    }
+    album {
+      id
+      title
+    }
+  }
+}

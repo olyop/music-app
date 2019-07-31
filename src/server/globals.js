@@ -5,15 +5,18 @@ const path = require("path")
 const HOST = "localhost"
 const PORT = serializePort(process.env.PORT || "3000")
 
-const GET_DB_URL = db => {
-  const username = "admin"
-  const password = "unAHnAmJpZl0HQSq"
-  const parameters = "?retryWrites=true&w=majority"
-  return `mongodb+srv://${username}:${password}@music-app-eajot.mongodb.net/${db}${parameters}`
+const LOG_FORMAT = "dev"
+
+const CORS_OPTIONS = {
+  origin: "*",
+  optionsSuccessStatus: 200
 }
 
+const DB_URL = "mongodb://localhost:27017/music-app"
+
 const MONGOOSE_OPTIONS = {
-  useNewUrlParser: true
+  useNewUrlParser: true,
+  autoIndex: false
 }
 
 const GLOBAL_HEADERS = {
@@ -26,10 +29,9 @@ const BUILD_PATH = path.resolve("src", "server", "build")
 const BUILD_PATH_ENTRY = path.join(BUILD_PATH, "index.html")
 
 assign(exports, {
-  HOST,
-  PORT,
-  GET_DB_URL, MONGOOSE_OPTIONS,
+  HOST, PORT,
+  LOG_FORMAT, CORS_OPTIONS,
+  DB_URL, MONGOOSE_OPTIONS,
   GLOBAL_HEADERS,
-  BUILD_PATH,
-  BUILD_PATH_ENTRY
+  BUILD_PATH, BUILD_PATH_ENTRY
 })

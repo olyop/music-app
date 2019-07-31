@@ -1,0 +1,19 @@
+mutation addAlbum(
+  $title: String!,
+  $year: Int!,
+  $artist: ID!  
+) {
+  addAlbum(
+    title: $title,
+    year: $year,
+    artist: $artist
+  ) {
+    id
+    title
+    year
+    artist {
+      id
+      name
+    }
+  }
+}

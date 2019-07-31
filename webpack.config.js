@@ -1,4 +1,5 @@
 const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin")
+const LodashModuleReplacementPlugin = require("lodash-webpack-plugin")
 const { BundleAnalyzerPlugin } = require("webpack-bundle-analyzer")
 const MiniCssExtractPlugin = require("mini-css-extract-plugin")
 const CompressionPlugin = require("compression-webpack-plugin")
@@ -30,7 +31,7 @@ module.exports = ({ mode }) => ({
     compress: true,
     contentBase: publicPath,
     historyApiFallback: true,
-    open: true,
+    open: false,
     stats: "errors-only"
   },
   module: {
@@ -60,6 +61,11 @@ module.exports = ({ mode }) => ({
         ]
       },
       {
+        test: /\.(graphql|gql)$/,
+        exclude: /node_modules/,
+        loader: "graphql-tag/loader",
+      },
+      {
         test: /\.js$/,
         exclude: /node_modules/,
         use:[
@@ -81,6 +87,7 @@ module.exports = ({ mode }) => ({
     mode === "production" ? new BundleAnalyzerPlugin({ analyzerMode: "static" }) : noop,
     mode === "production" ? new CompressionPlugin() : noop,
     mode === "production" ? new ProgressPlugin() : noop,
+    mode === "production" ? new LodashModuleReplacementPlugin() : noop,
     new CleanWebpackPlugin(),
     mode === "production" ? new MinifyPlugin({}, { comments: false }) : noop,
     mode === "production" ? new OptimizeCssAssetsPlugin() : noop,

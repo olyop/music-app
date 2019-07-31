@@ -1,7 +1,8 @@
+const database = require("./database/connection")
 const express = require("express")
 
 // import api server
-const apollo = require("./db/apollo")
+const apollo = require("./database/apollo")
 
 // import middleware
 const { globalHeaders } = require("./middleware")
@@ -13,19 +14,26 @@ const logger = require("morgan")
 const helmet = require("helmet")
 const cors = require("cors")
 
-const { HOST, PORT, BUILD_PATH, BUILD_PATH_ENTRY } = require("./globals")
+const {
+  HOST, PORT,
+  DB_URL, MONGOOSE_OPTIONS,
+  LOG_FORMAT, CORS_OPTIONS,
+  BUILD_PATH, BUILD_PATH_ENTRY
+} = require("./globals")
+
 const { onError, onListening } = require("./helpers/server")
 
-// require("./test")
+// connect to database
+database.openUri(DB_URL, MONGOOSE_OPTIONS)
 
 const app = express()
 
 // middleware stack
-app.use(logger("dev"))
+app.use(logger(LOG_FORMAT))
 app.use(responseTime())
 app.use(helmet())
 app.use(compression())
-app.use(cors())
+app.use(cors(CORS_OPTIONS))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(cookieParser())

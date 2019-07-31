@@ -1,0 +1,37 @@
+@import "../../globals/index.scss";
+
+.Sidebar {
+  position: absolute;
+  top: $HEADER_HEIGHT;
+  left: 0;
+  font-size: 16rem;
+  width: 100vw;
+  height: calc(100vh - #{$HEADER_HEIGHT});
+  background-color: rgba(#333333, .6);
+  &__nav {
+    padding: 20px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 300px;
+    height: calc(100vh - #{$HEADER_HEIGHT});
+    background-color: #ffffff; }
+    &__links {
+      flex-direction: column;
+      display: flex; }
+      &__linkRoute {
+        margin-bottom: 10px;
+        display: flex;
+        flex-direction: column;
+        &:last-child {
+          margin-bottom: 0; } }
+        &__link {
+          margin-bottom: 5px;
+          font-size: 22rem;
+          text-decoration: none; }
+          &__subLink {
+            margin-left: 15px;
+            margin-bottom: 5px;
+            font-size: 16rem;
+            text-decoration: none; }
+}

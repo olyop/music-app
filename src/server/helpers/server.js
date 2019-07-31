@@ -1,4 +1,5 @@
 const debug = require("debug")("express-gen:server")
+const { assign } = require("lodash")
 
 const serializePort = val => {
   const port = parseInt(val, 10)
@@ -31,11 +32,9 @@ const onError = ({ syscall, code }) => {
   }
 }
 
-const onListening = () => {
-  debug()
-}
+const onListening = () => debug()
 
-Object.assign(exports, {
+assign(exports, {
   serializePort,
   onError,
   onListening

@@ -1,0 +1,50 @@
+@import "../../../globals/index.scss";
+
+.Add {
+  display: grid;
+  grid-gap: 20px;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr;
+  &__form {
+    box-shadow: 0 1px 4px 0 rgba(#333333,.3);
+    border: 1px solid #e0e0e0;
+    height: calc(100vh - 2 * #{$HEADER_HEIGHT} - 40px);
+    padding: 20px; }
+    &__formTitle {
+      text-decoration: underline;
+      font-size: 20rem;
+      margin-bottom: 15px;
+      font-weight: 700; }
+      &__formLabel {
+        display: block;
+        width: 100%;
+        margin-bottom: 15px;
+        &:last-child {
+          margin-bottom: 0; } }
+        &__formLabelText {
+          display: block;
+          width: 100%;
+          margin-bottom: 5px;
+          font-size: 16rem; }
+        &__formInput {
+          display: block;
+          width: 100%;
+          padding: 5px;
+          width: 100%; }
+        &__formInputFile {
+          padding: 0; }
+    &__submit {
+      padding: 10px;
+      border: none;
+      outline: none;
+      margin: 0;
+      text-transform: uppercase;
+      font-weight: 700;
+      font-size: 16rem;
+      background-color: #e0e0e0;
+    }
+    &__pre {
+      font-size: 12px;
+      margin-top: 10px;
+    }
+}

@@ -1,7 +1,6 @@
 const mongoose = require("mongoose")
 const { Schema } = mongoose
 
-const { validateYear } = require("./validaters")
 const { assign } = require("lodash")
 const { ObjectId } = Schema.Types
 
@@ -24,7 +23,8 @@ const album = new Schema({
   year: {
     type: Number,
     required: true,
-    validate: validateYear
+    min: 1,
+    max: 2019
   },
   artist: {
     type: ObjectId,

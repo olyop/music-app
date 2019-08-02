@@ -13,7 +13,7 @@ export const addAlbumMutation = gql`
   mutation addAlbum(
     $title: String!,
     $year: Int!,
-    $artist: ID!  
+    $artist: ID!
   ) {
     addAlbum(
       title: $title,

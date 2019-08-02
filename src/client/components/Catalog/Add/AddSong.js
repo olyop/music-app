@@ -2,24 +2,37 @@ import React, { useState, Fragment } from "react"
 
 import { Mutation } from "react-apollo"
 
+import { isString, isSafeInteger, inRange, isUndefined } from "lodash"
 import { Add as bemAdd, AddSong as bem } from "../../../globals/bem"
 import { handleFormChange, handleFormSubmit } from "./helpers"
 import mutation from "./mutations/addSong.graphql"
+import { noopValue } from "../../../helpers/misc"
 import { FORM_INIT } from "../../../globals"
-import { isUndefined } from "lodash"
 
 const AddSong = () => {
   const init = FORM_INIT.ADD.SONG
   const [ form, setForm ] = useState(init)
-  const onChange = handleFormChange(setForm)
-  const onSubmit = handleFormSubmit(form, setForm, init)
   const { title, trackNumber, artist, album } = form
+
+  const onChange = handleFormChange(form, setForm)
+
+  const onSubmit = (...args) => event => {
+    event.preventDefault()
+    const isValid = (
+      isString(title) && inRange(title.length, 1, 256) &&
+      isSafeInteger(trackNumber) && inRange(trackNumber, 1, Infinity) &&
+      isString(artist) && inRange(artist.length, 1, 256) &&
+      isString(album) && inRange(album.length, 1, 256)
+    )
+    if (isValid) handleFormSubmit(...args)
+  }
+
   return (
     <Mutation mutation={mutation}>
       {(addSong, { data }) => (
         <form
-          onSubmit={onSubmit(addSong)}
           className={bem("", { ignore: true, className: bemAdd("form") })}
+          onSubmit={onSubmit(form, setForm, init, addSong)}
           children={<Fragment>
             <h2
               className={bemAdd("formTitle")}
@@ -35,7 +48,7 @@ const AddSong = () => {
                 />
                 <input
                   className={bemAdd("formInput")}
-                  onChange={onChange("title")}
+                  onChange={onChange("title", encodeURI)}
                   value={title}
                   type="text"
                   id="title"
@@ -51,11 +64,11 @@ const AddSong = () => {
                   children="Track Number"
                 />
                 <input
-                  onChange={onChange("trackNumber")}
+                  onChange={onChange("trackNumber", noopValue)}
                   className={bemAdd("formInput")}
                   value={trackNumber}
                   id="trackNumber"
-                  type="text"
+                  type="number"
                 />
               </Fragment>}
             />
@@ -68,7 +81,7 @@ const AddSong = () => {
                   children="Artist"
                 />
                 <input
-                  onChange={onChange("artist")}
+                  onChange={onChange("artist", encodeURI)}
                   className={bemAdd("formInput")}
                   value={artist}
                   type="text"
@@ -85,8 +98,8 @@ const AddSong = () => {
                   children="Album"
                 />
                 <input
+                  onChange={onChange("album", encodeURI)}
                   className={bemAdd("formInput")}
-                  onChange={onChange("album")}
                   value={album}
                   type="text"
                   id="album"
@@ -98,10 +111,12 @@ const AddSong = () => {
               type="submit"
               text="Submit"
             />
-            <pre
-              children={JSON.stringify(isUndefined(data) ? {} : data.addSong, undefined, 2)}
-              className={bemAdd("pre")}
-            />
+            {isUndefined(data) ? null : <Fragment>
+              <p
+                children={`${data.addSong.title} - ${data.addSong.id}`}
+                className={bemAdd("data")}
+              />
+            </Fragment>}
           </Fragment>}
         />
       )}

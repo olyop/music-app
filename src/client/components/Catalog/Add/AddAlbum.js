@@ -2,24 +2,36 @@ import React, { useState, Fragment } from "react"
 
 import { Mutation } from "react-apollo"
 
+import { isString, inRange, isSafeInteger, isUndefined } from "lodash"
 import { Add as bemAdd, AddAlbum as bem } from "../../../globals/bem"
 import { handleFormChange, handleFormSubmit } from "./helpers"
 import mutation from "./mutations/addAlbum.graphql"
+import { noopValue } from "../../../helpers/misc"
 import { FORM_INIT } from "../../../globals"
-import { isUndefined } from "lodash"
 
 const AddAlbum = () => {
   const init = FORM_INIT.ADD.ALBUM
   const [ form, setForm ] = useState(init)
-  const onChange = handleFormChange(setForm)
-  const onSubmit = handleFormSubmit(form, setForm, init)
   const { title, year, artist } = form
+
+  const onChange = handleFormChange(form, setForm)
+
+  const onSubmit = (...args) => event => {
+    event.preventDefault()
+    const isValid = (
+      isString(title) && inRange(title.length, 1, 256) &&
+      isSafeInteger(year) && inRange(year, 1, Infinity) &&
+      isString(artist) && inRange(artist.length, 1, 256)
+    )
+    if (isValid) handleFormSubmit(...args)
+  }
+  
   return (
     <Mutation mutation={mutation}>
       {(addAlbum, { data }) => (
         <form
           className={bem("", { ignore: true, className: bemAdd("form") })}
-          onSubmit={onSubmit(addAlbum)}
+          onSubmit={onSubmit(form, setForm, init, addAlbum)}
           children={<Fragment>
             <h2
               className={bemAdd("formTitle")}
@@ -35,7 +47,7 @@ const AddAlbum = () => {
                 />
                 <input
                   className={bemAdd("formInput")}
-                  onChange={onChange("title")}
+                  onChange={onChange("title", encodeURI)}
                   value={title}
                   type="text"
                   id="title"
@@ -52,9 +64,9 @@ const AddAlbum = () => {
                 />
                 <input
                   className={bemAdd("formInput")}
-                  onChange={onChange("year")}
-                  value={year}
+                  onChange={onChange("year", noopValue)}
                   type="number"
+                  value={year}
                   id="year"
                 />
               </Fragment>}
@@ -69,7 +81,7 @@ const AddAlbum = () => {
                 />
                 <input
                   className={bemAdd("formInput")}
-                  onChange={onChange("artist")}
+                  onChange={onChange("artist", encodeURI)}
                   value={artist}
                   id="artist"
                   type="text"
@@ -81,10 +93,12 @@ const AddAlbum = () => {
               type="submit"
               text="Submit"
             />
-            <pre
-              children={JSON.stringify(isUndefined(data) ? {} : data.addAlbum, undefined, 2)}
-              className={bemAdd("pre")}
-            />
+            {isUndefined(data) ? null : <Fragment>
+              <p
+                children={`${data.addAlbum.title} - ${data.addAlbum.id}`}
+                className={bemAdd("data")}
+              />
+            </Fragment>}
           </Fragment>}
         />
       )}

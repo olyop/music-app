@@ -1,3 +1,5 @@
+export const noopValue = val => val
+
 export const pipe = x => (...funcs) => funcs.reduce((val, func) => func(val), x)
 
 export const stringify = obj => JSON.stringify(obj)

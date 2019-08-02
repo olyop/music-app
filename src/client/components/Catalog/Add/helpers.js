@@ -1,9 +1,11 @@
-export const handleFormChange = func => key => event => {
-  func({ [key]: event.target.value })
+export const handleFormChange = (form, setForm) => (key, transform) => event => {
+  setForm({
+    ...form,
+    [key]: transform(event.target.value)
+  })
 }
 
-export const handleFormSubmit = (form, initFunc, init) => func => event => {
-  event.preventDefault()
+export const handleFormSubmit = (form, initFunc, init, func) => {
   func({ variables: form })
   initFunc(init)
 }

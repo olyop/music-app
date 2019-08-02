@@ -1,3 +1,5 @@
+process.env.UV_THREADPOOL_SIZE = 12
+
 const { serializePort } = require("./helpers/server")
 const { assign } = require("lodash")
 const path = require("path")
@@ -16,7 +18,8 @@ const DB_URL = "mongodb://localhost:27017/music-app"
 
 const MONGOOSE_OPTIONS = {
   useNewUrlParser: true,
-  autoIndex: false
+  useCreateIndex: true,
+  poolSize: 1,
 }
 
 const GLOBAL_HEADERS = {

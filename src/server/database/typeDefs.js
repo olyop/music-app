@@ -12,9 +12,9 @@ const typeDefs = gql`
   }
 
   type Mutation {
-    addArtist(name: String!): Artist!
-    addAlbum(title: String!, year: Int!, artist: ID!): Album!
-    addSong(title: String!, trackNumber: Int!, artist: ID!, album: ID!): Song!
+    addArtist(name: String!, cover: Upload!): Artist!
+    addAlbum(title: String!, year: Int!, cover: Upload!, artist: ID!): Album!
+    addSong(title: String!, trackNumber: Int!, audio: Upload!, artist: ID!, album: ID!): Song!
   }
 
   type Artist {

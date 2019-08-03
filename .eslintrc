@@ -28,6 +28,7 @@
     "import/prefer-default-export": [0],
     "array-bracket-spacing": [2, "always"],
     "operator-linebreak": [2, "after"],
+    "padded-blocks": [0],
     "react/jsx-filename-extension": [0],
     "react/no-children-prop": [0],
     "react/jsx-tag-spacing": [0],

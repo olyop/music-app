@@ -9,6 +9,7 @@ import mutation from "./mutations/addArtist.graphql"
 import { FORM_INIT } from "../../../globals"
 
 const AddArtist = () => {
+  
   const init = FORM_INIT.ADD.ARTIST
   const [ form, setForm ] = useState(init)
   const { name } = form

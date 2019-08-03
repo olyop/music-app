@@ -10,6 +10,7 @@ import { noopValue } from "../../../helpers/misc"
 import { FORM_INIT } from "../../../globals"
 
 const AddAlbum = () => {
+  
   const init = FORM_INIT.ADD.ALBUM
   const [ form, setForm ] = useState(init)
   const { title, year, artist } = form
@@ -20,7 +21,7 @@ const AddAlbum = () => {
     event.preventDefault()
     const isValid = (
       isString(title) && inRange(title.length, 1, 256) &&
-      isSafeInteger(year) && inRange(year, 1, Infinity) &&
+      isSafeInteger(year) && inRange(year, 1, 2019) &&
       isString(artist) && inRange(artist.length, 1, 256)
     )
     if (isValid) handleFormSubmit(...args)

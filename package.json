@@ -4,11 +4,12 @@
   "version": "1.0.0",
   "description": "boilerplate",
   "deprecated": false,
+  "type": "module",
   "scripts": {
     "build": "rm -r -f src/server/build && clear && webpack --env.mode production",
     "server": "clear && node src/server",
     "dev-client": "webpack-dev-server --env.mode development",
-    "dev-server": "clear && nodemon src/server",
+    "dev-server": "clear && nodemon --experimental-modules src/server",
     "development": "rm -r -f src/server/build && clear && concurrently \"npm run dev-client\" \"npm run dev-server\"",
     "sync": "git checkout . && git remote update && git pull",
     "push": "git status && git add -A && git commit -m \"Update\" && git push -u origin master"

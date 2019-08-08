@@ -1,27 +1,29 @@
-const database = require("./database/connection")
-const express = require("express")
+import database from "./database/database.js"
+import express from "express"
 
 // import api server
-const apollo = require("./database/apollo")
+import apollo from "./database/apollo.js"
 
 // import middleware
-const { globalHeaders } = require("./middleware")
-const responseTime = require("response-time")
-const cookieParser = require("cookie-parser")
-const compression = require("compression")
-const bodyParser = require("body-parser")
-const logger = require("morgan")
-const helmet = require("helmet")
-const cors = require("cors")
+import { globalHeaders } from "./middleware.js"
+import responseTime from "response-time"
+import cookieParser from "cookie-parser"
+import compression from "compression"
+import bodyParser from "body-parser"
+import logger from "morgan"
+import helmet from "helmet"
+import cors from "cors"
 
-const {
+import {
   HOST, PORT,
   DB_URL, MONGOOSE_OPTIONS,
   LOG_FORMAT, CORS_OPTIONS,
   BUILD_PATH, BUILD_PATH_ENTRY
-} = require("./globals")
+} from "./globals.js"
 
-const { onError, onListening } = require("./helpers/server")
+import { onError } from "./helpers/server.js"
+
+process.env.UV_THREADPOOL_SIZE = 12
 
 // connect to database
 database.openUri(DB_URL, MONGOOSE_OPTIONS)
@@ -53,6 +55,5 @@ app.use(express.static(BUILD_PATH))
 app.use("*", (req, res) => res.sendFile(BUILD_PATH_ENTRY))
 
 app.on("error", onError)
-app.on("listening", onListening)
 
 app.listen(PORT, HOST)

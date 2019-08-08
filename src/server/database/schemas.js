@@ -1,19 +1,22 @@
-const mongoose = require("mongoose")
-const { Schema } = mongoose
+import mongoose from "mongoose"
 
-const { assign } = require("lodash")
+const { Schema } = mongoose
 const { ObjectId } = Schema.Types
 
-const artist = new Schema({
+export const artistSchema = new Schema({
   name: {
     type: String,
     required: true,
     minlength: 1,
     maxlength: 256
-  }
+  },
+  // cover: {
+  //   type: Buffer,
+  //   required: true
+  // }
 })
 
-const album = new Schema({
+export const albumSchema = new Schema({
   title: {
     type: String,
     required: true,
@@ -24,16 +27,26 @@ const album = new Schema({
     type: Number,
     required: true,
     min: 1,
-    max: 2019
+    max: 2019,
+    validate : {
+      validator : Number.isInteger,
+      message: "{VALUE} is not an integer value."
+    }
   },
-  artist: {
+  // cover: {
+  //   type: Buffer,
+  //   required: true
+  // },
+  artists: [{
     type: ObjectId,
     required: true,
+    minlength: 24,
+    maxlength: 24,
     index: true
-  }
+  }]
 })
 
-const song = new Schema({
+export const songSchema = new Schema({
   title: {
     type: String,
     required: true,
@@ -43,18 +56,37 @@ const song = new Schema({
   trackNumber: {
     type: Number,
     required: true,
-    min: 1
+    min: 1,
+    max: Infinity
   },
-  artist: {
+  // audio: {
+  //   type: Buffer,
+  //   required: true
+  // },
+  featuring: [{
+    type: ObjectId,
+    minlength: 24,
+    maxlength: 24,
+    index: true
+  }],
+  remixers: [{
+    type: ObjectId,
+    minlength: 24,
+    maxlength: 24,
+    index: true
+  }],
+  artists: [{
     type: ObjectId,
     required: true,
-    index: true,
-  },
+    minlength: 24,
+    maxlength: 24,
+    index: true
+  }],
   album: {
     type: ObjectId,
     required: true,
+    minlength: 24,
+    maxlength: 24,
     index: true
   }
 })
-
-assign(exports, { artist, album, song })

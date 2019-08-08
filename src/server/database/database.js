@@ -1,6 +1,6 @@
-const mongoose = require("mongoose")
+import mongoose from "mongoose"
 
 // Initialize database connection
 const database = mongoose.createConnection()
 
-module.exports = database
+export default database

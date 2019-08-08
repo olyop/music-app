@@ -1,4 +1,5 @@
-const { sortBy, assign } = require("lodash")
+import lodash from "lodash"
+const { sortBy } = lodash
 
 const pipe = x => (...funcs) => funcs.reduce((val, func) => func(val), x)
 

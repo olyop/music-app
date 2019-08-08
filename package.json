@@ -7,9 +7,9 @@
   "type": "module",
   "scripts": {
     "build": "rm -r -f src/server/build && clear && webpack --env.mode production",
-    "server": "clear && node src/server",
+    "server": "clear && node --experimental-modules src/server/index.js",
     "dev-client": "webpack-dev-server --env.mode development",
-    "dev-server": "clear && nodemon --experimental-modules src/server",
+    "dev-server": "clear && nodemon --experimental-modules src/server/index.js",
     "development": "rm -r -f src/server/build && clear && concurrently \"npm run dev-client\" \"npm run dev-server\"",
     "sync": "git checkout . && git remote update && git pull",
     "push": "git status && git add -A && git commit -m \"Update\" && git push -u origin master"
@@ -75,6 +75,7 @@
     "write-file-webpack-plugin": "^4.5.1"
   },
   "dependencies": {
+    "@apollo/react-hooks": "^3.0.0",
     "apollo-boost": "^0.4.3",
     "apollo-server": "^2.8.0",
     "apollo-server-express": "^2.8.0",

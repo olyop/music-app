@@ -1,8 +1,3 @@
-export const GET = "GET"
-export const POST = "POST"
-export const PUT = "PUT"
-export const DELETE = "DELETE"
-
 // export const SERVER_URL = ""
 export const SERVER_URL = "http://localhost:3000"
 
@@ -23,7 +18,9 @@ export const FORM_INIT = {
     SONG: {
       title: "",
       trackNumber: 1,
-      artist: "",
+      featuring: "",
+      remixers: "",
+      artists: "",
       album: ""
     }
   }

@@ -6,7 +6,6 @@ import { isString, inRange, isSafeInteger, isUndefined } from "lodash"
 import { Add as bemAdd, AddAlbum as bem } from "../../../globals/bem"
 import { handleFormChange, handleFormSubmit } from "./helpers"
 import mutation from "./mutations/addAlbum.graphql"
-import { noopValue } from "../../../helpers/misc"
 import { FORM_INIT } from "../../../globals"
 
 const AddAlbum = () => {
@@ -18,6 +17,7 @@ const AddAlbum = () => {
   const onChange = handleFormChange(form, setForm)
 
   const onSubmit = (...args) => event => {
+    console.log(typeof args)
     event.preventDefault()
     const isValid = (
       isString(title) && inRange(title.length, 1, 256) &&
@@ -31,7 +31,7 @@ const AddAlbum = () => {
     <Mutation mutation={mutation}>
       {(addAlbum, { data }) => (
         <form
-          className={bem("", { ignore: true, className: bemAdd("form") })}
+          className={bem({ ignore: true, className: bemAdd("form") }, "")}
           onSubmit={onSubmit(form, setForm, init, addAlbum)}
           children={<Fragment>
             <h2
@@ -65,7 +65,7 @@ const AddAlbum = () => {
                 />
                 <input
                   className={bemAdd("formInput")}
-                  onChange={onChange("year", noopValue)}
+                  onChange={onChange("year", val => val)}
                   type="number"
                   value={year}
                   id="year"

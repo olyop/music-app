@@ -1,10 +1,7 @@
-const database = require("./connection")
+import database from "./database.js"
 
-const { artist, album, song } = require("./schemas")
-const { assign } = require("lodash")
+import { artistSchema, albumSchema, songSchema } from "./schemas.js"
 
-const Artist = database.model("Artist", artist, "artists")
-const Album = database.model("Album", album, "albums")
-const Song = database.model("Song", song, "songs")
-
-assign(exports, { Artist, Album, Song })
+export const Artist = database.model("Artist", artistSchema, "artists")
+export const Album = database.model("Album", albumSchema, "albums")
+export const Song = database.model("Song", songSchema, "songs")

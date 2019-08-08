@@ -26,7 +26,7 @@ const AddArtist = () => {
     <Mutation mutation={mutation}>
       {(addArtist, { data }) => (
         <form
-          className={bem("", { ignore: true, className: bemAdd("form") })}
+          className={bem({ ignore: true, className: bemAdd("form") }, "")}
           onSubmit={onSubmit(form, setForm, init, addArtist)}
           children={<Fragment>
             <h2

@@ -6,34 +6,48 @@
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: 1fr;
   &__form {
-    box-shadow: 0 1px 4px 0 rgba(#333333,.3);
     border: 1px solid #e0e0e0;
     height: calc(100vh - 2 * #{$HEADER_HEIGHT} - 40px);
-    padding: 20px; }
+    border-radius: 4px;
+    padding: 15px; }
     &__formTitle {
-      text-decoration: underline;
-      font-size: 20rem;
-      margin-bottom: 15px;
+      font-size: 24rem;
+      margin-bottom: 10px;
+      padding: 8px;
       font-weight: 700; }
-      &__formLabel {
+    &__sectionOne {
+      justify-content: space-between;
+      display: flex; }
+      &__songTitle {
+        width: calc(100% - 55px - 10px) !important; }
+      &__songTrackNumber {
+        width: 55px !important; }
+    &__formLabel {
+      display: block;
+      cursor: pointer;
+      border-radius: 4px;
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 10px;
+      &:hover {
+        background-color: #eeeeee; } }
+      &__formLabelText {
         display: block;
+        font-weight: 300;
+        color: #616161;
         width: 100%;
-        margin-bottom: 15px;
-        &:last-child {
-          margin-bottom: 0; } }
-        &__formLabelText {
-          display: block;
-          width: 100%;
-          margin-bottom: 5px;
-          font-size: 16rem; }
-        &__formInput {
-          display: block;
-          padding: 8px;
-          border-radius: 3px;
-          outline: none;
-          border: 1px solid rgba(#333333, .3);
-          width: 100%; }
-        &__formInputFile {
+        font-size: 18rem; }
+      &__formInput {
+        cursor: pointer;
+        display: block;
+        padding: 5px 0 6px 0;
+        background-color: transparent;
+        font-size: 18rem;
+        outline: none;
+        border: none;
+        border-bottom: 1px solid #757575;
+        width: 100%; }
+      &__formInputFile {
           padding: 0; }
     &__submit {
       padding: 10px;
@@ -41,10 +55,10 @@
       border-radius: 3px;
       border: none;
       outline: none;
-      margin: 0;
-      text-transform: uppercase;
+      margin: 8px;
+      text-transform: lowercase;
       font-weight: 700;
-      font-size: 18rem;
+      font-size: 22rem;
       background-color: #e0e0e0; }
     &__data {
       font-size: 16px;

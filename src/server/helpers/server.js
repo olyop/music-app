@@ -1,7 +1,4 @@
-const debug = require("debug")("express-gen:server")
-const { assign } = require("lodash")
-
-const serializePort = val => {
+export const serializePort = val => {
   const port = parseInt(val, 10)
   if (isNaN(port)) {
     return val
@@ -12,7 +9,7 @@ const serializePort = val => {
   }
 }
 
-const onError = ({ syscall, code }) => {
+export const onError = ({ syscall, code }) => {
   if (syscall === "listen") {
     const bind = (isString(port) ? "Pipe" : "Port") + " port"
     switch (code) {
@@ -31,11 +28,3 @@ const onError = ({ syscall, code }) => {
     throw error
   }
 }
-
-const onListening = () => debug()
-
-assign(exports, {
-  serializePort,
-  onError,
-  onListening
-})

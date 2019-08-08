@@ -1,14 +1,14 @@
-const { Artist, Album, Song } = require("../models")
+import { Artist, Album, Song } from "../models.js"
 
-const { serializeDocument, serializeCollection } = require("../../helpers/collection")
+import { serializeDocument, serializeCollection } from "../../helpers/collection.js"
 
 const queryResolver = {
-  artist: async (p, { id }) => await Artist.findById(id).lean().map(serializeDocument).exec(),
-  album: async (p, { id }) => await Album.findById(id).lean().map(serializeDocument).exec(),
-  song: async (p, { id }) => await Song.findById(id).lean().map(serializeDocument).exec(),
+  artist: async (parent, { id }) => await Artist.findById(id).lean().map(serializeDocument).exec(),
+  album: async (parent, { id }) => await Album.findById(id).lean().map(serializeDocument).exec(),
+  song: async (parent, { id }) => await Song.findById(id).lean().map(serializeDocument).exec(),
   artists: async () => await Artist.find().lean().map(serializeCollection).exec(),
   albums: async () => await Album.find().lean().map(serializeCollection).exec(),
   songs: async () => await Song.find().lean().map(serializeCollection).exec()
 }
 
-module.exports = queryResolver
+export default queryResolver

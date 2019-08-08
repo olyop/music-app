@@ -1,10 +1,10 @@
-const { Artist, Album } = require("../models")
+import { Artist, Album } from "../models.js"
 
-const { serializeDocument } = require("../../helpers/collection")
+import { serializeDocument } from "../../helpers/collection.js"
 
 const songResolver = {
   artist: async ({ artist }) => await Artist.findById(artist).lean().map(serializeDocument).exec(),
   album: async ({ album }) => await Album.findById(album).lean().map(serializeDocument).exec()
 }
 
-module.exports = songResolver
+export default songResolver

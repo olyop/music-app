@@ -1,9 +1,6 @@
-const { GLOBAL_HEADERS } = require("./globals")
-const { assign } = require("lodash")
+import { GLOBAL_HEADERS } from "./globals.js"
 
-const globalHeaders = () => (req, res, nxt) => {
+export const globalHeaders = () => (req, res, nxt) => {
   res.set(GLOBAL_HEADERS)
   nxt()
 }
-
-assign(exports, { globalHeaders })

@@ -3,18 +3,18 @@ import React from "react"
 import { NavLink, Switch, Route } from "react-router-dom"
 
 import { Catalog as bem } from "../../globals/bem"
-import routesCatalog from "./routesCatalog"
 import { shape, string } from "prop-types"
+import routesConfig from "./routesConfig"
 
 import "./index.scss"
 
 const Catalog = ({ match }) => (
-  <section className={bem("")}>
+  <div className={bem("")}>
     <div className={bem("header")}>
       <div className={bem("links")}>
-        {routesCatalog.map(route => (
+        {routesConfig.map(route => (
           <NavLink
-            key={route.key}
+            key={route.id}
             children={route.name}
             className={bem("link")}
             to={match.path + route.path}
@@ -24,17 +24,16 @@ const Catalog = ({ match }) => (
     </div>
     <div className={bem("main")}>
       <Switch>
-        {routesCatalog.map(route => (
+        {routesConfig.map(route => (
           <Route
-            exact
-            key={route.key}
+            key={route.id}
             path={match.path + route.path}
             component={route.component}
           />
         ))}
       </Switch>
     </div>
-  </section>
+  </div>
 )
 
 Catalog.propTypes = {

@@ -1,22 +1,21 @@
 import React from "react"
 
 import { BrowserRouter as ReactRouter } from "react-router-dom"
-import { ApolloProvider } from "react-apollo"
+import Apollo from "./components/Apollo"
 import Header from "./components/Header"
 import Pages from "./components/Pages"
 
-import apolloClient from "./apolloClient"
 import { ROOT_ELEMENT } from "./globals"
 import { render } from "react-dom"
 
 import "./index.scss"
 
 render(
-  <ReactRouter>
-    <ApolloProvider client={apolloClient}>
+  <Apollo>
+    <ReactRouter>
       <Header/>
       <Pages/>
-    </ApolloProvider>
-  </ReactRouter>,
+    </ReactRouter>
+  </Apollo>,
   ROOT_ELEMENT
 )

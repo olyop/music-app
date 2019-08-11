@@ -1,6 +1,8 @@
 import { serializePort } from "./helpers/server.js"
 import path from "path"
 
+process.env.UV_THREADPOOL_SIZE = 12
+
 export const HOST = "localhost"
 export const PORT = serializePort(process.env.PORT || "3000")
 
@@ -23,6 +25,12 @@ export const GLOBAL_HEADERS = {
   "Server": "Node.js",
   "X-Powered-By": "Express",
   "X-Frame-Options": "deny"
+}
+
+export const APOLLO_OPTIONS = {
+  bodyParserConfig: false,
+  path: "/graphql",
+  cors: false
 }
 
 export const BUILD_PATH = path.resolve("src", "server", "build")

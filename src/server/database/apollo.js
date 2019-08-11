@@ -5,9 +5,9 @@ import resolvers from "./resolvers/index.js"
 
 const { ApolloServer } = ApolloServerExpress
 
-const apollo = new ApolloServer({
+const apolloRouter = new ApolloServer({
   typeDefs,
   resolvers
 })
 
-export default apollo
+export default apolloRouter

@@ -1,11 +1,26 @@
-import { Artist, Album, Song } from "../models.js"
+import { Artist, Label, Album, Genre, Song } from "../models/index.js"
 
 import { serializeDocument } from "../../helpers/collection.js"
 
-const mutationResolver = {
-  addArtist: async (parent, doc) => serializeDocument((await Artist.create(doc)).toObject()),
-  addAlbum: async (parent, doc) => serializeDocument((await Album.create(doc)).toObject()),
-  addSong: async (parent, doc) => serializeDocument((await Song.create(doc)).toObject())
+export default {
+  addArtist: async (parent, doc) => {
+    const result = await Artist.create(doc)
+    return serializeDocument(result.toObject())
+  },
+  addLabel: async (parent, doc) => {
+    const result = await Label.create(doc)
+    return serializeDocument(result.toObject())
+  },
+  addAlbum: async (parent, doc) => {
+    const result = await Album.create(doc)
+    return serializeDocument(result.toObject())
+  },
+  addGenre: async (parent, doc) => {
+    const result = await Genre.create(doc)
+    return serializeDocument(result.toObject())
+  },
+  addSong: async (parent, doc) => {
+    const result = await Song.create(doc)
+    return serializeDocument(result.toObject())
+  }
 }
-
-export default mutationResolver

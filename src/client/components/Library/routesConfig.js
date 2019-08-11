@@ -2,25 +2,27 @@ import LibraryArtists from "./LibraryArtists"
 import LibraryAlbums from "./LibraryAlbums"
 import LibrarySongs from "./LibrarySongs"
 
-const routesLibrary = [
+import { uniqueId } from "lodash"
+
+const routesConfigLibrary = [
   {
-    key: "bdlOupmmra",
+    id: uniqueId(),
     path: "/albums",
     name: "Albums",
     component: LibraryAlbums
   },
   {
-    key: "EJFnCCqTCi",
+    id: uniqueId(),
     path: "/artists",
     name: "Artists",
     component: LibraryArtists
   },
   {
-    key: "QejATPbDAD",
+    id: uniqueId(),
     path: "/songs",
     name: "Songs",
     component: LibrarySongs
   }
 ]
 
-export default routesLibrary
+export default routesConfigLibrary

@@ -3,16 +3,16 @@ import React from "react"
 import { Switch, Route } from "react-router-dom"
 
 import { Pages as bem } from "../../globals/bem"
-import routesPages from "./routesPages"
+import routesConfig from "./routesConfig"
 
 import "./index.scss"
 
 const Pages = () => (
   <main className={bem("")}>
     <Switch>
-      {routesPages.map(route => (
+      {routesConfig.map(route => (
         <Route
-          key={route.key}
+          key={route.id}
           path={route.path}
           component={route.component}
         />

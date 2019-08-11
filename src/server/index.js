@@ -1,8 +1,6 @@
+import apolloRouter from "./database/apollo.js"
 import database from "./database/database.js"
 import express from "express"
-
-// import api server
-import apollo from "./database/apollo.js"
 
 // import middleware
 import { globalHeaders } from "./middleware.js"
@@ -14,23 +12,21 @@ import logger from "morgan"
 import helmet from "helmet"
 import cors from "cors"
 
+import { onError } from "./helpers/server.js"
+
 import {
-  HOST, PORT,
-  DB_URL, MONGOOSE_OPTIONS,
+  HOST, PORT, DB_URL,
+  MONGOOSE_OPTIONS, APOLLO_OPTIONS,
   LOG_FORMAT, CORS_OPTIONS,
   BUILD_PATH, BUILD_PATH_ENTRY
 } from "./globals.js"
-
-import { onError } from "./helpers/server.js"
-
-process.env.UV_THREADPOOL_SIZE = 12
 
 // connect to database
 database.openUri(DB_URL, MONGOOSE_OPTIONS)
 
 const app = express()
 
-// middleware stack
+// mount middleware stack
 app.use(logger(LOG_FORMAT))
 app.use(responseTime())
 app.use(helmet())
@@ -41,14 +37,10 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(cookieParser())
 app.use(globalHeaders())
 
-// apply api middleware to app
-apollo.applyMiddleware({
-  app,
-  bodyParserConfig: false,
-  cors: false
-})
+// apply apollo router to app
+apolloRouter.applyMiddleware({ app, ...APOLLO_OPTIONS })
 
-// serve static website
+// serve static assests
 app.use(express.static(BUILD_PATH))
 
 // send index.html

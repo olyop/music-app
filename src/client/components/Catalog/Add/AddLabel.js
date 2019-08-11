@@ -2,14 +2,14 @@ import React from "react"
 
 // import Form from "../../Form"
 
-import { AddSong as bem } from "../../../globals/bem"
+import { AddLabel as bem } from "../../../globals/bem"
 
-const AddSong = () => {
+const AddLabel = () => {
   return (
     <div className={bem("")}>
-      AddSong
+      AddLabel
     </div>
   )
 }
 
-export default AddSong
+export default AddLabel

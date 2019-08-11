@@ -1,14 +1,31 @@
-import { Artist, Album, Song } from "../models.js"
+import { Artist, Label, Album, Genre, Song } from "../models/index.js"
 
-import { serializeDocument, serializeCollection } from "../../helpers/collection.js"
+import { serializeCollection } from "../../helpers/collection.js"
 
-const queryResolver = {
-  artist: async (parent, { id }) => await Artist.findById(id).lean().map(serializeDocument).exec(),
-  album: async (parent, { id }) => await Album.findById(id).lean().map(serializeDocument).exec(),
-  song: async (parent, { id }) => await Song.findById(id).lean().map(serializeDocument).exec(),
-  artists: async () => await Artist.find().lean().map(serializeCollection).exec(),
-  albums: async () => await Album.find().lean().map(serializeCollection).exec(),
-  songs: async () => await Song.find().lean().map(serializeCollection).exec()
+export default {
+  artists: async () => {
+    const query = await Artist.find().lean()
+    const result = await query.exec()
+    return serializeCollection(result)
+  },
+  labels: async () => {
+    const query = await Label.find().lean()
+    const result = await query.exec()
+    return serializeCollection(result)
+  },
+  albums: async () => {
+    const query = await Album.find().lean()
+    const result = await query.exec()
+    return serializeCollection(result)
+  },
+  genres: async () => {
+    const query = await Genre.find().lean()
+    const result = await query.exec()
+    return serializeCollection(result)
+  },
+  songs: async () => {
+    const query = await Song.find().lean()
+    const result = await query.exec()
+    return serializeCollection(result)
+  }
 }
-
-export default queryResolver

@@ -1,19 +1,14 @@
 import lodash from "lodash"
+
 const { sortBy } = lodash
 
-const pipe = x => (...funcs) => funcs.reduce((val, func) => func(val), x)
+export const pipe = x => (...funcs) => funcs.reduce((val, func) => func(val), x)
 
-const stringify = obj => JSON.stringify(obj)
-const stringifyFormat = obj => JSON.stringify(obj, undefined, 2)
+export const stringify = obj => JSON.stringify(obj)
+export const stringifyFormat = obj => JSON.stringify(obj, undefined, 2)
 
-const curryMap = func => collection => collection.map(func)
-const curryFilter = func => collection => collection.filter(func)
-const curryReduce = (func, accumulator) => collection => collection.reduce(func, accumulator)
-const curryConcat = newItem => collection => collection.concat(newItem)
-const currySortBy = func => collection => sortBy(collection, func) 
-
-assign(exports, {
-  pipe,
-  stringify, stringifyFormat,
-  curryMap, curryFilter, curryReduce, curryConcat, currySortBy
-})
+export const curryMap = func => collection => collection.map(func)
+export const curryFilter = func => collection => collection.filter(func)
+export const curryReduce = (func, accumulator) => collection => collection.reduce(func, accumulator)
+export const curryConcat = newItem => collection => collection.concat(newItem)
+export const currySortBy = func => collection => sortBy(collection, func)

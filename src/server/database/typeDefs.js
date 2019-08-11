@@ -3,46 +3,60 @@ import gql from "graphql-tag"
 const typeDefs = gql`
 
   type Query {
-    artist(id: ID!): Artist!
-    album(id: ID!): Album!
-    song(id: ID!): Song!
     artists: [Artist!]!
+    labels: [Label!]!
     albums: [Album!]!
+    genres: [Genre!]!
     songs: [Song]!
   }
 
   type Mutation {
-    addArtist(name: String!, cover: Upload!): Artist!
-    addAlbum(title: String!, year: Int!, cover: Upload!, artist: ID!): Album!
-    addSong(title: String!, trackNumber: Int!, audio: Upload!, artist: ID!, album: ID!): Song!
+    addArtist(name: String!): Artist!
+    addLabel(name: String!): Label!
+    addAlbum(title: String!, released: Int!, label: Label! artists: [ID!]!): Album!
+    addSong(title: String!, trackNumber: Int!, artist: ID!, album: ID!): Song!
+    addGenre(name: String!): Genre!
   }
 
   type Artist {
     id: ID!
-    createdAt: String!
-    version: Int!
     name: String!
     albums: [Album!]!
     songs: [Song!]!
   }
 
+  type Label {
+    id: ID!
+    name: String!
+    albums: [Album!]!
+  }
+
   type Album {
     id: ID!
-    createdAt: String!
-    version: Int!
     title: String!
-    year: Int!
-    artist: Artist!
+    released: Date!
+    artists: [Artist!]!
+    label: Label!
+    songs: [Song!]!
+  }
+
+  type Genre {
+    id: ID!
+    name: String!
     songs: [Song!]!
   }
 
   type Song {
     id: ID!
-    createdAt: String!
-    version: Int!
     title: String!
-    artist: Artist!
+    mixType: String!
+    trackNumber: Int!
+    discNumber: Int!
+    featuring: [Artist!]!
+    remixers: [Artist!]!
+    artists: [Artist!]!
     album: Album!
+    genres: [Genre!]!
   }
   
 `

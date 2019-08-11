@@ -1,8 +1,6 @@
 {
   albums {
     id
-    createdAt
-    version
     title
     year
     artist {

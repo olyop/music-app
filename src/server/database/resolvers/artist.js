@@ -1,9 +1,16 @@
-import { Album, Song } from "../models.js"
+import { Album, Song } from "../models/index.js"
 
 import { serializeCollection } from "../../helpers/collection.js"
 
-const artistResolver = {
-  albums: async ({ id }) => await Album.find({ artist: id }).map(serializeCollection).lean().exec(),
-  songs: async ({ id }) => await Song.find({ artist: id }).map(serializeCollection).lean().exec()
+export default {
+  albums: async ({ id }) => {
+    const query = Album.find({ artist: id })
+    const result = await query.exec()
+    return serializeCollection(result)
+  },
+  songs: async ({ id }) => {
+    const query = Song.find({ artist: id }).lean()
+    const result = await query.exec()
+    return serializeCollection(result)
+  }
 }
-export default artistResolver

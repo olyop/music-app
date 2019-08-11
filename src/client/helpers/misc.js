@@ -8,5 +8,4 @@ export const curryFilter = func => collection => collection.filter(func)
 export const curryReduce = (func, accumulator) => collection => collection.reduce(func, accumulator)
 
 export const isLength = (str, length) => str.length === length
-
-export const isHex = input => (input.match(/([0-9]|[a-f])/gim) || []).length === input.length
+export const isHex = str => (str.match(/([0-9]|[a-f])/gim) || []).length === str.length

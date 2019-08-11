@@ -1,15 +1,18 @@
-import queryResolver from "./query.js"
-import mutationResolver from "./mutation.js"
-import artistResolver from "./artist.js"
-import albumResolver from "./album.js"
-import SongResolver from "./song.js"
+import Query from "./query.js"
+import Mutation from "./mutation.js"
+import Artist from "./artist.js"
+import Label from "./label.js"
+import Album from "./album.js"
+import Genre from "./genre.js"
+import Song from "./song.js"
 
-const resolvers = {
-  Query: queryResolver,
-  Mutation: mutationResolver,
-  Artist: artistResolver,
-  Album: albumResolver,
-  Song: SongResolver
+export default {
+  Query,
+  Mutation,
+  Artist,
+  Label,
+  Album,
+  Genre,
+  Song
 }
 
-export default resolvers

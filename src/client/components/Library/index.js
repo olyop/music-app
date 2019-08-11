@@ -2,8 +2,8 @@ import React from "react"
 
 import { Switch, Route, NavLink } from "react-router-dom"
 
+import routesConfig from "./routesConfig"
 import { Library as bem } from "../../globals/bem"
-import routesLibrary from "./routesLibrary"
 import { shape, string } from "prop-types"
 
 import "./index.scss"
@@ -12,9 +12,9 @@ const Library = ({ match }) => (
   <section className={bem("")}>
     <div className={bem("header")}>
       <div className={bem("links")}>
-        {routesLibrary.map(route => (
+        {routesConfig.map(route => (
           <NavLink
-            key={route.key}
+            key={route.id}
             children={route.name}
             className={bem("link")}
             to={match.path + route.path}
@@ -24,10 +24,10 @@ const Library = ({ match }) => (
     </div>
     <div className={bem("main")}>
       <Switch>
-        {routesLibrary.map(route => (
+        {routesConfig.map(route => (
           <Route
             exact
-            key={route.key}
+            key={route.id}
             component={route.component}
             path={match.path + route.path}
           />

@@ -11,7 +11,7 @@ const schema = new Schema({
     minlength: 1,
     maxlength: 256
   },
-  mixName: {
+  mix: {
     type: String,
     minlength: 1,
     maxlength: 256

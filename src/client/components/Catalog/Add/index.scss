@@ -20,4 +20,7 @@
           margin-right: 0; } }
   &__main {
     padding: 20px; }
+    &__content {
+      display: flex;
+      justify-content: center; }
 }

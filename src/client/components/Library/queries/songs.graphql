@@ -2,13 +2,30 @@
   songs {
     id
     title
-    artist {
+    mixName
+    featuring {
+      id
+      name
+    }
+    remixers {
+      id
+      name
+    }
+    artists {
+      id
+      name
+    }
+    genres {
       id
       name
     }
     album {
       id
       title
+      label {
+        id
+        name
+      }
     }
   }
 }

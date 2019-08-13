@@ -30,3 +30,7 @@ export const Empty = componentClassNames("Empty")
 export const Icon = componentClassNames("Icon")
 export const Loading = componentClassNames("Loading")
 export const Sidebar = componentClassNames("Sidebar")
+
+export const Form = componentClassNames("Form")
+export const FormTitle = componentClassNames("FormTitle")
+export const FormField = componentClassNames("FormField")

@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, Fragment } from "react"
 
 import Sidebar from "../Sidebar"
 import Icon from "../Icon"
@@ -10,9 +10,8 @@ import "./index.scss"
 const Header = () => {
   const [ sidebar, useSidebar ] = useState(false)
   const toggleSidebar = () => useSidebar(!sidebar)
-  return (
+  return <Fragment>
     <header className={bem("")}>
-      {sidebar ? <Sidebar toggleSidebar={toggleSidebar} /> : null}
       <Icon
         bem={bem}
         className="hamburger"
@@ -20,7 +19,8 @@ const Header = () => {
         icon={sidebar ? "close" : "menu"}
       />
     </header>
-  )
+    {sidebar ? <Sidebar toggleSidebar={toggleSidebar} /> : null}
+  </Fragment>
 }
 
 export default Header

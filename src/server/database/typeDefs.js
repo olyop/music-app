@@ -2,20 +2,41 @@ import gql from "graphql-tag"
 
 const typeDefs = gql`
 
+  type Mutation {
+    addArtist(
+      name: String!
+    ): Artist!
+    addLabel(
+      name: String!
+    ): Label!
+    addAlbum(
+      title: String!,
+      released: Int!,
+      label: ID!,
+      artists: [ID!]!
+    ): Album!
+    addSong(
+      title: String!,
+      mix: String!,
+      trackNumber: Int!,
+      discNumber: Int!,
+      featuring: [ID!]!,
+      remixers: [ID!]!,
+      artists: [ID!]!,
+      genres: [ID!]!,
+      album: ID!
+    ): Song!
+    addGenre(
+      name: String!
+    ): Genre!
+  }
+
   type Query {
     artists: [Artist!]!
     labels: [Label!]!
     albums: [Album!]!
     genres: [Genre!]!
     songs: [Song]!
-  }
-
-  type Mutation {
-    addArtist(name: String!): Artist!
-    addLabel(name: String!): Label!
-    addAlbum(title: String!, released: Int!, label: Label! artists: [ID!]!): Album!
-    addSong(title: String!, trackNumber: Int!, artist: ID!, album: ID!): Song!
-    addGenre(name: String!): Genre!
   }
 
   type Artist {
@@ -34,7 +55,7 @@ const typeDefs = gql`
   type Album {
     id: ID!
     title: String!
-    released: Date!
+    released: Int!
     artists: [Artist!]!
     label: Label!
     songs: [Song!]!
@@ -49,14 +70,14 @@ const typeDefs = gql`
   type Song {
     id: ID!
     title: String!
-    mixType: String!
+    mix: String!
     trackNumber: Int!
     discNumber: Int!
     featuring: [Artist!]!
     remixers: [Artist!]!
     artists: [Artist!]!
-    album: Album!
     genres: [Genre!]!
+    album: Album!
   }
   
 `

@@ -1,17 +1,23 @@
 mutation addAlbum(
   $title: String!,
-  $year: Int!,
-  $artist: ID!  
+  $released: Int!,
+  $label: ID!,
+  $artists: [ID!]!  
 ) {
   addAlbum(
     title: $title,
-    year: $year,
-    artist: $artist
+    released: $released,
+    label: $label,
+    artists: $artists
   ) {
     id
     title
-    year
-    artist {
+    released
+    label {
+      id
+      name
+    }
+    artists {
       id
       name
     }

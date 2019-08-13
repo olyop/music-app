@@ -1,13 +1,17 @@
 import React from "react"
 
-// import Form from "../../Form"
+import Form from "../../Form"
 
-import { AddSong as bem } from "../../../globals/bem"
+import { Add as bemAdd, AddSong as bem } from "../../../globals/bem"
+import { song as formConfig } from "./formConfigs"
 
 const AddSong = () => {
   return (
-    <div className={bem("")}>
-      AddSong
+    <div className={bem({ ignore: true, className: bemAdd("content") }, "")}>
+      <Form
+        title="Add Song"
+        fields={formConfig}
+      />
     </div>
   )
 }

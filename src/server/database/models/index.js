@@ -1,13 +1,11 @@
-import Artist from "./Artist"
-import Label from "./Label"
-import Album from "./Album"
-import Genre from "./Genre"
-import Song from "./Song"
+import ArtistModel from "./Artist.js"
+import LabelModel from "./Label.js"
+import AlbumModel from "./Album.js"
+import GenreModel from "./Genre.js"
+import SongModel from "./Song.js"
 
-export default {
-  Artist,
-  Label,
-  Album,
-  Genre,
-  Song
-}
+export const Artist = ArtistModel
+export const Label = LabelModel
+export const Album = AlbumModel
+export const Genre = GenreModel
+export const Song = SongModel

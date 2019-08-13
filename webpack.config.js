@@ -48,8 +48,10 @@ module.exports = ({ mode }) => ({
       },
       {
         test: /\.css$/,
-        exclude: /node_modules/,
-        loader: "css-loader"
+        loader: [
+          MiniCssExtractPlugin.loader,
+          "css-loader"
+        ]
       },
       {
         test: /\.scss$/,

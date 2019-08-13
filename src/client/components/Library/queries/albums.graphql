@@ -2,8 +2,8 @@
   albums {
     id
     title
-    year
-    artist {
+    released
+    artists {
       id
       name
     }

@@ -3,9 +3,9 @@ import React, { useState, Fragment } from "react"
 import FormTitle from "./FormTitle"
 import FormField from "./FormField"
 
+import { createFormInit, handleFormChange } from "./helpers"
 import { string, arrayOf, object } from "prop-types"
 import { Form as bem } from "../../globals/bem"
-import { createFormInit } from "./helpers"
 import { noop } from "lodash"
 
 import "./index.scss"
@@ -13,7 +13,7 @@ import "./index.scss"
 const Form = ({ title, fields }) => {
   const init = createFormInit(fields)
   const [form,setForm] = useState(init)
-  console.log(form, setForm)
+  const onChange = handleFormChange(form, setForm)
   return (
     <form
       onSubmit={noop}
@@ -25,6 +25,7 @@ const Form = ({ title, fields }) => {
             <FormField
               {...field}
               key={field.id}
+              onChange={onChange(field.camelCase, field.transform)}
             />
           ))}
         </div>
@@ -39,4 +40,3 @@ Form.propTypes = {
 }
 
 export default Form
-

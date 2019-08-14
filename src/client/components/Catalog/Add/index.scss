@@ -1,6 +1,7 @@
 @import "../../../globals/index.scss";
 
 .Add {
+  height: 100%;
   &__header {
     width: 100%;
     height: $HEADER_HEIGHT;
@@ -19,8 +20,8 @@
         &:last-child {
           margin-right: 0; } }
   &__main {
-    padding: 20px; }
+    height: calc(100vh - 3 * #{$HEADER_HEIGHT});
+    overflow: auto; }
     &__content {
-      display: flex;
-      justify-content: center; }
+      padding: 20px; }
 }

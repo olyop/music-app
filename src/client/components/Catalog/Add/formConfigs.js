@@ -18,6 +18,10 @@ export const artist = [
     required: true,
     minLength: 1,
     maxLength: 256,
+    transform: {
+      in: encodeURI,
+      out: decodeURI
+    },
     validators: [
       {
         id: uniqueId(),
@@ -38,6 +42,10 @@ export const label = [
     required: true,
     minLength: 1,
     maxLength: 256,
+    transform: {
+      in: encodeURI,
+      out: decodeURI
+    },
     validators: [
       {
         id: uniqueId(),
@@ -58,6 +66,10 @@ export const album = [
     required: true,
     minLength: 1,
     maxLength: 256,
+    transform: {
+      in: encodeURI,
+      out: decodeURI
+    },
     validators: [
       {
         id: uniqueId(),
@@ -75,6 +87,10 @@ export const album = [
     required: true,
     minLength: 0,
     maxLength: Date.now(),
+    transform: {
+      in: Date.parse,
+      out: decodeURI
+    },
     validators: [
       {
         id: uniqueId(),

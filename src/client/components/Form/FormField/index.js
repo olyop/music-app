@@ -1,14 +1,16 @@
 import React, { Fragment } from "react"
 
+import Icon from "../../Icon"
+
 import { string, oneOf, node, bool, number, arrayOf, object } from "prop-types"
+import { determineInputType, determineBoundaries } from "../helpers"
 import { FormField as bem } from "../../../globals/bem"
-import { determineInputType } from "../helpers"
 import { noop } from "lodash"
 
 import "./index.scss"
 
 const FormField = ({
-  name, camelCase, type, init, required,
+  name, camelCase, type, init, required, placeholder,
   min, max, minLength, maxLength, validators
 }) => (
   <label
@@ -19,26 +21,32 @@ const FormField = ({
         children={name}
         className={bem("name")}
       />
-      <input
-        min={min}
-        max={max}
-        value={init}
-        id={camelCase}
-        onChange={noop}
-        required={required}
-        minLength={minLength}
-        maxLength={maxLength}
-        className={bem("input")}
-        type={determineInputType(type)}
-      />
-      <div className={bem("validators")}>
-        {validators.map(({ id, message }) => (
-          <p
-            key={id}
-            children={message}
-            className={bem("validator")}
-          />
-        ))}
+      <div className={bem("main")}>
+        <input
+          value={init}
+          id={camelCase}
+          onChange={noop}
+          required={required}
+          className={bem("input")}
+          placeholder={placeholder}
+          type={determineInputType(type)}
+          {...determineBoundaries(type,min,max,minLength,maxLength)}
+        />
+        <div className={bem("validators")}>
+          {validators.map(({ id, validator, message }) => (
+            <div key={id} className={bem("validator")}>
+              <Icon
+                bem={bem}
+                className="validatorIcon"
+                icon={validator(init) ? "done" : "close"}
+              />
+              <p
+                children={message}
+                className={bem("validatorText")}
+              />
+            </div>
+          ))}
+        </div>
       </div>
     </Fragment>}
   />
@@ -54,16 +62,16 @@ FormField.propTypes = {
   min: number,
   max: number,
   minLength: number,
-  maxLength: number
+  maxLength: number,
+  placeholder: string
 }
 
 FormField.defaultProps = {
   min: -Infinity,
   max: Infinity,
   minLength: 0,
-  maxLength: Infinity
+  maxLength: Infinity,
+  placeholder: ""
 }
 
 export default FormField
-
-

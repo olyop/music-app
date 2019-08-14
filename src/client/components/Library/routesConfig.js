@@ -9,18 +9,21 @@ const routesConfigLibrary = [
     id: uniqueId(),
     path: "/albums",
     name: "Albums",
+    icon: "album",
     component: LibraryAlbums
   },
   {
     id: uniqueId(),
     path: "/artists",
     name: "Artists",
+    icon: "person",
     component: LibraryArtists
   },
   {
     id: uniqueId(),
     path: "/songs",
     name: "Songs",
+    icon: "audiotrack",
     component: LibrarySongs
   }
 ]

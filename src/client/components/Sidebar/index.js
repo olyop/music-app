@@ -12,9 +12,9 @@ import routesConfigLibrary from "../Library/routesConfig"
 import "./index.scss"
 
 const Sidebar = ({ toggleSidebar }) => (
-  <aside className={bem("")}>
-    <nav className={bem("nav")}>
-      <div className={bem("links")}>
+  <div className={bem("")}>
+    <aside className={bem("nav")}>
+      <nav className={bem("links")}>
         {routesConfigPages.map(route => (
           <div className={bem("linkRoute")} key={route.id}>
             <NavLink
@@ -47,9 +47,9 @@ const Sidebar = ({ toggleSidebar }) => (
             )}
           </div>
         ))}
-      </div>
-    </nav>
-  </aside>
+      </nav>
+    </aside>
+  </div>
 )
 
 Sidebar.propTypes = {

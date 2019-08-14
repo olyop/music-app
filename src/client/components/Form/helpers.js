@@ -21,6 +21,16 @@ export const determineInputType = type => {
   }
 }
 
+export const determineBoundaries = (type, min, max, minLength, maxLength) => {
+  if (type === "int" || type === "num" || type === "date") {
+    return { min, max }
+  } else if (type === "string" || type === "list") {
+    return { minLength, maxLength }
+  } else {
+    return {}
+  }
+}
+
 export const deserializeDate = date => (new Date(date)).toLocaleDateString()
 
 export const createFormInit = fields => fields.reduce(

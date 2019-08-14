@@ -15,7 +15,7 @@
     "comma-dangle": [0],
     "lines-between-class-members": [0],
     "no-else-return": [0],
-    "no-multiple-empty-lines": [2, { "max": 1, "maxEOF": 0, "maxBOF": 0 }],
+    "no-multiple-empty-lines": [2, { "max": 1, "maxEOF": 1, "maxBOF": 0 }],
     "no-underscore-dangle": [0],
     "no-trailing-spaces": [0],
     "object-curly-newline": [0],  

@@ -2,7 +2,7 @@
   songs {
     id
     title
-    mixName
+    mix
     featuring {
       id
       name

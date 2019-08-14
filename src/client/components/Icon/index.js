@@ -9,8 +9,8 @@ const Icon = ({ icon, bem, className, onClick }) => (
   <i
     className={bem(
       className,
-      { ignore: true, className: "material-icons" },
-      { ignore: true, className: "Icon" }
+      { ignore: true, className: "Icon" },
+      { ignore: true, className: "material-icons" }
     )}
     onClick={onClick}
     children={icon}

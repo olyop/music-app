@@ -1,6 +1,7 @@
-import React from "react"
+import React, { Fragment } from "react"
 
 import { Switch, Route, NavLink } from "react-router-dom"
+import Icon from "../Icon"
 
 import routesConfig from "./routesConfig"
 import { Library as bem } from "../../globals/bem"
@@ -15,9 +16,17 @@ const Library = ({ match }) => (
         {routesConfig.map(route => (
           <NavLink
             key={route.id}
-            children={route.name}
             className={bem("link")}
             to={match.path + route.path}
+            activeClassName={bem("active")}
+            children={<Fragment>
+              <Icon
+                bem={bem}
+                icon={route.icon}
+                className="icon"
+              />
+              <span className={bem("text")}>{route.name}</span>
+            </Fragment>}
           />
         ))}
       </div>

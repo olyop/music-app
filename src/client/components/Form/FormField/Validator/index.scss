@@ -1,0 +1,14 @@
+.Validator {
+  display: flex;
+  &__iconSuccess, &__iconFailure {
+    outline: none;
+    cursor: default;
+    margin-right: 5px;
+    font-size: 16px; }
+  &__iconSuccess {
+    color: green; }
+  &__iconFailure {
+    color: red; }
+  &__text {
+    font-size: 16px; }
+}

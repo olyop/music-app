@@ -1,8 +1,9 @@
-import { uniqueId, isSafeInteger } from "lodash"
+import { uniqueId, isString, isSafeInteger, toInteger } from "lodash"
 import { inRange } from "lodash/fp"
 
 import {
   isStringLengthInRange,
+  deserializeDate,
   isStringLength,
   validateArray,
   isHex,
@@ -16,8 +17,8 @@ export const artist = [
     type: "text",
     init: "",
     required: true,
-    minLength: 1,
-    maxLength: 256,
+    minLength: 0,
+    maxLength: 127,
     transform: {
       in: encodeURI,
       out: decodeURI
@@ -25,7 +26,12 @@ export const artist = [
     validators: [
       {
         id: uniqueId(),
-        validator: isStringLengthInRange(1, 256),
+        validator: isString,
+        message: "data type of string."
+      },
+      {
+        id: uniqueId(),
+        validator: isStringLengthInRange(1, 128),
         message: "between 1 and 256 characters."
       }
     ]
@@ -40,8 +46,8 @@ export const label = [
     type: "text",
     init: "",
     required: true,
-    minLength: 1,
-    maxLength: 256,
+    minLength: 0,
+    maxLength: 127,
     transform: {
       in: encodeURI,
       out: decodeURI
@@ -49,7 +55,12 @@ export const label = [
     validators: [
       {
         id: uniqueId(),
-        validator: isStringLengthInRange(1, 256),
+        validator: isString,
+        message: "data type of string."
+      },
+      {
+        id: uniqueId(),
+        validator: isStringLengthInRange(1, 128),
         message: "between 1 and 256 characters."
       }
     ]
@@ -64,8 +75,8 @@ export const album = [
     type: "text",
     init: "",
     required: true,
-    minLength: 1,
-    maxLength: 256,
+    minLength: 0,
+    maxLength: 127,
     transform: {
       in: encodeURI,
       out: decodeURI
@@ -73,7 +84,12 @@ export const album = [
     validators: [
       {
         id: uniqueId(),
-        validator: isStringLengthInRange(1, 256),
+        validator: isString,
+        message: "data type of string."
+      },
+      {
+        id: uniqueId(),
+        validator: isStringLengthInRange(1, 128),
         message: "between 1 and 256 characters."
       }
     ]
@@ -89,7 +105,7 @@ export const album = [
     maxLength: Date.now(),
     transform: {
       in: Date.parse,
-      out: decodeURI
+      out: deserializeDate
     },
     validators: [
       {
@@ -106,9 +122,18 @@ export const album = [
     type: "list",
     init: [],
     required: true,
-    minLength: 24,
+    minLength: 0,
     maxLength: 24,
+    transform: {
+      in: encodeURI,
+      out: decodeURI
+    },
     validators: [
+      {
+        id: uniqueId(),
+        validator: validateArray(isString),
+        message: "data type of string."
+      },
       {
         id: uniqueId(),
         validator: validateArray(isHex),
@@ -128,9 +153,18 @@ export const album = [
     type: "text",
     init: "",
     required: true,
-    minLength: 24,
+    minLength: 0,
     maxLength: 24,
+    transform: {
+      in: encodeURI,
+      out: decodeURI
+    },
     validators: [
+      {
+        id: uniqueId(),
+        validator: isString,
+        message: "data type of string."
+      },
       {
         id: uniqueId(),
         validator: isHex,
@@ -153,13 +187,22 @@ export const genre = [
     type: "text",
     init: "",
     required: true,
-    minLength: 1,
-    maxLength: 256,
+    minLength: 0,
+    maxLength: 127,
+    transform: {
+      in: encodeURI,
+      out: decodeURI
+    },
     validators: [
       {
         id: uniqueId(),
-        validator: isStringLengthInRange(1, 256),
-        message: "between 1 and 256 characters."
+        validator: isString,
+        message: "data type of string."
+      },
+      {
+        id: uniqueId(),
+        validator: isStringLengthInRange(1, 128),
+        message: "between 1 and 128 characters."
       }
     ]
   }
@@ -173,13 +216,22 @@ export const song = [
     type: "text",
     init: "",
     required: true,
-    minLength: 1,
-    maxLength: 256,
+    minLength: 0,
+    maxLength: 127,
+    transform: {
+      in: encodeURI,
+      out: decodeURI
+    },
     validators: [
       {
         id: uniqueId(),
-        validator: isStringLengthInRange(1, 256),
-        message: "between 1 and 256 characters."
+        validator: isString,
+        message: "data type of string."
+      },
+      {
+        id: uniqueId(),
+        validator: isStringLengthInRange(1, 128),
+        message: "between 1 and 128 characters."
       }
     ]
   },
@@ -190,60 +242,79 @@ export const song = [
     type: "text",
     init: "",
     required: true,
-    minLength: 1,
-    maxLength: 256,
+    minLength: 0,
+    maxLength: 64,
+    transform: {
+      in: encodeURI,
+      out: decodeURI
+    },
     validators: [
       {
         id: uniqueId(),
-        validator: isStringLengthInRange(1, 256),
-        message: "between 1 and 256 characters."
-      }
-    ]
-  },
-  {
-    id: uniqueId(),
-    name: "Track",
-    camelCase: "trackNumber",
-    type: "int",
-    init: 1,
-    required: true,
-    min: 1,
-    max: 99,
-    validators: [
-      {
-        id: uniqueId(),
-        validator: isSafeInteger,
-        message: "a valid integer."
+        validator: isString,
+        message: "data type of string."
       },
       {
         id: uniqueId(),
-        validator: inRange(1, 99),
-        message: "between 1 and 99."
+        validator: isStringLengthInRange(1, 64),
+        message: "between 1 and 128 characters."
       }
     ]
   },
-  {
-    id: uniqueId(),
-    name: "Disc",
-    camelCase: "discNumber",
-    type: "int",
-    init: 1,
-    required: true,
-    min: 1,
-    max: 99,
-    validators: [
-      {
-        id: uniqueId(),
-        validator: isSafeInteger,
-        message: "a valid integer."
+  [
+    {
+      id: uniqueId(),
+      name: "Track",
+      camelCase: "trackNumber",
+      type: "int",
+      init: 1,
+      required: true,
+      min: 1,
+      max: 32,
+      transform: {
+        in: toInteger,
+        out: toInteger
       },
-      {
-        id: uniqueId(),
-        validator: inRange(1, 99),
-        message: "between 1 and 99."
-      }
-    ]
-  },
+      validators: [
+        {
+          id: uniqueId(),
+          validator: isSafeInteger,
+          message: "a valid integer."
+        },
+        {
+          id: uniqueId(),
+          validator: inRange(1, 32),
+          message: "between 1 and 32."
+        }
+      ]
+    },
+    {
+      id: uniqueId(),
+      name: "Disc",
+      camelCase: "discNumber",
+      type: "int",
+      init: 1,
+      required: true,
+      min: 1,
+      max: 32,
+      transform: {
+        in: toInteger,
+        out: toInteger
+      },
+      validators: [
+        {
+          id: uniqueId(),
+          validator: isSafeInteger,
+          message: "a valid integer."
+        },
+        {
+          id: uniqueId(),
+          validator: inRange(1, 32),
+          message: "between 1 and 32."
+        }
+      ]
+    }
+  ],
   {
     id: uniqueId(),
     name: "Featuring",
@@ -251,9 +322,18 @@ export const song = [
     type: "list",
     init: [],
     required: true,
-    minLength: 24,
+    minLength: 0,
     maxLength: 24,
+    transform: {
+      in: encodeURI,
+      out: decodeURI
+    },
     validators: [
+      {
+        id: uniqueId(),
+        validator: validateArray(isString),
+        message: "data type of string."
+      },
       {
         id: uniqueId(),
         validator: validateArray(isHex),
@@ -273,9 +353,18 @@ export const song = [
     type: "list",
     init: [],
     required: true,
-    minLength: 24,
+    minLength: 0,
     maxLength: 24,
+    transform: {
+      in: encodeURI,
+      out: decodeURI
+    },
     validators: [
+      {
+        id: uniqueId(),
+        validator: validateArray(isString),
+        message: "data type of string."
+      },
       {
         id: uniqueId(),
         validator: validateArray(isHex),
@@ -295,9 +384,18 @@ export const song = [
     type: "list",
     init: [],
     required: true,
-    minLength: 24,
+    minLength: 0,
     maxLength: 24,
+    transform: {
+      in: encodeURI,
+      out: decodeURI
+    },
     validators: [
+      {
+        id: uniqueId(),
+        validator: validateArray(isString),
+        message: "data type of string."
+      },
       {
         id: uniqueId(),
         validator: validateArray(isHex),
@@ -317,9 +415,18 @@ export const song = [
     type: "text",
     init: [],
     required: true,
-    minLength: 24,
+    minLength: 0,
     maxLength: 24,
+    transform: {
+      in: encodeURI,
+      out: decodeURI
+    },
     validators: [
+      {
+        id: uniqueId(),
+        validator: validateArray(isString),
+        message: "data type of string."
+      },
       {
         id: uniqueId(),
         validator: validateArray(isHex),
@@ -339,9 +446,18 @@ export const song = [
     type: "text",
     init: "",
     required: true,
-    minLength: 24,
+    minLength: 0,
     maxLength: 24,
+    transform: {
+      in: encodeURI,
+      out: decodeURI
+    },
     validators: [
+      {
+        id: uniqueId(),
+        validator: isString,
+        message: "data type of string."
+      },
       {
         id: uniqueId(),
         validator: isHex,

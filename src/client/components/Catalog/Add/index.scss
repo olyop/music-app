@@ -23,5 +23,7 @@
     height: calc(100vh - 3 * #{$HEADER_HEIGHT});
     overflow: auto; }
     &__content {
+      display: flex;
+      justify-content: center;
       padding: 20px; }
 }

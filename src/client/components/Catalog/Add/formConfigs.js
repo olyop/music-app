@@ -17,8 +17,8 @@ export const artist = [
     type: "text",
     init: "",
     required: true,
-    minLength: 0,
-    maxLength: 127,
+    min: 0,
+    max: 127,
     transform: {
       in: encodeURI,
       out: decodeURI
@@ -46,8 +46,8 @@ export const label = [
     type: "text",
     init: "",
     required: true,
-    minLength: 0,
-    maxLength: 127,
+    min: 0,
+    max: 127,
     transform: {
       in: encodeURI,
       out: decodeURI
@@ -75,8 +75,8 @@ export const album = [
     type: "text",
     init: "",
     required: true,
-    minLength: 0,
-    maxLength: 127,
+    min: 0,
+    max: 127,
     transform: {
       in: encodeURI,
       out: decodeURI
@@ -101,8 +101,8 @@ export const album = [
     type: "date",
     init: Date.now(),
     required: true,
-    minLength: 0,
-    maxLength: Date.now(),
+    min: 0,
+    max: Date.now(),
     transform: {
       in: Date.parse,
       out: deserializeDate
@@ -122,8 +122,8 @@ export const album = [
     type: "list",
     init: [],
     required: true,
-    minLength: 0,
-    maxLength: 24,
+    min: 0,
+    max: 24,
     transform: {
       in: encodeURI,
       out: decodeURI
@@ -153,8 +153,8 @@ export const album = [
     type: "text",
     init: "",
     required: true,
-    minLength: 0,
-    maxLength: 24,
+    min: 0,
+    max: 24,
     transform: {
       in: encodeURI,
       out: decodeURI
@@ -187,8 +187,8 @@ export const genre = [
     type: "text",
     init: "",
     required: true,
-    minLength: 0,
-    maxLength: 127,
+    min: 0,
+    max: 127,
     transform: {
       in: encodeURI,
       out: decodeURI
@@ -216,8 +216,8 @@ export const song = [
     type: "text",
     init: "",
     required: true,
-    minLength: 0,
-    maxLength: 127,
+    min: 0,
+    max: 127,
     transform: {
       in: encodeURI,
       out: decodeURI
@@ -242,8 +242,8 @@ export const song = [
     type: "text",
     init: "",
     required: true,
-    minLength: 0,
-    maxLength: 64,
+    min: 0,
+    max: 64,
     transform: {
       in: encodeURI,
       out: decodeURI
@@ -261,69 +261,72 @@ export const song = [
       }
     ]
   },
-  [
-    {
-      id: uniqueId(),
-      name: "Track",
-      camelCase: "trackNumber",
-      type: "int",
-      init: 1,
-      required: true,
-      min: 1,
-      max: 32,
-      transform: {
-        in: toInteger,
-        out: toInteger
-      },
-      validators: [
-        {
-          id: uniqueId(),
-          validator: isSafeInteger,
-          message: "a valid integer."
-        },
-        {
-          id: uniqueId(),
-          validator: inRange(1, 32),
-          message: "between 1 and 32."
-        }
-      ]
+  {
+    id: uniqueId(),
+    name: "Track",
+    camelCase: "trackNumber",
+    type: "int",
+    init: 1,
+    required: true,
+    min: 1,
+    max: 32,
+    transform: {
+      in: toInteger,
+      out: toInteger
     },
-    {
-      id: uniqueId(),
-      name: "Disc",
-      camelCase: "discNumber",
-      type: "int",
-      init: 1,
-      required: true,
-      min: 1,
-      max: 32,
-      transform: {
-        in: toInteger,
-        out: toInteger
+    validators: [
+      {
+        id: uniqueId(),
+        validator: isSafeInteger,
+        message: "a valid integer."
       },
-      validators: [
-        {
-          id: uniqueId(),
-          validator: isSafeInteger,
-          message: "a valid integer."
-        },
-        {
-          id: uniqueId(),
-          validator: inRange(1, 32),
-          message: "between 1 and 32."
-        }
-      ]
-    }
-  ],
+      {
+        id: uniqueId(),
+        validator: inRange(1, 32),
+        message: "between 1 and 32."
+      }
+    ]
+  },
+  {
+    id: uniqueId(),
+    name: "Disc",
+    camelCase: "discNumber",
+    type: "int",
+    init: 1,
+    required: true,
+    min: 1,
+    max: 32,
+    transform: {
+      in: toInteger,
+      out: toInteger
+    },
+    validators: [
+      {
+        id: uniqueId(),
+        validator: isSafeInteger,
+        message: "a valid integer."
+      },
+      {
+        id: uniqueId(),
+        validator: inRange(1, 32),
+        message: "between 1 and 32."
+      }
+    ]
+  },
   {
     id: uniqueId(),
     name: "Featuring",
     camelCase: "featuring",
     type: "list",
-    init: [],
-    required: true,
-    minLength: 0,
-    maxLength: 24,
+    init: [
+      {
+        id: "5d58ae86e0e4863770aa74ed",
+        name: "Don Diablo"
+      }
+    ],
+    required: false,
+    min: 0,
+    max: 24,
     transform: {
       in: encodeURI,
       out: decodeURI
@@ -352,9 +355,9 @@ export const song = [
     camelCase: "remixers",
     type: "list",
     init: [],
-    required: true,
-    minLength: 0,
-    maxLength: 24,
+    required: false,
+    min: 0,
+    max: 24,
     transform: {
       in: encodeURI,
       out: decodeURI
@@ -384,8 +387,8 @@ export const song = [
     type: "list",
     init: [],
     required: true,
-    minLength: 0,
-    maxLength: 24,
+    min: 0,
+    max: 24,
     transform: {
       in: encodeURI,
       out: decodeURI
@@ -412,11 +415,11 @@ export const song = [
     id: uniqueId(),
     name: "Genres",
     camelCase: "genres",
-    type: "text",
+    type: "list",
     init: [],
     required: true,
-    minLength: 0,
-    maxLength: 24,
+    min: 0,
+    max: 24,
     transform: {
       in: encodeURI,
       out: decodeURI
@@ -446,8 +449,8 @@ export const song = [
     type: "text",
     init: "",
     required: true,
-    minLength: 0,
-    maxLength: 24,
+    min: 0,
+    max: 24,
     transform: {
       in: encodeURI,
       out: decodeURI

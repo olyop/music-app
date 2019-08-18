@@ -3,7 +3,7 @@ import React from "react"
 import Icon from "../../../Icon"
 
 import { Validator as bem } from "../../../../globals/bem"
-import { func, string, node } from "prop-types"
+import { func, string, oneOfType, node, object } from "prop-types"
 
 import "./index.scss"
 
@@ -28,7 +28,7 @@ Validator.propTypes = {
   id: string.isRequired,
   validator: func.isRequired,
   message: string.isRequired,
-  value: node.isRequired
+  value: oneOfType([ node, object ]).isRequired,
 }
 
 export default Validator

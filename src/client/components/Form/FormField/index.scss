@@ -1,11 +1,25 @@
 .FormField {
   margin-bottom: 25px;
+  width: 500px;
   &:last-child {
     margin-bottom: 0; }
   &__label {
-    position: relative; }
+    display: flex;
+    align-content: center;
+    margin-top: 5px;
+    border-color: #e0e0e0;
+    border-width: 1px;
+    border-style: solid;
+    transition: .3s all;
+    border-radius: 4px;
+    position: relative;
+    &:hover {
+      border-color: #9E9E9E; }
+    &:focus {
+      border-color: #212121; } }
     &__name {
-      left: 10px;
+      top: -6px;
+      left: 9px;
       font-weight: 400;
       position: absolute;
       color: #757575;
@@ -13,22 +27,17 @@
       font-weight: 400;
       background-color: #ffffff;
       font-size: 14px; }
+    &__list {
+      align-items: center;
+      display: flex; }
     &__input {
-      margin-top: 5px;
+      width: 100%;
+      border: none;
+      background-color: transparent;
       outline: none;
-      border-color: #e0e0e0;
-      border-width: 1px;
-      border-style: solid;
-      border-radius: 4px; 
+      padding: 15px 11px 12px 12px;
       font-size: 18px;
-      padding: 13px 10px 13px 10px;
-      line-height: 18px;
-      width: 500px;
-      transition: .3s all;
-      &:hover {
-        border-color: #9E9E9E; }
-      &:focus {
-        border-color: #212121; } }
+      line-height: 18px; }
   &__validators {
     margin: 10px 0 0 10px; }
 }

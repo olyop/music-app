@@ -1,4 +1,15 @@
-import { isEmpty, inRange } from "lodash"
+import { isArray, isEmpty, inRange } from "lodash"
+
+export const is = (type, values) => {
+  if (isArray(values)) {
+    return values.reduce(
+      (acc, val) => type === val,
+      false
+    )
+  } else {
+    return type === values
+  }
+}
 
 export const validateArray = validator => arr => {
   if (isEmpty(arr)) {
@@ -17,12 +28,14 @@ export const isHex = str => (str.match(/([0-9]|[a-f])/gim) || []).length === str
 
 export const isStringLength = length => str => str.length === length
 
-export const handleFormChange = (form, setForm) => (type, key, transform) => event => {
+export const isNotEmpty = val => !isEmpty(val)
+
+export const handleFormChange = (form, setForm) => (type, camelCase, transform) => event => {
   const { value } = event.target
   setForm({
     ...form,
-    [key]: type === "list" ? {
-      ...form[key],
+    [camelCase]: is(type, "list") ? {
+      ...form[camelCase],
       input: transform(value)
     } : transform(value)
   })
@@ -33,65 +46,82 @@ export const handleFormSubmit = (form, initFunc, init, submitFunc) => {
   initFunc(init)
 }
 
-export const determineInputType = type => {
-  switch (type) {
-    case "text": return "text"
-    case "list": return "text"
-    case "date": return "date"
-    case "num": return "number"
-    case "int": return "number"
-    default: return "text"
-  }
-}
+export const deserializeDate = unix => (new Date(unix)).toLocaleDateString()
 
-export const determineMinMax = (type, min, max) => {
-  if (type === "text" || type === "list") {
-    return {
-      minLength: min,
-      maxLength: max
-    }
-  } else if (type === "int" || type === "num" || type === "date") {
-    return {
-      min,
-      max
-    }
+export const createFormInit = fields => fields.reduce(
+  (acc, { type, camelCase, init }) => ({
+    ...acc,
+    [camelCase]: is(type, "list") ? {
+      input: "",
+      list: init
+    } : init
+  }),
+  {}
+)
+
+export const determineInputType = ({ type }) => {
+  if (is(type, ["text","list"])) {
+    return "text"
+  } else if (is(type, "date")) {
+    return "date"
+  } else if (is(type, ["num", "int"])) {
+    return "number"
   } else {
     return undefined
   }
 }
 
-export const deserializeDate = date => (new Date(date)).toLocaleDateString()
+export const determineMin = ({ type, min }) => {
+  if (is(type, ["int","num","date"])) {
+    return min
+  } else {
+    return undefined
+  }
+}
 
-export const createFormInit = fields => fields.reduce(
-  (init, field) => ({
-    ...init,
-    [field.camelCase]: field.type === "list" ? {
-      input: "",
-      list: field.init
-    } : field.init
-  }),
-  {}
-)
+export const determineMax = ({ type, max }) => {
+  if (is(type, ["int","num","date"])) {
+    return max
+  } else {
+    return undefined
+  }
+}
 
-export const determinePattern = type => {
-  if (type === "date") {
+export const determineMinLength = ({ type, min }) => {
+  if (is(type, ["text","list"])) {
+    return min
+  } else {
+    return undefined
+  }
+}
+
+export const determineMaxLength = ({ type, max }) => {
+  if (is(type, ["text","list"])) {
+    return max
+  } else {
+    return undefined
+  }
+}
+
+export const determinePattern = ({ type }) => {
+  if (is(type, "date")) {
     return "dd-mm-yyyy"
   } else {
     return undefined
   }
 }
 
-export const determineValue = (type, value, transform) => {
-  if (type === "list") {
+export const determineInputValue = ({ type, transform }, value) => {
+  if (is(type, "list")) {
     return transform.out(value.input)
   } else {
     return transform.out(value)
   }
 }
 
-export const determineValidatorValue = (type, value) => {
-  if (type === "list") {
-    return value.list.map(({ name }) => name)
+export const determineValidatorValue = ({ type }, value) => {
+  if (is(type, "list")) {
+    return value.list.map(({ id }) => id)
   } else {
     return value
   }

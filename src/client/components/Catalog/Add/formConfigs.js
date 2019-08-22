@@ -6,6 +6,7 @@ import {
   deserializeDate,
   isStringLength,
   validateArray,
+  isNotEmpty,
   isHex,
 } from "../../../helpers/form"
 
@@ -13,25 +14,25 @@ export const artist = [
   {
     id: uniqueId(),
     name: "Name",
-    camelCase: "name",
+    short: "name",
     type: "text",
     init: "",
-    required: true,
+    req: true,
     min: 0,
     max: 127,
-    transform: {
+    parse: {
       in: encodeURI,
       out: decodeURI
     },
     validators: [
       {
         id: uniqueId(),
-        validator: isString,
+        check: isString,
         message: "data type of string."
       },
       {
         id: uniqueId(),
-        validator: isStringLengthInRange(1, 128),
+        check: isStringLengthInRange(1, 128),
         message: "between 1 and 256 characters."
       }
     ]
@@ -42,25 +43,25 @@ export const label = [
   {
     id: uniqueId(),
     name: "Name",
-    camelCase: "name",
+    short: "name",
     type: "text",
     init: "",
-    required: true,
+    req: true,
     min: 0,
     max: 127,
-    transform: {
+    parse: {
       in: encodeURI,
       out: decodeURI
     },
     validators: [
       {
         id: uniqueId(),
-        validator: isString,
+        check: isString,
         message: "data type of string."
       },
       {
         id: uniqueId(),
-        validator: isStringLengthInRange(1, 128),
+        check: isStringLengthInRange(1, 128),
         message: "between 1 and 256 characters."
       }
     ]
@@ -71,25 +72,25 @@ export const album = [
   {
     id: uniqueId(),
     name: "Title",
-    camelCase: "title",
+    short: "title",
     type: "text",
     init: "",
-    required: true,
+    req: true,
     min: 0,
     max: 127,
-    transform: {
+    parse: {
       in: encodeURI,
       out: decodeURI
     },
     validators: [
       {
         id: uniqueId(),
-        validator: isString,
+        check: isString,
         message: "data type of string."
       },
       {
         id: uniqueId(),
-        validator: isStringLengthInRange(1, 128),
+        check: isStringLengthInRange(1, 128),
         message: "between 1 and 256 characters."
       }
     ]
@@ -97,20 +98,20 @@ export const album = [
   {
     id: uniqueId(),
     name: "Released",
-    camelCase: "released",
+    short: "released",
     type: "date",
     init: Date.now(),
-    required: true,
+    req: true,
     min: 0,
     max: Date.now(),
-    transform: {
+    parse: {
       in: Date.parse,
       out: deserializeDate
     },
     validators: [
       {
         id: uniqueId(),
-        validator: inRange(0, Date.now()),
+        check: inRange(0, Date.now()),
         message: "valid date."
       }
     ]
@@ -118,30 +119,30 @@ export const album = [
   {
     id: uniqueId(),
     name: "Artists",
-    camelCase: "artists",
+    short: "artists",
     type: "list",
     init: [],
-    required: true,
+    req: true,
     min: 0,
     max: 24,
-    transform: {
+    parse: {
       in: encodeURI,
       out: decodeURI
     },
     validators: [
       {
         id: uniqueId(),
-        validator: validateArray(isString),
+        check: validateArray(isString),
         message: "data type of string."
       },
       {
         id: uniqueId(),
-        validator: validateArray(isHex),
+        check: validateArray(isHex),
         message: "all be hexadecimal."
       },
       {
         id: uniqueId(),
-        validator: validateArray(isStringLength(24)),
+        check: validateArray(isStringLength(24)),
         message: "all be of length 24."
       }
     ]
@@ -149,30 +150,30 @@ export const album = [
   {
     id: uniqueId(),
     name: "Label",
-    camelCase: "label",
+    short: "label",
     type: "text",
     init: "",
-    required: true,
+    req: true,
     min: 0,
     max: 24,
-    transform: {
+    parse: {
       in: encodeURI,
       out: decodeURI
     },
     validators: [
       {
         id: uniqueId(),
-        validator: isString,
+        check: isString,
         message: "data type of string."
       },
       {
         id: uniqueId(),
-        validator: isHex,
+        check: isHex,
         message: "hexadecimal."
       },
       {
         id: uniqueId(),
-        validator: isStringLength(24),
+        check: isStringLength(24),
         message: "of length 24."
       }
     ]
@@ -183,25 +184,25 @@ export const genre = [
   {
     id: uniqueId(),
     name: "Name",
-    camelCase: "name",
+    short: "name",
     type: "text",
     init: "",
-    required: true,
+    req: true,
     min: 0,
     max: 127,
-    transform: {
+    parse: {
       in: encodeURI,
       out: decodeURI
     },
     validators: [
       {
         id: uniqueId(),
-        validator: isString,
+        check: isString,
         message: "data type of string."
       },
       {
         id: uniqueId(),
-        validator: isStringLengthInRange(1, 128),
+        check: isStringLengthInRange(1, 128),
         message: "between 1 and 128 characters."
       }
     ]
@@ -212,25 +213,25 @@ export const song = [
   {
     id: uniqueId(),
     name: "Title",
-    camelCase: "title",
+    short: "title",
     type: "text",
     init: "",
-    required: true,
-    min: 0,
-    max: 127,
-    transform: {
+    req: true,
+    min: 1,
+    max: 128,
+    parse: {
       in: encodeURI,
       out: decodeURI
     },
     validators: [
       {
         id: uniqueId(),
-        validator: isString,
-        message: "data type of string."
+        check: isNotEmpty,
+        message: "not empty."
       },
       {
         id: uniqueId(),
-        validator: isStringLengthInRange(1, 128),
+        check: isStringLengthInRange(1, 128),
         message: "between 1 and 128 characters."
       }
     ]
@@ -238,77 +239,77 @@ export const song = [
   {
     id: uniqueId(),
     name: "Mix",
-    camelCase: "mix",
+    short: "mix",
     type: "text",
     init: "",
-    required: true,
+    req: true,
     min: 0,
     max: 64,
-    transform: {
+    parse: {
       in: encodeURI,
       out: decodeURI
     },
     validators: [
       {
         id: uniqueId(),
-        validator: isString,
+        check: isString,
         message: "data type of string."
       },
       {
         id: uniqueId(),
-        validator: isStringLengthInRange(1, 64),
+        check: isStringLengthInRange(1, 64),
         message: "between 1 and 128 characters."
       }
     ]
   },
   {
     id: uniqueId(),
-    name: "Track",
-    camelCase: "trackNumber",
+    name: "Track Number",
+    short: "trackNumber",
     type: "int",
     init: 1,
-    required: true,
+    req: true,
     min: 1,
     max: 32,
-    transform: {
+    parse: {
       in: toInteger,
       out: toInteger
     },
     validators: [
       {
         id: uniqueId(),
-        validator: isSafeInteger,
+        check: isSafeInteger,
         message: "a valid integer."
       },
       {
         id: uniqueId(),
-        validator: inRange(1, 32),
+        check: inRange(1, 32),
         message: "between 1 and 32."
       }
     ]
   },
   {
     id: uniqueId(),
-    name: "Disc",
-    camelCase: "discNumber",
+    name: "Disc Number",
+    short: "discNumber",
     type: "int",
     init: 1,
-    required: true,
+    req: true,
     min: 1,
     max: 32,
-    transform: {
+    parse: {
       in: toInteger,
       out: toInteger
     },
     validators: [
       {
         id: uniqueId(),
-        validator: isSafeInteger,
+        check: isSafeInteger,
         message: "a valid integer."
       },
       {
         id: uniqueId(),
-        validator: inRange(1, 32),
+        check: inRange(1, 32),
         message: "between 1 and 32."
       }
     ]
@@ -316,7 +317,7 @@ export const song = [
   {
     id: uniqueId(),
     name: "Featuring",
-    camelCase: "featuring",
+    short: "featuring",
     type: "list",
     init: [
       {
@@ -324,27 +325,27 @@ export const song = [
         name: "Don Diablo"
       }
     ],
-    required: false,
+    req: false,
     min: 0,
     max: 24,
-    transform: {
+    parse: {
       in: encodeURI,
       out: decodeURI
     },
     validators: [
       {
         id: uniqueId(),
-        validator: validateArray(isString),
+        check: validateArray(isString),
         message: "data type of string."
       },
       {
         id: uniqueId(),
-        validator: validateArray(isHex),
+        check: validateArray(isHex),
         message: "all be hexadecimal."
       },
       {
         id: uniqueId(),
-        validator: validateArray(isStringLength(24)),
+        check: validateArray(isStringLength(24)),
         message: "all be of length 24."
       }
     ]
@@ -352,30 +353,30 @@ export const song = [
   {
     id: uniqueId(),
     name: "Remixers",
-    camelCase: "remixers",
+    short: "remixers",
     type: "list",
     init: [],
-    required: false,
+    req: false,
     min: 0,
     max: 24,
-    transform: {
+    parse: {
       in: encodeURI,
       out: decodeURI
     },
     validators: [
       {
         id: uniqueId(),
-        validator: validateArray(isString),
+        check: validateArray(isString),
         message: "data type of string."
       },
       {
         id: uniqueId(),
-        validator: validateArray(isHex),
+        check: validateArray(isHex),
         message: "all be hexadecimal."
       },
       {
         id: uniqueId(),
-        validator: validateArray(isStringLength(24)),
+        check: validateArray(isStringLength(24)),
         message: "all be of length 24."
       }
     ]
@@ -383,30 +384,30 @@ export const song = [
   {
     id: uniqueId(),
     name: "Artists",
-    camelCase: "artists",
+    short: "artists",
     type: "list",
     init: [],
-    required: true,
+    req: true,
     min: 0,
     max: 24,
-    transform: {
+    parse: {
       in: encodeURI,
       out: decodeURI
     },
     validators: [
       {
         id: uniqueId(),
-        validator: validateArray(isString),
+        check: validateArray(isString),
         message: "data type of string."
       },
       {
         id: uniqueId(),
-        validator: validateArray(isHex),
+        check: validateArray(isHex),
         message: "all be hexadecimal."
       },
       {
         id: uniqueId(),
-        validator: validateArray(isStringLength(24)),
+        check: validateArray(isStringLength(24)),
         message: "all be of length 24."
       }
     ]
@@ -414,30 +415,30 @@ export const song = [
   {
     id: uniqueId(),
     name: "Genres",
-    camelCase: "genres",
+    short: "genres",
     type: "list",
     init: [],
-    required: true,
+    req: true,
     min: 0,
     max: 24,
-    transform: {
+    parse: {
       in: encodeURI,
       out: decodeURI
     },
     validators: [
       {
         id: uniqueId(),
-        validator: validateArray(isString),
+        check: validateArray(isString),
         message: "data type of string."
       },
       {
         id: uniqueId(),
-        validator: validateArray(isHex),
+        check: validateArray(isHex),
         message: "all be hexadecimal."
       },
       {
         id: uniqueId(),
-        validator: validateArray(isStringLength(24)),
+        check: validateArray(isStringLength(24)),
         message: "all be of length 24."
       }
     ]
@@ -445,30 +446,30 @@ export const song = [
   {
     id: uniqueId(),
     name: "Album",
-    camelCase: "album",
+    short: "album",
     type: "text",
     init: "",
-    required: true,
+    req: true,
     min: 0,
     max: 24,
-    transform: {
+    parse: {
       in: encodeURI,
       out: decodeURI
     },
     validators: [
       {
         id: uniqueId(),
-        validator: isString,
+        check: isString,
         message: "data type of string."
       },
       {
         id: uniqueId(),
-        validator: isHex,
+        check: isHex,
         message: "hexadecimal."
       },
       {
         id: uniqueId(),
-        validator: isStringLength(24),
+        check: isStringLength(24),
         message: "of length 24."
       }
     ]

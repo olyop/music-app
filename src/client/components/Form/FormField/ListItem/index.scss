@@ -4,5 +4,8 @@
   padding: 3px;
   border-radius: 3px;
   font-size: 18px;
-  margin-left: 8px;
+  margin-right: 8px;
+  white-space: nowrap;
+  &:last-child {
+    margin-right: 0; }
 }

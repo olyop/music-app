@@ -2,13 +2,14 @@ import React from "react"
 
 import Icon from "../../../Icon"
 
+import { shape, string, func, oneOfType, node, object, } from "prop-types"
 import { Validator as bem } from "../../../../globals/bem"
-import { func, string, oneOfType, node, object } from "prop-types"
 
 import "./index.scss"
 
-const Validator = ({ id, validator, message, value }) => {
-  const isValid = validator(value)
+const Validator = ({ validator, val }) => {
+  const { id, check, message } = validator
+  const isValid = check(val)
   return (
     <div id={id} className={bem("")}>
       <Icon
@@ -25,10 +26,12 @@ const Validator = ({ id, validator, message, value }) => {
 }
 
 Validator.propTypes = {
-  id: string.isRequired,
-  validator: func.isRequired,
-  message: string.isRequired,
-  value: oneOfType([ node, object ]).isRequired,
+  validator: shape({
+    id: string.isRequired,
+    check: func.isRequired,
+    message: string.isRequired,
+  }).isRequired,
+  val: oneOfType([ node, object ]).isRequired,
 }
 
 export default Validator

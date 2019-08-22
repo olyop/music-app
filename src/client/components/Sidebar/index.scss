@@ -7,8 +7,10 @@
   z-index: 2;
   font-size: 16rem;
   width: 100vw;
+  cursor: pointer;
   height: calc(100vh - #{$HEADER_HEIGHT});
   &__nav {
+    cursor: default;
     padding: 20px 0;
     position: absolute;
     border-right: 1px solid #e0e0e0;
@@ -27,19 +29,27 @@
         &:last-child {
           margin-bottom: 0; } }
         &__link {
-          padding: 5px 20px;
+          padding: 5px 0 5px 20px;
           font-size: 26rem;
-          font-weight: 400;
-          color: #333333;
-          text-decoration: none;
-          &:hover {
-            background-color: rgba(#333333, .3); } }
-        &__subLink {
-          padding: 5px 35px;
-          font-size: 20rem;
           font-weight: 300;
           color: #333333;
           text-decoration: none;
           &:hover {
             background-color: rgba(#333333, .3); } }
+        &__subLink {
+          padding: 5px 0 5px 35px;
+          font-size: 20rem;
+          font-weight: 500;
+          color: #333333;
+          text-decoration: none;
+          &:hover {
+            background-color: rgba(#333333, .3); } }
+          &__subSubRoute {
+            padding: 5px 0 5px 55px;
+            font-size: 16rem;
+            font-weight: 400;
+            color: #333333;
+            text-decoration: none;
+            &:hover {
+              background-color: rgba(#333333, .3); } }
 }

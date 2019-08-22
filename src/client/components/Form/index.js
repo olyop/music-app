@@ -1,10 +1,10 @@
-import React, { useState, Fragment } from "react"
+import React, { useState } from "react"
 
 import FormTitle from "./FormTitle"
 import FormField from "./FormField"
 
 import { createFormInit, handleFormChange } from "../../helpers/form"
-import { string, arrayOf, oneOfType, array, object } from "prop-types"
+import { string, arrayOf, object } from "prop-types"
 import { Form as bem } from "../../globals/bem"
 import { noop } from "lodash"
 
@@ -18,26 +18,29 @@ const Form = ({ title, fields }) => {
     <form
       onSubmit={noop}
       className={bem("")}
-      children={<Fragment>
+      children={<>
         <FormTitle>{title}</FormTitle>
         <div className={bem("fields")}>
-          {fields.map(field => (
-            <FormField
-              {...field}
-              key={field.id}
-              value={form[field.camelCase]}
-              onChange={onChange(field.type, field.camelCase, field.transform.in)}
-            />
-          ))}
+          {fields.map(
+            (field, i) => (
+              <FormField
+                tabIndex={i}
+                field={field}
+                key={field.id}
+                val={form[field.short]}
+                onChange={onChange(field.type,field.camelCase,field.parse.in)}
+              />
+            )
+          )}
         </div>
-      </Fragment>}
+      </>}
     />
   )
 }
 
 Form.propTypes = {
   title: string.isRequired,
-  fields: arrayOf(oneOfType([object, array])).isRequired
+  fields: arrayOf(object).isRequired
 }
 
 export default Form

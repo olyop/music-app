@@ -1,4 +1,4 @@
-import React, { Fragment } from "react"
+import React from "react"
 
 import { Switch, Route, NavLink } from "react-router-dom"
 import Icon from "../Icon"
@@ -19,14 +19,14 @@ const Library = ({ match }) => (
             className={bem("link")}
             to={match.path + route.path}
             activeClassName={bem("active")}
-            children={<Fragment>
+            children={<>
               <Icon
                 bem={bem}
                 icon={route.icon}
                 className="icon"
               />
               <span className={bem("text")}>{route.name}</span>
-            </Fragment>}
+            </>}
           />
         ))}
       </div>

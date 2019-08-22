@@ -1,4 +1,4 @@
-import React, { Fragment } from "react"
+import React from "react"
 
 import ListItem from "./ListItem"
 import Validator from "./Validator"
@@ -9,92 +9,100 @@ import {
 } from "prop-types"
 
 import {
-  determineValue,
+  determineInputValue,
   determineValidatorValue,
   determineInputType,
   determinePattern,
-  determineMinMax
+  determineMin,
+  determineMax,
+  determineMinLength,
+  determineMaxLength
 } from "../../../helpers/form"
 
 import { FormField as bem } from "../../../globals/bem"
 
 import "./index.scss"
 
-const FormField = ({
-  id, name, camelCase, type, required, placeholder,
-  min, max, validators, transform, value, onChange
-}) => (
-  <div className={bem("")}>
-    <label
-      id={id}
-      className={bem("label")}
-      htmlFor={camelCase}
-      children={<Fragment>
-        <span
-          children={required ? `* ${name}` : name}
-          className={bem("name")}
-        />
-        {type === "list" ? (
-          <div className={bem("list")}>
-            {value.list.map(item => (
-              <ListItem
-                {...item}
-                key={item.id}
-              />
-            ))}
-          </div>
-        ) : null}
-        <input
-          name={name}
-          id={camelCase}
-          autoCorrect="off"
-          autoComplete="off"
-          spellCheck="false"
-          autoCapitalize="off"
-          onChange={onChange}
-          required={required}
-          className={bem("input")}
-          placeholder={placeholder}
-          type={determineInputType(type)}
-          pattern={determinePattern(type)}
-          value={determineValue(type,value,transform)}
-          {...determineMinMax(type,min,max)}
-        />
-      </Fragment>}
-    />
-    <div className={bem("validators")}>
-      {validators.map(validator => (
-        <Validator
-          {...validator}
-          key={validator.id}
-          value={determineValidatorValue(type,value,transform)}
-        />
-      ))}
+const FormField = ({ field, tabIndex, val, onChange }) => {
+  const { id, name, req, validators } = field
+  return (
+    <div className={bem("")}>
+      <label
+        className={bem("label")}
+        htmlFor={id}
+        children={<>
+          <span
+            children={name}
+            aria-label={id}
+            className={bem("name")}
+          />
+          {field.type === "list" ? (
+            <div className={bem("list")}>
+              {val.list.map(
+                item => (
+                  <ListItem
+                    key={id}
+                    item={item}
+                  />
+                )
+              )}
+            </div>
+          ) : null}
+          <input
+            id={id}
+            name={name}
+            required={req}
+            autoCorrect="off"
+            autoComplete="off"
+            spellCheck="false"
+            tabIndex={tabIndex}
+            onChange={onChange}
+            autoCapitalize="off"
+            className={bem("input")}
+            min={determineMin(field)}
+            max={determineMax(field)}
+            type={determineInputType(field)}
+            pattern={determinePattern(field)}
+            val={determineInputValue(field,val)}
+            minLength={determineMinLength(field)}
+            maxLength={determineMaxLength(field)}
+          />
+        </>}
+      />
+      <div className={bem("validators")}>
+        {validators.map(
+          validator => (
+            <Validator
+              key={id}
+              validator={validator}
+              val={determineValidatorValue(field,val)}
+            />
+          )
+        )}
+      </div>
     </div>
-  </div>
-)
-
-FormField.propTypes = {
-  id: string.isRequired,
-  name: string.isRequired,
-  camelCase: string.isRequired,
-  type: oneOf(["text","date","list","int"]).isRequired,
-  init: oneOfType([array,string,number]).isRequired,
-  required: bool.isRequired,
-  validators: arrayOf(object).isRequired,
-  value: oneOfType([node,object]).isRequired,
-  onChange: func.isRequired,
-  min: number.isRequired,
-  max: number.isRequired,
-  placeholder: string,
-  transform: shape({
-    in: func.isRequired,
-    out: func.isRequired
-  }).isRequired
+  )
 }
 
-FormField.defaultProps = {
-  placeholder: ""
+FormField.propTypes = {
+  field: shape({
+    id: string.isRequired,
+    name: string.isRequired,
+    short: string.isRequired,
+    type: oneOf([ "text", "date", "list", "int" ]).isRequired,
+    init: oneOfType([ array, string, number ]).isRequired,
+    req: bool.isRequired,
+    validators: arrayOf(object).isRequired,
+    min: number.isRequired,
+    max: number.isRequired,
+    parse: shape({
+      in: func.isRequired,
+      out: func.isRequired
+    }).isRequired,
+  }).isRequired,
+  onChange: func.isRequired,
+  val: oneOfType([ node, object ]).isRequired,
+  tabIndex: number.isRequired
 }
 
 export default FormField

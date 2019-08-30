@@ -19,15 +19,16 @@
     width: 300px;
     height: calc(100vh - #{$HEADER_HEIGHT});
     background-color: #ffffff; }
-    &__links {
+    &__routes {
       flex-direction: column;
       display: flex; }
-      &__linkRoute {
-        margin-bottom: 10px;
+      &__route, &__subRoute, &__subSubRoute {
         display: flex;
         flex-direction: column;
         &:last-child {
           margin-bottom: 0; } }
+        &__route {
+          margin-bottom: 10px; }
         &__link {
           padding: 5px 0 5px 20px;
           font-size: 26rem;
@@ -44,7 +45,7 @@
           text-decoration: none;
           &:hover {
             background-color: rgba(#333333, .3); } }
-          &__subSubRoute {
+          &__subSubLink {
             padding: 5px 0 5px 55px;
             font-size: 16rem;
             font-weight: 400;

@@ -15,40 +15,42 @@ import "./index.scss"
 const Sidebar = ({ toggleSidebar }) => (
   <div className={bem("")} onClick={toggleSidebar} role="button" tabIndex={0}>
     <aside className={bem("nav")}>
-      <nav className={bem("links")}>
+      <nav className={bem("routes")}>
         {routesConfigPages.map(route => (
-          <div className={bem("linkRoute")} key={route.id}>
+          <div key={route.id} className={bem("route")}>
             <NavLink
-              key={route.id}
               to={route.path}
               children={route.name}
               className={bem("link")}
             />
             {route.name === "Catalog" ? (
-              routesConfigCatalog.map(subRoute => <>
-                <NavLink
-                  key={subRoute.id}
-                  className={bem("subLink")}
-                  children={`- ${subRoute.name}`}
-                  to={route.path + subRoute.path}
-                />
-                {routesConfigCatalogAdd.map(subSubRoute => (
+              routesConfigCatalog.map(subRoute => (
+                <div key={subRoute.id} className={bem("subRoute")}>
                   <NavLink
-                    key={subSubRoute.id}
-                    className={bem("subSubRoute")}
-                    children={`- ${subSubRoute.name}`}
-                    to={route.path + subRoute.path + subSubRoute.path}
+                    className={bem("subLink")}
+                    children={`- ${subRoute.name}`}
+                    to={route.path + subRoute.path}
                   />
-                ))}
-              </>)
+                  {routesConfigCatalogAdd.map(subSubRoute => (
+                    <div key={subSubRoute.id} className={bem("subSubRoute")}>
+                      <NavLink
+                        className={bem("subSubLink")}
+                        children={`- ${subSubRoute.name}`}
+                        to={route.path + subRoute.path + subSubRoute.path}
+                      />
+                    </div>
+                  ))}
+                </div>
+              ))
             ) : (
               routesConfigLibrary.map(subRoute => (
-                <NavLink
-                  key={subRoute.id}
-                  className={bem("subLink")}
-                  to={route.path + subRoute.path}
-                  children={`- ${subRoute.name}`}
-                />
+                <div key={subRoute.id} className={bem("subRoute")}>
+                  <NavLink
+                    className={bem("subLink")}
+                    to={route.path + subRoute.path}
+                    children={`- ${subRoute.name}`}
+                  />
+                </div>
               ))
             )}
           </div>

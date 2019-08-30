@@ -1,5 +1,9 @@
-import { uniqueId, isString, isSafeInteger, toInteger } from "lodash"
-import { inRange } from "lodash/fp"
+import {
+  isSafeInteger,
+  uniqueId,
+  isString,
+  toInteger
+} from "lodash"
 
 import {
   isStringLengthInRange,
@@ -9,6 +13,10 @@ import {
   isNotEmpty,
   isHex,
 } from "../../../helpers/form"
+
+import {
+  inRange
+} from "lodash/fp"
 
 export const artist = [
   {
@@ -323,6 +331,10 @@ export const song = [
       {
         id: "5d58ae86e0e4863770aa74ed",
         name: "Don Diablo"
+      },
+      {
+        id: "5d58ae86e0e4863770aadhjd",
+        name: "Alexis"
       }
     ],
     req: false,

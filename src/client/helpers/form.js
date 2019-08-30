@@ -49,9 +49,9 @@ export const handleFormSubmit = (form, initFunc, init, submitFunc) => {
 export const deserializeDate = unix => (new Date(unix)).toLocaleDateString()
 
 export const createFormInit = fields => fields.reduce(
-  (acc, { type, camelCase, init }) => ({
+  (acc, { type, short, init }) => ({
     ...acc,
-    [camelCase]: is(type, "list") ? {
+    [short]: is(type, "list") ? {
       input: "",
       list: init
     } : init
@@ -111,11 +111,11 @@ export const determinePattern = ({ type }) => {
   }
 }
 
-export const determineInputValue = ({ type, transform }, value) => {
+export const determineInputValue = ({ type, parse }, value) => {
   if (is(type, "list")) {
-    return transform.out(value.input)
+    return parse.out(value.input)
   } else {
-    return transform.out(value)
+    return parse.out(value)
   }
 }
 

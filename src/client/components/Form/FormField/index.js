@@ -41,8 +41,8 @@ const FormField = ({ field, tabIndex, val, onChange }) => {
               {val.list.map(
                 item => (
                   <ListItem
-                    key={id}
                     item={item}
+                    key={item.id}
                   />
                 )
               )}
@@ -73,7 +73,7 @@ const FormField = ({ field, tabIndex, val, onChange }) => {
         {validators.map(
           validator => (
             <Validator
-              key={id}
+              key={validator.id}
               validator={validator}
               val={determineValidatorValue(field,val)}
             />

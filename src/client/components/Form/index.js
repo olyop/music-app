@@ -2,6 +2,7 @@ import React, { useState } from "react"
 
 import FormTitle from "./FormTitle"
 import FormField from "./FormField"
+import FormSubmit from "./FormSubmit"
 
 import { createFormInit, handleFormChange } from "../../helpers/form"
 import { string, arrayOf, object } from "prop-types"
@@ -12,7 +13,7 @@ import "./index.scss"
 
 const Form = ({ title, fields }) => {
   const init = createFormInit(fields)
-  const [form,setForm] = useState(init)
+  const [ form, setForm ] = useState(init)
   const onChange = handleFormChange(form, setForm)
   return (
     <form
@@ -33,6 +34,7 @@ const Form = ({ title, fields }) => {
             )
           )}
         </div>
+        <FormSubmit/>
       </>}
     />
   )

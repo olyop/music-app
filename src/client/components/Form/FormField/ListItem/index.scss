@@ -1,11 +1,23 @@
 .ListItem {
   background-color: #EEEEEE;
   border: 1px solid #BDBDBD;
-  padding: 3px;
   border-radius: 3px;
-  font-size: 18px;
   margin-right: 8px;
-  white-space: nowrap;
+  display: flex;
   &:last-child {
     margin-right: 0; }
+  &__text {
+    padding: 3px;
+    font-size: 18px;
+    white-space: nowrap; }
+  &__close {
+    margin: 2px;
+    margin-left: 0;
+    padding: 1px;
+    font-size: 18px;
+    border-radius: 100%;
+    transition: .2s all;
+    outline: none;
+    &:hover {
+      background-color: #BDBDBD; } }
 }

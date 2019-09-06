@@ -6,9 +6,9 @@ import { node } from "prop-types"
 import "./index.scss"
 
 const FormTitle = ({ children }) => (
-  <div className={bem("")}>
+  <h2 className={bem("")}>
     {children}
-  </div>
+  </h2>
 )
 
 FormTitle.propTypes = {

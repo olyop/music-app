@@ -1,7 +1,6 @@
 import React from "react"
 
 import { func, string } from "prop-types"
-import { noop } from "lodash"
 
 import "./index.scss"
 
@@ -23,11 +22,7 @@ Icon.propTypes = {
   icon: string.isRequired,
   bem: func.isRequired,
   className: string.isRequired,
-  onClick: func
-}
-
-Icon.defaultProps = {
-  onClick: noop
+  onClick: func.isRequired
 }
 
 export default Icon

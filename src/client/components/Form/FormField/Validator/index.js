@@ -4,6 +4,7 @@ import Icon from "../../../Icon"
 
 import { shape, string, func, oneOfType, node, object, } from "prop-types"
 import { Validator as bem } from "../../../../globals/bem"
+import { noop } from "lodash"
 
 import "./index.scss"
 
@@ -14,6 +15,7 @@ const Validator = ({ validator, val }) => {
     <div id={id} className={bem("")}>
       <Icon
         bem={bem}
+        onClick={noop}
         icon={isValid ? "done" : "close"}
         className={isValid ? "iconSuccess" : "iconFailure"}
       />

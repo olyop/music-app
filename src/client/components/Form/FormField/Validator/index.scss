@@ -1,6 +1,7 @@
 .Validator {
   display: flex;
-  &__iconSuccess, &__iconFailure {
+  &__iconSuccess,
+  &__iconFailure {
     outline: none;
     cursor: default;
     margin-right: 5px;

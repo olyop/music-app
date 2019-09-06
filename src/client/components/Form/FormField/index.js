@@ -20,13 +20,14 @@ import {
 } from "../../../helpers/form"
 
 import { FormField as bem } from "../../../globals/bem"
+import { isEmpty } from "lodash"
 
 import "./index.scss"
 
-const FormField = ({ field, tabIndex, val, onChange }) => {
+const FormField = ({ field, val, onChange, onItemRemove }) => {
   const { id, name, req, validators } = field
   return (
-    <div className={bem("")}>
+    <div id={id} className={bem("")}>
       <label
         className={bem("label")}
         htmlFor={id}
@@ -36,13 +37,14 @@ const FormField = ({ field, tabIndex, val, onChange }) => {
             aria-label={id}
             className={bem("name")}
           />
-          {field.type === "list" ? (
+          {field.type === "list" && !isEmpty(val.list) ? (
             <div className={bem("list")}>
               {val.list.map(
                 item => (
                   <ListItem
                     item={item}
                     key={item.id}
+                    onItemRemove={onItemRemove(item)}
                   />
                 )
               )}
@@ -55,7 +57,6 @@ const FormField = ({ field, tabIndex, val, onChange }) => {
             autoCorrect="off"
             autoComplete="off"
             spellCheck="false"
-            tabIndex={tabIndex}
             onChange={onChange}
             autoCapitalize="off"
             className={bem("input")}
@@ -63,9 +64,9 @@ const FormField = ({ field, tabIndex, val, onChange }) => {
             max={determineMax(field)}
             type={determineInputType(field)}
             pattern={determinePattern(field)}
-            val={determineInputValue(field,val)}
             minLength={determineMinLength(field)}
             maxLength={determineMaxLength(field)}
+            value={determineInputValue(field,val)}
           />
         </>}
       />
@@ -101,8 +102,8 @@ FormField.propTypes = {
     }).isRequired,
   }).isRequired,
   onChange: func.isRequired,
-  val: oneOfType([ node, object ]).isRequired,
-  tabIndex: number.isRequired
+  onItemRemove: func.isRequired,
+  val: oneOfType([ node, object ]).isRequired
 }
 
 export default FormField

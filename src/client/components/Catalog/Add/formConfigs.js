@@ -329,12 +329,8 @@ export const song = [
     type: "list",
     init: [
       {
-        id: "5d58ae86e0e4863770aa74ed",
-        name: "Don Diablo"
-      },
-      {
-        id: "5d58ae86e0e4863770aadhjd",
-        name: "Alexis"
+        id: uniqueId(),
+        name: "foo"
       }
     ],
     req: false,

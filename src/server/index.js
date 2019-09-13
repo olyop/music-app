@@ -26,7 +26,7 @@ database.openUri(DB_URL, MONGOOSE_OPTIONS)
 
 const app = express()
 
-// mount middleware stack
+// middleware stack
 app.use(logger(LOG_FORMAT))
 app.use(responseTime())
 app.use(helmet())

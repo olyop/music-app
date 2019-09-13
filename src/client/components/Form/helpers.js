@@ -1,23 +1,4 @@
-import { includes, isEmpty, inRange } from "lodash"
-
-export const validateArray = validator => arr => {
-  if (isEmpty(arr)) {
-    return false
-  } else {
-    return arr.reduce(
-      (acc, val) => validator(val),
-      true
-    )
-  }
-}
-
-export const isStringLengthInRange = (start, end) => str => inRange(str.length, start, end)
-
-export const isHex = str => (str.match(/([0-9]|[a-f])/gim) || []).length === str.length
-
-export const isStringLength = length => str => str.length === length
-
-export const isNotEmpty = val => !isEmpty(val)
+import { includes } from "lodash"
 
 export const handleFormChange = (form, setForm) => ({ type, short, parse }) => event => {
   const value = parse.in(event.target.value)
@@ -35,7 +16,7 @@ export const handleItemRemove = (form, setForm) => ({ short }) => ({ id }) => ()
     ...form,
     [short]: {
       ...form[short],
-      list: form[short].list.filter(item => item.id === id)
+      list: form[short].list.filter(item => item.id !== id)
     }
   })
 }
@@ -44,8 +25,6 @@ export const handleFormSubmit = (form, initFunc, init, submitFunc) => {
   submitFunc({ variables: form })
   initFunc(init)
 }
-
-export const deserializeDate = unix => (new Date(unix)).toLocaleDateString()
 
 export const createFormInit = fields => fields.reduce(
   (acc, { type, short, init }) => ({
@@ -123,5 +102,13 @@ export const determineValidatorValue = ({ type }, value) => {
     return value.list.map(({ id }) => id)
   } else {
     return value
+  }
+}
+
+export const determineRequired = ({ type, req }) => {
+  if (type === "list") {
+    return undefined
+  } else {
+    return req
   }
 }

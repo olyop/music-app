@@ -2,21 +2,33 @@ import {
   isSafeInteger,
   uniqueId,
   isString,
-  toInteger
+  toInteger,
+  isEmpty,
+  inRange
 } from "lodash"
 
-import {
-  isStringLengthInRange,
-  deserializeDate,
-  isStringLength,
-  validateArray,
-  isNotEmpty,
-  isHex,
-} from "../../../helpers/form"
+import { inRange as fpInRange } from "lodash/fp"
 
-import {
-  inRange
-} from "lodash/fp"
+const isStringLengthInRange = (start, end) => str => inRange(str.length, start, end)
+
+const isHex = str => (str.match(/([0-9]|[a-f])/gim) || []).length === str.length
+
+const isStringLength = length => str => str.length === length
+
+const isNotEmpty = val => !isEmpty(val)
+
+const validateArray = validator => arr => {
+  if (isEmpty(arr)) {
+    return false
+  } else {
+    return arr.reduce(
+      (acc, val) => validator(val),
+      true
+    )
+  }
+}
+
+const deserializeDate = unix => (new Date(unix)).toLocaleDateString()
 
 export const artist = [
   {
@@ -119,7 +131,7 @@ export const album = [
     validators: [
       {
         id: uniqueId(),
-        check: inRange(0, Date.now()),
+        check: fpInRange(0, Date.now()),
         message: "valid date."
       }
     ]
@@ -223,7 +235,7 @@ export const song = [
     name: "Title",
     short: "title",
     type: "text",
-    init: "",
+    init: "Ocean",
     req: true,
     min: 1,
     max: 128,
@@ -249,7 +261,7 @@ export const song = [
     name: "Mix",
     short: "mix",
     type: "text",
-    init: "",
+    init: "Extended",
     req: true,
     min: 0,
     max: 64,
@@ -291,7 +303,7 @@ export const song = [
       },
       {
         id: uniqueId(),
-        check: inRange(1, 32),
+        check: fpInRange(1, 32),
         message: "between 1 and 32."
       }
     ]
@@ -317,7 +329,7 @@ export const song = [
       },
       {
         id: uniqueId(),
-        check: inRange(1, 32),
+        check: fpInRange(1, 32),
         message: "between 1 and 32."
       }
     ]
@@ -330,7 +342,7 @@ export const song = [
     init: [
       {
         id: uniqueId(),
-        name: "foo"
+        name: "Khalid"
       }
     ],
     req: false,
@@ -363,7 +375,12 @@ export const song = [
     name: "Remixers",
     short: "remixers",
     type: "list",
-    init: [],
+    init: [
+      {
+        id: uniqueId(),
+        name: "Don Diablo"
+      }
+    ],
     req: false,
     min: 0,
     max: 24,
@@ -394,7 +411,12 @@ export const song = [
     name: "Artists",
     short: "artists",
     type: "list",
-    init: [],
+    init: [
+      {
+        id: uniqueId(),
+        name: "Martin Garrix"
+      }
+    ],
     req: true,
     min: 0,
     max: 24,
@@ -425,7 +447,12 @@ export const song = [
     name: "Genres",
     short: "genres",
     type: "list",
-    init: [],
+    init: [
+      {
+        id: uniqueId(),
+        name: "Future House"
+      }
+    ],
     req: true,
     min: 0,
     max: 24,
@@ -456,7 +483,7 @@ export const song = [
     name: "Album",
     short: "album",
     type: "text",
-    init: "",
+    init: "Ocean",
     req: true,
     min: 0,
     max: 24,

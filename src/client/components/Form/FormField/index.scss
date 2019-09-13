@@ -40,6 +40,28 @@
       outline: none;
       font-size: 18px;
       line-height: 18px; }
+    &__dropdown {
+      bottom: 0;
+      z-index: 2;
+      border-radius: 3px;
+      border: 1px solid #e0e0e0;
+      top: calc(100% + 6px);
+      box-shadow:
+        0px 5px 5px -3px rgba(0,0,0,0.2),
+        0px 8px 10px 1px rgba(0,0,0,0.14),
+        0px 3px 14px 2px rgba(0,0,0,0.12);
+      height: 100%;
+      width: 100%;
+      background-color: #ffffff;
+      position: absolute; }
+      &__dropdownItem {
+        display: block;
+        padding: 15px;
+        font-size: 17px;
+        cursor: pointer;
+        transition: .2s all;
+        &:hover {
+          background-color: #e0e0e0; } }
   &__validators {
     margin: 10px 0 0 10px; }
 }

@@ -9,15 +9,16 @@ import {
 } from "prop-types"
 
 import {
-  determineInputValue,
-  determineValidatorValue,
-  determineInputType,
-  determinePattern,
   determineMin,
   determineMax,
+  determinePattern,
+  determineRequired,
+  determineInputType,
   determineMinLength,
-  determineMaxLength
-} from "../../../helpers/form"
+  determineMaxLength,
+  determineInputValue,
+  determineValidatorValue,
+} from "../helpers"
 
 import { FormField as bem } from "../../../globals/bem"
 import { isEmpty } from "lodash"
@@ -25,7 +26,7 @@ import { isEmpty } from "lodash"
 import "./index.scss"
 
 const FormField = ({ field, val, onChange, onItemRemove }) => {
-  const { id, name, req, validators } = field
+  const { id, name, validators } = field
   return (
     <div id={id} className={bem("")}>
       <label
@@ -53,7 +54,6 @@ const FormField = ({ field, val, onChange, onItemRemove }) => {
           <input
             id={id}
             name={name}
-            required={req}
             autoCorrect="off"
             autoComplete="off"
             spellCheck="false"
@@ -64,10 +64,16 @@ const FormField = ({ field, val, onChange, onItemRemove }) => {
             max={determineMax(field)}
             type={determineInputType(field)}
             pattern={determinePattern(field)}
+            required={determineRequired(field)}
             minLength={determineMinLength(field)}
             maxLength={determineMaxLength(field)}
             value={determineInputValue(field,val)}
           />
+          {name === "Featuring" ? (
+            <div className={bem("dropdown")}>
+              <div className={bem("dropdownItem")}>Foo</div>
+            </div>
+          ) : null}
         </>}
       />
       <div className={bem("validators")}>

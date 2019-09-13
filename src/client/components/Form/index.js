@@ -4,7 +4,7 @@ import FormTitle from "./FormTitle"
 import FormField from "./FormField"
 import FormSubmit from "./FormSubmit"
 
-import { createFormInit, handleFormChange, handleItemRemove } from "../../helpers/form"
+import { createFormInit, handleFormChange, handleItemRemove } from "./helpers"
 import { string, arrayOf, object } from "prop-types"
 import { Form as bem } from "../../globals/bem"
 import { noop } from "lodash"

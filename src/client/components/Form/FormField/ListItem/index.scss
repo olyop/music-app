@@ -6,6 +6,10 @@
   display: flex;
   &:last-child {
     margin-right: 0; }
+  &__img {
+    margin-right: 3px;
+    height: 24px;
+    width: 24px; }
   &__text {
     padding: 3px;
     font-size: 18px;

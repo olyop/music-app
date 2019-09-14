@@ -9,7 +9,7 @@ import { noop } from "lodash"
 import "./index.scss"
 
 const Validator = ({ validator, val }) => {
-  const { id, check, message } = validator
+  const { id, check, msg } = validator
   const isValid = check(val)
   return (
     <div id={id} className={bem("")}>
@@ -20,7 +20,7 @@ const Validator = ({ validator, val }) => {
         className={isValid ? "iconSuccess" : "iconFailure"}
       />
       <p
-        children={message}
+        children={msg}
         className={bem("text")}
       />
     </div>
@@ -31,7 +31,7 @@ Validator.propTypes = {
   validator: shape({
     id: string.isRequired,
     check: func.isRequired,
-    message: string.isRequired,
+    msg: string.isRequired,
   }).isRequired,
   val: oneOfType([ node, object ]).isRequired,
 }

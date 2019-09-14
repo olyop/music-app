@@ -16,8 +16,8 @@ import {
   determineInputType,
   determineMinLength,
   determineMaxLength,
-  determineInputValue,
-  determineValidatorValue,
+  determineInputVal,
+  determineValidatorVal,
 } from "../helpers"
 
 import { FormField as bem } from "../../../globals/bem"
@@ -26,7 +26,7 @@ import { isEmpty } from "lodash"
 import "./index.scss"
 
 const FormField = ({ field, val, onChange, onItemRemove }) => {
-  const { id, name, validators } = field
+  const { id, name, type, doc, validators } = field
   return (
     <div id={id} className={bem("")}>
       <label
@@ -38,7 +38,7 @@ const FormField = ({ field, val, onChange, onItemRemove }) => {
             aria-label={id}
             className={bem("name")}
           />
-          {field.type === "list" && !isEmpty(val.list) ? (
+          {type === "list" && !isEmpty(val.list) ? (
             <div className={bem("list")}>
               {val.list.map(
                 item => (
@@ -50,6 +50,14 @@ const FormField = ({ field, val, onChange, onItemRemove }) => {
                 )
               )}
             </div>
+          ) : null}
+          {doc && type !== "list" ? (
+            <img
+              alt="foo"
+              id={val.id}
+              src="/test.jpg"
+              className={bem("img")}
+            />
           ) : null}
           <input
             id={id}
@@ -67,13 +75,13 @@ const FormField = ({ field, val, onChange, onItemRemove }) => {
             required={determineRequired(field)}
             minLength={determineMinLength(field)}
             maxLength={determineMaxLength(field)}
-            value={determineInputValue(field,val)}
+            value={determineInputVal(field,val)}
           />
-          {name === "Featuring" ? (
+          {/* {name === "Featuring" ? (
             <div className={bem("dropdown")}>
               <div className={bem("dropdownItem")}>Foo</div>
             </div>
-          ) : null}
+          ) : null} */}
         </>}
       />
       <div className={bem("validators")}>
@@ -82,7 +90,7 @@ const FormField = ({ field, val, onChange, onItemRemove }) => {
             <Validator
               key={validator.id}
               validator={validator}
-              val={determineValidatorValue(field,val)}
+              val={determineValidatorVal(field,val)}
             />
           )
         )}
@@ -97,7 +105,8 @@ FormField.propTypes = {
     name: string.isRequired,
     short: string.isRequired,
     type: oneOf([ "text", "date", "list", "int" ]).isRequired,
-    init: oneOfType([ array, string, number ]).isRequired,
+    doc: bool.isRequired,
+    init: oneOfType([ array, string, number, object ]).isRequired,
     req: bool.isRequired,
     validators: arrayOf(object).isRequired,
     min: number.isRequired,

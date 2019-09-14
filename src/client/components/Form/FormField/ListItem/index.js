@@ -11,6 +11,11 @@ const ListItem = ({ item, onItemRemove }) => {
   const { id, name } = item
   return (
     <div id={id} className={bem("")}>
+      <img
+        alt="foo"
+        src="/test.jpg"
+        className={bem("img")}
+      />
       <p
         children={name}
         className={bem("text")}

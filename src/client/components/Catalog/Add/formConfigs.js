@@ -36,6 +36,7 @@ export const artist = [
     name: "Name",
     short: "name",
     type: "text",
+    doc: false,
     init: "",
     req: true,
     min: 0,
@@ -48,41 +49,12 @@ export const artist = [
       {
         id: uniqueId(),
         check: isString,
-        message: "data type of string."
+        msg: "data type of string."
       },
       {
         id: uniqueId(),
         check: isStringLengthInRange(1, 128),
-        message: "between 1 and 256 characters."
-      }
-    ]
-  }
-]
-
-export const label = [
-  {
-    id: uniqueId(),
-    name: "Name",
-    short: "name",
-    type: "text",
-    init: "",
-    req: true,
-    min: 0,
-    max: 127,
-    parse: {
-      in: encodeURI,
-      out: decodeURI
-    },
-    validators: [
-      {
-        id: uniqueId(),
-        check: isString,
-        message: "data type of string."
-      },
-      {
-        id: uniqueId(),
-        check: isStringLengthInRange(1, 128),
-        message: "between 1 and 256 characters."
+        msg: "between 1 and 256 characters."
       }
     ]
   }
@@ -94,6 +66,7 @@ export const album = [
     name: "Title",
     short: "title",
     type: "text",
+    doc: false,
     init: "",
     req: true,
     min: 0,
@@ -106,12 +79,12 @@ export const album = [
       {
         id: uniqueId(),
         check: isString,
-        message: "data type of string."
+        msg: "data type of string."
       },
       {
         id: uniqueId(),
         check: isStringLengthInRange(1, 128),
-        message: "between 1 and 256 characters."
+        msg: "between 1 and 256 characters."
       }
     ]
   },
@@ -120,6 +93,7 @@ export const album = [
     name: "Released",
     short: "released",
     type: "date",
+    doc: false,
     init: Date.now(),
     req: true,
     min: 0,
@@ -132,7 +106,7 @@ export const album = [
       {
         id: uniqueId(),
         check: fpInRange(0, Date.now()),
-        message: "valid date."
+        msg: "valid date."
       }
     ]
   },
@@ -141,6 +115,7 @@ export const album = [
     name: "Artists",
     short: "artists",
     type: "list",
+    doc: true,
     init: [],
     req: true,
     min: 0,
@@ -153,48 +128,17 @@ export const album = [
       {
         id: uniqueId(),
         check: validateArray(isString),
-        message: "data type of string."
+        msg: "data type of string."
       },
       {
         id: uniqueId(),
         check: validateArray(isHex),
-        message: "all be hexadecimal."
+        msg: "all be hexadecimal."
       },
       {
         id: uniqueId(),
         check: validateArray(isStringLength(24)),
-        message: "all be of length 24."
-      }
-    ]
-  },
-  {
-    id: uniqueId(),
-    name: "Label",
-    short: "label",
-    type: "text",
-    init: "",
-    req: true,
-    min: 0,
-    max: 24,
-    parse: {
-      in: encodeURI,
-      out: decodeURI
-    },
-    validators: [
-      {
-        id: uniqueId(),
-        check: isString,
-        message: "data type of string."
-      },
-      {
-        id: uniqueId(),
-        check: isHex,
-        message: "hexadecimal."
-      },
-      {
-        id: uniqueId(),
-        check: isStringLength(24),
-        message: "of length 24."
+        msg: "all be of length 24."
       }
     ]
   }
@@ -206,6 +150,7 @@ export const genre = [
     name: "Name",
     short: "name",
     type: "text",
+    doc: false,
     init: "",
     req: true,
     min: 0,
@@ -218,12 +163,12 @@ export const genre = [
       {
         id: uniqueId(),
         check: isString,
-        message: "data type of string."
+        msg: "data type of string."
       },
       {
         id: uniqueId(),
         check: isStringLengthInRange(1, 128),
-        message: "between 1 and 128 characters."
+        msg: "between 1 and 128 characters."
       }
     ]
   }
@@ -235,6 +180,7 @@ export const song = [
     name: "Title",
     short: "title",
     type: "text",
+    doc: false,
     init: "Ocean",
     req: true,
     min: 1,
@@ -247,12 +193,12 @@ export const song = [
       {
         id: uniqueId(),
         check: isNotEmpty,
-        message: "not empty."
+        msg: "not empty."
       },
       {
         id: uniqueId(),
         check: isStringLengthInRange(1, 128),
-        message: "between 1 and 128 characters."
+        msg: "between 1 and 128 characters."
       }
     ]
   },
@@ -261,6 +207,7 @@ export const song = [
     name: "Mix",
     short: "mix",
     type: "text",
+    doc: false,
     init: "Extended",
     req: true,
     min: 0,
@@ -273,12 +220,12 @@ export const song = [
       {
         id: uniqueId(),
         check: isString,
-        message: "data type of string."
+        msg: "data type of string."
       },
       {
         id: uniqueId(),
         check: isStringLengthInRange(1, 64),
-        message: "between 1 and 128 characters."
+        msg: "between 1 and 64 characters."
       }
     ]
   },
@@ -287,6 +234,7 @@ export const song = [
     name: "Track Number",
     short: "trackNumber",
     type: "int",
+    doc: false,
     init: 1,
     req: true,
     min: 1,
@@ -299,12 +247,12 @@ export const song = [
       {
         id: uniqueId(),
         check: isSafeInteger,
-        message: "a valid integer."
+        msg: "a valid integer."
       },
       {
         id: uniqueId(),
         check: fpInRange(1, 32),
-        message: "between 1 and 32."
+        msg: "between 1 and 32."
       }
     ]
   },
@@ -313,6 +261,7 @@ export const song = [
     name: "Disc Number",
     short: "discNumber",
     type: "int",
+    doc: false,
     init: 1,
     req: true,
     min: 1,
@@ -325,12 +274,12 @@ export const song = [
       {
         id: uniqueId(),
         check: isSafeInteger,
-        message: "a valid integer."
+        msg: "a valid integer."
       },
       {
         id: uniqueId(),
         check: fpInRange(1, 32),
-        message: "between 1 and 32."
+        msg: "between 1 and 32."
       }
     ]
   },
@@ -339,9 +288,10 @@ export const song = [
     name: "Featuring",
     short: "featuring",
     type: "list",
+    doc: true,
     init: [
       {
-        id: uniqueId(),
+        id: "5d7b0bd56eb9700e842ceeb5",
         name: "Khalid"
       }
     ],
@@ -356,17 +306,17 @@ export const song = [
       {
         id: uniqueId(),
         check: validateArray(isString),
-        message: "data type of string."
+        msg: "data type of string."
       },
       {
         id: uniqueId(),
         check: validateArray(isHex),
-        message: "all be hexadecimal."
+        msg: "all be hexadecimal."
       },
       {
         id: uniqueId(),
         check: validateArray(isStringLength(24)),
-        message: "all be of length 24."
+        msg: "all be of length 24."
       }
     ]
   },
@@ -375,9 +325,10 @@ export const song = [
     name: "Remixers",
     short: "remixers",
     type: "list",
+    doc: true,
     init: [
       {
-        id: uniqueId(),
+        id: "5d7b0bd56eb9700e842ceeb5",
         name: "Don Diablo"
       }
     ],
@@ -392,17 +343,17 @@ export const song = [
       {
         id: uniqueId(),
         check: validateArray(isString),
-        message: "data type of string."
+        msg: "data type of string."
       },
       {
         id: uniqueId(),
         check: validateArray(isHex),
-        message: "all be hexadecimal."
+        msg: "all be hexadecimal."
       },
       {
         id: uniqueId(),
         check: validateArray(isStringLength(24)),
-        message: "all be of length 24."
+        msg: "all be of length 24."
       }
     ]
   },
@@ -411,9 +362,10 @@ export const song = [
     name: "Artists",
     short: "artists",
     type: "list",
+    doc: true,
     init: [
       {
-        id: uniqueId(),
+        id: "5d7b0bf40831ef374c3be00e",
         name: "Martin Garrix"
       }
     ],
@@ -428,17 +380,17 @@ export const song = [
       {
         id: uniqueId(),
         check: validateArray(isString),
-        message: "data type of string."
+        msg: "data type of string."
       },
       {
         id: uniqueId(),
         check: validateArray(isHex),
-        message: "all be hexadecimal."
+        msg: "all be hexadecimal."
       },
       {
         id: uniqueId(),
         check: validateArray(isStringLength(24)),
-        message: "all be of length 24."
+        msg: "all be of length 24."
       }
     ]
   },
@@ -447,9 +399,10 @@ export const song = [
     name: "Genres",
     short: "genres",
     type: "list",
+    doc: true,
     init: [
       {
-        id: uniqueId(),
+        id: "5d7b0bf40831ef374c3be00f",
         name: "Future House"
       }
     ],
@@ -464,17 +417,17 @@ export const song = [
       {
         id: uniqueId(),
         check: validateArray(isString),
-        message: "data type of string."
+        msg: "data type of string."
       },
       {
         id: uniqueId(),
         check: validateArray(isHex),
-        message: "all be hexadecimal."
+        msg: "all be hexadecimal."
       },
       {
         id: uniqueId(),
         check: validateArray(isStringLength(24)),
-        message: "all be of length 24."
+        msg: "all be of length 24."
       }
     ]
   },
@@ -483,7 +436,11 @@ export const song = [
     name: "Album",
     short: "album",
     type: "text",
-    init: "Ocean",
+    doc: true,
+    init: {
+      id: "5d7b0bf40831ef374c3be010",
+      name: "Ocean"
+    },
     req: true,
     min: 0,
     max: 24,
@@ -495,17 +452,17 @@ export const song = [
       {
         id: uniqueId(),
         check: isString,
-        message: "data type of string."
+        msg: "data type of string."
       },
       {
         id: uniqueId(),
         check: isHex,
-        message: "hexadecimal."
+        msg: "hexadecimal."
       },
       {
         id: uniqueId(),
         check: isStringLength(24),
-        message: "of length 24."
+        msg: "of length 24."
       }
     ]
   }

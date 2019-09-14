@@ -89,19 +89,25 @@ export const determinePattern = ({ type }) => {
   }
 }
 
-export const determineInputValue = ({ type, parse }, value) => {
+export const determineFieldVal = ({ short }, form) => form[short]
+
+export const determineInputVal = ({ type, doc, parse }, val) => {
   if (type === "list") {
-    return parse.out(value.input)
+    return parse.out(val.input)
+  } else if (doc) {
+    return val.name
   } else {
-    return parse.out(value)
+    return parse.out(val)
   }
 }
 
-export const determineValidatorValue = ({ type }, value) => {
+export const determineValidatorVal = ({ type, doc }, val) => {
   if (type === "list") {
-    return value.list.map(({ id }) => id)
+    return val.list.map(({ id }) => id)
+  } else if (doc) {
+    return val.id
   } else {
-    return value
+    return val
   }
 }
 
@@ -111,4 +117,19 @@ export const determineRequired = ({ type, req }) => {
   } else {
     return req
   }
+}
+
+export const validateForm = (form, fields) => {
+  console.log(form)
+  return fields.reduce(
+    (isValid, { short, validators }) => (
+      isValid = validators.reduce(
+        (isFieldValid, { check }) => {
+          isFieldValid = check(form[short])
+        },
+        true
+      )
+    ),
+    true
+  )
 }

@@ -32,6 +32,12 @@
       margin-top: 3px;
       align-items: center;
       display: flex; }
+    &__img {
+      height: 26px;
+      width: 26px;
+      margin: 13px -5px 12px 13px;
+      border-radius: 3px;
+      border: 1px solid #BDBDBD; }
     &__input {
       width: 100%;
       border: none;

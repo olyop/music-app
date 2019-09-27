@@ -1,13 +1,10 @@
 import { includes } from "lodash"
 
-export const handleFormChange = (form, setForm) => ({ type, short, parse }) => event => {
+export const handleFormChange = (form, setForm) => ({ short, parse }) => event => {
   const value = parse.in(event.target.value)
   setForm({
     ...form,
-    [short]: type === "list" ? {
-      ...form[short],
-      input: value
-    } : value
+    [short]: value
   })
 }
 
@@ -27,12 +24,11 @@ export const handleFormSubmit = (form, initFunc, init, submitFunc) => {
 }
 
 export const createFormInit = fields => fields.reduce(
-  (acc, { type, short, init }) => ({
+  (acc, { short, type, doc, init }) => ({
     ...acc,
-    [short]: type === "list" ? {
-      input: "",
-      list: init
-    } : init
+    [short]: type === "list" ?
+      { input: "", items: init } :
+      (doc ? { input: "", doc: init } : init) 
   }),
   {}
 )
@@ -89,28 +85,6 @@ export const determinePattern = ({ type }) => {
   }
 }
 
-export const determineFieldVal = ({ short }, form) => form[short]
-
-export const determineInputVal = ({ type, doc, parse }, val) => {
-  if (type === "list") {
-    return parse.out(val.input)
-  } else if (doc) {
-    return val.name
-  } else {
-    return parse.out(val)
-  }
-}
-
-export const determineValidatorVal = ({ type, doc }, val) => {
-  if (type === "list") {
-    return val.list.map(({ id }) => id)
-  } else if (doc) {
-    return val.id
-  } else {
-    return val
-  }
-}
-
 export const determineRequired = ({ type, req }) => {
   if (type === "list") {
     return undefined
@@ -119,17 +93,21 @@ export const determineRequired = ({ type, req }) => {
   }
 }
 
-export const validateForm = (form, fields) => {
-  console.log(form)
-  return fields.reduce(
-    (isValid, { short, validators }) => (
-      isValid = validators.reduce(
-        (isFieldValid, { check }) => {
-          isFieldValid = check(form[short])
-        },
-        true
-      )
-    ),
-    true
-  )
+export const determineFieldVal = ({ short }, form) => form[short]
+
+const determineState = ({ type, doc }, val) => {
+  
+}
+
+export const determineInputVal = ({ type, doc, parse }, val) => {
+  const state
+  if (type === "list") {
+    if (doc) state = val.doc
+    else state = val.
+  }
+  return parse.out(state)
+}
+
+export const validateForm = () => {
+  return true
 }

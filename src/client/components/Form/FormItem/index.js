@@ -1,13 +1,13 @@
 import React from "react"
 
-import Icon from "../../../Icon"
+import Icon from "../../Icon"
 
-import { ListItem as bem } from "../../../../globals/bem"
+import { FormItem as bem } from "../../../globals/bem"
 import { string, shape, func } from "prop-types"
 
 import "./index.scss"
 
-const ListItem = ({ item, onItemRemove }) => {
+const FormItem = ({ item, onItemRemove }) => {
   const { id, name } = item
   return (
     <div id={id} className={bem("")}>
@@ -30,7 +30,7 @@ const ListItem = ({ item, onItemRemove }) => {
   )
 }
 
-ListItem.propTypes = {
+FormItem.propTypes = {
   item: shape({
     id: string.isRequired,
     name: string.isRequired
@@ -38,4 +38,4 @@ ListItem.propTypes = {
   onItemRemove: func.isRequired
 }
 
-export default ListItem
+export default FormItem

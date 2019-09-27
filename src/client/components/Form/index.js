@@ -2,15 +2,10 @@ import React, { useState } from "react"
 
 import FormTitle from "./FormTitle"
 import FormField from "./FormField"
+import FormFields from "./FormFields"
 import FormSubmit from "./FormSubmit"
 
-import {
-  createFormInit,
-  determineFieldVal,
-  handleFormChange,
-  handleItemRemove,
-  validateForm
-} from "./helpers"
+import { createFormInit, determineFieldVal, handleFormChange, handleItemRemove } from "./helpers"
 
 import { string, arrayOf, object } from "prop-types"
 import { Form as bem } from "../../globals/bem"
@@ -20,27 +15,25 @@ import "./index.scss"
 
 const Form = ({ title, submitText, fields }) => {
   const init = createFormInit(fields)
+  console.log(JSON.stringify(init, undefined, 2))
   const [ form, setForm ] = useState(init)
   const onChange = handleFormChange(form, setForm)
   const onItemRemove = handleItemRemove(form, setForm)
-  const isFormValid = validateForm(form, fields)
   return (
     <form onSubmit={noop} className={bem("")}>
       <FormTitle>{title}</FormTitle>
-      <div className={bem("fields")}>
-        {fields.map(
-          field => (
-            <FormField
-              field={field}
-              key={field.id}
-              onChange={onChange(field)}
-              onItemRemove={onItemRemove(field)}
-              val={determineFieldVal(field, form)}
-            />
-          )
-        )}
-      </div>
-      {isFormValid ? <FormSubmit>{submitText}</FormSubmit> : null}
+      <FormFields>
+        {fields.map(field => (
+          <FormField
+            field={field}
+            key={field.id}
+            onChange={onChange(field)}
+            onItemRemove={onItemRemove(field)}
+            val={determineFieldVal(field, form)}
+          />
+        ))}
+      </FormFields>
+      <FormSubmit>{submitText}</FormSubmit>
     </form>
   )
 }

@@ -289,12 +289,7 @@ export const song = [
     short: "featuring",
     type: "list",
     doc: true,
-    init: [
-      {
-        id: "5d7b0bd56eb9700e842ceeb5",
-        name: "Khalid"
-      }
-    ],
+    init: ["ee2b6158df8e33fa33e97641"],
     req: false,
     min: 0,
     max: 24,
@@ -326,12 +321,7 @@ export const song = [
     short: "remixers",
     type: "list",
     doc: true,
-    init: [
-      {
-        id: "5d7b0bd56eb9700e842ceeb5",
-        name: "Don Diablo"
-      }
-    ],
+    init: ["58f180cd954223546bad3b8d"],
     req: false,
     min: 0,
     max: 24,
@@ -363,12 +353,7 @@ export const song = [
     short: "artists",
     type: "list",
     doc: true,
-    init: [
-      {
-        id: "5d7b0bf40831ef374c3be00e",
-        name: "Martin Garrix"
-      }
-    ],
+    init: ["f27b9b105031222228adfc2b"],
     req: true,
     min: 0,
     max: 24,
@@ -400,12 +385,7 @@ export const song = [
     short: "genres",
     type: "list",
     doc: true,
-    init: [
-      {
-        id: "5d7b0bf40831ef374c3be00f",
-        name: "Future House"
-      }
-    ],
+    init: ["cd72485214ed90c87ad9b352"],
     req: true,
     min: 0,
     max: 24,
@@ -437,10 +417,7 @@ export const song = [
     short: "album",
     type: "text",
     doc: true,
-    init: {
-      id: "5d7b0bf40831ef374c3be010",
-      name: "Ocean"
-    },
+    init: "6ed416274c52a862088ff03e",
     req: true,
     min: 0,
     max: 24,

@@ -16,6 +16,7 @@ export const CORS_OPTIONS = {
 export const DB_URL = "mongodb://localhost:27017/music-app"
 
 export const MONGOOSE_OPTIONS = {
+  useUnifiedTopology: true,
   useNewUrlParser: true,
   useCreateIndex: true,
   poolSize: 1,

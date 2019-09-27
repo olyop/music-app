@@ -1,14 +1,14 @@
 import React from "react"
 
-import Icon from "../../../Icon"
+import Icon from "../../Icon"
 
 import { shape, string, func, oneOfType, node, object, } from "prop-types"
-import { Validator as bem } from "../../../../globals/bem"
+import { FormValidator as bem } from "../../../globals/bem"
 import { noop } from "lodash"
 
 import "./index.scss"
 
-const Validator = ({ validator, val }) => {
+const FormValidator = ({ validator, val }) => {
   const { id, check, msg } = validator
   const isValid = check(val)
   return (
@@ -27,7 +27,7 @@ const Validator = ({ validator, val }) => {
   )
 }
 
-Validator.propTypes = {
+FormValidator.propTypes = {
   validator: shape({
     id: string.isRequired,
     check: func.isRequired,
@@ -36,4 +36,4 @@ Validator.propTypes = {
   val: oneOfType([ node, object ]).isRequired,
 }
 
-export default Validator
+export default FormValidator

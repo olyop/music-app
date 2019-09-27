@@ -1,7 +1,7 @@
 import React from "react"
 
-import ListItem from "./ListItem"
-import Validator from "./Validator"
+import FormItem from "../FormItem"
+import FormValidator from "../FormValidator"
 
 import {
   string, oneOf, node, shape, oneOfType,
@@ -12,12 +12,11 @@ import {
   determineMin,
   determineMax,
   determinePattern,
+  determineInputVal,
   determineRequired,
   determineInputType,
   determineMinLength,
   determineMaxLength,
-  determineInputVal,
-  determineValidatorVal,
 } from "../helpers"
 
 import { FormField as bem } from "../../../globals/bem"
@@ -26,7 +25,7 @@ import { isEmpty } from "lodash"
 import "./index.scss"
 
 const FormField = ({ field, val, onChange, onItemRemove }) => {
-  const { id, name, type, doc, validators } = field
+  const { id, name, type, doc, parse, validators } = field
   return (
     <div id={id} className={bem("")}>
       <label
@@ -38,11 +37,11 @@ const FormField = ({ field, val, onChange, onItemRemove }) => {
             aria-label={id}
             className={bem("name")}
           />
-          {type === "list" && !isEmpty(val.list) ? (
+          {type === "list" && !isEmpty(val) ? (
             <div className={bem("list")}>
-              {val.list.map(
+              {val.map(
                 item => (
-                  <ListItem
+                  <FormItem
                     item={item}
                     key={item.id}
                     onItemRemove={onItemRemove(item)}
@@ -75,7 +74,7 @@ const FormField = ({ field, val, onChange, onItemRemove }) => {
             required={determineRequired(field)}
             minLength={determineMinLength(field)}
             maxLength={determineMaxLength(field)}
-            value={determineInputVal(field,val)}
+            value={determineInputVal(field, val)}
           />
           {/* {name === "Featuring" ? (
             <div className={bem("dropdown")}>
@@ -87,10 +86,10 @@ const FormField = ({ field, val, onChange, onItemRemove }) => {
       <div className={bem("validators")}>
         {validators.map(
           validator => (
-            <Validator
+            <FormValidator
+              val={val}
               key={validator.id}
               validator={validator}
-              val={determineValidatorVal(field,val)}
             />
           )
         )}

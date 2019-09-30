@@ -1,14 +1,10 @@
-import { Artist, Label, Album, Genre, Song } from "../models/index.js"
+import { Artist, Album, Genre, Song } from "../models/index.js"
 
 import { serializeDocument } from "../../helpers/collection.js"
 
 export default {
   addArtist: async (parent, doc) => {
     const result = await Artist.create(doc)
-    return serializeDocument(result.toObject())
-  },
-  addLabel: async (parent, doc) => {
-    const result = await Label.create(doc)
     return serializeDocument(result.toObject())
   },
   addAlbum: async (parent, doc) => {

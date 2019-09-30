@@ -8,8 +8,8 @@
   "scripts": {
     "build": "rm -r -f src/server/build && clear && webpack --env.mode production",
     "server": "clear && node --experimental-modules src/server/index.js",
-    "dev-client": "webpack-dev-server --env.mode development",
-    "dev-server": "clear && nodemon --experimental-modules src/server/index.js",
+    "dev-client": "node_modules/.bin/webpack-dev-server --env.mode development",
+    "dev-server": "node_modules/.bin/nodemon --experimental-modules src/server/index.js",
     "development": "rm -r -f src/server/build && clear && concurrently \"npm run dev-client\" \"npm run dev-server\"",
     "sync": "git checkout . && git remote update && git pull",
     "push": "git status && git add -A && git commit -m \"Update\" && git push -u origin master"

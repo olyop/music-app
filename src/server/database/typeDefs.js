@@ -6,9 +6,6 @@ const typeDefs = gql`
     addArtist(
       name: String!
     ): Artist!
-    addLabel(
-      name: String!
-    ): Label!
     addAlbum(
       title: String!,
       released: Int!,
@@ -33,7 +30,6 @@ const typeDefs = gql`
 
   type Query {
     artists: [Artist!]!
-    labels: [Label!]!
     albums: [Album!]!
     genres: [Genre!]!
     songs: [Song]!
@@ -46,18 +42,11 @@ const typeDefs = gql`
     songs: [Song!]!
   }
 
-  type Label {
-    id: ID!
-    name: String!
-    albums: [Album!]!
-  }
-
   type Album {
     id: ID!
     title: String!
     released: Int!
     artists: [Artist!]!
-    label: Label!
     songs: [Song!]!
   }
 

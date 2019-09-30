@@ -1,15 +1,10 @@
-import { Artist, Label, Album, Genre, Song } from "../models/index.js"
+import { Artist, Album, Genre, Song } from "../models/index.js"
 
 import { serializeCollection } from "../../helpers/collection.js"
 
 export default {
   artists: async () => {
     const query = Artist.find().lean()
-    const result = await query.exec()
-    return serializeCollection(result)
-  },
-  labels: async () => {
-    const query = Label.find().lean()
     const result = await query.exec()
     return serializeCollection(result)
   },

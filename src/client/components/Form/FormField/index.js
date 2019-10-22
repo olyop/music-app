@@ -25,7 +25,7 @@ import { isEmpty } from "lodash"
 import "./index.scss"
 
 const FormField = ({ field, val, onChange, onItemRemove }) => {
-  const { id, name, type, doc, parse, validators } = field
+  const { id, name, type, doc, validators } = field
   return (
     <div id={id} className={bem("")}>
       <label
@@ -39,7 +39,7 @@ const FormField = ({ field, val, onChange, onItemRemove }) => {
           />
           {type === "list" && !isEmpty(val) ? (
             <div className={bem("list")}>
-              {val.map(
+              {val.items.map(
                 item => (
                   <FormItem
                     item={item}

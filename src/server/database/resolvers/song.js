@@ -18,8 +18,8 @@ export default {
     const result = await Promise.all(queries.map(query => query.exec()))
     return serializeCollection(result)
   },
-  genres: async ({ genre }) => {
-    const queries = genre.map(id => Genre.findById(id).lean())
+  genres: async ({ genres }) => {
+    const queries = genres.map(id => Genre.findById(id).lean())
     const result = await Promise.all(queries.map(query => query.exec()))
     return serializeCollection(result)
   },

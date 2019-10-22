@@ -1,22 +1,22 @@
-import OptimizeCssAssetsPlugin from "optimize-css-assets-webpack-plugin"
-import LodashModuleReplacementPlugin from "lodash-webpack-plugin"
-import { BundleAnalyzerPlugin } from "webpack-bundle-analyzer"
-import MiniCssExtractPlugin from "mini-css-extract-plugin"
-import CompressionPlugin from "compression-webpack-plugin"
-import WriteFilePlugin from "write-file-webpack-plugin"
-import MinifyPlugin from "babel-minify-webpack-plugin"
-import HtmlWebpackPlugin from "html-webpack-plugin"
-import CopyPlugin from "copy-webpack-plugin"
-import { ProgressPlugin } from "webpack"
-import { noop } from "lodash"
-import path from "path"
+const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin")
+const LodashModuleReplacementPlugin = require("lodash-webpack-plugin")
+const { BundleAnalyzerPlugin } = require("webpack-bundle-analyzer")
+const MiniCssExtractPlugin = require("mini-css-extract-plugin")
+const CompressionPlugin = require("compression-webpack-plugin")
+const WriteFilePlugin = require("write-file-webpack-plugin")
+const MinifyPlugin = require("babel-minify-webpack-plugin")
+const HtmlWebpackPlugin = require("html-webpack-plugin")
+const CopyPlugin = require("copy-webpack-plugin")
+const { ProgressPlugin } = require("webpack")
+const { noop } = require("lodash")
+const path = require("path")
 
 const srcPath = path.resolve("src")
 const clientPath = path.join(srcPath, "client")
 const serverPath = path.join(srcPath, "server")
 const publicPath = path.join(clientPath, "public")
 
-export default ({ mode }) => {
+module.exports = ({ mode }) => {
   const isProduction = mode === "production"
   return {
     mode,

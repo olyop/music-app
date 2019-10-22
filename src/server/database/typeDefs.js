@@ -29,6 +29,10 @@ const typeDefs = gql`
   }
 
   type Query {
+    artist(id: ID!): Artist!
+    album(id: ID!): Album!
+    genre(id: ID!): Genre!
+    song(id: ID!): Song!
     artists: [Artist!]!
     albums: [Album!]!
     genres: [Genre!]!

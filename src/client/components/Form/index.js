@@ -5,7 +5,10 @@ import FormField from "./FormField"
 import FormFields from "./FormFields"
 import FormSubmit from "./FormSubmit"
 
-import { createFormInit, determineFieldVal, handleFormChange, handleItemRemove } from "./helpers"
+import {
+  createFormInit, determineFieldVal,
+  handleFormChange, handleItemRemove
+} from "./helpers"
 
 import { string, arrayOf, object } from "prop-types"
 import { Form as bem } from "../../globals/bem"
@@ -15,10 +18,10 @@ import "./index.scss"
 
 const Form = ({ title, submitText, fields }) => {
   const init = createFormInit(fields)
-  console.log(JSON.stringify(init, undefined, 2))
   const [ form, setForm ] = useState(init)
   const onChange = handleFormChange(form, setForm)
   const onItemRemove = handleItemRemove(form, setForm)
+  console.log(form)
   return (
     <form onSubmit={noop} className={bem("")}>
       <FormTitle>{title}</FormTitle>

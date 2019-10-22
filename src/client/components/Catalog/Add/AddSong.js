@@ -7,7 +7,6 @@ import {
   isStringLengthInRange,
   isHex,
   isStringLength,
-  isNotEmpty,
   validateArray
 } from "./helpers"
 
@@ -19,6 +18,7 @@ import {
 } from "lodash"
 
 import { Add as bemAdd, AddSong as bem } from "../../../globals/bem"
+import { inRange as curryInRange } from "lodash/fp"
 
 const fieldsConfig = [
   {

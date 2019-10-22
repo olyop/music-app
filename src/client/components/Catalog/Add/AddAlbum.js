@@ -3,17 +3,20 @@ import React from "react"
 import Form from "../../Form"
 
 import {
-  isString,
   isStringLengthInRange,
   deserializeDate,
-  curryInRange,
   validateArray,
   isHex,
   isStringLength
 } from "./helpers"
 
+import {
+  uniqueId,
+  isString
+} from "lodash"
+
 import { Add as bemAdd, AddSong as bem } from "../../../globals/bem"
-import { uniqueId } from "lodash"
+import { inRange as curryInRange } from "lodash/fp"
 
 const fieldsConifg = [
   {

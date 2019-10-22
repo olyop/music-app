@@ -101,7 +101,7 @@ export const determineFieldVal = ({ type, short }, form) => {
   }
 }
 
-export const determineInputVal = ({ type, doc, parse }, val) => {
+export const determineInputVal = ({ type, parse }, val) => {
   if (type === "list") return parse.out(val.items)
   else return parse.out(val)
 }

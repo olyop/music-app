@@ -3,8 +3,8 @@ import React from "react"
 import Form from "../../Form"
 
 import { Add as bemAdd, AddGenre as bem } from "../../../globals/bem"
-import { isString, isStringLengthInRange } from "./helpers"
-import { uniqueId } from "lodash"
+import { isStringLengthInRange } from "./helpers"
+import { isString, uniqueId } from "lodash"
 
 const fieldsConfig = [
   {

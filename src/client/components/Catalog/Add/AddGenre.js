@@ -36,15 +36,13 @@ const fieldsConfig = [
   }
 ]
 
-const AddGenre = () => {
-  return (
-    <div className={bem({ ignore: true, className: bemAdd("content") }, "")}>
-      <Form
-        title="Add Genre"
-        fields={fieldsConfig}
-      />
-    </div>
-  )
-}
+const AddGenre = () => (
+  <div className={bem({ ignore: true, className: bemAdd("content") }, "")}>
+    <Form
+      title="Add Genre"
+      fields={fieldsConfig}
+    />
+  </div>
+)
 
 export default AddGenre

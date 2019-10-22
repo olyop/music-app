@@ -21,21 +21,19 @@ const Form = ({ title, submitText, fields }) => {
   const [ form, setForm ] = useState(init)
   const onChange = handleFormChange(form, setForm)
   const onItemRemove = handleItemRemove(form, setForm)
-  console.log(form)
+  const fields = fields.map(field => (
+    <FormField
+      field={field}
+      key={field.id}
+      onChange={onChange(field)}
+      onItemRemove={onItemRemove(field)}
+      val={determineFieldVal(field, form)}
+    />
+  ))
   return (
     <form onSubmit={noop} className={bem("")}>
       <FormTitle>{title}</FormTitle>
-      <FormFields>
-        {fields.map(field => (
-          <FormField
-            field={field}
-            key={field.id}
-            onChange={onChange(field)}
-            onItemRemove={onItemRemove(field)}
-            val={determineFieldVal(field, form)}
-          />
-        ))}
-      </FormFields>
+      <FormFields>{fields}</FormFields>
       <FormSubmit>{submitText}</FormSubmit>
     </form>
   )

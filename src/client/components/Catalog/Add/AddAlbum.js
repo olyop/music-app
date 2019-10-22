@@ -1,5 +1,9 @@
 import React from "react"
 
+import ApiError from "../../ApiError"
+import Loading from "../../Loading"
+import Query from "react-apollo"
+import Empty from "../../Empty"
 import Form from "../../Form"
 
 import {
@@ -17,8 +21,9 @@ import {
 
 import { Add as bemAdd, AddSong as bem } from "../../../globals/bem"
 import { inRange as curryInRange } from "lodash/fp"
+import query from "./queries/addAlbum.graphql"
 
-const fieldsConifg = [
+const fieldsConifg = artists => [
   {
     id: uniqueId(),
     name: "Title",
@@ -74,6 +79,7 @@ const fieldsConifg = [
     short: "artists",
     type: "list",
     doc: true,
+    db: artists,
     init: [],
     req: true,
     min: 0,
@@ -102,15 +108,23 @@ const fieldsConifg = [
   }
 ]
 
-const AddAlbum = () => {
-  return (
-    <div className={bem({ ignore: true, className: bemAdd("content") }, "")}>
-      <Form
-        title="Add Album"
-        fields={fieldsConifg}
-      />
-    </div>
-  )
-}
+const AddAlbum = () => (
+  <div className={bem({ ignore: true, className: bemAdd("content") }, "")}>
+    <Query query={query}>
+      {({ loading, error, data }) => {  
+        if (loading) return <Loading/>  
+        if (!isUndefined(error)) return <ApiError/>
+        if (isEmpty(data.artists)) return <Empty/>
+        const artistsOrdered = orderBy(data.artists, "name", "asc")
+        return (
+          <Form
+            title="Add Album"
+            fields={fieldsConifg(artistsOrdered)}
+          />
+        )
+      }}
+    </Query>
+  </div>
+)
 
 export default AddAlbum

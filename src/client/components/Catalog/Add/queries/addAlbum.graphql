@@ -1,0 +1,6 @@
+{
+  artists {
+    id
+    name
+  }
+}

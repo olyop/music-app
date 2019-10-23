@@ -22,10 +22,6 @@
     album {
       id
       title
-      label {
-        id
-        name
-      }
     }
   }
 }

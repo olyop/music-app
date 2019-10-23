@@ -2,9 +2,8 @@ import React from "react"
 
 import ApiError from "../../ApiError"
 import Loading from "../../Loading"
-import Query from "react-apollo"
-import Empty from "../../Empty"
-import Form from "../../Form"
+// import Form from "../../Form"
+import { Query } from "react-apollo"
 
 import {
   isStringLengthInRange,
@@ -16,14 +15,15 @@ import {
 
 import {
   uniqueId,
-  isString
+  isString,
+  isUndefined
 } from "lodash"
 
 import { Add as bemAdd, AddSong as bem } from "../../../globals/bem"
 import { inRange as curryInRange } from "lodash/fp"
 import query from "./queries/addAlbum.graphql"
 
-const fieldsConifg = artists => [
+const fieldsConifg = ({ artists }) => [
   {
     id: uniqueId(),
     name: "Title",
@@ -114,17 +114,18 @@ const AddAlbum = () => (
       {({ loading, error, data }) => {  
         if (loading) return <Loading/>  
         if (!isUndefined(error)) return <ApiError/>
-        if (isEmpty(data.artists)) return <Empty/>
-        const artistsOrdered = orderBy(data.artists, "name", "asc")
+        console.log(fieldsConifg(data))
         return (
-          <Form
-            title="Add Album"
-            fields={fieldsConifg(artistsOrdered)}
-          />
+          "foo"
         )
       }}
     </Query>
   </div>
 )
+
+/* <Form
+            title="Add Album"
+            fields={fieldsConifg(artistsOrdered)}
+          /> */
 
 export default AddAlbum

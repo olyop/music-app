@@ -5,16 +5,16 @@ import { string } from "prop-types"
 
 import "./index.scss"
 
-const Album = ({ id, title, artistName }) => (
-  <div className={bem("")}>
+const Album = ({ id, title, albumUrl, artist }) => (
+  <div id={id} className={bem("")}>
     <img
+      src={albumUrl}
       alt="albumCover"
       className={bem("cover")}
-      src={`/images/catalog/albumCovers/${id}.jpg`}
     />
     <div className={bem("info")}>
       <h2 className={bem("title")}>{title}</h2>
-      <h3 className={bem("artistName")}>{artistName}</h3>
+      <h3 className={bem("artistName")}>{artist}</h3>
     </div>
   </div>
 )
@@ -22,7 +22,8 @@ const Album = ({ id, title, artistName }) => (
 Album.propTypes = {
   id: string.isRequired,
   title: string.isRequired,
-  artistName: string.isRequired
+  albumUrl: string.isRequired,
+  artist: string.isRequired
 }
 
 export default Album

@@ -21,7 +21,7 @@ const Form = ({ title, submitText, fields }) => {
   const [ form, setForm ] = useState(init)
   const onChange = handleFormChange(form, setForm)
   const onItemRemove = handleItemRemove(form, setForm)
-  const fields = fields.map(field => (
+  const fieldsMap = fields.map(field => (
     <FormField
       field={field}
       key={field.id}
@@ -33,7 +33,7 @@ const Form = ({ title, submitText, fields }) => {
   return (
     <form onSubmit={noop} className={bem("")}>
       <FormTitle>{title}</FormTitle>
-      <FormFields>{fields}</FormFields>
+      <FormFields>{fieldsMap}</FormFields>
       <FormSubmit>{submitText}</FormSubmit>
     </form>
   )

@@ -1,0 +1,14 @@
+{
+  artists {
+    id
+    name
+  }
+  albums {
+    id
+    title
+  }
+  genres {
+    id
+    name
+  }
+}

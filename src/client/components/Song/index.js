@@ -5,13 +5,13 @@ import { string } from "prop-types"
 
 import "./index.scss"
 
-const Song = ({ title, albumId, albumTitle, artistName }) => (
-  <tr className={bem("")}>
+const Song = ({ id, title, albumUrl, albumTitle, artist }) => (
+  <tr id={id} className={bem("")}>
     <td className={bem("tableCol", "tableHeadCover")}>
       <img
+        src={albumUrl}
         alt="albumCover"
         className={bem("albumCover")}
-        src={`/images/catalog/albumCovers/${albumId}.jpg`}
       />
     </td>
     <td className={bem("tableCol")}>
@@ -21,16 +21,17 @@ const Song = ({ title, albumId, albumTitle, artistName }) => (
       <span className={bem("tableColSpan")}>{albumTitle}</span>
     </td>
     <td className={bem("tableCol")}>
-      <span className={bem("tableColSpan")}>{artistName}</span>
+      <span className={bem("tableColSpan")}>{artist}</span>
     </td>
   </tr>
 )
 
 Song.propTypes = {
+  id: string.isRequired,
   title: string.isRequired,
-  albumId: string.isRequired,
-  artistName: string.isRequired,
-  albumTitle: string.isRequired
+  albumUrl: string.isRequired,
+  albumTitle: string.isRequired,
+  artist: string.isRequired
 }
 
 export default Song

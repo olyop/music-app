@@ -7,6 +7,7 @@ import Empty from "../Empty"
 import Songs from "../Songs"
 import Song from "../Song"
 
+import { deserializeArtists } from "../../helpers/library"
 import { LibrarySongs as bem } from "../../globals/bem"
 import { isUndefined, isEmpty, orderBy } from "lodash"
 import query from "./queries/songs.graphql"
@@ -19,6 +20,7 @@ const LibrarySongs = () => (
         if (!isUndefined(error)) return <ApiError/>
         if (isEmpty(data.songs)) return <Empty/>
         const songsOrdered = orderBy(data.songs, "title", "asc")
+        console.log(data)
         return (
           <Songs>
             {songsOrdered.map(song => (
@@ -26,9 +28,9 @@ const LibrarySongs = () => (
                 id={song.id}
                 key={song.id}
                 title={song.title}
-                artistName={song.artist.name}
-                albumId={song.album.id}
                 albumTitle={song.album.title}
+                artist={deserializeArtists(song.artists)}
+                albumUrl={`/images/catalog/albumCovers/${song.album.id}.jpg`}
               />
             ))}
           </Songs>

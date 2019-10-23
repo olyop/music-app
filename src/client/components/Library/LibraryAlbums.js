@@ -7,6 +7,7 @@ import Albums from "../Albums"
 import Album from "../Album"
 import Empty from "../Empty"
 
+import { deserializeArtists } from "../../helpers/library"
 import { LibraryAlbums as bem } from "../../globals/bem"
 import { isUndefined, isEmpty, orderBy } from "lodash"
 import query from "./queries/albums.graphql"
@@ -26,7 +27,8 @@ const LibraryAlbums = () => (
                 id={album.id}
                 key={album.id}
                 title={album.title}
-                artistName={album.artist.name}
+                artist={deserializeArtists(album.artists)}
+                albumUrl={`/images/catalog/albumCovers/${album.id}.jpg`}
               />
             ))}
           </Albums>

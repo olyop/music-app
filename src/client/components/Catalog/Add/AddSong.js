@@ -1,6 +1,9 @@
 import React from "react"
 
-import Form from "../../Form"
+import ApiError from "../../ApiError"
+import Loading from "../../Loading"
+// import Form from "../../Form"
+import { Query } from "react-apollo"
 
 import {
   isNotEmpty,
@@ -12,6 +15,7 @@ import {
 
 import {
   isSafeInteger,
+  isUndefined,
   uniqueId,
   isString,
   toInteger
@@ -19,8 +23,9 @@ import {
 
 import { Add as bemAdd, AddSong as bem } from "../../../globals/bem"
 import { inRange as curryInRange } from "lodash/fp"
+import query from "./queries/addSong.graphql"
 
-const fieldsConfig = [
+const fieldsConifg = ({ artists, albums, genres }) => [
   {
     id: uniqueId(),
     name: "Title",
@@ -135,7 +140,7 @@ const fieldsConfig = [
     short: "featuring",
     type: "list",
     doc: true,
-    db: [],
+    db: artists,
     init: ["ee2b6158df8e33fa33e97641"],
     req: false,
     min: 0,
@@ -168,7 +173,7 @@ const fieldsConfig = [
     short: "remixers",
     type: "list",
     doc: true,
-    db: [],
+    db: artists,
     init: ["58f180cd954223546bad3b8d"],
     req: false,
     min: 0,
@@ -201,7 +206,7 @@ const fieldsConfig = [
     short: "artists",
     type: "list",
     doc: true,
-    db: [],
+    db: artists,
     init: ["f27b9b105031222228adfc2b"],
     req: true,
     min: 0,
@@ -234,7 +239,7 @@ const fieldsConfig = [
     short: "genres",
     type: "list",
     doc: true,
-    db: [],
+    db: genres,
     init: ["cd72485214ed90c87ad9b352"],
     req: true,
     min: 0,
@@ -267,7 +272,7 @@ const fieldsConfig = [
     short: "album",
     type: "text",
     doc: true,
-    db: [],
+    db: albums,
     init: "6ed416274c52a862088ff03e",
     req: true,
     min: 0,
@@ -298,11 +303,22 @@ const fieldsConfig = [
 
 const AddSong = () => (
   <div className={bem({ ignore: true, className: bemAdd("content") }, "")}>
-    <Form
-      title="Add Song"
-      fields={fieldsConfig}
-    />
+    <Query query={query}>
+      {({ loading, error, data }) => {  
+        if (loading) return <Loading/>  
+        if (!isUndefined(error)) return <ApiError/>
+        console.log(fieldsConifg(data))
+        return (
+          "foo"
+        )
+      }}
+    </Query>
   </div>
 )
+
+/* <Form
+      title="Add Song"
+      fields={fieldsConfig}
+    /> */
 
 export default AddSong

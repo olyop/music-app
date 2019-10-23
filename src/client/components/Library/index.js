@@ -3,9 +3,10 @@ import React from "react"
 import { Switch, Route, NavLink } from "react-router-dom"
 import Icon from "../Icon"
 
-import routesConfig from "./routesConfig"
 import { Library as bem } from "../../globals/bem"
 import { shape, string } from "prop-types"
+import routesConfig from "./routesConfig"
+import { noop } from "lodash"
 
 import "./index.scss"
 
@@ -22,8 +23,9 @@ const Library = ({ match }) => (
             children={<>
               <Icon
                 bem={bem}
-                icon={route.icon}
+                onClick={noop}
                 className="icon"
+                icon={route.icon}
               />
               <span className={bem("text")}>{route.name}</span>
             </>}

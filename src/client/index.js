@@ -8,7 +8,13 @@ import Pages from "./components/Pages"
 import { ROOT_ELEMENT } from "./globals"
 import { render } from "react-dom"
 
+import reactBEM from "@oly_op/react-bem"
+
 import "./index.scss"
+
+const bem = reactBEM("foo")
+const test = foo("bar")
+console.log(test)
 
 render(
   <Apollo>

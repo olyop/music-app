@@ -1,9 +1,9 @@
 import React from "react"
 
-import ApiError from "../../ApiError"
-import Loading from "../../Loading"
-// import Form from "../../Form"
+import ApiError from "../../../ApiError"
+import Loading from "../../../Loading"
 import { Query } from "react-apollo"
+// import Form from "../../../Form"
 
 import {
   isStringLengthInRange,
@@ -11,7 +11,7 @@ import {
   validateArray,
   isHex,
   isStringLength
-} from "./helpers"
+} from "../helpers"
 
 import {
   uniqueId,
@@ -19,9 +19,9 @@ import {
   isUndefined
 } from "lodash"
 
-import { Add as bemAdd, AddSong as bem } from "../../../globals/bem"
+import { Add as bemAdd, AddSong as bem } from "../../../../globals/bem"
 import { inRange as curryInRange } from "lodash/fp"
-import query from "./queries/addAlbum.graphql"
+import query from "./query.graphql"
 
 const fieldsConifg = ({ artists }) => [
   {

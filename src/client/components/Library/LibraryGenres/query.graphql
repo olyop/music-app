@@ -1,0 +1,6 @@
+{
+  genres {
+    id
+    name
+  }
+}

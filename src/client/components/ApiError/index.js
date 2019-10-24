@@ -1,11 +1,3 @@
-import React from "react"
-
-import { ApiError as bem } from "../../globals/bem"
-
-const ApiError = () => (
-  <div className={bem("")}>
-    ApiError
-  </div>
-)
+import ApiError from "./ApiError"
 
 export default ApiError

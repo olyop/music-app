@@ -1,13 +1,3 @@
-import React from "react"
-
-import { Loading as bem } from "../../globals/bem"
-
-import "./index.scss"
-
-const Loading = () => (
-  <div className={bem("")}>
-    Loading....
-  </div>
-)
+import Loading from "./Loading"
 
 export default Loading

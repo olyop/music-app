@@ -1,15 +1,15 @@
 import React from "react"
 
 import { Query } from "react-apollo"
-import ApiError from "../ApiError"
-import Loading from "../Loading"
-import Artists from "../Artists"
-import Artist from "../Artist"
-import Empty from "../Empty"
+import ApiError from "../../ApiError"
+import Loading from "../../Loading"
+import Artists from "../../Artists"
+import Artist from "../../Artist"
+import Empty from "../../Empty"
 
-import { LibraryArtists as bem } from "../../globals/bem"
+import { LibraryArtists as bem } from "../../../globals/bem"
 import { isUndefined, isEmpty, orderBy } from "lodash"
-import query from "./queries/artists.graphql"
+import query from "./query.graphql"
 
 const LibraryArtists = () => (
   <div className={bem("")}>

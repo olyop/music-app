@@ -1,5 +1,6 @@
 import LibraryArtists from "./LibraryArtists"
 import LibraryAlbums from "./LibraryAlbums"
+import LibraryGenres from "./LibraryGenres"
 import LibrarySongs from "./LibrarySongs"
 
 import { uniqueId } from "lodash"
@@ -18,6 +19,13 @@ const routesConfigLibrary = [
     name: "Artists",
     icon: "person",
     component: LibraryArtists
+  },
+  {
+    id: uniqueId(),
+    path: "/genres",
+    name: "Genres",
+    icon: "person",
+    component: LibraryGenres
   },
   {
     id: uniqueId(),

@@ -1,0 +1,19 @@
+.Genre {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  background-color: transparent;
+  border-radius: 3px;
+  box-shadow: 0 1px 4px 0 rgba(#333333,.3);
+  &__info {
+    width: 100%;
+    padding: 10px;
+    border-radius: 0 0 3px 3px;
+    border-right: 1px solid;
+    border-bottom: 1px solid;
+    border-left: 1px solid;
+    border-color: #e0e0e0; }
+    &__title {
+      font-size: 20rem;
+      margin-bottom: 3px; }
+}

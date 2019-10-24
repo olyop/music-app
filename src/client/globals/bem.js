@@ -2,10 +2,12 @@ import componentClassNames from "../helpers/componentClassNames"
 
 export const Artists = componentClassNames("Artists")
 export const Albums = componentClassNames("Albums")
+export const Genres = componentClassNames("Genres")
 export const Songs = componentClassNames("Songs")
 
 export const Artist = componentClassNames("Artist")
 export const Album = componentClassNames("Album")
+export const Genre = componentClassNames("Genre")
 export const Song = componentClassNames("Song")
 
 export const Header = componentClassNames("Header")
@@ -23,6 +25,7 @@ export const AddSong = componentClassNames("AddSong")
 export const Library = componentClassNames("Library")
 export const LibraryArtists = componentClassNames("LibraryArtists")
 export const LibraryAlbums = componentClassNames("LibraryAlbums")
+export const LibraryGenres = componentClassNames("LibraryGenres")
 export const LibrarySongs = componentClassNames("LibrarySongs")
 
 export const ApiError = componentClassNames("ApiError")

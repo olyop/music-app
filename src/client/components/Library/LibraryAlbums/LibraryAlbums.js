@@ -1,16 +1,16 @@
 import React from "react"
 
 import { Query } from "react-apollo"
-import ApiError from "../ApiError"
-import Loading from "../Loading"
-import Albums from "../Albums"
-import Album from "../Album"
-import Empty from "../Empty"
+import ApiError from "../../ApiError"
+import Loading from "../../Loading"
+import Albums from "../../Albums"
+import Album from "../../Album"
+import Empty from "../../Empty"
 
-import { deserializeArtists } from "../../helpers/library"
-import { LibraryAlbums as bem } from "../../globals/bem"
+import { LibraryAlbums as bem } from "../../../globals/bem"
 import { isUndefined, isEmpty, orderBy } from "lodash"
-import query from "./queries/albums.graphql"
+import { deserializeArtists } from "../helpers"
+import query from "./query.graphql"
 
 const LibraryAlbums = () => (
   <div className={bem("")}>

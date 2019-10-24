@@ -1,10 +1,10 @@
 import React from "react"
 
-import Form from "../../Form"
+import Form from "../../../Form"
 
-import { Add as bemAdd, AddGenre as bem } from "../../../globals/bem"
-import { isStringLengthInRange } from "./helpers"
-import { isString, uniqueId } from "lodash"
+import { Add as bemAdd, AddArtist as bem } from "../../../../globals/bem"
+import { isStringLengthInRange } from "../helpers"
+import { uniqueId, isString } from "lodash"
 
 const fieldsConfig = [
   {
@@ -30,19 +30,19 @@ const fieldsConfig = [
       {
         id: uniqueId(),
         check: isStringLengthInRange(1, 128),
-        msg: "between 1 and 128 characters."
+        msg: "between 1 and 256 characters."
       }
     ]
   }
 ]
 
-const AddGenre = () => (
+const AddArtist = () => (
   <div className={bem({ ignore: true, className: bemAdd("content") }, "")}>
     <Form
-      title="Add Genre"
+      title="Add Artist"
       fields={fieldsConfig}
     />
   </div>
 )
 
-export default AddGenre
+export default AddArtist

@@ -2,7 +2,7 @@ import React from "react"
 
 import { NavLink } from "react-router-dom"
 
-import { Sidebar as bem } from "../../globals/bem"
+import reactBEM from "@oly_op/react-bem"
 import { func } from "prop-types"
 
 import routesConfigPages from "../Pages/routesConfig"
@@ -11,6 +11,8 @@ import routesConfigLibrary from "../Library/routesConfig"
 import routesConfigCatalogAdd from "../Catalog/Add/routesConfig"
 
 import "./Sidebar.scss"
+
+const bem = reactBEM("Sidebar")
 
 const Sidebar = ({ toggleSidebar }) => (
   <div className={bem("")} onClick={toggleSidebar} role="button" tabIndex={0}>

@@ -1,8 +1,10 @@
 import React from "react"
 
-import { FormSubmit as bem } from "../../../globals/bem"
+import reactBEM from "@oly_op/react-bem"
 
 import "./FormSubmit.scss"
+
+const bem = reactBEM("FormSubmit")
 
 const FormSubmit = () => (
   <input

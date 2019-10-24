@@ -1,14 +1,16 @@
 import React from "react"
 
-import { Genre as bem } from "../../globals/bem"
+import reactBEM from "@oly_op/react-bem"
 import { string } from "prop-types"
 
 import "./Genre.scss"
 
+const bem = reactBEM("Genre")
+
 const Genre = ({ id, name }) => (
   <div id={id} className={bem("")}>
     <div className={bem("info")}>
-      <h2 className={bem("name")}>{title}</h2>
+      <h2 className={bem("name")}>{name}</h2>
     </div>
   </div>
 )

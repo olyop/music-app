@@ -1,9 +1,11 @@
 import React from "react"
 
-import { FormFields as bem } from "../../../globals/bem"
+import reactBEM from "@oly_op/react-bem"
 import { node } from "prop-types"
 
 import "./FormFields.scss"
+
+const bem = reactBEM("FormFields")
 
 const FormFields = ({ children }) => (
   <div className={bem("")}>

@@ -2,11 +2,13 @@ import React from "react"
 
 import { NavLink, Switch, Route } from "react-router-dom"
 
-import { Add as bem } from "../../../globals/bem"
+import reactBEM from "@oly_op/react-bem"
 import { shape, string } from "prop-types"
 import routesConfig from "./routesConfig"
 
-import "./index.scss"
+import "./Add.scss"
+
+const bem = reactBEM("Add")
 
 const Add = ({ match }) => (
   <div className={bem("")}>
@@ -23,16 +25,18 @@ const Add = ({ match }) => (
       </div>
     </div>
     <div className={bem("main")}>
-      <Switch>
-        {routesConfig.map(route => (
-          <Route
-            exact
-            key={route.id}
-            path={match.path + route.path}
-            component={route.component}
-          />
-        ))}
-      </Switch>
+      <div className={bem("content")}>
+        <Switch>
+          {routesConfig.map(route => (
+            <Route
+              exact
+              key={route.id}
+              component={route.component}
+              path={match.path + route.path}
+            />
+          ))}
+        </Switch>
+      </div>
     </div>
   </div>
 )

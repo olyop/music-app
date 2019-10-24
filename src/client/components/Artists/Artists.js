@@ -1,9 +1,11 @@
 import React from "react"
 
-import { Artists as bem } from "../../globals/bem"
+import reactBEM from "@oly_op/react-bem"
 import { node } from "prop-types"
 
 import "./Artists.scss"
+
+const bem = reactBEM("Artists")
 
 const Artists = ({ children }) => (
   <div className={bem("")}>

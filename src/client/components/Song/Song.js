@@ -1,13 +1,15 @@
 import React from "react"
 
-import { Song as bem } from "../../globals/bem"
+import reactBEM from "@oly_op/react-bem"
 import { string } from "prop-types"
 
-import "./index.scss"
+import "./Song.scss"
+
+const bem = reactBEM("Song")
 
 const Song = ({ id, title, albumUrl, albumTitle, artist }) => (
   <tr id={id} className={bem("")}>
-    <td className={bem("tableCol", "tableHeadCover")}>
+    <td className={bem("tableCol","tableHeadCover")}>
       <img
         src={albumUrl}
         alt="albumCover"

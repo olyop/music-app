@@ -2,10 +2,12 @@ import React from "react"
 
 import Icon from "../Icon"
 
-import { Songs as bem } from "../../globals/bem"
+import reactBEM from "@oly_op/react-bem"
 import { node } from "prop-types"
 
 import "./Songs.scss"
+
+const bem = reactBEM("Songs")
 
 const Songs = ({ children }) => (
   <div className={bem("")}>

@@ -19,10 +19,12 @@ import {
   determineMaxLength,
 } from "../helpers"
 
-import { FormField as bem } from "../../../globals/bem"
+import reactBEM from "@oly_op/react-bem"
 import { isEmpty } from "lodash"
 
 import "./FormField.scss"
+
+const bem = reactBEM("FormField")
 
 const FormField = ({ field, val, onChange, onItemRemove }) => {
   const { id, name, type, doc, validators } = field

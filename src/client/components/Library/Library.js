@@ -3,12 +3,14 @@ import React from "react"
 import { Switch, Route, NavLink } from "react-router-dom"
 import Icon from "../Icon"
 
-import { Library as bem } from "../../globals/bem"
 import { shape, string } from "prop-types"
 import routesConfig from "./routesConfig"
+import reactBEM from "@oly_op/react-bem"
 import { noop } from "lodash"
 
 import "./Library.scss"
+
+const bem = reactBEM("Library")
 
 const Library = ({ match }) => (
   <section className={bem("")}>

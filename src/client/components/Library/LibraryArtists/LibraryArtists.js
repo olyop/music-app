@@ -7,9 +7,11 @@ import Artists from "../../Artists"
 import Artist from "../../Artist"
 import Empty from "../../Empty"
 
-import { LibraryArtists as bem } from "../../../globals/bem"
 import { isUndefined, isEmpty, orderBy } from "lodash"
+import reactBEM from "@oly_op/react-bem"
 import query from "./query.graphql"
+
+const bem = reactBEM("LibraryArtists")
 
 const LibraryArtists = () => (
   <div className={bem("")}>

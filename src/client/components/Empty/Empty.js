@@ -1,6 +1,8 @@
 import React from "react"
 
-import { Empty as bem } from "../../globals/bem"
+import reactBEM from "@oly_op/react-bem"
+
+const bem = reactBEM("Empty")
 
 const Empty = () => (
   <div className={bem("")}>

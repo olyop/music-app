@@ -2,10 +2,12 @@ import React from "react"
 
 import Icon from "../../Icon"
 
-import { FormItem as bem } from "../../../globals/bem"
 import { string, shape, func } from "prop-types"
+import reactBEM from "@oly_op/react-bem"
 
 import "./FormItem.scss"
+
+const bem = reactBEM("FormItem")
 
 const FormItem = ({ item, onItemRemove }) => {
   const { id, name } = item

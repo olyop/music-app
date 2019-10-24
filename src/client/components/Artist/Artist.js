@@ -1,9 +1,11 @@
 import React from "react"
 
-import { Artist as bem } from "../../globals/bem"
+import reactBEM from "@oly_op/react-bem"
 import { string } from "prop-types"
 
 import "./Artist.scss"
+
+const bem = reactBEM("Artist")
 
 const Artist = ({ id, name }) => (
   <div className={bem("")}>

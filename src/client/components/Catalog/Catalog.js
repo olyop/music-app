@@ -2,11 +2,13 @@ import React from "react"
 
 import { NavLink, Switch, Route } from "react-router-dom"
 
-import { Catalog as bem } from "../../globals/bem"
 import { shape, string } from "prop-types"
 import routesConfig from "./routesConfig"
+import reactBEM from "@oly_op/react-bem"
 
 import "./Catalog.scss"
+
+const bem = reactBEM("Catalog")
 
 const Catalog = ({ match }) => (
   <div className={bem("")}>

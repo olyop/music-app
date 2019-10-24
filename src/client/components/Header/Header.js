@@ -3,9 +3,11 @@ import React, { useState } from "react"
 import Sidebar from "../Sidebar"
 import Icon from "../Icon"
 
-import { Header as bem } from "../../globals/bem"
+import reactBEM from "@oly_op/react-bem"
 
 import "./Header.scss"
+
+const bem = reactBEM("Header")
 
 const Header = () => {
   const [ sidebar, useSidebar ] = useState(false)

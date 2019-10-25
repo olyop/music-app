@@ -8,7 +8,6 @@ import Songs from "../../Songs"
 import Song from "../../Song"
 
 import { isUndefined, isEmpty, orderBy } from "lodash"
-import { deserializeArtists } from "../helpers"
 import reactBEM from "@oly_op/react-bem"
 import query from "./query.graphql"
 
@@ -31,7 +30,7 @@ const LibrarySongs = () => (
                 key={song.id}
                 title={song.title}
                 albumTitle={song.album.title}
-                artist={deserializeArtists(song.artists)}
+                artists={song.artists}
                 albumUrl={`/images/catalog/albumCovers/${song.album.id}.jpg`}
               />
             ))}

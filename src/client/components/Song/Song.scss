@@ -1,6 +1,5 @@
 .Song {
   height: 44px;
-  cursor: pointer;
   border-bottom: 1px solid #e0e0e0;
   &:hover {
     background-color: #eeeeee; }
@@ -14,8 +13,11 @@
       width: 50px;
       padding: 0 0 0 8px; }
     &__tableColSpan {
-      font-size: 16rem;
+      font-size: 16rem; }
+    &__albumLink {
+      text-decoration: none;
       &:hover {
+        color: #1a73e8;
         text-decoration: underline; }
     }
 }

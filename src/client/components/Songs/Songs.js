@@ -4,6 +4,7 @@ import Icon from "../Icon"
 
 import reactBEM from "@oly_op/react-bem"
 import { node } from "prop-types"
+import { noop } from "lodash"
 
 import "./Songs.scss"
 
@@ -18,12 +19,15 @@ const Songs = ({ children }) => (
             <Icon
               bem={bem}
               icon="album"
+              onClick={noop}
               className="tableHeadIcon"
             />
           </th>
           <th className={bem("tableHeadCol")}>Title</th>
-          <th className={bem("tableHeadCol")}>Artist</th>
+          <th className={bem("tableHeadCol")}>Artists</th>
+          <th className={bem("tableHeadCol")}>Remixers</th>
           <th className={bem("tableHeadCol")}>Album</th>
+          <th className={bem("tableHeadCol")}>Released</th>
         </tr>
       </thead>
       <tbody className={bem("tableBody")}>

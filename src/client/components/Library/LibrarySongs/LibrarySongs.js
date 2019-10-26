@@ -21,7 +21,6 @@ const LibrarySongs = () => (
         if (!isUndefined(error)) return <ApiError/>
         if (isEmpty(data.songs)) return <Empty/>
         const songsOrdered = orderBy(data.songs, "title", "asc")
-        console.log(data)
         return (
           <Songs>
             {songsOrdered.map(song => (
@@ -29,8 +28,11 @@ const LibrarySongs = () => (
                 id={song.id}
                 key={song.id}
                 title={song.title}
-                albumTitle={song.album.title}
                 artists={song.artists}
+                remixers={song.remixers}
+                featuring={song.featuring}
+                albumTitle={song.album.title}
+                released={song.album.released}
                 albumUrl={`/images/catalog/albumCovers/${song.album.id}.jpg`}
               />
             ))}

@@ -1,0 +1,7 @@
+.ArtistsLinks {
+  &__link {
+    text-decoration: none;
+    &:hover {
+      color: #1a73e8;
+      text-decoration: underline; } }
+}

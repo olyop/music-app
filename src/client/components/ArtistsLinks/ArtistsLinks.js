@@ -9,20 +9,32 @@ import "./ArtistsLinks.scss"
 
 const bem = reactBEM("ArtistsLinks")
 
+const determineConcat = (artists, index) => {
+  const numOfArtists = artists.length
+  if (numOfArtists - 2 === index) {
+    return " & "
+  } else if (numOfArtists - 1 === index) {
+    return null
+  } else {
+    return ", "
+  }
+}
+
 const ArtistsLinks = ({ artists }) => (
-  <div className={bem("")}>
+  <span className={bem("")}>
     {artists.map(
-      artist => <>
-        <NavLink
-          key={artist.id}
-          className={bem("link")}
-          to={`/artist/${artist.id}`}
-          children={artist.name}
-        />
-        {", "}
-      </>
+      (artist, index) => (
+        <span key={artist.id}>
+          <NavLink
+            children={artist.name}
+            className={bem("link")}
+            to={`/artist/${artist.id}`}
+          />
+          {determineConcat(artists, index)}
+        </span>
+      )
     )}
-  </div>
+  </span>
 )
 
 ArtistsLinks.propTypes = {

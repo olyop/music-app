@@ -27,7 +27,7 @@ const Songs = ({ children }) => (
           <th className={bem("tableHeadCol")}>Artists</th>
           <th className={bem("tableHeadCol")}>Remixers</th>
           <th className={bem("tableHeadCol")}>Album</th>
-          <th className={bem("tableHeadCol")}>Genre</th>
+          <th className={bem("tableHeadCol")}>Genres</th>
           <th className={bem("tableHeadCol")}>Released</th>
         </tr>
       </thead>

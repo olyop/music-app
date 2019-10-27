@@ -20,7 +20,7 @@ const LibrarySongs = () => (
         if (loading) return <Loading/>  
         if (!isUndefined(error)) return <ApiError/>
         if (isEmpty(data.songs)) return <Empty/>
-        const songsOrdered = orderBy(data.songs, "album.released", "desc")
+        const songsOrdered = orderBy(data.songs, ["album.released","discNumber","trackNumber"], ["desc","asc","asc"])
         return (
           <Songs>
             {songsOrdered.map(song => (

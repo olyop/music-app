@@ -7,7 +7,10 @@
     width: 100%;
     height: auto;
     box-shadow: 0 1px 4px 0 rgba(#333333,.3);
-    border-radius: 3px 3px 0 0; }
+    border-radius: 4px;
+    transition: .2s all;
+    &:hover {
+      box-shadow: 0 3px 6px 0 rgba(#333333,.5); } }
   &__info {
     width: 100%;
     padding: 10px 0;

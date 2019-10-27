@@ -1,3 +1,5 @@
+import { toString } from "lodash"
+
 export const pipe = x => (...funcs) => funcs.reduce((val, func) => func(val), x)
 
 export const stringify = obj => JSON.stringify(obj)
@@ -12,10 +14,10 @@ export const isHex = str => (str.match(/([0-9]|[a-f])/gim) || []).length === str
 
 export const deserializeDate = unixTimeStamp => {
   const date = new Date(unixTimeStamp * 1000)
-  let month = date.getMonth() + 1
+  const year = toString(date.getFullYear())
   let day = date.getDate()
-  const year = date.getFullYear()
-  if (month.length < 2) month = `0${month}`
-  if (day.length < 2) day = `0${day}`
+  let month = date.getMonth() + 1
+  if (day <= 9) day = toString(`0${day}`)
+  if (month <= 9) month = toString(`0${month}`)
   return [day, month, year].join("/")
 }

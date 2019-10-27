@@ -1,5 +1,6 @@
 import React from "react"
 
+import { NavLink } from "react-router-dom"
 import Links from "../Links"
 
 import { string, arrayOf, object } from "prop-types"
@@ -11,11 +12,13 @@ const bem = reactBEM("Album")
 
 const Album = ({ id, title, albumUrl, artists }) => (
   <div id={id} className={bem("")}>
-    <img
-      src={albumUrl}
-      alt="albumCover"
-      className={bem("cover")}
-    />
+    <NavLink to={`/album/${id}`}>
+      <img
+        src={albumUrl}
+        alt="albumCover"
+        className={bem("cover")}
+      />
+    </NavLink>
     <div className={bem("info")}>
       <p className={bem("title")}>{title}</p>
       <p className={bem("artistName")}>

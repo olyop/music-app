@@ -3,6 +3,8 @@
     id
     title
     mix
+    discNumber
+    trackNumber
     featuring {
       id
       name

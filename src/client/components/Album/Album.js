@@ -1,6 +1,6 @@
 import React from "react"
 
-import ArtistsLinks from "../ArtistsLinks"
+import Links from "../Links"
 
 import { string, arrayOf, object } from "prop-types"
 import reactBEM from "@oly_op/react-bem"
@@ -17,10 +17,13 @@ const Album = ({ id, title, albumUrl, artists }) => (
       className={bem("cover")}
     />
     <div className={bem("info")}>
-      <h2 className={bem("title")}>{title}</h2>
-      <h3 className={bem("artistName")}>
-        <ArtistsLinks artists={artists} />
-      </h3>
+      <p className={bem("title")}>{title}</p>
+      <p className={bem("artistName")}>
+        <Links
+          path="/artist"
+          links={artists}
+        />
+      </p>
     </div>
   </div>
 )

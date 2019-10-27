@@ -2,25 +2,26 @@
   display: flex;
   align-items: center;
   flex-direction: column;
-  background-color: transparent;
   border-radius: 3px;
-  box-shadow: 0 1px 4px 0 rgba(#333333,.3);
   &__cover {
     width: 100%;
     height: auto;
+    box-shadow: 0 1px 4px 0 rgba(#333333,.3);
     border-radius: 3px 3px 0 0; }
   &__info {
     width: 100%;
-    padding: 10px;
-    border-radius: 0 0 3px 3px;
-    border-right: 1px solid;
-    border-bottom: 1px solid;
-    border-left: 1px solid;
+    padding: 10px 0;
     border-color: #e0e0e0; }
     &__title {
       font-size: 18rem;
-      margin-bottom: 3px; }
+      max-height: 18rem;
+      margin-bottom: 3px;
+      font-weight: 700; }
     &__artistName {
       font-size: 16rem;
+      max-height: 16rem;
       font-weight: 400; }
+    &__title, &__artistName {
+      overflow: hidden;
+      text-overflow: ellipsis; }
 }

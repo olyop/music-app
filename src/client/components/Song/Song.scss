@@ -8,6 +8,8 @@
     &__albumCover {
       margin-bottom: -3px;
       width: 30px;
+      border-radius: 2px;
+      box-shadow: 0 1px 4px 0 rgba(#333333,.3);
       height: 30px; }
     &__tableHeadCover {
       width: 50px;

@@ -11,11 +11,11 @@ export const isLength = (str, length) => str.length === length
 export const isHex = str => (str.match(/([0-9]|[a-f])/gim) || []).length === str.length
 
 export const deserializeDate = unixTimeStamp => {
-  const date = new Date(unixTimeStamp)
-  const month = date.getMonth() + 1
-  const day = date.getDate()
+  const date = new Date(unixTimeStamp * 1000)
+  let month = date.getMonth() + 1
+  let day = date.getDate()
   const year = date.getFullYear()
   if (month.length < 2) month = `0${month}`
   if (day.length < 2) day = `0${day}`
-  return [day, month, year].join('-')
+  return [day, month, year].join("/")
 }

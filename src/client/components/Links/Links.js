@@ -2,12 +2,12 @@ import React from "react"
 
 import { NavLink } from "react-router-dom"
 
+import { arrayOf, object, string } from "prop-types"
 import reactBEM from "@oly_op/react-bem"
-import { arrayOf, object } from "prop-types"
 
-import "./ArtistsLinks.scss"
+import "./Links.scss"
 
-const bem = reactBEM("ArtistsLinks")
+const bem = reactBEM("Links")
 
 const determineConcat = (artists, index) => {
   const numOfArtists = artists.length
@@ -20,25 +20,26 @@ const determineConcat = (artists, index) => {
   }
 }
 
-const ArtistsLinks = ({ artists }) => (
+const Links = ({ links, path }) => (
   <span className={bem("")}>
-    {artists.map(
-      (artist, index) => (
-        <span key={artist.id}>
+    {links.map(
+      (link, index) => (
+        <span key={link.id}>
           <NavLink
-            children={artist.name}
+            children={link.name}
             className={bem("link")}
-            to={`/artist/${artist.id}`}
+            to={`${path}/${link.id}`}
           />
-          {determineConcat(artists, index)}
+          {determineConcat(links, index)}
         </span>
       )
     )}
   </span>
 )
 
-ArtistsLinks.propTypes = {
-  artists: arrayOf(object).isRequired
+Links.propTypes = {
+  links: arrayOf(object).isRequired,
+  path: string.isRequired
 }
 
-export default ArtistsLinks
+export default Links

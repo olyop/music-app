@@ -1,9 +1,10 @@
 import React from "react"
 
-import ArtistsLinks from "../ArtistsLinks"
+import FeaturingArtists from "../FeaturingArtists"
 import { NavLink } from "react-router-dom"
+import Links from "../Links"
 
-import { string, arrayOf, object, number } from "prop-types"
+import { string, shape, arrayOf, object, number } from "prop-types"
 import { deserializeDate } from "../../helpers/misc"
 import reactBEM from "@oly_op/react-bem"
 import { isEmpty } from "lodash"
@@ -12,7 +13,9 @@ import "./Song.scss"
 
 const bem = reactBEM("Song")
 
-const Song = ({ id, title, albumUrl, albumTitle, artists, featuring, remixers, released }) => (
+const Song = ({
+  id, mix, title, albumUrl, album, artists, featuring, remixers, released, genres
+}) => (
   <tr id={id} className={bem("")}>
     <td className={bem("tableCol","tableHeadCover")}>
       <img
@@ -22,28 +25,40 @@ const Song = ({ id, title, albumUrl, albumTitle, artists, featuring, remixers, r
       />
     </td>
     <td className={bem("tableCol")}>
-      <span className={bem("tableColSpan")}>{title}</span>
+      <span className={bem("tableColSpan")}>{`${title}${isEmpty(mix) ? "" : ` (${mix})`}`}</span>
     </td>
     <td className={bem("tableCol")}>
       <span className={bem("tableColSpan")}>
-        <ArtistsLinks artists={artists} />
-        {isEmpty(featuring) ? null : <>
-          <span> feat. </span>
-          <ArtistsLinks artists={featuring} />
-        </>}
+        <FeaturingArtists
+          artists={artists}
+          featuring={featuring}
+        />
       </span>
     </td>
     <td className={bem("tableCol")}>
       <span className={bem("tableColSpan")}>
-        <ArtistsLinks artists={remixers} />
+        {isEmpty(remixers) ? null : (
+          <Links
+            path="/artist"
+            links={remixers}
+          />
+        )}
       </span>
     </td>
     <td className={bem("tableCol")}>
       <NavLink
-        to={`/album/${id}`}
-        children={albumTitle}
+        to={`/album/${album.id}`}
+        children={album.title}
         className={bem("tableColSpan", "albumLink")}
       />
+    </td>
+    <td className={bem("tableCol")}>
+      <span className={bem("tableColSpan")}>
+        <Links
+          path="/genre"
+          links={genres}
+        />
+      </span>
     </td>
     <td className={bem("tableCol")}>
       <span className={bem("tableColSpan")}>{deserializeDate(released)}</span>
@@ -53,18 +68,24 @@ const Song = ({ id, title, albumUrl, albumTitle, artists, featuring, remixers, r
 
 Song.propTypes = {
   id: string.isRequired,
+  mix: string.isRequired,
   title: string.isRequired,
+  album: shape({
+    id: string.isRequired,
+    title: string.isRequired
+  }).isRequired,
+  genres: arrayOf(object),
   remixers: arrayOf(object),
   featuring: arrayOf(object),
   released: number.isRequired,
   albumUrl: string.isRequired,
-  albumTitle: string.isRequired,
   artists: arrayOf(object).isRequired
 }
 
 Song.defaultProps = {
   featuring: [],
-  remixers: []
+  remixers: [],
+  genres: []
 }
 
 export default Song

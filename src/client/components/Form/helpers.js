@@ -1,5 +1,17 @@
 import { includes } from "lodash"
 
+export const createFormInit = fields => fields.reduce(
+  (acc, { short, isDoc, db, init }) => ({
+    ...acc,
+    [short]: isDoc ? {
+      db,
+      val: init,
+      input: ""
+    } : init
+  }),
+  {}
+)
+
 export const handleFormChange = (form, setForm) => ({ short, parse }) => event => {
   const value = parse.in(event.target.value)
   setForm({
@@ -8,12 +20,12 @@ export const handleFormChange = (form, setForm) => ({ short, parse }) => event =
   })
 }
 
-export const handleItemRemove = (form, setForm) => ({ short }) => ({ id }) => () => {
+export const handleDocRemove = (form, setForm) => ({ short }) => ({ id }) => () => {
   setForm({
     ...form,
     [short]: {
       ...form[short],
-      list: form[short].list.filter(item => item.id !== id)
+      db: form[short].db.filter(doc => doc.id !== id)
     }
   })
 }
@@ -22,16 +34,6 @@ export const handleFormSubmit = (form, initFunc, init, submitFunc) => {
   submitFunc({ variables: form })
   initFunc(init)
 }
-
-export const createFormInit = fields => fields.reduce(
-  (acc, { short, type, doc, init }) => ({
-    ...acc,
-    [short]: type === "list" ?
-      { input: "", items: init } :
-      (doc ? { input: "", doc: init } : init) 
-  }),
-  {}
-)
 
 export const determineInputType = ({ type }) => {
   if (includes(["text","list"], type)) {
@@ -93,17 +95,16 @@ export const determineRequired = ({ type, req }) => {
   }
 }
 
-export const determineFieldVal = ({ type, short }, form) => {
-  if (type === "list") {
-    return form[short].items
-  } else {
-    return form[short]
-  }
-}
+export const determineFieldVal = ({ short }, form) => form[short]
 
 export const determineInputVal = ({ type, parse }, val) => {
-  if (type === "list") return parse.out(val.items)
+  if (type === "list") return parse.out(val.input)
   else return parse.out(val)
+}
+
+export const determineValidatorVal = ({ isDoc }, val) => {
+  if (isDoc) return val.val
+  else return val
 }
 
 export const validateForm = () => {

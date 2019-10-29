@@ -7,7 +7,7 @@ const fieldsConfig = [
     name: "Name",
     short: "name",
     type: "text",
-    doc: false,
+    isDoc: false,
     init: "",
     req: true,
     min: 0,

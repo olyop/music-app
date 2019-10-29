@@ -1,7 +1,7 @@
 import React from "react"
 
-import FormItem from "../FormItem"
 import FormValidator from "../FormValidator"
+import FormDoc from "../FormDoc"
 
 import {
   string, oneOf, node, shape, oneOfType,
@@ -17,6 +17,7 @@ import {
   determineInputType,
   determineMinLength,
   determineMaxLength,
+  determineValidatorVal
 } from "../helpers"
 
 import reactBEM from "@oly_op/react-bem"
@@ -26,8 +27,9 @@ import "./FormField.scss"
 
 const bem = reactBEM("FormField")
 
-const FormField = ({ field, val, onChange, onItemRemove }) => {
-  const { id, name, type, doc, validators } = field
+const FormField = ({ field, val, onChange, onDocRemove }) => {
+  const { id, name, type, isDoc, validators } = field
+  console.log(determineValidatorVal(field, val))
   return (
     <div id={id} className={bem("")}>
       <label
@@ -41,18 +43,18 @@ const FormField = ({ field, val, onChange, onItemRemove }) => {
           />
           {type === "list" && !isEmpty(val) ? (
             <div className={bem("list")}>
-              {val.items.map(
-                item => (
-                  <FormItem
-                    item={item}
-                    key={item.id}
-                    onItemRemove={onItemRemove(item)}
+              {val.val.map(
+                doc => (
+                  <FormDoc
+                    doc={doc}
+                    key={doc.id}
+                    onDocRemove={onDocRemove(doc)}
                   />
                 )
               )}
             </div>
           ) : null}
-          {doc && type !== "list" ? (
+          {isDoc && type !== "list" ? (
             <img
               alt="foo"
               id={val.id}
@@ -78,20 +80,20 @@ const FormField = ({ field, val, onChange, onItemRemove }) => {
             maxLength={determineMaxLength(field)}
             value={determineInputVal(field, val)}
           />
-          {/* {name === "Featuring" ? (
+          {name === "Featuring" ? (
             <div className={bem("dropdown")}>
               <div className={bem("dropdownItem")}>Foo</div>
             </div>
-          ) : null} */}
+          ) : null}
         </>}
       />
       <div className={bem("validators")}>
         {validators.map(
           validator => (
             <FormValidator
-              val={val}
               key={validator.id}
               validator={validator}
+              val={determineValidatorVal(field, val)}
             />
           )
         )}
@@ -106,7 +108,7 @@ FormField.propTypes = {
     name: string.isRequired,
     short: string.isRequired,
     type: oneOf([ "text", "date", "list", "int" ]).isRequired,
-    doc: bool.isRequired,
+    isDoc: bool.isRequired,
     init: oneOfType([ array, string, number, object ]).isRequired,
     req: bool.isRequired,
     validators: arrayOf(object).isRequired,
@@ -118,7 +120,7 @@ FormField.propTypes = {
     }).isRequired,
   }).isRequired,
   onChange: func.isRequired,
-  onItemRemove: func.isRequired,
+  onDocRemove: func.isRequired,
   val: oneOfType([ node, object ]).isRequired
 }
 

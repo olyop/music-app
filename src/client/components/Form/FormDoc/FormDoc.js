@@ -5,12 +5,12 @@ import Icon from "../../Icon"
 import { string, shape, func } from "prop-types"
 import reactBEM from "@oly_op/react-bem"
 
-import "./FormItem.scss"
+import "./FormDoc.scss"
 
-const bem = reactBEM("FormItem")
+const bem = reactBEM("FormDoc")
 
-const FormItem = ({ item, onItemRemove }) => {
-  const { id, name } = item
+const FormDoc = ({ doc, onDocRemove }) => {
+  const { id, name } = doc
   return (
     <div id={id} className={bem("")}>
       <img
@@ -26,18 +26,18 @@ const FormItem = ({ item, onItemRemove }) => {
         bem={bem}
         icon="close"
         className="close"
-        onClick={onItemRemove}
+        onClick={onDocRemove}
       />
     </div>
   )
 }
 
-FormItem.propTypes = {
-  item: shape({
+FormDoc.propTypes = {
+  doc: shape({
     id: string.isRequired,
     name: string.isRequired
   }).isRequired,
-  onItemRemove: func.isRequired
+  onDocRemove: func.isRequired
 }
 
-export default FormItem
+export default FormDoc

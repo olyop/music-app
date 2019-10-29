@@ -25,7 +25,9 @@ const Song = ({
       />
     </td>
     <td className={bem("tableCol")}>
-      <span className={bem("tableColSpan")}>{`${title}${isEmpty(mix) ? "" : ` (${mix})`}`}</span>
+      <span className={bem("tableColSpan")}>
+        {`${title}${isEmpty(mix) ? "" : ` (${mix})`}`}
+      </span>
     </td>
     <td className={bem("tableCol")}>
       <span className={bem("tableColSpan")}>
@@ -47,8 +49,8 @@ const Song = ({
     </td>
     <td className={bem("tableCol")}>
       <NavLink
-        to={`/album/${album.id}`}
         children={album.title}
+        to={`/album/${album.id}`}
         className={bem("tableColSpan", "albumLink")}
       />
     </td>

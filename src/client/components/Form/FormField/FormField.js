@@ -29,7 +29,6 @@ const bem = reactBEM("FormField")
 
 const FormField = ({ field, val, onChange, onDocRemove }) => {
   const { id, name, type, isDoc, validators } = field
-  console.log(determineValidatorVal(field, val))
   return (
     <div id={id} className={bem("")}>
       <label
@@ -47,7 +46,7 @@ const FormField = ({ field, val, onChange, onDocRemove }) => {
                 doc => (
                   <FormDoc
                     doc={doc}
-                    key={doc.id}
+                    key={doc}
                     onDocRemove={onDocRemove(doc)}
                   />
                 )
@@ -80,11 +79,11 @@ const FormField = ({ field, val, onChange, onDocRemove }) => {
             maxLength={determineMaxLength(field)}
             value={determineInputVal(field, val)}
           />
-          {name === "Featuring" ? (
+          {/* {name === "Featuring" ? (
             <div className={bem("dropdown")}>
               <div className={bem("dropdownItem")}>Foo</div>
             </div>
-          ) : null}
+          ) : null} */}
         </>}
       />
       <div className={bem("validators")}>

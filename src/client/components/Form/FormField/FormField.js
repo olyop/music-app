@@ -11,6 +11,7 @@ import {
 import {
   determineMin,
   determineMax,
+  determineDoc,
   determinePattern,
   determineInputVal,
   determineRequired,
@@ -28,7 +29,7 @@ import "./FormField.scss"
 const bem = reactBEM("FormField")
 
 const FormField = ({ field, val, onChange, onDocRemove }) => {
-  const { id, name, type, isDoc, validators } = field
+  const { id, name, type, isDoc, db, validators } = field
   return (
     <div id={id} className={bem("")}>
       <label
@@ -42,15 +43,13 @@ const FormField = ({ field, val, onChange, onDocRemove }) => {
           />
           {type === "list" && !isEmpty(val) ? (
             <div className={bem("list")}>
-              {val.val.map(
-                doc => (
-                  <FormDoc
-                    doc={doc}
-                    key={doc}
-                    onDocRemove={onDocRemove(doc)}
-                  />
-                )
-              )}
+              {val.val.map(doc => (
+                <FormDoc
+                  doc={determineDoc(doc,db)}
+                  key={doc.id}
+                  onDocRemove={onDocRemove(doc)}
+                />
+              ))}
             </div>
           ) : null}
           {isDoc && type !== "list" ? (
@@ -108,6 +107,7 @@ FormField.propTypes = {
     short: string.isRequired,
     type: oneOf([ "text", "date", "list", "int" ]).isRequired,
     isDoc: bool.isRequired,
+    db: arrayOf(object),
     init: oneOfType([ array, string, number, object ]).isRequired,
     req: bool.isRequired,
     validators: arrayOf(object).isRequired,

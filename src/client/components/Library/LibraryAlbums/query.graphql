@@ -7,5 +7,9 @@
       id
       name
     }
+    remixers {
+      id
+      name
+    }
   }
 }

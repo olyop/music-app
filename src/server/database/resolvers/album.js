@@ -1,10 +1,15 @@
 import { Artist, Song } from "../models/index.js"
 
-import { serializeDocument, serializeCollection } from "../../helpers/collection.js"
+import { serializeCollection } from "../../helpers/collection.js"
 
 export default {
   artists: async ({ artists }) => {
     const queries = artists.map(id => Artist.findById(id).lean())
+    const result = await Promise.all(queries.map(query => query.exec()))
+    return serializeCollection(result)
+  },
+  remixers: async ({ remixers }) => {
+    const queries = remixers.map(id => Artist.findById(id).lean())
     const result = await Promise.all(queries.map(query => query.exec()))
     return serializeCollection(result)
   },

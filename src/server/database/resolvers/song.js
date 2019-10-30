@@ -26,6 +26,7 @@ export default {
   album: async ({ album }) => {
     const query = Album.findById(album).lean()
     const result = await query.exec()
+    console.log(serializeDocument(result))
     return serializeDocument(result)
   }
 }

@@ -107,6 +107,8 @@ export const determineValidatorVal = ({ isDoc }, val) => {
   else return val
 }
 
+export const determineDoc = (val, db) => db.filter(({ id }) => id !== val)
+
 export const validateForm = () => {
   return true
 }

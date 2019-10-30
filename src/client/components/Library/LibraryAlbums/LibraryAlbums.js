@@ -29,6 +29,7 @@ const LibraryAlbums = () => (
                 key={album.id}
                 title={album.title}
                 artists={album.artists}
+                remixers={album.remixers}
                 albumUrl={`/images/catalog/albumCovers/${album.id}.jpg`}
               />
             ))}

@@ -3,23 +3,49 @@
   border-bottom: 1px solid #e0e0e0;
   &:hover {
     background-color: #eeeeee; }
+  &:hover &__playIcon {
+    display: inline-block; }
   &__tableCol {
     text-align: left;}
     &__albumCover {
       margin-bottom: -3px;
       width: 30px;
-      border-radius: 2px;
+      border-radius: 3px;
       box-shadow: 0 1px 4px 0 rgba(#333333,.3);
       height: 30px; }
     &__tableHeadCover {
+      position: relative;
       width: 50px;
       padding: 0 0 0 8px; }
+      &__playIcon {
+        position: absolute;
+        outline: none;
+        font-size: 30rem;
+        transition: .2s box-shadow;
+        color: #ffffff;
+        left: 8px;
+        top: 6px;
+        border-radius: 3px;
+        display: none;
+        background-color: rgba(#333333, .8);
+        &:hover {
+          box-shadow: 3px 6px 10px 0 rgba(#333333,.4); }
+        &:active {
+          animation: play .3s ease-out; } }
     &__tableColSpan {
       font-size: 16rem; }
-    &__albumLink {
+    &__mix {
+      font-weight: 400;
+      color: #757575; }
+    &__link {
       text-decoration: none;
       &:hover {
         color: #1a73e8;
-        text-decoration: underline; }
-    }
+        text-decoration: underline; } }
+}
+
+@keyframes play {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); }
 }

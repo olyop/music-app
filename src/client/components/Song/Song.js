@@ -3,11 +3,12 @@ import React from "react"
 import FeaturingArtists from "../FeaturingArtists"
 import { NavLink } from "react-router-dom"
 import Links from "../Links"
+import Icon from "../Icon"
 
 import { string, shape, arrayOf, object, number } from "prop-types"
 import { deserializeDate } from "../../helpers/misc"
 import reactBEM from "@oly_op/react-bem"
-import { isEmpty } from "lodash"
+import { noop, isEmpty } from "lodash"
 
 import "./Song.scss"
 
@@ -23,11 +24,22 @@ const Song = ({
         alt="albumCover"
         className={bem("albumCover")}
       />
+      <Icon
+        bem={bem}
+        onClick={noop}
+        icon="play_arrow"
+        className="playIcon"
+      />
     </td>
     <td className={bem("tableCol")}>
-      <span className={bem("tableColSpan")}>
-        {`${title}${isEmpty(mix) ? "" : ` (${mix})`}`}
-      </span>
+      <div className={bem("tableColSpan")}>
+        <NavLink
+          children={title}
+          to={`/song/${id}`}
+          className={bem("link")}
+        />
+        <span className={bem("mix")}>{isEmpty(mix) ? "" : ` ${mix}`}</span>
+      </div>
     </td>
     <td className={bem("tableCol")}>
       <span className={bem("tableColSpan")}>
@@ -51,8 +63,18 @@ const Song = ({
       <NavLink
         children={album.title}
         to={`/album/${album.id}`}
-        className={bem("tableColSpan", "albumLink")}
+        className={bem("tableColSpan", "link")}
       />
+      {isEmpty(album.remixers) ? null : <>
+        <span> (</span>
+        <span>
+          <Links
+            path="/artist"
+            links={album.remixers}
+          />
+        </span>
+        <span> Remix)</span>
+      </>}
     </td>
     <td className={bem("tableCol")}>
       <span className={bem("tableColSpan")}>

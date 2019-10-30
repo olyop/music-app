@@ -10,12 +10,12 @@ import "./FormDoc.scss"
 const bem = reactBEM("FormDoc")
 
 const FormDoc = ({ doc, onDocRemove }) => {
-  const { id, name } = doc
+  const { id, name, photoUrl } = doc
   return (
     <div id={id} className={bem("")}>
       <img
-        alt="foo"
-        src="/test.jpg"
+        alt="doc"
+        src={photoUrl}
         className={bem("img")}
       />
       <p
@@ -35,7 +35,8 @@ const FormDoc = ({ doc, onDocRemove }) => {
 FormDoc.propTypes = {
   doc: shape({
     id: string.isRequired,
-    name: string.isRequired
+    name: string.isRequired,
+    photoUrl: string.isRequired
   }).isRequired,
   onDocRemove: func.isRequired
 }

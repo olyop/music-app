@@ -25,7 +25,6 @@ const Form = ({ title, submitText, fields }) => {
   const [ form, setForm ] = useState(init)
   const onChange = handleFormChange(form, setForm)
   const onDocRemove = handleDocRemove(form, setForm)
-  console.log(init)
   return (
     <form onSubmit={noop} className={bem("")}>
       <FormTitle>{title}</FormTitle>

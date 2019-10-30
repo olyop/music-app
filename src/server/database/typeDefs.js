@@ -9,8 +9,8 @@ const typeDefs = gql`
     addAlbum(
       title: String!,
       released: Int!,
-      label: ID!,
-      artists: [ID!]!
+      artists: [ID!]!,
+      remixers: [ID!]!
     ): Album!
     addSong(
       title: String!,
@@ -51,6 +51,7 @@ const typeDefs = gql`
     title: String!
     released: Int!
     artists: [Artist!]!
+    remixers: [Artist!]!
     songs: [Song!]!
   }
 

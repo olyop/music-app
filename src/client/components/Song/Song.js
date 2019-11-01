@@ -1,8 +1,9 @@
 import React from "react"
 
 import FeaturingArtists from "../FeaturingArtists"
-import { NavLink } from "react-router-dom"
-import Links from "../Links"
+import AlbumTitle from "../AlbumTitle"
+import DocLinks from "../DocLinks"
+import DocLink from "../DocLink"
 import Icon from "../Icon"
 
 import { string, shape, arrayOf, object, number } from "prop-types"
@@ -33,12 +34,12 @@ const Song = ({
     </td>
     <td className={bem("tableCol")}>
       <div className={bem("tableColSpan")}>
-        <NavLink
-          children={title}
-          to={`/song/${id}`}
-          className={bem("link")}
+        <DocLink
+          path="/song"
+          keyName="title"
+          doc={{ id, title }}
         />
-        <span className={bem("mix")}>{isEmpty(mix) ? "" : ` ${mix}`}</span>
+        <span className={bem("mix")}>{isEmpty(mix) ? "" : ` - ${mix} Mix`}</span>
       </div>
     </td>
     <td className={bem("tableCol")}>
@@ -52,35 +53,27 @@ const Song = ({
     <td className={bem("tableCol")}>
       <span className={bem("tableColSpan")}>
         {isEmpty(remixers) ? null : (
-          <Links
+          <DocLinks
             path="/artist"
-            links={remixers}
+            keyName="name"
+            docs={remixers}
           />
         )}
       </span>
     </td>
     <td className={bem("tableCol")}>
-      <NavLink
-        children={album.title}
-        to={`/album/${album.id}`}
-        className={bem("tableColSpan", "link")}
+      <AlbumTitle
+        id={album.id}
+        title={album.title}
+        remixers={album.remixers}
       />
-      {isEmpty(album.remixers) ? null : <>
-        <span> (</span>
-        <span>
-          <Links
-            path="/artist"
-            links={album.remixers}
-          />
-        </span>
-        <span> Remix)</span>
-      </>}
     </td>
     <td className={bem("tableCol")}>
       <span className={bem("tableColSpan")}>
-        <Links
+        <DocLinks
           path="/genre"
-          links={genres}
+          docs={genres}
+          keyName="name"
         />
       </span>
     </td>

@@ -1,4 +1,4 @@
-import React from "react"
+import React, { Fragment } from "react"
 
 import FormValidator from "../FormValidator"
 import FormDoc from "../FormDoc"
@@ -35,55 +35,57 @@ const FormField = ({ field, val, onChange, onDocRemove }) => {
       <label
         className={bem("label")}
         htmlFor={id}
-        children={<>
-          <span
-            children={name}
-            aria-label={id}
-            className={bem("name")}
-          />
-          {type === "list" && !isEmpty(val) ? (
-            <div className={bem("list")}>
-              {val.val.map(doc => (
-                <FormDoc
-                  doc={determineDoc(doc,db)}
-                  key={doc.id}
-                  onDocRemove={onDocRemove(doc)}
-                />
-              ))}
-            </div>
-          ) : null}
-          {isDoc && type !== "list" ? (
-            <img
-              alt="foo"
-              id={val.id}
-              src="/test.jpg"
-              className={bem("img")}
+        children={(
+          <Fragment>
+            <span
+              children={name}
+              aria-label={id}
+              className={bem("name")}
             />
-          ) : null}
-          <input
-            id={id}
-            name={name}
-            autoCorrect="off"
-            autoComplete="off"
-            spellCheck="false"
-            onChange={onChange}
-            autoCapitalize="off"
-            className={bem("input")}
-            min={determineMin(field)}
-            max={determineMax(field)}
-            type={determineInputType(field)}
-            pattern={determinePattern(field)}
-            required={determineRequired(field)}
-            minLength={determineMinLength(field)}
-            maxLength={determineMaxLength(field)}
-            value={determineInputVal(field, val)}
-          />
-          {/* {name === "Featuring" ? (
-            <div className={bem("dropdown")}>
-              <div className={bem("dropdownItem")}>Foo</div>
-            </div>
-          ) : null} */}
-        </>}
+            {type === "list" && !isEmpty(val) ? (
+              <div className={bem("list")}>
+                {val.val.map(doc => (
+                  <FormDoc
+                    doc={determineDoc(doc,db)}
+                    key={doc.id}
+                    onDocRemove={onDocRemove(doc)}
+                  />
+                ))}
+              </div>
+            ) : null}
+            {isDoc && type !== "list" ? (
+              <img
+                alt="foo"
+                id={val.id}
+                src="/test.jpg"
+                className={bem("img")}
+              />
+            ) : null}
+            <input
+              id={id}
+              name={name}
+              autoCorrect="off"
+              autoComplete="off"
+              spellCheck="false"
+              onChange={onChange}
+              autoCapitalize="off"
+              className={bem("input")}
+              min={determineMin(field)}
+              max={determineMax(field)}
+              type={determineInputType(field)}
+              pattern={determinePattern(field)}
+              required={determineRequired(field)}
+              minLength={determineMinLength(field)}
+              maxLength={determineMaxLength(field)}
+              value={determineInputVal(field, val)}
+            />
+            {/* {name === "Featuring" ? (
+              <div className={bem("dropdown")}>
+                <div className={bem("dropdownItem")}>Foo</div>
+              </div>
+            ) : null} */}
+          </Fragment>
+        )}
       />
       <div className={bem("validators")}>
         {validators.map(

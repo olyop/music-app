@@ -1,27 +1,28 @@
-import React from "react"
+import React, { Fragment } from "react"
 
-import Links from "../Links"
+import DocLinks from "../DocLinks"
 
 import { arrayOf, object } from "prop-types"
-import reactBEM from "@oly_op/react-bem"
 import { isEmpty } from "lodash"
 
-const bem = reactBEM("FeaturingArtists")
-
 const FeaturingArtists = ({ artists, featuring }) => (
-  <div className={bem("")}>
-    <Links
+  <Fragment>
+    <DocLinks
+      keyName="name"
       path="/artist"
-      links={artists}
+      docs={artists}
     />
-    {isEmpty(featuring) ? null : <>
-      <span> feat. </span>
-      <Links
-        path="/artist"
-        links={featuring}
-      />
-    </>}
-  </div>
+    {isEmpty(featuring) ? null : (
+      <Fragment>
+        <Fragment> feat. </Fragment>
+        <DocLinks
+          keyName="name"
+          path="/artist"
+          docs={featuring}
+        />
+      </Fragment>
+    )}
+  </Fragment>
 )
 
 FeaturingArtists.propTypes = {

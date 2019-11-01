@@ -95,7 +95,40 @@ const fieldsConifg = ({ artists }) => [
         msg: "all be of length 24."
       }
     ]
-  }
+  },
+  {
+    id: uniqueId(),
+    name: "Remixers",
+    short: "remixers",
+    type: "list",
+    isDoc: true,
+    db: artists,
+    init: [],
+    req: false,
+    min: 0,
+    max: 24,
+    parse: {
+      in: encodeURI,
+      out: decodeURI
+    },
+    validators: [
+      {
+        id: uniqueId(),
+        check: validateArray(isString),
+        msg: "data type of string."
+      },
+      {
+        id: uniqueId(),
+        check: validateArray(isHex),
+        msg: "all be hexadecimal."
+      },
+      {
+        id: uniqueId(),
+        check: validateArray(isStringLength(24)),
+        msg: "all be of length 24."
+      }
+    ]
+  },
 ]
 
 export default fieldsConifg

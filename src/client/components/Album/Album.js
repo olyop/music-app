@@ -1,11 +1,11 @@
 import React from "react"
 
 import { NavLink } from "react-router-dom"
-import Links from "../Links"
+import AlbumTitle from "../AlbumTitle"
+import DocLinks from "../DocLinks"
 
 import { string, arrayOf, object } from "prop-types"
 import reactBEM from "@oly_op/react-bem"
-import { isEmpty } from "lodash"
 
 import "./Album.scss"
 
@@ -22,25 +22,17 @@ const Album = ({ id, title, albumUrl, artists, remixers }) => (
     </NavLink>
     <div className={bem("info")}>
       <p className={bem("title")}>
-        <Link
-          doc={title}
-          path="/album"
+        <AlbumTitle
+          id={id}
+          title={title}
+          remixers={remixers}
         />
-        {isEmpty(remixers) ? null : <>
-          <span> (</span>
-          <span>
-            <Links
-              path="/artist"
-              links={remixers}
-            />
-          </span>
-          <span> Remix)</span>
-        </>}
       </p>
       <p className={bem("artistName")}>
-        <Links
+        <DocLinks
           path="/artist"
-          links={artists}
+          keyName="name"
+          docs={artists}
         />
       </p>
     </div>

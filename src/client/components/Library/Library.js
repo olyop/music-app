@@ -1,4 +1,4 @@
-import React from "react"
+import React, { Fragment } from "react"
 
 import { Switch, Route, NavLink } from "react-router-dom"
 import Icon from "../Icon"
@@ -22,15 +22,17 @@ const Library = ({ match }) => (
             className={bem("link")}
             to={match.path + route.path}
             activeClassName={bem("active")}
-            children={<>
-              <Icon
-                bem={bem}
-                onClick={noop}
-                className="icon"
-                icon={route.icon}
-              />
-              <span className={bem("text")}>{route.name}</span>
-            </>}
+            children={(
+              <Fragment>
+                <Icon
+                  bem={bem}
+                  onClick={noop}
+                  className="icon"
+                  icon={route.icon}
+                />
+                <span className={bem("text")}>{route.name}</span>
+              </Fragment>
+            )}
           />
         ))}
       </div>

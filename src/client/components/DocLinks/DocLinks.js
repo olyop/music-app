@@ -1,13 +1,8 @@
-import React from "react"
+import React, { Fragment } from "react"
 
-import { NavLink } from "react-router-dom"
+import DocLink from "../DocLink"
 
 import { arrayOf, object, string } from "prop-types"
-import reactBEM from "@oly_op/react-bem"
-
-import "./DocLinks.scss"
-
-const bem = reactBEM("DocLinks")
 
 const determineConcat = (docs, index) => {
   const numOfDocs = docs.length
@@ -21,19 +16,20 @@ const determineConcat = (docs, index) => {
 }
 
 const DocLinks = ({ path, keyName, docs }) => (
-  <span className={bem("")}>
+  <Fragment>
     {docs.map(
-      (doc, index) => (
-        <span key={doc.id}>
-          <Link
-            children={doc[keyName]}
-            to={`${path}/${doc.id}`}
+      (doc, idx) => (
+        <Fragment key={doc.id}>
+          <DocLink
+            doc={doc}
+            path={path}
+            keyName={keyName}
           />
-          {determineConcat(docs, index)}
-        </span>
+          <Fragment>{determineConcat(docs, idx)}</Fragment>
+        </Fragment>
       )
     )}
-  </span>
+  </Fragment>
 )
 
 DocLinks.propTypes = {

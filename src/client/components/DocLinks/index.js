@@ -1,3 +1,3 @@
-import Links from "./Links"
+import DocLinks from "./DocLinks"
 
-export default Links
+export default DocLinks

@@ -21,3 +21,5 @@ export const deserializeDate = unixTimeStamp => {
   if (month <= 9) month = toString(`0${month}`)
   return [day, month, year].join("/")
 }
+
+export const catalogLink = id => `/images/catalog/${id}.jpg`

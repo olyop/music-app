@@ -15,7 +15,7 @@ const determineConcat = (docs, index) => {
   }
 }
 
-const DocLinks = ({ path, keyName, docs }) => (
+const DocLinks = ({ path, docs }) => (
   <Fragment>
     {docs.map(
       (doc, idx) => (
@@ -23,7 +23,6 @@ const DocLinks = ({ path, keyName, docs }) => (
           <DocLink
             doc={doc}
             path={path}
-            keyName={keyName}
           />
           <Fragment>{determineConcat(docs, idx)}</Fragment>
         </Fragment>
@@ -34,7 +33,6 @@ const DocLinks = ({ path, keyName, docs }) => (
 
 DocLinks.propTypes = {
   path: string.isRequired,
-  keyName: string.isRequired,
   docs: arrayOf(object).isRequired
 }
 

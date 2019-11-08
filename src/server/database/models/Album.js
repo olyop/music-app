@@ -29,12 +29,6 @@ const schema = new Schema({
     minlength: 24,
     maxlength: 24,
     index: true
-  }],
-  remixers: [{
-    type: ObjectId,
-    minlength: 24,
-    maxlength: 24,
-    index: true
   }]
 })
 

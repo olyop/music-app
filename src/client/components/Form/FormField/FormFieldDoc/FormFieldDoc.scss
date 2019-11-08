@@ -1,4 +1,4 @@
-.FormDoc {
+.FormFieldDoc {
   background-color: #EEEEEE;
   border: 1px solid #BDBDBD;
   border-radius: 3px;
@@ -7,11 +7,10 @@
   &:last-child {
     margin-right: 0; }
   &__img {
-    margin-right: 3px;
     height: 24px;
     width: 24px; }
   &__text {
-    padding: 3px;
+    padding: 3px 3px 3px 6px;
     font-size: 18px;
     white-space: nowrap; }
   &__close {

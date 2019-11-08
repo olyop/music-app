@@ -1,4 +1,4 @@
-import { includes } from "lodash"
+import { includes, find } from "lodash"
 
 export const createFormInit = fields => fields.reduce(
   (acc, { short, isDoc, db, init }) => ({
@@ -12,15 +12,18 @@ export const createFormInit = fields => fields.reduce(
   {}
 )
 
-export const handleFormChange = (form, setForm) => ({ short, parse }) => event => {
+export const handleFieldChange = (form, setForm) => ({ type, short, parse }) => event => {
   const value = parse.in(event.target.value)
   setForm({
     ...form,
-    [short]: value
+    [short]: type === "list" ? {
+      ...form[short],
+      input: value
+    } : value
   })
 }
 
-export const handleDocRemove = (form, setForm) => ({ short }) => ({ id }) => () => {
+export const handleFieldDocRemove = (form, setForm) => ({ short }) => ({ id }) => () => {
   setForm({
     ...form,
     [short]: {
@@ -107,7 +110,7 @@ export const determineValidatorVal = ({ isDoc }, val) => {
   else return val
 }
 
-export const determineDoc = (val, db) => db.filter(({ id }) => id !== val)
+export const determineFieldDoc = (id, db) => find(db, { id })
 
 export const validateForm = () => {
   return true

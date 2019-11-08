@@ -1,9 +1,9 @@
 import React from "react"
 
 import FeaturingArtists from "../FeaturingArtists"
-import AlbumTitle from "../AlbumTitle"
 import DocLinks from "../DocLinks"
 import DocLink from "../DocLink"
+import ImgLink from "../ImgLink"
 import Icon from "../Icon"
 
 import { string, shape, arrayOf, object, number } from "prop-types"
@@ -16,13 +16,12 @@ import "./Song.scss"
 const bem = reactBEM("Song")
 
 const Song = ({
-  id, mix, title, albumUrl, album, artists, featuring, remixers, released, genres
+  id, mix, title, albumCoverUrl, album, artists, featuring, remixers, released, genres
 }) => (
-  <tr id={id} className={bem("")}>
+  <tr className={bem("")}>
     <td className={bem("tableCol","tableHeadCover")}>
-      <img
-        src={albumUrl}
-        alt="albumCover"
+      <ImgLink
+        imgUrl={albumCoverUrl}
         className={bem("albumCover")}
       />
       <Icon
@@ -36,7 +35,6 @@ const Song = ({
       <div className={bem("tableColSpan")}>
         <DocLink
           path="/song"
-          keyName="title"
           doc={{ id, title }}
         />
         <span className={bem("mix")}>{isEmpty(mix) ? "" : ` - ${mix} Mix`}</span>
@@ -55,17 +53,15 @@ const Song = ({
         {isEmpty(remixers) ? null : (
           <DocLinks
             path="/artist"
-            keyName="name"
             docs={remixers}
           />
         )}
       </span>
     </td>
     <td className={bem("tableCol")}>
-      <AlbumTitle
-        id={album.id}
-        title={album.title}
-        remixers={album.remixers}
+      <DocLink
+        doc={album}
+        path="/album"
       />
     </td>
     <td className={bem("tableCol")}>
@@ -73,7 +69,6 @@ const Song = ({
         <DocLinks
           path="/genre"
           docs={genres}
-          keyName="name"
         />
       </span>
     </td>
@@ -95,7 +90,7 @@ Song.propTypes = {
   remixers: arrayOf(object),
   featuring: arrayOf(object),
   released: number.isRequired,
-  albumUrl: string.isRequired,
+  albumCoverUrl: string.isRequired,
   artists: arrayOf(object).isRequired
 }
 

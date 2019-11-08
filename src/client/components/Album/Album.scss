@@ -1,25 +1,27 @@
 .Album {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  border-radius: 3px;
+  margin-bottom: 10px;
   &__cover {
-    width: 100%;
-    height: auto;
-    box-shadow: 0 1px 4px 0 rgba(#333333,.3);
-    border-radius: 4px;
-    transition: .2s all;
-    &:hover {
-      box-shadow: 0 3px 6px 0 rgba(#333333,.5); } }
-  &__link {
-    text-decoration: none;
-    &:hover {
-      color: #1a73e8;
-      text-decoration: underline; } }
+    position: relative;
+    &__cover:before {
+      padding-top: 100%; } }
+      &__playButton {
+      top: 50%;
+      left: 50%;
+      display: none;
+      color: #ffffff;
+      font-size: 60rem;
+      position: absolute;
+      margin-right: -50%;
+      transition: .2s all;
+      border-radius: 100%;
+      transform: translate(-50%, -50%); }
   &__info {
-    width: 100%;
-    padding: 10px 0;
+    padding-top: 10px;
     border-color: #e0e0e0; }
+    &__title,
+    &__artistName {
+      overflow: hidden;
+      text-overflow: clip; }
     &__title {
       font-size: 18rem;
       max-height: 18rem;
@@ -29,7 +31,4 @@
       font-size: 16rem;
       max-height: 16rem;
       font-weight: 400; }
-    &__title, &__artistName {
-      overflow: hidden;
-      text-overflow: ellipsis; }
 }

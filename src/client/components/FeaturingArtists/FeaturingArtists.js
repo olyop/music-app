@@ -8,7 +8,6 @@ import { isEmpty } from "lodash"
 const FeaturingArtists = ({ artists, featuring }) => (
   <Fragment>
     <DocLinks
-      keyName="name"
       path="/artist"
       docs={artists}
     />
@@ -16,7 +15,6 @@ const FeaturingArtists = ({ artists, featuring }) => (
       <Fragment>
         <Fragment> feat. </Fragment>
         <DocLinks
-          keyName="name"
           path="/artist"
           docs={featuring}
         />

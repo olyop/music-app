@@ -9,9 +9,9 @@ const bem = reactBEM("Genre")
 
 const Genre = ({ id, name }) => (
   <div id={id} className={bem("")}>
-    <div className={bem("info")}>
-      <h2 className={bem("name")}>{name}</h2>
-    </div>
+    <h2 className={bem("name")}>
+      {name}
+    </h2>
   </div>
 )
 

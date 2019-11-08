@@ -8,41 +8,44 @@ import Songs from "../../Songs"
 import Song from "../../Song"
 
 import { isUndefined, isEmpty, orderBy } from "lodash"
-import reactBEM from "@oly_op/react-bem"
+import { catalogLink } from "../../../helpers/misc"
 import query from "./query.graphql"
 
-const bem = reactBEM("LibrarySongs")
-
 const LibrarySongs = () => (
-  <div className={bem("")}>
-    <Query query={query}>
-      {({ loading, error, data }) => {  
-        if (loading) return <Loading/>  
-        if (!isUndefined(error)) return <ApiError/>
-        if (isEmpty(data.songs)) return <Empty/>
+  <Query query={query}>
+    {({ loading, error, data }) => {  
+      if (loading) {
+        return <Loading/>
+      } else if (!isUndefined(error)) {
+        return <ApiError/>
+      } else if (isEmpty(data.songs)) {
+        return <Empty/>
+      } else {
         const songsOrdered = orderBy(data.songs, ["album.released","discNumber","trackNumber"], ["desc","asc","asc"])
         return (
           <Songs>
-            {songsOrdered.map(song => (
-              <Song
-                id={song.id}
-                key={song.id}
-                mix={song.mix}
-                title={song.title}
-                album={song.album}
-                genres={song.genres}
-                artists={song.artists}
-                remixers={song.remixers}
-                featuring={song.featuring}
-                released={song.album.released}
-                albumUrl={`/images/catalog/albumCovers/${song.album.id}.jpg`}
-              />
-            ))}
+            {songsOrdered.map(
+              ({ id, title, mix, album, genres, artists, remixers, featuring }) => (
+                <Song
+                  id={id}
+                  key={id}
+                  mix={mix}
+                  title={title}
+                  album={album}
+                  genres={genres}
+                  artists={artists}
+                  remixers={remixers}
+                  featuring={featuring}
+                  released={album.released}
+                  albumCoverUrl={catalogLink(album.id)}
+                />
+              )
+            )}
           </Songs>
         )
-      }}
-    </Query>
-  </div>
+      }
+    }}
+  </Query>
 )
 
 export default LibrarySongs

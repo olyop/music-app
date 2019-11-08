@@ -1,18 +1,18 @@
 import React, { Fragment } from "react"
 
 import FormValidator from "../FormValidator"
-import FormDoc from "../FormDoc"
+import FormFieldDoc from "./FormFieldDoc"
 
 import {
-  string, oneOf, node, shape, oneOfType,
-  bool, func, number, arrayOf, object, array
+  string, oneOf, shape, oneOfType, bool,
+  func, number, arrayOf, object, array
 } from "prop-types"
 
 import {
   determineMin,
   determineMax,
-  determineDoc,
   determinePattern,
+  determineFieldDoc,
   determineInputVal,
   determineRequired,
   determineInputType,
@@ -28,10 +28,10 @@ import "./FormField.scss"
 
 const bem = reactBEM("FormField")
 
-const FormField = ({ field, val, onChange, onDocRemove }) => {
+const FormField = ({ field, val, onFieldChange, onFieldDocRemove }) => {
   const { id, name, type, isDoc, db, validators } = field
   return (
-    <div id={id} className={bem("")}>
+    <div className={bem("")} id={id}>
       <label
         className={bem("label")}
         htmlFor={id}
@@ -44,13 +44,17 @@ const FormField = ({ field, val, onChange, onDocRemove }) => {
             />
             {type === "list" && !isEmpty(val) ? (
               <div className={bem("list")}>
-                {val.val.map(doc => (
-                  <FormDoc
-                    doc={determineDoc(doc,db)}
-                    key={doc.id}
-                    onDocRemove={onDocRemove(doc)}
-                  />
-                ))}
+                {val.val.map(docId => {
+                  const doc = determineFieldDoc(docId, db)
+                  return (
+                    <FormFieldDoc
+                      key={doc.id}
+                      name={doc.name}
+                      onFieldDocRemove={onFieldDocRemove(doc)}
+                      photoUrl={doc.__typename === "Genre" ? "" : `/images/catalog/${doc.id}.jpg`}
+                    />
+                  )
+                })}
               </div>
             ) : null}
             {isDoc && type !== "list" ? (
@@ -67,9 +71,9 @@ const FormField = ({ field, val, onChange, onDocRemove }) => {
               autoCorrect="off"
               autoComplete="off"
               spellCheck="false"
-              onChange={onChange}
               autoCapitalize="off"
               className={bem("input")}
+              onChange={onFieldChange}
               min={determineMin(field)}
               max={determineMax(field)}
               type={determineInputType(field)}
@@ -103,6 +107,9 @@ const FormField = ({ field, val, onChange, onDocRemove }) => {
 }
 
 FormField.propTypes = {
+  onFieldChange: func.isRequired,
+  onFieldDocRemove: func.isRequired,
+  val: oneOfType([ string, number, object ]).isRequired,
   field: shape({
     id: string.isRequired,
     name: string.isRequired,
@@ -115,14 +122,8 @@ FormField.propTypes = {
     validators: arrayOf(object).isRequired,
     min: number.isRequired,
     max: number.isRequired,
-    parse: shape({
-      in: func.isRequired,
-      out: func.isRequired
-    }).isRequired,
-  }).isRequired,
-  onChange: func.isRequired,
-  onDocRemove: func.isRequired,
-  val: oneOfType([ node, object ]).isRequired
+    parse: shape({ in: func.isRequired, out: func.isRequired }).isRequired,
+  }).isRequired
 }
 
 export default FormField

@@ -8,11 +8,12 @@
   &__tableCol {
     text-align: left;}
     &__albumCover {
-      margin-bottom: -3px;
       width: 30px;
       border-radius: 3px;
       box-shadow: 0 1px 4px 0 rgba(#333333,.3);
-      height: 30px; }
+      height: 30px;
+      &:before {
+        padding-top: 100%; } }
     &__tableHeadCover {
       position: relative;
       width: 50px;

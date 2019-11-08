@@ -1,43 +1,45 @@
 import React from "react"
 
-import { Query } from "react-apollo"
 import ApiError from "../../ApiError"
+import { Query } from "react-apollo"
 import Loading from "../../Loading"
 import Albums from "../../Albums"
 import Album from "../../Album"
 import Empty from "../../Empty"
 
 import { isUndefined, isEmpty, orderBy } from "lodash"
-import reactBEM from "@oly_op/react-bem"
+import { catalogLink } from "../../../helpers/misc"
 import query from "./query.graphql"
 
-const bem = reactBEM("LibraryAlbums")
-
 const LibraryAlbums = () => (
-  <div className={bem("")}>
-    <Query query={query}>
-      {({ loading, error, data }) => {
-        if (loading) return <Loading/>  
-        if (!isUndefined(error)) return <ApiError/>
-        if (isEmpty(data.albums)) return <Empty/>
-        const albumsOrdered = orderBy(data.albums, "year", "desc")
+  <Query query={query}>
+    {({ loading, error, data }) => {
+      if (loading) {
+        return <Loading/>
+      } else if (!isUndefined(error)) {
+        return <ApiError/>
+      } else if (isEmpty(data.albums)) {
+        return <Empty/>
+      } else {
+        const albums = orderBy(data.albums, "year", "desc")
         return (
           <Albums>
-            {albumsOrdered.map(album => (
-              <Album
-                id={album.id}
-                key={album.id}
-                title={album.title}
-                artists={album.artists}
-                remixers={album.remixers}
-                albumUrl={`/images/catalog/albumCovers/${album.id}.jpg`}
-              />
-            ))}
+            {albums.map(
+              ({ id, title, artists }) => (
+                <Album
+                  id={id}
+                  key={id}
+                  title={title}
+                  artists={artists}
+                  albumCoverUrl={catalogLink(id)}
+                />
+              )
+            )}
           </Albums>
         )
-      }}
-    </Query>
-  </div>
+      }
+    }}
+  </Query>
 )
 
 export default LibraryAlbums

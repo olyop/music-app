@@ -3,7 +3,7 @@ import React from "react"
 import ApiError from "../../../ApiError"
 import Loading from "../../../Loading"
 import { Query } from "react-apollo"
-// import Form from "../../../Form"
+import Form from "../../../Form"
 
 import fieldsConifg from "./fieldsConfig"
 import reactBEM from "@oly_op/react-bem"
@@ -18,18 +18,15 @@ const AddAlbum = () => (
       {({ loading, error, data }) => {  
         if (loading) return <Loading/>  
         if (!isUndefined(error)) return <ApiError/>
-        console.log(fieldsConifg(data))
         return (
-          "foo"
+          <Form
+            title="Add Album"
+            fields={fieldsConifg(data)}
+          />
         )
       }}
     </Query>
   </div>
 )
-
-/* <Form
-            title="Add Album"
-            fields={fieldsConifg(artistsOrdered)}
-          /> */
 
 export default AddAlbum

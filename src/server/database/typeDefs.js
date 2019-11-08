@@ -51,7 +51,6 @@ const typeDefs = gql`
     title: String!
     released: Int!
     artists: [Artist!]!
-    remixers: [Artist!]!
     songs: [Song!]!
   }
 

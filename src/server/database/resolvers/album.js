@@ -8,11 +8,6 @@ export default {
     const result = await Promise.all(queries.map(query => query.exec()))
     return serializeCollection(result)
   },
-  remixers: async ({ remixers }) => {
-    const queries = remixers.map(id => Artist.findById(id).lean())
-    const result = await Promise.all(queries.map(query => query.exec()))
-    return serializeCollection(result)
-  },
   songs: async ({ id }) => {
     const query = Song.find({ album: id }).lean()
     const result = await query.exec()

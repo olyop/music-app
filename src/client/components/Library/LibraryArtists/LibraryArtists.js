@@ -8,33 +8,37 @@ import Artist from "../../Artist"
 import Empty from "../../Empty"
 
 import { isUndefined, isEmpty, orderBy } from "lodash"
-import reactBEM from "@oly_op/react-bem"
+import { catalogLink } from "../../../helpers/misc"
 import query from "./query.graphql"
 
-const bem = reactBEM("LibraryArtists")
-
 const LibraryArtists = () => (
-  <div className={bem("")}>
-    <Query query={query}>
-      {({ loading, error, data }) => {
-        if (loading) return <Loading/>  
-        if (!isUndefined(error)) return <ApiError/>
-        if (isEmpty(data.artists)) return <Empty/>
-        const artistsOrdered = orderBy(data.artists, "name", "asc")
+  <Query query={query}>
+    {({ loading, error, data }) => {
+      if (loading) {
+        return <Loading/>
+      } else if (!isUndefined(error)) {
+        return <ApiError/>
+      } else if (isEmpty(data.artists)) {
+        return <Empty/>
+      } else {
+        const artists = orderBy(data.artists, "name", "asc")
         return (
           <Artists>
-            {artistsOrdered.map(artist => (
-              <Artist
-                id={artist.id}
-                key={artist.id}
-                name={artist.name}
-              />
-            ))}
+            {artists.map(
+              ({ id, name }) => (
+                <Artist
+                  id={id}
+                  key={id}
+                  name={name}
+                  artistPhotoUrl={catalogLink(id)}
+                />
+              )
+            )}
           </Artists>
         )
-      }}
-    </Query>
-  </div>
+      }
+    }}
+  </Query>
 )
 
 export default LibraryArtists

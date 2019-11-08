@@ -25,10 +25,6 @@
       id
       title
       released
-      remixers {
-        id
-        name
-      }
     }
   }
 }

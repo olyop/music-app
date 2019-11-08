@@ -1,4 +1,4 @@
-import React from "react"
+import React, { Fragment } from "react"
 
 import DocLinks from "../DocLinks"
 import DocLink from "../DocLink"
@@ -19,14 +19,19 @@ const Album = ({ id, albumCoverUrl, title, artists }) => (
       imgUrl={albumCoverUrl}
       linkUrl={`/album/${id}`}
       className={bem("cover")}
-      imgClassName={bem("coverImg")}
+      imgClassName={bem("cover-img")}
       children={(
-        <Icon
-          bem={bem}
-          onClick={noop}
-          icon="play_arrow"
-          className="playButton"
-        />
+        <Fragment>
+          <Icon
+            bem={bem}
+            onClick={noop}
+            icon="play_arrow"
+            className="cover-play"
+          />
+          <div
+            className={bem("cover-blackBox")}
+          />
+        </Fragment>
       )}
     />
     <div className={bem("info")}>

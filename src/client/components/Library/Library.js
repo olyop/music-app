@@ -6,7 +6,6 @@ import Icon from "../Icon"
 import { shape, string } from "prop-types"
 import routesConfig from "./routesConfig"
 import reactBem from "@oly_op/react-bem"
-import { noop } from "lodash"
 
 import "./Library.scss"
 
@@ -25,10 +24,8 @@ const Library = ({ match }) => (
             children={(
               <Fragment>
                 <Icon
-                  bem={bem}
-                  onClick={noop}
-                  className="icon"
                   icon={route.icon}
+                  className={bem("icon")}
                 />
                 <span className={bem("text")}>{route.name}</span>
               </Fragment>

@@ -9,7 +9,7 @@ import Icon from "../Icon"
 import { string, shape, arrayOf, object, number } from "prop-types"
 import { deserializeDate } from "../../helpers/misc"
 import reactBem from "@oly_op/react-bem"
-import { noop, isEmpty } from "lodash"
+import { isEmpty } from "lodash"
 
 import "./Song.scss"
 
@@ -25,10 +25,8 @@ const Song = ({
         className={bem("albumCover")}
       />
       <Icon
-        bem={bem}
-        onClick={noop}
         icon="play_arrow"
-        className="playIcon"
+        className={bem("playIcon")}
       />
     </td>
     <td className={bem("tableCol")}>

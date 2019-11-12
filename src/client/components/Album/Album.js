@@ -7,7 +7,6 @@ import Icon from "../Icon"
 
 import { string, arrayOf, object } from "prop-types"
 import reactBEM from "@oly_op/react-bem"
-import { noop } from "lodash"
 
 import "./Album.scss"
 
@@ -17,20 +16,25 @@ const Album = ({ id, albumCoverUrl, title, artists }) => (
   <div className={bem("")}>
     <ImgLink
       imgUrl={albumCoverUrl}
-      linkUrl={`/album/${id}`}
       className={bem("cover")}
       imgClassName={bem("cover-img")}
       children={(
         <Fragment>
           <Icon
-            onClick={noop}
             icon="play_arrow"
-            className={bem("cover-icon")}
+            className={bem("cover-top-left", "cover-icon")}
           />
           <Icon
-            onClick={noop}
             icon="queue_music"
-            className={bem("cover-icon")}
+            className={bem("cover-top-right", "cover-icon")}
+          />
+          <Icon
+            icon="album"
+            className={bem("cover-bottom-left", "cover-icon")}
+          />
+          <Icon
+            icon="delete"
+            className={bem("cover-bottom-right", "cover-icon")}
           />
           <div
             className={bem("cover-blackBox")}

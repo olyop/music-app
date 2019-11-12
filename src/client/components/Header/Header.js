@@ -16,11 +16,8 @@ const Header = () => {
     <Fragment>
       <header className={bem("")}>
         <Icon
-          bem={bem}
-          tabIndex={0}
-          role="button"
-          className="hamburger"
           onClick={toggleSidebar}
+          className={bem("hamburger")}
           icon={sidebar ? "close" : "menu"}
         />
       </header>

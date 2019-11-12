@@ -1,50 +1,60 @@
 .Album {
   margin-bottom: 10px;
   &__cover {
-    border-radius: 3px;
+    border-radius: 5px;
     position: relative;
+    overflow: hidden;
+    box-shadow:
+      0 3px 6px rgba(0,0,0,0.16),
+      0 3px 6px rgba(0,0,0,0.23);
     &:hover &-icon {
       display: block; }
     &:hover &-blackBox {
       background-color: rgba(#000000, .8); }
+    &:hover &-img {
+      filter: blur(8px); }
     &-img {
-      transition: .3s all;
-      box-shadow:
-        0 3px 6px rgba(0,0,0,0.16),
-        0 3px 6px rgba(0,0,0,0.23);
-      &:hover {
-        box-shadow:
-          0 6px 12px rgba(0,0,0,0.25),
-          0 6px 12px rgba(0,0,0,0.22); } }
+      border-radius: 5px; }
     &-blackBox {
       position: absolute;
       top: 0;
-      left: 0;
       cursor: pointer;
       bottom: 0;
       right: 0;
       width: 100%;
       height: 100%;
-      transition: .2s all;
-      border-radius: 4px;
       background-color: transparent; }
     &-icon {
-      z-index: 2;
-      top: 50%;
-      display: none;
-      color: #ffffff;
-      font-size: 60rem;
-      position: absolute;
-      margin-right: -50%;
-      transition: .2s all;
-      border-radius: 100%;
       transform: translate(-50%, -50%);
+      z-index: 2;
+      position: relative;
+      display: none;
+      outline: none;
+      width: 50%;
+      height: 50%;
+      color: #ffffff;
+      font-size: 50rem;
+      position: absolute;
+      text-align: center;
+      padding-top: 16.5%;
       &:hover {
-        background-color: rgba(#FFFFFF, .2); } } }
-    &-play {
-      left: 0; }
-    &-queue {
-      margin-right: 0; }
+        background-color: rgba(#FFFFFF, .2); } }
+    &-top-left {
+      top: 25%;
+      left: 25%;
+      border-top-left-radius: 5px; }
+    &-top-right {
+      top: 25%;
+      left: 75%;
+      border-top-right-radius: 5px; }
+    &-bottom-left {
+      top: 75%;
+      left: 25%;
+      border-bottom-left-radius: 5px;}
+    &-bottom-right {
+      top: 75%;
+      left: 75%;
+      border-bottom-right-radius: 5px; } }
   &__info {
     padding-top: 10px;
     border-color: #e0e0e0; }

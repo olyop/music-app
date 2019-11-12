@@ -3,7 +3,7 @@
   &__cover {
     border-radius: 3px;
     position: relative;
-    &:hover &-play {
+    &:hover &-icon {
       display: block; }
     &:hover &-blackBox {
       background-color: rgba(#000000, .8); }
@@ -28,13 +28,12 @@
       transition: .2s all;
       border-radius: 4px;
       background-color: transparent; }
-    &-play {
+    &-icon {
       z-index: 2;
       top: 50%;
-      left: 50%;
       display: none;
       color: #ffffff;
-      font-size: 100rem;
+      font-size: 60rem;
       position: absolute;
       margin-right: -50%;
       transition: .2s all;
@@ -42,6 +41,10 @@
       transform: translate(-50%, -50%);
       &:hover {
         background-color: rgba(#FFFFFF, .2); } } }
+    &-play {
+      left: 0; }
+    &-queue {
+      margin-right: 0; }
   &__info {
     padding-top: 10px;
     border-color: #e0e0e0; }

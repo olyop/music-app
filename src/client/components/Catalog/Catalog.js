@@ -4,11 +4,11 @@ import { NavLink, Switch, Route } from "react-router-dom"
 
 import { shape, string } from "prop-types"
 import routesConfig from "./routesConfig"
-import reactBEM from "@oly_op/react-bem"
+import reactBem from "@oly_op/react-bem"
 
 import "./Catalog.scss"
 
-const bem = reactBEM("Catalog")
+const bem = reactBem("Catalog")
 
 const Catalog = ({ match }) => (
   <div className={bem("")}>

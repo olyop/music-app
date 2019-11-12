@@ -3,11 +3,11 @@ import React from "react"
 import { Link } from "react-router-dom"
 
 import { string, node } from "prop-types"
-import reactBEM from "@oly_op/react-bem"
+import reactBem from "@oly_op/react-bem"
 
 import "./ImgLink.scss"
 
-const bem = reactBEM("ImgLink")
+const bem = reactBem("ImgLink")
 
 const ImgLink = ({ linkUrl, imgUrl, className, imgClassName, children }) => (
   <div className={bem({ ignore: true, className }, "")}>

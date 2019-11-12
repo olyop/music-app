@@ -1,8 +1,8 @@
 import React from "react"
 
-import reactBEM from "@oly_op/react-bem"
+import reactBem from "@oly_op/react-bem"
 
-const bem = reactBEM("ApiError")
+const bem = reactBem("ApiError")
 
 const ApiError = () => (
   <div className={bem("")}>

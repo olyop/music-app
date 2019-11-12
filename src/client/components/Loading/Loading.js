@@ -1,10 +1,10 @@
 import React from "react"
 
-import reactBEM from "@oly_op/react-bem"
+import reactBem from "@oly_op/react-bem"
 
 import "./Loading.scss"
 
-const bem = reactBEM("Loading")
+const bem = reactBem("Loading")
 
 const Loading = () => (
   <div className={bem("")}>

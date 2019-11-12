@@ -5,12 +5,12 @@ import Icon from "../Icon"
 
 import { shape, string } from "prop-types"
 import routesConfig from "./routesConfig"
-import reactBEM from "@oly_op/react-bem"
+import reactBem from "@oly_op/react-bem"
 import { noop } from "lodash"
 
 import "./Library.scss"
 
-const bem = reactBEM("Library")
+const bem = reactBem("Library")
 
 const Library = ({ match }) => (
   <section className={bem("")}>

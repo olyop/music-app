@@ -3,12 +3,12 @@ import React from "react"
 import DocLink from "../DocLink"
 import ImgLink from "../ImgLink"
 
-import reactBEM from "@oly_op/react-bem"
+import reactBem from "@oly_op/react-bem"
 import { string } from "prop-types"
 
 import "./Artist.scss"
 
-const bem = reactBEM("Artist")
+const bem = reactBem("Artist")
 
 const Artist = ({ id, name, artistPhotoUrl }) => (
   <div className={bem("")}>

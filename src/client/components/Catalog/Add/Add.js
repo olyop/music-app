@@ -2,13 +2,13 @@ import React from "react"
 
 import { NavLink, Switch, Route } from "react-router-dom"
 
-import reactBEM from "@oly_op/react-bem"
+import reactBem from "@oly_op/react-bem"
 import { shape, string } from "prop-types"
 import routesConfig from "./routesConfig"
 
 import "./Add.scss"
 
-const bem = reactBEM("Add")
+const bem = reactBem("Add")
 
 const Add = ({ match }) => (
   <div className={bem("")}>

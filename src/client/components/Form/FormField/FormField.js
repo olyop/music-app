@@ -21,12 +21,12 @@ import {
   determineValidatorVal
 } from "../helpers"
 
-import reactBEM from "@oly_op/react-bem"
+import reactBem from "@oly_op/react-bem"
 import { isEmpty } from "lodash"
 
 import "./FormField.scss"
 
-const bem = reactBEM("FormField")
+const bem = reactBem("FormField")
 
 const FormField = ({ field, val, onFieldChange, onFieldDocRemove }) => {
   const { id, name, type, isDoc, db, validators } = field

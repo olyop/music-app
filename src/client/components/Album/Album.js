@@ -23,10 +23,14 @@ const Album = ({ id, albumCoverUrl, title, artists }) => (
       children={(
         <Fragment>
           <Icon
-            bem={bem}
             onClick={noop}
             icon="play_arrow"
-            className="cover-play"
+            className={bem("cover-icon")}
+          />
+          <Icon
+            onClick={noop}
+            icon="queue_music"
+            className={bem("cover-icon")}
           />
           <div
             className={bem("cover-blackBox")}

@@ -4,12 +4,12 @@ import ImgLink from "../../../ImgLink"
 import Icon from "../../../Icon"
 
 import { string, func } from "prop-types"
-import reactBEM from "@oly_op/react-bem"
+import reactBem from "@oly_op/react-bem"
 import { isEmpty } from "lodash"
 
 import "./FormFieldDoc.scss"
 
-const bem = reactBEM("FormFieldDoc")
+const bem = reactBem("FormFieldDoc")
 
 const FormFieldDoc = ({ name, photoUrl, onFieldDocRemove }) => (
   <div className={bem("")}>

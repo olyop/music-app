@@ -1,11 +1,11 @@
 import React from "react"
 
-import reactBEM from "@oly_op/react-bem"
+import reactBem from "@oly_op/react-bem"
 import { node } from "prop-types"
 
 import "./FormTitle.scss"
 
-const bem = reactBEM("FormTitle")
+const bem = reactBem("FormTitle")
 
 const FormTitle = ({ children }) => (
   <h2 className={bem("")}>

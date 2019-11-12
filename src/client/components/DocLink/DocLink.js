@@ -3,7 +3,7 @@ import React from "react"
 import { Link } from "react-router-dom"
 
 import { string, shape } from "prop-types"
-import reactBEM from "@oly_op/react-bem"
+import reactBem from "@oly_op/react-bem"
 import { isUndefined } from "lodash"
 
 import "./DocLink.scss"
@@ -14,7 +14,7 @@ const determineKeyName = doc => {
   else return "name"
 }
 
-const bem = reactBEM("DocLink")
+const bem = reactBem("DocLink")
 
 const DocLink = ({ path, doc }) => {
   const text = doc[determineKeyName(doc)]

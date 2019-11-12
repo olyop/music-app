@@ -3,9 +3,9 @@ import React from "react"
 import Form from "../../../Form"
 
 import fieldsConfig from "./fieldsConfig"
-import reactBEM from "@oly_op/react-bem"
+import reactBem from "@oly_op/react-bem"
 
-const bem = reactBEM("AddArtist")
+const bem = reactBem("AddArtist")
 
 const AddArtist = () => (
   <div className={bem("")}>

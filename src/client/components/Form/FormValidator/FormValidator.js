@@ -3,12 +3,12 @@ import React from "react"
 import Icon from "../../Icon"
 
 import { shape, string, func, oneOfType, node, object, } from "prop-types"
-import reactBEM from "@oly_op/react-bem"
+import reactBem from "@oly_op/react-bem"
 import { noop } from "lodash"
 
 import "./FormValidator.scss"
 
-const bem = reactBEM("FormValidator")
+const bem = reactBem("FormValidator")
 
 const FormValidator = ({ validator, val }) => {
   const { id, check, msg } = validator

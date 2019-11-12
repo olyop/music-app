@@ -13,12 +13,12 @@ import {
 } from "./helpers"
 
 import { string, arrayOf, object } from "prop-types"
-import reactBEM from "@oly_op/react-bem"
+import reactBem from "@oly_op/react-bem"
 import { noop } from "lodash"
 
 import "./Form.scss"
 
-const bem = reactBEM("Form")
+const bem = reactBem("Form")
 
 const Form = ({ title, submitText, fields }) => {
   const init = createFormInit(fields)

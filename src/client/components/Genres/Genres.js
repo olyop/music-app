@@ -1,11 +1,11 @@
 import React from "react"
 
-import reactBEM from "@oly_op/react-bem"
+import reactBem from "@oly_op/react-bem"
 import { node } from "prop-types"
 
 import "./Genres.scss"
 
-const bem = reactBEM("Genres")
+const bem = reactBem("Genres")
 
 const Genres = ({ children }) => (
   <div className={bem("")}>

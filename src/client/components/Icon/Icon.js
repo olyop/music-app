@@ -1,14 +1,18 @@
 import React from "react"
 
-import { func, string } from "prop-types"
+import { string, func } from "prop-types"
+import reactBem from "@oly_op/react-bem"
+import { noop } from "lodash"
 
 import "./Icon.scss"
 
-const Icon = ({ icon, bem, className, onClick }) => (
+const bem = reactBem("Icon")
+
+const Icon = ({ icon, className, onClick }) => (
   <i
     className={bem(
-      className,
-      { ignore: true, className: "Icon" },
+      { ignore: true, className },
+      "",
       { ignore: true, className: "material-icons" }
     )}
     onClick={onClick}
@@ -19,10 +23,14 @@ const Icon = ({ icon, bem, className, onClick }) => (
 )
 
 Icon.propTypes = {
+  onClick: func,
+  className: string,
   icon: string.isRequired,
-  bem: func.isRequired,
-  className: string.isRequired,
-  onClick: func.isRequired
+}
+
+Icon.defaultProps = {
+  onClick: noop,
+  className: undefined
 }
 
 export default Icon

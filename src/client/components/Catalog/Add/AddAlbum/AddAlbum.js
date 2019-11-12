@@ -6,11 +6,11 @@ import { Query } from "react-apollo"
 import Form from "../../../Form"
 
 import fieldsConifg from "./fieldsConfig"
-import reactBEM from "@oly_op/react-bem"
+import reactBem from "@oly_op/react-bem"
 import { isUndefined } from "lodash"
 import query from "./query.graphql"
 
-const bem = reactBEM("AddAlbum")
+const bem = reactBem("AddAlbum")
 
 const AddAlbum = () => (
   <div className={bem("")}>

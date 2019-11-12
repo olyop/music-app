@@ -3,11 +3,11 @@ import React from "react"
 import { Switch, Route } from "react-router-dom"
 
 import routesConfig from "./routesConfig"
-import reactBEM from "@oly_op/react-bem"
+import reactBem from "@oly_op/react-bem"
 
 import "./Pages.scss"
 
-const bem = reactBEM("Pages")
+const bem = reactBem("Pages")
 
 const Pages = () => (
   <main className={bem("")}>

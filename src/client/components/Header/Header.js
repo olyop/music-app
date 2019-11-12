@@ -3,11 +3,11 @@ import React, { useState, Fragment } from "react"
 import Sidebar from "../Sidebar"
 import Icon from "../Icon"
 
-import reactBEM from "@oly_op/react-bem"
+import reactBem from "@oly_op/react-bem"
 
 import "./Header.scss"
 
-const bem = reactBEM("Header")
+const bem = reactBem("Header")
 
 const Header = () => {
   const [ sidebar, useSidebar ] = useState(false)

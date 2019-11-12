@@ -8,12 +8,12 @@ import Icon from "../Icon"
 
 import { string, shape, arrayOf, object, number } from "prop-types"
 import { deserializeDate } from "../../helpers/misc"
-import reactBEM from "@oly_op/react-bem"
+import reactBem from "@oly_op/react-bem"
 import { noop, isEmpty } from "lodash"
 
 import "./Song.scss"
 
-const bem = reactBEM("Song")
+const bem = reactBem("Song")
 
 const Song = ({
   id, mix, title, albumCoverUrl, album, artists, featuring, remixers, released, genres

@@ -1,0 +1,7 @@
+.IconText {
+  cursor: pointer;
+  &__text {
+    user-select: none;
+    margin-top: 5px;
+    color: #ffffff; }
+}

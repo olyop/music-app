@@ -1,9 +1,9 @@
 import React, { Fragment } from "react"
 
+import IconText from "../IconText"
 import DocLinks from "../DocLinks"
 import DocLink from "../DocLink"
 import ImgLink from "../ImgLink"
-import Icon from "../Icon"
 
 import { string, arrayOf, object } from "prop-types"
 import reactBEM from "@oly_op/react-bem"
@@ -20,21 +20,29 @@ const Album = ({ id, albumCoverUrl, title, artists }) => (
       imgClassName={bem("cover-img")}
       children={(
         <Fragment>
-          <Icon
+          <IconText
+            text="Play"
             icon="play_arrow"
-            className={bem("cover-top-left", "cover-icon")}
+            iconClassName={bem("cover-button-icon")}
+            className={bem("cover-top-left", "cover-button")}
           />
-          <Icon
+          <IconText
+            text="Queue"
             icon="queue_music"
-            className={bem("cover-top-right", "cover-icon")}
+            iconClassName={bem("cover-button-icon")}
+            className={bem("cover-top-right", "cover-button")}
           />
-          <Icon
+          <IconText
+            text="Album"
             icon="album"
-            className={bem("cover-bottom-left", "cover-icon")}
+            iconClassName={bem("cover-button-icon")}
+            className={bem("cover-bottom-left", "cover-button")}
           />
-          <Icon
+          <IconText
+            text="Delete"
             icon="delete"
-            className={bem("cover-bottom-right", "cover-icon")}
+            iconClassName={bem("cover-button-icon")}
+            className={bem("cover-bottom-right", "cover-button")}
           />
           <div
             className={bem("cover-blackBox")}

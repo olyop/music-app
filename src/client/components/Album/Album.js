@@ -1,51 +1,55 @@
 import React, { Fragment } from "react"
 
+import { Link } from "react-router-dom"
 import IconText from "../IconText"
 import DocLinks from "../DocLinks"
 import DocLink from "../DocLink"
-import ImgLink from "../ImgLink"
+import Img from "../Img"
 
 import { string, arrayOf, object } from "prop-types"
-import reactBEM from "@oly_op/react-bem"
+import reactBem from "@oly_op/react-bem"
 
 import "./Album.scss"
 
-const bem = reactBEM("Album")
+const bem = reactBem("Album")
+const bemLibrary = reactBem("Library")
 
 const Album = ({ id, albumCoverUrl, title, artists }) => (
   <div className={bem("")}>
-    <ImgLink
+    <Img
       imgUrl={albumCoverUrl}
-      className={bem("cover")}
-      imgClassName={bem("cover-img")}
+      className={bemLibrary("grid-cover")}
+      imgClassName={bemLibrary("grid-cover-img")}
       children={(
         <Fragment>
           <IconText
             text="Play"
             icon="play_arrow"
-            iconClassName={bem("cover-button-icon")}
-            className={bem("cover-top-left", "cover-button")}
+            iconClassName={bemLibrary("grid-cover-button-icon")}
+            className={bemLibrary("grid-cover-button-top-left", "grid-cover-button")}
           />
           <IconText
             text="Queue"
             icon="queue_music"
-            iconClassName={bem("cover-button-icon")}
-            className={bem("cover-top-right", "cover-button")}
+            iconClassName={bemLibrary("grid-cover-button-icon")}
+            className={bemLibrary("grid-cover-button-top-right", "grid-cover-button")}
           />
-          <IconText
-            text="Album"
-            icon="album"
-            iconClassName={bem("cover-button-icon")}
-            className={bem("cover-bottom-left", "cover-button")}
-          />
+          <Link to={`/album/${id}`}>
+            <IconText
+              text="Album"
+              icon="album"
+              iconClassName={bemLibrary("grid-cover-button-icon")}
+              className={bemLibrary("grid-cover-button-bottom-left", "grid-cover-button")}
+            />
+          </Link>
           <IconText
             text="Delete"
             icon="delete"
-            iconClassName={bem("cover-button-icon")}
-            className={bem("cover-bottom-right", "cover-button")}
+            iconClassName={bemLibrary("grid-cover-button-icon")}
+            className={bemLibrary("grid-cover-button-bottom-right", "grid-cover-button")}
           />
           <div
-            className={bem("cover-blackBox")}
+            className={bemLibrary("grid-cover-black-box")}
           />
         </Fragment>
       )}

@@ -1,6 +1,7 @@
-.ImgLink {
-  position: relative;
+.Img {
   width: 100%;
+  overflow: hidden;
+  position: relative;
   &:before {
     content: "";
     display: block;

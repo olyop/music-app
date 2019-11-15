@@ -5,6 +5,7 @@
     mix
     discNumber
     trackNumber
+    duration
     featuring {
       id
       name
@@ -23,7 +24,6 @@
     }
     album {
       id
-      title
       released
     }
   }

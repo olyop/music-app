@@ -1,7 +1,7 @@
 import React from "react"
 
-import ImgLink from "../../../ImgLink"
 import Icon from "../../../Icon"
+import Img from "../../../Img"
 
 import { string, func } from "prop-types"
 import reactBem from "@oly_op/react-bem"
@@ -14,7 +14,7 @@ const bem = reactBem("FormFieldDoc")
 const FormFieldDoc = ({ name, photoUrl, onFieldDocRemove }) => (
   <div className={bem("")}>
     {isEmpty(photoUrl) ? null : (
-      <ImgLink
+      <Img
         imgUrl={photoUrl}
         className={bem("img")}
       />

@@ -66,6 +66,7 @@ const typeDefs = gql`
     mix: String!
     trackNumber: Int!
     discNumber: Int!
+    duration: Int!
     featuring: [Artist!]!
     remixers: [Artist!]!
     artists: [Artist!]!

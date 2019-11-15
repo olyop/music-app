@@ -3,11 +3,11 @@ import React from "react"
 import FeaturingArtists from "../FeaturingArtists"
 import DocLinks from "../DocLinks"
 import DocLink from "../DocLink"
-import ImgLink from "../ImgLink"
 import Icon from "../Icon"
+import Img from "../Img"
 
-import { string, shape, arrayOf, object, number } from "prop-types"
-import { deserializeDate } from "../../helpers/misc"
+import { deserializeDate, deserializeDuration } from "../../helpers/misc"
+import { string, number, arrayOf, object } from "prop-types"
 import reactBem from "@oly_op/react-bem"
 import { isEmpty } from "lodash"
 
@@ -16,11 +16,11 @@ import "./Song.scss"
 const bem = reactBem("Song")
 
 const Song = ({
-  id, mix, title, albumCoverUrl, album, artists, featuring, remixers, released, genres
+  id, mix, title, albumCoverUrl, duration, artists, featuring, remixers, released, genres
 }) => (
   <tr className={bem("")}>
     <td className={bem("tableCol","tableHeadCover")}>
-      <ImgLink
+      <Img
         imgUrl={albumCoverUrl}
         className={bem("albumCover")}
       />
@@ -37,6 +37,9 @@ const Song = ({
         />
         <span className={bem("mix")}>{isEmpty(mix) ? "" : ` - ${mix} Mix`}</span>
       </div>
+    </td>
+    <td className={bem("tableCol","duration")}>
+      <span className={bem("tableColSpan")}>{deserializeDuration(duration)}</span>
     </td>
     <td className={bem("tableCol")}>
       <span className={bem("tableColSpan")}>
@@ -57,12 +60,6 @@ const Song = ({
       </span>
     </td>
     <td className={bem("tableCol")}>
-      <DocLink
-        doc={album}
-        path="/album"
-      />
-    </td>
-    <td className={bem("tableCol")}>
       <span className={bem("tableColSpan")}>
         <DocLinks
           path="/genre"
@@ -80,10 +77,7 @@ Song.propTypes = {
   id: string.isRequired,
   mix: string.isRequired,
   title: string.isRequired,
-  album: shape({
-    id: string.isRequired,
-    title: string.isRequired
-  }).isRequired,
+  duration: number.isRequired,
   genres: arrayOf(object),
   remixers: arrayOf(object),
   featuring: arrayOf(object),

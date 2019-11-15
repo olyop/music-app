@@ -22,4 +22,11 @@ export const deserializeDate = unixTimeStamp => {
   return [day, month, year].join("/")
 }
 
+export const deserializeDuration = duration => {
+  const minutes = Math.floor(duration / 60)
+  let seconds = duration % 60
+  if (seconds <= 9) seconds = `0${seconds}`
+  return `${minutes}:${seconds}`
+}
+
 export const catalogLink = id => `/images/catalog/${id}.jpg`

@@ -18,13 +18,10 @@ const determineConcat = (docs, index) => {
 const DocLinks = ({ path, docs }) => (
   <Fragment>
     {docs.map(
-      (doc, idx) => (
+      (doc, index) => (
         <Fragment key={doc.id}>
-          <DocLink
-            doc={doc}
-            path={path}
-          />
-          <Fragment>{determineConcat(docs, idx)}</Fragment>
+          <DocLink doc={doc} path={path} />
+          {determineConcat(docs, index)}
         </Fragment>
       )
     )}

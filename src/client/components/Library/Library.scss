@@ -48,4 +48,67 @@
     width: 100%;
     padding: 20px;
     height: calc(100vh - #{$HEADER_HEIGHT} - #{$HEADER_HEIGHT}); }
+    &__grid-cover {
+      border-radius: $BORDER_RADIUS;
+      box-shadow:
+        0 3px 6px rgba(0,0,0,0.16),
+        0 3px 6px rgba(0,0,0,0.23);
+      &:hover &-img {
+        filter: blur(40px); }
+      &:hover &-black-box {
+        background-color: rgba(#000000, .8); }
+      &:hover &-button {
+        display: flex; }
+      &-img {
+        border-radius: $BORDER_RADIUS; }
+      &-black-box {
+        position: absolute;
+        top: 0;
+        cursor: pointer;
+        bottom: 0;
+        right: 0;
+        width: 100%;
+        height: 100%;
+        background-color: transparent; }
+      &-button {
+        outline: none;
+        background-color: transparent;
+        border: none;
+        transform: translate(-50%, -50%);
+        z-index: 2;
+        display: none;
+        outline: none;
+        transition: .5s background-color;
+        align-items: center;
+        flex-direction: column;
+        justify-content: center;
+        width: 50%;
+        height: 50%;
+        position: absolute;
+        &:hover {
+          background-color: rgba(#FFFFFF, .2); }
+        &:active {
+          background-color: rgba(#FFFFFF, .5); }
+        &-icon {
+          outline: none;
+          color: #ffffff;
+          font-size: 50rem; }
+        &-top-left {
+          top: 25%;
+          left: 25%;
+          border-top-left-radius: $BORDER_RADIUS; }
+        &-top-right {
+          top: 25%;
+          left: 75%;
+          border-top-right-radius: $BORDER_RADIUS; }
+        &-bottom-left {
+          top: 75%;
+          left: 25%;
+          border-bottom-left-radius: $BORDER_RADIUS;}
+        &-bottom-right {
+          top: 75%;
+          left: 75%;
+          border-bottom-right-radius: $BORDER_RADIUS; }
+      }
+    }
 }

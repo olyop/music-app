@@ -30,6 +30,13 @@ const schema = new Schema({
     max: 99,
     validate: Number.isInteger
   },
+  duration: {
+    type: Number,
+    required: true,
+    min: 1,
+    max: 86399,
+    validate: Number.isInteger
+  },
   featuring: [{
     type: ObjectId,
     minlength: 24,

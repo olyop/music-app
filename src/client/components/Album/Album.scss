@@ -1,75 +1,19 @@
+@import "../../globals/index.scss";
+
 .Album {
   margin-bottom: 10px;
-  &__cover {
-    border-radius: 5px;
-    position: relative;
-    overflow: hidden;
-    box-shadow:
-      0 3px 6px rgba(0,0,0,0.16),
-      0 3px 6px rgba(0,0,0,0.23);
-    &:hover &-button {
-      display: flex; }
-    &:hover &-blackBox {
-      background-color: rgba(#000000, .8); }
-    &:hover &-img {
-      filter: blur(40px); }
-    &-img {
-      border-radius: 5px; }
-    &-blackBox {
-      position: absolute;
-      top: 0;
-      cursor: pointer;
-      bottom: 0;
-      right: 0;
-      width: 100%;
-      height: 100%;
-      background-color: transparent; }
-    &-button {
-      transform: translate(-50%, -50%);
-      z-index: 2;
-      display: none;
-      outline: none;
-      align-items: center;
-      flex-direction: column;
-      justify-content: center;
-      width: 50%;
-      height: 50%;
-      position: absolute;
-      &:hover {
-        background-color: rgba(#FFFFFF, .2); }
-      &-icon {
-        outline: none;
-        color: #ffffff;
-        font-size: 50rem; } }
-    &-top-left {
-      top: 25%;
-      left: 25%;
-      border-top-left-radius: 5px; }
-    &-top-right {
-      top: 25%;
-      left: 75%;
-      border-top-right-radius: 5px; }
-    &-bottom-left {
-      top: 75%;
-      left: 25%;
-      border-bottom-left-radius: 5px;}
-    &-bottom-right {
-      top: 75%;
-      left: 75%;
-      border-bottom-right-radius: 5px; } }
   &__info {
     padding-top: 10px;
     border-color: #e0e0e0; }
     &__title,
     &__artistName {
+      line-height: 1.1;
       overflow: hidden; }
     &__title {
       font-size: 18rem;
-      max-height: 18rem;
       margin-bottom: 3px;
       font-weight: 700; }
     &__artistName {
       font-size: 16rem;
-      max-height: 16rem;
       font-weight: 400; }
 }

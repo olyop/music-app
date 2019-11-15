@@ -25,15 +25,15 @@ const LibrarySongs = () => (
         return (
           <Songs>
             {songsOrdered.map(
-              ({ id, title, mix, album, genres, artists, remixers, featuring }) => (
+              ({ id, title, mix, duration, album, genres, artists, remixers, featuring }) => (
                 <Song
                   id={id}
                   key={id}
                   mix={mix}
                   title={title}
-                  album={album}
                   genres={genres}
                   artists={artists}
+                  duration={duration}
                   remixers={remixers}
                   featuring={featuring}
                   released={album.released}

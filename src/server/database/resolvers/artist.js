@@ -9,8 +9,8 @@ export default {
     return serializeCollection(result)
   },
   songs: async ({ id }) => {
-    const query = Song.find({ artist: id }).lean()
-    const result = await query.exec()
+    const query = Song.find({ artist: id }).lean().exec()
+    const result = await query
     return serializeCollection(result)
   }
 }

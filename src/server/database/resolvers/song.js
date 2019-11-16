@@ -4,28 +4,32 @@ import { serializeDocument, serializeCollection } from "../../helpers/collection
 
 export default {
   featuring: async ({ featuring }) => {
-    const queries = featuring.map(id => Artist.findById(id).lean())
-    const result = await Promise.all(queries.map(query => query.exec()))
+    const query = id => Artist.findById(id).lean().exec()
+    const queries = featuring.map(query)
+    const result = await Promise.all(queries)
     return serializeCollection(result)
   },
   remixers: async ({ remixers }) => {
-    const queries = remixers.map(id => Artist.findById(id).lean())
-    const result = await Promise.all(queries.map(query => query.exec()))
+    const query = id => Artist.findById(id).lean().exec()
+    const queries = remixers.map(query)
+    const result = await Promise.all(queries)
     return serializeCollection(result)
   },
   artists: async ({ artists }) => {
-    const queries = artists.map(id => Artist.findById(id).lean())
-    const result = await Promise.all(queries.map(query => query.exec()))
+    const query = id => Artist.findById(id).lean().exec()
+    const queries = artists.map(query)
+    const result = await Promise.all(queries)
     return serializeCollection(result)
   },
   genres: async ({ genres }) => {
-    const queries = genres.map(id => Genre.findById(id).lean())
-    const result = await Promise.all(queries.map(query => query.exec()))
+    const query = id => Genre.findById(id).lean().exec()
+    const queries = genres.map(query)
+    const result = await Promise.all(queries)
     return serializeCollection(result)
   },
   album: async ({ album }) => {
-    const query = Album.findById(album).lean()
-    const result = await query.exec()
+    const query = Album.findById(album).lean().exec()
+    const result = await query
     return serializeDocument(result)
   }
 }

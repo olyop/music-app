@@ -14,33 +14,33 @@ export default {
     return serializeDocument(result)
   },
   genre: async (parent, { id }) => {
-    const query = Genre.findById(id).lean()
-    const result = await query.exec()
+    const query = Genre.findById(id).lean().exec()
+    const result = await query
     return serializeDocument(result)
   },
   song: async (parent, { id }) => {
-    const query = Song.findById(id).lean()
-    const result = await query.exec()
+    const query = Song.findById(id).lean().exec()
+    const result = await query
     return serializeDocument(result)
   },
   artists: async () => {
-    const query = Artist.find().lean()
-    const result = await query.exec()
+    const query = Artist.find().lean().exec()
+    const result = await query
     return serializeCollection(result)
   },
   albums: async () => {
-    const query = Album.find().lean()
-    const result = await query.exec()
+    const query = Album.find().lean().exec()
+    const result = await query
     return serializeCollection(result)
   },
   genres: async () => {
-    const query = Genre.find().lean()
-    const result = await query.exec()
+    const query = Genre.find().lean().exec()
+    const result = await query
     return serializeCollection(result)
   },
   songs: async () => {
-    const query = Song.find().lean()
-    const result = await query.exec()
+    const query = Song.find().lean().exec()
+    const result = await query
     return serializeCollection(result)
   }
 }

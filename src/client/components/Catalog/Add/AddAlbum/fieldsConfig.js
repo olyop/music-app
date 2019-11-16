@@ -1,6 +1,5 @@
 import {
   isStringLengthInRange,
-  deserializeDate,
   validateArray,
   isHex,
   isStringLength
@@ -20,7 +19,7 @@ const fieldsConifg = ({ artists }) => [
     short: "title",
     type: "text",
     isDoc: false,
-    init: "",
+    init: "Fever",
     req: true,
     min: 0,
     max: 127,
@@ -47,13 +46,14 @@ const fieldsConifg = ({ artists }) => [
     short: "released",
     type: "date",
     isDoc: false,
-    init: Date.now(),
+    // init: Date.now(),
+    init: 1553817600,
     req: true,
     min: 0,
     max: Date.now(),
     parse: {
       in: Date.parse,
-      out: deserializeDate
+      out: Date.parse
     },
     validators: [
       {
@@ -70,7 +70,7 @@ const fieldsConifg = ({ artists }) => [
     type: "list",
     isDoc: true,
     db: artists,
-    init: [],
+    init: ["5dae5e92c3f0c42c325a8793", "5dd0028692d31103a85222fa"],
     req: true,
     min: 0,
     max: 24,

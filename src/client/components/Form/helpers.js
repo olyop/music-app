@@ -1,3 +1,4 @@
+import { deserializeDate } from "../../helpers/misc"
 import { includes, find } from "lodash"
 
 export const createFormInit = fields => fields.reduce(
@@ -83,7 +84,7 @@ export const determineMaxLength = ({ type, max }) => {
 
 export const determinePattern = ({ type }) => {
   if (type === "date") {
-    return "dd-mm-yyyy"
+    return "(0[1-9]|1[0-9]|2[0-9]|3[01])/(0[1-9]|1[012])/[0-9]{4}"
   } else {
     return undefined
   }
@@ -98,10 +99,10 @@ export const determineRequired = ({ type, req }) => {
 }
 
 export const determineDisabled = ({ type, isDoc }) => {
-  if (type === "list" && isDoc) {
+  if (type !== "list" && isDoc) {
     return true
   } else {
-    return false
+    return undefined
   }
 }
 
@@ -109,11 +110,14 @@ export const determineFieldVal = ({ short }, form) => form[short]
 
 export const determineFieldDoc = (id, db) => find(db, { id })
 
-export const determineInputVal = ({ isDoc, parse }, val) => {
+export const determineInputVal = ({ type, isDoc, parse }, val) => {
   if (isDoc) {
     return parse.out(val.input)
+  } else if (type === "date") {
+    console.log(val)
+    return parse.out(deserializeDate(val))
   } else {
-    return parse.out(val)
+    return val
   }
 }
 

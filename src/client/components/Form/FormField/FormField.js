@@ -45,7 +45,7 @@ const FormField = ({ field, val, onFieldChange, onFieldDocRemove }) => {
               aria-label={id}
               className={bem("name")}
             />
-            {type === "list" && !isEmpty(val) ? (
+            {type === "list" && !isEmpty(val.val) ? (
               <div className={bem("list")}>
                 {val.val.map(docId => {
                   const doc = determineFieldDoc(docId, db)

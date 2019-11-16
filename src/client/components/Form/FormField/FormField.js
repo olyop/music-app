@@ -16,6 +16,7 @@ import {
   determineFieldDoc,
   determineInputVal,
   determineRequired,
+  determineDisabled,
   determineInputType,
   determineMinLength,
   determineMaxLength,
@@ -31,7 +32,7 @@ import "./FormField.scss"
 const bem = reactBem("FormField")
 
 const FormField = ({ field, val, onFieldChange, onFieldDocRemove }) => {
-  const { id, name, type, parse, isDoc, db, validators } = field
+  const { id, name, type, isDoc, db, validators } = field
   return (
     <div className={bem("")}>
       <label
@@ -60,10 +61,18 @@ const FormField = ({ field, val, onFieldChange, onFieldDocRemove }) => {
               </div>
             ) : null}
             {isDoc && type !== "list" ? (
-              <Img
-                className={bem("cover")}
-                url={catalogLink(val.val)}
-              />
+              <Fragment>
+                <div>
+                  <Img
+                    className={bem("cover")}
+                    url={catalogLink(val.val)}
+                  />
+                </div>
+                <div
+                  className={bem("cover-text")}
+                  children={determineFieldDoc(val.val, db).title}
+                />
+              </Fragment>
             ) : null}
             <input
               id={id}
@@ -79,9 +88,10 @@ const FormField = ({ field, val, onFieldChange, onFieldDocRemove }) => {
               type={determineInputType(field)}
               pattern={determinePattern(field)}
               required={determineRequired(field)}
+              disabled={determineDisabled(field)}
               minLength={determineMinLength(field)}
               maxLength={determineMaxLength(field)}
-              value={parse.out(determineInputVal(field, val))}
+              value={determineInputVal(field, val)}
             />
             {/* {name === "Featuring" ? (
               <div className={bem("dropdown")}>

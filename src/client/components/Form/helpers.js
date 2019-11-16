@@ -1,10 +1,9 @@
 import { includes, find } from "lodash"
 
 export const createFormInit = fields => fields.reduce(
-  (acc, { short, isDoc, db, init }) => ({
+  (acc, { short, isDoc, init }) => ({
     ...acc,
     [short]: isDoc ? {
-      db,
       val: init,
       input: ""
     } : init
@@ -28,7 +27,7 @@ export const handleFieldDocRemove = (form, setForm) => ({ short }) => ({ id }) =
     ...form,
     [short]: {
       ...form[short],
-      db: form[short].db.filter(doc => doc.id !== id)
+      val: form[short].db.filter(doc => doc.id !== id)
     }
   })
 }
@@ -98,21 +97,32 @@ export const determineRequired = ({ type, req }) => {
   }
 }
 
+export const determineDisabled = ({ type, isDoc }) => {
+  if (type === "list" && isDoc) {
+    return true
+  } else {
+    return false
+  }
+}
+
 export const determineFieldVal = ({ short }, form) => form[short]
 
 export const determineFieldDoc = (id, db) => find(db, { id })
 
-export const determineInputVal = ({ type }, val) => {
-  if (type === "list") {
-    return val.input
+export const determineInputVal = ({ isDoc, parse }, val) => {
+  if (isDoc) {
+    return parse.out(val.input)
   } else {
-    return val
+    return parse.out(val)
   }
 }
 
 export const determineValidatorVal = ({ isDoc }, val) => {
-  if (isDoc) return val.val
-  else return val
+  if (isDoc) {
+    return val.val
+  } else {
+    return val
+  }
 }
 
 export const validateForm = () => {

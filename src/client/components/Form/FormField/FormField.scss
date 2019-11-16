@@ -5,7 +5,7 @@
     margin-bottom: 0; }
   &__label {
     display: flex;
-    align-content: center;
+    align-items: center;
     margin-top: 5px;
     border-color: #e0e0e0;
     border-width: 1px;
@@ -13,6 +13,7 @@
     transition: .3s all;
     border-radius: 4px;
     position: relative;
+    padding: 0 13px;
     &:hover {
       border-color: #9E9E9E; }
     &:focus {
@@ -28,21 +29,24 @@
       background-color: #ffffff;
       font-size: 14px; }
     &__list {
-      margin-left: 12px;
       margin-top: 3px;
+      margin-right: 13px;
       align-items: center;
       display: flex; }
     &__cover {
-      margin: 13px -5px 12px 13px;
       border-radius: 4px;
       border: 1px solid #BDBDBD;
+      width: 26px;
       height: 26px;
-      width: 26px; }
+      &-text {
+        margin-left: 8px;
+        font-size: 18rem;
+        white-space: nowrap; } }
     &__input {
       width: 100%;
       border: none;
       background-color: transparent;
-      padding: 15px 11px 12px 13px;
+      padding: 15px 0 12px 0;
       outline: none;
       font-size: 18px;
       line-height: 18px; }

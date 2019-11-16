@@ -15,7 +15,7 @@ const FormFieldDoc = ({ name, photoUrl, onFieldDocRemove }) => (
   <div className={bem("")}>
     {isEmpty(photoUrl) ? null : (
       <Img
-        imgUrl={photoUrl}
+        url={photoUrl}
         className={bem("img")}
       />
     )}

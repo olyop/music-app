@@ -2,6 +2,7 @@ import React, { Fragment } from "react"
 
 import FormValidator from "../FormValidator"
 import FormFieldDoc from "./FormFieldDoc"
+import Img from "../../Img"
 
 import {
   string, oneOf, shape, oneOfType, bool,
@@ -21,6 +22,7 @@ import {
   determineValidatorVal
 } from "../helpers"
 
+import { catalogLink } from "../../../helpers/misc"
 import reactBem from "@oly_op/react-bem"
 import { isEmpty } from "lodash"
 
@@ -29,9 +31,9 @@ import "./FormField.scss"
 const bem = reactBem("FormField")
 
 const FormField = ({ field, val, onFieldChange, onFieldDocRemove }) => {
-  const { id, name, type, isDoc, db, validators } = field
+  const { id, name, type, parse, isDoc, db, validators } = field
   return (
-    <div className={bem("")} id={id}>
+    <div className={bem("")}>
       <label
         className={bem("label")}
         htmlFor={id}
@@ -58,11 +60,9 @@ const FormField = ({ field, val, onFieldChange, onFieldDocRemove }) => {
               </div>
             ) : null}
             {isDoc && type !== "list" ? (
-              <img
-                alt="foo"
-                id={val.id}
-                src="/test.jpg"
-                className={bem("img")}
+              <Img
+                className={bem("cover")}
+                url={catalogLink(val.val)}
               />
             ) : null}
             <input
@@ -81,7 +81,7 @@ const FormField = ({ field, val, onFieldChange, onFieldDocRemove }) => {
               required={determineRequired(field)}
               minLength={determineMinLength(field)}
               maxLength={determineMaxLength(field)}
-              value={determineInputVal(field, val)}
+              value={parse.out(determineInputVal(field, val))}
             />
             {/* {name === "Featuring" ? (
               <div className={bem("dropdown")}>

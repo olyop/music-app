@@ -34,7 +34,7 @@ const Form = ({ title, submitText, fields }) => {
             <FormField
               field={field}
               key={field.id}
-              val={determineFieldVal(field, form)}
+              val={determineFieldVal(field,form)}
               onFieldChange={onFieldChange(field)}
               onFieldDocRemove={onFieldDocRemove(field)}
             />

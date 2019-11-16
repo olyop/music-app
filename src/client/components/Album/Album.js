@@ -17,7 +17,7 @@ const bemLibrary = reactBem("Library")
 const Album = ({ id, albumCoverUrl, title, artists }) => (
   <div className={bem("")}>
     <Img
-      imgUrl={albumCoverUrl}
+      url={albumCoverUrl}
       className={bemLibrary("grid-cover")}
       imgClassName={bemLibrary("grid-cover-img")}
       children={(

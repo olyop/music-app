@@ -7,8 +7,9 @@
   &:last-child {
     margin-right: 0; }
   &__img {
+    width: 24px;
     height: 24px;
-    width: 24px; }
+    border-radius: 3px 0 0 3px;}
   &__text {
     padding: 3px 3px 3px 6px;
     font-size: 18px;

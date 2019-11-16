@@ -4,7 +4,6 @@ import Icon from "../../Icon"
 
 import { shape, string, func, oneOfType, node, object, } from "prop-types"
 import reactBem from "@oly_op/react-bem"
-import { noop } from "lodash"
 
 import "./FormValidator.scss"
 
@@ -16,10 +15,8 @@ const FormValidator = ({ validator, val }) => {
   return (
     <div id={id} className={bem("")}>
       <Icon
-        bem={bem}
-        onClick={noop}
         icon={isValid ? "done" : "close"}
-        className={isValid ? "iconSuccess" : "iconFailure"}
+        className={bem(isValid ? "iconSuccess" : "iconFailure")}
       />
       <p
         children={msg}

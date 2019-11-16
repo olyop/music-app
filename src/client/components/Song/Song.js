@@ -21,7 +21,7 @@ const Song = ({
   <tr className={bem("")}>
     <td className={bem("tableCol","tableHeadCover")}>
       <Img
-        imgUrl={albumCoverUrl}
+        url={albumCoverUrl}
         className={bem("albumCover")}
       />
       <Icon

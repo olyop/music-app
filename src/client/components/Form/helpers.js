@@ -100,17 +100,20 @@ export const determineRequired = ({ type, req }) => {
 
 export const determineFieldVal = ({ short }, form) => form[short]
 
-export const determineInputVal = ({ type, parse }, val) => {
-  if (type === "list") return parse.out(val.input)
-  else return parse.out(val)
+export const determineFieldDoc = (id, db) => find(db, { id })
+
+export const determineInputVal = ({ type }, val) => {
+  if (type === "list") {
+    return val.input
+  } else {
+    return val
+  }
 }
 
 export const determineValidatorVal = ({ isDoc }, val) => {
   if (isDoc) return val.val
   else return val
 }
-
-export const determineFieldDoc = (id, db) => find(db, { id })
 
 export const validateForm = () => {
   return true

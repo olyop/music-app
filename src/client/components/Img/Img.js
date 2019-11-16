@@ -7,10 +7,10 @@ import "./Img.scss"
 
 const bem = reactBem("Img")
 
-const Img = ({ imgUrl, className, imgClassName, children }) => (
+const Img = ({ url, className, imgClassName, children }) => (
   <div className={bem({ ignore: true, className }, "")}>
     <div
-      style={{ backgroundImage: `url("${imgUrl}")` }}
+      style={{ backgroundImage: `url("${url}")` }}
       className={bem({ ignore: true, className: imgClassName }, "img")}
     />
     {children}
@@ -21,7 +21,7 @@ Img.propTypes = {
   children: node,
   className: string,
   imgClassName: string,
-  imgUrl: string.isRequired
+  url: string.isRequired
 }
 
 Img.defaultProps = {

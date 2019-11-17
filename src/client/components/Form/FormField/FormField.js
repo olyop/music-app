@@ -2,6 +2,7 @@ import React, { Fragment } from "react"
 
 import FormValidator from "../FormValidator"
 import FormFieldDoc from "./FormFieldDoc"
+import Icon from "../../Icon"
 import Img from "../../Img"
 
 import {
@@ -93,6 +94,12 @@ const FormField = ({ field, val, onFieldChange, onFieldDocRemove }) => {
               maxLength={determineMaxLength(field)}
               value={determineInputVal(field, val)}
             />
+            {isDoc && type !== "list" ? (
+              <Icon
+                icon="close"
+                className={bem("cover-close")}
+              />
+            ) : null}
             {/* {name === "Featuring" ? (
               <div className={bem("dropdown")}>
                 <div className={bem("dropdownItem")}>Foo</div>

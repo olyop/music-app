@@ -24,9 +24,8 @@ const FormFieldDoc = ({ name, photoUrl, onFieldDocRemove }) => (
       className={bem("text")}
     />
     <Icon
-      bem={bem}
       icon="close"
-      className="close"
+      className={bem("close")}
       onClick={onFieldDocRemove}
     />
   </div>

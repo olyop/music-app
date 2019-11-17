@@ -41,7 +41,16 @@
       &-text {
         margin-left: 8px;
         font-size: 18rem;
-        white-space: nowrap; } }
+        white-space: nowrap; }
+      &-close {
+        padding: 1px;
+        margin-left: 5px;
+        font-size: 22rem;
+        border-radius: 100%;
+        transition: .2s all;
+        outline: none;
+        &:hover {
+          background-color: #BDBDBD; } } }
     &__input {
       width: 100%;
       border: none;

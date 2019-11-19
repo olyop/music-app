@@ -6,7 +6,8 @@ import DocLinks from "../DocLinks"
 import DocLink from "../DocLink"
 import Img from "../Img"
 
-import { string, arrayOf, object } from "prop-types"
+import { string, arrayOf, object, shape } from "prop-types"
+import { catalogLink } from "../../helpers/misc"
 import reactBem from "@oly_op/react-bem"
 
 import "./Album.scss"
@@ -14,68 +15,72 @@ import "./Album.scss"
 const bem = reactBem("Album")
 const bemLibrary = reactBem("Library")
 
-const Album = ({ id, albumCoverUrl, title, artists }) => (
-  <div className={bem("")}>
-    <Img
-      url={albumCoverUrl}
-      className={bemLibrary("grid-cover")}
-      imgClassName={bemLibrary("grid-cover-img")}
-      children={(
-        <Fragment>
-          <IconText
-            text="Play"
-            icon="play_arrow"
-            iconClassName={bemLibrary("grid-cover-button-icon")}
-            className={bemLibrary("grid-cover-button-top-left", "grid-cover-button")}
-          />
-          <IconText
-            text="Queue"
-            icon="queue_music"
-            iconClassName={bemLibrary("grid-cover-button-icon")}
-            className={bemLibrary("grid-cover-button-top-right", "grid-cover-button")}
-          />
-          <Link to={`/album/${id}`}>
+const Album = ({ album }) => {
+  const { id, artists } = album
+  return (
+    <div className={bem("")}>
+      <Img
+        url={catalogLink(id)}
+        className={bemLibrary("grid-cover")}
+        imgClassName={bemLibrary("grid-cover-img")}
+        children={(
+          <Fragment>
             <IconText
-              text="Album"
-              icon="album"
+              text="Play"
+              icon="play_arrow"
               iconClassName={bemLibrary("grid-cover-button-icon")}
-              className={bemLibrary("grid-cover-button-bottom-left", "grid-cover-button")}
+              className={bemLibrary("grid-cover-button-top-left", "grid-cover-button")}
             />
-          </Link>
-          <IconText
-            text="Delete"
-            icon="delete"
-            iconClassName={bemLibrary("grid-cover-button-icon")}
-            className={bemLibrary("grid-cover-button-bottom-right", "grid-cover-button")}
+            <IconText
+              text="Queue"
+              icon="queue_music"
+              iconClassName={bemLibrary("grid-cover-button-icon")}
+              className={bemLibrary("grid-cover-button-top-right", "grid-cover-button")}
+            />
+            <Link to={`/album/${id}`}>
+              <IconText
+                text="Album"
+                icon="album"
+                iconClassName={bemLibrary("grid-cover-button-icon")}
+                className={bemLibrary("grid-cover-button-bottom-left", "grid-cover-button")}
+              />
+            </Link>
+            <IconText
+              text="Delete"
+              icon="delete"
+              iconClassName={bemLibrary("grid-cover-button-icon")}
+              className={bemLibrary("grid-cover-button-bottom-right", "grid-cover-button")}
+            />
+            <div
+              className={bemLibrary("grid-cover-black-box")}
+            />
+          </Fragment>
+        )}
+      />
+      <div className={bem("info")}>
+        <p className={bem("title")}>
+          <DocLink
+            path="/album"
+            doc={album}
           />
-          <div
-            className={bemLibrary("grid-cover-black-box")}
+        </p>
+        <p className={bem("artistName")}>
+          <DocLinks
+            path="/artist"
+            docs={artists}
           />
-        </Fragment>
-      )}
-    />
-    <div className={bem("info")}>
-      <p className={bem("title")}>
-        <DocLink
-          path="/album"
-          doc={{ id, title }}
-        />
-      </p>
-      <p className={bem("artistName")}>
-        <DocLinks
-          path="/artist"
-          docs={artists}
-        />
-      </p>
+        </p>
+      </div>
     </div>
-  </div>
-)
+  )
+}
 
 Album.propTypes = {
-  id: string.isRequired,
-  albumCoverUrl: string.isRequired,
-  title: string.isRequired,
-  artists: arrayOf(object).isRequired
+  album: shape({
+    id: string.isRequired,
+    title: string.isRequired,
+    artists: arrayOf(object).isRequired
+  }).isRequired
 }
 
 export default Album

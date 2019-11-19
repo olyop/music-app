@@ -1,4 +1,5 @@
 import {
+  isString,
   isEmpty,
   inRange
 } from "lodash"
@@ -21,5 +22,17 @@ export const validateArray = validator => arr => {
     )
   }
 }
+
+export const validateId = x => (
+  isStringLength(24)(x) &&
+  isString(x) &&
+  isHex(x)
+)
+
+export const validateArrayOfIds = x => (
+  validateArray(isStringLength(24))(x) &&
+  validateArray(isString)(x) &&
+  validateArray(isHex)(x)
+)
 
 export const deserializeDate = unix => (new Date(unix)).toLocaleDateString()

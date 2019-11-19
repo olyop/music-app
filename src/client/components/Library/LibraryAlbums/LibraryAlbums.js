@@ -8,7 +8,6 @@ import Album from "../../Album"
 import Empty from "../../Empty"
 
 import { isUndefined, isEmpty, orderBy } from "lodash"
-import { catalogLink } from "../../../helpers/misc"
 import query from "./query.graphql"
 
 const LibraryAlbums = () => (
@@ -25,13 +24,10 @@ const LibraryAlbums = () => (
         return (
           <Albums>
             {albums.map(
-              ({ id, title, artists }) => (
+              album => (
                 <Album
-                  id={id}
-                  key={id}
-                  title={title}
-                  artists={artists}
-                  albumCoverUrl={catalogLink(id)}
+                  album={album}
+                  key={album.id}
                 />
               )
             )}

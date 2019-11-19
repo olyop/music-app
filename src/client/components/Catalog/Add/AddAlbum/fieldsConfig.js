@@ -1,16 +1,8 @@
-import {
-  isStringLengthInRange,
-  validateArray,
-  isHex,
-  isStringLength
-} from "../helpers"
-
-import {
-  uniqueId,
-  isString
-} from "lodash"
-
+import { isStringLengthInRange, validateArrayOfIds } from "../helpers"
 import { inRange as curryInRange } from "lodash/fp"
+import { uniqueId, isString } from "lodash"
+
+const noopReturn = x => x
 
 const fieldsConifg = ({ artists }) => [
   {
@@ -52,8 +44,8 @@ const fieldsConifg = ({ artists }) => [
     min: 0,
     max: Date.now(),
     parse: {
-      in: Date.parse,
-      out: Date.parse
+      in: noopReturn,
+      out: noopReturn
     },
     validators: [
       {
@@ -81,18 +73,8 @@ const fieldsConifg = ({ artists }) => [
     validators: [
       {
         id: uniqueId(),
-        check: validateArray(isString),
-        msg: "data type of string."
-      },
-      {
-        id: uniqueId(),
-        check: validateArray(isHex),
-        msg: "all be hexadecimal."
-      },
-      {
-        id: uniqueId(),
-        check: validateArray(isStringLength(24)),
-        msg: "all be of length 24."
+        check: validateArrayOfIds,
+        msg: "Must be a valid artists."
       }
     ]
   },
@@ -114,18 +96,8 @@ const fieldsConifg = ({ artists }) => [
     validators: [
       {
         id: uniqueId(),
-        check: validateArray(isString),
-        msg: "data type of string."
-      },
-      {
-        id: uniqueId(),
-        check: validateArray(isHex),
-        msg: "all be hexadecimal."
-      },
-      {
-        id: uniqueId(),
-        check: validateArray(isStringLength(24)),
-        msg: "all be of length 24."
+        check: validateArrayOfIds,
+        msg: "Must be a valid artists."
       }
     ]
   },

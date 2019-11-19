@@ -4,13 +4,13 @@ import { serializeCollection, serializeDocument } from "../../helpers/collection
 
 export default {
   artist: async (parent, { id }) => {
-    const query = Artist.findById(id).lean()
-    const result = await query.exec()
+    const query = Artist.findById(id).lean().exec()
+    const result = await query
     return serializeDocument(result)
   },
   album: async (parent, { id }) => {
-    const query = Album.findById(id).lean()
-    const result = await query.exec()
+    const query = Album.findById(id).lean().exec()
+    const result = await query
     return serializeDocument(result)
   },
   genre: async (parent, { id }) => {

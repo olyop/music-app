@@ -1,23 +1,32 @@
 import React from "react"
 
+import DocLink from "../DocLink"
+
+import { string, shape } from "prop-types"
 import reactBem from "@oly_op/react-bem"
-import { string } from "prop-types"
 
 import "./Genre.scss"
 
 const bem = reactBem("Genre")
 
-const Genre = ({ id, name }) => (
-  <div id={id} className={bem("")}>
-    <h2 className={bem("name")}>
-      {name}
-    </h2>
-  </div>
-)
+const Genre = ({ genre }) => {
+  return (
+    <div className={bem("")}>
+      <h2 className={bem("name")}>
+        <DocLink
+          doc={genre}
+          path="/genre"
+        />
+      </h2>
+    </div>
+  )
+}
 
 Genre.propTypes = {
-  id: string.isRequired,
-  name: string.isRequired
+  genre: shape({
+    id: string.isRequired,
+    name: string.isRequired
+  }).isRequired
 }
 
 export default Genre

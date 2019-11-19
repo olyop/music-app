@@ -61,19 +61,22 @@ const FormField = ({ field, val, onFieldChange, onFieldDocRemove }) => {
                 })}
               </div>
             ) : null}
-            {isDoc && type !== "list" ? (
-              <Fragment>
-                <div>
-                  <Img
-                    className={bem("cover")}
-                    url={catalogLink(val.val)}
-                  />
-                </div>
+            {isDoc && type !== "list" && !isEmpty(val.val) ? (
+              <div className={bem("doc")}>
+                <Img
+                  url={catalogLink(val.val)}
+                  className={bem("doc-cover")}
+                />
                 <div
-                  className={bem("cover-text")}
+                  className={bem("doc-text")}
                   children={determineFieldDoc(val.val, db).title}
                 />
-              </Fragment>
+                <Icon
+                  icon="close"
+                  className={bem("doc-close")}
+                  onClick={onFieldDocRemove(val.val)}
+                />
+              </div>
             ) : null}
             <input
               id={id}
@@ -89,17 +92,11 @@ const FormField = ({ field, val, onFieldChange, onFieldDocRemove }) => {
               type={determineInputType(field)}
               pattern={determinePattern(field)}
               required={determineRequired(field)}
-              disabled={determineDisabled(field)}
+              value={determineInputVal(field,val)}
               minLength={determineMinLength(field)}
               maxLength={determineMaxLength(field)}
-              value={determineInputVal(field, val)}
+              disabled={determineDisabled(field,val)}
             />
-            {isDoc && type !== "list" ? (
-              <Icon
-                icon="close"
-                className={bem("cover-close")}
-              />
-            ) : null}
             {/* {name === "Featuring" ? (
               <div className={bem("dropdown")}>
                 <div className={bem("dropdownItem")}>Foo</div>

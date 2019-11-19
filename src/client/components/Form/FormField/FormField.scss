@@ -1,5 +1,5 @@
 .FormField {
-  margin-bottom: 20px;
+  margin-bottom: 25px;
   width: 500px;
   &:last-child {
     margin-bottom: 0; }
@@ -21,7 +21,6 @@
     &__name {
       top: -6px;
       left: 9px;
-      font-weight: 400;
       position: absolute;
       color: #757575;
       padding: 0 4px 0 4px;
@@ -33,11 +32,14 @@
       margin-right: 13px;
       align-items: center;
       display: flex; }
-    &__cover {
-      border-radius: 4px;
-      border: 1px solid #BDBDBD;
-      width: 26px;
-      height: 26px;
+    &__doc {
+      display: flex;
+      align-items: center;
+      &-cover {
+        border-radius: 4px;
+        border: 1px solid #BDBDBD;
+        width: 26px;
+        height: 26px; }
       &-text {
         margin-left: 8px;
         font-size: 18rem;
@@ -82,5 +84,5 @@
         &:hover {
           background-color: #e0e0e0; } }
   &__validators {
-    margin: 10px 0 0 10px; }
+    margin: 10px 0 0 13px; }
 }

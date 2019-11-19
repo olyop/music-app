@@ -20,15 +20,14 @@ const LibraryGenres = () => (
       } else if (isEmpty(data.genres)) {
         return <Empty/>
       } else {
-        const genresOrdered = orderBy(data.genres, "name", "asc")
+        const genres = orderBy(data.genres, "name", "asc")
         return (
           <Genres>
-            {genresOrdered.map(
-              ({ id, name }) => (
+            {genres.map(
+              genre => (
                 <Genre
-                  id={id}
-                  key={id}
-                  name={name}
+                  genre={genre}
+                  key={genre.id}
                 />
               )
             )}

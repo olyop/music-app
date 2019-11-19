@@ -1,5 +1,5 @@
 import { deserializeDate } from "../../helpers/misc"
-import { includes, find } from "lodash"
+import { includes, find, isEmpty } from "lodash"
 
 export const createFormInit = fields => fields.reduce(
   (acc, { short, isDoc, init }) => ({
@@ -23,12 +23,12 @@ export const handleFieldChange = (form, setForm) => ({ type, short, parse }) => 
   })
 }
 
-export const handleFieldDocRemove = (form, setForm) => ({ short }) => ({ id }) => () => {
+export const handleFieldDocRemove = (form, setForm) => ({ type, short }) => ({ id }) => () => {
   setForm({
     ...form,
     [short]: {
       ...form[short],
-      val: form[short].db.filter(doc => doc.id !== id)
+      val: type === "list" ? form[short].val.filter(doc => doc !== id) : ""
     }
   })
 }
@@ -98,8 +98,8 @@ export const determineRequired = ({ type, req }) => {
   }
 }
 
-export const determineDisabled = ({ type, isDoc }) => {
-  if (type !== "list" && isDoc) {
+export const determineDisabled = ({ type, isDoc }, val) => {
+  if (type !== "list" && isDoc && !isEmpty(val.val)) {
     return true
   } else {
     return undefined
@@ -114,8 +114,7 @@ export const determineInputVal = ({ type, isDoc, parse }, val) => {
   if (isDoc) {
     return parse.out(val.input)
   } else if (type === "date") {
-    console.log(val)
-    return parse.out(deserializeDate(val))
+    return deserializeDate(parse.out(val))
   } else {
     return val
   }

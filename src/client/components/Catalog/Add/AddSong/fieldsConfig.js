@@ -1,9 +1,8 @@
 import {
   isNotEmpty,
   isStringLengthInRange,
-  isHex,
-  isStringLength,
-  validateArray
+  validateArrayOfIds,
+  validateId
 } from "../helpers"
 
 import {
@@ -144,18 +143,8 @@ const fieldsConifg = ({ artists, albums, genres }) => [
     validators: [
       {
         id: uniqueId(),
-        check: validateArray(isString),
-        msg: "data type of string."
-      },
-      {
-        id: uniqueId(),
-        check: validateArray(isHex),
-        msg: "all be hexadecimal."
-      },
-      {
-        id: uniqueId(),
-        check: validateArray(isStringLength(24)),
-        msg: "all be of length 24."
+        check: validateArrayOfIds,
+        msg: "must be valid artists."
       }
     ]
   },
@@ -177,18 +166,8 @@ const fieldsConifg = ({ artists, albums, genres }) => [
     validators: [
       {
         id: uniqueId(),
-        check: validateArray(isString),
-        msg: "data type of string."
-      },
-      {
-        id: uniqueId(),
-        check: validateArray(isHex),
-        msg: "all be hexadecimal."
-      },
-      {
-        id: uniqueId(),
-        check: validateArray(isStringLength(24)),
-        msg: "all be of length 24."
+        check: validateArrayOfIds,
+        msg: "must be valid artists."
       }
     ]
   },
@@ -210,18 +189,8 @@ const fieldsConifg = ({ artists, albums, genres }) => [
     validators: [
       {
         id: uniqueId(),
-        check: validateArray(isString),
-        msg: "data type of string."
-      },
-      {
-        id: uniqueId(),
-        check: validateArray(isHex),
-        msg: "all be hexadecimal."
-      },
-      {
-        id: uniqueId(),
-        check: validateArray(isStringLength(24)),
-        msg: "all be of length 24."
+        check: validateArrayOfIds,
+        msg: "must be valid artists."
       }
     ]
   },
@@ -243,18 +212,8 @@ const fieldsConifg = ({ artists, albums, genres }) => [
     validators: [
       {
         id: uniqueId(),
-        check: validateArray(isString),
-        msg: "data type of string."
-      },
-      {
-        id: uniqueId(),
-        check: validateArray(isHex),
-        msg: "all be hexadecimal."
-      },
-      {
-        id: uniqueId(),
-        check: validateArray(isStringLength(24)),
-        msg: "all be of length 24."
+        check: validateArrayOfIds,
+        msg: "must be valid genres."
       }
     ]
   },
@@ -276,18 +235,8 @@ const fieldsConifg = ({ artists, albums, genres }) => [
     validators: [
       {
         id: uniqueId(),
-        check: isString,
-        msg: "data type of string."
-      },
-      {
-        id: uniqueId(),
-        check: isHex,
-        msg: "hexadecimal."
-      },
-      {
-        id: uniqueId(),
-        check: isStringLength(24),
-        msg: "of length 24."
+        check: validateId,
+        msg: "must be a valid album."
       }
     ]
   }

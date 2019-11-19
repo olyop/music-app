@@ -16,14 +16,18 @@ const AddAlbum = () => (
   <div className={bem("")}>
     <Query query={query}>
       {({ loading, error, data }) => {  
-        if (loading) return <Loading/>  
-        if (!isUndefined(error)) return <ApiError/>
-        return (
-          <Form
-            title="Add Album"
-            fields={fieldsConifg(data)}
-          />
-        )
+        if (loading) {
+          return <Loading/>
+        } else if (!isUndefined(error)) {
+          return <ApiError/>
+        } else {
+          return (
+            <Form
+              title="Add Album"
+              fields={fieldsConifg(data)}
+            />
+          )
+        }
       }}
     </Query>
   </div>

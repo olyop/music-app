@@ -5,17 +5,19 @@
   &__info {
     width: 100%;
     padding-top: 10px;
+    overflow: hidden;
     border-color: #e0e0e0; }
     &__title,
     &__artistName {
-      text-overflow: clip;
+      text-overflow: ellipsis;
       overflow: hidden;
+      display: block;
       line-height: 1.1; }
     &__title {
-      font-size: 18rem;
+      font-size: 16rem;
       margin-bottom: 3px;
       font-weight: 700; }
     &__artistName {
-      font-size: 16rem;
+      font-size: 15rem;
       font-weight: 400; }
 }

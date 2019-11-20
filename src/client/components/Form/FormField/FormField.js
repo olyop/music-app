@@ -24,16 +24,16 @@ import {
   determineValidatorVal
 } from "../helpers"
 
-import { catalogLink } from "../../../helpers/misc"
+import { isEmpty, includes, lowerCase } from "lodash"
+import { catalogUrl } from "../../../helpers/misc"
 import reactBem from "@oly_op/react-bem"
-import { isEmpty } from "lodash"
 
 import "./FormField.scss"
 
 const bem = reactBem("FormField")
 
 const FormField = ({ field, val, onFieldChange, onFieldDocRemove }) => {
-  const { id, name, type, isDoc, db, validators } = field
+  const { id, name, type, isDoc, db, validators, parse } = field
   return (
     <div className={bem("")}>
       <label
@@ -44,10 +44,10 @@ const FormField = ({ field, val, onFieldChange, onFieldDocRemove }) => {
             <span
               children={name}
               aria-label={id}
-              className={bem("name")}
+              className={bem("label-name")}
             />
             {type === "list" && !isEmpty(val.val) ? (
-              <div className={bem("list")}>
+              <div className={bem("label-list")}>
                 {val.val.map(docId => {
                   const doc = determineFieldDoc(docId, db)
                   return (
@@ -62,18 +62,18 @@ const FormField = ({ field, val, onFieldChange, onFieldDocRemove }) => {
               </div>
             ) : null}
             {isDoc && type !== "list" && !isEmpty(val.val) ? (
-              <div className={bem("doc")}>
+              <div className={bem("label-doc")}>
                 <Img
-                  url={catalogLink(val.val)}
-                  className={bem("doc-cover")}
+                  url={catalogUrl(val.val)}
+                  className={bem("label-doc-cover")}
                 />
                 <div
-                  className={bem("doc-text")}
+                  className={bem("label-doc-text")}
                   children={determineFieldDoc(val.val, db).title}
                 />
                 <Icon
                   icon="close"
-                  className={bem("doc-close")}
+                  className={bem("label-doc-close")}
                   onClick={onFieldDocRemove(val.val)}
                 />
               </div>
@@ -85,10 +85,10 @@ const FormField = ({ field, val, onFieldChange, onFieldDocRemove }) => {
               autoComplete="off"
               spellCheck="false"
               autoCapitalize="off"
-              className={bem("input")}
               onChange={onFieldChange}
               min={determineMin(field)}
               max={determineMax(field)}
+              className={bem("label-input")}
               type={determineInputType(field)}
               pattern={determinePattern(field)}
               required={determineRequired(field)}
@@ -97,11 +97,19 @@ const FormField = ({ field, val, onFieldChange, onFieldDocRemove }) => {
               maxLength={determineMaxLength(field)}
               disabled={determineDisabled(field,val)}
             />
-            {/* {name === "Featuring" ? (
-              <div className={bem("dropdown")}>
-                <div className={bem("dropdownItem")}>Foo</div>
+            {type === "list" && !isEmpty(val.input) ? (
+              <div className={bem("label-dropdown")}>
+                {db.filter(x => includes(lowerCase(x.name), lowerCase(parse.out(val.input)))).map(
+                  hit => (
+                    <div
+                      key={hit.id}
+                      children={hit.name}
+                      className={bem("label-dropdown-item")}
+                    />
+                  )
+                )}
               </div>
-            ) : null} */}
+            ) : null}
           </Fragment>
         )}
       />

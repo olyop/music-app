@@ -6,7 +6,7 @@ import DocLink from "../DocLink"
 import Icon from "../Icon"
 import Img from "../Img"
 
-import { deserializeDate, deserializeDuration, catalogLink } from "../../helpers/misc"
+import { deserializeDate, deserializeDuration, catalogUrl } from "../../helpers/misc"
 import { string, number, arrayOf, object, shape } from "prop-types"
 import reactBem from "@oly_op/react-bem"
 import { isEmpty } from "lodash"
@@ -21,7 +21,7 @@ const Song = ({ song }) => {
     <tr className={bem("")}>
       <td className={bem("tableCol","tableHeadCover")}>
         <Img
-          url={catalogLink(album.id)}
+          url={catalogUrl(album.id)}
           className={bem("albumCover")}
         />
         <Icon

@@ -1,24 +1,27 @@
+@import "../../../globals/index.scss";
+
 .FormField {
-  margin-bottom: 25px;
   width: 500px;
+  margin-bottom: 25px;
   &:last-child {
     margin-bottom: 0; }
   &__label {
     display: flex;
     align-items: center;
+    position: relative;
     margin-top: 5px;
     border-color: #e0e0e0;
     border-width: 1px;
     border-style: solid;
     transition: .3s all;
-    border-radius: 4px;
-    position: relative;
+    border-radius: $BORDER_RADIUS;
     padding: 0 13px;
-    &:hover {
+    &:hover,
+    &:hover &-dropdown {
       border-color: #9E9E9E; }
     &:focus {
-      border-color: #212121; } }
-    &__name {
+      border-color: #212121; }
+    &-name {
       top: -6px;
       left: 9px;
       position: absolute;
@@ -27,12 +30,12 @@
       font-weight: 400;
       background-color: #ffffff;
       font-size: 14px; }
-    &__list {
+    &-list {
       margin-top: 3px;
       margin-right: 13px;
       align-items: center;
       display: flex; }
-    &__doc {
+    &-doc {
       display: flex;
       align-items: center;
       &-cover {
@@ -53,7 +56,7 @@
         outline: none;
         &:hover {
           background-color: #BDBDBD; } } }
-    &__input {
+    &-input {
       width: 100%;
       border: none;
       background-color: transparent;
@@ -61,28 +64,31 @@
       outline: none;
       font-size: 18px;
       line-height: 18px; }
-    &__dropdown {
+    &-dropdown {
       bottom: 0;
       z-index: 2;
-      border-radius: 3px;
-      border: 1px solid #e0e0e0;
-      top: calc(100% + 6px);
-      box-shadow:
-        0px 5px 5px -3px rgba(0,0,0,0.2),
-        0px 8px 10px 1px rgba(0,0,0,0.14),
-        0px 3px 14px 2px rgba(0,0,0,0.12);
-      height: 100%;
-      width: 100%;
+      border-radius: 0 0 $BORDER_RADIUS $BORDER_RADIUS;
+      top: calc(100% - 3px);
+      left: -1px;
+      overflow-x: hidden;
+      overflow-y: scroll;
+      border-color: #e0e0e0;
+      border-width: 1px;
+      border-style: solid;
+      border-top: none;
+      width: calc(100% + 2px);
+      min-height: 136px;
       background-color: #ffffff;
-      position: absolute; }
-      &__dropdownItem {
+      position: absolute;
+      &-item {
         display: block;
         padding: 15px;
-        font-size: 17px;
+        user-select: none;
+        font-size: 15px;
         cursor: pointer;
         transition: .2s all;
         &:hover {
-          background-color: #e0e0e0; } }
+          background-color: #e0e0e0; } } } }
   &__validators {
     margin: 10px 0 0 13px; }
 }

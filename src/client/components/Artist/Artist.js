@@ -5,7 +5,7 @@ import IconText from "../IconText"
 import DocLink from "../DocLink"
 import Img from "../Img"
 
-import { catalogLink } from "../../helpers/misc"
+import { catalogUrl } from "../../helpers/misc"
 import { string, shape } from "prop-types"
 import reactBem from "@oly_op/react-bem"
 
@@ -19,7 +19,7 @@ const Artist = ({ artist }) => {
   return (
     <div className={bem("")}>
       <Img
-        url={catalogLink(id)}
+        url={catalogUrl(id)}
         imgClassName={bemLibrary("grid-cover-img")}
         className={bem("cover", { ignore: true, className: bemLibrary("grid-cover") })}
         children={(

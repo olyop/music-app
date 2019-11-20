@@ -54,7 +54,7 @@
         0 3px 6px rgba(0,0,0,0.16),
         0 3px 6px rgba(0,0,0,0.23);
       &:hover &-img {
-        filter: blur(20px); }
+        filter: blur(10px); }
       &:hover &-black-box {
         background-color: rgba(#000000, .8); }
       &:hover &-button {
@@ -92,7 +92,7 @@
         &-icon {
           outline: none;
           color: #ffffff;
-          font-size: 50rem; }
+          font-size: 35rem; }
         &-top-left {
           top: 25%;
           left: 25%;
@@ -104,7 +104,7 @@
         &-bottom-left {
           top: 75%;
           left: 25%;
-          border-bottom-left-radius: $BORDER_RADIUS;}
+          border-bottom-left-radius: $BORDER_RADIUS; }
         &-bottom-right {
           top: 75%;
           left: 75%;

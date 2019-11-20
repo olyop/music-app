@@ -29,4 +29,4 @@ export const deserializeDuration = duration => {
   return `${minutes}:${seconds}`
 }
 
-export const catalogLink = id => `/images/catalog/${id}.jpg`
+export const catalogUrl = id => `/images/catalog/${id}.jpg`

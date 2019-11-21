@@ -1,19 +1,19 @@
 import {
+  validateId,
   isNotEmpty,
-  isStringLengthInRange,
   validateArrayOfIds,
-  validateId
+  isStringLengthInRange,
 } from "../helpers"
 
 import {
-  isSafeInteger,
   uniqueId,
   isString,
-  toInteger
+  toInteger,
+  isSafeInteger,
 } from "lodash"
 
 import {
-  inRange as curryInRange
+  inRange as curryInRange,
 } from "lodash/fp"
 
 const fieldsConifg = ({ artists, albums, genres }) => [
@@ -29,20 +29,20 @@ const fieldsConifg = ({ artists, albums, genres }) => [
     max: 128,
     parse: {
       in: encodeURI,
-      out: decodeURI
+      out: decodeURI,
     },
     validators: [
       {
         id: uniqueId(),
         check: isNotEmpty,
-        msg: "not empty."
+        msg: "not empty.",
       },
       {
         id: uniqueId(),
         check: isStringLengthInRange(1, 128),
-        msg: "between 1 and 128 characters."
-      }
-    ]
+        msg: "between 1 and 128 characters.",
+      },
+    ],
   },
   {
     id: uniqueId(),
@@ -56,20 +56,20 @@ const fieldsConifg = ({ artists, albums, genres }) => [
     max: 64,
     parse: {
       in: encodeURI,
-      out: decodeURI
+      out: decodeURI,
     },
     validators: [
       {
         id: uniqueId(),
         check: isString,
-        msg: "data type of string."
+        msg: "data type of string.",
       },
       {
         id: uniqueId(),
         check: isStringLengthInRange(1, 64),
-        msg: "between 1 and 64 characters."
-      }
-    ]
+        msg: "between 1 and 64 characters.",
+      },
+    ],
   },
   {
     id: uniqueId(),
@@ -83,20 +83,20 @@ const fieldsConifg = ({ artists, albums, genres }) => [
     max: 32,
     parse: {
       in: toInteger,
-      out: toInteger
+      out: toInteger,
     },
     validators: [
       {
         id: uniqueId(),
         check: isSafeInteger,
-        msg: "a valid integer."
+        msg: "a valid integer.",
       },
       {
         id: uniqueId(),
         check: curryInRange(1, 32),
-        msg: "between 1 and 32."
-      }
-    ]
+        msg: "between 1 and 32.",
+      },
+    ],
   },
   {
     id: uniqueId(),
@@ -110,20 +110,20 @@ const fieldsConifg = ({ artists, albums, genres }) => [
     max: 32,
     parse: {
       in: toInteger,
-      out: toInteger
+      out: toInteger,
     },
     validators: [
       {
         id: uniqueId(),
         check: isSafeInteger,
-        msg: "a valid integer."
+        msg: "a valid integer.",
       },
       {
         id: uniqueId(),
         check: curryInRange(1, 32),
-        msg: "between 1 and 32."
-      }
-    ]
+        msg: "between 1 and 32.",
+      },
+    ],
   },
   {
     id: uniqueId(),
@@ -138,15 +138,15 @@ const fieldsConifg = ({ artists, albums, genres }) => [
     max: 24,
     parse: {
       in: encodeURI,
-      out: decodeURI
+      out: decodeURI,
     },
     validators: [
       {
         id: uniqueId(),
         check: validateArrayOfIds,
-        msg: "must be valid artists."
-      }
-    ]
+        msg: "must be valid artists.",
+      },
+    ],
   },
   {
     id: uniqueId(),
@@ -161,15 +161,15 @@ const fieldsConifg = ({ artists, albums, genres }) => [
     max: 24,
     parse: {
       in: encodeURI,
-      out: decodeURI
+      out: decodeURI,
     },
     validators: [
       {
         id: uniqueId(),
         check: validateArrayOfIds,
-        msg: "must be valid artists."
-      }
-    ]
+        msg: "must be valid artists.",
+      },
+    ],
   },
   {
     id: uniqueId(),
@@ -184,15 +184,15 @@ const fieldsConifg = ({ artists, albums, genres }) => [
     max: 24,
     parse: {
       in: encodeURI,
-      out: decodeURI
+      out: decodeURI,
     },
     validators: [
       {
         id: uniqueId(),
         check: validateArrayOfIds,
-        msg: "must be valid artists."
-      }
-    ]
+        msg: "must be valid artists.",
+      },
+    ],
   },
   {
     id: uniqueId(),
@@ -207,15 +207,15 @@ const fieldsConifg = ({ artists, albums, genres }) => [
     max: 24,
     parse: {
       in: encodeURI,
-      out: decodeURI
+      out: decodeURI,
     },
     validators: [
       {
         id: uniqueId(),
         check: validateArrayOfIds,
-        msg: "must be valid genres."
-      }
-    ]
+        msg: "must be valid genres.",
+      },
+    ],
   },
   {
     id: uniqueId(),
@@ -230,16 +230,16 @@ const fieldsConifg = ({ artists, albums, genres }) => [
     max: 24,
     parse: {
       in: encodeURI,
-      out: decodeURI
+      out: decodeURI,
     },
     validators: [
       {
         id: uniqueId(),
         check: validateId,
-        msg: "must be a valid album."
-      }
-    ]
-  }
+        msg: "must be a valid album.",
+      },
+    ],
+  },
 ]
 
 export default fieldsConifg

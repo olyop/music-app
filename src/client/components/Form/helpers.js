@@ -6,8 +6,8 @@ export const createFormInit = fields => fields.reduce(
     ...acc,
     [short]: isDoc ? {
       val: init,
-      input: ""
-    } : init
+      input: "",
+    } : init,
   }),
   {}
 )
@@ -18,8 +18,8 @@ export const handleFieldChange = (form, setForm) => ({ type, short, parse }) => 
     ...form,
     [short]: type === "list" ? {
       ...form[short],
-      input: value
-    } : value
+      input: value,
+    } : value,
   })
 }
 
@@ -28,8 +28,8 @@ export const handleFieldDocRemove = (form, setForm) => ({ type, short }) => ({ i
     ...form,
     [short]: {
       ...form[short],
-      val: type === "list" ? form[short].val.filter(doc => doc !== id) : ""
-    }
+      val: type === "list" ? form[short].val.filter(doc => doc !== id) : "",
+    },
   })
 }
 

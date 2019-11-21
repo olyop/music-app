@@ -5,13 +5,13 @@ export const propTypes = {
   doc: shape({
     name: string,
     title: string,
-    id: string.isRequired
-  }).isRequired
+    id: string.isRequired,
+  }).isRequired,
 }
 
 export const defaultProps = {
   doc: {
     name: undefined,
-    title: undefined
-  }
+    title: undefined,
+  },
 }

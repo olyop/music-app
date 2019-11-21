@@ -1,10 +1,4 @@
-import {
-  shape,
-  string,
-  number,
-  object,
-  arrayOf
-} from "prop-types"
+import { shape, string, number, object, arrayOf } from "prop-types"
 
 export const propTypes = {
   song: shape({
@@ -14,11 +8,11 @@ export const propTypes = {
     duration: number.isRequired,
     album: shape({
       id: string.isRequired,
-      released: number.isRequired
+      released: number.isRequired,
     }).isRequired,
     genres: arrayOf(object).isRequired,
     artists: arrayOf(object).isRequired,
     remixers: arrayOf(object).isRequired,
-    featuring: arrayOf(object).isRequired
-  }).isRequired
+    featuring: arrayOf(object).isRequired,
+  }).isRequired,
 }

@@ -7,6 +7,6 @@ export default [
     id: uniqueId(),
     path: "/add",
     name: "Add To Catalog",
-    component: Add
-  }
+    component: Add,
+  },
 ]

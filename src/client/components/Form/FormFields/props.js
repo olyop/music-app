@@ -1,5 +1,5 @@
 import { node } from "prop-types"
 
 export const propTypes = {
-  children: node.isRequired
+  children: node.isRequired,
 }

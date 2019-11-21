@@ -1,5 +1,5 @@
-import { isStringLengthInRange } from "../helpers"
 import { uniqueId, isString } from "lodash"
+import { isStringLengthInRange } from "../helpers"
 
 const fieldsConfig = [
   {
@@ -14,21 +14,21 @@ const fieldsConfig = [
     max: 127,
     parse: {
       in: encodeURI,
-      out: decodeURI
+      out: decodeURI,
     },
     validators: [
       {
         id: uniqueId(),
         check: isString,
-        msg: "data type of string."
+        msg: "data type of string.",
       },
       {
         id: uniqueId(),
         check: isStringLengthInRange(1, 128),
-        msg: "between 1 and 256 characters."
-      }
-    ]
-  }
+        msg: "between 1 and 256 characters.",
+      },
+    ],
+  },
 ]
 
 export default fieldsConfig

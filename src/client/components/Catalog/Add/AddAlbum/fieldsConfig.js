@@ -17,20 +17,20 @@ const fieldsConifg = ({ artists }) => [
     max: 127,
     parse: {
       in: encodeURI,
-      out: decodeURI
+      out: decodeURI,
     },
     validators: [
       {
         id: uniqueId(),
         check: isString,
-        msg: "data type of string."
+        msg: "data type of string.",
       },
       {
         id: uniqueId(),
         check: isStringLengthInRange(1, 128),
-        msg: "between 1 and 256 characters."
-      }
-    ]
+        msg: "between 1 and 256 characters.",
+      },
+    ],
   },
   {
     id: uniqueId(),
@@ -45,15 +45,15 @@ const fieldsConifg = ({ artists }) => [
     max: Date.now(),
     parse: {
       in: noopReturn,
-      out: noopReturn
+      out: noopReturn,
     },
     validators: [
       {
         id: uniqueId(),
         check: curryInRange(0, Date.now()),
-        msg: "valid date."
-      }
-    ]
+        msg: "valid date.",
+      },
+    ],
   },
   {
     id: uniqueId(),
@@ -68,15 +68,15 @@ const fieldsConifg = ({ artists }) => [
     max: 24,
     parse: {
       in: encodeURI,
-      out: decodeURI
+      out: decodeURI,
     },
     validators: [
       {
         id: uniqueId(),
         check: validateArrayOfIds,
-        msg: "Must be a valid artists."
-      }
-    ]
+        msg: "Must be a valid artists.",
+      },
+    ],
   },
   {
     id: uniqueId(),
@@ -91,16 +91,16 @@ const fieldsConifg = ({ artists }) => [
     max: 24,
     parse: {
       in: encodeURI,
-      out: decodeURI
+      out: decodeURI,
     },
     validators: [
       {
         id: uniqueId(),
         check: validateArrayOfIds,
-        msg: "Must be a valid artists."
-      }
-    ]
-  }
+        msg: "Must be a valid artists.",
+      },
+    ],
+  },
 ]
 
 export default fieldsConifg

@@ -1,8 +1,4 @@
-import {
-  isString,
-  isEmpty,
-  inRange
-} from "lodash"
+import { isString, isEmpty, inRange } from "lodash"
 
 export const isStringLengthInRange = (start, end) => str => inRange(str.length, start, end)
 

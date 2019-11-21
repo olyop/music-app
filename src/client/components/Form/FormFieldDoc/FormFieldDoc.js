@@ -1,7 +1,7 @@
 import React from "react"
 
-import Img from "../../../Img"
-import Icon from "../../../Icon"
+import Img from "../../Img"
+import Icon from "../../Icon"
 
 import { isEmpty } from "lodash"
 import reactBem from "@oly_op/react-bem"

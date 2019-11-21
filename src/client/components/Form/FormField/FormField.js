@@ -21,7 +21,7 @@ import {
   determineInputType,
   determineMinLength,
   determineMaxLength,
-  determineValidatorVal
+  determineValidatorVal,
 } from "../helpers"
 
 import "./FormField.scss"

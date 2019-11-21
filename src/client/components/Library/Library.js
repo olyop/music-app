@@ -1,7 +1,7 @@
 import React, { Fragment } from "react"
 
-import { Switch, Route, NavLink } from "react-router-dom"
 import Icon from "../Icon"
+import { Switch, Route, NavLink } from "react-router-dom"
 
 import { propTypes } from "./props"
 import reactBem from "@oly_op/react-bem"

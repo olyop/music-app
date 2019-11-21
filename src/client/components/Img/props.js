@@ -4,11 +4,11 @@ export const propTypes = {
   children: node,
   className: string,
   imgClassName: string,
-  url: string.isRequired
+  url: string.isRequired,
 }
 
 export const defaultProps = {
   children: null,
   className: undefined,
-  imgClassName: undefined
+  imgClassName: undefined,
 }

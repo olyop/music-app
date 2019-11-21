@@ -10,26 +10,26 @@ const routesConfig = [
     id: uniqueId(),
     path: "/artist",
     name: "Artist",
-    component: AddArtist
+    component: AddArtist,
   },
   {
     id: uniqueId(),
     path: "/album",
     name: "Album",
-    component: AddAlbum
+    component: AddAlbum,
   },
   {
     id: uniqueId(),
     path: "/genre",
     name: "Genre",
-    component: AddGenre
+    component: AddGenre,
   },
   {
     id: uniqueId(),
     path: "/song",
     name: "Song",
-    component: AddSong
-  }
+    component: AddSong,
+  },
 ]
 
 export default routesConfig

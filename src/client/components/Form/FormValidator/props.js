@@ -4,14 +4,14 @@ import {
   shape,
   object,
   string,
-  oneOfType
+  oneOfType,
 } from "prop-types"
 
 export const propTypes = {
   validator: shape({
     id: string.isRequired,
     msg: string.isRequired,
-    check: func.isRequired
+    check: func.isRequired,
   }).isRequired,
-  val: oneOfType([ node, object ]).isRequired
+  val: oneOfType([ node, object ]).isRequired,
 }

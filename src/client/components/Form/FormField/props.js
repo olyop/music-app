@@ -8,7 +8,7 @@ import {
   number,
   object,
   arrayOf,
-  oneOfType
+  oneOfType,
 } from "prop-types"
 
 export const propTypes = {
@@ -16,20 +16,20 @@ export const propTypes = {
   onFieldDocRemove: func.isRequired,
   val: oneOfType([ string, number, object ]).isRequired,
   field: shape({
-    id: string.isRequired,
-    name: string.isRequired,
-    short: string.isRequired,
-    type: oneOf([ "text", "date", "list", "int" ]).isRequired,
-    isDoc: bool.isRequired,
     db: arrayOf(object),
-    init: oneOfType([ array, string, number, object ]).isRequired,
     req: bool.isRequired,
-    validators: arrayOf(object).isRequired,
+    id: string.isRequired,
     min: number.isRequired,
     max: number.isRequired,
+    isDoc: bool.isRequired,
     parse: shape({
       in: func.isRequired,
-      out: func.isRequired
-    }).isRequired
-  }).isRequired
+      out: func.isRequired,
+    }).isRequired,
+    name: string.isRequired,
+    short: string.isRequired,
+    validators: arrayOf(object).isRequired,
+    type: oneOf([ "text", "date", "list", "int" ]).isRequired,
+    init: oneOfType([ array, string, number, object ]).isRequired,
+  }).isRequired,
 }

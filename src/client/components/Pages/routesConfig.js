@@ -8,12 +8,12 @@ export default [
     id: uniqueId(),
     path: "/catalog",
     name: "Catalog",
-    component: Catalog
+    component: Catalog,
   },
   {
     id: uniqueId(),
     path: "/library",
     name: "Library",
-    component: Library
-  }
+    component: Library,
+  },
 ]

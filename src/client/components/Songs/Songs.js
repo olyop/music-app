@@ -2,8 +2,8 @@ import React from "react"
 
 import Icon from "../Icon"
 
+import { propTypes } from "./props"
 import reactBem from "@oly_op/react-bem"
-import { node } from "prop-types"
 
 import "./Songs.scss"
 
@@ -20,17 +20,32 @@ const Songs = ({ children }) => (
               className={bem("tableHeadIcon")}
             />
           </th>
-          <th className={bem("tableHeadCol")}>Title</th>
+          <th
+            children="Title"
+            className={bem("tableHeadCol")}
+          />
           <th className={bem("tableHeadCol","tableHeadCover")}>
             <Icon
               icon="access_time"
               className={bem("tableHeadIcon")}
             />
           </th>
-          <th className={bem("tableHeadCol")}>Artists</th>
-          <th className={bem("tableHeadCol")}>Remixers</th>
-          <th className={bem("tableHeadCol")}>Genres</th>
-          <th className={bem("tableHeadCol")}>Released</th>
+          <th
+            children="Artists"
+            className={bem("tableHeadCol")}
+          />
+          <th
+            children="Remixers"
+            className={bem("tableHeadCol")}
+          />
+          <th
+            children="Genres"
+            className={bem("tableHeadCol")}
+          />
+          <th
+            children="Released"
+            className={bem("tableHeadCol")}
+          />
         </tr>
       </thead>
       <tbody className={bem("tableBody")}>
@@ -40,8 +55,6 @@ const Songs = ({ children }) => (
   </div>
 )
 
-Songs.propTypes = {
-  children: node.isRequired
-}
+Songs.propTypes = propTypes
 
 export default Songs

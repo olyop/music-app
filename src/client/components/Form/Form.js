@@ -9,7 +9,7 @@ import {
   createFormInit,
   determineFieldVal,
   handleFieldChange,
-  handleFieldDocRemove
+  handleFieldDocRemove,
 } from "./helpers"
 
 import { noop } from "lodash"

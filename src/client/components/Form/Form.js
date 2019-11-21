@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { Fragment, useState } from "react"
 
 import FormTitle from "./FormTitle"
 import FormField from "./FormField"
@@ -26,23 +26,29 @@ const Form = ({ title, submitText, fields }) => {
   const onFieldChange = handleFieldChange(form, setForm)
   const onFieldDocRemove = handleFieldDocRemove(form, setForm)
   return (
-    <form onSubmit={noop} className={bem("")}>
-      <FormTitle>{title}</FormTitle>
-      <FormFields>
-        {fields.map(
-          field => (
-            <FormField
-              field={field}
-              key={field.id}
-              val={determineFieldVal(field,form)}
-              onFieldChange={onFieldChange(field)}
-              onFieldDocRemove={onFieldDocRemove(field)}
-            />
-          )
-        )}
-      </FormFields>
-      <FormSubmit>{submitText}</FormSubmit>
-    </form>
+    <form
+      onSubmit={noop}
+      className={bem("")}
+      children={(
+        <Fragment>
+          <FormTitle>{title}</FormTitle>
+          <FormFields>
+            {fields.map(
+              field => (
+                <FormField
+                  field={field}
+                  key={field.id}
+                  val={determineFieldVal(field,form)}
+                  onFieldChange={onFieldChange(field)}
+                  onFieldDocRemove={onFieldDocRemove(field)}
+                />
+              )
+            )}
+          </FormFields>
+          <FormSubmit>{submitText}</FormSubmit>
+        </Fragment>
+      )}
+    />
   )
 }
 

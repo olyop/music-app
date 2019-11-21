@@ -1,27 +1,27 @@
 .FormFieldDoc {
+  display: flex;
+  margin-right: 8px;
+  border-radius: 3px;
   background-color: #EEEEEE;
   border: 1px solid #BDBDBD;
-  border-radius: 3px;
-  margin-right: 8px;
-  display: flex;
   &:last-child {
     margin-right: 0; }
   &__img {
     width: 24px;
     height: 24px;
-    border-radius: 3px 0 0 3px;}
+    border-radius: 3px 0 0 3px; }
   &__text {
-    padding: 3px 3px 3px 6px;
     font-size: 18rem;
-    white-space: nowrap; }
+    white-space: nowrap;
+    padding: 3px 3px 3px 6px; }
   &__close {
     margin: 2px;
-    margin-left: 0;
     padding: 1px;
-    font-size: 18rem;
-    border-radius: 100%;
-    transition: .2s all;
     outline: none;
+    margin-left: 0;
+    font-size: 18rem;
+    transition: .2s all;
+    border-radius: 100%;
     &:hover {
       background-color: #BDBDBD; } }
 }

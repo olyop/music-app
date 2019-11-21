@@ -2,7 +2,7 @@ import React from "react"
 
 import Icon from "../../Icon"
 
-import { shape, string, func, oneOfType, node, object, } from "prop-types"
+import { shape, string, func, oneOfType, node, object } from "prop-types"
 import reactBem from "@oly_op/react-bem"
 
 import "./FormValidator.scss"
@@ -30,9 +30,9 @@ FormValidator.propTypes = {
   validator: shape({
     id: string.isRequired,
     check: func.isRequired,
-    msg: string.isRequired,
+    msg: string.isRequired
   }).isRequired,
-  val: oneOfType([ node, object ]).isRequired,
+  val: oneOfType([ node, object ]).isRequired
 }
 
 export default FormValidator

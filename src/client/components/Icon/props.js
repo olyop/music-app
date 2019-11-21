@@ -4,7 +4,7 @@ import { string, func } from "prop-types"
 export const propTypes = {
   onClick: func,
   className: string,
-  icon: string.isRequired,
+  icon: string.isRequired
 }
 
 export const defaultProps = {

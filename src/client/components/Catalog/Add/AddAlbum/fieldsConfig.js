@@ -100,7 +100,7 @@ const fieldsConifg = ({ artists }) => [
         msg: "Must be a valid artists."
       }
     ]
-  },
+  }
 ]
 
 export default fieldsConifg

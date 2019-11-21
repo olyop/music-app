@@ -1,11 +1,11 @@
 import React from "react"
 
-import Icon from "../../../Icon"
 import Img from "../../../Img"
+import Icon from "../../../Icon"
 
-import { string, func } from "prop-types"
-import reactBem from "@oly_op/react-bem"
 import { isEmpty } from "lodash"
+import reactBem from "@oly_op/react-bem"
+import { propTypes, defaultProps } from "./props"
 
 import "./FormFieldDoc.scss"
 
@@ -31,14 +31,7 @@ const FormFieldDoc = ({ name, photoUrl, onFieldDocRemove }) => (
   </div>
 )
 
-FormFieldDoc.propTypes = {
-  name: string.isRequired,
-  photoUrl: string,
-  onFieldDocRemove: func.isRequired
-}
-
-FormFieldDoc.defaultProps = {
-  photoUrl: ""
-}
+FormFieldDoc.propTypes = propTypes
+FormFieldDoc.defaultProps = defaultProps
 
 export default FormFieldDoc

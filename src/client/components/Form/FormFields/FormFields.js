@@ -1,7 +1,7 @@
 import React from "react"
 
+import { propTypes } from "./props"
 import reactBem from "@oly_op/react-bem"
-import { node } from "prop-types"
 
 import "./FormFields.scss"
 
@@ -13,8 +13,6 @@ const FormFields = ({ children }) => (
   </div>
 )
 
-FormFields.propTypes = {
-  children: node.isRequired
-}
+FormFields.propTypes = propTypes
 
 export default FormFields

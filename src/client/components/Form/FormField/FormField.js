@@ -1,14 +1,14 @@
 import React, { Fragment } from "react"
 
-import FormValidator from "../FormValidator"
-import FormFieldDoc from "./FormFieldDoc"
-import Icon from "../../Icon"
 import Img from "../../Img"
+import Icon from "../../Icon"
+import FormFieldDoc from "../FormFieldDoc"
+import FormValidator from "../FormValidator"
 
-import {
-  string, oneOf, shape, oneOfType, bool,
-  func, number, arrayOf, object, array
-} from "prop-types"
+import { propTypes } from "prop-types"
+import reactBem from "@oly_op/react-bem"
+import { catalogUrl } from "../../../helpers/misc"
+import { isEmpty, includes, lowerCase } from "lodash"
 
 import {
   determineMin,
@@ -24,10 +24,6 @@ import {
   determineValidatorVal
 } from "../helpers"
 
-import { isEmpty, includes, lowerCase } from "lodash"
-import { catalogUrl } from "../../../helpers/misc"
-import reactBem from "@oly_op/react-bem"
-
 import "./FormField.scss"
 
 const bem = reactBem("FormField")
@@ -37,8 +33,8 @@ const FormField = ({ field, val, onFieldChange, onFieldDocRemove }) => {
   return (
     <div className={bem("")}>
       <label
-        className={bem("label")}
         htmlFor={id}
+        className={bem("label")}
         children={(
           <Fragment>
             <span
@@ -128,24 +124,6 @@ const FormField = ({ field, val, onFieldChange, onFieldDocRemove }) => {
   )
 }
 
-FormField.propTypes = {
-  onFieldChange: func.isRequired,
-  onFieldDocRemove: func.isRequired,
-  val: oneOfType([ string, number, object ]).isRequired,
-  field: shape({
-    id: string.isRequired,
-    name: string.isRequired,
-    short: string.isRequired,
-    type: oneOf([ "text", "date", "list", "int" ]).isRequired,
-    isDoc: bool.isRequired,
-    db: arrayOf(object),
-    init: oneOfType([ array, string, number, object ]).isRequired,
-    req: bool.isRequired,
-    validators: arrayOf(object).isRequired,
-    min: number.isRequired,
-    max: number.isRequired,
-    parse: shape({ in: func.isRequired, out: func.isRequired }).isRequired,
-  }).isRequired
-}
+FormField.propTypes = propTypes
 
 export default FormField

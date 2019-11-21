@@ -93,7 +93,7 @@ Song.propTypes = {
     genres: arrayOf(object).isRequired,
     artists: arrayOf(object).isRequired,
     remixers: arrayOf(object).isRequired,
-    featuring: arrayOf(object).isRequired,
+    featuring: arrayOf(object).isRequired
   }).isRequired
 }
 

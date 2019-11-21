@@ -1,13 +1,13 @@
 import React, { Fragment } from "react"
 
+import Img from "../Img"
+import DocLink from "../DocLink"
 import IconText from "../IconText"
 import DocLinks from "../DocLinks"
-import DocLink from "../DocLink"
-import Img from "../Img"
 
-import { string, arrayOf, object, shape } from "prop-types"
-import { catalogUrl } from "../../helpers/misc"
+import { propTypes } from "./props"
 import reactBem from "@oly_op/react-bem"
+import { catalogUrl } from "../../helpers/misc"
 
 import "./Album.scss"
 
@@ -48,23 +48,21 @@ const Album = ({ album }) => {
               iconClassName={bemLibrary("grid-cover-button-icon")}
               className={bemLibrary("grid-cover-button-bottom-right", "grid-cover-button")}
             />
-            <div
-              className={bemLibrary("grid-cover-black-box")}
-            />
+            <div className={bemLibrary("grid-cover-black-box")} />
           </Fragment>
         )}
       />
       <div className={bem("info")}>
         <p className={bem("title")}>
           <DocLink
-            path="/album"
             doc={album}
+            path="/album"
           />
         </p>
-        <p className={bem("artistName")}>
+        <p className={bem("artists")}>
           <DocLinks
-            path="/artist"
             docs={artists}
+            path="/artist"
           />
         </p>
       </div>
@@ -72,12 +70,6 @@ const Album = ({ album }) => {
   )
 }
 
-Album.propTypes = {
-  album: shape({
-    id: string.isRequired,
-    title: string.isRequired,
-    artists: arrayOf(object).isRequired
-  }).isRequired
-}
+Album.propTypes = propTypes
 
 export default Album

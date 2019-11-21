@@ -1,7 +1,7 @@
 import React, { useState, Fragment } from "react"
 
-import Sidebar from "../Sidebar"
 import Icon from "../Icon"
+import Sidebar from "../Sidebar"
 
 import reactBem from "@oly_op/react-bem"
 
@@ -21,7 +21,11 @@ const Header = () => {
           icon={sidebar ? "close" : "menu"}
         />
       </header>
-      {sidebar ? <Sidebar toggleSidebar={toggleSidebar} /> : null}
+      {sidebar ? (
+        <Sidebar
+          toggleSidebar={toggleSidebar}
+        />
+      ) : null}
     </Fragment>
   )
 }

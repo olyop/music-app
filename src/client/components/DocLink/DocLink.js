@@ -2,17 +2,11 @@ import React from "react"
 
 import { Link } from "react-router-dom"
 
-import { string, shape } from "prop-types"
 import reactBem from "@oly_op/react-bem"
-import { isUndefined } from "lodash"
+import determineKeyName from "./determineKeyName"
+import { propTypes, defaultProps } from "./props"
 
 import "./DocLink.scss"
-
-const determineKeyName = doc => {
-  if (!isUndefined(doc.name)) return "name"
-  else if (!isUndefined(doc.title)) return "title"
-  else return "name"
-}
 
 const bem = reactBem("DocLink")
 
@@ -28,9 +22,7 @@ const DocLink = ({ path, doc }) => {
   )
 }
 
-DocLink.propTypes = {
-  path: string.isRequired,
-  doc: shape({ id: string.isRequired }).isRequired
-}
+DocLink.propTypes = propTypes
+DocLink.defaultProps = defaultProps
 
 export default DocLink

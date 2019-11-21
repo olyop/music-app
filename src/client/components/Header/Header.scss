@@ -1,16 +1,16 @@
 @import "../../globals/index.scss";
 
 .Header {
-  position: relative;
-  width: 100vw;
-  height: $HEADER_HEIGHT;
-  font-size: 16rem;
-  background-color: #ffffff;
   z-index: 3;
+  width: 100vw;
+  font-size: 16rem;
+  position: relative;
+  height: $HEADER_HEIGHT;
+  background-color: #ffffff;
   border-bottom: 1px solid #e0e0e0;
   &__hamburger {
-    font-size: 48rem;
-    line-height: 48rem;
     outline: none;
-    padding: 6px 10px; }
+    font-size: 48rem;
+    padding: 6px 10px;
+    line-height: 48rem; }
 }

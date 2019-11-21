@@ -2,8 +2,8 @@ import React from "react"
 
 import Form from "../../../Form"
 
-import fieldsConfig from "./fieldsConfig"
 import reactBem from "@oly_op/react-bem"
+import fieldsConfig from "./fieldsConfig"
 
 const bem = reactBem("AddArtist")
 

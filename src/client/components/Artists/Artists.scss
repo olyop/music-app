@@ -1,7 +1,7 @@
 .Artists {
-  font-size: 16rem;
   display: grid;
   grid-gap: 20px;
+  font-size: 16rem;
   grid-template-columns: 1fr;
   @media (min-width: 350px) {
     & { grid-template-columns: 1fr; } }

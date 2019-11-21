@@ -1,7 +1,7 @@
 import React from "react"
 
+import { propTypes } from "./props"
 import reactBem from "@oly_op/react-bem"
-import { node } from "prop-types"
 
 import "./Genres.scss"
 
@@ -13,8 +13,6 @@ const Genres = ({ children }) => (
   </div>
 )
 
-Genres.propTypes = {
-  children: node.isRequired
-}
+Genres.propTypes = propTypes
 
 export default Genres

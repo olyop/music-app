@@ -2,7 +2,7 @@ import React from "react"
 
 import DocLink from "../DocLink"
 
-import { string, shape } from "prop-types"
+import { propTypes } from "./props"
 import reactBem from "@oly_op/react-bem"
 
 import "./Genre.scss"
@@ -22,11 +22,6 @@ const Genre = ({ genre }) => {
   )
 }
 
-Genre.propTypes = {
-  genre: shape({
-    id: string.isRequired,
-    name: string.isRequired
-  }).isRequired
-}
+Genre.propTypes = propTypes
 
 export default Genre

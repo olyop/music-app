@@ -12,7 +12,13 @@
     "import/order": [0],
     "dot-notation": [0],
     "linebreak-style": [0],
-    "comma-dangle": [0],
+    "comma-dangle": [2, {
+      "arrays": "only-multiline",
+      "objects": "only-multiline",
+      "imports": "only-multiline",
+      "exports": "only-multiline",
+      "functions": "never"
+    }],
     "lines-between-class-members": [0],
     "no-else-return": [0],
     "no-multiple-empty-lines": [2, { "max": 1, "maxEOF": 1, "maxBOF": 0 }],

@@ -1,8 +1,8 @@
 @import "../../../globals/index.scss";
 
 .Add {
-  height: calc(100vh - #{$HEADER_HEIGHT});
+  padding: 20px;
   display: flex;
   justify-content: center;
-  padding: 20px;
+  height: calc(100vh - #{$HEADER_HEIGHT});
 }

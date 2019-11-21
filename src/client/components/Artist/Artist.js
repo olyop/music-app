@@ -1,13 +1,13 @@
 import React, { Fragment } from "react"
 
-import { Link } from "react-router-dom"
-import IconText from "../IconText"
-import DocLink from "../DocLink"
 import Img from "../Img"
+import DocLink from "../DocLink"
+import IconText from "../IconText"
+import { Link } from "react-router-dom"
 
-import { catalogUrl } from "../../helpers/misc"
-import { string, shape } from "prop-types"
+import { propTypes } from "./props"
 import reactBem from "@oly_op/react-bem"
+import { catalogUrl } from "../../helpers/misc"
 
 import "./Artist.scss"
 
@@ -21,7 +21,7 @@ const Artist = ({ artist }) => {
       <Img
         url={catalogUrl(id)}
         imgClassName={bemLibrary("grid-cover-img")}
-        className={bem("cover", { ignore: true, className: bemLibrary("grid-cover") })}
+        className={bemLibrary("cover", { ignore: true, className: bem("cover") })}
         children={(
           <Fragment>
             <IconText
@@ -66,11 +66,6 @@ const Artist = ({ artist }) => {
   )
 }
 
-Artist.propTypes = {
-  artist: shape({
-    id: string.isRequired,
-    name: string.isRequired
-  }).isRequired
-}
+Artist.propTypes = propTypes
 
 export default Artist

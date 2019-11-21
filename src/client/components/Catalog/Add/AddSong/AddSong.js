@@ -1,14 +1,14 @@
 import React from "react"
 
-import ApiError from "../../../ApiError"
-import Loading from "../../../Loading"
-import { Query } from "react-apollo"
 import Form from "../../../Form"
+import { Query } from "react-apollo"
+import Loading from "../../../Loading"
+import ApiError from "../../../ApiError"
 
-import fieldsConfig from "./fieldsConfig"
-import reactBem from "@oly_op/react-bem"
-import { isUndefined } from "lodash"
 import query from "./query.graphql"
+import { isUndefined } from "lodash"
+import reactBem from "@oly_op/react-bem"
+import fieldsConfig from "./fieldsConfig"
 
 const bem = reactBem("AddSong")
 

@@ -5,8 +5,8 @@ mutation addAlbum(
 ) {
   addAlbum(
     title: $title,
-    released: $released,
-    artists: $artists
+    artists: $artists,
+    released: $released
   ) {
     id
     title

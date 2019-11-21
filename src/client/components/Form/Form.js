@@ -12,9 +12,9 @@ import {
   handleFieldDocRemove
 } from "./helpers"
 
-import { string, arrayOf, object } from "prop-types"
-import reactBem from "@oly_op/react-bem"
 import { noop } from "lodash"
+import reactBem from "@oly_op/react-bem"
+import { propTypes, defaultProps } from "prop-types"
 
 import "./Form.scss"
 
@@ -46,15 +46,7 @@ const Form = ({ title, submitText, fields }) => {
   )
 }
 
-Form.propTypes = {
-  title: string,
-  submitText: string,
-  fields: arrayOf(object).isRequired
-}
-
-Form.defaultProps = {
-  title: "Form",
-  submitText: "Submit"
-}
+Form.propTypes = propTypes
+Form.defaultProps = defaultProps
 
 export default Form

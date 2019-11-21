@@ -1,18 +1,18 @@
 .Genre {
   display: flex;
+  border-radius: 3px;
   align-items: center;
   flex-direction: column;
   background-color: transparent;
-  border-radius: 3px;
-  box-shadow: 0 1px 4px 0 rgba(#333333,.3);
+  box-shadow: 0 1px 4px 0 rgba(#333333, .3);
   &__name {
     margin: 0;
     width: 100%;
-    font-size: 20rem;
     padding: 10px;
+    font-size: 20rem;
+    border-color: #e0e0e0;
+    border-left: 1px solid;
     border-right: 1px solid;
     border-bottom: 1px solid;
-    border-left: 1px solid;
-    border-radius: 0 0 3px 3px;
-    border-color: #e0e0e0; }
+    border-radius: 0 0 3px 3px; }
 }

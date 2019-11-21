@@ -1,7 +1,7 @@
 import React from "react"
 
+import { propTypes } from "./props"
 import reactBem from "@oly_op/react-bem"
-import { node } from "prop-types"
 
 import "./Albums.scss"
 
@@ -13,8 +13,6 @@ const Albums = ({ children }) => (
   </div>
 )
 
-Albums.propTypes = {
-  children: node.isRequired
-}
+Albums.propTypes = propTypes
 
 export default Albums

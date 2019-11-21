@@ -2,8 +2,8 @@ import React, { Fragment } from "react"
 
 import DocLinks from "../DocLinks"
 
-import { arrayOf, object } from "prop-types"
 import { isEmpty } from "lodash"
+import { propTypes } from "./props"
 
 const FeaturingArtists = ({ artists, featuring }) => (
   <Fragment>
@@ -23,9 +23,6 @@ const FeaturingArtists = ({ artists, featuring }) => (
   </Fragment>
 )
 
-FeaturingArtists.propTypes = {
-  artists: arrayOf(object).isRequired,
-  featuring: arrayOf(object).isRequired
-}
+FeaturingArtists.propTypes = propTypes
 
 export default FeaturingArtists

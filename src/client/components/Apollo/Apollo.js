@@ -1,10 +1,10 @@
 import React from "react"
 
-import { ApolloProvider } from "react-apollo"
 import ApolloClient from "apollo-boost"
+import { ApolloProvider } from "react-apollo"
 
+import { propTypes } from "./props"
 import { API_URL } from "../../globals"
-import { node } from "prop-types"
 
 const apolloClient = new ApolloClient({ uri: API_URL })
 
@@ -14,8 +14,6 @@ const Apollo = ({ children }) => (
   </ApolloProvider>
 )
 
-Apollo.propTypes = {
-  children: node.isRequired
-}
+Apollo.propTypes = propTypes
 
 export default Apollo

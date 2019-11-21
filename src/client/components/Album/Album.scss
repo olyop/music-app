@@ -4,20 +4,20 @@
   margin-bottom: 10px;
   &__info {
     width: 100%;
-    padding-top: 10px;
     overflow: hidden;
+    padding-top: 10px;
     border-color: #e0e0e0; }
     &__title,
-    &__artistName {
-      text-overflow: ellipsis;
-      overflow: hidden;
+    &__artists {
       display: block;
-      line-height: 1.1; }
+      overflow: hidden;
+      line-height: 1.1;
+      text-overflow: ellipsis; }
     &__title {
       font-size: 16rem;
-      margin-bottom: 3px;
-      font-weight: 700; }
-    &__artistName {
+      font-weight: 700;
+      margin-bottom: 3px; }
+    &__artists {
       font-size: 15rem;
       font-weight: 400; }
 }

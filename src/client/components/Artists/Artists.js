@@ -1,7 +1,7 @@
 import React from "react"
 
 import reactBem from "@oly_op/react-bem"
-import { node } from "prop-types"
+import { propTypes } from "./props"
 
 import "./Artists.scss"
 
@@ -13,8 +13,6 @@ const Artists = ({ children }) => (
   </div>
 )
 
-Artists.propTypes = {
-  children: node.isRequired
-}
+Artists.propTypes = propTypes
 
 export default Artists

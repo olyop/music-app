@@ -2,18 +2,8 @@ import React, { Fragment } from "react"
 
 import DocLink from "../DocLink"
 
-import { arrayOf, object, string } from "prop-types"
-
-const determineConcat = (docs, index) => {
-  const numOfDocs = docs.length
-  if (numOfDocs - 2 === index) {
-    return " & "
-  } else if (numOfDocs - 1 === index) {
-    return null
-  } else {
-    return ", "
-  }
-}
+import { propTypes } from "./props"
+import determineConcat from "./determineConcat"
 
 const DocLinks = ({ path, docs }) => (
   <Fragment>
@@ -28,9 +18,6 @@ const DocLinks = ({ path, docs }) => (
   </Fragment>
 )
 
-DocLinks.propTypes = {
-  path: string.isRequired,
-  docs: arrayOf(object).isRequired
-}
+DocLinks.propTypes = propTypes
 
 export default DocLinks

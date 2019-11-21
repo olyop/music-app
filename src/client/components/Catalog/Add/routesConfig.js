@@ -5,7 +5,7 @@ import AddSong from "./AddSong"
 
 import { uniqueId } from "lodash"
 
-export default [
+const routesConfig = [
   {
     id: uniqueId(),
     path: "/artist",
@@ -31,3 +31,5 @@ export default [
     component: AddSong
   }
 ]
+
+export default routesConfig

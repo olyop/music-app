@@ -2,7 +2,7 @@ import React from "react"
 
 import Icon from "../../Icon"
 
-import { shape, string, func, oneOfType, node, object } from "prop-types"
+import { propTypes } from "./props"
 import reactBem from "@oly_op/react-bem"
 
 import "./FormValidator.scss"
@@ -16,7 +16,7 @@ const FormValidator = ({ validator, val }) => {
     <div id={id} className={bem("")}>
       <Icon
         icon={isValid ? "done" : "close"}
-        className={bem(isValid ? "iconSuccess" : "iconFailure")}
+        className={bem(isValid ? "icon-success" : "icon-failure", "icon")}
       />
       <p
         children={msg}
@@ -26,13 +26,6 @@ const FormValidator = ({ validator, val }) => {
   )
 }
 
-FormValidator.propTypes = {
-  validator: shape({
-    id: string.isRequired,
-    check: func.isRequired,
-    msg: string.isRequired
-  }).isRequired,
-  val: oneOfType([ node, object ]).isRequired
-}
+FormValidator.propTypes = propTypes
 
 export default FormValidator

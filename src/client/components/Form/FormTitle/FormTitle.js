@@ -1,20 +1,19 @@
 import React from "react"
 
+import { propTypes } from "./props"
 import reactBem from "@oly_op/react-bem"
-import { node } from "prop-types"
 
 import "./FormTitle.scss"
 
 const bem = reactBem("FormTitle")
 
 const FormTitle = ({ children }) => (
-  <h2 className={bem("")}>
-    {children}
-  </h2>
+  <h2
+    children={children}
+    className={bem("")}
+  />
 )
 
-FormTitle.propTypes = {
-  children: node.isRequired
-}
+FormTitle.propTypes = propTypes
 
 export default FormTitle

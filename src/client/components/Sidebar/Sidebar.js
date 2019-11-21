@@ -2,9 +2,8 @@ import React from "react"
 
 import { NavLink } from "react-router-dom"
 
+import { propTypes } from "./props"
 import reactBem from "@oly_op/react-bem"
-import { func } from "prop-types"
-
 import routesConfigPages from "../Pages/routesConfig"
 import routesConfigCatalog from "../Catalog/routesConfig"
 import routesConfigLibrary from "../Library/routesConfig"
@@ -49,8 +48,8 @@ const Sidebar = ({ toggleSidebar }) => (
                 <div key={subRoute.id} className={bem("subRoute")}>
                   <NavLink
                     className={bem("subLink")}
-                    to={route.path + subRoute.path}
                     children={`- ${subRoute.name}`}
+                    to={route.path + subRoute.path}
                   />
                 </div>
               ))
@@ -62,8 +61,6 @@ const Sidebar = ({ toggleSidebar }) => (
   </div>
 )
 
-Sidebar.propTypes = {
-  toggleSidebar: func.isRequired
-}
+Sidebar.propTypes = propTypes
 
 export default Sidebar

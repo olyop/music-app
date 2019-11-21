@@ -1,28 +1,30 @@
 @import "../../globals/index.scss";
 
 .Sidebar {
-  position: absolute;
-  top: $HEADER_HEIGHT;
   left: 0;
   z-index: 2;
-  font-size: 16rem;
   width: 100vw;
   cursor: pointer;
+  font-size: 16rem;
+  position: absolute;
+  top: $HEADER_HEIGHT;
   height: calc(100vh - #{$HEADER_HEIGHT});
   &__nav {
-    cursor: default;
-    padding: 20px 0;
-    position: absolute;
-    border-right: 1px solid #e0e0e0;
     top: 0;
     left: 0;
     width: 300px;
-    height: calc(100vh - #{$HEADER_HEIGHT});
-    background-color: #ffffff; }
+    cursor: default;
+    padding: 20px 0;
+    position: absolute;
+    background-color: #ffffff;
+    border-right: 1px solid #e0e0e0;
+    height: calc(100vh - #{$HEADER_HEIGHT}); }
     &__routes {
-      flex-direction: column;
-      display: flex; }
-      &__route, &__subRoute, &__subSubRoute {
+      display: flex;
+      flex-direction: column; }
+      &__route,
+      &__subRoute,
+      &__subSubRoute {
         display: flex;
         flex-direction: column;
         &:last-child {
@@ -30,27 +32,26 @@
         &__route {
           margin-bottom: 10px; }
         &__link {
-          padding: 5px 0 5px 20px;
+          color: #333333;
           font-size: 26rem;
           font-weight: 300;
-          color: #333333;
           text-decoration: none;
+          padding: 5px 0 5px 20px;
           &:hover {
             background-color: rgba(#333333, .3); } }
         &__subLink {
-          padding: 5px 0 5px 35px;
+          color: #333333;
           font-size: 20rem;
           font-weight: 500;
-          color: #333333;
           text-decoration: none;
+          padding: 5px 0 5px 35px;
           &:hover {
             background-color: rgba(#333333, .3); } }
           &__subSubLink {
-            padding: 5px 0 5px 55px;
+            color: #333333;
             font-size: 16rem;
             font-weight: 400;
-            color: #333333;
             text-decoration: none;
+            padding: 5px 0 5px 55px;
             &:hover {
-              background-color: rgba(#333333, .3); } }
-}
+              background-color: rgba(#333333, .3); } } }

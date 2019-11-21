@@ -1,14 +1,14 @@
 import React from "react"
 
+import Empty from "../../Empty"
+import Artist from "../../Artist"
+import Artists from "../../Artists"
+import Loading from "../../Loading"
 import { Query } from "react-apollo"
 import ApiError from "../../ApiError"
-import Loading from "../../Loading"
-import Artists from "../../Artists"
-import Artist from "../../Artist"
-import Empty from "../../Empty"
 
-import { isUndefined, isEmpty, orderBy } from "lodash"
 import query from "./query.graphql"
+import { isUndefined, isEmpty, orderBy } from "lodash"
 
 const LibraryArtists = () => (
   <Query query={query}>

@@ -2,6 +2,5 @@
 
 .Pages {
   width: 100vw;
-  height: calc(100vh - #{$HEADER_HEIGHT});
   background-color: #FAFAFA;
-}
+  height: calc(100vh - #{$HEADER_HEIGHT}); }

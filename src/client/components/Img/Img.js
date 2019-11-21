@@ -1,7 +1,7 @@
 import React from "react"
 
-import { string, node } from "prop-types"
 import reactBem from "@oly_op/react-bem"
+import { propTypes, defaultProps } from "prop-types"
 
 import "./Img.scss"
 
@@ -17,17 +17,7 @@ const Img = ({ url, className, imgClassName, children }) => (
   </div>
 )
 
-Img.propTypes = {
-  children: node,
-  className: string,
-  imgClassName: string,
-  url: string.isRequired
-}
-
-Img.defaultProps = {
-  children: null,
-  className: undefined,
-  imgClassName: undefined
-}
+Img.propTypes = propTypes
+Img.defaultProps = defaultProps
 
 export default Img

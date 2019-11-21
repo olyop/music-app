@@ -1,14 +1,14 @@
 import React from "react"
 
-import { Query } from "react-apollo"
-import ApiError from "../../ApiError"
-import Loading from "../../Loading"
+import Song from "../../Song"
 import Empty from "../../Empty"
 import Songs from "../../Songs"
-import Song from "../../Song"
+import Loading from "../../Loading"
+import { Query } from "react-apollo"
+import ApiError from "../../ApiError"
 
-import { isUndefined, isEmpty, orderBy } from "lodash"
 import query from "./query.graphql"
+import { isUndefined, isEmpty, orderBy } from "lodash"
 
 const LibrarySongs = () => (
   <Query query={query}>
@@ -20,7 +20,11 @@ const LibrarySongs = () => (
       } else if (isEmpty(data.songs)) {
         return <Empty/>
       } else {
-        const songs = orderBy(data.songs, ["album.released","discNumber","trackNumber"], ["desc","asc","asc"])
+        const songs = orderBy(
+          data.songs,
+          ["album.released","discNumber","trackNumber"],
+          ["desc","asc","asc"]
+        )
         return (
           <Songs>
             {songs.map(

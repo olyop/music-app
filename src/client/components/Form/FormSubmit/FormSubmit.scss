@@ -1,14 +1,13 @@
 .FormSubmit {
-  font-size: 20rem;
-  padding: 16px 0;
-  width: 100%;
   margin: 0;
+  width: 100%;
   outline: none;
+  cursor: pointer;
+  padding: 16px 0;
+  font-size: 20rem;
+  border-radius: 3px;
+  transition: .2s all;
   border: 1px solid #E0E0E0;
   background-color: transparent;
-  border-radius: 3px;
-  cursor: pointer;
-  transition: .2s all;
   &:hover {
-    background-color: #EEEEEE; }
-}
+    background-color: #EEEEEE; } }

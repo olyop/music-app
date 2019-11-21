@@ -57,11 +57,9 @@
       text-decoration: none;
       &:hover {
         color: #1a73e8;
-        text-decoration: underline; } }
-}
+        text-decoration: underline; } } }
 
 @keyframes play {
   0% { transform: scale(1); }
   50% { transform: scale(1.2); }
-  100% { transform: scale(1); }
-}
+  100% { transform: scale(1); } }

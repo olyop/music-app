@@ -1,15 +1,13 @@
 .FormValidator {
   display: flex;
-  &__iconSuccess,
-  &__iconFailure {
+  &__icon {
     outline: none;
     cursor: default;
+    font-size: 16px;
     margin-right: 5px;
-    font-size: 16px; }
-  &__iconSuccess {
-    color: green; }
-  &__iconFailure {
-    color: red; }
+    &-success {
+      color: green; }
+    &-failure {
+      color: red; } }
   &__text {
-    font-size: 15rem; }
-}
+    font-size: 15rem; } }

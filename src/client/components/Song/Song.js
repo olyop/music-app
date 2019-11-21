@@ -1,15 +1,15 @@
 import React from "react"
 
-import FeaturingArtists from "../FeaturingArtists"
-import DocLinks from "../DocLinks"
-import DocLink from "../DocLink"
-import Icon from "../Icon"
 import Img from "../Img"
+import Icon from "../Icon"
+import DocLink from "../DocLink"
+import DocLinks from "../DocLinks"
+import FeaturingArtists from "../FeaturingArtists"
 
-import { deserializeDate, deserializeDuration, catalogUrl } from "../../helpers/misc"
-import { string, number, arrayOf, object, shape } from "prop-types"
-import reactBem from "@oly_op/react-bem"
 import { isEmpty } from "lodash"
+import { propTypes } from "./props"
+import reactBem from "@oly_op/react-bem"
+import { deserializeDate, deserializeDuration, catalogUrl } from "../../helpers/misc"
 
 import "./Song.scss"
 
@@ -80,21 +80,6 @@ const Song = ({ song }) => {
   )
 }
 
-Song.propTypes = {
-  song: shape({
-    id: string.isRequired,
-    mix: string.isRequired,
-    title: string.isRequired,
-    duration: number.isRequired,
-    album: shape({
-      id: string.isRequired,
-      released: number.isRequired
-    }).isRequired,
-    genres: arrayOf(object).isRequired,
-    artists: arrayOf(object).isRequired,
-    remixers: arrayOf(object).isRequired,
-    featuring: arrayOf(object).isRequired
-  }).isRequired
-}
+Song.propTypes = propTypes
 
 export default Song

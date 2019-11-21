@@ -1,14 +1,14 @@
 import React from "react"
 
-import { Query } from "react-apollo"
-import ApiError from "../../ApiError"
-import Loading from "../../Loading"
-import Genres from "../../Genres"
 import Genre from "../../Genre"
 import Empty from "../../Empty"
+import Genres from "../../Genres"
+import Loading from "../../Loading"
+import { Query } from "react-apollo"
+import ApiError from "../../ApiError"
 
-import { isUndefined, isEmpty, orderBy } from "lodash"
 import query from "./query.graphql"
+import { isUndefined, isEmpty, orderBy } from "lodash"
 
 const LibraryGenres = () => (
   <Query query={query}>

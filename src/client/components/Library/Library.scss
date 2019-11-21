@@ -3,56 +3,56 @@
 .Library {
   &__header {
     width: 100%;
-    height: $HEADER_HEIGHT;
     display: flex;
-    background-color: #ffffff;
+    height: $HEADER_HEIGHT;
     flex-direction: column;
-    border-bottom: 1px solid #e0e0e0;
-    justify-content: space-between; }
+    background-color: #ffffff;
+    justify-content: space-between;
+    border-bottom: 1px solid #e0e0e0; }
     &__links {
       display: flex; }
       &__link {
+        display: flex;
         padding: 21px 0;
         position: relative;
-        display: flex;
+        transition: .2s all;
         align-content: center;
         text-decoration: none;
-        transition: .2s all;
         &:hover {
           background-color: #EEEEEE; }
         &:last-child {
           margin-right: 0; } }
         &__icon {
           outline: none;
-          padding-left: 15px;
-          margin-right: 3px;
-          font-size: 18rem; }
-        &__text {
           font-size: 18rem;
-          padding-right: 15px;
-          text-transform: uppercase;
-          font-weight: 700;
+          margin-right: 3px;
+          padding-left: 15px; }
+        &__text {
           display: block;
-          text-decoration: none; }
+          font-size: 18rem;
+          font-weight: 700;
+          padding-right: 15px;
+          text-decoration: none; 
+          text-transform: uppercase;}
         &__active {
           &:after {
-            width: 100%;
-            position: absolute;
-            background-color: #333333;
-            height: 2px;
             bottom: 0;
+            width: 100%;
+            height: 2px;
+            content: "";
+            position: absolute;
             border-radius: 4px;
-            content: ""; } }
+            background-color: #333333; } }
   &__main {
-    overflow: auto;
     width: 100%;
     padding: 20px;
+    overflow: auto;
     height: calc(100vh - #{$HEADER_HEIGHT} - #{$HEADER_HEIGHT}); }
     &__grid-cover {
       border-radius: $BORDER_RADIUS;
       box-shadow:
-        0 3px 6px rgba(0,0,0,0.16),
-        0 3px 6px rgba(0,0,0,0.23);
+        0 3px 6px rgba(#000000, .16),
+        0 3px 6px rgba(#000000, .23);
       &:hover &-img {
         filter: blur(10px); }
       &:hover &-black-box {
@@ -62,29 +62,28 @@
       &-img {
         border-radius: $BORDER_RADIUS; }
       &-black-box {
-        position: absolute;
         top: 0;
-        cursor: pointer;
-        bottom: 0;
         right: 0;
+        bottom: 0;
         width: 100%;
         height: 100%;
+        cursor: pointer;
+        position: absolute;
         background-color: transparent; }
       &-button {
-        outline: none;
-        background-color: transparent;
-        border: none;
-        transform: translate(-50%, -50%);
         z-index: 2;
+        width: 50%;
+        height: 50%;
+        border: none;
         display: none;
         outline: none;
-        transition: .5s background-color;
+        position: absolute;
         align-items: center;
         flex-direction: column;
         justify-content: center;
-        width: 50%;
-        height: 50%;
-        position: absolute;
+        background-color: transparent;
+        transform: translate(-50%, -50%);
+        transition: .5s background-color;
         &:hover {
           background-color: rgba(#FFFFFF, .2); }
         &:active {
@@ -108,7 +107,4 @@
         &-bottom-right {
           top: 75%;
           left: 75%;
-          border-bottom-right-radius: $BORDER_RADIUS; }
-      }
-    }
-}
+          border-bottom-right-radius: $BORDER_RADIUS; } } } }

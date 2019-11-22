@@ -1,5 +1,5 @@
 import { deserializeDate } from "../../helpers/misc"
-import { includes, find, isEmpty } from "lodash"
+import { includes, find, isEmpty, concat } from "lodash"
 
 export const createFormInit = fields => fields.reduce(
   (acc, { short, isDoc, init }) => ({
@@ -12,11 +12,11 @@ export const createFormInit = fields => fields.reduce(
   {}
 )
 
-export const handleFieldChange = (form, setForm) => ({ type, short, parse }) => event => {
+export const handleFieldChange = (form, setForm) => ({ type, isDoc, short, parse }) => event => {
   const value = parse.in(event.target.value)
   setForm({
     ...form,
-    [short]: type === "list" ? {
+    [short]: (type === "list" && isDoc) || isDoc ? {
       ...form[short],
       input: value,
     } : value,
@@ -30,6 +30,17 @@ export const handleFieldDocRemove = (form, setForm) => ({ type, short }) => ({ i
       ...form[short],
       val: type === "list" ? form[short].val.filter(doc => doc !== id) : "",
     },
+  })
+}
+
+export const handleFieldHitClick = (form, setForm) => ({ type, isDoc, short }) => ({ id }) => () => {
+  setForm({
+    ...form,
+    [short]: isDoc ? {
+      ...form[short],
+      input: "",
+      val: type === "list" ? concat(form[short].val, id) : id,
+    } : id,
   })
 }
 
@@ -116,7 +127,7 @@ export const determineInputVal = ({ type, isDoc, parse }, val) => {
   } else if (type === "date") {
     return deserializeDate(parse.out(val))
   } else {
-    return val
+    return parse.out(val)
   }
 }
 
@@ -125,6 +136,14 @@ export const determineValidatorVal = ({ isDoc }, val) => {
     return val.val
   } else {
     return val
+  }
+}
+
+export const determineValidatorVisibility = ({ isDoc }, val) => {
+  if (isDoc) {
+    return isEmpty(val.val)
+  } else {
+    return isEmpty(val)
   }
 }
 

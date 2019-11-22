@@ -22,13 +22,16 @@ import {
   determineMinLength,
   determineMaxLength,
   determineValidatorVal,
+  determineValidatorVisibility,
 } from "../helpers"
 
 import "./FormField.scss"
 
 const bem = reactBem("FormField")
 
-const FormField = ({ field, val, onFieldChange, onFieldDocRemove }) => {
+const FormField = ({
+  field, val, index, onFieldChange, onFieldHitClick, onFieldDocRemove,
+}) => {
   const { id, name, type, isDoc, db, validators, parse } = field
   return (
     <div className={bem("")}>
@@ -81,6 +84,7 @@ const FormField = ({ field, val, onFieldChange, onFieldDocRemove }) => {
               autoComplete="off"
               spellCheck="false"
               autoCapitalize="off"
+              tabIndex={index + 1}
               onChange={onFieldChange}
               min={determineMin(field)}
               max={determineMax(field)}
@@ -93,14 +97,21 @@ const FormField = ({ field, val, onFieldChange, onFieldDocRemove }) => {
               maxLength={determineMaxLength(field)}
               disabled={determineDisabled(field,val)}
             />
-            {type === "list" && !isEmpty(val.input) ? (
+            {isDoc && !isEmpty(val.input) ? (
               <div className={bem("label-dropdown")}>
-                {db.filter(x => includes(lowerCase(x.name), lowerCase(parse.out(val.input)))).map(
+                {db.filter(
+                  x => includes(
+                    lowerCase(name === "Album" ? x.title : x.name),
+                    lowerCase(parse.out(val.input))
+                  )
+                ).map(
                   hit => (
-                    <div
+                    <button
                       key={hit.id}
-                      children={hit.name}
+                      type="button"
+                      onClick={onFieldHitClick(hit)}
                       className={bem("label-dropdown-item")}
+                      children={name === "Album" ? hit.title : hit.name}
                     />
                   )
                 )}
@@ -109,17 +120,19 @@ const FormField = ({ field, val, onFieldChange, onFieldDocRemove }) => {
           </Fragment>
         )}
       />
-      <div className={bem("validators")}>
-        {validators.map(
-          validator => (
-            <FormValidator
-              key={validator.id}
-              validator={validator}
-              val={determineValidatorVal(field, val)}
-            />
-          )
-        )}
-      </div>
+      {determineValidatorVisibility(field, val) ? null : (
+        <div className={bem("validators")}>
+          {validators.map(
+            validator => (
+              <FormValidator
+                key={validator.id}
+                validator={validator}
+                val={determineValidatorVal(field, val)}
+              />
+            )
+          )}
+        </div>
+      )}
     </div>
   )
 }

@@ -12,7 +12,9 @@ import {
 } from "prop-types"
 
 export const propTypes = {
+  index: number.isRequired,
   onFieldChange: func.isRequired,
+  onFieldHitClick: func.isRequired,
   onFieldDocRemove: func.isRequired,
   val: oneOfType([ string, number, object ]).isRequired,
   field: shape({

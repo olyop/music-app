@@ -9,6 +9,7 @@ import {
   createFormInit,
   determineFieldVal,
   handleFieldChange,
+  handleFieldHitClick,
   handleFieldDocRemove,
 } from "./helpers"
 
@@ -24,6 +25,7 @@ const Form = ({ title, submitText, fields }) => {
   const init = createFormInit(fields)
   const [ form, setForm ] = useState(init)
   const onFieldChange = handleFieldChange(form, setForm)
+  const onFieldHitClick = handleFieldHitClick(form, setForm)
   const onFieldDocRemove = handleFieldDocRemove(form, setForm)
   return (
     <form
@@ -34,12 +36,14 @@ const Form = ({ title, submitText, fields }) => {
           <FormTitle>{title}</FormTitle>
           <FormFields>
             {fields.map(
-              field => (
+              (field, index) => (
                 <FormField
+                  index={index}
                   field={field}
                   key={field.id}
                   val={determineFieldVal(field,form)}
                   onFieldChange={onFieldChange(field)}
+                  onFieldHitClick={onFieldHitClick(field)}
                   onFieldDocRemove={onFieldDocRemove(field)}
                 />
               )

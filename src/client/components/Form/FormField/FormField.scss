@@ -68,25 +68,35 @@
       bottom: 0;
       left: -1px;
       z-index: 2;
-      border-top: none;
+      color: #e0e0e0;
       min-height: 136px;
-      border-width: 1px;
       position: absolute;
       overflow-x: hidden;
       overflow-y: scroll;
-      border-style: solid;
+      transition: .2s all;
       top: calc(100% - 3px);
       border-color: #e0e0e0;
+      border-left: 1px solid;
       width: calc(100% + 2px);
+      border-right: 1px solid;
+      border-bottom: 1px solid;
       background-color: #ffffff;
       border-radius: 0 0 $BORDER_RADIUS $BORDER_RADIUS;
+      &:hover {
+        border-color: #9E9E9E; }
       &-item {
-        padding: 15px;
+        width: 100%;
+        border: none;
+        outline: none;
+        color: #333333;
+        padding: 18rem;
         display: block;
         cursor: pointer;
         font-size: 15px;
+        text-align: left;
         user-select: none;
         transition: .2s all;
+        background-color: transparent;
         &:hover {
           background-color: #e0e0e0; } } } }
   &__validators {

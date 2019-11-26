@@ -69,7 +69,7 @@
       left: -1px;
       z-index: 2;
       color: #e0e0e0;
-      min-height: 136px;
+      min-height: 124px;
       position: absolute;
       overflow-x: hidden;
       overflow-y: scroll;
@@ -81,23 +81,31 @@
       border-right: 1px solid;
       border-bottom: 1px solid;
       background-color: #ffffff;
-      border-radius: 0 0 $BORDER_RADIUS $BORDER_RADIUS;
+      border-radius: 0 0 0 $BORDER_RADIUS;
       &:hover {
         border-color: #9E9E9E; }
       &-item {
         width: 100%;
         border: none;
+        display: flex;
+        padding: 13px;
         outline: none;
         color: #333333;
-        padding: 18rem;
-        display: block;
         cursor: pointer;
         font-size: 15px;
         text-align: left;
         user-select: none;
         transition: .2s all;
+        align-items: center;
         background-color: transparent;
-        &:hover {
-          background-color: #e0e0e0; } } } }
+        &:hover,
+        &:focus,
+        &:active {
+          background-color: #e0e0e0; }
+        &-img {
+          width: 24px;
+          height: 24px;
+          margin-right: 10px;
+          border-radius: $BORDER_RADIUS; } } } }
   &__validators {
     margin: 10px 0 0 13px; } }

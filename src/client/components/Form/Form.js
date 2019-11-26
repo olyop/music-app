@@ -7,13 +7,13 @@ import FormSubmit from "./FormSubmit"
 
 import {
   createFormInit,
+  handleFormSubmit,
   determineFieldVal,
   handleFieldChange,
   handleFieldHitClick,
   handleFieldDocRemove,
 } from "./helpers"
 
-import { noop } from "lodash"
 import reactBem from "@oly_op/react-bem"
 import { propTypes, defaultProps } from "prop-types"
 
@@ -21,16 +21,19 @@ import "./Form.scss"
 
 const bem = reactBem("Form")
 
+const submitFunc = x => console.log(x)
+
 const Form = ({ title, submitText, fields }) => {
   const init = createFormInit(fields)
   const [ form, setForm ] = useState(init)
   const onFieldChange = handleFieldChange(form, setForm)
   const onFieldHitClick = handleFieldHitClick(form, setForm)
   const onFieldDocRemove = handleFieldDocRemove(form, setForm)
+  const onFormSubmit = handleFormSubmit(form, setForm, init, submitFunc)
   return (
     <form
-      onSubmit={noop}
       className={bem("")}
+      onSubmit={onFormSubmit}
       children={(
         <Fragment>
           <FormTitle>{title}</FormTitle>

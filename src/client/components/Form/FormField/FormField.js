@@ -105,13 +105,24 @@ const FormField = ({
                     lowerCase(parse.out(val.input))
                   )
                 ).map(
-                  hit => (
+                  (hit, idx) => (
                     <button
                       key={hit.id}
                       type="button"
+                      tabIndex={index + idx + 2}
                       onClick={onFieldHitClick(hit)}
                       className={bem("label-dropdown-item")}
-                      children={name === "Album" ? hit.title : hit.name}
+                      children={(
+                        <Fragment>
+                          {hit.__typename === "Genre" ? null : (
+                            <Img
+                              url={catalogUrl(hit.id)}
+                              className={bem("label-dropdown-item-img")}
+                            />
+                          )}
+                          <span>{name === "Album" ? hit.title : hit.name}</span>
+                        </Fragment>
+                      )}
                     />
                   )
                 )}

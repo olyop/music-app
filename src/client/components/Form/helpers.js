@@ -1,5 +1,5 @@
 import { deserializeDate } from "../../helpers/misc"
-import { includes, find, isEmpty, concat } from "lodash"
+import { includes, find, isEmpty, concat, isNumber } from "lodash"
 
 export const createFormInit = fields => fields.reduce(
   (acc, { short, isDoc, init }) => ({
@@ -44,8 +44,10 @@ export const handleFieldHitClick = (form, setForm) => ({ type, isDoc, short }) =
   })
 }
 
-export const handleFormSubmit = (form, initFunc, init, submitFunc) => {
-  submitFunc({ variables: form })
+export const handleFormSubmit = (form, initFunc, init, submitFunc) => event => {
+  event.preventDefault()
+  // submitFunc({ variables: form })
+  submitFunc(form)
   initFunc(init)
 }
 
@@ -142,6 +144,8 @@ export const determineValidatorVal = ({ isDoc }, val) => {
 export const determineValidatorVisibility = ({ isDoc }, val) => {
   if (isDoc) {
     return isEmpty(val.val)
+  } else if (isNumber(val)) {
+    return false
   } else {
     return isEmpty(val)
   }

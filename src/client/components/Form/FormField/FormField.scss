@@ -35,27 +35,6 @@
       margin-top: 3px;
       margin-right: 13px;
       align-items: center; }
-    &-doc {
-      display: flex;
-      align-items: center;
-      &-cover {
-        width: 26px;
-        height: 26px;
-        border-radius: 4px;
-        border: 1px solid #BDBDBD; }
-      &-text {
-        margin-left: 8px;
-        font-size: 18rem;
-        white-space: nowrap; }
-      &-close {
-        padding: 1px;
-        outline: none;
-        font-size: 22rem;
-        margin-left: 5px;
-        transition: .2s all;
-        border-radius: 100%;
-        &:hover {
-          background-color: #BDBDBD; } } }
     &-input {
       width: 100%;
       border: none;

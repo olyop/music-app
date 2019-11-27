@@ -1,9 +1,9 @@
 import React, { Fragment } from "react"
 
 import Img from "../../Img"
-import Icon from "../../Icon"
 import FormFieldDoc from "../FormFieldDoc"
 import FormValidator from "../FormValidator"
+import FormFieldDocList from "../FormFieldDocList"
 
 import { propTypes } from "prop-types"
 import reactBem from "@oly_op/react-bem"
@@ -14,6 +14,7 @@ import {
   determineMin,
   determineMax,
   determinePattern,
+  determineTabIndex,
   determineFieldDoc,
   determineInputVal,
   determineRequired,
@@ -48,34 +49,22 @@ const FormField = ({
             {type === "list" && !isEmpty(val.val) ? (
               <div className={bem("label-list")}>
                 {val.val.map(docId => {
-                  const doc = determineFieldDoc(docId, db)
+                  const doc = determineFieldDoc(docId,db)
                   return (
-                    <FormFieldDoc
+                    <FormFieldDocList
+                      doc={doc}
                       key={doc.id}
-                      name={doc.name}
                       onFieldDocRemove={onFieldDocRemove(doc)}
-                      photoUrl={doc.__typename === "Genre" ? "" : `/images/catalog/${doc.id}.jpg`}
                     />
                   )
                 })}
               </div>
             ) : null}
             {isDoc && type !== "list" && !isEmpty(val.val) ? (
-              <div className={bem("label-doc")}>
-                <Img
-                  url={catalogUrl(val.val)}
-                  className={bem("label-doc-cover")}
-                />
-                <div
-                  className={bem("label-doc-text")}
-                  children={determineFieldDoc(val.val, db).title}
-                />
-                <Icon
-                  icon="close"
-                  className={bem("label-doc-close")}
-                  onClick={onFieldDocRemove(val.val)}
-                />
-              </div>
+              <FormFieldDoc
+                doc={determineFieldDoc(val.val,db)}
+                onFieldDocRemove={onFieldDocRemove(val.val)}
+              />
             ) : null}
             <input
               id={id}
@@ -84,13 +73,13 @@ const FormField = ({
               autoComplete="off"
               spellCheck="false"
               autoCapitalize="off"
-              tabIndex={index + 1}
               onChange={onFieldChange}
               min={determineMin(field)}
               max={determineMax(field)}
               className={bem("label-input")}
               type={determineInputType(field)}
               pattern={determinePattern(field)}
+              tabIndex={determineTabIndex(index)}
               required={determineRequired(field)}
               value={determineInputVal(field,val)}
               minLength={determineMinLength(field)}

@@ -21,7 +21,7 @@ import "./Form.scss"
 
 const bem = reactBem("Form")
 
-const submitFunc = x => console.log(x)
+const submitFunc = x => console.log(JSON.stringify(x, undefined, 2))
 
 const Form = ({ title, submitText, fields }) => {
   const init = createFormInit(fields)

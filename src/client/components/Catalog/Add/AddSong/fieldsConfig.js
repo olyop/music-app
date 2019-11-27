@@ -51,7 +51,7 @@ const fieldsConifg = ({ artists, albums, genres }) => [
     type: "text",
     isDoc: false,
     init: "Extended",
-    req: true,
+    req: false,
     min: 0,
     max: 64,
     parse: {

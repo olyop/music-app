@@ -3,8 +3,8 @@ import React from "react"
 import { Link } from "react-router-dom"
 
 import reactBem from "@oly_op/react-bem"
-import determineKeyName from "./determineKeyName"
 import { propTypes, defaultProps } from "./props"
+import determineKeyName from "../../helpers/determineKeyName"
 
 import "./DocLink.scss"
 

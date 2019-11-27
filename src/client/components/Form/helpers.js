@@ -1,5 +1,5 @@
-import { deserializeDate } from "../../helpers/misc"
-import { includes, find, isEmpty, concat, isNumber } from "lodash"
+import deserializeDate from "../../helpers/deserializeDate"
+import { includes, find, isEmpty, concat, isNumber, mapValues, isObject } from "lodash"
 
 export const createFormInit = fields => fields.reduce(
   (acc, { short, isDoc, init }) => ({
@@ -46,8 +46,15 @@ export const handleFieldHitClick = (form, setForm) => ({ type, isDoc, short }) =
 
 export const handleFormSubmit = (form, initFunc, init, submitFunc) => event => {
   event.preventDefault()
+  const doc = mapValues(form, field => {
+    if (isObject(field)) {
+      return field.val
+    } else {
+      return field
+    }
+  })
   // submitFunc({ variables: form })
-  submitFunc(form)
+  submitFunc(doc)
   initFunc(init)
 }
 
@@ -118,6 +125,8 @@ export const determineDisabled = ({ type, isDoc }, val) => {
     return undefined
   }
 }
+
+export const determineTabIndex = index => index + 1
 
 export const determineFieldVal = ({ short }, form) => form[short]
 

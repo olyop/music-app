@@ -1,4 +1,4 @@
-import { shape, string, func } from "prop-types"
+import { string, func, shape } from "prop-types"
 
 export const propTypes = {
   doc: shape({

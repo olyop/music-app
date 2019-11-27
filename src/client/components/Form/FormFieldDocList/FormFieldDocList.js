@@ -8,18 +8,18 @@ import { propTypes, defaultProps } from "./props"
 import { catalogUrl } from "../../../helpers/misc"
 import determineKeyName from "../../../helpers/determineKeyName"
 
-import "./FormFieldDoc.scss"
+import "./FormFieldDocList.scss"
 
-const bem = reactBem("FormFieldDoc")
+const bem = reactBem("FormFieldDocList")
 
-const FormFieldDoc = ({ doc, onFieldDocRemove }) => {
+const FormFieldDocList = ({ doc, onFieldDocRemove }) => {
   const { id } = doc
   return (
     <div className={bem("")}>
       {doc.__typename === "Genre" ? null : (
         <Img
           url={catalogUrl(id)}
-          className={bem("cover")}
+          className={bem("img")}
         />
       )}
       <p
@@ -35,7 +35,7 @@ const FormFieldDoc = ({ doc, onFieldDocRemove }) => {
   )
 }
 
-FormFieldDoc.propTypes = propTypes
-FormFieldDoc.defaultProps = defaultProps
+FormFieldDocList.propTypes = propTypes
+FormFieldDocList.defaultProps = defaultProps
 
-export default FormFieldDoc
+export default FormFieldDocList

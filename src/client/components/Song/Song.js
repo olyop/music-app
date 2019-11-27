@@ -9,7 +9,9 @@ import FeaturingArtists from "../FeaturingArtists"
 import { isEmpty } from "lodash"
 import { propTypes } from "./props"
 import reactBem from "@oly_op/react-bem"
-import { deserializeDate, deserializeDuration, catalogUrl } from "../../helpers/misc"
+import { catalogUrl } from "../../helpers/misc"
+import deserializeDate from "../../helpers/deserializeDate"
+import deserializeDuration from "../../helpers/deserializeDuration"
 
 import "./Song.scss"
 

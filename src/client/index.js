@@ -1,6 +1,6 @@
 import React from "react"
 
-import { BrowserRouter as ReactRouter } from "react-router-dom"
+import { BrowserRouter as Router } from "react-router-dom"
 import Apollo from "./components/Apollo"
 import Header from "./components/Header"
 import Pages from "./components/Pages"
@@ -12,10 +12,10 @@ import "./index.scss"
 
 render(
   <Apollo>
-    <ReactRouter>
+    <Router>
       <Header/>
       <Pages/>
-    </ReactRouter>
+    </Router>
   </Apollo>,
   ROOT_ELEMENT
 )

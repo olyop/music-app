@@ -10,7 +10,7 @@
     "server": "clear && node --experimental-modules src/server/index.js",
     "dev-client": "node_modules/.bin/webpack-dev-server --env.mode development",
     "dev-server": "node_modules/.bin/nodemon --experimental-modules src/server/index.js",
-    "development": "rm -r -f src/server/build && clear && concurrently \"npm run dev-client\" \"npm run dev-server\"",
+    "development": "rm -r -f src/server/build && clear && concurrently \"npm run dev-client\" \"npm run dev-server\" && clear",
     "sync": "git checkout . && git remote update && git pull",
     "push": "git status && git add -A && git commit -m \"Update\" && git push -u origin master"
   },

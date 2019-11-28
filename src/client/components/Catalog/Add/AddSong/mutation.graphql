@@ -1,30 +1,30 @@
 mutation addSong(
-  $title: String!,
+  $album: ID!,
   $mix: String!,
-  $trackNumber: Int!,
-  $discNumber: Int!,
-  $featuring: [ID!]!,
-  $remixers: [ID!]!,
-  $artists: [ID!]!,
   $genres: [ID!]!,
-  $album: ID!
+  $title: String!,
+  $artists: [ID!]!,
+  $discNumber: Int!,
+  $remixers: [ID!]!,
+  $featuring: [ID!]!,
+  $trackNumber: Int!,
 ) {
   addSong(
-    title: $title,
     mix: $mix,
-    trackNumber: $trackNumber,
-    discNumber: $discNumber,
-    featuring: $featuring,
-    remixers: $remixers,
-    artists: $artists,
+    title: $title,
+    album: $album,
     genres: $genres,
-    album: $album
+    artists: $artists,
+    remixers: $remixers,
+    featuring: $featuring,
+    discNumber: $discNumber,
+    trackNumber: $trackNumber,
   ) {
     id
     title
     mix
-    trackNumber
     discNumber
+    trackNumber
     featuring {
       id
       name

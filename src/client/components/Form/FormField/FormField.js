@@ -1,27 +1,18 @@
 import React, { Fragment } from "react"
 
-import Img from "../../Img"
+import FormInput from "../FormInput"
 import FormFieldDoc from "../FormFieldDoc"
 import FormValidator from "../FormValidator"
 import FormFieldDocList from "../FormFieldDocList"
+import FormDropDownItem from "../FormDropDownItem"
 
+import { isEmpty } from "lodash"
 import { propTypes } from "prop-types"
 import reactBem from "@oly_op/react-bem"
-import { catalogUrl } from "../../../helpers/misc"
-import { isEmpty, includes, lowerCase } from "lodash"
+import findMatches from "../../../helpers/findMatches"
 
 import {
-  determineMin,
-  determineMax,
-  determinePattern,
-  determineTabIndex,
   determineFieldDoc,
-  determineInputVal,
-  determineRequired,
-  determineDisabled,
-  determineInputType,
-  determineMinLength,
-  determineMaxLength,
   determineValidatorVal,
   determineValidatorVisibility,
 } from "../helpers"
@@ -30,10 +21,9 @@ import "./FormField.scss"
 
 const bem = reactBem("FormField")
 
-const FormField = ({
-  field, val, index, onFieldChange, onFieldHitClick, onFieldDocRemove,
-}) => {
-  const { id, name, type, isDoc, db, validators, parse } = field
+const FormField = ({ field, val, index, onFieldChange, onFieldHitClick, onFieldDocRemove }) => {
+  const { id, name, type, isDoc, db, parse, validators } = field
+  const isList = type === "list"
   return (
     <div className={bem("")}>
       <label
@@ -46,72 +36,40 @@ const FormField = ({
               aria-label={id}
               className={bem("label-name")}
             />
-            {type === "list" && !isEmpty(val.val) ? (
+            {isList && !isEmpty(val.val) ? (
               <div className={bem("label-list")}>
-                {val.val.map(docId => {
-                  const doc = determineFieldDoc(docId,db)
-                  return (
+                {val.val.map(
+                  docId => (
                     <FormFieldDocList
-                      doc={doc}
-                      key={doc.id}
-                      onFieldDocRemove={onFieldDocRemove(doc)}
+                      key={docId}
+                      doc={determineFieldDoc(docId,db)}
+                      onFieldDocRemove={onFieldDocRemove}
                     />
                   )
-                })}
+                )}
               </div>
             ) : null}
-            {isDoc && type !== "list" && !isEmpty(val.val) ? (
+            {isDoc && !isList && !isEmpty(val.val) ? (
               <FormFieldDoc
                 doc={determineFieldDoc(val.val,db)}
-                onFieldDocRemove={onFieldDocRemove(val.val)}
+                onFieldDocRemove={onFieldDocRemove}
               />
             ) : null}
-            <input
-              id={id}
-              name={name}
-              autoCorrect="off"
-              autoComplete="off"
-              spellCheck="false"
-              autoCapitalize="off"
-              onChange={onFieldChange}
-              min={determineMin(field)}
-              max={determineMax(field)}
-              className={bem("label-input")}
-              type={determineInputType(field)}
-              pattern={determinePattern(field)}
-              tabIndex={determineTabIndex(index)}
-              required={determineRequired(field)}
-              value={determineInputVal(field,val)}
-              minLength={determineMinLength(field)}
-              maxLength={determineMaxLength(field)}
-              disabled={determineDisabled(field,val)}
+            <FormInput
+              val={val}
+              index={index}
+              field={field}
+              onFieldChange={onFieldChange}
             />
             {isDoc && !isEmpty(val.input) ? (
               <div className={bem("label-dropdown")}>
-                {db.filter(
-                  x => includes(
-                    lowerCase(name === "Album" ? x.title : x.name),
-                    lowerCase(parse.out(val.input))
-                  )
-                ).map(
-                  (hit, idx) => (
-                    <button
-                      key={hit.id}
-                      type="button"
+                {findMatches(db, parse.out(val.input)).map(
+                  (doc, idx) => (
+                    <FormDropDownItem
+                      doc={doc}
+                      key={doc.id}
                       tabIndex={index + idx + 2}
-                      onClick={onFieldHitClick(hit)}
-                      className={bem("label-dropdown-item")}
-                      children={(
-                        <Fragment>
-                          {hit.__typename === "Genre" ? null : (
-                            <Img
-                              url={catalogUrl(hit.id)}
-                              className={bem("label-dropdown-item-img")}
-                            />
-                          )}
-                          <span>{name === "Album" ? hit.title : hit.name}</span>
-                        </Fragment>
-                      )}
+                      onFieldHitClick={onFieldHitClick}
                     />
                   )
                 )}

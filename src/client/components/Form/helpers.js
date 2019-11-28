@@ -12,11 +12,11 @@ export const createFormInit = fields => fields.reduce(
   {}
 )
 
-export const handleFieldChange = (form, setForm) => ({ type, isDoc, short, parse }) => event => {
+export const handleFieldChange = (form, setForm) => ({ isDoc, short, parse }) => event => {
   const value = parse.in(event.target.value)
   setForm({
     ...form,
-    [short]: (type === "list" && isDoc) || isDoc ? {
+    [short]: isDoc ? {
       ...form[short],
       input: value,
     } : value,
@@ -53,8 +53,7 @@ export const handleFormSubmit = (form, initFunc, init, submitFunc) => event => {
       return field
     }
   })
-  // submitFunc({ variables: form })
-  submitFunc(doc)
+  submitFunc({ variables: doc })
   initFunc(init)
 }
 

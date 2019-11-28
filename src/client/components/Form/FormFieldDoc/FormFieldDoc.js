@@ -29,7 +29,7 @@ const FormFieldDoc = ({ doc, onFieldDocRemove }) => {
       <Icon
         icon="close"
         className={bem("close")}
-        onClick={onFieldDocRemove}
+        onClick={onFieldDocRemove(doc)}
       />
     </div>
   )

@@ -35,14 +35,6 @@
       margin-top: 3px;
       margin-right: 13px;
       align-items: center; }
-    &-input {
-      width: 100%;
-      border: none;
-      outline: none;
-      font-size: 18px;
-      line-height: 18px;
-      padding: 15px 0 12px 0;
-      background-color: transparent; }
     &-dropdown {
       bottom: 0;
       left: -1px;
@@ -62,29 +54,6 @@
       background-color: #ffffff;
       border-radius: 0 0 0 $BORDER_RADIUS;
       &:hover {
-        border-color: #9E9E9E; }
-      &-item {
-        width: 100%;
-        border: none;
-        display: flex;
-        padding: 13px;
-        outline: none;
-        color: #333333;
-        cursor: pointer;
-        font-size: 15px;
-        text-align: left;
-        user-select: none;
-        transition: .2s all;
-        align-items: center;
-        background-color: transparent;
-        &:hover,
-        &:focus,
-        &:active {
-          background-color: #e0e0e0; }
-        &-img {
-          width: 24px;
-          height: 24px;
-          margin-right: 10px;
-          border-radius: $BORDER_RADIUS; } } } }
+        border-color: #9E9E9E; } } }
   &__validators {
     margin: 10px 0 0 13px; } }

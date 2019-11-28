@@ -3,5 +3,6 @@
 .Add {
   padding: 20px;
   display: flex;
+  align-items: flex-start;
   justify-content: center;
   height: calc(100vh - #{$HEADER_HEIGHT}); }

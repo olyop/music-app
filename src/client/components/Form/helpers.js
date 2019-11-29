@@ -44,16 +44,20 @@ export const handleFieldHitClick = (form, setForm) => ({ type, isDoc, short }) =
   })
 }
 
-export const handleFormSubmit = (form, initFunc, init, submitFunc) => event => {
-  event.preventDefault()
-  const doc = mapValues(form, field => {
+export const deserializeForm = form => mapValues(
+  form,
+  field => {
     if (isObject(field)) {
       return field.val
     } else {
       return field
     }
-  })
-  submitFunc({ variables: doc })
+  }
+)
+
+export const handleFormSubmit = (form, initFunc, init, submitFunc) => event => {
+  event.preventDefault()
+  submitFunc({ variables: deserializeForm(form) })
   initFunc(init)
 }
 

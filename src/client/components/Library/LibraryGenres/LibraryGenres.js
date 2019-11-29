@@ -4,38 +4,35 @@ import Genre from "../../Genre"
 import Empty from "../../Empty"
 import Genres from "../../Genres"
 import Loading from "../../Loading"
-import { Query } from "react-apollo"
 import ApiError from "../../ApiError"
+import { useQuery } from "@apollo/react-hooks"
 
 import query from "./query.graphql"
 import { isUndefined, isEmpty, orderBy } from "lodash"
 
-const LibraryGenres = () => (
-  <Query query={query}>
-    {({ loading, error, data }) => {
-      if (loading) {
-        return <Loading/>
-      } else if (!isUndefined(error)) {
-        return <ApiError/>
-      } else if (isEmpty(data.genres)) {
-        return <Empty/>
-      } else {
-        const genres = orderBy(data.genres, "name", "asc")
-        return (
-          <Genres>
-            {genres.map(
-              genre => (
-                <Genre
-                  genre={genre}
-                  key={genre.id}
-                />
-              )
-            )}
-          </Genres>
-        )
-      }
-    }}
-  </Query>
-)
+const LibraryGenres = () => {
+  const { loading, error, data } = useQuery(query)
+  if (loading) {
+    return <Loading/>
+  } else if (!isUndefined(error)) {
+    return <ApiError/>
+  } else if (isEmpty(data.genres)) {
+    return <Empty/>
+  } else {
+    const genres = orderBy(data.genres, "name", "asc")
+    return (
+      <Genres>
+        {genres.map(
+          genre => (
+            <Genre
+              genre={genre}
+              key={genre.id}
+            />
+          )
+        )}
+      </Genres>
+    )
+  }
+}
 
 export default LibraryGenres

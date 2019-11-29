@@ -1,7 +1,7 @@
-import AddArtist from "./AddArtist"
-import AddAlbum from "./AddAlbum"
-import AddGenre from "./AddGenre"
 import AddSong from "./AddSong"
+import AddGenre from "./AddGenre"
+import AddAlbum from "./AddAlbum"
+import AddArtist from "./AddArtist"
 
 import { uniqueId } from "lodash"
 

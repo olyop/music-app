@@ -15,15 +15,13 @@ const AddAlbum = () => {
     return <Loading/>
   } else if (!isUndefined(error)) {
     return <ApiError/>
-  } else if (!isUndefined(data)) {
+  } else {
     return (
       <Form
         title="Add Album"
         fields={fieldsConifg(data)}
       />
     )
-  } else {
-    return null
   }
 }
 

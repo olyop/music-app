@@ -17,7 +17,7 @@ const AddSong = () => {
     return <Loading/>
   } else if (!isUndefined(error)) {
     return <ApiError/>
-  } else if (!isUndefined(data)) {
+  } else {
     return (
       <Form
         title="Add Song"
@@ -25,8 +25,6 @@ const AddSong = () => {
         fields={fieldsConfig(data)}
       />
     )
-  } else {
-    return null
   }
 }
 

@@ -42,8 +42,8 @@ const FormField = ({ field, val, index, onFieldChange, onFieldHitClick, onFieldD
                   docId => (
                     <FormFieldDocList
                       key={docId}
-                      doc={determineFieldDoc(docId,db)}
                       onFieldDocRemove={onFieldDocRemove}
+                      doc={determineFieldDoc(docId,field)}
                     />
                   )
                 )}
@@ -51,8 +51,8 @@ const FormField = ({ field, val, index, onFieldChange, onFieldHitClick, onFieldD
             ) : null}
             {isDoc && !isList && !isEmpty(val.val) ? (
               <FormFieldDoc
-                doc={determineFieldDoc(val.val,db)}
                 onFieldDocRemove={onFieldDocRemove}
+                doc={determineFieldDoc(val.val,field)}
               />
             ) : null}
             <FormInput

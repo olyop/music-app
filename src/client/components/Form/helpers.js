@@ -113,14 +113,6 @@ export const determinePattern = ({ type }) => {
   }
 }
 
-export const determineRequired = ({ type, req }) => {
-  if (type === "list") {
-    return undefined
-  } else {
-    return req
-  }
-}
-
 export const determineDisabled = ({ type, isDoc }, val) => {
   if (type !== "list" && isDoc && !isEmpty(val.val)) {
     return true
@@ -133,16 +125,18 @@ export const determineTabIndex = index => index + 1
 
 export const determineFieldVal = ({ short }, form) => form[short]
 
-export const determineFieldDoc = (id, db) => find(db, { id })
+export const determineFieldDoc = (id, { db }) => find(db, { id })
 
 export const determineInputVal = ({ type, isDoc, parse }, val) => {
+  let out
   if (isDoc) {
-    return parse.out(val.input)
+    out = val.input
   } else if (type === "date") {
-    return deserializeDate(parse.out(val))
+    out = deserializeDate(val)
   } else {
-    return parse.out(val)
+    out = val
   }
+  return parse.out(out)
 }
 
 export const determineValidatorVal = ({ isDoc }, val) => {

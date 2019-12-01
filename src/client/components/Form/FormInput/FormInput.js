@@ -6,7 +6,6 @@ import {
   determinePattern,
   determineTabIndex,
   determineInputVal,
-  determineRequired,
   determineDisabled,
   determineInputType,
   determineMinLength,
@@ -37,7 +36,6 @@ const FormInput = ({ field, onFieldChange, val, index }) => {
       type={determineInputType(field)}
       pattern={determinePattern(field)}
       tabIndex={determineTabIndex(index)}
-      required={determineRequired(field)}
       value={determineInputVal(field,val)}
       minLength={determineMinLength(field)}
       maxLength={determineMaxLength(field)}

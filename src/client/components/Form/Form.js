@@ -22,8 +22,8 @@ import "./Form.scss"
 const bem = reactBem("Form")
 
 const Form = ({ title, fields, submitText, submitFunc }) => {
-  const init = createFormInit(fields)
-  const [ form, setForm ] = useState(init)
+  const formInit = createFormInit(fields)
+  const [ form, setForm ] = useState(formInit)
   const onFieldChange = handleFieldChange(form, setForm)
   const onFieldHitClick = handleFieldHitClick(form, setForm)
   const onFieldDocRemove = handleFieldDocRemove(form, setForm)

@@ -3,7 +3,7 @@ import React, { Fragment } from "react"
 import FormInput from "../FormInput"
 import FormFieldDoc from "../FormFieldDoc"
 import FormValidator from "../FormValidator"
-import FormFieldDocList from "../FormFieldDocList"
+import FormFieldListDoc from "../FormFieldListDoc"
 import FormDropDownItem from "../FormDropDownItem"
 
 import { isEmpty } from "lodash"
@@ -40,7 +40,7 @@ const FormField = ({ field, val, index, onFieldChange, onFieldHitClick, onFieldD
               <div className={bem("label-list")}>
                 {val.val.map(
                   docId => (
-                    <FormFieldDocList
+                    <FormFieldListDoc
                       key={docId}
                       onFieldDocRemove={onFieldDocRemove}
                       doc={determineFieldDoc(docId,field)}
@@ -51,8 +51,8 @@ const FormField = ({ field, val, index, onFieldChange, onFieldHitClick, onFieldD
             ) : null}
             {isDoc && !isList && !isEmpty(val.val) ? (
               <FormFieldDoc
-                onFieldDocRemove={onFieldDocRemove}
                 doc={determineFieldDoc(val.val,field)}
+                onFieldDocRemove={onFieldDocRemove(val.val)}
               />
             ) : null}
             <FormInput

@@ -8,11 +8,11 @@ import { propTypes, defaultProps } from "./props"
 import { catalogUrl } from "../../../helpers/misc"
 import determineKeyName from "../../../helpers/determineKeyName"
 
-import "./FormFieldDocList.scss"
+import "./FormFieldListDoc.scss"
 
-const bem = reactBem("FormFieldDocList")
+const bem = reactBem("FormFieldListDoc")
 
-const FormFieldDocList = ({ doc, onFieldDocRemove }) => {
+const FormFieldListDoc = ({ doc, onFieldDocRemove }) => {
   const { id } = doc
   return (
     <div className={bem("")}>
@@ -35,7 +35,7 @@ const FormFieldDocList = ({ doc, onFieldDocRemove }) => {
   )
 }
 
-FormFieldDocList.propTypes = propTypes
-FormFieldDocList.defaultProps = defaultProps
+FormFieldListDoc.propTypes = propTypes
+FormFieldListDoc.defaultProps = defaultProps
 
-export default FormFieldDocList
+export default FormFieldListDoc

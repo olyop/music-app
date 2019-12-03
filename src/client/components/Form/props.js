@@ -1,4 +1,4 @@
-import { string, arrayOf, object } from "prop-types"
+import { string, arrayOf, object, func } from "prop-types"
 
 export const propTypes = {
   title: string,

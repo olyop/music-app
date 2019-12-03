@@ -88,8 +88,13 @@ const fieldsConifg = ({ artists, albums, genres }) => [
     validators: [
       {
         id: uniqueId(),
-        check: x => isSafeInteger(x) && curryInRange(1, 33)(x),
-        msg: "a valid integer between 1 and 32.",
+        check: isSafeInteger,
+        msg: "a valid integer.",
+      },
+      {
+        id: uniqueId(),
+        check: curryInRange(1, 33),
+        msg: "between 1 and 32.",
       },
     ],
   },
@@ -110,8 +115,35 @@ const fieldsConifg = ({ artists, albums, genres }) => [
     validators: [
       {
         id: uniqueId(),
-        check: x => isSafeInteger(x) && curryInRange(1, 33)(x),
-        msg: "a valid integer between 1 and 32.",
+        check: isSafeInteger,
+        msg: "a valid integer.",
+      },
+      {
+        id: uniqueId(),
+        check: curryInRange(1, 33),
+        msg: "between 1 and 32.",
+      },
+    ],
+  },
+  {
+    id: uniqueId(),
+    name: "Duration ",
+    short: "duration",
+    type: "int",
+    isDoc: false,
+    init: 1,
+    req: true,
+    min: 1,
+    max: Infinity,
+    parse: {
+      in: toSafeInteger,
+      out: toSafeInteger,
+    },
+    validators: [
+      {
+        id: uniqueId(),
+        check: x => isSafeInteger(x) && curryInRange(1, Infinity)(x),
+        msg: "a valid integer.",
       },
     ],
   },

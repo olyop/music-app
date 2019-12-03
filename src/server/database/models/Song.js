@@ -34,7 +34,7 @@ const schema = new Schema({
     type: Number,
     required: true,
     min: 1,
-    max: 86399,
+    max: Infinity,
     validate: Number.isInteger
   },
   featuring: [{

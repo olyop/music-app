@@ -13,8 +13,8 @@ import findMatches from "../../../helpers/findMatches"
 
 import {
   determineFieldDoc,
+  validatorVisibility,
   determineValidatorVal,
-  determineValidatorVisibility,
 } from "../helpers"
 
 import "./FormField.scss"
@@ -51,8 +51,8 @@ const FormField = ({ field, val, index, onFieldChange, onFieldHitClick, onFieldD
             ) : null}
             {isDoc && !isList && !isEmpty(val.val) ? (
               <FormFieldDoc
+                onFieldDocRemove={onFieldDocRemove}
                 doc={determineFieldDoc(val.val,field)}
-                onFieldDocRemove={onFieldDocRemove(val.val)}
               />
             ) : null}
             <FormInput
@@ -69,7 +69,7 @@ const FormField = ({ field, val, index, onFieldChange, onFieldHitClick, onFieldD
                       doc={doc}
                       key={doc.id}
                       tabIndex={index + idx + 2}
-                      onFieldHitClick={onFieldHitClick}
+                      onFieldHitClick={onFieldHitClick(doc)}
                     />
                   )
                 )}
@@ -78,7 +78,7 @@ const FormField = ({ field, val, index, onFieldChange, onFieldHitClick, onFieldD
           </Fragment>
         )}
       />
-      {determineValidatorVisibility(field, val) ? null : (
+      {validatorVisibility(field, val) ? (
         <div className={bem("validators")}>
           {validators.map(
             validator => (
@@ -90,7 +90,7 @@ const FormField = ({ field, val, index, onFieldChange, onFieldHitClick, onFieldD
             )
           )}
         </div>
-      )}
+      ) : null}
     </div>
   )
 }

@@ -3,12 +3,12 @@ import React from "react"
 import Form from "../../../Form"
 import Loading from "../../../Loading"
 import ApiError from "../../../ApiError"
-import { useQuery, useMutation } from "@apollo/react-hooks"
 
 import query from "./query.graphql"
 import { isUndefined } from "lodash"
 import mutation from "./mutation.graphql"
 import fieldsConfig from "./fieldsConfig"
+import { useQuery, useMutation } from "@apollo/react-hooks"
 
 const AddSong = () => {
   const [ addSong ] = useMutation(mutation)
@@ -21,8 +21,8 @@ const AddSong = () => {
     return (
       <Form
         title="Add Song"
-        submitFunc={addSong}
         fields={fieldsConfig(data)}
+        submitFunc={variables => addSong({ variables })}
       />
     )
   }

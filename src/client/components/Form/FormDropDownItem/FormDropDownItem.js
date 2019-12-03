@@ -18,7 +18,7 @@ const FormDropDownItem = ({ doc, onFieldHitClick, tabIndex }) => {
       type="button"
       tabIndex={tabIndex}
       className={bem("")}
-      onClick={onFieldHitClick(doc)}
+      onClick={onFieldHitClick}
       children={(
         <Fragment>
           {doc.__typename === "Genre" ? null : (

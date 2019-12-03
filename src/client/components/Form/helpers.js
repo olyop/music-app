@@ -12,6 +12,29 @@ export const createFormInit = fields => fields.reduce(
   {}
 )
 
+export const isFormValid = (fields, form) => fields.reduce(
+  (isValid, field) => {
+    const { short, req, isDoc, type } = field
+    if (!req) {
+      isValid = true 
+    } else if (isDoc) {
+      if (isEmpty(form[short].val)) {
+        isValid = false
+      } else {
+        isValid = true
+      }
+    } else if (type === "int") {
+      isValid = true
+    } else if (isEmpty(form[short])) {
+      isValid = false
+    } else {
+      isValid = true
+    }
+    return isValid
+  },
+  true
+)
+
 export const handleFieldChange = (form, setForm) => ({ isDoc, short, parse }) => event => {
   const value = parse.in(event.target.value)
   setForm({
@@ -55,10 +78,12 @@ export const deserializeForm = form => mapValues(
   }
 )
 
-export const handleFormSubmit = (form, initFunc, init, submitFunc) => event => {
+export const handleFormSubmit = (fields, form, initFunc, init, submitFunc) => event => {
   event.preventDefault()
-  submitFunc({ variables: deserializeForm(form) })
-  initFunc(init)
+  if (isFormValid(fields,form)) {
+    submitFunc(deserializeForm(form))
+    initFunc(init)
+  }
 }
 
 export const determineInputType = ({ type }) => {
@@ -147,13 +172,13 @@ export const determineValidatorVal = ({ isDoc }, val) => {
   }
 }
 
-export const determineValidatorVisibility = ({ isDoc }, val) => {
+export const validatorVisibility = ({ isDoc }, val) => {
   if (isDoc) {
-    return isEmpty(val.val)
+    return !isEmpty(val.val)
   } else if (isNumber(val)) {
-    return false
+    return true
   } else {
-    return isEmpty(val)
+    return !isEmpty(val)
   }
 }
 

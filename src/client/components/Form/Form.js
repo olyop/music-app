@@ -15,19 +15,19 @@ import {
 } from "./helpers"
 
 import reactBem from "@oly_op/react-bem"
-import { propTypes, defaultProps } from "prop-types"
+import { propTypes, defaultProps } from "./props"
 
 import "./Form.scss"
 
 const bem = reactBem("Form")
 
 const Form = ({ title, fields, submitText, submitFunc }) => {
-  const formInit = createFormInit(fields)
-  const [ form, setForm ] = useState(formInit)
-  const onFieldChange = handleFieldChange(form, setForm)
-  const onFieldHitClick = handleFieldHitClick(form, setForm)
-  const onFieldDocRemove = handleFieldDocRemove(form, setForm)
-  const onFormSubmit = handleFormSubmit(form, setForm, init, submitFunc)
+  const init = createFormInit(fields)
+  const [ form, setForm ] = useState(init)
+  const onFieldChange = handleFieldChange(form,setForm)
+  const onFieldHitClick = handleFieldHitClick(form,setForm)
+  const onFieldDocRemove = handleFieldDocRemove(form,setForm)
+  const onFormSubmit = handleFormSubmit(fields,form,setForm,init,submitFunc)
   return (
     <form className={bem("")} onSubmit={onFormSubmit}>
       <FormTitle>{title}</FormTitle>
@@ -46,7 +46,11 @@ const Form = ({ title, fields, submitText, submitFunc }) => {
           )
         )}
       </FormFields>
-      <FormSubmit>{submitText}</FormSubmit>
+      <FormSubmit
+        form={form}
+        fields={fields}
+        text={submitText}
+      />
     </form>
   )
 }

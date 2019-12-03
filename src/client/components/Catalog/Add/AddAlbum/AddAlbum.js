@@ -3,13 +3,15 @@ import React from "react"
 import Form from "../../../Form"
 import Loading from "../../../Loading"
 import ApiError from "../../../ApiError"
-import { useQuery } from "@apollo/react-hooks"
 
 import query from "./query.graphql"
 import { isUndefined } from "lodash"
-import fieldsConifg from "./fieldsConfig"
+import mutation from "./mutation.graphql"
+import fieldsConfig from "./fieldsConfig"
+import { useQuery, useMutation } from "@apollo/react-hooks"
 
 const AddAlbum = () => {
+  const [ addAlbum ] = useMutation(mutation)
   const { loading, error, data } = useQuery(query)
   if (loading) {
     return <Loading/>
@@ -19,7 +21,8 @@ const AddAlbum = () => {
     return (
       <Form
         title="Add Album"
-        fields={fieldsConifg(data)}
+        fields={fieldsConfig(data)}
+        submitFunc={variables => addAlbum({ variables })}
       />
     )
   }

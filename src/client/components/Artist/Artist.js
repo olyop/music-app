@@ -3,7 +3,6 @@ import React, { Fragment } from "react"
 import Img from "../Img"
 import DocLink from "../DocLink"
 import IconText from "../IconText"
-import { Link } from "react-router-dom"
 
 import { propTypes } from "./props"
 import reactBem from "@oly_op/react-bem"
@@ -21,7 +20,7 @@ const Artist = ({ artist }) => {
       <Img
         url={catalogUrl(id)}
         imgClassName={bemLibrary("grid-cover-img")}
-        className={bemLibrary("cover", { ignore: true, className: bem("cover") })}
+        className={bemLibrary({ ignore: true, className: bem("cover") }, "grid-cover")}
         children={(
           <Fragment>
             <IconText
@@ -36,23 +35,19 @@ const Artist = ({ artist }) => {
               iconClassName={bemLibrary("grid-cover-button-icon")}
               className={bemLibrary("grid-cover-button-top-right", "grid-cover-button")}
             />
-            <Link to={`/artist/${id}`}>
-              <IconText
-                text="Artist"
-                icon="person"
-                iconClassName={bemLibrary("grid-cover-button-icon")}
-                className={bemLibrary("grid-cover-button-bottom-left", "grid-cover-button")}
-              />
-            </Link>
             <IconText
-              text="Delete"
-              icon="delete"
+              text="Next"
+              icon="playlist_add"
+              iconClassName={bemLibrary("grid-cover-button-icon")}
+              className={bemLibrary("grid-cover-button-bottom-left", "grid-cover-button")}
+            />
+            <IconText
+              text="Shuffle"
+              icon="shuffle"
               iconClassName={bemLibrary("grid-cover-button-icon")}
               className={bemLibrary("grid-cover-button-bottom-right", "grid-cover-button")}
             />
-            <div
-              className={bemLibrary("grid-cover-black-box")}
-            />
+            <div className={bemLibrary("grid-cover-black-box")} />
           </Fragment>
         )}
       />

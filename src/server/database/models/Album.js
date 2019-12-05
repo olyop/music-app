@@ -12,16 +12,11 @@ const schema = new Schema({
     maxlength: 256
   },
   released: {
-    type: Date,
+    type: Number,
     required: true,
-    max: Date.now()
-  },
-  label: {
-    type: ObjectId,
-    required: true,
-    minlength: 24,
-    maxlength: 24,
-    index: true
+    min: 1,
+    max: Infinity,
+    validate: Number.isInteger
   },
   artists: [{
     type: ObjectId,

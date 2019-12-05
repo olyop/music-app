@@ -4,15 +4,17 @@ import FormTitle from "./FormTitle"
 import FormField from "./FormField"
 import FormFields from "./FormFields"
 import FormSubmit from "./FormSubmit"
+import FormRemember from "./FormRemember"
 
 import {
   createFormInit,
-  handleFormInit,
   handleFormSubmit,
   determineFieldVal,
   handleFieldChange,
+  determineFormValid,
   handleFieldHitClick,
   handleFieldDocRemove,
+  handleToggleRemember,
 } from "./helpers"
 
 import reactBem from "@oly_op/react-bem"
@@ -22,17 +24,27 @@ import "./Form.scss"
 
 const bem = reactBem("Form")
 
-const Form = ({ title, fields, submitText, submit }) => {
+const Form = ({ title, fields, rememberText, submitText, submit }) => {
   const init = createFormInit(fields)
+
   const [ form, setForm ] = useState(init)
-  const onFormInit = handleFormInit(setForm,init)
+  const [ remember, setRemember ] = useState(false)
+
   const onFieldChange = handleFieldChange(form,setForm)
   const onFieldHitClick = handleFieldHitClick(form,setForm)
   const onFieldDocRemove = handleFieldDocRemove(form,setForm)
-  const onFormSubmit = handleFormSubmit(fields,form,onFormInit,submit)
+  const onToggleRemember = handleToggleRemember(remember,setRemember)
+  const onFormSubmit = handleFormSubmit(fields,init,form,setForm,remember,submit)
+  
+  const isFormValid = determineFormValid(fields,form)
+  
   return (
     <form className={bem("")} onSubmit={onFormSubmit}>
-      <FormTitle>{title}</FormTitle>
+
+      <FormTitle>
+        {title}
+      </FormTitle>
+
       <FormFields>
         {fields.map(
           (field, index) => (
@@ -48,11 +60,18 @@ const Form = ({ title, fields, submitText, submit }) => {
           )
         )}
       </FormFields>
-      <FormSubmit
-        form={form}
-        fields={fields}
-        text={submitText}
+
+      <FormRemember
+        text={rememberText}
+        remember={remember}
+        onToggleRemember={onToggleRemember}
       />
+
+      <FormSubmit
+        text={submitText}
+        isFormValid={isFormValid}
+      />
+
     </form>
   )
 }

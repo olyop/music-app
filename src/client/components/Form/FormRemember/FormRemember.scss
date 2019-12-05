@@ -1,0 +1,12 @@
+.FormRemember {
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+  margin-bottom: 25px;
+  &__check-box {
+    width: 18px;
+    height: 18px;
+    margin-right: 5px; }
+  &__text {
+    font-size: 18rem;
+    user-select: none; } }

@@ -12,7 +12,7 @@ export const createFormInit = fields => fields.reduce(
   {}
 )
 
-export const isFormValid = (fields, form) => fields.reduce(
+export const determineFormValid = (fields, form) => fields.reduce(
   (isValid, field) => {
     const { short, req, isDoc, type } = field
     if (!req) {
@@ -67,6 +67,8 @@ export const handleFieldHitClick = (form, setForm) => ({ type, isDoc, short }) =
   })
 }
 
+export const handleToggleRemember = (remember, setRemember) => () => setRemember(!remember)
+
 export const deserializeForm = (fields, form) => fields.reduce(
   (doc, field) => {
     const { short, isDoc, parse } = field 
@@ -86,14 +88,24 @@ export const deserializeForm = (fields, form) => fields.reduce(
   {}
 )
 
-export const handleFormInit = (setForm, init) => () => setForm(init)
+export const createFormInitRemember = doc => ({
+  ...doc,
+  title: "",
+  mix: "",
+  featuring: {
+    input: "",
+    val: [],
+  },
+})
 
-export const handleFormSubmit = (fields, form, init, submit) => event => {
+export const handleFormSubmit = (fields, init, form, setForm, remember, submit) => event => {
   event.preventDefault()
-  if (isFormValid(fields, form)) {
+  if (determineFormValid(fields, form)) {
     const doc = deserializeForm(fields, form)
     submit(doc)
-    init()
+    console.log(remember)
+    if (remember) setForm(createFormInitRemember(doc))
+    else setForm(init)
   }
 }
 
@@ -183,8 +195,4 @@ export const validatorVisibility = ({ isDoc }, val) => {
   } else {
     return !isEmpty(val)
   }
-}
-
-export const validateForm = () => {
-  return true
 }

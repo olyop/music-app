@@ -1,8 +1,6 @@
 import { inRange as curryInRange } from "lodash/fp"
-import { uniqueId, isString, isSafeInteger } from "lodash"
+import { uniqueId, isString, toSafeInteger } from "lodash"
 import { isStringLengthInRange, validateArrayOfIds } from "../helpers"
-
-const noopReturn = x => x
 
 const fieldsConifg = ({ artists }) => [
   {
@@ -38,18 +36,18 @@ const fieldsConifg = ({ artists }) => [
     short: "released",
     type: "int",
     isDoc: false,
-    init: Date.now(),
+    init: Math.floor(Date.now() / 1000),
     req: true,
     min: 0,
     max: Date.now(),
     parse: {
-      in: noopReturn,
-      out: noopReturn,
+      in: toSafeInteger,
+      out: toSafeInteger,
     },
     validators: [
       {
         id: uniqueId(),
-        check: x => isSafeInteger(x) && curryInRange(1, Infinity)(x),
+        check: curryInRange(1, Infinity),
         msg: "a valid integer.",
       },
     ],

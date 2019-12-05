@@ -10,18 +10,24 @@
     justify-content: space-between;
     border-bottom: 1px solid #e0e0e0; }
     &__links {
-      display: flex; }
+      display: flex;
+      justify-content: space-between;
+      @media (min-width: 600px) {
+        & { justify-content: flex-start; } } }
       &__link {
+        width: 25%;
         display: flex;
         padding: 21px 0;
         position: relative;
         transition: .2s all;
-        align-content: center;
         text-decoration: none;
+        justify-content: center;
         &:hover {
           background-color: #EEEEEE; }
         &:last-child {
-          margin-right: 0; } }
+          margin-right: 0; }
+        @media (min-width: 600px) {
+          & {  width: auto; } } }
         &__icon {
           outline: none;
           font-size: 18rem;
@@ -29,11 +35,13 @@
           padding-left: 15px; }
         &__text {
           display: block;
-          font-size: 18rem;
+          font-size: 16rem;
           font-weight: 700;
           padding-right: 15px;
           text-decoration: none; 
-          text-transform: uppercase;}
+          text-transform: uppercase; 
+          @media (min-width: 600px) {
+            & { font-size: 18rem; } } }
         &__active {
           &:after {
             bottom: 0;
@@ -45,22 +53,31 @@
             background-color: #333333; } }
   &__main {
     width: 100%;
-    padding: 20px;
+    padding: 15px;
     overflow: auto;
-    height: calc(100vh - #{$HEADER_HEIGHT} - #{$HEADER_HEIGHT}); }
+    box-shadow: none;
+    height: calc(100vh - #{$HEADER_HEIGHT} - #{$HEADER_HEIGHT});
+    @media (min-width: 600px) {
+      & { padding: 20px; } } }
     &__grid-cover {
-      border-radius: $BORDER_RADIUS;
-      box-shadow:
-        0 3px 6px rgba(#000000, .16),
-        0 3px 6px rgba(#000000, .23);
+      border-radius: none;
       &:hover &-img {
         filter: blur(10px); }
       &:hover &-black-box {
         background-color: rgba(#000000, .8); }
       &:hover &-button {
         display: flex; }
+      @media (min-width: 600px) {
+        & {
+          border-radius: $BORDER_RADIUS;
+          box-shadow:
+            0 3px 6px rgba(#000000, .16),
+            0 3px 6px rgba(#000000, .23); } }
       &-img {
-        border-radius: $BORDER_RADIUS; }
+        border-radius: none;
+        @media (min-width: 600px) {
+          & { border-radius: $BORDER_RADIUS; } }
+      }
       &-black-box {
         top: 0;
         right: 0;

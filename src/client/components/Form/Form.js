@@ -7,6 +7,7 @@ import FormSubmit from "./FormSubmit"
 
 import {
   createFormInit,
+  handleFormInit,
   handleFormSubmit,
   determineFieldVal,
   handleFieldChange,
@@ -21,13 +22,14 @@ import "./Form.scss"
 
 const bem = reactBem("Form")
 
-const Form = ({ title, fields, submitText, submitFunc }) => {
+const Form = ({ title, fields, submitText, submit }) => {
   const init = createFormInit(fields)
   const [ form, setForm ] = useState(init)
+  const onFormInit = handleFormInit(setForm,init)
   const onFieldChange = handleFieldChange(form,setForm)
   const onFieldHitClick = handleFieldHitClick(form,setForm)
   const onFieldDocRemove = handleFieldDocRemove(form,setForm)
-  const onFormSubmit = handleFormSubmit(fields,form,setForm,init,submitFunc)
+  const onFormSubmit = handleFormSubmit(fields,form,onFormInit,submit)
   return (
     <form className={bem("")} onSubmit={onFormSubmit}>
       <FormTitle>{title}</FormTitle>

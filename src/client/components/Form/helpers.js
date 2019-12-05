@@ -1,5 +1,5 @@
 import deserializeDate from "../../helpers/deserializeDate"
-import { includes, find, isEmpty, concat, isNumber, mapValues, isObject } from "lodash"
+import { includes, find, isEmpty, concat, isNumber } from "lodash"
 
 export const createFormInit = fields => fields.reduce(
   (acc, { short, isDoc, init }) => ({
@@ -67,22 +67,33 @@ export const handleFieldHitClick = (form, setForm) => ({ type, isDoc, short }) =
   })
 }
 
-export const deserializeForm = form => mapValues(
-  form,
-  field => {
-    if (isObject(field)) {
-      return field.val
+export const deserializeForm = (fields, form) => fields.reduce(
+  (doc, field) => {
+    const { short, isDoc, parse } = field 
+    const val = form[short]
+    if (isDoc) {
+      return {
+        ...doc,
+        [short]: val.val,
+      }
     } else {
-      return field
+      return {
+        ...doc,
+        [short]: parse.out(val),
+      }
     }
-  }
+  },
+  {}
 )
 
-export const handleFormSubmit = (fields, form, initFunc, init, submitFunc) => event => {
+export const handleFormInit = (setForm, init) => () => setForm(init)
+
+export const handleFormSubmit = (fields, form, init, submit) => event => {
   event.preventDefault()
-  if (isFormValid(fields,form)) {
-    submitFunc(deserializeForm(form))
-    initFunc(init)
+  if (isFormValid(fields, form)) {
+    const doc = deserializeForm(fields, form)
+    submit(doc)
+    init()
   }
 }
 
@@ -125,14 +136,6 @@ export const determineMinLength = ({ type, min }) => {
 export const determineMaxLength = ({ type, max }) => {
   if (includes(["text","list"], type)) {
     return max
-  } else {
-    return undefined
-  }
-}
-
-export const determinePattern = ({ type }) => {
-  if (type === "date") {
-    return "(0[1-9]|1[0-9]|2[0-9]|3[01])/(0[1-9]|1[012])/[0-9]{4}"
   } else {
     return undefined
   }

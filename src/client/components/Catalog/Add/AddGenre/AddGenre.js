@@ -12,7 +12,7 @@ const AddGenre = () => {
     <Form
       title="Add Genre"
       fields={fieldsConfig}
-      submitFunc={variables => addGenre({ variables })}
+      submit={variables => addGenre({ variables })}
     />
   )
 }

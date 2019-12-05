@@ -22,7 +22,7 @@ const AddAlbum = () => {
       <Form
         title="Add Album"
         fields={fieldsConfig(data)}
-        submitFunc={variables => addAlbum({ variables })}
+        submit={variables => addAlbum({ variables })}
       />
     )
   }

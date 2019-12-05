@@ -12,7 +12,7 @@ const AddArtist = () => {
     <Form
       title="Add Artist"
       fields={fieldsConfig}
-      submitFunc={variables => addArtist({ variables })}
+      submit={variables => addArtist({ variables })}
     />
   )
 }

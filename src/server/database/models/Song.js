@@ -8,12 +8,10 @@ const schema = new Schema({
   title: {
     type: String,
     required: true,
-    minlength: 1,
     maxlength: 256
   },
   mix: {
     type: String,
-    minlength: 1,
     maxlength: 256
   },
   trackNumber: {

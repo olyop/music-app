@@ -1,6 +1,6 @@
-import { isStringLengthInRange, validateArrayOfIds } from "../helpers"
 import { inRange as curryInRange } from "lodash/fp"
-import { uniqueId, isString } from "lodash"
+import { uniqueId, isString, isSafeInteger } from "lodash"
+import { isStringLengthInRange, validateArrayOfIds } from "../helpers"
 
 const noopReturn = x => x
 
@@ -11,7 +11,7 @@ const fieldsConifg = ({ artists }) => [
     short: "title",
     type: "text",
     isDoc: false,
-    init: "Fever",
+    init: "",
     req: true,
     min: 0,
     max: 127,
@@ -36,10 +36,9 @@ const fieldsConifg = ({ artists }) => [
     id: uniqueId(),
     name: "Released",
     short: "released",
-    type: "date",
+    type: "int",
     isDoc: false,
-    // init: Date.now(),
-    init: 1553817600,
+    init: Date.now(),
     req: true,
     min: 0,
     max: Date.now(),
@@ -50,8 +49,8 @@ const fieldsConifg = ({ artists }) => [
     validators: [
       {
         id: uniqueId(),
-        check: curryInRange(0, Date.now()),
-        msg: "valid date.",
+        check: x => isSafeInteger(x) && curryInRange(1, Infinity)(x),
+        msg: "a valid integer.",
       },
     ],
   },
@@ -62,31 +61,8 @@ const fieldsConifg = ({ artists }) => [
     type: "list",
     isDoc: true,
     db: artists,
-    init: ["5dae5e92c3f0c42c325a8793", "5dd0028692d31103a85222fa"],
-    req: true,
-    min: 0,
-    max: 24,
-    parse: {
-      in: encodeURI,
-      out: decodeURI,
-    },
-    validators: [
-      {
-        id: uniqueId(),
-        check: validateArrayOfIds,
-        msg: "Must be a valid artists.",
-      },
-    ],
-  },
-  {
-    id: uniqueId(),
-    name: "Remixers",
-    short: "remixers",
-    type: "list",
-    isDoc: true,
-    db: artists,
     init: [],
-    req: false,
+    req: true,
     min: 0,
     max: 24,
     parse: {

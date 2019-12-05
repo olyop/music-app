@@ -3,7 +3,7 @@ import { string, arrayOf, object, func } from "prop-types"
 export const propTypes = {
   title: string,
   submitText: string,
-  submitFunc: func.isRequired,
+  submit: func.isRequired,
   fields: arrayOf(object).isRequired,
 }
 

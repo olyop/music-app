@@ -1,11 +1,11 @@
 import { serializePort } from "./helpers/server.js"
 import path from "path"
-// import os from "os"
+import os from "os"
 
 process.env.UV_THREADPOOL_SIZE = 12
 
-// export const HOST = os.networkInterfaces().Ethernet[1].address
-export const HOST = "localhost"
+export const HOST = os.networkInterfaces().Ethernet[1].address
+// export const HOST = "localhost"
 export const PORT = serializePort(process.env.PORT || "3000")
 
 export const LOG_FORMAT = "dev"

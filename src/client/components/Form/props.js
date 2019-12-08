@@ -11,5 +11,5 @@ export const propTypes = {
 export const defaultProps = {
   title: "Form",
   submitText: "Submit",
-  rememberText: "Remember appropriate fields.",
+  rememberText: "Remember fields",
 }

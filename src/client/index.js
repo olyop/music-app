@@ -1,12 +1,13 @@
 import React from "react"
 
-import { BrowserRouter as Router } from "react-router-dom"
-import Apollo from "./components/Apollo"
-import Header from "./components/Header"
 import Pages from "./components/Pages"
+import Header from "./components/Header"
+import Apollo from "./components/Apollo"
+import Player from "./components/Player"
+import { BrowserRouter as Router } from "react-router-dom"
 
-import { ROOT_ELEMENT } from "./globals"
 import { render } from "react-dom"
+import { ROOT_ELEMENT } from "./globals"
 
 import "./index.scss"
 
@@ -15,6 +16,7 @@ render(
     <Router>
       <Header/>
       <Pages/>
+      <Player/>
     </Router>
   </Apollo>,
   ROOT_ELEMENT

@@ -2,13 +2,14 @@
 
 .Library {
   &__header {
+    z-index: 3;
     width: 100%;
     display: flex;
     height: $HEADER_HEIGHT;
     flex-direction: column;
     background-color: #ffffff;
     justify-content: space-between;
-    border-bottom: 1px solid #e0e0e0; }
+    border-bottom: 1px solid #e0e0e0;}
     &__links {
       display: flex;
       justify-content: space-between;
@@ -31,6 +32,7 @@
         &__icon {
           outline: none;
           font-size: 18rem;
+          user-select: none;
           margin-right: 3px;
           padding-left: 15px; }
         &__text {
@@ -52,11 +54,12 @@
             border-radius: 4px;
             background-color: #333333; } }
   &__main {
+    z-index: 2;
     width: 100%;
     padding: 15px;
     overflow: auto;
     box-shadow: none;
-    height: calc(100vh - #{$HEADER_HEIGHT} - #{$HEADER_HEIGHT});
+    height: calc(100vh - #{$HEADER_HEIGHT} - #{$HEADER_HEIGHT} - #{$PLAYER_HEIGHT});
     @media (min-width: 600px) {
       & { padding: 20px; } } }
     &__grid-cover {

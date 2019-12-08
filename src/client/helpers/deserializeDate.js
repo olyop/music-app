@@ -1,7 +1,7 @@
 import { toString } from "lodash"
 
 const deserializeDate = unixTimeStamp => {
-  const date = new Date(unixTimeStamp * 1000)
+  const date = new Date(unixTimeStamp * 86400 * 1000)
   const year = toString(date.getFullYear())
   let day = date.getDate()
   let month = date.getMonth() + 1

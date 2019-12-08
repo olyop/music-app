@@ -61,11 +61,13 @@ const Form = ({ title, fields, rememberText, submitText, submit }) => {
         )}
       </FormFields>
 
-      <FormRemember
-        text={rememberText}
-        remember={remember}
-        onToggleRemember={onToggleRemember}
-      />
+      {title === "Add Song" ? (
+        <FormRemember
+          text={rememberText}
+          remember={remember}
+          onToggleRemember={onToggleRemember}
+        />
+      ) : null}
 
       <FormSubmit
         text={submitText}

@@ -3,4 +3,4 @@
 .Pages {
   width: 100vw;
   background-color: #FAFAFA;
-  height: calc(100vh - #{$HEADER_HEIGHT}); }
+  height: calc(100vh - #{$HEADER_HEIGHT} - #{$PLAYER_HEIGHT}); }

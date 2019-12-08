@@ -67,6 +67,14 @@ const Song = ({ song }) => {
       </td>
       <td className={bem("tableCol")}>
         <span className={bem("tableColSpan")}>
+          <DocLink
+            doc={album}
+            path="/album"
+          />
+        </span>
+      </td>
+      <td className={bem("tableCol")}>
+        <span className={bem("tableColSpan")}>
           <DocLinks
             path="/genre"
             docs={genres}

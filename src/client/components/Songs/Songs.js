@@ -39,6 +39,10 @@ const Songs = ({ children }) => (
             className={bem("tableHeadCol")}
           />
           <th
+            children="Album"
+            className={bem("tableHeadCol")}
+          />
+          <th
             children="Genres"
             className={bem("tableHeadCol")}
           />

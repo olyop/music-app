@@ -92,9 +92,28 @@ export const createFormInitRemember = doc => ({
   ...doc,
   title: "",
   mix: "",
+  duration: 1,
+  discNumber: doc.discNumber,
+  trackNumber: doc.trackNumber + 1,
   featuring: {
     input: "",
-    val: [],
+    val: doc.featuring,
+  },
+  remixers: {
+    input: "",
+    val: doc.remixers,
+  },
+  artists: {
+    input: "",
+    val: doc.artists,
+  },
+  genres: {
+    input: "",
+    val: doc.genres,
+  },
+  album: {
+    input: "",
+    val: doc.album,
   },
 })
 
@@ -103,7 +122,6 @@ export const handleFormSubmit = (fields, init, form, setForm, remember, submit) 
   if (determineFormValid(fields, form)) {
     const doc = deserializeForm(fields, form)
     submit(doc)
-    console.log(remember)
     if (remember) setForm(createFormInitRemember(doc))
     else setForm(init)
   }

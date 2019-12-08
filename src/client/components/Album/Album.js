@@ -28,25 +28,25 @@ const Album = ({ album }) => {
               text="Play"
               icon="play_arrow"
               iconClassName={bemLibrary("grid-cover-button-icon")}
-              className={bemLibrary("grid-cover-button-top-left", "grid-cover-button")}
+              className={bemLibrary("grid-cover-button-top-left","grid-cover-button")}
             />
             <IconText
               text="Queue"
               icon="queue_music"
               iconClassName={bemLibrary("grid-cover-button-icon")}
-              className={bemLibrary("grid-cover-button-top-right", "grid-cover-button")}
+              className={bemLibrary("grid-cover-button-top-right","grid-cover-button")}
             />
             <IconText
               text="Next"
               icon="playlist_add"
               iconClassName={bemLibrary("grid-cover-button-icon")}
-              className={bemLibrary("grid-cover-button-bottom-left", "grid-cover-button")}
+              className={bemLibrary("grid-cover-button-bottom-left","grid-cover-button")}
             />
             <IconText
               text="Shuffle"
               icon="shuffle"
               iconClassName={bemLibrary("grid-cover-button-icon")}
-              className={bemLibrary("grid-cover-button-bottom-right", "grid-cover-button")}
+              className={bemLibrary("grid-cover-button-bottom-right","grid-cover-button")}
             />
             <div className={bemLibrary("grid-cover-black-box")} />
           </Fragment>

@@ -6,7 +6,8 @@
   &__check-box {
     width: 18px;
     height: 18px;
-    margin-right: 5px; }
+    cursor: pointer;
+    margin: 0 10px 0 2px; }
   &__text {
     font-size: 18rem;
     user-select: none; } }

@@ -24,6 +24,7 @@
     }
     album {
       id
+      title
       released
     }
   }

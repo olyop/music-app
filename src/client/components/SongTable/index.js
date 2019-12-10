@@ -1,3 +1,3 @@
-import SongTable from "./Song"
+import SongTable from "./SongTable"
 
 export default SongTable

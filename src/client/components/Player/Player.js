@@ -1,6 +1,7 @@
 import React from "react"
 
 import Icon from "../Icon"
+import Song from "../Song"
 
 import { propTypes } from "./props"
 import reactBem from "@oly_op/react-bem"
@@ -12,7 +13,7 @@ const bem = reactBem("Player")
 const Player = ({ song }) => (
   <div className={bem("")}>
     <div className={bem("left")}>
-      {console.log(song)}
+      <Song song={song} />
     </div>
     <div className={bem("middle")}>
       <Icon

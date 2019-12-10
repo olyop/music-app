@@ -23,10 +23,6 @@ const init = {
     id: "5dae5e56c3f0c42c325a877b",
     name: "Martin Garrix",
   }],
-  genres: [{
-    id: "5dae5fbfc3f0c42c325a880f",
-    name: "Future House",
-  }],
   album: {
     id: "5dae5f3bc3f0c42c325a87c4",
     title: "Ocean (Don Diablo Remix)",

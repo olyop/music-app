@@ -1,0 +1,30 @@
+@import "../../globals/index.scss";
+
+.Song {
+  display: flex;
+  padding: 10px;
+  &__cover {
+    width: 60px;
+    height: 60px;
+    margin-right: 10px;
+    &-img {
+      border-radius: $BORDER_RADIUS; } }
+  &__info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    &-title {
+      font-size: 20rem;
+      font-weight: 700;
+      line-height: 20rem;
+      margin-bottom: 5px; }
+    &-mix {
+      color: #757575;
+      font-weight: 400; }
+    &-album {
+      font-size: 15rem;
+      line-height: 15rem;
+      margin-bottom: 5px; }
+    &-artists {
+      font-size: 15rem;
+      line-height: 15rem; } } }

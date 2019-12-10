@@ -1,16 +1,16 @@
-import apolloRouter from "./database/apollo.js"
-import database from "./database/database.js"
 import express from "express"
+import database from "./database/database.js"
+import apolloRouter from "./database/apollo.js"
 
 // import middleware
-import { globalHeaders } from "./middleware.js"
-import responseTime from "response-time"
-import cookieParser from "cookie-parser"
-import compression from "compression"
-import bodyParser from "body-parser"
+import cors from "cors"
 import logger from "morgan"
 import helmet from "helmet"
-import cors from "cors"
+import bodyParser from "body-parser"
+import compression from "compression"
+import responseTime from "response-time"
+import cookieParser from "cookie-parser"
+import { globalHeaders } from "./middleware.js"
 
 import { onError } from "./helpers/server.js"
 

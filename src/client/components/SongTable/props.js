@@ -9,7 +9,6 @@ export const propTypes = {
     album: shape({
       id: string.isRequired,
       title: string.isRequired,
-      released: number.isRequired,
     }).isRequired,
     genres: arrayOf(object).isRequired,
     artists: arrayOf(object).isRequired,

@@ -8,7 +8,7 @@ import ApiError from "../../ApiError"
 import { useQuery } from "@apollo/react-hooks"
 
 import query from "./query.graphql"
-import { isUndefined, isEmpty, orderBy } from "lodash"
+import { isUndefined, isEmpty } from "lodash"
 
 const LibraryGenres = () => {
   const { loading, error, data } = useQuery(query)
@@ -19,10 +19,9 @@ const LibraryGenres = () => {
   } else if (isEmpty(data.genres)) {
     return <Empty/>
   } else {
-    const genres = orderBy(data.genres, "name", "asc")
     return (
       <Genres>
-        {genres.map(
+        {data.genres.map(
           genre => (
             <Genre
               genre={genre}

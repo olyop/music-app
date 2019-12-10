@@ -1,14 +1,18 @@
 @import "../../globals/index.scss";
 
-.Song {
+.SongTable {
   height: 38px;
   border-bottom: 1px solid #e0e0e0;
   &:hover {
     background-color: #eeeeee; }
   &:hover &__playIcon {
     display: inline-block; }
+  &:last-child {
+    border-bottom: none; }
   @media (min-width: 1200px) {
     height: 44px; }
+  &__col-title {
+    max-width: 25vw; }
   &__tableCol {
     text-align: left;}
     &__albumCover {
@@ -47,6 +51,7 @@
       span {
         color: #757575; } }
     &__tableColSpan {
+      overflow: hidden;
       font-size: 14rem;
       @media (min-width: 1200px) {
         & { font-size: 16rem; } } }

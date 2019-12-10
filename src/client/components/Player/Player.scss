@@ -1,7 +1,23 @@
 @import "../../globals/index.scss";
 
 .Player {
+  z-index: 4;
   width: 100%;
+  display: flex;
+  align-items: center;
   height: $PLAYER_HEIGHT;
   border-top: 1px solid #E0E0E0;
-}
+  justify-content: space-between;
+  &__left,
+  &__middle,
+  &__right {
+    height: 100%;
+    display: flex;
+    align-items: center; }
+    &__icon {
+      outline: none; }
+    &__prev,
+    &__next {
+      font-size: 40rem; }
+    &__playPause {
+      font-size: 65rem; } }

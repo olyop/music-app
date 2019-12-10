@@ -10,6 +10,7 @@ const FeaturingArtists = ({ artists, featuring }) => (
     <DocLinks
       path="/artist"
       docs={artists}
+      ampersand={true}
     />
     {isEmpty(featuring) ? null : (
       <Fragment>
@@ -17,6 +18,7 @@ const FeaturingArtists = ({ artists, featuring }) => (
         <DocLinks
           path="/artist"
           docs={featuring}
+          ampersand={true}
         />
       </Fragment>
     )}

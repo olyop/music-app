@@ -1,5 +1,6 @@
 import { Artist, Album, Genre, Song } from "../models/index.js"
 
+import orderBy from "lodash/orderBy.js"
 import { serializeCollection, serializeDocument } from "../../helpers/collection.js"
 
 export default {
@@ -26,21 +27,25 @@ export default {
   artists: async () => {
     const query = Artist.find().lean().exec()
     const result = await query
-    return serializeCollection(result)
+    const artists = serializeCollection(result)
+    return orderBy(artists, "name", "asc")
   },
   albums: async () => {
     const query = Album.find().lean().exec()
     const result = await query
-    return serializeCollection(result)
+    const albums = serializeCollection(result)
+    return orderBy(albums, "released", "desc")
   },
   genres: async () => {
     const query = Genre.find().lean().exec()
     const result = await query
-    return serializeCollection(result)
+    const genres = serializeCollection(result)
+    return orderBy(genres, "name", "asc")
   },
   songs: async () => {
     const query = Song.find().lean().exec()
     const result = await query
-    return serializeCollection(result)
+    const songs = serializeCollection(result)
+    return orderBy(songs, "title", "asc")
   }
 }

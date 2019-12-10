@@ -26,7 +26,7 @@ const fieldsConifg = ({ artists, albums, genres }) => [
     init: "",
     req: true,
     min: 1,
-    max: 128,
+    max: 2048,
     parse: {
       in: encodeURI,
       out: decodeURI,
@@ -39,8 +39,8 @@ const fieldsConifg = ({ artists, albums, genres }) => [
       },
       {
         id: uniqueId(),
-        check: isStringLengthInRange(1, 128),
-        msg: "between 1 and 128 characters.",
+        check: isStringLengthInRange(1, 2048),
+        msg: "between 1 and 2048 characters.",
       },
     ],
   },

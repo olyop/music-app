@@ -1,14 +1,14 @@
 import React from "react"
 
-import Song from "../../Song"
 import Empty from "../../Empty"
-import Songs from "../../Songs"
 import Loading from "../../Loading"
 import ApiError from "../../ApiError"
+import SongTable from "../../SongTable"
+import SongsTable from "../../SongsTable"
 import { useQuery } from "@apollo/react-hooks"
 
 import query from "./query.graphql"
-import { isUndefined, isEmpty, orderBy } from "lodash"
+import { isUndefined, isEmpty } from "lodash"
 
 const LibrarySongs = () => {
   const { loading, error, data } = useQuery(query)
@@ -19,22 +19,17 @@ const LibrarySongs = () => {
   } else if (isEmpty(data.songs)) {
     return <Empty/>
   } else {
-    const songs = orderBy(
-      data.songs,
-      ["album.released","discNumber","trackNumber"],
-      ["desc","asc","asc"]
-    )
     return (
-      <Songs>
-        {songs.map(
+      <SongsTable>
+        {data.songs.map(
           song => (
-            <Song
+            <SongTable
               song={song}
               key={song.id}
             />
           )
         )}
-      </Songs>
+      </SongsTable>
     )
   }
 }

@@ -5,16 +5,16 @@ import Icon from "../Icon"
 import { propTypes } from "./props"
 import reactBem from "@oly_op/react-bem"
 
-import "./Songs.scss"
+import "./SongsTable.scss"
 
-const bem = reactBem("Songs")
+const bem = reactBem("SongsTable")
 
-const Songs = ({ children }) => (
+const SongsTable = ({ children }) => (
   <div className={bem("")}>
     <table className={bem("table")}>
       <thead className={bem("tableHead")}>
         <tr className={bem("tableHeadRow")}>
-          <th className={bem("tableHeadCol","tableHeadCover")}>
+          <th className={bem("col-album","tableHeadCol","tableHeadCover")}>
             <Icon
               icon="album"
               className={bem("tableHeadIcon")}
@@ -22,9 +22,9 @@ const Songs = ({ children }) => (
           </th>
           <th
             children="Title"
-            className={bem("tableHeadCol")}
+            className={bem("col-title","tableHeadCol")}
           />
-          <th className={bem("tableHeadCol","tableHeadCover")}>
+          <th className={bem("col-duration","tableHeadCol","tableHeadCover")}>
             <Icon
               icon="access_time"
               className={bem("tableHeadIcon")}
@@ -32,23 +32,19 @@ const Songs = ({ children }) => (
           </th>
           <th
             children="Artists"
-            className={bem("tableHeadCol")}
+            className={bem("col-artists","tableHeadCol")}
           />
           <th
             children="Remixers"
-            className={bem("tableHeadCol")}
+            className={bem("col-remixers","tableHeadCol")}
           />
           <th
             children="Album"
-            className={bem("tableHeadCol")}
+            className={bem("col-album","tableHeadCol")}
           />
           <th
             children="Genres"
-            className={bem("tableHeadCol")}
-          />
-          <th
-            children="Released"
-            className={bem("tableHeadCol")}
+            className={bem("col-genres","tableHeadCol")}
           />
         </tr>
       </thead>
@@ -59,6 +55,6 @@ const Songs = ({ children }) => (
   </div>
 )
 
-Songs.propTypes = propTypes
+SongsTable.propTypes = propTypes
 
-export default Songs
+export default SongsTable

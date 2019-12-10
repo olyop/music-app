@@ -8,7 +8,7 @@ const schema = new Schema({
   title: {
     type: String,
     required: true,
-    maxlength: 256
+    maxlength: 2048
   },
   mix: {
     type: String,

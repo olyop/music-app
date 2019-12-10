@@ -8,7 +8,7 @@ import ApiError from "../../ApiError"
 import { useQuery } from "@apollo/react-hooks"
 
 import query from "./query.graphql"
-import { isUndefined, isEmpty, orderBy } from "lodash"
+import { isUndefined, isEmpty } from "lodash"
 
 const LibraryAlbums = () => {
   const { loading, error, data } = useQuery(query)
@@ -19,10 +19,9 @@ const LibraryAlbums = () => {
   } else if (isEmpty(data.albums)) {
     return <Empty/>
   } else {
-    const albums = orderBy(data.albums, "year", "desc")
     return (
       <Albums>
-        {albums.map(
+        {data.albums.map(
           album => (
             <Album
               album={album}

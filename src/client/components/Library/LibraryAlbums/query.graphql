@@ -2,7 +2,6 @@
   albums {
     id
     title
-    released
     artists {
       id
       name

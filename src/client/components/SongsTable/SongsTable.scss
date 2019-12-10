@@ -1,9 +1,11 @@
-.Songs {
+.SongsTable {
   &__table {
     width: 100%;
     border-collapse: collapse;
     background-color: #ffffff;
     box-shadow: 0 1px 4px 0 rgba(#333333,.3); }
+    &__col-title {
+      max-width: 25vw; }
     &__tableHead {
       border-bottom: 1px solid #e0e0e0; }
       &__tableHeadRow {

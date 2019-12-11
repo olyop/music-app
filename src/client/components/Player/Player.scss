@@ -7,17 +7,20 @@
   align-items: center;
   height: $PLAYER_HEIGHT;
   border-top: 1px solid #E0E0E0;
-  justify-content: space-between;
   &__left,
-  &__middle,
   &__right {
     height: 100%;
     display: flex;
+    padding: 15px;
     align-items: center; }
+  &__right {
+    width: 100%; }
     &__icon {
-      outline: none; }
-    &__prev,
-    &__next {
-      font-size: 40rem; }
-    &__playPause {
-      font-size: 65rem; } }
+      outline: none;
+      font-size: 60rem;
+      transition: .2s all;
+      border-radius: 100%;
+    &:hover {
+      background-color: #e0e0e0; } }
+    &__left {
+      border-right: 1px solid #e0e0e0; } }

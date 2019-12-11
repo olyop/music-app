@@ -73,8 +73,8 @@ const fieldsConifg = ({ artists, albums, genres }) => [
   },
   {
     id: uniqueId(),
-    name: "Track Number",
-    short: "trackNumber",
+    name: "Disc Number",
+    short: "discNumber",
     type: "int",
     isDoc: false,
     init: 1,
@@ -100,8 +100,8 @@ const fieldsConifg = ({ artists, albums, genres }) => [
   },
   {
     id: uniqueId(),
-    name: "Disc Number",
-    short: "discNumber",
+    name: "Track Number",
+    short: "trackNumber",
     type: "int",
     isDoc: false,
     init: 1,

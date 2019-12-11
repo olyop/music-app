@@ -14,7 +14,6 @@ export const propTypes = {
     album: shape({
       id: string.isRequired,
       title: string.isRequired,
-      released: number.isRequired,
     }),
   }),
 }

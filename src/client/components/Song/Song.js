@@ -32,9 +32,9 @@ const Song = ({ song }) => {
             doc={song}
             path="/song"
           />
-          <span className={bem("info-mix")}>
-            <Fragment> - </Fragment>
-            {isEmpty(remixers) ? null : <Fragment>
+          {isEmpty(remixers) ? null : <Fragment>
+            <span className={bem("info-mix")}>
+              <Fragment> - </Fragment>
               <Fragment>
                 <DocLinks
                   path="/artist"
@@ -44,17 +44,11 @@ const Song = ({ song }) => {
               </Fragment>
               <Fragment>
                 <Fragment> </Fragment>
-                <Fragment>{mix}</Fragment>
+                {mix}
                 <Fragment> Remix</Fragment>
               </Fragment>
-            </Fragment>}
-          </span>
-        </div>
-        <div className={bem("info-album")}>
-          <DockLink
-            doc={album}
-            path="/album"
-          />
+            </span>
+          </Fragment>}
         </div>
         <div className={bem("info-artists")}>
           <FeaturingArtists
@@ -62,6 +56,7 @@ const Song = ({ song }) => {
             featuring={featuring}
           />
         </div>
+        <div className={bem("info-progress")}/>
       </div>
     </div>
   )

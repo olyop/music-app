@@ -5,28 +5,48 @@ import Header from "../Header"
 import Player from "../Player"
 
 const init = {
-  id: "5dae60b5c3f0c42c325a88c7",
-  title: "Ocean",
-  mix: "Extended",
-  trackNumber: 2,
-  discNumber: 1,
-  duration: 260,
-  featuring: [{  
-    id: "5dae5e85c3f0c42c325a878e",
-    name: "Khalid",
-  }],
-  remixers: [{
-    id: "5dae5e92c3f0c42c325a8793",
-    name: "Don Diablo",
-  }],
-  artists: [{
-    id: "5dae5e56c3f0c42c325a877b",
-    name: "Martin Garrix",
-  }],
-  album: {
-    id: "5dae5f3bc3f0c42c325a87c4",
-    title: "Ocean (Don Diablo Remix)",
-    released: 17753,
+  "id": "5de8692b9e03e61a40b066b9",
+  "title": "Made In France",
+  "mix": "",
+  "discNumber": 1,
+  "trackNumber": 6,
+  "duration": 252,
+  "featuring": [],
+  "remixers": [],
+  "artists": [
+    {
+      "id": "5de867b39e03e61a40b066b4",
+      "name": "DJ Snake",
+      "__typename": "Artist",
+    },
+    {
+      "id": "5de867fa9e03e61a40b066b5",
+      "name": "Tchami",
+      "__typename": "Artist",
+    },
+    {
+      "id": "5de868329e03e61a40b066b7",
+      "name": "Malaa",
+      "__typename": "Artist",
+    },
+    {
+      "id": "5de8680b9e03e61a40b066b6",
+      "name": "Mercer",
+      "__typename": "Artist",
+    },
+  ],
+  "genres": [
+    {
+      "id": "5dcfb467e569c341f4ec8f39",
+      "name": "Bass House",
+      "__typename": "Genre",
+    },
+  ],
+  "album": {
+    "id": "5de868d49e03e61a40b066b8",
+    "title": "Carte Blanche",
+    "released": 18103,
+    "__typename": "Album",
   },
 }
 

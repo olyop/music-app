@@ -13,15 +13,12 @@ const bem = reactBem("Player")
 const Player = ({ song }) => (
   <div className={bem("")}>
     <div className={bem("left")}>
-      <Song song={song} />
-    </div>
-    <div className={bem("middle")}>
       <Icon
         icon="skip_previous"
         className={bem("prev","icon")}
       />
       <Icon
-        icon="play_circle_filled"
+        icon="pause"
         className={bem("playPause","icon")}
       />
       <Icon
@@ -29,7 +26,9 @@ const Player = ({ song }) => (
         className={bem("next","icon")}
       />
     </div>
-    <div className={bem("right")}/>
+    <div className={bem("right")}>
+      <Song song={song} />
+    </div>
   </div>
 )
 

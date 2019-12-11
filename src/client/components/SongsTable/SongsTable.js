@@ -46,6 +46,10 @@ const SongsTable = ({ children }) => (
             children="Genres"
             className={bem("col-genres","tableHeadCol")}
           />
+          <th
+            children="Released"
+            className={bem("col-released","tableHeadCol")}
+          />
         </tr>
       </thead>
       <tbody className={bem("tableBody")}>

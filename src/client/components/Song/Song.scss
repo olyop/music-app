@@ -1,30 +1,40 @@
 @import "../../globals/index.scss";
 
 .Song {
+  width: 100%;
   display: flex;
-  padding: 10px;
   &__cover {
-    width: 60px;
-    height: 60px;
+    width: 50px;
+    height: 50px;
     margin-right: 10px;
+    border-radius: $BORDER_RADIUS;
+    box-shadow:
+      0 3px 6px rgba(#000000, .16),
+      0 3px 6px rgba(#000000, .23); 
     &-img {
       border-radius: $BORDER_RADIUS; } }
   &__info {
+    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     &-title {
-      font-size: 20rem;
+      font-size: 19rem;
       font-weight: 700;
-      line-height: 20rem;
-      margin-bottom: 5px; }
+      line-height: 19rem;
+      margin-bottom: 3px; }
     &-mix {
       color: #757575;
       font-weight: 400; }
-    &-album {
-      font-size: 15rem;
-      line-height: 15rem;
-      margin-bottom: 5px; }
     &-artists {
-      font-size: 15rem;
-      line-height: 15rem; } } }
+      font-size: 16rem;
+      line-height: 16rem;
+      margin-bottom: 8px; }
+    &-progress {
+      width: 100%;
+      height: 4px;
+      border-radius: 3px;
+      background-color: #333333;
+      box-shadow:
+        0 3px 6px rgba(#000000, .16),
+        0 3px 6px rgba(#000000, .23); } } }

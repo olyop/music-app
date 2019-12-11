@@ -3,6 +3,8 @@
     id
     title
     mix
+    discNumber
+    trackNumber
     duration
     featuring {
       id
@@ -23,6 +25,7 @@
     album {
       id
       title
+      released
     }
   }
 }

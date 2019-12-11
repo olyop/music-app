@@ -9,6 +9,7 @@ import { isEmpty } from "lodash"
 import { propTypes } from "./props"
 import reactBem from "@oly_op/react-bem"
 import { catalogUrl } from "../../helpers/misc"
+import deserializeDate from "../../helpers/deserializeDate"
 import deserializeDuration from "../../helpers/deserializeDuration"
 
 import "./SongTable.scss"
@@ -91,6 +92,11 @@ const SongTable = ({ song }) => {
             docs={genres}
             ampersand={false}
           />
+        </span>
+      </td>
+      <td className={bem("col-genres","tableCol")}>
+        <span className={bem("tableColSpan")}>
+          {deserializeDate(album.released)}
         </span>
       </td>
     </tr>

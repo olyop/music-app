@@ -10,7 +10,11 @@
     border-radius: $BORDER_RADIUS;
     box-shadow:
       0 3px 6px rgba(#000000, .16),
-      0 3px 6px rgba(#000000, .23); 
+      0 3px 6px rgba(#000000, .23);
+    &:hover {
+      box-shadow:
+        0 5px 8px rgba(#000000, .25),
+        0 5px 8px rgba(#000000, .30); }
     &-img {
       border-radius: $BORDER_RADIUS; } }
   &__info {

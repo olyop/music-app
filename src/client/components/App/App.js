@@ -5,48 +5,39 @@ import Header from "../Header"
 import Player from "../Player"
 
 const init = {
-  "id": "5de8692b9e03e61a40b066b9",
-  "title": "Made In France",
+  "id": "5df03eae6cd3684698802819",
+  "title": "Turn Me On",
   "mix": "",
   "discNumber": 1,
-  "trackNumber": 6,
-  "duration": 252,
-  "featuring": [],
+  "trackNumber": 1,
+  "duration": 281,
+  "featuring": [
+    {
+      "id": "5df03e486cd3684698802817",
+      "name": "Vula",
+    },
+  ],
   "remixers": [],
   "artists": [
     {
-      "id": "5de867b39e03e61a40b066b4",
-      "name": "DJ Snake",
-      "__typename": "Artist",
+      "id": "5df03d7a6cd3684698802815",
+      "name": "Riton",
     },
     {
-      "id": "5de867fa9e03e61a40b066b5",
-      "name": "Tchami",
-      "__typename": "Artist",
-    },
-    {
-      "id": "5de868329e03e61a40b066b7",
-      "name": "Malaa",
-      "__typename": "Artist",
-    },
-    {
-      "id": "5de8680b9e03e61a40b066b6",
-      "name": "Mercer",
-      "__typename": "Artist",
+      "id": "5df03da96cd3684698802816",
+      "name": "Oliver Heldens",
     },
   ],
   "genres": [
     {
-      "id": "5dcfb467e569c341f4ec8f39",
-      "name": "Bass House",
-      "__typename": "Genre",
+      "id": "5dae5fbfc3f0c42c325a880f",
+      "name": "Future House",
     },
   ],
   "album": {
-    "id": "5de868d49e03e61a40b066b8",
-    "title": "Carte Blanche",
-    "released": 18103,
-    "__typename": "Album",
+    "id": "5df03e806cd3684698802818",
+    "title": "Turn Me On",
+    "released": 18159,
   },
 }
 

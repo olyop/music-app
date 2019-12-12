@@ -2,5 +2,6 @@
 
 .Pages {
   width: 100vw;
+  overflow: hidden;
   background-color: #FAFAFA;
   height: calc(100vh - #{$HEADER_HEIGHT} - #{$PLAYER_HEIGHT}); }

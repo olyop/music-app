@@ -4,7 +4,6 @@ import Img from "../Img"
 import DockLink from "../DocLink"
 import DocLinks from "../DocLinks"
 import { Link } from "react-router-dom"
-import FeaturingArtists from "../FeaturingArtists"
 
 import { isEmpty } from "lodash"
 import { propTypes } from "./props" 
@@ -32,28 +31,36 @@ const Song = ({ song }) => {
             doc={song}
             path="/song"
           />
+          {isEmpty(featuring) ? null : (
+            <Fragment>
+              <Fragment> (feat. </Fragment>
+              <DocLinks
+                path="/artist"
+                docs={featuring}
+                ampersand={true}
+              />
+              <Fragment>)</Fragment>
+            </Fragment>
+          )}
           {isEmpty(remixers) ? null : <Fragment>
             <span className={bem("info-mix")}>
               <Fragment> - </Fragment>
-              <Fragment>
-                <DocLinks
-                  path="/artist"
-                  docs={remixers}
-                  ampersand={true}
-                />
-              </Fragment>
-              <Fragment>
-                <Fragment> </Fragment>
-                {mix}
-                <Fragment> Remix</Fragment>
-              </Fragment>
+              <DocLinks
+                path="/artist"
+                docs={remixers}
+                ampersand={true}
+              />
+              <Fragment> </Fragment>
+              {mix}
+              <Fragment> Remix</Fragment>
             </span>
           </Fragment>}
         </div>
         <div className={bem("info-artists")}>
-          <FeaturingArtists
-            artists={artists}
-            featuring={featuring}
+          <DocLinks
+            path="/artist"
+            docs={artists}
+            ampersand={false}
           />
         </div>
         <div className={bem("info-progress")}/>

@@ -5,7 +5,7 @@ import LibraryArtists from "./LibraryArtists"
 
 import { uniqueId } from "lodash"
 
-const routesConfigLibrary = [
+const routes = [
   {
     id: uniqueId(),
     path: "/albums",
@@ -36,4 +36,4 @@ const routesConfigLibrary = [
   },
 ]
 
-export default routesConfigLibrary
+export default routes

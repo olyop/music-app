@@ -5,7 +5,7 @@ import AddArtist from "./AddArtist"
 
 import { uniqueId } from "lodash"
 
-const routesConfig = [
+const routes = [
   {
     id: uniqueId(),
     path: "/artist",
@@ -32,4 +32,4 @@ const routesConfig = [
   },
 ]
 
-export default routesConfig
+export default routes

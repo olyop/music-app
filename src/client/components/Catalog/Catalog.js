@@ -2,9 +2,9 @@ import React from "react"
 
 import { Switch, Route } from "react-router-dom"
 
+import routes from "./routes"
 import { propTypes } from "./props"
 import reactBem from "@oly_op/react-bem"
-import routesConfig from "./routesConfig"
 
 import "./Catalog.scss"
 
@@ -13,7 +13,7 @@ const bem = reactBem("Catalog")
 const Catalog = ({ match }) => (
   <div className={bem("")}>
     <Switch>
-      {routesConfig.map(
+      {routes.map(
         route => (
           <Route
             key={route.id}

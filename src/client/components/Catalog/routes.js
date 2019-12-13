@@ -2,7 +2,7 @@ import Add from "./Add"
 
 import { uniqueId } from "lodash"
 
-export default [
+const routes = [
   {
     id: uniqueId(),
     path: "/add",
@@ -10,3 +10,5 @@ export default [
     component: Add,
   },
 ]
+
+export default routes

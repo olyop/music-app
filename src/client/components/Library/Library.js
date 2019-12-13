@@ -3,9 +3,9 @@ import React, { Fragment } from "react"
 import Icon from "../Icon"
 import { Switch, Route, NavLink } from "react-router-dom"
 
+import routes from "./routes"
 import { propTypes } from "./props"
 import reactBem from "@oly_op/react-bem"
-import routesConfig from "./routesConfig"
 
 import "./Library.scss"
 
@@ -15,7 +15,7 @@ const Library = ({ match }) => (
   <section className={bem("")}>
     <div className={bem("header")}>
       <div className={bem("links")}>
-        {routesConfig.map(
+        {routes.map(
           route => (
             <NavLink
               key={route.id}
@@ -41,7 +41,7 @@ const Library = ({ match }) => (
     </div>
     <div className={bem("main")}>
       <Switch>
-        {routesConfig.map(
+        {routes.map(
           route => (
             <Route
               exact

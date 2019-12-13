@@ -23,20 +23,33 @@
     flex-direction: column;
     justify-content: center;
     &-title {
-      font-size: 19rem;
+      font-size: 18rem;
       font-weight: 700;
-      line-height: 19rem;
-      margin-bottom: 3px; }
+      line-height: 18rem;
+      margin-bottom: 4px; }
     &-mix {
       color: #757575;
       font-weight: 400; }
     &-artists {
-      font-size: 16rem;
-      line-height: 16rem;
-      margin-bottom: 8px; }
-    &-progress {
+      font-size: 15rem;
+      line-height: 15rem;
+      margin-bottom: 9px; }
+    &-bar {
       width: 100%;
       height: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center; }
+    &-time,
+    &-duration {
+      font-size: 14rem; }
+    &-time {
+      padding-right: 5px; }
+    &-duration {
+      padding-left: 5px; }
+    &-progress {
+      width: 100%;
+      height: 100%;
       border-radius: 3px;
       background-color: #333333;
       box-shadow:

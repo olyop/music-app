@@ -1,19 +1,27 @@
 import Catalog from "../Catalog"
 import Library from "../Library"
+import AlbumPage from "../AlbumPage"
 
 import { uniqueId } from "lodash"
 
 export default [
   {
     id: uniqueId(),
-    path: "/catalog",
     name: "Catalog",
+    path: "/catalog",
     component: Catalog,
   },
   {
     id: uniqueId(),
-    path: "/library",
     name: "Library",
+    path: "/library",
     component: Library,
+  },
+  {
+    name: "album",
+    id: uniqueId(),
+    ignore: true,
+    path: "/album/:id",
+    component: AlbumPage,
   },
 ]

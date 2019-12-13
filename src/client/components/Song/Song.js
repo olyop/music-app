@@ -4,18 +4,20 @@ import Img from "../Img"
 import DockLink from "../DocLink"
 import DocLinks from "../DocLinks"
 import { Link } from "react-router-dom"
+import FeaturingArtists from "../FeaturingArtists"
 
 import { isEmpty } from "lodash"
 import { propTypes } from "./props" 
 import reactBem from "@oly_op/react-bem"
-import { catalogUrl } from "../../helpers/misc" 
+import { catalogUrl } from "../../helpers/misc"
+import deserializeDuration from "../../helpers/deserializeDuration"
 
 import "./Song.scss"
 
 const bem = reactBem("Song")
 
 const Song = ({ song }) => {
-  const { mix, artists, featuring, remixers, album } = song
+  const { mix, duration, artists, featuring, remixers, album } = song
   return (
     <div className={bem("")}>
       <Link to={`/album/${album.id}`}>
@@ -31,17 +33,6 @@ const Song = ({ song }) => {
             doc={song}
             path="/song"
           />
-          {isEmpty(featuring) ? null : (
-            <Fragment>
-              <Fragment> (feat. </Fragment>
-              <DocLinks
-                path="/artist"
-                docs={featuring}
-                ampersand={true}
-              />
-              <Fragment>)</Fragment>
-            </Fragment>
-          )}
           {isEmpty(remixers) ? null : <Fragment>
             <span className={bem("info-mix")}>
               <Fragment> - </Fragment>
@@ -57,13 +48,16 @@ const Song = ({ song }) => {
           </Fragment>}
         </div>
         <div className={bem("info-artists")}>
-          <DocLinks
-            path="/artist"
-            docs={artists}
-            ampersand={false}
+          <FeaturingArtists
+            artists={artists}
+            featuring={featuring}
           />
         </div>
-        <div className={bem("info-progress")}/>
+        <div className={bem("info-bar")}>
+          <div className={bem("info-time")}>0:00</div>
+          <div className={bem("info-progress")}/>
+          <div className={bem("info-duration")}>{deserializeDuration(duration)}</div>
+        </div>
       </div>
     </div>
   )

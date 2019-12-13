@@ -1,22 +1,21 @@
 .SongsTable {
-  &__table {
-    width: 100%;
-    border-collapse: collapse;
-    background-color: #ffffff;
-    box-shadow: 0 1px 4px 0 rgba(#333333,.3); }
-    &__col-title {
-      max-width: 18vw; }
-    &__tableHead {
-      border-bottom: 1px solid #e0e0e0; }
-      &__tableHeadRow {
-        height: 38px; }
-        &__tableHeadCol {
-          text-align: left;
-          font-weight: 700;
-          font-size: 15rem;
-          text-transform: uppercase; }
-        &__tableHeadCover {
-          width: 50px;
-          padding: 3px 0 0 12px; }
-          &__tableHeadIcon {
-            font-size: 22rem; } }
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #ffffff;
+  box-shadow: 0 1px 4px 0 rgba(#333333, .3);
+  &__col-title {
+    max-width: 18vw; }
+  &__tableHead {
+    border-bottom: 1px solid #e0e0e0; }
+    &__tableHeadRow {
+      height: 38px; }
+      &__tableHeadCol {
+        text-align: left;
+        font-weight: 700;
+        font-size: 15rem;
+        text-transform: uppercase; }
+      &__tableHeadCover {
+        width: 50px;
+        padding: 3px 0 0 12px; }
+        &__tableHeadIcon {
+          font-size: 22rem; } }

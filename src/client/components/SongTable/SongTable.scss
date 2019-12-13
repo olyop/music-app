@@ -53,6 +53,8 @@
     &__tableColSpan {
       overflow: hidden;
       font-size: 14rem;
+      white-space: nowrap;
+      text-overflow: ellipsis;
       @media (min-width: 1200px) {
         & { font-size: 16rem; } } }
     &__mix {

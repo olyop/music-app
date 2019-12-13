@@ -1,9 +1,10 @@
-import React, { Fragment } from "react"
+import React, { useContext, Fragment } from "react"
 
 import Img from "../Img"
 import Icon from "../Icon"
 import DocLink from "../DocLink"
 import DocLinks from "../DocLinks"
+import SongContext from "../../context/SongContext"
 
 import { isEmpty } from "lodash"
 import { propTypes } from "./props"
@@ -17,6 +18,8 @@ import "./SongTable.scss"
 const bem = reactBem("SongTable")
 
 const SongTable = ({ song }) => {
+  const { setSong } = useContext(SongContext)
+  const onPlayClick = () => setSong(song)
   const { mix, duration, featuring, remixers, artists, genres, album } = song
   return (
     <tr className={bem("")}>
@@ -27,6 +30,7 @@ const SongTable = ({ song }) => {
         />
         <Icon
           icon="play_arrow"
+          onClick={onPlayClick}
           className={bem("playIcon")}
         />
       </td>

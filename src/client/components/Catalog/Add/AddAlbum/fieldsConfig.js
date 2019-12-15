@@ -36,7 +36,7 @@ const fieldsConifg = ({ artists }) => [
     short: "released",
     type: "int",
     isDoc: false,
-    init: Math.floor(Date.now() / 1000),
+    init: Math.floor(Date.now() / 1000) / 86400,
     req: true,
     min: 0,
     max: Date.now(),

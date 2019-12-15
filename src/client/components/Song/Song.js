@@ -1,7 +1,6 @@
 import React, { Fragment } from "react"
 
 import Img from "../Img"
-import DockLink from "../DocLink"
 import DocLinks from "../DocLinks"
 import { Link } from "react-router-dom"
 import FeaturingArtists from "../FeaturingArtists"
@@ -17,7 +16,7 @@ import "./Song.scss"
 const bem = reactBem("Song")
 
 const Song = ({ song }) => {
-  const { mix, duration, artists, featuring, remixers, album } = song
+  const { title, mix, duration, artists, featuring, remixers, album } = song
   return (
     <div className={bem("")}>
       <Link to={`/album/${album.id}`}>
@@ -29,10 +28,7 @@ const Song = ({ song }) => {
       </Link>
       <div className={bem("info")}>
         <div className={bem("info-title")}>
-          <DockLink
-            doc={song}
-            path="/song"
-          />
+          {title}
           {isEmpty(remixers) ? null : <Fragment>
             <span className={bem("info-mix")}>
               <Fragment> - </Fragment>

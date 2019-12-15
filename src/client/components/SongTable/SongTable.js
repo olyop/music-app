@@ -20,7 +20,7 @@ const bem = reactBem("SongTable")
 const SongTable = ({ song }) => {
   const { setSong } = useContext(SongContext)
   const onPlayClick = () => setSong(song)
-  const { mix, duration, featuring, remixers, artists, genres, album } = song
+  const { title, mix, duration, featuring, remixers, artists, genres, album } = song
   return (
     <tr className={bem("")}>
       <td className={bem("col-album","tableCol","tableHeadCover")}>
@@ -36,10 +36,7 @@ const SongTable = ({ song }) => {
       </td>
       <td className={bem("col-title","tableCol")}>
         <div className={bem("tableColSpan")}>
-          <DocLink
-            doc={song}
-            path="/song"
-          />
+          {title}
           {isEmpty(featuring) ? null : (
             <Fragment>
               <Fragment> (feat. </Fragment>

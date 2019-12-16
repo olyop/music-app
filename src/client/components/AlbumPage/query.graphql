@@ -1,0 +1,34 @@
+query album($id: ID!) {
+  album(id: $id) {
+    id
+    title
+    artists {
+      id
+      name
+    }
+    songs {
+      id
+      title
+      mix
+      discNumber
+      trackNumber
+      duration
+      featuring {
+        id
+        name
+      }
+      remixers {
+        id
+        name
+      }
+      artists {
+        id
+        name
+      }
+      genres {
+        id
+        name
+      }
+    }
+  }
+}

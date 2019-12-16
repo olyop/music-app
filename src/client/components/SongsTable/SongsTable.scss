@@ -3,19 +3,33 @@
   border-collapse: collapse;
   background-color: #ffffff;
   box-shadow: 0 1px 4px 0 rgba(#333333, .3);
-  &__col-title {
-    max-width: 18vw; }
-  &__tableHead {
-    border-bottom: 1px solid #e0e0e0; }
-    &__tableHeadRow {
-      height: 38px; }
-      &__tableHeadCol {
+  &__head {
+    border-bottom: 1px solid #e0e0e0;
+    &-row {
+      height: 30px;
+      @media (min-width: 700px) {
+        & { width: 40px;
+            height: 40px; } }
+      &-col {
         text-align: left;
         font-weight: 700;
-        font-size: 15rem;
-        text-transform: uppercase; }
-      &__tableHeadCover {
-        width: 50px;
-        padding: 3px 0 0 12px; }
-        &__tableHeadIcon {
-          font-size: 22rem; } }
+        font-size: 14rem;
+        line-height: 14rem;
+        padding: 9px 8px 7px 8px;
+        text-transform: uppercase;
+        @media (min-width: 700px) {
+          & { font-size: 16rem;
+              line-height: 16rem;
+              padding: 13px 8px 11px 8px; } }
+        &-icon {
+          font-size: 24rem; } }
+      &-icon {
+        padding: 3px 3px 0 8px; }
+      &-track {
+        text-align: right; }
+      &-artists {
+        display: none;
+        @media (min-width: 700px) {
+          & { display: block; } } }
+      &-duration { 
+        padding-left: 11px; } } } }

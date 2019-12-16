@@ -1,70 +1,88 @@
 @import "../../globals/index.scss";
 
 .SongTable {
-  height: 38px;
+  height: 30px;
   border-bottom: 1px solid #e0e0e0;
+  @media (min-width: 700px) {
+    & { height: 40px; } }
   &:hover {
     background-color: #eeeeee; }
-  &:hover &__playIcon {
-    display: inline-block; }
+  &:hover &__col-play {
+    display: block; }
   &:last-child {
     border-bottom: none; }
-  @media (min-width: 1200px) {
-    height: 44px; }
-  &__col-title {
-    max-width: 18vw; }
-  &__tableCol {
-    text-align: left;}
-    &__albumCover {
-      width: 24px;
-      height: 24px;
+  &__col {
+    position: relative;
+    padding: 6px 7px 7px 7px;
+    @media (min-width: 700px) {
+      & { padding: 12px 8px 12px 8px; } }
+    &-img {
+      width: 27px;
+      height: 27px;
       border-radius: $BORDER_RADIUS;
-      box-shadow: 0 1px 4px 0 rgba(#333333,.3);
+      box-shadow: 0 1px 4px 0 rgba(#333333, .3);
+      @media (min-width: 700px) {
+        & { width: 30px;
+            height: 30px; } }
       &:before {
-        padding-top: 100%; }
-      @media (min-width: 1200px) {
-        width: 30px;
-        height: 30px; } }
-    &__tableHeadCover {
-      position: relative;
-      width: 50px;
-      padding: 0 0 0 8px; }
-      &__playIcon {
-        position: absolute;
-        outline: none;
-        font-size: 24rem;
-        transition: .2s box-shadow;
-        color: #ffffff;
-        left: 8px;
-        top: 6px;
-        border-radius: 3px;
-        display: none;
-        background-color: rgba(#333333, .8);
-        &:hover {
-          box-shadow: 3px 6px 10px 0 rgba(#333333,.4); }
-        &:active {
-          animation: play .3s ease-out; }
-        @media (min-width: 1200px) {
-          font-size: 30rem; } }
-    &__duration {
-      text-align: center;
-      span {
-        color: #757575; } }
-    &__tableColSpan {
+        padding-top: 100%; } }
+    &-play {
+      top: 3px;
+      left: 3px;
+      outline: none;
+      display: none;
+      color: #ffffff;
+      font-size: 30rem;
+      position: absolute;
+      border-radius: 3px;
+      transition: .2s box-shadow;
+      background-color: rgba(#333333, .8);
+      &:hover {
+        box-shadow: 3px 6px 10px 0 rgba(#333333, .4); }
+      &:active {
+        animation: play .3s ease-out; } }
+    &-span {
       overflow: hidden;
       font-size: 14rem;
+      text-align: left;
+      line-height: 14rem;
       white-space: nowrap;
       text-overflow: ellipsis;
-      @media (min-width: 1200px) {
-        & { font-size: 16rem; } } }
-    &__mix {
-      font-weight: 400;
-      color: #757575; }
-    &__link {
-      text-decoration: none;
-      &:hover {
-        color: #1a73e8;
-        text-decoration: underline; } } }
+      @media (min-width: 700px) {
+        & { font-size: 15rem;
+            line-height: 15rem; } }
+      &-mix {
+        font-weight: 400;
+        color: #757575; }
+      &-featuring {
+        display: none;
+        @media (min-width: 700px) {
+          & { display: inline; } } } } }
+  &__track {
+    width: 27px;
+    text-align: right;
+    span {
+      text-align: center;  } }
+  &__title {
+    font-weight: 700; }
+  &__duration {
+    width: 47px;
+    span {
+      color: #757575; } }
+  &__artists {
+    display: none;
+    @media (min-width: 700px) {
+      & { display: block; } } }
+  &__artists-under {
+    display: block;
+    margin-top: 5px;
+    font-size: 14rem;
+    font-weight: 400;
+    @media (min-width: 700px) {
+      & { display: none; } } }
+  &__cover {
+    width: 35px;
+    padding: 5px 0 5px 5px; } }
 
 @keyframes play {
   0% { transform: scale(1); }

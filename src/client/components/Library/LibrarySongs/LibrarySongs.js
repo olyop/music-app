@@ -25,12 +25,13 @@ const LibrarySongs = () => {
       ["desc","asc","asc"]
     )
     return (
-      <SongsTable>
+      <SongsTable columnsToIgnore={["trackNumber"]}>
         {songs.map(
           song => (
             <SongTable
               song={song}
               key={song.id}
+              columnsToIgnore={["trackNumber"]}
             />
           )
         )}

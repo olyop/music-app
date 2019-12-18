@@ -11,3 +11,12 @@ export const isLength = (str, length) => str.length === length
 export const isHex = str => (str.match(/([0-9]|[a-f])/gim) || []).length === str.length
 
 export const catalogUrl = id => `/images/catalog/${id}.jpg`
+
+export const copyToClipboard = str => {
+  const el = document.createElement("textarea")
+  el.value = str
+  document.body.appendChild(el)
+  el.select()
+  document.execCommand("copy")
+  document.body.removeChild(el)
+}

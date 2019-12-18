@@ -18,7 +18,7 @@ const SongsTable = ({ className, children, columnsToIgnore }) => {
         <tr className={bem("head-row")}>
   
           {showColumn("cover") ? (
-            <th className={bem("head-row-icon","head-row-col")}>
+            <th className={bem("head-row-cover","head-row-icon","head-row-col")}>
               <Icon
                 icon="album"
                 className={bem("head-row-col-icon")}
@@ -80,7 +80,7 @@ const SongsTable = ({ className, children, columnsToIgnore }) => {
           {showColumn("released") ? (
             <th
               children="Released"
-              className={bem("tableHeadCol")}
+              className={bem("head-row-released","head-row-col")}
             />
           ) : null}
           

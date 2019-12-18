@@ -31,5 +31,16 @@
         display: none;
         @media (min-width: 700px) {
           & { display: block; } } }
-      &-duration { 
-        padding-left: 11px; } } } }
+      &-duration {
+        display: none;
+        padding-left: 11px;
+        @media (min-width: 700px) {
+          & { display: table-cell; } } }
+      &-released {
+        display: none;
+        @media (min-width: 700px) {
+          & { display: table-cell; } } }
+      &-cover {
+        display: none;
+        @media (min-width: 700px) {
+          & { display: table-cell; } } } } } }

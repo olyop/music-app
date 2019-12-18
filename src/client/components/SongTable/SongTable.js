@@ -4,7 +4,6 @@ import Img from "../Img"
 import Icon from "../Icon"
 import DocLink from "../DocLink"
 import DocLinks from "../DocLinks"
-import FeaturingArtists from "../FeaturingArtists"
 import SongContext from "../../context/SongContext"
 
 import reactBem from "@oly_op/react-bem"
@@ -51,28 +50,27 @@ const SongTable = ({ song, className, columnsToIgnore }) => {
       {showColumn("title") ? (
         <td className={bem("title","col")}>
           <div className={bem("col-span")}>
-            {title.length >= 30 ? `${title.slice(0,30)}...` : title}
-            <span className={bem("col-span-featuring")}>
-              {isEmpty(featuring) ? null : (
-                <Fragment>
-                  <Fragment> (feat. </Fragment>
-                  <DocLinks
-                    path="/artist"
-                    docs={featuring}
-                    ampersand={true}
-                  />
-                  <Fragment>)</Fragment>
-                </Fragment>
-              )}
-            </span>
+            {title}
+            {isEmpty(featuring) ? null : (
+              <Fragment>
+                <Fragment> (feat. </Fragment>
+                <DocLinks
+                  path="/artist"
+                  docs={featuring}
+                  ampersand={true}
+                />
+                <Fragment>)</Fragment>
+              </Fragment>
+            )}
             <span className={bem("col-span-mix")}>
               {isEmpty(mix) ? "" : ` - ${mix} Mix`}
             </span>
           </div>
           <div className={bem("artists-under","col-span")}>
-            <FeaturingArtists
-              artists={artists}
-              featuring={featuring}
+            <DocLinks
+              path="/artist"
+              docs={artists}
+              ampersand={false}
             />
           </div>
         </td>
@@ -80,27 +78,27 @@ const SongTable = ({ song, className, columnsToIgnore }) => {
 
       {showColumn("duration") ? (
         <td className={bem("duration","col")}>
-          <span className={bem("col-span")}>
+          <div className={bem("col-span")}>
             {deserializeDuration(duration)}
-          </span>
+          </div>
         </td>
       ) : null}
 
       {showColumn("artists") ? (
         <td className={bem("artists","col")}>
-          <span className={bem("col-span")}>
+          <div className={bem("col-span")}>
             <DocLinks
               path="/artist"
               docs={artists}
               ampersand={false}
             />
-          </span>
+          </div>
         </td>
       ) : null}
 
       {showColumn("remixers") ? (
-        <td className={bem("col")}>
-          <span className={bem("col-span")}>
+        <td className={bem("remixers","col")}>
+          <div className={bem("col-span")}>
             {isEmpty(remixers) ? null : (
               <DocLinks
                 path="/artist"
@@ -108,38 +106,38 @@ const SongTable = ({ song, className, columnsToIgnore }) => {
                 ampersand={false}
               />
             )}
-          </span>
+          </div>
         </td>
       ) : null}
 
       {showColumn("album") ? (
-        <td className={bem("col")}>
-          <span className={bem("col-span")}>
+        <td className={bem("album","col")}>
+          <div className={bem("col-span")}>
             <DocLink
               doc={album}
               path="/album"
             />
-          </span>
+          </div>
         </td>
       ) : null}
 
       {showColumn("genres") ? (
-        <td className={bem("col")}>
-          <span className={bem("col-span")}>
+        <td className={bem("genres","col")}>
+          <div className={bem("col-span")}>
             <DocLinks
               path="/genre"
               docs={genres}
               ampersand={false}
             />
-          </span>
+          </div>
         </td>
       ) : null}
 
       {showColumn("released") ? (
-        <td className={bem("col")}>
-          <span className={bem("col-span")}>
+        <td className={bem("released","col")}>
+          <div className={bem("col-span")}>
             {deserializeDate(album.released)}
-          </span>
+          </div>
         </td>
       ) : null}
 

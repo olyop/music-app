@@ -27,8 +27,8 @@
       &:before {
         padding-top: 100%; } }
     &-play {
-      top: 3px;
-      left: 3px;
+      top: 5px;
+      left: 5px;
       outline: none;
       display: none;
       color: #ffffff;
@@ -58,31 +58,52 @@
         display: none;
         @media (min-width: 700px) {
           & { display: inline; } } } } }
+  &__cover {
+    width: 35px;
+    display: none;
+    padding: 5px 0 5px 5px;
+    @media (min-width: 700px) {
+      & { display: table-cell; } } }
   &__track {
     width: 27px;
     text-align: right;
-    span {
+    div {
       text-align: center;  } }
   &__title {
-    font-weight: 700; }
+    max-width: 15vw;
+    font-weight: 700;
+    @media (min-width: 700px) {
+      & { font-weight: 400; } } }
   &__duration {
     width: 47px;
-    span {
-      color: #757575; } }
+    display: none;
+    div {
+      color: #757575; }
+    @media (min-width: 700px) {
+      & { display: table-cell; } } }
   &__artists {
     display: none;
+    max-width: 15vw;
     @media (min-width: 700px) {
-      & { display: block; } } }
+      & { display: table-cell; } } }
+  &__remixers {
+    max-width: 8vw; }
+  &__album {
+    max-width: 15vw; }
+  &__genres {
+    max-width: 8vw; }
+  &__released {
+    width: 96px;
+    display: none;
+    @media (min-width: 700px) {
+      & { display: table-cell; } } }
   &__artists-under {
     display: block;
     margin-top: 5px;
     font-size: 14rem;
     font-weight: 400;
     @media (min-width: 700px) {
-      & { display: none; } } }
-  &__cover {
-    width: 35px;
-    padding: 5px 0 5px 5px; } }
+      & { display: none; } } } }
 
 @keyframes play {
   0% { transform: scale(1); }

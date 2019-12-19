@@ -1,0 +1,48 @@
+query user($id: ID!) {
+  user(id: $id) {
+    id
+    name
+    nowPlaying {
+      id
+      title
+      mix
+      duration
+      featuring {
+        id
+        name
+      }
+      remixers {
+        id
+        name
+      }
+      artists {
+        id
+        name
+      }
+      genres {
+        id
+        name
+      }
+      album {
+        id
+        title
+      }
+    }
+    artists {
+      id
+      name
+    }
+    albums {
+      id
+      title
+    }
+    genres {
+      id
+      name
+    }
+    songs {
+      id
+      title
+    }
+  }
+}

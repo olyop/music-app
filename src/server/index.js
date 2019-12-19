@@ -15,10 +15,15 @@ import { globalHeaders } from "./middleware.js"
 import { onError } from "./helpers/server.js"
 
 import {
-  HOST, PORT, DB_URL,
-  MONGOOSE_OPTIONS, APOLLO_OPTIONS,
-  LOG_FORMAT, CORS_OPTIONS,
-  BUILD_PATH, BUILD_PATH_ENTRY
+  HOST,
+  PORT,
+  DB_URL,
+  LOG_FORMAT,
+  BUILD_PATH,
+  CORS_OPTIONS,
+  APOLLO_OPTIONS,
+  BUILD_PATH_ENTRY,
+  MONGOOSE_OPTIONS,
 } from "./globals.js"
 
 // connect to database

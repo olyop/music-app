@@ -1,4 +1,4 @@
-import { Artist, Album, Genre, Song } from "../models/index.js"
+import { Artist, Album, Genre, Song, User } from "../models/index.js"
 
 import { serializeDocument } from "../../helpers/collection.js"
 
@@ -17,6 +17,10 @@ export default {
   },
   addSong: async (parent, doc) => {
     const result = await Song.create(doc)
+    return serializeDocument(result.toObject())
+  },
+  addUser: async (parent, doc) => {
+    const result = await User.create(doc)
     return serializeDocument(result.toObject())
   }
 }

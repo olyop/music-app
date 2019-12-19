@@ -4,7 +4,7 @@ import Img from "../Img"
 import Icon from "../Icon"
 import DocLink from "../DocLink"
 import DocLinks from "../DocLinks"
-import SongContext from "../../context/SongContext"
+import UserContext from "../../context/UserContext"
 
 import reactBem from "@oly_op/react-bem"
 import { isEmpty, includes } from "lodash"
@@ -18,9 +18,9 @@ import "./SongTable.scss"
 const bem = reactBem("SongTable")
 
 const SongTable = ({ song, className, columnsToIgnore }) => {
-  const { setSong } = useContext(SongContext)
-  const handlePlayClick = () => setSong(song)
+  const { user, setUser } = useContext(UserContext)
   const showColumn = name => !includes(columnsToIgnore, name)
+  const handlePlayClick = () => setUser({ ...user, nowPlaying: song })
   const { title, trackNumber, mix, duration, featuring, remixers, artists, genres, album } = song
   return (
     <tr className={bem({ ignore: true, className },"")}>

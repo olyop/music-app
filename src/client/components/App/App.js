@@ -3,19 +3,22 @@ import React, { useState } from "react"
 import Pages from "../Pages"
 import Header from "../Header"
 import Player from "../Player"
-import SongContext from "../../context/SongContext"
+import UserContext from "../../context/UserContext"
 
-import init from "./init"
+import { propTypes } from "./props"
 
-const App = () => {
-  const [ song, setSong ] = useState(init)
+const App = ({ user }) => {
+  const [ currentUser, setCurrentUser ] = useState(user)
+  const userContextInit = { user: currentUser, setUser: setCurrentUser }
   return (
-    <SongContext.Provider value={{ song, setSong }}>
+    <UserContext.Provider value={userContextInit}>
       <Header/>
       <Pages/>
       <Player/>
-    </SongContext.Provider>
+    </UserContext.Provider>
   )
 }
+
+App.propTypes = propTypes
 
 export default App

@@ -1,6 +1,6 @@
 import React from "react"
 
-import App from "./components/App"
+import Login from "./components/Login"
 import Apollo from "./components/Apollo"
 import { BrowserRouter as Router } from "react-router-dom"
 
@@ -9,11 +9,12 @@ import { ROOT_ELEMENT } from "./globals"
 
 import "./index.scss"
 
-render(
+const Index = () => (
   <Apollo>
     <Router>
-      <App/>
+      <Login/>
     </Router>
-  </Apollo>,
-  ROOT_ELEMENT
+  </Apollo>
 )
+
+render(<Index/>, ROOT_ELEMENT)

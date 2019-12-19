@@ -5,9 +5,9 @@ import Loading from "../../Loading"
 import ApiError from "../../ApiError"
 import SongTable from "../../SongTable"
 import SongsTable from "../../SongsTable"
-import { useQuery } from "@apollo/react-hooks"
 
 import query from "./query.graphql"
+import { useQuery } from "@apollo/react-hooks"
 import { isUndefined, isEmpty, orderBy } from "lodash"
 
 const LibrarySongs = () => {

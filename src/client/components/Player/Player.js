@@ -2,7 +2,7 @@ import React, { useContext } from "react"
 
 import Icon from "../Icon"
 import Song from "../Song"
-import SongContext from "../../context/SongContext"
+import UserContext from "../../context/UserContext"
 
 import reactBem from "@oly_op/react-bem"
 
@@ -11,7 +11,8 @@ import "./Player.scss"
 const bem = reactBem("Player")
 
 const Player = () => {
-  const { song } = useContext(SongContext)
+  const { user } = useContext(UserContext)
+  const { nowPlaying } = user
   return (
     <div className={bem("")}>
       <div className={bem("left")}>
@@ -29,7 +30,7 @@ const Player = () => {
         />
       </div>
       <div className={bem("right")}>
-        <Song song={song} />
+        <Song song={nowPlaying} />
       </div>
     </div>
   )

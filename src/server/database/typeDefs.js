@@ -25,7 +25,14 @@ const typeDefs = gql`
     ): Song!
     addGenre(
       name: String!,
-    ): Genre!
+    ): Genre!,
+    addUser(
+      name: String!
+      artists: [ID!]!,
+      albums: [ID!]!,
+      genres: [ID!]!,
+      songs: [ID!]!,
+    ): User!
   }
 
   type Query {
@@ -33,10 +40,12 @@ const typeDefs = gql`
     album(id: ID!): Album!
     genre(id: ID!): Genre!
     song(id: ID!): Song!
+    user(id: ID!): User!
     artists: [Artist!]!
     albums: [Album!]!
     genres: [Genre!]!
-    songs: [Song]!
+    songs: [Song!]!
+    users: [User!]!
   }
 
   type Artist {
@@ -72,6 +81,16 @@ const typeDefs = gql`
     artists: [Artist!]!
     genres: [Genre!]!
     album: Album!
+  }
+
+  type User {
+    id: ID!
+    name: String!
+    nowPlaying: Song!
+    artists: [Artist!]!
+    albums: [Album!]!
+    genres: [Genre!]!
+    songs: [Song!]!
   }
   
 `

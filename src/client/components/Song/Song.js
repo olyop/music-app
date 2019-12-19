@@ -29,7 +29,17 @@ const Song = ({ song }) => {
       <div className={bem("info")}>
         <div className={bem("info-title")}>
           {title}
-          {isEmpty(remixers) ? null : <Fragment>
+          {isEmpty(remixers) ? (
+            <Fragment>
+              {isEmpty(mix) ? null : (
+                <span className={bem("info-mix")}>
+                  <Fragment> - </Fragment>
+                  {mix}
+                  <Fragment> Mix</Fragment>
+                </span>
+              )}
+            </Fragment>
+          ) : (
             <span className={bem("info-mix")}>
               <Fragment> - </Fragment>
               <DocLinks
@@ -41,7 +51,7 @@ const Song = ({ song }) => {
               {mix}
               <Fragment> Remix</Fragment>
             </span>
-          </Fragment>}
+          )}
         </div>
         <div className={bem("info-artists")}>
           <FeaturingArtists

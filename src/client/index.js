@@ -1,6 +1,6 @@
 import React from "react"
 
-import Login from "./components/Login"
+import App from "./components/App"
 import Apollo from "./components/Apollo"
 import { BrowserRouter as Router } from "react-router-dom"
 
@@ -12,7 +12,7 @@ import "./index.scss"
 const Index = () => (
   <Apollo>
     <Router>
-      <Login/>
+      <App/>
     </Router>
   </Apollo>
 )

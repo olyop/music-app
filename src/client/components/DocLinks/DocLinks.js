@@ -3,7 +3,7 @@ import React, { Fragment } from "react"
 import DocLink from "../DocLink"
 
 import { propTypes } from "./props"
-import determineConcat from "./determineConcat"
+import determineConcat from "../../helpers/determineConcat"
 
 const DocLinks = ({ path, docs, ampersand }) => (
   <Fragment>

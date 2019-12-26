@@ -1,26 +1,37 @@
 import { Artist, Album, Genre, Song, User } from "../models/index.js"
 
+import { resolver } from "../../helpers/misc.js"
 import { serializeDocument } from "../../helpers/collection.js"
 
 export default {
-  addArtist: async (parent, doc) => {
-    const result = await Artist.create(doc)
-    return serializeDocument(result.toObject())
-  },
-  addAlbum: async (parent, doc) => {
-    const result = await Album.create(doc)
-    return serializeDocument(result.toObject())
-  },
-  addGenre: async (parent, doc) => {
-    const result = await Genre.create(doc)
-    return serializeDocument(result.toObject())
-  },
-  addSong: async (parent, doc) => {
-    const result = await Song.create(doc)
-    return serializeDocument(result.toObject())
-  },
-  addUser: async (parent, doc) => {
-    const result = await User.create(doc)
-    return serializeDocument(result.toObject())
-  }
+  addArtist: resolver(
+    async ({ args }) => {
+      const artist = await Artist.create(args)
+      return serializeDocument(artist.toObject())
+    }
+  ),
+  addAlbum: resolver(
+    async ({ args }) => {
+      const album = await Album.create(args)
+      return serializeDocument(album.toObject())
+    }
+  ),
+  addGenre: resolver(
+    async ({ args }) => {
+      const genre = await Genre.create(args)
+      return serializeDocument(genre.toObject())
+    }
+  ),
+  addSong: resolver(
+    async ({ args }) => {
+      const song = await Song.create(args)
+      return serializeDocument(song.toObject())
+    }
+  ),
+  addUser: resolver(
+    async ({ args }) => {
+      const user = await User.create(args)
+      return serializeDocument(user.toObject())
+    }
+  ),
 }

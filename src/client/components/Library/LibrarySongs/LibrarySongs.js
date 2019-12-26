@@ -7,8 +7,8 @@ import SongTable from "../../SongTable"
 import SongsTable from "../../SongsTable"
 
 import query from "./query.graphql"
+import { isUndefined, isEmpty } from "lodash"
 import { useQuery } from "@apollo/react-hooks"
-import { isUndefined, isEmpty, orderBy } from "lodash"
 
 const LibrarySongs = () => {
   const { loading, error, data } = useQuery(query)
@@ -19,14 +19,9 @@ const LibrarySongs = () => {
   } else if (isEmpty(data.songs)) {
     return <Empty/>
   } else {
-    const songs = orderBy(
-      data.songs,
-      ["album.released","discNumber","trackNumber"],
-      ["desc","asc","asc"]
-    )
     return (
       <SongsTable columnsToIgnore={["trackNumber"]}>
-        {songs.map(
+        {data.songs.map(
           song => (
             <SongTable
               song={song}

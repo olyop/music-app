@@ -32,7 +32,10 @@ const typeDefs = gql`
       albums: [ID!]!,
       genres: [ID!]!,
       songs: [ID!]!,
-    ): User!
+    ): User!,
+    updateNowPlaying(
+      id: ID!
+    ): Song!
   }
 
   type Query {

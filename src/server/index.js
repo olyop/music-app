@@ -1,5 +1,6 @@
 import express from "express"
 import database from "./database/database.js"
+import { onError } from "./helpers/server.js"
 import apolloRouter from "./database/apollo.js"
 
 // import middleware
@@ -11,8 +12,6 @@ import compression from "compression"
 import responseTime from "response-time"
 import cookieParser from "cookie-parser"
 import { globalHeaders } from "./middleware.js"
-
-import { onError } from "./helpers/server.js"
 
 import {
   HOST,
@@ -42,7 +41,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(cookieParser())
 app.use(globalHeaders())
 
-// apply apollo router to app
+// apply apollo to app
 apolloRouter.applyMiddleware({ app, ...APOLLO_OPTIONS })
 
 // serve static assests

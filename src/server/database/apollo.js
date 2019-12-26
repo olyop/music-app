@@ -7,7 +7,7 @@ const { ApolloServer } = ApolloServerExpress
 
 const apolloRouter = new ApolloServer({
   typeDefs,
-  resolvers
+  resolvers,
 })
 
 export default apolloRouter

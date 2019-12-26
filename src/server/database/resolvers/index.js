@@ -1,10 +1,10 @@
-import Song from "./song.js"
-import User from "./user.js"
-import Query from "./query.js"
-import Album from "./album.js"
-import Genre from "./genre.js"
-import Artist from "./artist.js"
-import Mutation from "./mutation.js"
+import Song from "./Song.js"
+import User from "./User.js"
+import Query from "./Query.js"
+import Album from "./Album.js"
+import Genre from "./Genre.js"
+import Artist from "./Artist.js"
+import Mutation from "./Mutation.js"
 
 export default {
   User,
@@ -13,6 +13,6 @@ export default {
   Genre,
   Album,
   Artist,
-  Mutation
+  Mutation,
 }
 

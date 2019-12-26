@@ -1,10 +1,8 @@
-{
+query librarySongs {
   songs {
     id
     title
     mix
-    discNumber
-    trackNumber
     duration
     featuring {
       id

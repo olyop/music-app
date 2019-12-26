@@ -12,3 +12,5 @@ export const curryFilter = func => collection => collection.filter(func)
 export const curryReduce = (func, accumulator) => collection => collection.reduce(func, accumulator)
 export const curryConcat = newItem => collection => collection.concat(newItem)
 export const currySortBy = func => collection => sortBy(collection, func)
+
+export const resolver = foo => (parent, args, context, info) => foo({ parent, args, context, info })

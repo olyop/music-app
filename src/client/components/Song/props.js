@@ -1,6 +1,7 @@
 import { shape, string, number, arrayOf, object } from "prop-types"
 
 export const propTypes = {
+  className: string,
   song: shape({
     id: string.isRequired,
     mix: string.isRequired,
@@ -14,4 +15,8 @@ export const propTypes = {
       title: string.isRequired,
     }),
   }),
+}
+
+export const defaultProps = {
+  className: undefined,
 }

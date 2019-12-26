@@ -6,19 +6,19 @@ import { Link } from "react-router-dom"
 import FeaturingArtists from "../FeaturingArtists"
 
 import { isEmpty } from "lodash"
-import { propTypes } from "./props" 
 import reactBem from "@oly_op/react-bem"
 import { catalogUrl } from "../../helpers/misc"
+import { propTypes, defaultProps } from "./props"
 import deserializeDuration from "../../helpers/deserializeDuration"
 
 import "./Song.scss"
 
 const bem = reactBem("Song")
 
-const Song = ({ song }) => {
+const Song = ({ song, className }) => {
   const { title, mix, duration, artists, featuring, remixers, album } = song
   return (
-    <div className={bem("")}>
+    <div className={bem({ ignore: true, className },"")}>
       <Link to={`/album/${album.id}`}>
         <Img 
           className={bem("cover")}
@@ -70,5 +70,6 @@ const Song = ({ song }) => {
 }
 
 Song.propTypes = propTypes
+Song.defaultProps = defaultProps
 
 export default Song

@@ -12,7 +12,6 @@ const bem = reactBem("Player")
 
 const Player = () => {
   const { user } = useContext(UserContext)
-  const { nowPlaying } = user
   return (
     <div className={bem("")}>
       <div className={bem("left")}>
@@ -29,9 +28,10 @@ const Player = () => {
           className={bem("next","icon")}
         />
       </div>
-      <div className={bem("right")}>
-        <Song song={nowPlaying} />
-      </div>
+      <Song
+        song={user.nowPlaying}
+        className={bem("right")}
+      />
     </div>
   )
 }

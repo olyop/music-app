@@ -1,5 +1,6 @@
 import { Album, Song } from "../models/index.js"
 
+import orderBy from "lodash/orderBy.js"
 import { resolver } from "../../helpers/misc.js"
 import { serializeCollection } from "../../helpers/collection.js"
 
@@ -15,12 +16,14 @@ export default {
   songs: resolver(
     async ({ parent }) => {
       const { id } = parent
-      const songs = await Promise.all([
+      const result = await Promise.all([
         Song.find({ artists: id }).lean().exec(),
         Song.find({ remixers: id }).lean().exec(),
         Song.find({ featuring: id }).lean().exec()
       ])
-      return serializeCollection(songs.flat())
+      const songs = result.flat()
+      const songsOrdered = orderBy(songs, "title", "asc")
+      return serializeCollection(songsOrdered)
     }
   ),
 }

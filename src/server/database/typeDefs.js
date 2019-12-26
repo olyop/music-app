@@ -4,66 +4,64 @@ const typeDefs = gql`
 
   type Mutation {
     addArtist(
-      name: String!,
+      name: String!
     ): Artist!
-    addAlbum(
-      title: String!,
-      released: Int!,
-      artists: [ID!]!,
-    ): Album!
-    addSong(
-      album: ID!,
-      mix: String!,
-      genres: [ID!]!,
-      title: String!,
-      duration: Int!,
-      artists: [ID!]!,
-      discNumber: Int!,
-      remixers: [ID!]!,
-      trackNumber: Int!,
-      featuring: [ID!]!,
-    ): Song!
-    addGenre(
-      name: String!,
-    ): Genre!,
     addUser(
       name: String!
-      artists: [ID!]!,
-      albums: [ID!]!,
-      genres: [ID!]!,
-      songs: [ID!]!,
-    ): User!,
+      songs: [ID!]!
+      albums: [ID!]!
+    ): User!
+    addGenre(
+      name: String!
+    ): Genre!
     updateNowPlaying(
       id: ID!
+    ): Song!
+    addAlbum(
+      title: String!
+      released: Int!
+      artists: [ID!]!
+    ): Album!
+    addSong(
+      album: ID!
+      mix: String!
+      genres: [ID!]!
+      title: String!
+      duration: Int!
+      artists: [ID!]!
+      discNumber: Int!
+      remixers: [ID!]!
+      trackNumber: Int!
+      featuring: [ID!]!
     ): Song!
   }
 
   type Query {
-    artist(id: ID!): Artist!
-    album(id: ID!): Album!
-    genre(id: ID!): Genre!
-    song(id: ID!): Song!
-    user(id: ID!): User!
-    artists: [Artist!]!
-    albums: [Album!]!
-    genres: [Genre!]!
     songs: [Song!]!
     users: [User!]!
+    albums: [Album!]!
+    genres: [Genre!]!
+    artists: [Artist!]!
+    song(id: ID!): Song!
+    user(id: ID!): User!
+    album(id: ID!): Album!
+    genre(id: ID!): Genre!
+    artist(id: ID!): Artist!
   }
 
   type Artist {
     id: ID!
     name: String!
-    albums: [Album!]!
     songs: [Song!]!
+    albums: [Album!]!
   }
 
   type Album {
     id: ID!
     title: String!
     released: Int!
-    artists: [Artist!]!
     songs: [Song!]!
+    artists: [Artist!]!
   }
 
   type Genre {
@@ -74,26 +72,26 @@ const typeDefs = gql`
 
   type Song {
     id: ID!
-    title: String!
     mix: String!
-    trackNumber: Int!
-    discNumber: Int!
-    duration: Int!
-    featuring: [Artist!]!
-    remixers: [Artist!]!
-    artists: [Artist!]!
-    genres: [Genre!]!
     album: Album!
+    title: String!
+    duration: Int!
+    discNumber: Int!
+    trackNumber: Int!
+    genres: [Genre!]!
+    artists: [Artist!]!
+    remixers: [Artist!]!
+    featuring: [Artist!]!
   }
 
   type User {
     id: ID!
     name: String!
-    nowPlaying: Song!
-    artists: [Artist!]!
+    songs: [Song!]!
     albums: [Album!]!
     genres: [Genre!]!
-    songs: [Song!]!
+    nowPlaying: Song!
+    artists: [Artist!]!
   }
   
 `

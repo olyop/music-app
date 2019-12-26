@@ -3,33 +3,33 @@ import React, { Fragment } from "react"
 import Img from "../Img"
 import Loading from "../Loading"
 import ApiError from "../ApiError"
-import DocLinks from "../DocLinks"
 import SongTable from "../SongTable"
 import SongsTable from "../SongsTable"
 
 import reactBem from "@oly_op/react-bem"
-import ALBUM_PAGE from "./albumPage.graphql"
 import { useParams } from "react-router-dom"
-import { isUndefined, orderBy } from "lodash"
+import ARTIST_PAGE from "./artistPage.graphql"
 import { useQuery } from "@apollo/react-hooks"
 import { catalogUrl } from "../../helpers/misc"
+import { isUndefined, orderBy, uniqBy } from "lodash"
 
-import "./AlbumPage.scss"
+import "./ArtistPage.scss"
 
-const bem = reactBem("AlbumPage")
+const bem = reactBem("ArtistPage")
 
-const AlbumPage = () => {
+const ArtistPage = () => {
   const { id } = useParams()
   const queryOptions = { variables: { id } }
-  const { loading, error, data } = useQuery(ALBUM_PAGE, queryOptions)
+  const { loading, error, data } = useQuery(ARTIST_PAGE, queryOptions)
   if (loading) {
     return <Loading/>
   } else if (!isUndefined(error)) {
     return <ApiError/>
   } else {
-    const { title, artists, songs } = data.album
-    const songsOrdered = orderBy(songs,["discNumber","trackNumber"],["asc","asc"])
-    const columnsIgnore = ["cover","album","released"]
+    const { name, songs } = data.artist
+    const songsNoDup = uniqBy(songs, "id")
+    const columnsIgnore = ["cover","released","trackNumber"]
+    const songsOrdered = orderBy(songsNoDup,["discNumber","trackNumber"],["asc","asc"])
     return (
       <div className={bem("")}>
         <Img
@@ -38,14 +38,7 @@ const AlbumPage = () => {
           imgClassName={bem("img")}
         />
         <div className={bem("main")}>
-          <div className={bem("title")}>{title}</div>
-          <div className={bem("artists")}>
-            <DocLinks
-              path="/artist"
-              docs={artists}
-              ampersand={true}
-            />
-          </div>
+          <div className={bem("title")}>{name}</div>
           <SongsTable
             className={bem("songs")}
             columnsToIgnore={columnsIgnore}
@@ -70,4 +63,4 @@ const AlbumPage = () => {
   }
 }
 
-export default AlbumPage
+export default ArtistPage

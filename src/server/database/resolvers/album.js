@@ -15,8 +15,8 @@ export default {
   songs: resolver(
     async ({ parent }) => {
       const { id } = parent
-      const query = Song.find({ album: id })
-      const songs = await query.lean().exec()
+      const query = Song.find({ album: id }).lean().exec()
+      const songs = await query
       return serializeCollection(songs)
     }
   ),

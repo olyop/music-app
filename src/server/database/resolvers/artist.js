@@ -1,8 +1,8 @@
 import { Album, Song } from "../models/index.js"
 
-import mongoose from "mongoose"
 import { resolver } from "../../helpers/misc.js"
 import { serializeCollection } from "../../helpers/collection.js"
+
 export default {
   albums: resolver(
     async ({ parent }) => {
@@ -15,11 +15,12 @@ export default {
   songs: resolver(
     async ({ parent }) => {
       const { id } = parent
-      const artists = Song.find({ artists: mongoose.Schema.ObjectId(id) }).lean().exec()
-      const remixers = Song.find({ remixers: mongoose.Schema.ObjectId(id) }).lean().exec()
-      const featuring = Song.find({ featuring: mongoose.Schema.ObjectId(id) }).lean().exec()
-      const artists = await Promise.all([ artists, remixers, featuring ])
-      return artists.flat()
+      const songs = await Promise.all([
+        Song.find({ artists: id }).lean().exec(),
+        Song.find({ remixers: id }).lean().exec(),
+        Song.find({ featuring: id }).lean().exec()
+      ])
+      return serializeCollection(songs.flat())
     }
   ),
 }

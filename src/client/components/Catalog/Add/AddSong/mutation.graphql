@@ -23,30 +23,5 @@ mutation addSong(
     trackNumber: $trackNumber,
   ) {
     id
-    title
-    mix
-    discNumber
-    trackNumber
-    duration
-    featuring {
-      id
-      name
-    }
-    remixers {
-      id
-      name
-    }
-    artists {
-      id
-      name
-    }
-    genres {
-      id
-      name
-    }
-    album {
-      id
-      title
-    }
   }
 }

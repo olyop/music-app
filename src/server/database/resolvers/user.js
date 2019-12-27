@@ -13,33 +13,29 @@ export default {
   ),
   artists: resolver(
     async ({ parent }) => {
-      const query = id => Artist.findById(id).lean().exec()
-      const queries = parent.artists.map(query)
-      const artists = await Promise.all(queries)
+      const query = Artist.find({ "_id": { $in: parent.artists } })
+      const artists = await query.lean().exec()
       return serializeCollection(artists)
     }
   ),
   albums: resolver(
     async ({ parent }) => {
-      const query = id => Album.findById(id).lean().exec()
-      const queries = parent.albums.map(query)
-      const albums = await Promise.all(queries)
+      const query = Album.find({ "_id": { $in: parent.albums } })
+      const albums = await query.lean().exec()
       return serializeCollection(albums)
     }
   ),
   genres: resolver(
     async ({ parent }) => {
-      const query = id => Genre.findById(id).lean().exec()
-      const queries = parent.genres.map(query)
-      const result = await Promise.all(queries)
-      return serializeCollection(result)
+      const query = Genre.find({ "_id": { $in: parent.genres } })
+      const genres = await query.lean().exec()
+      return serializeCollection(genres)
     }
   ),
   songs: resolver(
     async ({ parent }) => {
-      const query = id => Song.findById(id).lean().exec()
-      const queries = parent.songs.map(query)
-      const songs = await Promise.all(queries)
+      const query = Song.find({ "_id": { $in: parent.songs } })
+      const songs = await query.lean().exec()
       return serializeCollection(songs)
     }
   ),

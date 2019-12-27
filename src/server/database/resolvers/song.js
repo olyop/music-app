@@ -6,33 +6,29 @@ import { serializeDocument, serializeCollection } from "../../helpers/collection
 export default {
   featuring: resolver(
     async ({ parent }) => {
-      const query = id => Artist.findById(id).lean().exec()
-      const queries = parent.featuring.map(query)
-      const artists = await Promise.all(queries)
+      const query = Artist.find({ "_id": { $in: parent.featuring } })
+      const artists = await query.lean().exec()
       return serializeCollection(artists)
     }
   ),
   remixers: resolver(
     async ({ parent }) => {
-      const query = id => Artist.findById(id).lean().exec()
-      const queries = parent.remixers.map(query)
-      const artists = await Promise.all(queries)
+      const query = Artist.find({ "_id": { $in: parent.remixers } })
+      const artists = await query.lean().exec()
       return serializeCollection(artists)
     }
   ),
   artists: resolver(
     async ({ parent }) => {
-      const query = id => Artist.findById(id).lean().exec()
-      const queries = parent.artists.map(query)
-      const artists = await Promise.all(queries)
+      const query = Artist.find({ "_id": { $in: parent.artists } })
+      const artists = await query.lean().exec()
       return serializeCollection(artists)
     }
   ),
   genres: resolver(
     async ({ parent }) => {
-      const query = id => Genre.findById(id).lean().exec()
-      const queries = parent.genres.map(query)
-      const genres = await Promise.all(queries)
+      const query = Genre.find({ "_id": { $in: parent.genres } })
+      const genres = await query.lean().exec()
       return serializeCollection(genres)
     }
   ),

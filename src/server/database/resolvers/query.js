@@ -54,7 +54,7 @@ export default {
   albums: resolver(
     async () => {
       const query = Album.find()
-      const albums = await query.sort("title").lean().exec()
+      const albums = await query.sort("-released").lean().exec()
       return serializeCollection(albums)
     }
   ),

@@ -6,9 +6,8 @@ import { serializeCollection } from "../../helpers/collection.js"
 export default {
   artists: resolver(
     async ({ parent }) => {
-      const query = id => Artist.findById(id).lean().exec()
-      const queries = parent.artists.map(query)
-      const artists = await Promise.all(queries)
+      const query = Artist.find({ "_id": { $in: parent.artists } })
+      const artists = await query.lean().exec()
       return serializeCollection(artists)
     }
   ),

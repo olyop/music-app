@@ -1,22 +1,36 @@
 import { Artist, Song } from "../models/index.js"
 
-import { resolver } from "../../helpers/misc.js"
-import { serializeCollection } from "../../helpers/collection.js"
+import {
+  pipe,
+  resolver,
+} from "../../helpers/misc.js"
+
+import {
+  restoreOrder,
+  serializeCollection,
+} from "../../helpers/collection.js"
 
 export default {
   artists: resolver(
     async ({ parent }) => {
-      const query = Artist.find({ "_id": { $in: parent.artists } })
-      const artists = await query.lean().exec()
-      return serializeCollection(artists)
+      const { artists } = parent
+      const filter = { _id: { $in: artists } }
+      const query = Artist.find(filter).lean()
+      const collection = await query.exec()
+      return pipe(collection)(
+        serializeCollection,
+        restoreOrder(artists)
+      )
     }
   ),
   songs: resolver(
     async ({ parent }) => {
       const { id } = parent
-      const query = Song.find({ album: id }).lean().exec()
-      const songs = await query
-      return serializeCollection(songs)
+      const filter = { album: id }
+      const sortArgs = { discNumber: "asc", trackNumber: "asc" }
+      const query = Song.find(filter).sort(sortArgs).lean()
+      const collection = await query.exec()
+      return serializeCollection(collection)
     }
   ),
 }

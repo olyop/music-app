@@ -28,21 +28,5 @@ query getUser($id: ID!) {
         title
       }
     }
-    artists {
-      id
-      name
-    }
-    albums {
-      id
-      title
-    }
-    genres {
-      id
-      name
-    }
-    songs {
-      id
-      title
-    }
   }
 }

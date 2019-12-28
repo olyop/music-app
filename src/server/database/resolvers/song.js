@@ -1,42 +1,67 @@
 import { Artist, Genre, Album } from "../models/index.js"
 
-import { resolver } from "../../helpers/misc.js"
-import { serializeDocument, serializeCollection } from "../../helpers/collection.js"
+import {
+  pipe,
+  resolver
+} from "../../helpers/misc.js"
+
+import {
+  restoreOrder,
+  serializeDocument,
+  serializeCollection,
+} from "../../helpers/collection.js"
 
 export default {
   featuring: resolver(
     async ({ parent }) => {
-      const query = Artist.find({ "_id": { $in: parent.featuring } })
-      const artists = await query.lean().exec()
-      return serializeCollection(artists)
+      const { featuring } = parent
+      const query = Artist.find({ "_id": { $in: featuring } })
+      const collection = await query.lean().exec()
+      return pipe(collection)(
+        serializeCollection,
+        restoreOrder(featuring)
+      )
     }
   ),
   remixers: resolver(
     async ({ parent }) => {
-      const query = Artist.find({ "_id": { $in: parent.remixers } })
-      const artists = await query.lean().exec()
-      return serializeCollection(artists)
+      const { remixers } = parent
+      const query = Artist.find({ "_id": { $in: remixers } })
+      const collection = await query.lean().exec()
+      return pipe(collection)(
+        serializeCollection,
+        restoreOrder(remixers)
+      )
     }
   ),
   artists: resolver(
     async ({ parent }) => {
-      const query = Artist.find({ "_id": { $in: parent.artists } })
-      const artists = await query.lean().exec()
-      return serializeCollection(artists)
+      const { artists } = parent
+      const query = Artist.find({ "_id": { $in: artists } })
+      const collection = await query.lean().exec()
+      return pipe(collection)(
+        serializeCollection,
+        restoreOrder(artists)
+      )
     }
   ),
   genres: resolver(
     async ({ parent }) => {
-      const query = Genre.find({ "_id": { $in: parent.genres } })
-      const genres = await query.lean().exec()
-      return serializeCollection(genres)
+      const { genres } = parent
+      const query = Genre.find({ "_id": { $in: genres } })
+      const collection = await query.lean().exec()
+      return pipe(collection)(
+        serializeCollection,
+        restoreOrder(genres)
+      )
     }
   ),
   album: resolver(
     async ({ parent }) => {
-      const query = Album.findById(parent.album)
-      const album = await query.lean().exec()
-      return serializeDocument(album)
+      const { album } = parent
+      const query = Album.findById(album)
+      const doc = await query.lean().exec()
+      return serializeDocument(doc)
     }
   ),
 }

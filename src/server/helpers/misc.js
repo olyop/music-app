@@ -1,6 +1,4 @@
-import lodash from "lodash"
-
-const { sortBy } = lodash
+import sortBy from "lodash/sortBy.js"
 
 export const pipe = x => (...funcs) => funcs.reduce((val, func) => func(val), x)
 

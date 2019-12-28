@@ -7,9 +7,10 @@ export default {
   songs: resolver(
     async ({ parent }) => {
       const { id } = parent
-      const query = Song.find({ genre: id })
-      const songs = await query.lean().exec()
-      return serializeCollection(songs)
+      const filter = { genres: id }
+      const query = Song.find(filter).lean()
+      const collection = await query.exec()
+      return serializeCollection(collection)
     }
   )
 }

@@ -1,3 +1,5 @@
+import { S3 } from "../globals"
+
 export const pipe = x => (...funcs) => funcs.reduce((val, func) => func(val), x)
 
 export const stringify = obj => JSON.stringify(obj)
@@ -10,7 +12,7 @@ export const curryReduce = (func, accumulator) => collection => collection.reduc
 export const isLength = (str, length) => str.length === length
 export const isHex = str => (str.match(/([0-9]|[a-f])/gim) || []).length === str.length
 
-export const catalogUrl = id => `/images/catalog/${id}.jpg`
+export const catalogUrl = id => `${S3}/${id}.jpg`
 
 export const copyToClipboard = str => {
   const el = document.createElement("textarea")

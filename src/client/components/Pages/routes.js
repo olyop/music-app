@@ -28,8 +28,8 @@ export default [
   },
   {
     ignore: true,
-    name: "Artist",
     id: uniqueId(),
+    name: "Artist",
     path: "/artist/:id",
     component: ArtistPage,
   },

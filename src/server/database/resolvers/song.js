@@ -15,8 +15,9 @@ export default {
   featuring: resolver(
     async ({ parent }) => {
       const { featuring } = parent
-      const query = Artist.find({ "_id": { $in: featuring } })
-      const collection = await query.lean().exec()
+      const filter = { _id: { $in: featuring } }
+      const query = Artist.find(filter).lean()
+      const collection = await query.exec()
       return pipe(collection)(
         serializeCollection,
         restoreOrder(featuring)
@@ -26,8 +27,9 @@ export default {
   remixers: resolver(
     async ({ parent }) => {
       const { remixers } = parent
-      const query = Artist.find({ "_id": { $in: remixers } })
-      const collection = await query.lean().exec()
+      const filter = { _id: { $in: remixers } }
+      const query = Artist.find(filter).lean()
+      const collection = await query.exec()
       return pipe(collection)(
         serializeCollection,
         restoreOrder(remixers)
@@ -37,8 +39,9 @@ export default {
   artists: resolver(
     async ({ parent }) => {
       const { artists } = parent
-      const query = Artist.find({ "_id": { $in: artists } })
-      const collection = await query.lean().exec()
+      const filter = { _id: { $in: artists } }
+      const query = Artist.find(filter).lean()
+      const collection = await query.exec()
       return pipe(collection)(
         serializeCollection,
         restoreOrder(artists)
@@ -48,8 +51,9 @@ export default {
   genres: resolver(
     async ({ parent }) => {
       const { genres } = parent
-      const query = Genre.find({ "_id": { $in: genres } })
-      const collection = await query.lean().exec()
+      const filter = { _id: { $in: genres } }
+      const query = Genre.find(filter).lean()
+      const collection = await query.exec()
       return pipe(collection)(
         serializeCollection,
         restoreOrder(genres)

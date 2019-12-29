@@ -61,8 +61,7 @@
     box-shadow: none;
     @media (min-width: 700px) {
       & { padding: 20px; } }
-    height: calc(100vh - #{$HEADER_HEIGHT} - #{$HEADER_HEIGHT} - #{$PLAYER_HEIGHT});
-  }
+    height: calc(100vh - #{$HEADER_HEIGHT} - #{$HEADER_HEIGHT} - #{$PLAYER_HEIGHT}); }
     &__grid-cover {
       border-radius: none;
       &:hover &-img {

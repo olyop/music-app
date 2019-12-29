@@ -1,0 +1,56 @@
+$dimension: 100px;
+
+.Loading {
+  display: block;
+	width: $dimension;
+	height: $dimension;
+  animation: loader-2-1 3s linear infinite;
+  &__span {
+    width: $dimension;
+    margin: auto;
+    height: $dimension;
+    display: block;
+    top: 0; left: 0;
+    position: absolute;
+    bottom: 0; right: 0;
+    clip: rect(50px, $dimension, $dimension, 0);
+    animation: loader-2-2 1.5s cubic-bezier(0.770, 0.000, 0.175, 1.000) infinite;
+    &:before {
+      width: $dimension;
+      content: "";
+      margin: auto;
+      height: $dimension;
+      display: block;
+      top: 0; left: 0;
+      position: absolute;
+      border-radius: 50%;
+      bottom: 0; right: 0;
+      border: 3px solid transparent;
+      border-top: 3px solid #000000;
+      animation: loader-2-3 1.5s cubic-bezier(0.770, 0.000, 0.175, 1.000) infinite; }
+    &:after {
+      width: $dimension;
+      content: "";
+      margin: auto;
+      height: $dimension;
+      display: block;
+      top: 0; left: 0;
+      position: absolute;
+      border-radius: 50%;
+      bottom: 0; right: 0;
+      border: 3px solid rgba(#000000, .5); } } }
+
+@keyframes loader-2-1 {
+	0%   { transform: rotate(0deg); }
+	100% { transform: rotate(360deg); }
+}
+
+@keyframes loader-2-2 {
+	0%   { transform: rotate(0deg); }
+	100% { transform: rotate(360deg); }
+}
+
+@keyframes loader-2-3 {
+	0%   { transform: rotate(0deg); }
+	100% { transform: rotate(360deg); }
+}

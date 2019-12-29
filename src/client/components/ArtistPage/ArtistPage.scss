@@ -1,9 +1,7 @@
-@import "../../globals/index.scss";
-
 .ArtistPage {
+  height: 100%;
   padding: 20px;
   overflow: auto;
-  height: calc(100vh - #{$HEADER_HEIGHT} - #{$PLAYER_HEIGHT});
   &__cover {
     width: 640px;
     height: 360px;

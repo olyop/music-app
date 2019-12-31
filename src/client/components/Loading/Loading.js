@@ -6,10 +6,6 @@ import "./Loading.scss"
 
 const bem = reactBem("Loading")
 
-const Loading = () => (
-  <div className={bem("")}>
-    <span className={bem("span")} />
-  </div>
-)
+const Loading = () => <div className={bem("")} />
 
 export default Loading

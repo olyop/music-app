@@ -5,69 +5,69 @@ const { Schema } = mongoose
 const { ObjectId } = Schema.Types
 
 const schema = new Schema({
+  mix: {
+    type: String,
+    maxlength: 256,
+  },
+  featuring: [{
+    index: true,
+    minlength: 24,
+    maxlength: 24,
+    type: ObjectId,
+  }],
+  remixers: [{
+    index: true,
+    minlength: 24,
+    maxlength: 24,
+    type: ObjectId,
+  }],
+  artists: [{
+    index: true,
+    minlength: 24,
+    maxlength: 24,
+    type: ObjectId,
+    required: true,
+  }],
+  genres: [{
+    index: true,
+    minlength: 24,
+    maxlength: 24,
+    type: ObjectId,
+    required: true,
+  }],
+  album: {
+    index: true,
+    minlength: 24,
+    maxlength: 24,
+    type: ObjectId,
+    required: true,
+  },
   title: {
     type: String,
     required: true,
-    maxlength: 2048
-  },
-  mix: {
-    type: String,
-    maxlength: 256
+    maxlength: 2048,
   },
   trackNumber: {
-    type: Number,
-    required: true,
     min: 1,
     max: 99,
-    validate: Number.isInteger
+    type: Number,
+    required: true,
+    validate: Number.isInteger,
   },
   discNumber: {
-    type: Number,
-    required: true,
     min: 1,
     max: 99,
-    validate: Number.isInteger
-  },
-  duration: {
     type: Number,
     required: true,
-    min: 1,
-    max: Infinity,
-    validate: Number.isInteger
+    validate: Number.isInteger,
   },
-  featuring: [{
-    type: ObjectId,
-    minlength: 24,
-    maxlength: 24,
-    index: true
-  }],
-  remixers: [{
-    type: ObjectId,
-    minlength: 24,
-    maxlength: 24,
-    index: true
-  }],
-  artists: [{
-    type: ObjectId,
+  duration: {
+    min: 1,
+    type: Number,
+    max: Infinity,
     required: true,
-    minlength: 24,
-    maxlength: 24,
-    index: true
-  }],
-  genres: [{
-    type: ObjectId,
-    required: true,
-    minlength: 24,
-    maxlength: 24,
-    index: true
-  }],
-  album: {
-    type: ObjectId,
-    required: true,
-    minlength: 24,
-    maxlength: 24,
-    index: true
-  }
+    validate: Number.isInteger,
+  },
 })
 
 export default database.model("Song", schema, "songs")

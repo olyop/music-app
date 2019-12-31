@@ -14,8 +14,8 @@ import "./Sidebar.scss"
 
 const bem = reactBem("Sidebar")
 
-const Sidebar = ({ toggleSidebar }) => (
-  <div className={bem("")} onClick={toggleSidebar} role="button" tabIndex={0}>
+const Sidebar = ({ toggle }) => (
+  <div className={bem("")} onClick={toggle} role="button" tabIndex={0}>
     <aside className={bem("nav")}>
       <nav className={bem("routes")}>
         {routesPages.map(

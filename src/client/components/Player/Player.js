@@ -2,7 +2,7 @@ import React, { useContext } from "react"
 
 import Icon from "../Icon"
 import Song from "../Song"
-import UserContext from "../../context/UserContext"
+import UserCtx from "../../ctx/user"
 
 import reactBem from "@oly_op/react-bem"
 
@@ -11,7 +11,7 @@ import "./Player.scss"
 const bem = reactBem("Player")
 
 const Player = () => {
-  const { user } = useContext(UserContext)
+  const { user } = useContext(UserCtx)
   return (
     <div className={bem("")}>
       <div className={bem("left")}>

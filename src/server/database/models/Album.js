@@ -1,5 +1,5 @@
-import database from "../database.js"
 import mongoose from "mongoose"
+import database from "../database.js"
 
 const { Schema } = mongoose
 const { ObjectId } = Schema.Types
@@ -7,24 +7,24 @@ const { ObjectId } = Schema.Types
 const schema = new Schema({
   title: {
     type: String,
-    required: true,
     minlength: 1,
-    maxlength: 256
-  },
-  released: {
-    type: Number,
     required: true,
-    min: 1,
-    max: Infinity,
-    validate: Number.isInteger
+    maxlength: 256,
   },
   artists: [{
-    type: ObjectId,
-    required: true,
+    index: true,
     minlength: 24,
     maxlength: 24,
-    index: true
-  }]
+    type: ObjectId,
+    required: true,
+  }],
+  released: {
+    min: 1,
+    type: Number,
+    max: Infinity,
+    required: true,
+    validate: Number.isInteger,
+  },
 })
 
 export default database.model("Album", schema, "albums")

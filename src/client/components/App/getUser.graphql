@@ -1,5 +1,5 @@
-query getUser($id: ID!) {
-  user(id: $id) {
+query getUser {
+  user(id: "5dfacf7d106b6402ac9d3375") {
     id
     name
     nowPlaying {

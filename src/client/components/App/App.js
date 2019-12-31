@@ -5,30 +5,34 @@ import Header from "../Header"
 import Player from "../Player"
 import Loading from "../Loading"
 import ApiError from "../ApiError"
-import UserContext from "../../context/UserContext"
+import UserCtx from "../../ctx/user"
 
 import { isUndefined } from "lodash"
-import { useQuery } from "@apollo/react-hooks"
-
 import GET_USER from "./getUser.graphql"
-
-const queryOptions = { variables: { id: "5dfacf7d106b6402ac9d3375" } }
+import UPDATE_NOW_PLAYING from "./updateNowPlaying.graphql"
+import { useQuery, useMutation } from "@apollo/react-hooks"
 
 const App = () => {
-  const { loading, error, data } = useQuery(GET_USER, queryOptions)
+  const [ user, setUser ] = useState()
+  const { loading, error, data } = useQuery(GET_USER)
+  const [ updateNowPlaying ] = useMutation(UPDATE_NOW_PLAYING)
+  const handleNowPlaying = id => async () => {
+    const newSong = await updateNowPlaying(id)
+    setUser(newSong)
+  }
   if (loading) {
     return <Loading/>
   } else if (!isUndefined(error)) {
     return <ApiError/>
   } else {
-    const { user } = data
-    const userContextInit = { user }
+    setUser(data.user)
+    const userCtxInit = { user, setUser: handleNowPlaying }
     return (
-      <UserContext.Provider value={userContextInit}>
-        <Header/>
+      <UserCtx.Provider value={userCtxInit}>
+        <Header loading={loading} />
         <Pages/>
         <Player/>
-      </UserContext.Provider>
+      </UserCtx.Provider>
     )
   }
 }

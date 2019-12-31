@@ -21,11 +21,7 @@ const Header = () => {
           icon={sidebar ? "close" : "menu"}
         />
       </header>
-      {sidebar ? (
-        <Sidebar
-          toggleSidebar={toggleSidebar}
-        />
-      ) : null}
+      {sidebar ? <Sidebar toggle={toggleSidebar} /> : null}
     </Fragment>
   )
 }

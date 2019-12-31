@@ -62,23 +62,26 @@ export default {
   ),
   genres: resolver(
     async () => {
-      const query = Genre.find()
-      const genres = await query.sort("name").lean().exec()
-      return serializeCollection(genres)
+      const sortArgs = { name: "asc" }
+      const query = Genre.find().sort(sortArgs).lean()
+      const collection = await query.exec()
+      return serializeCollection(collection)
     }
   ),
   songs: resolver(
     async () => {
-      const query = Song.find()
-      const songs = await query.sort("title").lean().exec()
-      return serializeCollection(songs)
+      const sortArgs = { title: "asc" }
+      const query = Song.find().sort(sortArgs).lean()
+      const collection = await query.exec()
+      return serializeCollection(collection)
     }
   ),
   users: resolver(
     async () => {
-      const query = User.find()
-      const users = await query.sort("name").lean().exec()
-      return serializeCollection(users)
+      const sortArgs = { name: "asc" }
+      const query = User.find().sort(sortArgs).lean()
+      const collection = await query.exec()
+      return serializeCollection(collection)
     }
   ),
 }

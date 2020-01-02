@@ -15,7 +15,8 @@ const typeDefs = gql`
       name: String!
     ): Genre!
     updateNowPlaying(
-      id: ID!
+      userId: ID!
+      songId: ID!
     ): Song!
     addAlbum(
       title: String!
@@ -92,6 +93,10 @@ const typeDefs = gql`
     genres: [Genre!]!
     nowPlaying: Song!
     artists: [Artist!]!
+  }
+
+  type Subscription {
+    user(id: ID!): User!
   }
   
 `

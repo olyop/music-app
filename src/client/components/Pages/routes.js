@@ -1,6 +1,7 @@
 import Catalog from "../Catalog"
 import Library from "../Library"
 
+import GenrePage from "../GenrePage"
 import AlbumPage from "../AlbumPage"
 import ArtistPage from "../ArtistPage"
 
@@ -20,7 +21,6 @@ export default [
     component: Library,
   },
   {
-    name: "Album",
     ignore: true,
     id: uniqueId(),
     path: "/album/:id",
@@ -29,8 +29,13 @@ export default [
   {
     ignore: true,
     id: uniqueId(),
-    name: "Artist",
     path: "/artist/:id",
     component: ArtistPage,
+  },
+  {
+    ignore: true,
+    id: uniqueId(),
+    path: "/genre/:id",
+    component: GenrePage,
   },
 ]

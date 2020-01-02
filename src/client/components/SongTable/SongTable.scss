@@ -41,6 +41,15 @@
         box-shadow: 3px 6px 10px 0 rgba(#333333, .4); }
       &:active {
         animation: play .3s ease-out; } }
+    &-play-button {
+      outline: none;
+      color: #9E9E9E;
+      font-size: 30rem;
+      transition: .2s all;
+      border-radius: 100%;
+      &:hover {
+        color: #333333;
+        background-color: #BDBDBD; } }
     &-span {
       overflow: hidden;
       font-size: 14rem;

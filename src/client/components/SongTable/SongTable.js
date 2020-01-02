@@ -1,14 +1,14 @@
-import React, { Fragment } from "react"
+import React, { useContext, Fragment } from "react"
 
 import Img from "../Img"
 import Icon from "../Icon"
 import DocLink from "../DocLink"
 import DocLinks from "../DocLinks"
-// import UserCtx from "../../ctx/UserCtx"
+import UserCtx from "../../ctx/user"
 
 import reactBem from "@oly_op/react-bem"
+import { isEmpty, includes } from "lodash"
 import { catalogUrl } from "../../helpers/misc"
-import { isEmpty, includes, noop } from "lodash"
 import { propTypes, defaultProps } from "./props"
 import deserializeDate from "../../helpers/deserializeDate"
 import deserializeDuration from "../../helpers/deserializeDuration"
@@ -18,10 +18,10 @@ import "./SongTable.scss"
 const bem = reactBem("SongTable")
 
 const SongTable = ({ song, className, columnsToIgnore }) => {
-  // const { user, updateUser } = useContext(UserContext)
+  const { handleNowPlaying } = useContext(UserCtx)
   const showColumn = name => !includes(columnsToIgnore, name)
-  // const handlePlayClick = () => updateUser({ ...user, nowPlaying: song.id })
-  const { title, trackNumber, mix, duration, featuring, remixers, artists, genres, album } = song
+  const { id, title, trackNumber, mix, duration, featuring, remixers, artists, genres, album } = song
+  const handlePlayClick = () => handleNowPlaying(id)
   return (
     <tr className={bem({ ignore: true, className },"")}>
 
@@ -33,8 +33,18 @@ const SongTable = ({ song, className, columnsToIgnore }) => {
           />
           <Icon
             icon="play_arrow"
-            onClick={noop}
+            onClick={handlePlayClick}
             className={bem("col-play")}
+          />
+        </td>
+      ) : null}
+
+      {showColumn("play") ? (
+        <td className={bem("cover","col")}>
+          <Icon
+            icon="play_arrow"
+            onClick={handlePlayClick}
+            className={bem("col-play-button")}
           />
         </td>
       ) : null}

@@ -6,37 +6,46 @@ import { serializeDocument, serializeCollection } from "../../helpers/collection
 export default {
   nowPlaying: resolver(
     async ({ parent }) => {
-      const query = Song.findById(parent.nowPlaying)
-      const song = await query.lean().exec()
-      return serializeDocument(song)
+      const { nowPlaying } = parent
+      const query = Song.findById(nowPlaying)
+      const doc = await query.lean().exec()
+      return serializeDocument(doc)
     }
   ),
   artists: resolver(
     async ({ parent }) => {
-      const query = Artist.find({ "_id": { $in: parent.artists } })
-      const artists = await query.lean().exec()
-      return serializeCollection(artists)
+      const { artists } = parent
+      const filter = { _id: { $in: artists } }
+      const query = Artist.find(filter)
+      const collection = await query.lean().exec()
+      return serializeCollection(collection)
     }
   ),
   albums: resolver(
     async ({ parent }) => {
-      const query = Album.find({ "_id": { $in: parent.albums } })
-      const albums = await query.lean().exec()
-      return serializeCollection(albums)
+      const { albums } = parent
+      const filter = { _id: { $in: albums } }
+      const query = Album.find(filter)
+      const collection = await query.lean().exec()
+      return serializeCollection(collection)
     }
   ),
   genres: resolver(
     async ({ parent }) => {
-      const query = Genre.find({ "_id": { $in: parent.genres } })
-      const genres = await query.lean().exec()
-      return serializeCollection(genres)
+      const { genres } = parent
+      const filter = { _id: { $in: genres } }
+      const query = Genre.find(filter)
+      const collection = await query.lean().exec()
+      return serializeCollection(collection)
     }
   ),
   songs: resolver(
     async ({ parent }) => {
-      const query = Song.find({ "_id": { $in: parent.songs } })
-      const songs = await query.lean().exec()
-      return serializeCollection(songs)
+      const { songs } = parent
+      const filter = { _id: { $in: songs } }
+      const query = Song.find(filter)
+      const collection = await query.lean().exec()
+      return serializeCollection(collection)
     }
   ),
 }

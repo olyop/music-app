@@ -14,8 +14,8 @@ export default {
     async ({ parent }) => {
       const { id } = parent
       const filter = { artists: id }
-      const query = Album.find(filter).lean()
-      const collection = await query.exec()
+      const query = Album.find(filter)
+      const collection = await query.lean().exec()
       return serializeCollection(collection)
     }
   ),
@@ -23,12 +23,12 @@ export default {
     async ({ parent }) => {
       const { id } = parent
       const fields = ["artists", "remixers", "featuring"]
-      const query = key => Song.find({ [key]: id }).lean()
-      const queries = fields.map(field => query(field).exec())
+      const query = key => Song.find({ [key]: id })
+      const queries = fields.map(field => query(field).lean().exec())
       const collection = await Promise.all(queries)
       return pipe(collection)(
         flatten,
-        orderBy("title", "asc"),
+        orderBy("title","asc"),
         serializeCollection
       )
     }

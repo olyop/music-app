@@ -5,6 +5,7 @@ import Album from "./Album.js"
 import Genre from "./Genre.js"
 import Artist from "./Artist.js"
 import Mutation from "./Mutation.js"
+import Subscription from "./Subscription.js"
 
 export default {
   User,
@@ -14,5 +15,6 @@ export default {
   Album,
   Artist,
   Mutation,
+  Subscription,
 }
 

@@ -28,10 +28,13 @@ export default {
       return serializeDocument(song.toObject())
     }
   ),
-  addUser: resolver(
+  updateNowPlaying: resolver(
     async ({ args }) => {
-      const user = await User.create(args)
-      return serializeDocument(user.toObject())
+      const { userId, songId } = args
+      const update = { nowPlaying: songId }
+      const mutation = User.findByIdAndUpdate(userId, update)
+      const user = await mutation.lean().exec()
+      return serializeDocument(user)
     }
   ),
 }

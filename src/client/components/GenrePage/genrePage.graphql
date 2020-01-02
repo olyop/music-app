@@ -1,8 +1,7 @@
-query getUser {
-  user(id: "5dfacf7d106b6402ac9d3375") {
+query genrePage($id: ID!) {
+  genre(id: $id) {
     id
-    name
-    nowPlaying {
+    songs {
       id
       title
       mix
@@ -19,13 +18,13 @@ query getUser {
         id
         name
       }
-      genres {
-        id
-        name
-      }
       album {
         id
         title
+      }
+      genres {
+        id
+        name
       }
     }
   }

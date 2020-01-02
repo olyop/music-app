@@ -19,14 +19,15 @@ const LibrarySongs = () => {
   } else if (isEmpty(data.songs)) {
     return <Empty/>
   } else {
+    const columnsToIgnore = ["play","trackNumber"]
     return (
-      <SongsTable columnsToIgnore={["trackNumber"]}>
+      <SongsTable columnsToIgnore={columnsToIgnore}>
         {data.songs.map(
           song => (
             <SongTable
               song={song}
               key={song.id}
-              columnsToIgnore={["trackNumber"]}
+              columnsToIgnore={columnsToIgnore}
             />
           )
         )}

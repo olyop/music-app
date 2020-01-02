@@ -8,28 +8,28 @@ import ApiError from "../ApiError"
 import UserCtx from "../../ctx/user"
 
 import { isUndefined } from "lodash"
-import GET_USER from "./getUser.graphql"
+import USER_SUBSCRIBE from "./userSubscribe.graphql"
 import UPDATE_NOW_PLAYING from "./updateNowPlaying.graphql"
-import { useQuery, useMutation } from "@apollo/react-hooks"
+import { useSubscription, useMutation } from "@apollo/react-hooks"
+
+const id = "5dfacf7d106b6402ac9d3375"
 
 const App = () => {
-  const [ user, setUser ] = useState()
-  const { loading, error, data } = useQuery(GET_USER)
-  const [ updateNowPlaying ] = useMutation(UPDATE_NOW_PLAYING)
-  const handleNowPlaying = id => async () => {
-    const newSong = await updateNowPlaying(id)
-    setUser(newSong)
-  }
-  if (loading) {
+  const options = { variables: { id } }
+  const { data, loading: subLoading, error } = useSubscription(USER_SUBSCRIBE, options)
+  const [ updateNowPlaying, { loading: nowPlayingLoading } ] = useMutation(UPDATE_NOW_PLAYING)
+  if (subLoading) {
     return <Loading/>
   } else if (!isUndefined(error)) {
     return <ApiError/>
   } else {
-    setUser(data.user)
-    const userCtxInit = { user, setUser: handleNowPlaying }
+    const { user } = data
+    const { id: userId } = user
+    const handleNowPlaying = songId => updateNowPlaying({ variables: { userId, songId } })
+    const userCtxInit = { user, handleNowPlaying, nowPlayingLoading }
     return (
       <UserCtx.Provider value={userCtxInit}>
-        <Header loading={loading} />
+        <Header/>
         <Pages/>
         <Player/>
       </UserCtx.Provider>

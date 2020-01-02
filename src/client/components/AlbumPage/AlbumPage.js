@@ -38,12 +38,14 @@ const AlbumPage = () => {
           imgClassName={bem("img")}
         />
         <div className={bem("main")}>
-          <div className={bem("title")}>{title}</div>
+          <div className={bem("title")}>
+            {title}
+          </div>
           <div className={bem("artists")}>
             <DocLinks
               path="/artist"
               docs={artists}
-              ampersand={true}
+              ampersand={false}
             />
           </div>
           <SongsTable

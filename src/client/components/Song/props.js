@@ -1,6 +1,7 @@
-import { shape, string, number, arrayOf, object } from "prop-types"
+import { bool, shape, string, number, arrayOf, object } from "prop-types"
 
 export const propTypes = {
+  loading: bool,
   className: string,
   song: shape({
     id: string.isRequired,
@@ -18,5 +19,6 @@ export const propTypes = {
 }
 
 export const defaultProps = {
+  loading: false,
   className: undefined,
 }

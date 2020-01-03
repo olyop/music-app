@@ -18,6 +18,10 @@ import "./AlbumPage.scss"
 
 const bem = reactBem("AlbumPage")
 
+const serilaizeAlbumSongs = ({ songs, artists, ...albumBasic }) => (
+  songs.map(song => ({ ...song, album: albumBasic }))
+)
+
 const AlbumPage = () => {
   const { id } = useParams()
   const queryOptions = { variables: { id } }
@@ -27,8 +31,13 @@ const AlbumPage = () => {
   } else if (!isUndefined(error)) {
     return <ApiError/>
   } else {
-    const { title, artists, songs } = data.album
-    const songsOrdered = orderBy(songs,["discNumber","trackNumber"],["asc","asc"])
+    const { album } = data
+    const { title, artists } = album
+    const songsOrdered = orderBy(
+      serilaizeAlbumSongs(album),
+      ["discNumber","trackNumber"],
+      ["asc","asc"]
+    )
     const columnsIgnore = ["cover","album","released"]
     return (
       <div className={bem("")}>

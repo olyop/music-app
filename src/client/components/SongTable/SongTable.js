@@ -20,8 +20,8 @@ const bem = reactBem("SongTable")
 const SongTable = ({ song, className, columnsToIgnore }) => {
   const { handleNowPlaying } = useContext(UserCtx)
   const showColumn = name => !includes(columnsToIgnore, name)
-  const { id, title, trackNumber, mix, duration, featuring, remixers, artists, genres, album } = song
-  const handlePlayClick = () => handleNowPlaying(id)
+  const { title, trackNumber, mix, duration, featuring, remixers, artists, genres, album } = song
+  const handlePlayClick = () => handleNowPlaying(song)
   return (
     <tr className={bem({ ignore: true, className },"")}>
 

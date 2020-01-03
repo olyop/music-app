@@ -11,7 +11,7 @@ import "./Player.scss"
 const bem = reactBem("Player")
 
 const Player = () => {
-  const { user, nowPlayingLoading } = useContext(UserCtx)
+  const { user } = useContext(UserCtx)
   return (
     <div className={bem("")}>
       <div className={bem("left")}>
@@ -31,7 +31,6 @@ const Player = () => {
       <Song
         song={user.nowPlaying}
         className={bem("right")}
-        loading={nowPlayingLoading}
       />
     </div>
   )

@@ -94,10 +94,6 @@ const typeDefs = gql`
     nowPlaying: Song!
     artists: [Artist!]!
   }
-
-  type Subscription {
-    user(id: ID!): User!
-  }
   
 `
 

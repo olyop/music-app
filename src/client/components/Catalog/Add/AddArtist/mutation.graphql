@@ -1,5 +1,6 @@
 mutation addArtist($name: String!) {
   addArtist(name: $name) {
     id
+    name
   }
 }

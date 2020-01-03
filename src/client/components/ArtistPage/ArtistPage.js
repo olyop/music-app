@@ -8,10 +8,10 @@ import SongsTable from "../SongsTable"
 
 import reactBem from "@oly_op/react-bem"
 import { useParams } from "react-router-dom"
+import { isUndefined, orderBy } from "lodash"
 import ARTIST_PAGE from "./artistPage.graphql"
 import { useQuery } from "@apollo/react-hooks"
 import { catalogUrl } from "../../helpers/misc"
-import { isUndefined, orderBy, uniqBy } from "lodash"
 
 import "./ArtistPage.scss"
 
@@ -27,9 +27,8 @@ const ArtistPage = () => {
     return <ApiError/>
   } else {
     const { name, songs } = data.artist
-    const songsNoDup = uniqBy(songs, "id")
-    const columnsIgnore = ["cover","released","trackNumber"]
-    const songsOrdered = orderBy(songsNoDup,["discNumber","trackNumber"],["asc","asc"])
+    const songsOrdered = orderBy(songs,["discNumber","trackNumber"],["asc","asc"])
+    const columnsToIgnore = ["play","released","trackNumber"]
     return (
       <div className={bem("")}>
         <Img
@@ -38,10 +37,15 @@ const ArtistPage = () => {
           imgClassName={bem("img")}
         />
         <div className={bem("main")}>
-          <div className={bem("title")}>{name}</div>
+          <div className={bem("title")}>
+            {name}
+          </div>
+          <div className={bem("length")}>
+            {`${songs.length} song${songs.length === 1 ? "" : "s"}`}
+          </div>
           <SongsTable
             className={bem("songs")}
-            columnsToIgnore={columnsIgnore}
+            columnsToIgnore={columnsToIgnore}
             children={(
               <Fragment>
                 {songsOrdered.map(
@@ -50,7 +54,7 @@ const ArtistPage = () => {
                       song={song}
                       key={song.id}
                       className={bem("song")}
-                      columnsToIgnore={columnsIgnore}
+                      columnsToIgnore={columnsToIgnore}
                     />
                   )
                 )}

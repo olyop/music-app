@@ -10,10 +10,10 @@ export default {
     async ({ parent }) => {
       const { id } = parent
       const filter = { artists: id }
-      const query = Album.find(filter)
-      const collection = await query.lean().exec()
+      const query = Album.find(filter).lean()
+      const collection = await query.exec()
       return serializeCollection(collection)
-    }
+    },
   ),
   songs: resolver(
     async ({ parent }) => {
@@ -28,6 +28,6 @@ export default {
         removeDup,
         orderBy("title","asc"),
       )
-    }
+    },
   ),
 }

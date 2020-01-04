@@ -1,14 +1,16 @@
-import React, { Fragment } from "react"
+import React from "react"
 
 import Img from "../Img"
+import Album from "../Album"
+import Albums from "../Albums"
 import Loading from "../Loading"
 import ApiError from "../ApiError"
 import SongTable from "../SongTable"
 import SongsTable from "../SongsTable"
 
+import { isUndefined } from "lodash"
 import reactBem from "@oly_op/react-bem"
 import { useParams } from "react-router-dom"
-import { isUndefined, orderBy } from "lodash"
 import ARTIST_PAGE from "./artistPage.graphql"
 import { useQuery } from "@apollo/react-hooks"
 import { catalogUrl } from "../../helpers/misc"
@@ -26,8 +28,7 @@ const ArtistPage = () => {
   } else if (!isUndefined(error)) {
     return <ApiError/>
   } else {
-    const { name, songs } = data.artist
-    const songsOrdered = orderBy(songs,["discNumber","trackNumber"],["asc","asc"])
+    const { name, songs, albums } = data.artist
     const columnsToIgnore = ["play","released","trackNumber"]
     return (
       <div className={bem("")}>
@@ -41,26 +42,32 @@ const ArtistPage = () => {
             {name}
           </div>
           <div className={bem("length")}>
-            {`${songs.length} song${songs.length === 1 ? "" : "s"}`}
+            {`${songs.length} songs`}
           </div>
-          <SongsTable
-            className={bem("songs")}
-            columnsToIgnore={columnsToIgnore}
-            children={(
-              <Fragment>
-                {songsOrdered.map(
-                  song => (
-                    <SongTable
-                      song={song}
-                      key={song.id}
-                      className={bem("song")}
-                      columnsToIgnore={columnsToIgnore}
-                    />
-                  )
-                )}
-              </Fragment>
+          {songs.length === 0 ? null : (
+            <SongsTable className={bem("songs")} columnsToIgnore={columnsToIgnore}>
+              {songs.map(
+                song => (
+                  <SongTable
+                    song={song}
+                    key={song.id}
+                    className={bem("song")}
+                    columnsToIgnore={columnsToIgnore}
+                  />
+                )
+              )}
+            </SongsTable>
+          )}
+          <Albums className={bem("albums")}>
+            {albums.map(
+              album => (
+                <Album
+                  album={album}
+                  key={album.id}
+                />
+              )
             )}
-          />
+          </Albums>
         </div>
       </div>
     )

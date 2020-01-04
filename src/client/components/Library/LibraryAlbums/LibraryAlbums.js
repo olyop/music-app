@@ -1,27 +1,31 @@
-import React from "react"
+import React, { useContext } from "react"
 
 import Empty from "../../Empty"
 import Album from "../../Album"
 import Albums from "../../Albums"
-import Loading from "../../Loading"
 import ApiError from "../../ApiError"
+import UserCtx from "../../../ctx/user"
 import { useQuery } from "@apollo/react-hooks"
 
-import query from "./query.graphql"
 import { isUndefined, isEmpty } from "lodash"
+import GET_USER_ALBUMS from "./getUserAlbums.graphql"
 
 const LibraryAlbums = () => {
-  const { loading, error, data } = useQuery(query)
+  const { user } = useContext(UserCtx)
+  const { id } = user
+  const queryOptions = { variables: { id } }
+  const { loading, error, data } = useQuery(GET_USER_ALBUMS, queryOptions)
   if (loading) {
-    return <Loading/>
+    return "Loading..."
   } else if (!isUndefined(error)) {
     return <ApiError/>
-  } else if (isEmpty(data.albums)) {
+  } else if (isEmpty(data.user.albums)) {
     return <Empty/>
   } else {
+    const { albums } = data.user
     return (
       <Albums>
-        {data.albums.map(
+        {albums.map(
           album => (
             <Album
               album={album}

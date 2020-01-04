@@ -26,7 +26,7 @@ export default {
         flatten,
         serializeCollection,
         removeDup,
-        orderBy("title","asc"),
+        orderBy(["discNumber","trackNumber"],["asc","asc"]),
       )
     },
   ),

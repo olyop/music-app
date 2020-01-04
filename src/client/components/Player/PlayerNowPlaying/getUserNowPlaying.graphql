@@ -1,7 +1,7 @@
-query artistPage($id: ID!) {
-  artist(id: $id) {
-    name
-    songs {
+query getUserNowPlaying($id: ID!) {
+  user(id: $id) {
+    id
+    nowPlaying {
       id
       title
       mix
@@ -25,14 +25,6 @@ query artistPage($id: ID!) {
       album {
         id
         title
-      }
-    }
-    albums {
-      id
-      title
-      artists {
-        id
-        name
       }
     }
   }

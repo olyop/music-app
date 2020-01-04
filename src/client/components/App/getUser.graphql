@@ -2,31 +2,5 @@ query  getUser($id: ID!) {
   user(id: $id) {
     id
     name
-    nowPlaying {
-      id
-      title
-      mix
-      duration
-      featuring {
-        id
-        name
-      }
-      remixers {
-        id
-        name
-      }
-      artists {
-        id
-        name
-      }
-      genres {
-        id
-        name
-      }
-      album {
-        id
-        title
-      }
-    }
   }
 }

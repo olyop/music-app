@@ -16,7 +16,8 @@ export default {
     async ({ parent }) => {
       const { artists } = parent
       const filter = { _id: { $in: artists } }
-      const query = Artist.find(filter)
+      const sortArgs = { name: "asc" }
+      const query = Artist.find(filter).sort(sortArgs)
       const collection = await query.lean().exec()
       return serializeCollection(collection)
     }
@@ -25,7 +26,8 @@ export default {
     async ({ parent }) => {
       const { albums } = parent
       const filter = { _id: { $in: albums } }
-      const query = Album.find(filter)
+      const sortArgs = { released: "desc" }
+      const query = Album.find(filter).sort(sortArgs)
       const collection = await query.lean().exec()
       return serializeCollection(collection)
     }
@@ -33,8 +35,9 @@ export default {
   genres: resolver(
     async ({ parent }) => {
       const { genres } = parent
+      const sortArgs = { name: "asc" }
       const filter = { _id: { $in: genres } }
-      const query = Genre.find(filter)
+      const query = Genre.find(filter).sort(sortArgs)
       const collection = await query.lean().exec()
       return serializeCollection(collection)
     }
@@ -42,8 +45,9 @@ export default {
   songs: resolver(
     async ({ parent }) => {
       const { songs } = parent
+      const sortArgs = { title: "asc" }
       const filter = { _id: { $in: songs } }
-      const query = Song.find(filter)
+      const query = Song.find(filter).sort(sortArgs)
       const collection = await query.lean().exec()
       return serializeCollection(collection)
     }

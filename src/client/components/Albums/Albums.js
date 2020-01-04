@@ -7,8 +7,8 @@ import "./Albums.scss"
 
 const bem = reactBem("Albums")
 
-const Albums = ({ children }) => (
-  <div className={bem("")}>
+const Albums = ({ children, className }) => (
+  <div className={bem({ ignore: true, className }, "")}>
     {children}
   </div>
 )

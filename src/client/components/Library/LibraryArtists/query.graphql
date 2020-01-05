@@ -1,6 +1,0 @@
-query libraryArtists {
-  artists {
-    id
-    name
-  }
-}

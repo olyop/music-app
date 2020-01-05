@@ -16,7 +16,7 @@ const id = "5dfacf7d106b6402ac9d3375"
 
 const App = () => {
   const userQueryOptions = { variables: { id } }
-  const [ updateNowPlaying ] = useMutation(UPDATE_NOW_PLAYING)
+  const [ handleNowPlaying ] = useMutation(UPDATE_NOW_PLAYING)
   const { data, loading, error, client } = useQuery(GET_USER, userQueryOptions)
   if (loading) {
     return <Loading/>
@@ -25,20 +25,15 @@ const App = () => {
   } else {
     const { user } = data
     const { id: userId } = user
-    const handleNowPlaying = song => {
-      const { id: songId } = song
-      updateNowPlaying({ variables: { userId, songId } })
+    const updateNowPlaying = nowPlaying => {
+      const { id: songId } = nowPlaying
+      handleNowPlaying({ variables: { userId, songId } })
       client.writeQuery({
         query: GET_USER,
-        data: {
-          user: {
-            ...user,
-            nowPlaying: song,
-          },
-        },
+        data: { user: { ...user, nowPlaying } },
       })
     }
-    const userCtxInit = { user, handleNowPlaying }
+    const userCtxInit = { user, updateNowPlaying }
     return (
       <UserCtx.Provider value={userCtxInit}>
         <Header/>

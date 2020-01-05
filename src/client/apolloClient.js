@@ -4,7 +4,9 @@ import { InMemoryCache } from "apollo-cache-inmemory"
 
 import { API_URL } from "./globals"
 
-const cache = new InMemoryCache()
+const cache = new InMemoryCache({
+  dataIdFromObject: ({ id }) => id,
+})
 
 const link = new HttpLink({
   uri: API_URL,

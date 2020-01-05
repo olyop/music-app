@@ -18,10 +18,10 @@ import "./SongTable.scss"
 const bem = reactBem("SongTable")
 
 const SongTable = ({ song, className, columnsToIgnore }) => {
-  const { handleNowPlaying } = useContext(UserCtx)
+  const { updateNowPlaying } = useContext(UserCtx)
   const showColumn = name => !includes(columnsToIgnore, name)
   const { title, trackNumber, mix, duration, featuring, remixers, artists, genres, album } = song
-  const handlePlayClick = () => handleNowPlaying(song)
+  const handlePlayClick = () => updateNowPlaying(song)
   return (
     <tr className={bem({ ignore: true, className },"")}>
 

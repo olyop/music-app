@@ -1,6 +1,9 @@
-query  getUser($id: ID!) {
+query getUser($id: ID!) {
   user(id: $id) {
     id
     name
+    nowPlaying {
+      id
+    }
   }
 }

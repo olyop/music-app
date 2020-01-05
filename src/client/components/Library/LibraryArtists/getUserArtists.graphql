@@ -1,0 +1,9 @@
+query getUserArtists($id: ID!) {
+  user(id: $id) {
+    id
+    artists {
+      id
+      name
+    }
+  }
+}

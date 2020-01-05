@@ -1,27 +1,31 @@
-import React from "react"
+import React, { useContext } from "react"
 
 import Genre from "../../Genre"
 import Empty from "../../Empty"
 import Genres from "../../Genres"
-import Loading from "../../Loading"
 import ApiError from "../../ApiError"
+import UserCtx from "../../../ctx/user"
 import { useQuery } from "@apollo/react-hooks"
 
-import query from "./query.graphql"
 import { isUndefined, isEmpty } from "lodash"
+import GET_USER_GENRES from "./getUserGenres.graphql"
 
 const LibraryGenres = () => {
-  const { loading, error, data } = useQuery(query)
+  const { user } = useContext(UserCtx)
+  const { id } = user
+  const queryOptions = { variables: { id } }
+  const { loading, error, data } = useQuery(GET_USER_GENRES, queryOptions)
   if (loading) {
-    return <Loading/>
+    return "Loading..."
   } else if (!isUndefined(error)) {
     return <ApiError/>
-  } else if (isEmpty(data.genres)) {
+  } else if (isEmpty(data.user.genres)) {
     return <Empty/>
   } else {
+    const { genres } = data.user
     return (
       <Genres>
-        {data.genres.map(
+        {genres.map(
           genre => (
             <Genre
               genre={genre}

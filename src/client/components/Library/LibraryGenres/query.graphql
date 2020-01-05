@@ -1,6 +1,0 @@
-query libraryGenres {
-  genres {
-    id
-    name
-  }
-}

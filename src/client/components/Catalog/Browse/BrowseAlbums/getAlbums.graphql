@@ -1,0 +1,10 @@
+query getAlbums {
+  albums {
+      id
+      title
+      artists {
+        id
+        name
+      }
+    }
+}

@@ -1,13 +1,20 @@
 import Add from "./Add"
+import Browse from "./Browse"
 
 import { uniqueId } from "lodash"
 
 const routes = [
   {
-    id: uniqueId(),
     path: "/add",
-    name: "Add To Catalog",
+    id: uniqueId(),
     component: Add,
+    name: "Add To Catalog",
+  },
+  {
+    id: uniqueId(),
+    name: "Browse",
+    path: "/browse",
+    component: Browse,
   },
 ]
 

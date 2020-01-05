@@ -12,6 +12,7 @@ export default {
   ),
   addAlbum: resolver(
     async ({ args }) => {
+      args.released = args.released / 86400
       const album = await Album.create(args)
       return serializeDocument(album.toObject())
     }

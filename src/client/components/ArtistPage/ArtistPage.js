@@ -29,7 +29,7 @@ const ArtistPage = () => {
     return <ApiError/>
   } else {
     const { name, songs, albums } = data.artist
-    const columnsToIgnore = ["play","released","trackNumber"]
+    const columnsToIgnore = ["cover","released","trackNumber"]
     return (
       <div className={bem("")}>
         <Img

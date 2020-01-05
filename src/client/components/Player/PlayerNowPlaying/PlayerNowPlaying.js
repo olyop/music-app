@@ -1,7 +1,6 @@
 import React, { useContext } from "react"
 
 import Song from "../../Song"
-import Spinner from "../../Spinner"
 import ApiError from "../../ApiError"
 import UserCtx from "../../../ctx/user"
 
@@ -16,7 +15,7 @@ const PlayerNowPlaying = () => {
   const queryOptions = { variables: { id } }
   const { loading, error, data, client } = useQuery(GET_USER, queryOptions)
   if (loading) {
-    return <Spinner/>
+    return "Loading..."
   } else if (!isUndefined(error)) {
     return <ApiError/>
   } else {

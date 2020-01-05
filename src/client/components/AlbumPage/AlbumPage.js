@@ -54,7 +54,7 @@ const AlbumPage = () => {
             <DocLinks
               path="/artist"
               docs={artists}
-              ampersand={false}
+              ampersand={true}
             />
           </div>
           <SongsTable

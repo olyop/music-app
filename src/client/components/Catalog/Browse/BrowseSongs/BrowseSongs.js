@@ -1,4 +1,4 @@
-import React, { useContext } from "react"
+import React from "react"
 
 import Empty from "../../Empty"
 import Spinner from "../../Spinner"
@@ -6,27 +6,23 @@ import ApiError from "../../ApiError"
 import SongTable from "../../SongTable"
 import SongsTable from "../../SongsTable"
 
+import GET_SONGS from "./getSongs.graphql"
 import { isUndefined, isEmpty } from "lodash"
 import { useQuery } from "@apollo/react-hooks"
-import GET_USER_SONGS from "./getUserSongs.graphql"
 
-const LibrarySongs = () => {
-  const { user } = useContext(UserCtx)
-  const { id } = user
-  const queryOptions = { variables: { id } }
-  const { loading, error, data } = useQuery(GET_USER_SONGS, queryOptions)
+const BrowseSongs = () => {
+  const { loading, error, data } = useQuery(GET_SONGS)
   if (loading) {
     return <Spinner/>
   } else if (!isUndefined(error)) {
     return <ApiError/>
-  } else if (isEmpty(data.user.songs)) {
+  } else if (isEmpty(data.songs)) {
     return <Empty/>
   } else {
-    const { songs } = data.user
     const columnsToIgnore = ["play","trackNumber"]
     return (
       <SongsTable columnsToIgnore={columnsToIgnore}>
-        {songs.map(
+        {data.songs.map(
           song => (
             <SongTable
               song={song}
@@ -40,4 +36,4 @@ const LibrarySongs = () => {
   }
 }
 
-export default LibrarySongs
+export default BrowseSongs

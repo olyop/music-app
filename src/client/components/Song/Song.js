@@ -15,13 +15,12 @@ import "./Song.scss"
 
 const bem = reactBem("Song")
 
-const Song = ({ song, loading, className }) => {
+const Song = ({ song, className }) => {
   const { title, mix, duration, artists, featuring, remixers, album } = song
-  if (loading) return null
   return (
     <div className={bem({ ignore: true, className },"")}>
       <Link to={`/album/${album.id}`}>
-        <Img 
+        <Img
           className={bem("cover")}
           url={catalogUrl(album.id)}
           imgClassName={bem("cover-img")}

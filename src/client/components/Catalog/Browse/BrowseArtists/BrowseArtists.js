@@ -1,29 +1,25 @@
-import React, { useContext } from "react"
+import React from "react"
 
 import Empty from "../../Empty"
 import Artist from "../../Artist"
 import Artists from "../../Artists"
 import Spinner from "../../Spinner"
 import ApiError from "../../ApiError"
-import UserCtx from "../../../ctx/user"
 import { useQuery } from "@apollo/react-hooks"
 
 import { isUndefined, isEmpty } from "lodash"
-import GET_USER_ARTISTS from "./getUserArtists.graphql"
+import GET_ARTISTS from "./getArtists.graphql"
 
-const LibraryArtists = () => {
-  const { user } = useContext(UserCtx)
-  const { id } = user
-  const queryOptions = { variables: { id } }
-  const { loading, error, data } = useQuery(GET_USER_ARTISTS, queryOptions)
+const BrowseArtists = () => {
+  const { loading, error, data } = useQuery(GET_ARTISTS)
   if (loading) {
     return <Spinner/>
   } else if (!isUndefined(error)) {
     return <ApiError/>
-  } else if (isEmpty(data.user.artists)) {
+  } else if (isEmpty(data.artists)) {
     return <Empty/>
   } else {
-    const { artists } = data.user
+    const { artists } = data
     return (
       <Artists>
         {artists.map(
@@ -39,4 +35,4 @@ const LibraryArtists = () => {
   }
 }
 
-export default LibraryArtists
+export default BrowseArtists

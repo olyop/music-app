@@ -9,6 +9,7 @@ import routesPages from "../Pages/routes"
 import routesCatalog from "../Catalog/routes"
 import routesLibrary from "../Library/routes"
 import routesCatalogAdd from "../Catalog/Add/routes"
+import routesCatalogBrowse from "../Catalog/Browse/routes"
 
 import "./Sidebar.scss"
 
@@ -36,15 +37,29 @@ const Sidebar = ({ toggle }) => (
                           children={`- ${subRoute.name}`}
                           to={route.path + subRoute.path}
                         />
-                        {routesCatalogAdd.map(
-                          subSubRoute => (
-                            <div key={subSubRoute.id} className={bem("subSubRoute")}>
-                              <NavLink
-                                className={bem("subSubLink")}
-                                children={`- ${subSubRoute.name}`}
-                                to={route.path + subRoute.path + subSubRoute.path}
-                              />
-                            </div>
+                        {subRoute.name === "Add To Catalog" ? (
+                          routesCatalogAdd.map(
+                            subSubRoute => (
+                              <div key={subSubRoute.id} className={bem("subSubRoute")}>
+                                <NavLink
+                                  className={bem("subSubLink")}
+                                  children={`- ${subSubRoute.name}`}
+                                  to={route.path + subRoute.path + subSubRoute.path}
+                                />
+                              </div>
+                            )
+                          )
+                        ) : (
+                          routesCatalogBrowse.map(
+                            subSubRoute => (
+                              <div key={subSubRoute.id} className={bem("subSubRoute")}>
+                                <NavLink
+                                  className={bem("subSubLink")}
+                                  children={`- ${subSubRoute.name}`}
+                                  to={route.path + subRoute.path + subSubRoute.path}
+                                />
+                              </div>
+                            )
                           )
                         )}
                       </div>

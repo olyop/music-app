@@ -1,10 +1,10 @@
 import React from "react"
 
-import Genre from "../../Genre"
-import Empty from "../../Empty"
-import Genres from "../../Genres"
-import Spinner from "../../Spinner"
-import ApiError from "../../ApiError"
+import Genre from "../../../Genre"
+import Empty from "../../../Empty"
+import Genres from "../../../Genres"
+import Spinner from "../../../Spinner"
+import ApiError from "../../../ApiError"
 import { useQuery } from "@apollo/react-hooks"
 
 import GET_GENRES from "./getGenres.graphql"

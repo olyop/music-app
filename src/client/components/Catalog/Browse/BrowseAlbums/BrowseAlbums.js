@@ -1,10 +1,10 @@
 import React from "react"
 
-import Empty from "../../Empty"
-import Album from "../../Album"
-import Albums from "../../Albums"
-import Spinner from "../../Spinner"
-import ApiError from "../../ApiError"
+import Empty from "../../../Empty"
+import Album from "../../../Album"
+import Albums from "../../../Albums"
+import Spinner from "../../../Spinner"
+import ApiError from "../../../ApiError"
 import { useQuery } from "@apollo/react-hooks"
 
 import GET_ALBUMS from "./getAlbums.graphql"

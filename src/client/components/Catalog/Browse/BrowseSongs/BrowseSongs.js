@@ -1,10 +1,10 @@
 import React from "react"
 
-import Empty from "../../Empty"
-import Spinner from "../../Spinner"
-import ApiError from "../../ApiError"
-import SongTable from "../../SongTable"
-import SongsTable from "../../SongsTable"
+import Empty from "../../../Empty"
+import Spinner from "../../../Spinner"
+import ApiError from "../../../ApiError"
+import SongTable from "../../../SongTable"
+import SongsTable from "../../../SongsTable"
 
 import GET_SONGS from "./getSongs.graphql"
 import { isUndefined, isEmpty } from "lodash"

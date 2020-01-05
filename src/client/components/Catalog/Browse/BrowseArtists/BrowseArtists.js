@@ -1,10 +1,10 @@
 import React from "react"
 
-import Empty from "../../Empty"
-import Artist from "../../Artist"
-import Artists from "../../Artists"
-import Spinner from "../../Spinner"
-import ApiError from "../../ApiError"
+import Empty from "../../../Empty"
+import Artist from "../../../Artist"
+import Artists from "../../../Artists"
+import Spinner from "../../../Spinner"
+import ApiError from "../../../ApiError"
 import { useQuery } from "@apollo/react-hooks"
 
 import { isUndefined, isEmpty } from "lodash"

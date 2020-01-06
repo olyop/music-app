@@ -1,18 +1,19 @@
 import React, { Fragment } from "react"
 
-import Img from "../Img"
+import Cover from "../Cover"
 import Loading from "../Loading"
 import ApiError from "../ApiError"
 import DocLinks from "../DocLinks"
 import SongTable from "../SongTable"
 import SongsTable from "../SongsTable"
 
+import { isUndefined } from "lodash"
 import reactBem from "@oly_op/react-bem"
 import ALBUM_PAGE from "./albumPage.graphql"
 import { useParams } from "react-router-dom"
-import { isUndefined, orderBy } from "lodash"
 import { useQuery } from "@apollo/react-hooks"
 import { catalogUrl } from "../../helpers/misc"
+import deserializeDate from "../../helpers/deserializeDate"
 
 import "./AlbumPage.scss"
 
@@ -32,41 +33,37 @@ const AlbumPage = () => {
     return <ApiError/>
   } else {
     const { album } = data
-    const { title, artists } = album
-    const songsOrdered = orderBy(
-      serilaizeAlbumSongs(album),
-      ["discNumber","trackNumber"],
-      ["asc","asc"]
-    )
+    const { title, released, artists } = album
+    const songs = serilaizeAlbumSongs(album)
     const columnsIgnore = ["cover","album","released"]
     return (
       <div className={bem("")}>
-        <Img
+        <Cover
           url={catalogUrl(id)}
           className={bem("cover")}
-          imgClassName={bem("img")}
         />
         <div className={bem("main")}>
-          <div className={bem("title")}>
-            {title}
-          </div>
+          <div className={bem("title")}>{title}</div>
           <div className={bem("artists")}>
             <DocLinks
               path="/artist"
               docs={artists}
               ampersand={true}
             />
+            <Fragment> - </Fragment>
+            {deserializeDate(released)}
           </div>
           <SongsTable
             className={bem("songs")}
             columnsToIgnore={columnsIgnore}
             children={(
               <Fragment>
-                {songsOrdered.map(
+                {songs.map(
                   song => (
                     <SongTable
                       song={song}
                       key={song.id}
+                      inLibrary={false}
                       className={bem("song")}
                       columnsToIgnore={columnsIgnore}
                     />

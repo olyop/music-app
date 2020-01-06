@@ -1,7 +1,8 @@
-import { shape, string, number, object, arrayOf } from "prop-types"
+import { string, bool, shape, number, object, arrayOf } from "prop-types"
 
 export const propTypes = {
   className: string,
+  inLibrary: bool.isRequired,
   columnsToIgnore: arrayOf(string),
   song: shape({
     id: string.isRequired,

@@ -1,10 +1,11 @@
-import React, { useContext, Fragment } from "react"
+import React, { useContext } from "react"
 
 import Img from "../Img"
 import Icon from "../Icon"
 import DocLink from "../DocLink"
 import DocLinks from "../DocLinks"
 import UserCtx from "../../ctx/user"
+import SongTitle from "../SongTitle"
 
 import reactBem from "@oly_op/react-bem"
 import { isEmpty, includes } from "lodash"
@@ -17,7 +18,7 @@ import "./SongTable.scss"
 
 const bem = reactBem("SongTable")
 
-const SongTable = ({ song, className, columnsToIgnore }) => {
+const SongTable = ({ song, inLibrary, className, columnsToIgnore }) => {
   const { updateNowPlaying } = useContext(UserCtx)
   const showColumn = name => !includes(columnsToIgnore, name)
   const { title, trackNumber, mix, duration, featuring, remixers, artists, genres, album } = song
@@ -60,21 +61,11 @@ const SongTable = ({ song, className, columnsToIgnore }) => {
       {showColumn("title") ? (
         <td className={bem("title","col")}>
           <div className={bem("col-span")}>
-            {title}
-            {isEmpty(featuring) ? null : (
-              <Fragment>
-                <Fragment> (feat. </Fragment>
-                <DocLinks
-                  path="/artist"
-                  docs={featuring}
-                  ampersand={true}
-                />
-                <Fragment>)</Fragment>
-              </Fragment>
-            )}
-            <span className={bem("col-span-mix")}>
-              {isEmpty(mix) ? "" : ` - ${mix} Mix`}
-            </span>
+            <SongTitle
+              mix={mix}
+              title={title}
+              featuring={featuring}
+            />
           </div>
           <div className={bem("artists-under","col-span")}>
             <DocLinks
@@ -83,6 +74,15 @@ const SongTable = ({ song, className, columnsToIgnore }) => {
               ampersand={false}
             />
           </div>
+        </td>
+      ) : null}
+
+      {showColumn("add") ? (
+        <td className={bem("add","col")}>
+          <Icon
+            icon={inLibrary ? "done" : "add"}
+            className={bem("col-add-button")}
+          />
         </td>
       ) : null}
 

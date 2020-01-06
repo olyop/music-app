@@ -38,6 +38,7 @@ const GenrePage = () => {
                   <SongTable
                     song={song}
                     key={song.id}
+                    inLibrary={false}
                     columnsToIgnore={columnsIgnore}
                   />
                 )

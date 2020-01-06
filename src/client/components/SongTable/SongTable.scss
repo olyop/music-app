@@ -41,6 +41,7 @@
         box-shadow: 3px 6px 10px 0 rgba(#333333, .4); }
       &:active {
         animation: play .3s ease-out; } }
+    &-add-button,
     &-play-button {
       outline: none;
       color: #9E9E9E;
@@ -60,19 +61,19 @@
       @media (min-width: 700px) {
         & { font-size: 15rem;
             line-height: 15rem; } }
-      &-mix {
-        font-weight: 400;
-        color: #757575; }
       &-featuring {
         display: none;
         @media (min-width: 700px) {
           & { display: inline; } } } } }
+  &__add,
   &__cover {
     width: 35px;
     display: none;
     padding: 5px 0 5px 5px;
     @media (min-width: 700px) {
       & { display: table-cell; } } }
+  &__add {
+    padding-left: 0; }
   &__track {
     width: 27px;
     text-align: right;

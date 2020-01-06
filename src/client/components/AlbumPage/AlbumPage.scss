@@ -4,13 +4,10 @@
   overflow: auto;
   &__cover {
     width: 360px;
-    height: 360px;
+    height: 360px; 
     display: block;
     margin-bottom: 20px;
-    box-shadow: 0 1px 4px 0 rgba(#333333, .3);
-    &__img {
-      width: 200px;
-      height: 200px; } }
+    box-shadow: 0 1px 4px 0 rgba(#333333, .3); }
   &__main {
     width: 100%; }
     &__title {

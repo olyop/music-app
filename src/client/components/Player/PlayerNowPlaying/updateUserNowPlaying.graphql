@@ -1,0 +1,3 @@
+fragment updateUserNowPlaying on User {
+  nowPlaying
+}

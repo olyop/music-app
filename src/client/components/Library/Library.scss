@@ -12,11 +12,9 @@
     box-shadow: 0 2px 4px rgba(0,0,0, 0.1); }
     &__links {
       display: flex;
-      justify-content: space-between;
-      @media (min-width: 600px) {
-        & { justify-content: flex-start; } } }
+      justify-content: flex-start; }
       &__link {
-        width: 25%;
+        width: auto;
         display: flex;
         padding: 21px 0;
         position: relative;
@@ -26,9 +24,7 @@
         &:hover {
           background-color: #EEEEEE; }
         &:last-child {
-          margin-right: 0; }
-        @media (min-width: 600px) {
-          & {  width: auto; } } }
+          margin-right: 0; } }
         &__icon {
           outline: none;
           font-size: 18rem;
@@ -37,13 +33,11 @@
           padding-left: 15px; }
         &__text {
           display: block;
-          font-size: 16rem;
+          font-size: 18rem;
           font-weight: 700;
           padding-right: 15px;
           text-decoration: none; 
-          text-transform: uppercase; 
-          @media (min-width: 600px) {
-            & { font-size: 18rem; } } }
+          text-transform: uppercase; }
         &__active {
           &:after {
             bottom: 0;
@@ -55,75 +49,8 @@
             background-color: #333333; } }
   &__main {
     z-index: 2;
-    padding: 0;
     width: 100%;
+    padding: 20px;
     overflow: auto;
     box-shadow: none;
-    @media (min-width: 700px) {
-      & { padding: 20px; } }
-    height: calc(100vh - #{$HEADER_HEIGHT} - #{$HEADER_HEIGHT} - #{$PLAYER_HEIGHT}); }
-    &__grid-cover {
-      border-radius: none;
-      &:hover &-img {
-        filter: blur(10px); }
-      &:hover &-black-box {
-        background-color: rgba(#000000, .8); }
-      &:hover &-button {
-        display: flex; }
-      @media (min-width: 600px) {
-        & {
-          border-radius: $BORDER_RADIUS;
-          box-shadow:
-            0 3px 6px rgba(#000000, .16),
-            0 3px 6px rgba(#000000, .23); } }
-      &-img {
-        border-radius: none;
-        @media (min-width: 600px) {
-          & { border-radius: $BORDER_RADIUS; } } }
-      &-black-box {
-        top: 0;
-        right: 0;
-        bottom: 0;
-        width: 100%;
-        height: 100%;
-        cursor: pointer;
-        position: absolute;
-        background-color: transparent; }
-      &-button {
-        z-index: 2;
-        width: 50%;
-        height: 50%;
-        border: none;
-        display: none;
-        outline: none;
-        position: absolute;
-        align-items: center;
-        flex-direction: column;
-        justify-content: center;
-        background-color: transparent;
-        transform: translate(-50%, -50%);
-        transition: .5s background-color;
-        &:hover {
-          background-color: rgba(#FFFFFF, .2); }
-        &:active {
-          background-color: rgba(#FFFFFF, .4); }
-        &-icon {
-          outline: none;
-          color: #ffffff;
-          font-size: 35rem; }
-        &-top-left {
-          top: 25%;
-          left: 25%;
-          border-top-left-radius: $BORDER_RADIUS; }
-        &-top-right {
-          top: 25%;
-          left: 75%;
-          border-top-right-radius: $BORDER_RADIUS; }
-        &-bottom-left {
-          top: 75%;
-          left: 25%;
-          border-bottom-left-radius: $BORDER_RADIUS; }
-        &-bottom-right {
-          top: 75%;
-          left: 75%;
-          border-bottom-right-radius: $BORDER_RADIUS; } } } }
+    height: calc(100vh - #{$HEADER_HEIGHT} - #{$HEADER_HEIGHT} - #{$PLAYER_HEIGHT}); } }

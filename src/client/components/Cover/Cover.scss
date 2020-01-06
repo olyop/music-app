@@ -1,0 +1,62 @@
+@import "../../globals/index.scss";
+
+.Cover {
+  border-radius: $BORDER_RADIUS;
+  box-shadow:
+    0 3px 6px rgba(#000000, .16),
+    0 3px 6px rgba(#000000, .23);
+  &:hover &__img {
+    filter: blur(10px); }
+  &:hover &__black-box {
+    background-color: rgba(#000000, .8); }
+  &:hover &__button {
+    display: flex; }
+  &__img {
+    border-radius: $BORDER_RADIUS; }
+  &__black-box {
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    position: absolute;
+    background-color: transparent; }
+  &__button {
+    z-index: 2;
+    width: 50%;
+    height: 50%;
+    border: none;
+    display: none;
+    outline: none;
+    position: absolute;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    background-color: transparent;
+    transform: translate(-50%, -50%);
+    transition: .5s background-color;
+    &:hover {
+      background-color: rgba(#ffffff, .2); }
+    &:active {
+      background-color: rgba(#ffffff, .4); }
+    &-icon {
+      outline: none;
+      color: #ffffff;
+      font-size: 35rem; }
+    &-top-left {
+      top: 25%;
+      left: 25%;
+      border-top-left-radius: $BORDER_RADIUS; }
+    &-top-right {
+      top: 25%;
+      left: 75%;
+      border-top-right-radius: $BORDER_RADIUS; }
+    &-bottom-left {
+      top: 75%;
+      left: 25%;
+      border-bottom-left-radius: $BORDER_RADIUS; }
+    &-bottom-right {
+      top: 75%;
+      left: 75%;
+      border-bottom-right-radius: $BORDER_RADIUS; } } }

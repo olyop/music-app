@@ -19,7 +19,7 @@ const BrowseSongs = () => {
   } else if (isEmpty(data.songs)) {
     return <Empty/>
   } else {
-    const columnsToIgnore = ["play","trackNumber"]
+    const columnsToIgnore = ["cover","play","trackNumber"]
     return (
       <SongsTable columnsToIgnore={columnsToIgnore}>
         {data.songs.map(
@@ -27,6 +27,7 @@ const BrowseSongs = () => {
             <SongTable
               song={song}
               key={song.id}
+              inLibrary={false}
               columnsToIgnore={columnsToIgnore}
             />
           )

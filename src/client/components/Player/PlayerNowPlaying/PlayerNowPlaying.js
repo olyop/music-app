@@ -7,7 +7,7 @@ import UserCtx from "../../../ctx/user"
 import { isUndefined } from "lodash"
 import GET_USER from "./getUser.graphql"
 import { useQuery } from "@apollo/react-hooks"
-import GET_USER_FRAG from "./getUserFrag.graphql"
+import UPDATE_USER_NOW_PLAYING from "./updateUserNowPlaying.graphql"
 
 const PlayerNowPlaying = () => {
   const { user } = useContext(UserCtx)
@@ -22,7 +22,7 @@ const PlayerNowPlaying = () => {
     const { nowPlaying } = data.user
     client.writeFragment({
       id,
-      fragment: GET_USER_FRAG,
+      fragment: UPDATE_USER_NOW_PLAYING,
       data: { nowPlaying, __typename: "User" },
     })
     return <Song song={nowPlaying} />

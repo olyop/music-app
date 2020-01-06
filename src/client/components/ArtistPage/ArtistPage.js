@@ -1,6 +1,6 @@
 import React from "react"
 
-import Img from "../Img"
+import Cover from "../Cover"
 import Album from "../Album"
 import Albums from "../Albums"
 import Loading from "../Loading"
@@ -32,7 +32,7 @@ const ArtistPage = () => {
     const columnsToIgnore = ["cover","released","trackNumber"]
     return (
       <div className={bem("")}>
-        <Img
+        <Cover
           url={catalogUrl(id)}
           className={bem("cover")}
           imgClassName={bem("img")}
@@ -51,6 +51,7 @@ const ArtistPage = () => {
                   <SongTable
                     song={song}
                     key={song.id}
+                    inLibrary={false}
                     className={bem("song")}
                     columnsToIgnore={columnsToIgnore}
                   />

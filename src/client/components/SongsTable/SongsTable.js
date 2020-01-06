@@ -43,7 +43,11 @@ const SongsTable = ({ className, children, columnsToIgnore }) => {
               className={bem("head-row-col")}
             />
           ) : null}
-  
+
+          {showColumn("add") ? (
+            <th className={bem("head-row-play","head-row-icon","head-row-col")}/>
+          ) : null}
+
           {showColumn("duration") ? (
             <th className={bem("head-row-duration","head-row-icon","head-row-col")}>
               <Icon

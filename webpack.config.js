@@ -1,5 +1,5 @@
 const path = require("path")
-const { noop } = require("lodash")
+const noop = require("lodash/noop.js")
 const { ProgressPlugin } = require("webpack")
 const CopyPlugin = require("copy-webpack-plugin")
 const HtmlWebpackPlugin = require("html-webpack-plugin")

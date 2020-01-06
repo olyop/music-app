@@ -9,14 +9,13 @@ import { isEmpty } from "lodash"
 import reactBem from "@oly_op/react-bem"
 import { catalogUrl } from "../../helpers/misc"
 import { propTypes, defaultProps } from "./props"
-import deserializeDuration from "../../helpers/deserializeDuration"
 
 import "./Song.scss"
 
 const bem = reactBem("Song")
 
 const Song = ({ song, className }) => {
-  const { title, mix, duration, artists, featuring, remixers, album } = song
+  const { title, mix, artists, featuring, remixers, album } = song
   return (
     <div className={bem({ ignore: true, className },"")}>
       <Link to={`/album/${album.id}`}>
@@ -26,13 +25,13 @@ const Song = ({ song, className }) => {
           imgClassName={bem("cover-img")}
         />
       </Link>
-      <div className={bem("info")}>
-        <div className={bem("info-title")}>
+      <div className={bem("text")}>
+        <div className={bem("text-title")}>
           {title}
           {isEmpty(remixers) ? (
             <Fragment>
               {isEmpty(mix) ? null : (
-                <span className={bem("info-mix")}>
+                <span className={bem("text-mix")}>
                   <Fragment> - </Fragment>
                   {mix}
                   <Fragment> Mix</Fragment>
@@ -40,7 +39,7 @@ const Song = ({ song, className }) => {
               )}
             </Fragment>
           ) : (
-            <span className={bem("info-mix")}>
+            <span className={bem("text-mix")}>
               <Fragment> - </Fragment>
               <DocLinks
                 path="/artist"
@@ -53,16 +52,11 @@ const Song = ({ song, className }) => {
             </span>
           )}
         </div>
-        <div className={bem("info-artists")}>
+        <div className={bem("text-artists")}>
           <FeaturingArtists
             artists={artists}
             featuring={featuring}
           />
-        </div>
-        <div className={bem("info-bar")}>
-          <div className={bem("info-time")}>0:00</div>
-          <div className={bem("info-progress")}/>
-          <div className={bem("info-duration")}>{deserializeDuration(duration)}</div>
         </div>
       </div>
     </div>

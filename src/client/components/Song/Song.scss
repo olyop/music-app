@@ -2,10 +2,12 @@
 
 .Song {
   width: 100%;
+  height: 100%;
   display: flex;
+  flex-direction: row;
   &__cover {
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
     border-radius: $BORDER_RADIUS;
     box-shadow:
       0 3px 6px rgba(#000000, .16),
@@ -16,42 +18,16 @@
         0 5px 8px rgba(#000000, .30); }
     &-img {
       border-radius: $BORDER_RADIUS; } }
-  &__info {
-    width: 100%;
-    display: flex;
-    margin-left: 10px;
-    flex-direction: column;
-    justify-content: center;
+  &__text {
+    margin-left: 8px;
     &-title {
-      font-size: 16rem;
+      font-size: 19rem;
       font-weight: 700;
-      line-height: 16rem;
-      margin-bottom: 4px; }
+      line-height: 19rem;
+      margin-bottom: 3px; }
       &-mix {
         color: #757575;
         font-weight: 400; }
     &-artists {
-      font-size: 16rem;
-      line-height: 16rem;
-      margin-bottom: 10px; }
-    &-bar {
-      width: 100%;
-      height: 4px;
-      display: flex;
-      align-items: center;
-      justify-content: center; }
-    &-time,
-    &-duration {
-      font-size: 14rem; }
-    &-time {
-      padding-right: 5px; }
-    &-duration {
-      padding-left: 5px; }
-    &-progress {
-      width: 100%;
-      height: 100%;
-      border-radius: 3px;
-      background-color: #333333;
-      box-shadow:
-        0 3px 6px rgba(#000000, .16),
-        0 3px 6px rgba(#000000, .23); } } }
+      font-size: 18rem;
+      line-height: 18rem; } } }

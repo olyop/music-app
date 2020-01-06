@@ -9,12 +9,11 @@ import { ROOT_ELEMENT } from "./globals"
 
 import "./index.scss"
 
-const Index = () => (
+render(
   <Apollo>
     <Router>
       <App/>
     </Router>
-  </Apollo>
+  </Apollo>,
+  ROOT_ELEMENT
 )
-
-render(<Index/>, ROOT_ELEMENT)

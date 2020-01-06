@@ -1,6 +1,7 @@
 import React, { useContext } from "react"
 
 import Song from "../../Song"
+import Spinner from "../../Spinner"
 import ApiError from "../../ApiError"
 import UserCtx from "../../../ctx/user"
 
@@ -15,16 +16,14 @@ const PlayerNowPlaying = () => {
   const queryOptions = { variables: { id } }
   const { loading, error, data, client } = useQuery(GET_USER, queryOptions)
   if (loading) {
-    return "Loading..."
+    return <Spinner/>
   } else if (!isUndefined(error)) {
     return <ApiError/>
   } else {
     const { nowPlaying } = data.user
-    client.writeFragment({
-      id,
-      fragment: UPDATE_USER_NOW_PLAYING,
-      data: { nowPlaying, __typename: "User" },
-    })
+    const fragment = UPDATE_USER_NOW_PLAYING
+    const newUser = { nowPlaying, __typename: "User" }
+    client.writeFragment({ id, fragment, data: newUser })
     return <Song song={nowPlaying} />
   }
 }

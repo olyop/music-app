@@ -7,12 +7,10 @@ import Loading from "../Loading"
 import ApiError from "../ApiError"
 import UserCtx from "../../ctx/user"
 
+import id from "./id"
 import { isUndefined } from "lodash"
-import { useQuery } from "@apollo/react-hooks"
-
 import GET_USER from "./getUser.graphql"
-
-const id = "5e11e4aa8e0f023c5007dff9"
+import { useQuery } from "@apollo/react-hooks"
 
 const App = () => {
   const userQueryOptions = { variables: { id } }

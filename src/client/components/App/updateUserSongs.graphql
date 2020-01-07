@@ -1,5 +1,0 @@
-mutation updateUserSongs($userId: ID!, $songId: ID!) {
-  updateUserSongs(userId: $userId, songId: $songId) {
-    id
-  }
-}

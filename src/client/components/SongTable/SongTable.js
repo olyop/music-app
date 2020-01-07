@@ -11,6 +11,7 @@ import gql from "graphql-tag"
 import reactBem from "@oly_op/react-bem"
 import { isEmpty, includes } from "lodash"
 import { catalogUrl } from "../../helpers/misc"
+import { useMutation } from "@apollo/react-hooks"
 import { propTypes, defaultProps } from "./props"
 import deserializeDate from "../../helpers/deserializeDate"
 import deserializeDuration from "../../helpers/deserializeDuration"
@@ -28,16 +29,19 @@ const SongTable = ({ song, inLibrary, className, columnsToIgnore }) => {
   const [ mutateNowPlaying, { client } ] = useMutation(UPDATE_NOW_PLAYING)
   const { user } = useContext(UserCtx)
   const { id: userId } = user
-  const { id: songId, title, trackNumber, mix, duration, featuring, remixers, artists, genres, album } = song
+
+  const {
+    id: songId, title, trackNumber, mix, duration,
+    featuring, remixers, artists, genres, album,
+  } = song
 
   const showColumn = name => !includes(columnsToIgnore, name)
 
   const handlePlayClick = () => {
     mutateNowPlaying({ variables: { userId, songId } })
-    const newUser = { ...user, nowPlaying: song, __typename: "User" }
     client.writeFragment({
       id: userId,
-      data: { user: newUser },
+      data: { nowPlaying: song, __typename: "User" },
       fragment: updateUserNowPlaying,
     })
   }

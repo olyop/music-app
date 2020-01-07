@@ -7,6 +7,7 @@ import DocLinks from "../DocLinks"
 import UserCtx from "../../ctx/user"
 import SongTitle from "../SongTitle"
 
+import gql from "graphql-tag"
 import reactBem from "@oly_op/react-bem"
 import { isEmpty, includes } from "lodash"
 import { catalogUrl } from "../../helpers/misc"
@@ -14,15 +15,33 @@ import { propTypes, defaultProps } from "./props"
 import deserializeDate from "../../helpers/deserializeDate"
 import deserializeDuration from "../../helpers/deserializeDuration"
 
+import UPDATE_NOW_PLAYING from "./updateNowPlaying.graphql"
+
 import "./SongTable.scss"
+
+const updateUserNowPlaying = gql`fragment updateUserNowPlaying on User { nowPlaying }`
 
 const bem = reactBem("SongTable")
 
 const SongTable = ({ song, inLibrary, className, columnsToIgnore }) => {
-  const { updateNowPlaying } = useContext(UserCtx)
+  
+  const [ mutateNowPlaying, { client } ] = useMutation(UPDATE_NOW_PLAYING)
+  const { user } = useContext(UserCtx)
+  const { id: userId } = user
+  const { id: songId, title, trackNumber, mix, duration, featuring, remixers, artists, genres, album } = song
+
   const showColumn = name => !includes(columnsToIgnore, name)
-  const { title, trackNumber, mix, duration, featuring, remixers, artists, genres, album } = song
-  const handlePlayClick = () => updateNowPlaying(song)
+
+  const handlePlayClick = () => {
+    mutateNowPlaying({ variables: { userId, songId } })
+    const newUser = { ...user, nowPlaying: song, __typename: "User" }
+    client.writeFragment({
+      id: userId,
+      data: { user: newUser },
+      fragment: updateUserNowPlaying,
+    })
+  }
+
   return (
     <tr className={bem({ ignore: true, className },"")}>
 

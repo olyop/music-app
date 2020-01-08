@@ -11,9 +11,9 @@ import SongsTable from "../SongsTable"
 import { isUndefined } from "lodash"
 import reactBem from "@oly_op/react-bem"
 import { useParams } from "react-router-dom"
-import ARTIST_PAGE from "./artistPage.graphql"
 import { useQuery } from "@apollo/react-hooks"
 import { catalogUrl } from "../../helpers/misc"
+import GET_ARTIST_PAGE from "../../graphql/getArtistPage.graphql"
 
 import "./ArtistPage.scss"
 
@@ -22,7 +22,7 @@ const bem = reactBem("ArtistPage")
 const ArtistPage = () => {
   const { id } = useParams()
   const queryOptions = { variables: { id } }
-  const { loading, error, data } = useQuery(ARTIST_PAGE, queryOptions)
+  const { loading, error, data } = useQuery(GET_ARTIST_PAGE, queryOptions)
   if (loading) {
     return <Loading/>
   } else if (!isUndefined(error)) {

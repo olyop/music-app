@@ -9,8 +9,8 @@ import SongsTable from "../../SongsTable"
 
 import gql from "graphql-tag"
 import { isUndefined, isEmpty } from "lodash"
-import GET_USER_SONGS from "./getUserSongs.graphql"
 import { useQuery, useApolloClient } from "@apollo/react-hooks"
+import GET_USER_SONGS from "../../../graphql/getUserSongs.graphql"
 
 const LibrarySongs = () => {
   const client = useApolloClient()

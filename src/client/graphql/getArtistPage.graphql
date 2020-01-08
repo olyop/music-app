@@ -1,18 +1,10 @@
-query albumPage($id: ID!) {
-  album(id: $id) {
-    id
-    title
-    released
-    artists {
-      id
-      name
-    }
+query getArtistPage($id: ID!) {
+  artist(id: $id) {
+    name
     songs {
       id
       title
       mix
-      discNumber
-      trackNumber
       duration
       featuring {
         id
@@ -27,6 +19,18 @@ query albumPage($id: ID!) {
         name
       }
       genres {
+        id
+        name
+      }
+      album {
+        id
+        title
+      }
+    }
+    albums {
+      id
+      title
+      artists {
         id
         name
       }

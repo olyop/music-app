@@ -9,7 +9,7 @@ import UserCtx from "../../../ctx/user"
 import { useQuery } from "@apollo/react-hooks"
 
 import { isUndefined, isEmpty } from "lodash"
-import GET_USER_GENRES from "./getUserGenres.graphql"
+import GET_USER_GENRES from "../../../graphql/getUserGenres.graphql"
 
 const LibraryGenres = () => {
   const { user } = useContext(UserCtx)

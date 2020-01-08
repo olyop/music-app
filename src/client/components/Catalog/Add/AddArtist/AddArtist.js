@@ -2,12 +2,12 @@ import React from "react"
 
 import Form from "../../../Form"
 
-import mutation from "./mutation.graphql"
 import fieldsConfig from "./fieldsConfig"
 import { useMutation } from "@apollo/react-hooks"
+import ADD_ARTIST from "../../../../graphql/addArtist.graphql"
 
 const AddArtist = () => {
-  const [ addArtist ] = useMutation(mutation)
+  const [ addArtist ] = useMutation(ADD_ARTIST)
   return (
     <Form
       title="Add Artist"

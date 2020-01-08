@@ -4,15 +4,15 @@ import Form from "../../../Form"
 import Loading from "../../../Loading"
 import ApiError from "../../../ApiError"
 
-import query from "./query.graphql"
 import { isUndefined } from "lodash"
-import mutation from "./mutation.graphql"
 import fieldsConfig from "./fieldsConfig"
 import { useQuery, useMutation } from "@apollo/react-hooks"
+import ADD_ALBUM from "../../../../graphql/addAlbum.graphql"
+import GET_ADD_ALBUM from "../../../../graphql/getAddAlbum.graphql"
 
 const AddAlbum = () => {
-  const [ addAlbum ] = useMutation(mutation)
-  const { loading, error, data } = useQuery(query)
+  const [ addAlbum ] = useMutation(ADD_ALBUM)
+  const { loading, error, data } = useQuery(GET_ADD_ALBUM)
   if (loading) {
     return <Loading/>
   } else if (!isUndefined(error)) {

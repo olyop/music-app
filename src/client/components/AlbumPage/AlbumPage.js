@@ -9,24 +9,20 @@ import SongsTable from "../SongsTable"
 
 import { isUndefined } from "lodash"
 import reactBem from "@oly_op/react-bem"
-import ALBUM_PAGE from "./albumPage.graphql"
 import { useParams } from "react-router-dom"
 import { useQuery } from "@apollo/react-hooks"
 import { catalogUrl } from "../../helpers/misc"
 import deserializeDate from "../../helpers/deserializeDate"
+import GET_ALBUM_PAGE from "../../graphql/getAlbumPage.graphql"
 
 import "./AlbumPage.scss"
 
 const bem = reactBem("AlbumPage")
 
-const serilaizeAlbumSongs = ({ songs, artists, ...albumBasic }) => (
-  songs.map(song => ({ ...song, album: albumBasic }))
-)
-
 const AlbumPage = () => {
   const { id } = useParams()
   const queryOptions = { variables: { id } }
-  const { loading, error, data } = useQuery(ALBUM_PAGE, queryOptions)
+  const { loading, error, data } = useQuery(GET_ALBUM_PAGE, queryOptions)
   if (loading) {
     return <Loading/>
   } else if (!isUndefined(error)) {
@@ -34,7 +30,7 @@ const AlbumPage = () => {
   } else {
     const { album } = data
     const { title, released, artists } = album
-    const songs = serilaizeAlbumSongs(album)
+    const songs = album.songs.map(song => ({ ...song, album }))
     const columnsIgnore = ["cover","album","released"]
     return (
       <div className={bem("")}>

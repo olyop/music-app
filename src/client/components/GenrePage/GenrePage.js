@@ -6,10 +6,10 @@ import SongTable from "../SongTable"
 import SongsTable from "../SongsTable"
 
 import reactBem from "@oly_op/react-bem"
-import GENRE_PAGE from "./genrePage.graphql"
 import { useParams } from "react-router-dom"
 import { isUndefined, orderBy } from "lodash"
 import { useQuery } from "@apollo/react-hooks"
+import GET_GENRE_PAGE from "../../graphql/getGenrePage.graphql"
 
 import "./GenrePage.scss"
 
@@ -18,7 +18,7 @@ const bem = reactBem("GenrePage")
 const GenrePage = () => {
   const { id } = useParams()
   const queryOptions = { variables: { id } }
-  const { loading, error, data } = useQuery(GENRE_PAGE, queryOptions)
+  const { loading, error, data } = useQuery(GET_GENRE_PAGE, queryOptions)
   if (loading) {
     return <Loading/>
   } else if (!isUndefined(error)) {

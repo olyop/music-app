@@ -1,4 +1,4 @@
-{
+query getAddAlbum {
   artists {
     id
     name

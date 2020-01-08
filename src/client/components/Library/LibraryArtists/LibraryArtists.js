@@ -9,7 +9,7 @@ import UserCtx from "../../../ctx/user"
 import { useQuery } from "@apollo/react-hooks"
 
 import { isUndefined, isEmpty } from "lodash"
-import GET_USER_ARTISTS from "./getUserArtists.graphql"
+import GET_USER_ARTISTS from "../../../graphql/getUserArtists.graphql"
 
 const LibraryArtists = () => {
   const { user } = useContext(UserCtx)

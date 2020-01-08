@@ -4,15 +4,15 @@ import Form from "../../../Form"
 import Loading from "../../../Loading"
 import ApiError from "../../../ApiError"
 
-import query from "./query.graphql"
 import { isUndefined } from "lodash"
-import mutation from "./mutation.graphql"
 import fieldsConfig from "./fieldsConfig"
+import ADD_SONG from "../../../../graphql/addSong.graphql"
 import { useQuery, useMutation } from "@apollo/react-hooks"
+import GET_ADD_SONG from "../../../../graphql/getAddSong.graphql"
 
 const AddSong = () => {
-  const [ addSong ] = useMutation(mutation)
-  const { loading, error, data } = useQuery(query)
+  const [ addSong ] = useMutation(ADD_SONG)
+  const { loading, error, data } = useQuery(GET_ADD_SONG)
   if (loading) {
     return <Loading/>
   } else if (!isUndefined(error)) {

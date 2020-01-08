@@ -2,12 +2,12 @@ import React from "react"
 
 import Form from "../../../Form"
 
-import mutation from "./mutation.graphql"
 import fieldsConfig from "./fieldsConfig"
 import { useMutation } from "@apollo/react-hooks"
+import ADD_GENRE from "../../../../graphql/addGenre.graphql"
 
 const AddGenre = () => {
-  const [ addGenre ] = useMutation(mutation)
+  const [ addGenre ] = useMutation(ADD_GENRE)
   return (
     <Form
       title="Add Genre"

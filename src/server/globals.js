@@ -12,28 +12,29 @@ export const LOG_FORMAT = "dev"
 
 export const CORS_OPTIONS = {
   origin: "*",
-  optionsSuccessStatus: 200
+  optionsSuccessStatus: 200,
 }
 
 export const DB_URL = "mongodb://localhost:27017/music-app"
 
 export const MONGOOSE_OPTIONS = {
-  useUnifiedTopology: true,
-  useNewUrlParser: true,
-  useCreateIndex: true,
   poolSize: 1,
+  useCreateIndex: true,
+  useNewUrlParser: true,
+  useFindAndModify: false,
+  useUnifiedTopology: true,
 }
 
 export const GLOBAL_HEADERS = {
   "Server": "Node.js",
   "X-Powered-By": "Express",
-  "X-Frame-Options": "deny"
+  "X-Frame-Options": "deny",
 }
 
 export const APOLLO_OPTIONS = {
-  bodyParserConfig: false,
+  cors: false,
   path: "/graphql",
-  cors: false
+  bodyParserConfig: false,
 }
 
 export const BUILD_PATH = path.resolve("src", "server", "build")

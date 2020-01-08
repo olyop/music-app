@@ -51,7 +51,6 @@ const ArtistPage = () => {
                   <SongTable
                     song={song}
                     key={song.id}
-                    inLibrary={false}
                     className={bem("song")}
                     columnsToIgnore={columnsToIgnore}
                   />

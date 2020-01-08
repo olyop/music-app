@@ -7,11 +7,13 @@ import UserCtx from "../../../ctx/user"
 import SongTable from "../../SongTable"
 import SongsTable from "../../SongsTable"
 
+import gql from "graphql-tag"
 import { isUndefined, isEmpty } from "lodash"
-import { useQuery } from "@apollo/react-hooks"
 import GET_USER_SONGS from "./getUserSongs.graphql"
+import { useQuery, useApolloClient } from "@apollo/react-hooks"
 
 const LibrarySongs = () => {
+  const client = useApolloClient()
   const { user } = useContext(UserCtx)
   const { id } = user
   const queryOptions = { variables: { id } }
@@ -24,6 +26,11 @@ const LibrarySongs = () => {
     return <Empty/>
   } else {
     const { songs } = data.user
+    client.writeFragment({
+      id,
+      data: { ...user, songs },
+      fragment: gql`fragment addUserSong on User { songs }`,
+    })
     const columnsToIgnore = ["cover","play","trackNumber"]
     return (
       <SongsTable columnsToIgnore={columnsToIgnore}>
@@ -32,7 +39,6 @@ const LibrarySongs = () => {
             <SongTable
               song={song}
               key={song.id}
-              inLibrary={true}
               columnsToIgnore={columnsToIgnore}
             />
           )

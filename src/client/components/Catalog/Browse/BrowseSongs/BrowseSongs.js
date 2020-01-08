@@ -27,7 +27,6 @@ const BrowseSongs = () => {
             <SongTable
               song={song}
               key={song.id}
-              inLibrary={false}
               columnsToIgnore={columnsToIgnore}
             />
           )

@@ -28,7 +28,7 @@ const Album = ({ album }) => {
           <DocLinks
             docs={artists}
             path="/artist"
-            ampersand={false}
+            ampersand={true}
           />
         </p>
       </div>

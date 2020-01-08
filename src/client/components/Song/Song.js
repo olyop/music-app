@@ -18,7 +18,7 @@ const Song = ({ song, className }) => {
   const { title, mix, artists, featuring, remixers, album } = song
   return (
     <div className={bem({ ignore: true, className },"")}>
-      <Link to={`/album/${album.id}`}>
+      <Link to={`/album/${album.id}`} title={album.title}>
         <Img
           className={bem("cover")}
           url={catalogUrl(album.id)}

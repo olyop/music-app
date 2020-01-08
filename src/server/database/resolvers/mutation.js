@@ -29,6 +29,15 @@ export default {
       return serializeDocument(song.toObject())
     }
   ),
+  addUserSong: resolver(
+    async ({ args }) => {
+      const { userId, songId } = args
+      const update = { $push: { songs: songId } }
+      const mutation = User.findByIdAndUpdate(userId, update)
+      const user = await mutation.lean().exec()
+      return serializeDocument(user)
+    }
+  ),
   updateNowPlaying: resolver(
     async ({ args }) => {
       const { userId, songId } = args

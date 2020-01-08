@@ -21,8 +21,8 @@ import {
   BUILD_PATH,
   CORS_OPTIONS,
   APOLLO_OPTIONS,
-  BUILD_PATH_ENTRY,
   MONGOOSE_OPTIONS,
+  BUILD_PATH_ENTRY,
 } from "./globals.js"
 
 // connect to database

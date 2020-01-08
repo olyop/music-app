@@ -9,26 +9,31 @@ import SongTitle from "../SongTitle"
 
 import gql from "graphql-tag"
 import reactBem from "@oly_op/react-bem"
-import { isEmpty, includes } from "lodash"
 import { catalogUrl } from "../../helpers/misc"
-import { useMutation } from "@apollo/react-hooks"
+import { useApolloClient, useMutation } from "@apollo/react-hooks"
 import { propTypes, defaultProps } from "./props"
+import { isEmpty, includes, concat } from "lodash"
 import deserializeDate from "../../helpers/deserializeDate"
 import deserializeDuration from "../../helpers/deserializeDuration"
 
+import ADD_USER_SONG from "./addUserSong.graphql"
 import UPDATE_NOW_PLAYING from "./updateNowPlaying.graphql"
 
 import "./SongTable.scss"
 
+const addUserSong = gql`fragment addUserSong on User { songs }`
 const updateUserNowPlaying = gql`fragment updateUserNowPlaying on User { nowPlaying }`
 
 const bem = reactBem("SongTable")
 
-const SongTable = ({ song, inLibrary, className, columnsToIgnore }) => {
-  
-  const [ mutateNowPlaying, { client } ] = useMutation(UPDATE_NOW_PLAYING)
+const SongTable = ({ song, className, columnsToIgnore }) => {
+
+  const client = useApolloClient()
   const { user } = useContext(UserCtx)
   const { id: userId } = user
+
+  const [ mutateUserSongs ] = useMutation(ADD_USER_SONG)
+  const [ mutateNowPlaying ] = useMutation(UPDATE_NOW_PLAYING)
 
   const {
     id: songId, title, trackNumber, mix, duration,
@@ -43,6 +48,16 @@ const SongTable = ({ song, inLibrary, className, columnsToIgnore }) => {
       id: userId,
       data: { nowPlaying: song, __typename: "User" },
       fragment: updateUserNowPlaying,
+    })
+  }
+
+  const handleInLibraryClick = () => {
+    mutateUserSongs({ variables: { userId, songId } })
+    const newSongs = concat(user.songs, { ...song, __typename: "Song" })
+    client.writeFragment({
+      id: userId,
+      data: { songs: newSongs, __typename: "User" },
+      fragment: addUserSong,
     })
   }
 
@@ -103,7 +118,9 @@ const SongTable = ({ song, inLibrary, className, columnsToIgnore }) => {
       {showColumn("add") ? (
         <td className={bem("add","col")}>
           <Icon
-            icon={inLibrary ? "done" : "add"}
+            icon="add"
+            onClick={handleInLibraryClick}
+            // icon={inLibrary ? "done" : "add"}
             className={bem("col-add-button")}
           />
         </td>

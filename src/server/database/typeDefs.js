@@ -18,6 +18,10 @@ const typeDefs = gql`
       userId: ID!
       songId: ID!
     ): Song!
+    addUserSong(
+      userId: ID!
+      songId: ID!
+    ): Song!
     addAlbum(
       title: String!
       released: Int!

@@ -1,0 +1,31 @@
+query getGenrePage($id: ID!) {
+  genre(id: $id) {
+    id
+    songs {
+      id
+      title
+      mix
+      duration
+      featuring {
+        id
+        name
+      }
+      remixers {
+        id
+        name
+      }
+      artists {
+        id
+        name
+      }
+      album {
+        id
+        title
+      }
+      genres {
+        id
+        name
+      }
+    }
+  }
+}

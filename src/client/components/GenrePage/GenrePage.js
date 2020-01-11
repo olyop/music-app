@@ -5,11 +5,12 @@ import ApiError from "../ApiError"
 import SongTable from "../SongTable"
 import SongsTable from "../SongsTable"
 
+import { isUndefined } from "lodash"
 import reactBem from "@oly_op/react-bem"
 import { useParams } from "react-router-dom"
-import { isUndefined, orderBy } from "lodash"
 import { useQuery } from "@apollo/react-hooks"
-import GET_GENRE_PAGE from "../../graphql/getGenrePage.graphql"
+
+import GET_GENRE_PAGE from "../../graphql/queries/getGenrePage.graphql"
 
 import "./GenrePage.scss"
 
@@ -24,8 +25,6 @@ const GenrePage = () => {
   } else if (!isUndefined(error)) {
     return <ApiError/>
   } else {
-    const { songs } = data.genre
-    const songsOrdered = orderBy(songs, "title", "asc")
     const columnsIgnore = ["cover","trackNumber","released"]
     return (
       <div className={bem("")}>
@@ -33,7 +32,7 @@ const GenrePage = () => {
           columnsToIgnore={columnsIgnore}
           children={(
             <Fragment>
-              {songsOrdered.map(
+              {data.genre.songs.map(
                 song => (
                   <SongTable
                     song={song}

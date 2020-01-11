@@ -7,7 +7,7 @@ import "./Img.scss"
 
 const bem = reactBem("Img")
 
-const Img = ({ url, className, imgClassName, children }) => (
+const Img = ({ url, children, className, imgClassName }) => (
   <div className={bem({ ignore: true, className }, "")}>
     <div
       style={{ backgroundImage: `url("${url}")` }}

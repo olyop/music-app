@@ -13,7 +13,8 @@ import { useParams } from "react-router-dom"
 import { useQuery } from "@apollo/react-hooks"
 import { catalogUrl } from "../../helpers/misc"
 import deserializeDate from "../../helpers/deserializeDate"
-import GET_ALBUM_PAGE from "../../graphql/getAlbumPage.graphql"
+
+import GET_ALBUM_PAGE from "../../graphql/queries/getAlbumPage.graphql"
 
 import "./AlbumPage.scss"
 
@@ -31,7 +32,7 @@ const AlbumPage = () => {
     const { album } = data
     const { title, released, artists } = album
     const songs = album.songs.map(song => ({ ...song, album }))
-    const columnsIgnore = ["cover","album","released"]
+    const columnsToIgnore = ["cover","album","released"]
     return (
       <div className={bem("")}>
         <Cover
@@ -51,7 +52,7 @@ const AlbumPage = () => {
           </div>
           <SongsTable
             className={bem("songs")}
-            columnsToIgnore={columnsIgnore}
+            columnsToIgnore={columnsToIgnore}
             children={(
               <Fragment>
                 {songs.map(
@@ -60,7 +61,7 @@ const AlbumPage = () => {
                       song={song}
                       key={song.id}
                       className={bem("song")}
-                      columnsToIgnore={columnsIgnore}
+                      columnsToIgnore={columnsToIgnore}
                     />
                   )
                 )}

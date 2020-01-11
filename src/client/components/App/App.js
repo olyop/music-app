@@ -9,12 +9,14 @@ import UserCtx from "../../ctx/user"
 
 import { isUndefined } from "lodash"
 import { useQuery } from "@apollo/react-hooks"
-import GET_USER from "../../graphql/getUser.graphql"
+
+import GET_USER from "../../graphql/queries/getUser.graphql"
+
+const id = "5e11e4aa8e0f023c5007dff9"
 
 const App = () => {
-  const id = "5e11e4aa8e0f023c5007dff9"
-  const userQueryOptions = { variables: { id } }
-  const { data, loading, error } = useQuery(GET_USER, userQueryOptions)
+  const queryOptions = { variables: { id } }
+  const { data, loading, error } = useQuery(GET_USER, queryOptions)
   if (loading) {
     return <Loading/>
   } else if (!isUndefined(error)) {

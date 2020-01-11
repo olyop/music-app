@@ -8,7 +8,8 @@ export default {
     async ({ parent }) => {
       const { id } = parent
       const filter = { genres: id }
-      const query = Song.find(filter)
+      const sortArgs = { title: "asc" }
+      const query = Song.find(filter).sort(sortArgs)
       const collection = await query.lean().exec()
       return serializeCollection(collection)
     }

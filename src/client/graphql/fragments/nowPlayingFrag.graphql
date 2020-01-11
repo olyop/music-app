@@ -1,0 +1,3 @@
+fragment nowPlayingFrag on User {
+  nowPlaying
+}

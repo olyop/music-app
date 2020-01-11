@@ -1,7 +1,7 @@
 import React from "react"
 
 import Icon from "../Icon"
-import PlayerNowPlaying from "./PlayerNowPlaying"
+import NowPlaying from "../NowPlaying"
 
 import reactBem from "@oly_op/react-bem"
 
@@ -26,7 +26,7 @@ const Player = () => (
       />
     </div>
     <div className={bem("right")}>
-      <PlayerNowPlaying/>
+      <NowPlaying/>
     </div>
   </div>
 )

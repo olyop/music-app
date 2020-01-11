@@ -13,7 +13,8 @@ import reactBem from "@oly_op/react-bem"
 import { useParams } from "react-router-dom"
 import { useQuery } from "@apollo/react-hooks"
 import { catalogUrl } from "../../helpers/misc"
-import GET_ARTIST_PAGE from "../../graphql/getArtistPage.graphql"
+
+import GET_ARTIST_PAGE from "../../graphql/queries/getArtistPage.graphql"
 
 import "./ArtistPage.scss"
 

@@ -16,18 +16,17 @@ import { isEmpty, includes, concat } from "lodash"
 import deserializeDate from "../../helpers/deserializeDate"
 import deserializeDuration from "../../helpers/deserializeDuration"
 
-import ADD_USER_SONG from "./addUserSong.graphql"
-import UPDATE_NOW_PLAYING from "./updateNowPlaying.graphql"
+import ADD_USER_SONG from "../../graphql/mutations/addUserSong.graphql"
+import NOW_PLAYING_FRAG from "../../graphql/fragments/nowPlayingFrag.graphql"
+import UPDATE_NOW_PLAYING from "../../graphql/mutations/updateNowPlaying.graphql"
 
 import "./SongTable.scss"
 
 const addUserSong = gql`fragment addUserSong on User { songs }`
-const updateUserNowPlaying = gql`fragment updateUserNowPlaying on User { nowPlaying }`
 
 const bem = reactBem("SongTable")
 
 const SongTable = ({ song, className, columnsToIgnore }) => {
-
   const client = useApolloClient()
   const { user } = useContext(UserCtx)
   const { id: userId } = user
@@ -44,11 +43,9 @@ const SongTable = ({ song, className, columnsToIgnore }) => {
 
   const handlePlayClick = () => {
     mutateNowPlaying({ variables: { userId, songId } })
-    client.writeFragment({
-      id: userId,
-      data: { nowPlaying: song, __typename: "User" },
-      fragment: updateUserNowPlaying,
-    })
+    const fragment = NOW_PLAYING_FRAG
+    const newUser = { nowPlaying: song, __typename: "User" }
+    client.writeFragment({ id: userId, fragment, data: newUser })
   }
 
   const handleInLibraryClick = () => {

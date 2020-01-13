@@ -1,4 +1,5 @@
 import { S3 } from "../globals"
+import { includes } from "lodash"
 
 export const pipe = x => (...funcs) => funcs.reduce((val, func) => func(val), x)
 
@@ -13,3 +14,5 @@ export const isLength = (str, length) => str.length === length
 export const isHex = str => (str.match(/([0-9]|[a-f])/gim) || []).length === str.length
 
 export const catalogUrl = id => `${S3}/${id}.jpg`
+
+export const showColumn = columnsToIgnore => name => !includes(columnsToIgnore, name)

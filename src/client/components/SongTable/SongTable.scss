@@ -29,10 +29,8 @@
     &-play {
       top: 5px;
       left: 5px;
-      outline: none;
       display: none;
       color: #ffffff;
-      font-size: 30rem;
       position: absolute;
       border-radius: 3px;
       transition: .2s box-shadow;
@@ -43,9 +41,7 @@
         animation: play .3s ease-out; } }
     &-add-button,
     &-play-button {
-      outline: none;
       color: #9E9E9E;
-      font-size: 30rem;
       transition: .2s all;
       border-radius: 100%;
       &:hover {

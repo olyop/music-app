@@ -2,7 +2,7 @@ import React from "react"
 
 import Form from "../../Form"
 import Loading from "../../Loading"
-import ApiError from "../../../ApiError"
+import ApiError from "../../ApiError"
 
 import { isUndefined } from "lodash"
 import fieldsConfig from "./fieldsConfig"

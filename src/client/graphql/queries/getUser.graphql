@@ -14,7 +14,7 @@ query getUser($id: ID!) {
     genres {
       id
     }
-    artists {
+    songs {
       id
     }
   }

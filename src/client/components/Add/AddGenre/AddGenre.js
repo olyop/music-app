@@ -5,7 +5,7 @@ import Form from "../../Form"
 import fieldsConfig from "./fieldsConfig"
 import { useMutation } from "@apollo/react-hooks"
 
-import ADD_GENRE from "../../../graphql/queries/addGenre.graphql"
+import ADD_GENRE from "../../../graphql/mutations/addGenre.graphql"
 
 const AddGenre = () => {
   const [ addGenre ] = useMutation(ADD_GENRE)

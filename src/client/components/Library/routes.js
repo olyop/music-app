@@ -1,36 +1,20 @@
 import LibrarySongs from "./LibrarySongs"
 import LibraryAlbums from "./LibraryAlbums"
-import LibraryGenres from "./LibraryGenres"
-import LibraryArtists from "./LibraryArtists"
 
 import { uniqueId } from "lodash"
 
 const routes = [
   {
-    id: uniqueId(),
-    path: "/albums",
-    name: "Albums",
     icon: "album",
+    id: uniqueId(),
+    name: "Albums",
+    path: "/albums",
     component: LibraryAlbums,
   },
   {
-    id: uniqueId(),
-    path: "/artists",
-    name: "Artists",
-    icon: "person",
-    component: LibraryArtists,
-  },
-  {
-    id: uniqueId(),
-    path: "/genres",
-    name: "Genres",
-    icon: "person",
-    component: LibraryGenres,
-  },
-  {
+    name: "Songs",
     id: uniqueId(),
     path: "/songs",
-    name: "Songs",
     icon: "audiotrack",
     component: LibrarySongs,
   },

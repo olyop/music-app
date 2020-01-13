@@ -2,22 +2,22 @@ import React from "react"
 
 import Icon from "../Icon"
 
-import { includes } from "lodash"
 import { propTypes } from "./props"
 import reactBem from "@oly_op/react-bem"
+import { showColumn } from "../../helpers/misc"
 
 import "./SongsTable.scss"
 
 const bem = reactBem("SongsTable")
 
 const SongsTable = ({ className, children, columnsToIgnore }) => {
-  const showColumn = name => !includes(columnsToIgnore, name)
+  const show = showColumn(columnsToIgnore)
   return (
     <table className={bem({ ignore: true, className },"")}>
       <thead className={bem("head")}>
         <tr className={bem("head-row")}>
   
-          {showColumn("cover") ? (
+          {show("cover") ? (
             <th className={bem("head-row-cover","head-row-icon","head-row-col")}>
               <Icon
                 icon="album"
@@ -26,29 +26,29 @@ const SongsTable = ({ className, children, columnsToIgnore }) => {
             </th>
           ) : null}
 
-          {showColumn("play") ? (
+          {show("play") ? (
             <th className={bem("head-row-play","head-row-icon","head-row-col")}/>
           ) : null}
 
-          {showColumn("trackNumber") ? (
+          {show("trackNumber") ? (
             <th
               children="#"
               className={bem("head-row-track","head-row-col")}
             />
           ) : null}
   
-          {showColumn("title") ? (
+          {show("title") ? (
             <th
               children="Title"
               className={bem("head-row-col")}
             />
           ) : null}
 
-          {showColumn("add") ? (
+          {show("add") ? (
             <th className={bem("head-row-play","head-row-icon","head-row-col")}/>
           ) : null}
 
-          {showColumn("duration") ? (
+          {show("duration") ? (
             <th className={bem("head-row-duration","head-row-icon","head-row-col")}>
               <Icon
                 icon="access_time"
@@ -57,35 +57,35 @@ const SongsTable = ({ className, children, columnsToIgnore }) => {
             </th>
           ) : null}
           
-          {showColumn("artists") ? (
+          {show("artists") ? (
             <th
               children="Artists"
               className={bem("head-row-artists","head-row-col")}
             />
           ) : null}
   
-          {showColumn("remixers") ? (
+          {show("remixers") ? (
             <th
               children="Remixers"
               className={bem("head-row-col")}
             />
           ) : null}
   
-          {showColumn("album") ? (
+          {show("album") ? (
             <th
               children="Album"
               className={bem("head-row-col")}
             />
           ) : null}
   
-          {showColumn("genres") ? (
+          {show("genres") ? (
             <th
               children="Genres"
               className={bem("head-row-col")}
             />
           ) : null}
   
-          {showColumn("released") ? (
+          {show("released") ? (
             <th
               children="Released"
               className={bem("head-row-released","head-row-col")}

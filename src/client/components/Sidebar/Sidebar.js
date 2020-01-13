@@ -6,10 +6,10 @@ import { propTypes } from "./props"
 import reactBem from "@oly_op/react-bem"
 
 import routesPages from "../Pages/routes"
+import routesCatalogAdd from "../Add/routes"
 import routesCatalog from "../Catalog/routes"
 import routesLibrary from "../Library/routes"
-import routesCatalogAdd from "../Catalog/Add/routes"
-import routesCatalogBrowse from "../Catalog/Browse/routes"
+import routesCatalogBrowse from "../Browse/routes"
 
 import "./Sidebar.scss"
 

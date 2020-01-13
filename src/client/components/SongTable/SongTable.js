@@ -1,91 +1,67 @@
-import React, { useContext } from "react"
+import React from "react"
 
 import Img from "../Img"
 import Icon from "../Icon"
+import Play from "../Play"
 import DocLink from "../DocLink"
 import DocLinks from "../DocLinks"
-import UserCtx from "../../ctx/user"
 import SongTitle from "../SongTitle"
 
-import gql from "graphql-tag"
+import { isEmpty } from "lodash"
 import reactBem from "@oly_op/react-bem"
-import { catalogUrl } from "../../helpers/misc"
-import { useApolloClient, useMutation } from "@apollo/react-hooks"
 import { propTypes, defaultProps } from "./props"
-import { isEmpty, includes, concat } from "lodash"
 import deserializeDate from "../../helpers/deserializeDate"
+import { catalogUrl, showColumn } from "../../helpers/misc"
 import deserializeDuration from "../../helpers/deserializeDuration"
 
-import ADD_USER_SONG from "../../graphql/mutations/addUserSong.graphql"
-import NOW_PLAYING_FRAG from "../../graphql/fragments/nowPlayingFrag.graphql"
-import UPDATE_NOW_PLAYING from "../../graphql/mutations/updateNowPlaying.graphql"
-
 import "./SongTable.scss"
-
-const addUserSong = gql`fragment addUserSong on User { songs }`
 
 const bem = reactBem("SongTable")
 
 const SongTable = ({ song, className, columnsToIgnore }) => {
-  const client = useApolloClient()
-  const { user } = useContext(UserCtx)
-  const { id: userId } = user
-
-  const [ mutateUserSongs ] = useMutation(ADD_USER_SONG)
-  const [ mutateNowPlaying ] = useMutation(UPDATE_NOW_PLAYING)
 
   const {
-    id: songId, title, trackNumber, mix, duration,
+    title, trackNumber, mix, duration,
     featuring, remixers, artists, genres, album,
   } = song
 
-  const showColumn = name => !includes(columnsToIgnore, name)
+  const show = showColumn(columnsToIgnore)
 
-  const handlePlayClick = () => {
-    mutateNowPlaying({ variables: { userId, songId } })
-    const fragment = NOW_PLAYING_FRAG
-    const newUser = { nowPlaying: song, __typename: "User" }
-    client.writeFragment({ id: userId, fragment, data: newUser })
-  }
+  // const [ mutateUserSongs ] = useMutation(ADD_USER_SONG)
 
-  const handleInLibraryClick = () => {
-    mutateUserSongs({ variables: { userId, songId } })
-    const newSongs = concat(user.songs, { ...song, __typename: "Song" })
-    client.writeFragment({
-      id: userId,
-      data: { songs: newSongs, __typename: "User" },
-      fragment: addUserSong,
-    })
-  }
+  // const handleInLibraryClick = () => {
+  //   mutateUserSongs({ variables: { userId, songId } })
+  //   const userFrag = { songs: [song], __typename: "User" }
+  //   const fragment = USER_SONG_FRAG
+  //   client.writeFragment({ id: userId, data: userFrag, fragment })
+  // }
 
   return (
     <tr className={bem({ ignore: true, className },"")}>
 
-      {showColumn("cover") ? (
+      {show("cover") ? (
         <td className={bem("cover","col")}>
           <Img
             url={catalogUrl(album.id)}
             className={bem("col-img")}
           />
-          <Icon
-            icon="play_arrow"
-            onClick={handlePlayClick}
+          <Play
+            song={song}
             className={bem("col-play")}
           />
         </td>
       ) : null}
 
-      {showColumn("play") ? (
+      {show("play") ? (
         <td className={bem("cover","col")}>
-          <Icon
-            icon="play_arrow"
-            onClick={handlePlayClick}
+          <Play
+            song={song}
             className={bem("col-play-button")}
           />
         </td>
       ) : null}
 
-      {showColumn("trackNumber") ? (
+      {show("trackNumber") ? (
         <td className={bem("track","col")}>
           <span className={bem("col-span")}>
             {trackNumber}
@@ -93,7 +69,7 @@ const SongTable = ({ song, className, columnsToIgnore }) => {
         </td>
       ) : null}
 
-      {showColumn("title") ? (
+      {show("title") ? (
         <td className={bem("title","col")}>
           <div className={bem("col-span")}>
             <SongTitle
@@ -112,18 +88,18 @@ const SongTable = ({ song, className, columnsToIgnore }) => {
         </td>
       ) : null}
 
-      {showColumn("add") ? (
+      {show("add") ? (
         <td className={bem("add","col")}>
           <Icon
             icon="add"
-            onClick={handleInLibraryClick}
+            // onClick={handleInLibraryClick}
             // icon={inLibrary ? "done" : "add"}
             className={bem("col-add-button")}
           />
         </td>
       ) : null}
 
-      {showColumn("duration") ? (
+      {show("duration") ? (
         <td className={bem("duration","col")}>
           <div className={bem("col-span")}>
             {deserializeDuration(duration)}
@@ -131,7 +107,7 @@ const SongTable = ({ song, className, columnsToIgnore }) => {
         </td>
       ) : null}
 
-      {showColumn("artists") ? (
+      {show("artists") ? (
         <td className={bem("artists","col")}>
           <div className={bem("col-span")}>
             <DocLinks
@@ -143,7 +119,7 @@ const SongTable = ({ song, className, columnsToIgnore }) => {
         </td>
       ) : null}
 
-      {showColumn("remixers") ? (
+      {show("remixers") ? (
         <td className={bem("remixers","col")}>
           <div className={bem("col-span")}>
             {isEmpty(remixers) ? null : (
@@ -157,7 +133,7 @@ const SongTable = ({ song, className, columnsToIgnore }) => {
         </td>
       ) : null}
 
-      {showColumn("album") ? (
+      {show("album") ? (
         <td className={bem("album","col")}>
           <div className={bem("col-span")}>
             <DocLink
@@ -168,7 +144,7 @@ const SongTable = ({ song, className, columnsToIgnore }) => {
         </td>
       ) : null}
 
-      {showColumn("genres") ? (
+      {show("genres") ? (
         <td className={bem("genres","col")}>
           <div className={bem("col-span")}>
             <DocLinks
@@ -180,7 +156,7 @@ const SongTable = ({ song, className, columnsToIgnore }) => {
         </td>
       ) : null}
 
-      {showColumn("released") ? (
+      {show("released") ? (
         <td className={bem("released","col")}>
           <div className={bem("col-span")}>
             {deserializeDate(album.released)}

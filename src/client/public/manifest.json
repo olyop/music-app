@@ -1,6 +1,6 @@
 {
-   "short_name":"boilerplate",
-   "name":"boilerplate",
+   "short_name":"music-app",
+   "name":"music-app",
    "icons":[
       {
          "src":"/images/icons/192.png",
@@ -14,7 +14,7 @@
       }
    ],
    "start_url":"/",
-   "display":"browser",
+   "display":"fullscreen",
    "theme_color":"#000000",
    "background_color":"#ffffff"
 }

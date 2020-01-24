@@ -12,7 +12,10 @@ export default {
       const filter = { artists: id }
       const query = Album.find(filter).lean()
       const collection = await query.exec()
-      return serializeCollection(collection)
+      return pipe(collection)(
+        serializeCollection,
+        orderBy("released","desc"),
+      )
     },
   ),
   songs: resolver(
@@ -26,7 +29,7 @@ export default {
         flatten,
         serializeCollection,
         removeDup,
-        orderBy(["discNumber","trackNumber"],["asc","asc"]),
+        orderBy("title","asc"),
       )
     },
   ),

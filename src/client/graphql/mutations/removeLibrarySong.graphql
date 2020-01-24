@@ -1,0 +1,5 @@
+mutation removeUserSong($userId: ID!, $songId: ID!) {
+  removeUserSong(userId: $userId, songId: $songId) {
+    id
+  }
+}

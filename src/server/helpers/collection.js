@@ -1,16 +1,28 @@
+import mongoose from "mongoose"
 import find from "lodash/find.js"
 import concat from "lodash/concat.js"
 import uniqBy from "lodash/uniqBy.js"
+import isEmpty from "lodash/isEmpty.js"
 import isArray from "lodash/isArray.js"
 import mapValues from "lodash/mapValues.js"
 
+const { ObjectId } = mongoose.Types
+
 export const serializeDocument = ({ _id, __v, ...doc }) => ({
-  id: _id.toHexString(),
+  id: _id.toString(),
   ...mapValues(doc, val => {
-    if (isArray(val)) {
-      return val.map(id => id.toHexString())
+    if (isArray(val) && !isEmpty(val)) {
+      if (val[0] instanceof ObjectId) {
+        return val.map(id => id.toString())
+      } else {
+        return val
+      }
     } else {
-      return val
+      if (val instanceof ObjectId) {
+        return val.toString()
+      } else {
+        return val
+      }
     }
   }),
 })

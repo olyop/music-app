@@ -2,7 +2,7 @@ import { Artist, Genre, Album } from "../models/index.js"
 
 import {
   pipe,
-  resolver
+  resolver,
 } from "../../helpers/misc.js"
 
 import {

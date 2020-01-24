@@ -1,7 +1,7 @@
 import React, { useContext } from "react"
 
 import Icon from "../Icon"
-import UserCtx from "../../ctx/user"
+import UserCtx from "../../ctx/User"
 
 import reactBem from "@oly_op/react-bem"
 import { propTypes, defaultProps } from "./props"
@@ -10,19 +10,21 @@ import { useMutation, useApolloClient } from "@apollo/react-hooks"
 import UPDATE_NOW_PLAYING from "../../graphql/mutations/updateNowPlaying.graphql"
 import USER_NOW_PLAYING_FRAG from "../../graphql/fragments/userNowPlayingFrag.graphql"
 
-import "./Play.scss"
+import "./PlayButton.scss"
 
-const bem = reactBem("Play")
+const bem = reactBem("PlayButton")
 
-const Play = ({ song, className }) => {
+const PlayButton = ({ song, className }) => {
+  
+  const user = useContext(UserCtx)
   const client = useApolloClient()
-  const { user } = useContext(UserCtx)
   const [ mutateNowPlaying ] = useMutation(UPDATE_NOW_PLAYING)
 
+  const { id: userId } = user
+  const { id: songId } = song
+  const variables = { userId, songId }
+
   const handleClick = () => {
-    const { id: userId } = user
-    const { id: songId } = song
-    const variables = { userId, songId }
     mutateNowPlaying({ variables })
     const fragment = USER_NOW_PLAYING_FRAG
     const userFrag = { nowPlaying: song, __typename: "User" }
@@ -38,7 +40,7 @@ const Play = ({ song, className }) => {
   )
 }
 
-Play.propTypes = propTypes
-Play.defaultProps = defaultProps
+PlayButton.propTypes = propTypes
+PlayButton.defaultProps = defaultProps
 
-export default Play
+export default PlayButton

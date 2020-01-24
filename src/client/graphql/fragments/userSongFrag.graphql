@@ -1,3 +1,0 @@
-fragment addUserSongFrag on User {
-  songs
-}

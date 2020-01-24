@@ -1,6 +1,9 @@
 .Form {
-  width: 542px;
-  padding: 20px;
+  width: 100%;
+  padding: 15px;
   border-radius: 4px;
   border: 1px solid #e0e0e0;
-  background-color: #ffffff; }
+  background-color: #ffffff;
+  @media (min-width: 582px) {
+    width: 542px;
+    padding: 20px; } }

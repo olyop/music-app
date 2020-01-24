@@ -5,11 +5,36 @@
   width: 100vw;
   font-size: 16rem;
   position: relative;
+  display: flex;
+  justify-content: space-between;
   height: $HEADER_HEIGHT;
   background-color: #ffffff;
   box-shadow: 0 2px 4px rgba(0,0,0, 0.1);
+  &__search,
   &__hamburger {
     outline: none;
     font-size: 48rem;
     padding: 6px 10px;
-    line-height: 48rem; } }
+    line-height: 48rem;
+    display: inline-block; }
+  &__search {
+    margin: 8px;
+    padding: 3px 4px 5px 4px;
+    font-size: 36px;
+    line-height: 36px;
+    transition: .2s all;
+    border-radius: 100%;
+    &:hover {
+      background-color: #e0e0e0; } }
+  &__hamburger {
+    font-size: 48rem;
+    line-height: 48rem; }
+  &__close {
+    left: 0;
+    z-index: 2;
+    width: 100vw;
+    cursor: pointer;
+    font-size: 16rem;
+    position: absolute;
+    top: $HEADER_HEIGHT;
+    height: calc(100vh - #{$HEADER_HEIGHT}); } }

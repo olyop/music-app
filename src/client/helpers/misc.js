@@ -15,4 +15,4 @@ export const isHex = str => (str.match(/([0-9]|[a-f])/gim) || []).length === str
 
 export const catalogUrl = id => `${S3}/${id}.jpg`
 
-export const showColumn = columnsToIgnore => name => !includes(columnsToIgnore, name)
+export const show = array => item => !includes(array, item)

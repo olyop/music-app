@@ -8,7 +8,7 @@ const routes = [
     path: "/add",
     id: uniqueId(),
     component: Add,
-    name: "Add To Catalog",
+    name: "Add",
   },
   {
     id: uniqueId(),

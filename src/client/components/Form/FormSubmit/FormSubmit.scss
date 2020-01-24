@@ -3,11 +3,13 @@
   outline: none;
   padding: 13px;
   cursor: pointer;
-  font-size: 22rem;
+  font-size: 18rem;
   border: 1px solid;
   border-radius: 3px;
   transition: .2s all;
   border-color: #E0E0E0;
   background-color: transparent;
+  @media (min-width: 582px) {
+    font-size: 22rem; }
   &:hover {
     border-color: #9E9E9E; } }

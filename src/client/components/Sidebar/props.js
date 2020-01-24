@@ -1,5 +1,6 @@
-import { func } from "prop-types"
+import { shape, object, func } from "prop-types"
 
 export const propTypes = {
-  toggle: func.isRequired,
+  toggleSidebar: func.isRequired,
+  style: shape({ left: object.isRequired }),
 }

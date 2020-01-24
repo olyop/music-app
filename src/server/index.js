@@ -14,9 +14,8 @@ import cookieParser from "cookie-parser"
 import { globalHeaders } from "./middleware.js"
 
 import {
-  HOST,
-  PORT,
   DB_URL,
+  HOST, PORT,
   LOG_FORMAT,
   BUILD_PATH,
   CORS_OPTIONS,

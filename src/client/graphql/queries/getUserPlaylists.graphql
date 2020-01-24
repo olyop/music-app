@@ -1,0 +1,36 @@
+query getUserPlaylists($id: ID!) {
+  user(id: $id) {
+    id
+    playlists {
+      id
+      name
+      songs {
+        id
+        title
+        mix
+        duration
+        featuring {
+          id
+          name
+        }
+        remixers {
+          id
+          name
+        }
+        artists {
+          id
+          name
+        }
+        genres {
+          id
+          name
+        }
+        album {
+          id
+          title
+          released
+        }
+      }
+    }
+  }
+}

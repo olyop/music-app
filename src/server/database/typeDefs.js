@@ -21,7 +21,19 @@ const typeDefs = gql`
     addUserSong(
       userId: ID!
       songId: ID!
-    ): Song!
+    ): User!
+    removeUserSong(
+      userId: ID!
+      songId: ID!
+    ): User!
+    addUserAlbum(
+      userId: ID!
+      albumId: ID!
+    ): User!
+    removeUserAlbum(
+      userId: ID!
+      albumId: ID!
+    ): User!
     addAlbum(
       title: String!
       released: Int!
@@ -39,6 +51,10 @@ const typeDefs = gql`
       trackNumber: Int!
       featuring: [ID!]!
     ): Song!
+    addPlaylist(
+      name: String!
+      songs: [ID!]!
+    ): Playlist!
   }
 
   type Query {
@@ -47,11 +63,17 @@ const typeDefs = gql`
     albums: [Album!]!
     genres: [Genre!]!
     artists: [Artist!]!
+    libraries: [Library!]!
+    playlists: [Playlist!]!
+    librarySongs: [LibrarySong!]!
     song(id: ID!): Song!
     user(id: ID!): User!
     album(id: ID!): Album!
     genre(id: ID!): Genre!
     artist(id: ID!): Artist!
+    library(id: ID!): Library!
+    playlist(id: ID!): Playlist!
+    librarySong(id: ID!): LibrarySong!
   }
 
   type Artist {
@@ -89,14 +111,30 @@ const typeDefs = gql`
     featuring: [Artist!]!
   }
 
-  type User {
+  type Playlist {
     id: ID!
     name: String!
     songs: [Song!]!
-    albums: [Album!]!
-    genres: [Genre!]!
+  }
+
+  type LibrarySong {
+    id: ID!
+    song: Song!
+    plays: Int!
+    library: Library!
+  }
+  
+  type Library {
+    id: ID!
+    user: User!
+    songs: [LibrarySong!]!
+  }
+
+  type User {
+    id: ID!
+    name: String!
+    library: Library!
     nowPlaying: Song!
-    artists: [Artist!]!
   }
   
 `

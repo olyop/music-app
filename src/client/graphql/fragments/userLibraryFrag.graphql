@@ -1,0 +1,3 @@
+fragment userLibraryFrag on User {
+  library
+}

@@ -4,14 +4,16 @@ import Cover from "../Cover"
 import Loading from "../Loading"
 import ApiError from "../ApiError"
 import DocLinks from "../DocLinks"
-import SongTable from "../SongTable"
 import SongsTable from "../SongsTable"
+import AddToLibrary from "../AddToLibrary"
 
 import { isUndefined } from "lodash"
 import reactBem from "@oly_op/react-bem"
 import { useParams } from "react-router-dom"
+import songsWithAlbum from "./songsWithAlbum"
 import { useQuery } from "@apollo/react-hooks"
 import { catalogUrl } from "../../helpers/misc"
+import genresFromAlbum from "./genresFromAlbum"
 import deserializeDate from "../../helpers/deserializeDate"
 
 import GET_ALBUM_PAGE from "../../graphql/queries/getAlbumPage.graphql"
@@ -30,9 +32,7 @@ const AlbumPage = () => {
     return <ApiError/>
   } else {
     const { album } = data
-    const { title, released, artists } = album
-    const songs = album.songs.map(song => ({ ...song, album }))
-    const columnsToIgnore = ["cover","album","released"]
+    const { title, released, artists, songs } = album
     return (
       <div className={bem("")}>
         <Cover
@@ -40,8 +40,21 @@ const AlbumPage = () => {
           className={bem("cover")}
         />
         <div className={bem("main")}>
-          <div className={bem("title")}>{title}</div>
-          <div className={bem("artists")}>
+          <h2 className={bem("title")}>
+            <span className={bem("title-text")}>{title}</span>
+            <AddToLibrary
+              doc={album}
+              className={bem("title-add")}
+            />
+          </h2>
+          <h3 className={bem("genres")}>
+            <DocLinks
+              path="/genre"
+              ampersand={true}
+              docs={genresFromAlbum(album)}
+            />
+          </h3>
+          <h4 className={bem("artists")}>
             <DocLinks
               path="/artist"
               docs={artists}
@@ -49,25 +62,13 @@ const AlbumPage = () => {
             />
             <Fragment> - </Fragment>
             {deserializeDate(released)}
+          </h4>
+          <div className={bem("songs")}>
+            <SongsTable
+              songs={songsWithAlbum(songs,album)}
+              columnsToIgnore={["album","cover","released"]}
+            />
           </div>
-          <SongsTable
-            className={bem("songs")}
-            columnsToIgnore={columnsToIgnore}
-            children={(
-              <Fragment>
-                {songs.map(
-                  song => (
-                    <SongTable
-                      song={song}
-                      key={song.id}
-                      className={bem("song")}
-                      columnsToIgnore={columnsToIgnore}
-                    />
-                  )
-                )}
-              </Fragment>
-            )}
-          />
         </div>
       </div>
     )

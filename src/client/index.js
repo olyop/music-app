@@ -1,20 +1,19 @@
 import React from "react"
 
-import App from "./components/App"
-import Apollo from "./components/Apollo"
-import { BrowserRouter as Router } from "react-router-dom"
-
 import ReactDOM from "react-dom"
+import Application from "./components/Application"
+import ApolloClient from "./components/ApolloClient"
+import { BrowserRouter as ReactRouter } from "react-router-dom"
+
 import { ROOT_ELEMENT } from "./globals"
 
 import "./index.scss"
 
-const Index = () => (
-  <Apollo>
-    <Router>
-      <App/>
-    </Router>
-  </Apollo>
+ReactDOM.render(
+  <ReactRouter>
+    <ApolloClient>
+      <Application/>
+    </ApolloClient>
+  </ReactRouter>,
+  ROOT_ELEMENT
 )
-
-ReactDOM.render(<Index/>, ROOT_ELEMENT)

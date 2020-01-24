@@ -1,5 +1,8 @@
 .FormFields {
   display: flex;
-  margin-bottom: 25px;
+  margin-bottom: 15px;
   flex-direction: column;
-  justify-content: flex-start; }
+  justify-content: flex-start;
+  @media (min-width: 582px) {
+    font-size: 28rem;
+    margin-bottom: 25px; } }

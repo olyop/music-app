@@ -1,8 +1,11 @@
 @import "../../../globals/index.scss";
 
 .FormField {
-  width: 500px;
-  margin-bottom: 25px;
+  width: 100%;
+  margin-bottom: 15px;
+  @media (min-width: 582px) {
+    width: 500px;
+    margin-bottom: 25px; }
   &:last-child {
     margin-bottom: 0; }
   &__label {

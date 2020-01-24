@@ -14,19 +14,21 @@ import "./Song.scss"
 
 const bem = reactBem("Song")
 
-const Song = ({ song, className }) => {
+const Song = ({ song, showCover, className }) => {
   const { title, mix, artists, featuring, remixers, album } = song
   return (
     <div className={bem({ ignore: true, className },"")}>
-      <Link to={`/album/${album.id}`} title={album.title}>
-        <Img
-          className={bem("cover")}
-          url={catalogUrl(album.id)}
-          imgClassName={bem("cover-img")}
-        />
-      </Link>
+      {showCover ? (
+        <Link to={`/album/${album.id}`} title={album.title}>
+          <Img
+            className={bem("cover")}
+            url={catalogUrl(album.id)}
+            imgClassName={bem("cover-img")}
+          />
+        </Link>
+      ) : null}
       <div className={bem("text")}>
-        <div className={bem("text-title")}>
+        <p className={bem("text-title")}>
           {title}
           {isEmpty(remixers) ? (
             <Fragment>
@@ -40,7 +42,7 @@ const Song = ({ song, className }) => {
             </Fragment>
           ) : (
             <span className={bem("text-mix")}>
-              <Fragment> - </Fragment>
+              <Fragment> </Fragment>
               <DocLinks
                 path="/artist"
                 docs={remixers}
@@ -51,13 +53,13 @@ const Song = ({ song, className }) => {
               <Fragment> Remix</Fragment>
             </span>
           )}
-        </div>
-        <div className={bem("text-artists")}>
+        </p>
+        <p className={bem("text-artists")}>
           <FeaturingArtists
             artists={artists}
             featuring={featuring}
           />
-        </div>
+        </p>
       </div>
     </div>
   )

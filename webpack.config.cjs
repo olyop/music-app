@@ -1,9 +1,10 @@
+const os = require("os")
 const path = require("path")
 const noop = require("lodash/noop.js")
 const { ProgressPlugin } = require("webpack")
 const CopyPlugin = require("copy-webpack-plugin")
 const HtmlWebpackPlugin = require("html-webpack-plugin")
-const MinifyPlugin = require("babel-minify-webpack-plugin")
+// const MinifyPlugin = require("babel-minify-webpack-plugin")
 const WriteFilePlugin = require("write-file-webpack-plugin")
 const MiniCssExtractPlugin = require("mini-css-extract-plugin")
 const CompressionPlugin = require("compression-webpack-plugin")
@@ -16,6 +17,8 @@ const clientPath = path.join(srcPath, "client")
 const serverPath = path.join(srcPath, "server")
 const publicPath = path.join(clientPath, "public")
 
+const HOST = os.networkInterfaces().Ethernet[1].address
+
 module.exports = ({ mode }) => {
   const isProduction = mode === "production"
   return {
@@ -27,7 +30,7 @@ module.exports = ({ mode }) => {
       publicPath: "/"
     },
     devServer: {
-      host: "localhost",
+      host: HOST,
       port: 8080,
       compress: true,
       contentBase: publicPath,
@@ -91,11 +94,9 @@ module.exports = ({ mode }) => {
       isProduction ? new CompressionPlugin() : noop,
       isProduction ? new ProgressPlugin() : noop,
       isProduction ? new LodashModuleReplacementPlugin() : noop,
-      isProduction ? new MinifyPlugin({}, { comments: false }) : noop,
+      // isProduction ? new MinifyPlugin({}, { comments: false }) : noop,
       isProduction ? new OptimizeCssAssetsPlugin() : noop,
-      new MiniCssExtractPlugin({
-        filename: "[hash].css"
-      }),
+      new MiniCssExtractPlugin({ filename: "[hash].css" }),
       new HtmlWebpackPlugin({
         template: path.join(publicPath, "index.html"),
         minify: {

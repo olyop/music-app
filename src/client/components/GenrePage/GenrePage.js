@@ -1,8 +1,7 @@
-import React, { Fragment } from "react"
+import React from "react"
 
 import Loading from "../Loading"
 import ApiError from "../ApiError"
-import SongTable from "../SongTable"
 import SongsTable from "../SongsTable"
 
 import { isUndefined } from "lodash"
@@ -29,21 +28,8 @@ const GenrePage = () => {
     return (
       <div className={bem("")}>
         <SongsTable
+          songs={data.genre.songs}
           columnsToIgnore={columnsIgnore}
-          children={(
-            <Fragment>
-              {data.genre.songs.map(
-                song => (
-                  <SongTable
-                    song={song}
-                    key={song.id}
-                    inLibrary={false}
-                    columnsToIgnore={columnsIgnore}
-                  />
-                )
-              )}
-            </Fragment>
-          )}
         />
       </div>
     )

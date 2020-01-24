@@ -1,3 +1,4 @@
+import Search from "../Search"
 import Catalog from "../Catalog"
 import Library from "../Library"
 
@@ -19,6 +20,12 @@ export default [
     name: "Library",
     path: "/library",
     component: Library,
+  },
+  {
+    id: uniqueId(),
+    name: "Search",
+    path: "/search",
+    component: Search,
   },
   {
     ignore: true,

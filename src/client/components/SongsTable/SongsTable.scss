@@ -1,46 +1,38 @@
 .SongsTable {
   width: 100%;
+  border-spacing: 0;
   border-collapse: collapse;
   background-color: #ffffff;
   box-shadow: 0 1px 4px 0 rgba(#333333, .3);
-  &__head {
+  &__row {
+    height: 33px;
     border-bottom: 1px solid #e0e0e0;
-    &-row {
-      height: 30px;
-      @media (min-width: 700px) {
-        & { width: 40px;
-            height: 40px; } }
-      &-col {
-        text-align: left;
-        font-weight: 700;
-        font-size: 14rem;
-        line-height: 14rem;
-        padding: 9px 8px 7px 8px;
-        text-transform: uppercase;
-        @media (min-width: 700px) {
-          & { font-size: 16rem;
-              line-height: 16rem;
-              padding: 13px 8px 11px 8px; } }
-        &-icon {
-          font-size: 24rem; } }
+    &-col {
+      font-size: 16px;
+      text-align: left;
+      padding: 4px 12px;
+      line-height: 16px;
+      text-transform: uppercase;
       &-icon {
-        padding: 3px 3px 0 8px; }
-      &-track {
-        text-align: right; }
-      &-artists {
-        display: none;
-        @media (min-width: 700px) {
-          & { display: block; } } }
-      &-duration {
-        display: none;
-        padding-left: 11px;
-        @media (min-width: 700px) {
-          & { display: table-cell; } } }
-      &-released {
-        display: none;
-        @media (min-width: 700px) {
-          & { display: table-cell; } } }
-      &-cover {
-        display: none;
-        @media (min-width: 700px) {
-          & { display: table-cell; } } } } } }
+        height: 23px;
+        color: #757575;
+        font-size: 23px;
+        line-height: 23px;
+        border-radius: 100%; } } }
+  &__cover,
+  &__duration {
+    vertical-align: middle;
+    text-align: center;
+    padding: 4px; }
+  &__trackNumber {
+    padding-left: 0;
+    padding-right: 0;
+    text-align: center; }
+  &__album,
+  &__genres,
+  &__artists,
+  &__released,
+  &__remixers,
+  &__duration {
+    @media (max-width: 700px) {
+      display: none; } } }

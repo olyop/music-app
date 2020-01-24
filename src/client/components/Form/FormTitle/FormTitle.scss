@@ -1,9 +1,12 @@
 .FormTitle {
-  font-size: 28px;
+  font-size: 20rem;
   position: relative;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
   padding-bottom: 10px;
   display: inline-block;
+  @media (min-width: 582px) {
+    font-size: 28rem;
+    margin-bottom: 20px; }
   &:after {
     left: 0;
     bottom: 0;

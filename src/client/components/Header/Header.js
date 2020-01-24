@@ -1,17 +1,21 @@
-import React, { useState, Fragment } from "react"
+import React, { Fragment, useState } from "react"
 
 import Icon from "../Icon"
 import Sidebar from "../Sidebar"
+import { NavLink } from "react-router-dom"
 
 import reactBem from "@oly_op/react-bem"
+import { useSpring } from "react-spring" 
+import { SIDEBAR_ANIMATION_LENGTH as duration } from "../../globals"
 
 import "./Header.scss"
 
 const bem = reactBem("Header")
 
 const Header = () => {
-  const [ sidebar, useSidebar ] = useState(false)
-  const toggleSidebar = () => useSidebar(!sidebar)
+  const [ sidebar, setSidebar ] = useState(false)
+  const toggleSidebar = () => setSidebar(!sidebar)
+  const style = useSpring({ config: { duration }, left: sidebar ? 0 : -300 })
   return (
     <Fragment>
       <header className={bem("")}>
@@ -20,8 +24,25 @@ const Header = () => {
           className={bem("hamburger")}
           icon={sidebar ? "close" : "menu"}
         />
+        <NavLink to="/search">
+          <Icon
+            icon="search"
+            className={bem("search")}
+          />
+        </NavLink>
       </header>
-      {sidebar ? <Sidebar toggle={toggleSidebar} /> : null}
+      <Sidebar
+        style={style}
+        toggleSidebar={toggleSidebar}
+      />
+      {sidebar ? (
+        <div
+          role="button"
+          tabIndex={0}
+          onClick={toggleSidebar}
+          className={bem("close")}
+        />
+      ) : null}
     </Fragment>
   )
 }

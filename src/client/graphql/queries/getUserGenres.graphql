@@ -1,9 +1,0 @@
-query getUserGenres($id: ID!) {
-  user(id: $id) {
-    id
-    genres {
-      id
-      name
-    }
-  }
-}

@@ -1,101 +1,110 @@
 import React from "react"
 
 import Icon from "../Icon"
+import SongRow from "./SongRow"
 
 import { propTypes } from "./props"
 import reactBem from "@oly_op/react-bem"
-import { showColumn } from "../../helpers/misc"
+import { show } from "../../helpers/misc"
 
 import "./SongsTable.scss"
 
 const bem = reactBem("SongsTable")
 
-const SongsTable = ({ className, children, columnsToIgnore }) => {
-  const show = showColumn(columnsToIgnore)
+const SongsTable = ({ songs, columnsToIgnore }) => {
+  const showColumn = show(columnsToIgnore)
   return (
-    <table className={bem({ ignore: true, className },"")}>
-      <thead className={bem("head")}>
-        <tr className={bem("head-row")}>
+    <table className={bem("")}>
+      <thead>
+        <tr className={bem("row")}>
   
-          {show("cover") ? (
-            <th className={bem("head-row-cover","head-row-icon","head-row-col")}>
+          {showColumn("cover") ? (
+            <th className={bem("cover","row-col")}>
               <Icon
                 icon="album"
-                className={bem("head-row-col-icon")}
+                className={bem("row-col-icon")}
               />
             </th>
           ) : null}
 
-          {show("play") ? (
-            <th className={bem("head-row-play","head-row-icon","head-row-col")}/>
+          {showColumn("play") ? (
+            <th className={bem("play","row-col")}/>
           ) : null}
 
-          {show("trackNumber") ? (
+          {showColumn("trackNumber") ? (
             <th
               children="#"
-              className={bem("head-row-track","head-row-col")}
+              className={bem("trackNumber","row-col")}
             />
           ) : null}
   
-          {show("title") ? (
+          {showColumn("title") ? (
             <th
               children="Title"
-              className={bem("head-row-col")}
+              className={bem("title","row-col")}
             />
           ) : null}
 
-          {show("add") ? (
-            <th className={bem("head-row-play","head-row-icon","head-row-col")}/>
+          {showColumn("add") ? (
+            <th className={bem("add","row-col")}/>
           ) : null}
 
-          {show("duration") ? (
-            <th className={bem("head-row-duration","head-row-icon","head-row-col")}>
+          {showColumn("duration") ? (
+            <th className={bem("duration","row-col")}>
               <Icon
                 icon="access_time"
-                className={bem("head-row-col-icon")}
+                className={bem("row-col-icon")}
               />
             </th>
           ) : null}
           
-          {show("artists") ? (
+          {showColumn("artists") ? (
             <th
               children="Artists"
-              className={bem("head-row-artists","head-row-col")}
+              className={bem("artists","row-col")}
             />
           ) : null}
   
-          {show("remixers") ? (
+          {showColumn("remixers") ? (
             <th
               children="Remixers"
-              className={bem("head-row-col")}
+              className={bem("remixers","row-col")}
             />
           ) : null}
   
-          {show("album") ? (
+          {showColumn("album") ? (
             <th
               children="Album"
-              className={bem("head-row-col")}
+              className={bem("album","row-col")}
             />
           ) : null}
   
-          {show("genres") ? (
+          {showColumn("genres") ? (
             <th
               children="Genres"
-              className={bem("head-row-col")}
+              className={bem("genres","row-col")}
             />
           ) : null}
   
-          {show("released") ? (
+          {showColumn("released") ? (
             <th
               children="Released"
-              className={bem("head-row-released","head-row-col")}
+              className={bem("released","row-col")}
             />
           ) : null}
           
         </tr>
       </thead>
       <tbody className={bem("tableBody")}>
-        {children}
+        {songs.map(
+          song => (
+            <SongRow
+              song={song}
+              key={song.id}
+              columnsToIgnore={columnsToIgnore}
+            />
+          )
+        )}
       </tbody>
     </table>
   )

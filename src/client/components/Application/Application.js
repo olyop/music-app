@@ -5,7 +5,7 @@ import Header from "../Header"
 import Player from "../Player"
 import Loading from "../Loading"
 import ApiError from "../ApiError"
-import UserCtx from "../../ctx/user"
+import UserCtx from "../../ctx/User"
 
 import { isUndefined } from "lodash"
 import { useQuery } from "@apollo/react-hooks"
@@ -14,7 +14,7 @@ import GET_USER from "../../graphql/queries/getUser.graphql"
 
 const id = "5e11e4aa8e0f023c5007dff9"
 
-const App = () => {
+const Application = () => {
   const queryOptions = { variables: { id } }
   const { data, loading, error } = useQuery(GET_USER, queryOptions)
   if (loading) {
@@ -22,10 +22,8 @@ const App = () => {
   } else if (!isUndefined(error)) {
     return <ApiError/>
   } else {
-    const { user } = data
-    const userCtxInit = { user }
     return (
-      <UserCtx.Provider value={userCtxInit}>
+      <UserCtx.Provider value={data.user}>
         <Header/>
         <Pages/>
         <Player/>
@@ -34,4 +32,4 @@ const App = () => {
   }
 }
 
-export default App
+export default Application

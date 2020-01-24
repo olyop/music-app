@@ -12,7 +12,7 @@ export default {
       const collection = await query.lean().exec()
       return pipe(collection)(
         serializeCollection,
-        restoreOrder(artists)
+        restoreOrder(artists),
       )
     }
   ),

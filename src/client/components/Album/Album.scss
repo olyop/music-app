@@ -10,9 +10,7 @@
     &__artists {
       display: block;
       overflow: hidden;
-      line-height: 1.1;
       max-height: 14rem;
-      text-overflow: ellipsis;
       @media (min-width: 600px) {
         & { max-height: 16rem; } } }
     &__title {

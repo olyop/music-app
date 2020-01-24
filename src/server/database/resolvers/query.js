@@ -1,4 +1,13 @@
-import { Artist, Album, Genre, Song, User } from "../models/index.js"
+import { 
+  Song,
+  User,
+  Album,
+  Genre,
+  Artist,
+  Library,
+  Playlist,
+  LibrarySong,
+} from "../models/index.js"
 
 import { resolver } from "../../helpers/misc.js"
 import { serializeCollection, serializeDocument } from "../../helpers/collection.js"
@@ -32,6 +41,30 @@ export default {
     async ({ args }) => {
       const { id } = args
       const query = Song.findById(id)
+      const doc = await query.lean().exec()
+      return serializeDocument(doc)
+    }
+  ),
+  playlist: resolver(
+    async ({ args }) => {
+      const { id } = args
+      const query = Playlist.findById(id)
+      const doc = await query.lean().exec()
+      return serializeDocument(doc)
+    }
+  ),
+  library: resolver(
+    async ({ args }) => {
+      const { id } = args
+      const query = Library.findById(id)
+      const doc = await query.lean().exec()
+      return serializeDocument(doc)
+    }
+  ),
+  librarySong: resolver(
+    async ({ args }) => {
+      const { id } = args
+      const query = LibrarySong.findById(id)
       const doc = await query.lean().exec()
       return serializeDocument(doc)
     }
@@ -72,6 +105,28 @@ export default {
     async () => {
       const sortArgs = { title: "asc" }
       const query = Song.find().sort(sortArgs)
+      const collection = await query.lean().exec()
+      return serializeCollection(collection)
+    }
+  ),
+  playlists: resolver(
+    async () => {
+      const sortArgs = { name: "asc" }
+      const query = Playlist.find().sort(sortArgs)
+      const collection = await query.lean().exec()
+      return serializeCollection(collection)
+    }
+  ),
+  libraries: resolver(
+    async () => {
+      const query = Library.find()
+      const collection = await query.lean().exec()
+      return serializeCollection(collection)
+    }
+  ),
+  librarySongs: resolver(
+    async () => {
+      const query = LibrarySong.find()
       const collection = await query.lean().exec()
       return serializeCollection(collection)
     }

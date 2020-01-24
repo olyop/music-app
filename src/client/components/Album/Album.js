@@ -26,8 +26,8 @@ const Album = ({ album }) => {
         </p>
         <p className={bem("artists")}>
           <DocLinks
-            docs={artists}
             path="/artist"
+            docs={artists}
             ampersand={true}
           />
         </p>

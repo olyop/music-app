@@ -3,7 +3,6 @@ import React from "react"
 import Empty from "../Empty"
 import Spinner from "../Spinner"
 import ApiError from "../ApiError"
-import SongTable from "../SongTable"
 import SongsTable from "../SongsTable"
 
 import { isUndefined, isEmpty } from "lodash"
@@ -22,17 +21,10 @@ const BrowseSongs = () => {
   } else {
     const columnsToIgnore = ["cover","trackNumber"]
     return (
-      <SongsTable columnsToIgnore={columnsToIgnore}>
-        {data.songs.map(
-          song => (
-            <SongTable
-              song={song}
-              key={song.id}
-              columnsToIgnore={columnsToIgnore}
-            />
-          )
-        )}
-      </SongsTable>
+      <SongsTable
+        songs={data.songs}
+        columnsToIgnore={columnsToIgnore}
+      />
     )
   }
 }

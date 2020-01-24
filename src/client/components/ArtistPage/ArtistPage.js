@@ -1,11 +1,10 @@
-import React from "react"
+import React, { Fragment } from "react"
 
 import Cover from "../Cover"
 import Album from "../Album"
 import Albums from "../Albums"
 import Loading from "../Loading"
 import ApiError from "../ApiError"
-import SongTable from "../SongTable"
 import SongsTable from "../SongsTable"
 
 import { isUndefined } from "lodash"
@@ -30,45 +29,46 @@ const ArtistPage = () => {
     return <ApiError/>
   } else {
     const { name, songs, albums } = data.artist
-    const columnsToIgnore = ["play","released","trackNumber"]
     return (
       <div className={bem("")}>
-        <Cover
-          url={catalogUrl(id)}
-          className={bem("cover")}
-          imgClassName={bem("img")}
-        />
+        {name === "Various Artists" ? null : (
+          <Cover
+            url={catalogUrl(id)}
+            className={bem("cover")}
+            imgClassName={bem("cover-img")}
+          />
+        )}
         <div className={bem("main")}>
-          <div className={bem("title")}>
+          <h2 className={bem("title")}>
             {name}
-          </div>
+          </h2>
           <div className={bem("length")}>
-            {`${songs.length} songs`}
+            {songs.length}
+            <Fragment> songs</Fragment>
+            <Fragment>, </Fragment>
+            {albums.length}
+            <Fragment> albums</Fragment>
           </div>
-          {songs.length === 0 ? null : (
-            <SongsTable className={bem("songs")} columnsToIgnore={columnsToIgnore}>
-              {songs.map(
-                song => (
-                  <SongTable
-                    song={song}
-                    key={song.id}
-                    className={bem("song")}
-                    columnsToIgnore={columnsToIgnore}
+          {albums.length === 0 ? null : (
+            <Albums className={bem("albums")}>
+              {albums.map(
+                album => (
+                  <Album
+                    album={album}
+                    key={album.id}
                   />
                 )
               )}
-            </SongsTable>
+            </Albums>
           )}
-          <Albums className={bem("albums")}>
-            {albums.map(
-              album => (
-                <Album
-                  album={album}
-                  key={album.id}
-                />
-              )
-            )}
-          </Albums>
+          {songs.length === 0 ? null : (
+            <div className={bem("songs")}>
+              <SongsTable
+                songs={songs}
+                columnsToIgnore={["cover","trackNumber"]}
+              />
+            </div>
+          )}
         </div>
       </div>
     )

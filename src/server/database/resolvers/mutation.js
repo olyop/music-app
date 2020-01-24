@@ -38,6 +38,33 @@ export default {
       return serializeDocument(user)
     }
   ),
+  removeUserSong : resolver(
+    async ({ args }) => {
+      const { userId, songId } = args
+      const update = { $pull: { songs: songId } }
+      const mutation = User.findByIdAndUpdate(userId, update)
+      const user = await mutation.lean().exec()
+      return serializeDocument(user)
+    }
+  ),
+  addUserAlbum: resolver(
+    async ({ args }) => {
+      const { userId, albumId } = args
+      const update = { $push: { albums: albumId } }
+      const mutation = User.findByIdAndUpdate(userId, update)
+      const user = await mutation.lean().exec()
+      return serializeDocument(user)
+    }
+  ),
+  removeUserAlbum: resolver(
+    async ({ args }) => {
+      const { userId, albumId } = args
+      const update = { $pull: { albums: albumId } }
+      const mutation = User.findByIdAndUpdate(userId, update)
+      const user = await mutation.lean().exec()
+      return serializeDocument(user)
+    }
+  ),
   updateNowPlaying: resolver(
     async ({ args }) => {
       const { userId, songId } = args

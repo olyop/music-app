@@ -6,9 +6,9 @@ const findMatches = (db, text) => (
     x => (
       includes(
         lowerCase(x[determineKeyName(x)]),
-        lowerCase(text)
+        lowerCase(text),
       )
-    )
+    ),
   )
 )
 

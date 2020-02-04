@@ -1,4 +1,4 @@
-import { string, arrayOf, object } from "prop-types"
+import { arrayOf, string, object } from "prop-types"
 
 export const propTypes = {
   columnsToIgnore: arrayOf(string),

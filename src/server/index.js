@@ -1,7 +1,8 @@
 import express from "express"
-import database from "./database/database.js"
+import database from "./database/index.js"
+import { request } from "./helpers/misc.js"
 import { onError } from "./helpers/server.js"
-import apolloRouter from "./database/apollo.js"
+import apolloServer from "./apolloServer/index.js"
 
 // import middleware
 import cors from "cors"
@@ -14,14 +15,15 @@ import cookieParser from "cookie-parser"
 import { globalHeaders } from "./middleware.js"
 
 import {
+  HOST,
+  PORT,
   DB_URL,
-  HOST, PORT,
   LOG_FORMAT,
   BUILD_PATH,
   CORS_OPTIONS,
   APOLLO_OPTIONS,
-  MONGOOSE_OPTIONS,
   BUILD_PATH_ENTRY,
+  MONGOOSE_OPTIONS,
 } from "./globals.js"
 
 // connect to database
@@ -40,14 +42,14 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(cookieParser())
 app.use(globalHeaders())
 
-// apply apollo to app
-apolloRouter.applyMiddleware({ app, ...APOLLO_OPTIONS })
+// apply apollo server to app
+apolloServer.applyMiddleware({ app, ...APOLLO_OPTIONS })
 
 // serve static assests
 app.use(express.static(BUILD_PATH))
 
 // send index.html
-app.use("*", (req, res) => res.sendFile(BUILD_PATH_ENTRY))
+app.use("*", request(({ res }) => res.sendFile(BUILD_PATH_ENTRY)))
 
 app.on("error", onError)
 

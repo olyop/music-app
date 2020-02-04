@@ -35,7 +35,7 @@ const Browse = ({ match }) => (
                 </Fragment>
               )}
             />
-          )
+          ),
         )}
       </div>
     </div>
@@ -49,7 +49,7 @@ const Browse = ({ match }) => (
               component={route.component}
               path={match.path + route.path}
             />
-          )
+          ),
         )}
       </Switch>
     </div>

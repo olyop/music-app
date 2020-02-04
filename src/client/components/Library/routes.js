@@ -1,16 +1,17 @@
 import LibrarySongs from "./LibrarySongs"
-// import LibraryPlaylists from "./LibraryPlaylists"
+// import LibraryAlbums from "./LibraryAlbums"
+import LibraryPlaylists from "./LibraryPlaylists"
 
 import { uniqueId } from "lodash"
 
 const routes = [
-  // {
-  //   icon: "playlist_play",
-  //   id: uniqueId(),
-  //   name: "Playlists",
-  //   path: "/playlists",
-  //   component: LibraryPlaylists,
-  // },
+  {
+    icon: "playlist_play",
+    id: uniqueId(),
+    name: "Playlists",
+    path: "/playlists",
+    component: LibraryPlaylists,
+  },
   {
     name: "Songs",
     id: uniqueId(),
@@ -18,6 +19,13 @@ const routes = [
     icon: "audiotrack",
     component: LibrarySongs,
   },
+  // {
+  //   name: "Albums",
+  //   id: uniqueId(),
+  //   path: "/albums",
+  //   icon: "album",
+  //   component: LibraryAlbums,
+  // },
 ]
 
 export default routes

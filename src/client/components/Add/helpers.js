@@ -14,7 +14,7 @@ export const validateArray = validator => arr => {
   } else {
     return arr.reduce(
       (acc, val) => validator(val),
-      true
+      true,
     )
   }
 }

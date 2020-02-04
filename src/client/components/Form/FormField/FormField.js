@@ -45,7 +45,7 @@ const FormField = ({ field, val, index, onFieldChange, onFieldHitClick, onFieldD
                       onFieldDocRemove={onFieldDocRemove}
                       doc={determineFieldDoc(docId,field)}
                     />
-                  )
+                  ),
                 )}
               </div>
             ) : null}
@@ -71,7 +71,7 @@ const FormField = ({ field, val, index, onFieldChange, onFieldHitClick, onFieldD
                       tabIndex={index + idx + 2}
                       onFieldHitClick={onFieldHitClick(doc)}
                     />
-                  )
+                  ),
                 )}
               </div>
             ) : null}
@@ -87,7 +87,7 @@ const FormField = ({ field, val, index, onFieldChange, onFieldHitClick, onFieldD
                 validator={validator}
                 val={determineValidatorVal(field, val)}
               />
-            )
+            ),
           )}
         </div>
       ) : null}

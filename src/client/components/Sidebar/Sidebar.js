@@ -52,7 +52,7 @@ const Sidebar = ({ style, toggleSidebar }) => (
                                     to={route.path + subRoute.path + subSubRoute.path}
                                   />
                                 </div>
-                              )
+                              ),
                             )
                           ) : (
                             routesCatalogBrowse.map(
@@ -65,11 +65,11 @@ const Sidebar = ({ style, toggleSidebar }) => (
                                     to={route.path + subRoute.path + subSubRoute.path}
                                   />
                                 </div>
-                              )
+                              ),
                             )
                           )}
                         </div>
-                      )
+                      ),
                     )
                   ) : (
                     routesLibrary.map(
@@ -82,14 +82,14 @@ const Sidebar = ({ style, toggleSidebar }) => (
                             to={route.path + subRoute.path}
                           />
                         </div>
-                      )
+                      ),
                     )
                   )}
                 </Fragment>
               )}
             </div>
           )
-        )
+        ),
       )}
     </nav>
   </animated.aside>

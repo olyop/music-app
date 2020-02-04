@@ -21,7 +21,7 @@ const Add = ({ match }) => (
             component={route.component}
             path={match.path + route.path}
           />
-        )
+        ),
       )}
     </Switch>
   </div>

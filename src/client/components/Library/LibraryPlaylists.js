@@ -38,7 +38,7 @@ const LibraryPlaylists = () => {
               key={playlist.id}
               playlist={playlist}
             />
-          )
+          ),
         )}
       </Playlists>
     )

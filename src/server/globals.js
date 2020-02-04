@@ -42,3 +42,5 @@ export const APOLLO_OPTIONS = {
 
 export const BUILD_PATH = path.resolve("src", "server", "build")
 export const BUILD_PATH_ENTRY = path.join(BUILD_PATH, "index.html")
+
+export const SCHEMA_OPTIONS = { timestamps: false }

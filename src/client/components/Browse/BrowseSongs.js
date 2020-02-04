@@ -19,11 +19,10 @@ const BrowseSongs = () => {
   } else if (isEmpty(data.songs)) {
     return <Empty/>
   } else {
-    const columnsToIgnore = ["cover","trackNumber"]
     return (
       <SongsTable
         songs={data.songs}
-        columnsToIgnore={columnsToIgnore}
+        columnsToIgnore={["cover","trackNumber"]}
       />
     )
   }

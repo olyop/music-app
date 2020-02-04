@@ -15,11 +15,11 @@ const Cover = ({ url, className, imgClassName }) => (
     url={url}
     className={bem(
       { ignore: true, className },
-      ""
+      "",
     )}
     imgClassName={bem(
       { ignore: true, className: imgClassName },
-      "img"
+      "img",
     )}
     children={(
       <Fragment>

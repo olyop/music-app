@@ -13,7 +13,7 @@ const DocLinks = ({ path, docs, ampersand }) => (
           <DocLink doc={doc} path={path} />
           {determineConcat(docs, index, ampersand)}
         </Fragment>
-      )
+      ),
     )}
   </Fragment>
 )

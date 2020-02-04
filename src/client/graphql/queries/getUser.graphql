@@ -5,10 +5,13 @@ query getUser($id: ID!) {
     nowPlaying {
       id
     }
-    albums {
-      id
-    }
     songs {
+      id
+      song {
+        id
+      }
+    }
+    albums {
       id
     }
   }

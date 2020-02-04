@@ -4,35 +4,121 @@
   border-collapse: collapse;
   background-color: #ffffff;
   box-shadow: 0 1px 4px 0 rgba(#333333, .3);
-  &__row {
-    height: 33px;
-    border-bottom: 1px solid #e0e0e0;
-    &-col {
-      font-size: 16px;
-      text-align: left;
-      padding: 4px 12px;
-      line-height: 16px;
-      text-transform: uppercase;
-      &-icon {
-        height: 23px;
-        color: #757575;
-        font-size: 23px;
-        line-height: 23px;
-        border-radius: 100%; } } }
-  &__cover,
-  &__duration {
-    vertical-align: middle;
-    text-align: center;
-    padding: 4px; }
-  &__trackNumber {
-    padding-left: 0;
-    padding-right: 0;
-    text-align: center; }
-  &__album,
-  &__genres,
-  &__artists,
-  &__released,
-  &__remixers,
-  &__duration {
-    @media (max-width: 700px) {
-      display: none; } } }
+  &__head {
+    &-row {
+      height: 33px;
+      border-bottom: 1px solid #e0e0e0;
+      &-col {
+        font-size: 16px;
+        text-align: left;
+        padding: 4px 12px;
+        line-height: 16px;
+        text-transform: uppercase;
+        &-icon {
+          height: 23px;
+          color: #757575;
+          font-size: 23px;
+          line-height: 23px;
+          border-radius: 100%; } } }
+    &-cover,
+    &-duration {
+      vertical-align: middle;
+      text-align: center;
+      padding: 4px; }
+    &-trackNumber {
+      padding-left: 0;
+      padding-right: 0;
+      text-align: center; }
+    &-album,
+    &-genres,
+    &-artists,
+    &-released,
+    &-remixers,
+    &-duration {
+      @media (max-width: 700px) {
+        display: none; } } }
+  &__body {
+    &-row {
+      height: 41px;
+      border-bottom: 1px solid #e0e0e0;
+      &:hover {
+        background-color: #eeeeee; }
+      &:hover &__col-play {
+        display: block; }
+      &:last-child {
+        border-bottom: none; }
+      &-col {
+        padding: 12px;
+        overflow: hidden;
+        &-span {
+          font-size: 16px;
+          text-align: left;
+          line-height: 16px;
+          white-space: nowrap;
+          text-overflow: ellipsis; } } }
+      &-add,
+      &-play {
+        width: 40px;
+        height: 40px; }
+      &-add,
+      &-play {
+        padding: 4px;
+        &-icon {
+          width: 32px;
+          height: 32px;
+          color: #757575;
+          font-size: 32px;
+          line-height: 32px;
+          border-radius: 100%;
+          &:hover {
+            background-color: #E0E0E0; } } }
+      &-album,
+      &-genres,
+      &-artists,
+      &-released,
+      &-remixers,
+      &-duration {
+        @media (max-width: 700px) {
+          display: none; } }
+      &-play {
+        width: 36px;
+        padding-right: 0; }
+      &-trackNumber {
+        width: 30px;
+        height: 40px;
+        font-size: 16px;
+        padding-left: 0;
+        padding-right: 0;
+        overflow: visible;
+        text-align: center;
+        &-span {
+          width: 16px;
+          height: 16px; } }
+      &-title {
+        max-width: 20vw;
+        padding-left: 8px;
+        &-span {
+          @media (max-width: 700px) {
+            display: none; } }
+        &-song {
+          @media (min-width: 700px) {
+            display: none; } } }
+      &-duration {
+        width: 55px;
+        &-span {
+          color: #757575; } }
+      &-artists {
+        max-width: 12vw; }
+      &-remixers {
+        max-width: 8vw; }
+      &-album {
+        max-width: 12vw; }
+      &-genres {
+        max-width: 12vw; }
+      &-released {
+        width: 110px; } } }
+
+@keyframes play {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); } }        

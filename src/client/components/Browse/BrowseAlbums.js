@@ -5,9 +5,9 @@ import Album from "../Album"
 import Albums from "../Albums"
 import Spinner from "../Spinner"
 import ApiError from "../ApiError"
-import { useQuery } from "@apollo/react-hooks"
 
 import { isUndefined, isEmpty } from "lodash"
+import { useQuery } from "@apollo/react-hooks"
 
 import GET_ALBUMS from "../../graphql/queries/getAlbums.graphql"
 
@@ -28,7 +28,7 @@ const BrowseAlbums = () => {
               album={album}
               key={album.id}
             />
-          )
+          ),
         )}
       </Albums>
     )

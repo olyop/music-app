@@ -1,8 +1,9 @@
-query librarySongsFrag($id: ID!) {
-  library(id: $id) {
+query getUserSongs($id: ID!) {
+  user(id: $id) {
+    id
     songs {
       id
-      songs {
+      song {
         id
         title
         mix

@@ -1,8 +1,0 @@
-query getUserLibrary($id: ID!) {
-  user(id: $id) {
-    id
-    library {
-      id
-    }
-  }
-}

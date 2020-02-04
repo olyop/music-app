@@ -1,0 +1,3 @@
+fragment userAlbumsFrag on User {
+  albums
+}

@@ -57,7 +57,7 @@ const ArtistPage = () => {
                     album={album}
                     key={album.id}
                   />
-                )
+                ),
               )}
             </Albums>
           )}

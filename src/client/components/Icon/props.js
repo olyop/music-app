@@ -1,5 +1,5 @@
 import { noop } from "lodash"
-import { string, func } from "prop-types"
+import { func, string } from "prop-types"
 
 export const propTypes = {
   onClick: func,

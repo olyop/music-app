@@ -11,4 +11,6 @@ export const curryReduce = (func, accumulator) => collection => collection.reduc
 export const curryConcat = newItem => collection => collection.concat(newItem)
 export const currySortBy = func => collection => sortBy(collection, func)
 
-export const resolver = foo => (parent, args, context, info) => foo({ parent, args, context, info })
+export const resolver = callback => (parent, args, context, info) => callback({ parent, args, context, info })
+
+export const request = callback => (req, res, nxt) => callback({ req, res, nxt })

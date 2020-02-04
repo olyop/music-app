@@ -28,7 +28,7 @@ const BrowseArtists = () => {
               key={artist.id}
               artist={artist}
             />
-          )
+          ),
         )}
       </Artists>
     )

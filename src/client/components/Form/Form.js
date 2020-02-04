@@ -57,7 +57,7 @@ const Form = ({ title, fields, rememberText, submitText, submit }) => {
               onFieldHitClick={onFieldHitClick(field)}
               onFieldDocRemove={onFieldDocRemove(field)}
             />
-          )
+          ),
         )}
       </FormFields>
 

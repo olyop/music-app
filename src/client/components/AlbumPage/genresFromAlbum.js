@@ -6,7 +6,7 @@ const genresFromAlbum = album => pipe(album)(
   ({ songs }) => songs,
   map(({ genres }) => genres),
   flattenDepth(2),
-  uniq
+  uniq,
 )
 
 export default genresFromAlbum

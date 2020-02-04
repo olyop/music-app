@@ -14,13 +14,15 @@ const bem = reactBem("Playlist")
 const Playlist = ({ playlist }) => (
   <div className={bem("")}>
     <div className={bem("cover")}>
-      {playlist.songs.map(({ id, album }) => (
-        <Img
-          key={id}
-          className={bem("img")}
-          url={catalogUrl(album.id)}
-        />
-      ))}
+      {playlist.songs.map(
+        ({ id, album }) => (
+          <Img
+            key={id}
+            className={bem("img")}
+            url={catalogUrl(album.id)}
+          />
+        ),
+      )}
     </div>
     <div className={bem("info")}>
       <DocLink

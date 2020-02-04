@@ -9,7 +9,7 @@ export const createFormInit = fields => fields.reduce(
       input: "",
     } : init,
   }),
-  {}
+  {},
 )
 
 export const determineFormValid = (fields, form) => fields.reduce(
@@ -32,7 +32,7 @@ export const determineFormValid = (fields, form) => fields.reduce(
     }
     return isValid
   },
-  true
+  true,
 )
 
 export const handleFieldChange = (form, setForm) => ({ isDoc, short, parse }) => event => {
@@ -85,7 +85,7 @@ export const deserializeForm = (fields, form) => fields.reduce(
       }
     }
   },
-  {}
+  {},
 )
 
 export const createFormInitRemember = doc => ({

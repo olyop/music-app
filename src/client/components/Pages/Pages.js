@@ -19,7 +19,7 @@ const Pages = () => (
             path={route.path}
             component={route.component}
           />
-        )
+        ),
       )}
     </Switch>
   </main>

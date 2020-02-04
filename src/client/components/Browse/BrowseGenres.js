@@ -28,7 +28,7 @@ const BrowseGenres = () => {
               genre={genre}
               key={genre.id}
             />
-          )
+          ),
         )}
       </Genres>
     )

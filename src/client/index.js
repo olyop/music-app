@@ -15,5 +15,5 @@ ReactDOM.render(
       <Application/>
     </ApolloClient>
   </ReactRouter>,
-  ROOT_ELEMENT
+  ROOT_ELEMENT,
 )

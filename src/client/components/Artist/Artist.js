@@ -20,10 +20,12 @@ const Artist = ({ artist }) => {
         className={bem("cover")}
       />
       <h2 className={bem("name")}>
-        <DocLink
-          doc={artist}
-          path="/artist"
-        />
+        {artist.name === "Various Artists" ? artist.name : (
+          <DocLink
+            doc={artist}
+            path="/artist"
+          />
+        )}
       </h2>
     </div>
   )

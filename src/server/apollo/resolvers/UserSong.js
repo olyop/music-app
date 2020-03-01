@@ -36,8 +36,7 @@ export default {
       const filter = { user, song }
       const query = Play.find(filter)
       const collection = await query.lean().exec()
-      const plays = serializeCollection(collection)
-      return plays.length
+      return collection.length
     }
   )
 }

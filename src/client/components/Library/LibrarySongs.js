@@ -34,8 +34,8 @@ const LibrarySongs = () => {
     client.writeFragment({ id, fragment, data: userFrag })
     return (
       <SongsTable
-        songs={songs.map(({ song }) => song)}
-        columnsToIgnore={["cover","trackNumber"]}
+        columnsToIgnore={["cover","trackNumber","released"]}
+        songs={songs.map(({ song, numOfPlays }) => ({ ...song, numOfPlays }))}
       />
     )
   }

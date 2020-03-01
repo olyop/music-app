@@ -5,13 +5,15 @@
   background-color: #ffffff;
   box-shadow: 0 1px 4px 0 rgba(#333333, .3);
   &__head {
+    @media (max-width: 700px) {
+      display: none; }
     &-row {
       height: 33px;
       border-bottom: 1px solid #e0e0e0;
       &-col {
+        padding: 4px 12px;
         font-size: 16px;
         text-align: left;
-        padding: 4px 12px;
         line-height: 16px;
         text-transform: uppercase;
         &-icon {
@@ -31,6 +33,7 @@
       text-align: center; }
     &-album,
     &-genres,
+    &-plays,
     &-artists,
     &-released,
     &-remixers,
@@ -43,7 +46,8 @@
       border-bottom: 1px solid #e0e0e0;
       &:hover {
         background-color: #eeeeee; }
-      &:hover &__col-play {
+      &:hover &-plays-span,
+      &:hover &-add-icon {
         display: block; }
       &:last-child {
         border-bottom: none; }
@@ -55,7 +59,10 @@
           text-align: left;
           line-height: 16px;
           white-space: nowrap;
-          text-overflow: ellipsis; } } }
+          text-overflow: ellipsis; } }
+      &-add {
+        &-icon {
+          display: none; } }
       &-add,
       &-play {
         width: 40px;
@@ -72,6 +79,7 @@
           border-radius: 100%;
           &:hover {
             background-color: #E0E0E0; } } }
+      &-plays,
       &-album,
       &-genres,
       &-artists,
@@ -103,20 +111,30 @@
         &-song {
           @media (min-width: 700px) {
             display: none; } } }
-      &-duration {
-        width: 55px;
+      &-plays {
+        width: 33px;
+        text-align: right;
         &-span {
-          color: #757575; } }
+          display: none;
+          text-decoration: none;
+          &:hover {
+            text-decoration: underline; } } }
+      &-duration {
+        width: 55px; }
+      &-plays,
+      &-duration {
+        &-span {
+          color: #757575;} }
       &-artists {
-        max-width: 12vw; }
+        width: 12vw; }
       &-remixers {
-        max-width: 8vw; }
+        width: 8vw; }
       &-album {
-        max-width: 12vw; }
+        width: 12vw; }
       &-genres {
-        max-width: 12vw; }
+        width: 12vw; }
       &-released {
-        width: 110px; } } }
+        width: 110px; } } } }
 
 @keyframes play {
   0% { transform: scale(1); }

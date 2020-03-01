@@ -18,6 +18,20 @@ const definition = {
     type: ObjectId,
     required: true,
   },
+  next: [{
+    index: true,
+    minlength: 24,
+    maxlength: 24,
+    type: ObjectId,
+    required: true,
+  }],
+  queue: [{
+    index: true,
+    minlength: 24,
+    maxlength: 24,
+    type: ObjectId,
+    required: true,
+  }],
   playlists: [{
     index: true,
     minlength: 24,

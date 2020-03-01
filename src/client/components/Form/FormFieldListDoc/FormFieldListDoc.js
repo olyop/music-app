@@ -22,10 +22,9 @@ const FormFieldListDoc = ({ doc, onFieldDocRemove }) => {
           className={bem("img")}
         />
       )}
-      <p
-        className={bem("text")}
-        children={doc[determineKeyName(doc)]}
-      />
+      <p className={bem("text")}>
+        {doc[determineKeyName(doc)]}
+      </p>
       <Icon
         icon="close"
         className={bem("close")}

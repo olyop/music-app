@@ -6,7 +6,7 @@ import UserCtx from "../../ctx/User"
 
 import reactBem from "@oly_op/react-bem"
 import { propTypes, defaultProps } from "./props"
-import { concat, includes, filter } from "lodash"
+import { concat, includes, filter, uniqueId } from "lodash"
 import { useMutation, useApolloClient } from "@apollo/react-hooks"
 
 import ADD_USER_SONG from "../../graphql/mutations/addUserSong.graphql"
@@ -24,13 +24,14 @@ const AddToLibrary = ({ doc, className }) => {
   const user = useContext(UserCtx)
   const client = useApolloClient()
   
-  const [ addUserSong, addUserSongResult ] = useMutation(ADD_USER_SONG)
-  const [ addUserAlbum, addUserAlbumResult ] = useMutation(ADD_USER_ALBUM)
-  const [ removeUserSong, removeUserSongResult ] = useMutation(REMOVE_USER_SONG)
-  const [ removeUserAlbum, removeUserAlbumResult ] = useMutation(REMOVE_USER_ALBUM)
+  const [ addUserSong ] = useMutation(ADD_USER_SONG)
+  const [ addUserAlbum] = useMutation(ADD_USER_ALBUM)
+  const [ removeUserSong ] = useMutation(REMOVE_USER_SONG)
+  const [ removeUserAlbum ] = useMutation(REMOVE_USER_ALBUM)
 
   const isSong = doc.__typename === "Song"
   const key = isSong ? "songs" : "albums"
+  const userDocKey = isSong ? "song" : "album"
   const variablesKey = isSong ? "songId" : "albumId"
   const fragment = isSong ? USER_SONGS_FRAG : USER_ALBUMS_FRAG
   
@@ -45,11 +46,12 @@ const AddToLibrary = ({ doc, className }) => {
     if (inLibrary) {
       if (isSong) removeUserSong({ variables })
       else removeUserAlbum({ variables })
-      newDocs = filter(docs, ({ id }) => id !== docId)
+      newDocs = filter(docs, ({ song }) => song.id !== docId)
     } else {
       if (isSong) addUserSong({ variables })
       else addUserAlbum({ variables })
-      newDocs = concat(docs, doc)
+      const newDoc = { id: uniqueId(), [userDocKey]: doc }
+      newDocs = concat(docs, newDoc)
     }
     const userFrag = { [key]: newDocs, __typename: "User" }
     client.writeFragment({ id: userId, fragment, data: userFrag })

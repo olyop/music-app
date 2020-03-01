@@ -11,6 +11,7 @@ import { isUndefined } from "lodash"
 import reactBem from "@oly_op/react-bem"
 import { useParams } from "react-router-dom"
 import songsWithAlbum from "./songsWithAlbum"
+import determineDiscs from "./determineDiscs"
 import { useQuery } from "@apollo/react-hooks"
 import { catalogUrl } from "../../helpers/misc"
 import genresFromAlbum from "./genresFromAlbum"
@@ -32,7 +33,9 @@ const AlbumPage = () => {
     return <ApiError/>
   } else {
     const { album } = data
-    const { title, released, artists, songs } = album
+    const { title, released, artists } = album
+    const songs = songsWithAlbum(album.songs, album)
+    const discs = determineDiscs(songs)
     return (
       <div className={bem("")}>
         <Cover
@@ -47,13 +50,6 @@ const AlbumPage = () => {
               className={bem("title-add")}
             />
           </h2>
-          <h3 className={bem("genres")}>
-            <DocLinks
-              path="/genre"
-              ampersand={true}
-              docs={genresFromAlbum(album)}
-            />
-          </h3>
           <h4 className={bem("artists")}>
             <DocLinks
               path="/artist"
@@ -63,12 +59,33 @@ const AlbumPage = () => {
             <Fragment> - </Fragment>
             {deserializeDate(released)}
           </h4>
-          <div className={bem("songs")}>
-            <SongsTable
-              songs={songsWithAlbum(songs,album)}
-              columnsToIgnore={["album","cover","released"]}
+          <h3 className={bem("genres")}>
+            <DocLinks
+              path="/genre"
+              ampersand={true}
+              docs={genresFromAlbum(album)}
             />
-          </div>
+          </h3>
+          {discs.length === 1 ? (
+            <SongsTable
+              songs={discs[0].songs}
+              columnsToIgnore={["album","cover","plays","released"]}
+            />
+          ) : (
+            <div className={bem("discs")}>
+              {discs.map(
+                disc => (
+                  <div key={disc.number} className={bem("disc")}>
+                    <p className={bem("disc-number")}>{`Disc ${disc.number}`}</p>
+                    <SongsTable
+                      songs={disc.songs}
+                      columnsToIgnore={["album","cover","plays","released"]}
+                    />
+                  </div>
+                ),
+              )}
+            </div>
+          )}
         </div>
       </div>
     )

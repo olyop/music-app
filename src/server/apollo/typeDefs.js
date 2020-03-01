@@ -68,6 +68,9 @@ const typeDefs = gql`
   type User {
     id: ID!
     name: String!
+    prev: [Song!]!
+    next: [Song!]!
+    queue: [Song!]!
     plays: [Play!]!
     nowPlaying: Song!
     songs: [UserSong!]!
@@ -79,7 +82,7 @@ const typeDefs = gql`
     updateNowPlaying(
       userId: ID!
       songId: ID!
-    ): Song!
+    ): User!
     addUserSong(
       userId: ID!
       songId: ID!
@@ -112,10 +115,10 @@ const typeDefs = gql`
       mix: String!
       genres: [ID!]!
       title: String!
-      duration: Int!
       artists: [ID!]!
       discNumber: Int!
       remixers: [ID!]!
+      duration: String!
       trackNumber: Int!
       featuring: [ID!]!
     ): Song!

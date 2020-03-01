@@ -1,11 +1,9 @@
-import { string, arrayOf, object } from "prop-types"
+import { shape, string } from "prop-types"
 
 export const propTypes = {
-  mix: string.isRequired,
-  title: string.isRequired,
-  featuring: arrayOf(object),
-}
-
-export const defaultProps = {
-  featuring: [],
+  song: shape({
+    id: string.isRequired,
+    mix: string.isRequired,
+    title: string.isRequired,
+  }),
 }

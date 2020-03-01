@@ -10,10 +10,10 @@ import { ROOT_ELEMENT } from "./globals"
 import "./index.scss"
 
 ReactDOM.render(
-  <ReactRouter>
-    <ApolloClient>
+  <ApolloClient>
+    <ReactRouter>
       <Application/>
-    </ApolloClient>
-  </ReactRouter>,
+    </ReactRouter>
+  </ApolloClient>,
   ROOT_ELEMENT,
 )

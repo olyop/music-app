@@ -25,10 +25,22 @@ const PlayButton = ({ song, className }) => {
   const variables = { userId, songId }
 
   const handleClick = () => {
-    mutateNowPlaying({ variables })
-    const fragment = USER_NOW_PLAYING_FRAG
-    const userFrag = { nowPlaying: song, __typename: "User" }
-    client.writeFragment({ id: userId, fragment, data: userFrag })
+    mutateNowPlaying({
+      variables,
+      optimisticResponse: {
+        __typename: "Mutation",
+        updateNowPlaying: {
+          ...user,
+          nowPlaying: song,
+          __typeName: "User",
+        },
+      },
+      update: () => {
+        const fragment = USER_NOW_PLAYING_FRAG
+        const userFrag = { nowPlaying: song, __typename: "User" }
+        client.writeFragment({ id: userId, fragment, data: userFrag })
+      },
+    })
   }
 
   return (

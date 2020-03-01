@@ -24,13 +24,16 @@ const GenrePage = () => {
   } else if (!isUndefined(error)) {
     return <ApiError/>
   } else {
-    const columnsIgnore = ["cover","trackNumber","released"]
+    const { name, songs } = data.genre
     return (
       <div className={bem("")}>
-        <SongsTable
-          songs={data.genre.songs}
-          columnsToIgnore={columnsIgnore}
-        />
+        <h1 className={bem("name")}>{name}</h1>
+        <div className={bem("songs")}>
+          <SongsTable
+            songs={songs}
+            columnsToIgnore={["cover","plays","trackNumber","released"]}
+          />
+        </div>
       </div>
     )
   }

@@ -1,8 +1,17 @@
+import toInteger from "lodash/toInteger.js"
 import database from "../../database/index.js"
 import { resolver } from "../../helpers/misc.js"
 import { serializeDocument } from "../../helpers/collection.js"
 
 const { Song, User, Album, Genre, Artist, UserSong, UserAlbum } = database.models
+
+const determineReleased = released => released / 86400
+
+const determineDuration = duration => {
+  const minutes = toInteger(duration.slice(0,1))
+  const seconds = toInteger(duration.slice(2,4))
+  return (minutes * 60) + seconds
+}
 
 export default {
   addArtist: resolver(
@@ -13,7 +22,8 @@ export default {
   ),
   addAlbum: resolver(
     async ({ args }) => {
-      const newArgs = { ...args, released: args.released / 86400 }
+      const released = determineReleased(args.released)
+      const newArgs = { ...args, released }
       const album = await Album.create(newArgs)
       return serializeDocument(album.toObject())
     }
@@ -26,7 +36,9 @@ export default {
   ),
   addSong: resolver(
     async ({ args }) => {
-      const song = await Song.create(args)
+      const duration = determineDuration(args.duration)
+      const newArgs = { ...args, duration }
+      const song = await Song.create(newArgs)
       return serializeDocument(song.toObject())
     }
   ),

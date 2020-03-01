@@ -3,6 +3,7 @@ query getUserSongs($id: ID!) {
     id
     songs {
       id
+      numOfPlays
       song {
         id
         title
@@ -27,7 +28,6 @@ query getUserSongs($id: ID!) {
         album {
           id
           title
-          released
         }
       } 
     }

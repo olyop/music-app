@@ -65,7 +65,7 @@ const ArtistPage = () => {
             <div className={bem("songs")}>
               <SongsTable
                 songs={songs}
-                columnsToIgnore={["cover","trackNumber"]}
+                columnsToIgnore={["cover","plays","trackNumber"]}
               />
             </div>
           )}

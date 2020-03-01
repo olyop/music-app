@@ -1,8 +1,8 @@
 import express from "express"
 import database from "./database/index.js"
 import { request } from "./helpers/misc.js"
+import apolloServer from "./apollo/index.js"
 import { onError } from "./helpers/server.js"
-import apolloServer from "./apolloServer/index.js"
 
 // import middleware
 import cors from "cors"

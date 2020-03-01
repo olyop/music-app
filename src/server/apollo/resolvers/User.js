@@ -13,6 +13,33 @@ export default {
       return serializeDocument(doc)
     }
   ),
+  prev: resolver(
+    async ({ parent }) => {
+      const { prev } = parent
+      const filter = { _id: { $in: prev } }
+      const query = Song.find(filter)
+      const collection = await query.lean().exec()
+      return serializeCollection(collection)
+    }
+  ),
+  next: resolver(
+    async ({ parent }) => {
+      const { next } = parent
+      const filter = { _id: { $in: next } }
+      const query = Song.find(filter)
+      const collection = await query.lean().exec()
+      return serializeCollection(collection)
+    }
+  ),
+  queue: resolver(
+    async ({ parent }) => {
+      const { queue } = parent
+      const filter = { _id: { $in: queue } }
+      const query = Song.find(filter)
+      const collection = await query.lean().exec()
+      return serializeCollection(collection)
+    }
+  ),
   playlists: resolver(
     async ({ parent }) => {
       const { playlists } = parent

@@ -3,27 +3,38 @@
 .Player {
   z-index: 4;
   width: 100%;
-  display: flex;
-  align-items: center;
   height: $PLAYER_HEIGHT;
   box-shadow: 0 1px 4px 0 rgba(51, 51, 51, 0.3);
-  &__left,
-  &__right {
-    height: 100%; }
-  &__left {
-    display: flex;
-    padding: 10px; }
-  &__right {
+  &__timeline {
     width: 100%;
-    padding: 10px 15px;
-  @media (min-width: 700px) {
-    padding: 10px 10px; } }
-    &__icon {
-      outline: none;
-      font-size: 40rem;
-      transition: .2s all;
-      border-radius: 100%;
+    height: 5px;
+    background-color: #e0e0e0;
+    &-progress {
+      width: 30%;
+      height: 100%;
+      background-color: #BDBDBD; } }
+  &__link {
+    text-decoration: none;
     &:hover {
-      background-color: #e0e0e0; } }
+      text-decoration: none; } }
+  &__main {
+    display: flex;
+    align-items: center; }
+    &__left,
+    &__right {
+      height: 100%; }
     &__left {
-      border-right: 1px solid #e0e0e0; } }
+      display: flex;
+      padding: 15px 18px;
+      border-right: 1px solid #e0e0e0; }
+    &__right {
+      width: 100%;
+      display: flex;
+      padding: 15px 18px; }
+      &__icon {
+        outline: none;
+        font-size: 40rem;
+        transition: .2s all;
+        border-radius: 100%;
+        &:hover {
+          background-color: #e0e0e0; } } }

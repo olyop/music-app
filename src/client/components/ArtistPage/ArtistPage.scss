@@ -1,5 +1,4 @@
 .ArtistPage {
-  padding: 0;
   height: 100%;
   overflow: auto;
   @media (min-width: 700px) {
@@ -13,8 +12,6 @@
       width: 640px;
       height: 360px;
       margin-bottom: 20px; }
-    @media (max-width: 700px) {
-      border-radius: 0; }
     &:before {
       padding-top: 56.25%; }
     &-img {
@@ -23,9 +20,8 @@
         border-radius: 0; } } }
   &__main {
     width: 100%;
-    padding: 20px;
-    @media (min-width: 700px) {
-      padding: 0; } }
+    @media (max-width: 700px) {
+      padding: 20px; } }
     &__title {
       font-size: 30rem;
       margin-bottom: 10px; }
@@ -34,4 +30,3 @@
       margin-bottom: 20px; }
     &__albums {
       margin-bottom: 20px; } }
-  

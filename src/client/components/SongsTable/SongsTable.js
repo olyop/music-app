@@ -7,6 +7,7 @@ import DocLink from "../DocLink"
 import DocLinks from "../DocLinks"
 import SongTitle from "../SongTitle"
 import PlayButton from "../PlayButton"
+import { Link } from "react-router-dom"
 import AddToLibrary from "../AddToLibrary"
 
 import { propTypes } from "./props"
@@ -56,6 +57,12 @@ const SongsTable = ({ songs, columnsToIgnore }) => {
             <th
               children="Title"
               className={bem("head-title","head-row-col")}
+            />
+          ) : null}
+
+          {showColumn("plays") ? (
+            <th
+              className={bem("head-plays","head-row-col")}
             />
           ) : null}
 
@@ -119,14 +126,13 @@ const SongsTable = ({ songs, columnsToIgnore }) => {
           song => {
             const {
               id,
-              mix,
-              title,
               album,
               genres,
               artists,
               duration,
               remixers,
               featuring,
+              numOfPlays,
               trackNumber,
             } = song
             return (
@@ -134,7 +140,7 @@ const SongsTable = ({ songs, columnsToIgnore }) => {
   
                 {showColumn("cover") ? (
                   <td
-                    className={bem("body-cover","body-col")}
+                    className={bem("body-row-cover","body-row-col")}
                     children={(
                       <Img
                         url={catalogUrl(album.id)}
@@ -146,11 +152,11 @@ const SongsTable = ({ songs, columnsToIgnore }) => {
   
                 {showColumn("play") ? (
                   <td
-                    className={bem("body-play","body-col")}
+                    className={bem("body-row-play","body-row-col")}
                     children={(
                       <PlayButton
                         song={song}
-                        className={bem("body-play-icon")}
+                        className={bem("body-row-play-icon")}
                       />
                     )}
                   />
@@ -158,43 +164,53 @@ const SongsTable = ({ songs, columnsToIgnore }) => {
   
                 {showColumn("trackNumber") ? (
                   <td
-                    className={bem("body-trackNumber","body-col")}
+                    className={bem("body-row-trackNumber","body-row-col")}
                     children={(
-                      <span className={bem("body-trackNumber-span","body-col-span")}>
+                      <span className={bem("body-row-trackNumber-span","body-row-col-span")}>
                         {trackNumber}
                       </span>
-                    )}
+                    )} 
                   />
                 ) : null}
   
                 {showColumn("title") ? (
                   <td
-                    className={bem("body-title","body-col")}
+                    className={bem("body-row-title","body-row-col")}
                     children={(
                       <Fragment>
-                        <div className={bem("body-title-span","body-col-span")}>
-                          <SongTitle
-                            mix={mix}
-                            title={title}
-                          />
+                        <div className={bem("body-row-title-span","body-row-col-span")}>
+                          <SongTitle song={song}/>
                         </div>
                         <Song
                           song={song}
                           showCover={false}
-                          className={bem("body-title-song","body-col-span")}
+                          className={bem("body-row-title-song","body-row-col-span")}
                         />
                       </Fragment>
+                    )}
+                  />
+                ) : null}
+
+                {showColumn("plays") ? (
+                  <td
+                    className={bem("body-row-plays","body-row-col")}
+                    children={(
+                      <Link
+                        to={`/user/${id}/plays`}
+                        children={numOfPlays === 0 ? undefined : numOfPlays}
+                        className={bem("body-row-plays-span","body-row-col-span")}
+                      />
                     )}
                   />
                 ) : null}
   
                 {showColumn("add") ? (
                   <td
-                    className={bem("body-add","body-col")}
+                    className={bem("body-row-add","body-row-col")}
                     children={(
                       <AddToLibrary
                         doc={song}
-                        className={bem("body-add-icon")}
+                        className={bem("body-row-add-icon")}
                       />
                     )}
                   />
@@ -202,9 +218,9 @@ const SongsTable = ({ songs, columnsToIgnore }) => {
   
                 {showColumn("duration") ? (
                   <td
-                    className={bem("body-duration","body-col")}
+                    className={bem("body-row-duration","body-row-col")}
                     children={(
-                      <span className={bem("body-duration-span","body-col-span")}>
+                      <span className={bem("body-row-duration-span","body-row-col-span")}>
                         {deserializeDuration(duration)}
                       </span>
                     )}
@@ -213,9 +229,9 @@ const SongsTable = ({ songs, columnsToIgnore }) => {
   
                 {showColumn("artists") ? (
                   <td
-                    className={bem("body-artists","body-col")}
+                    className={bem("body-row-artists","body-row-col")}
                     children={(
-                      <span className={bem("body-col-span")}>
+                      <span className={bem("body-row-col-span")}>
                         <DocLinks
                           path="/artist"
                           ampersand={false}
@@ -228,9 +244,9 @@ const SongsTable = ({ songs, columnsToIgnore }) => {
   
                 {showColumn("remixers") ? (
                   <td
-                    className={bem("body-remixers","body-col")}
+                    className={bem("body-row-remixers","body-row-col")}
                     children={(
-                      <span className={bem("body-col-span")}>
+                      <span className={bem("body-row-col-span")}>
                         {isEmpty(remixers) ? null : (
                           <DocLinks
                             path="/artist"
@@ -245,9 +261,9 @@ const SongsTable = ({ songs, columnsToIgnore }) => {
   
                 {showColumn("album") ? (
                   <td
-                    className={bem("body-album","body-col")}
+                    className={bem("body-row-album","body-row-col")}
                     children={(
-                      <span className={bem("body-col-span")}>
+                      <span className={bem("body-row-col-span")}>
                         <DocLink
                           doc={album}
                           path="/album"
@@ -259,9 +275,9 @@ const SongsTable = ({ songs, columnsToIgnore }) => {
   
                 {showColumn("genres") ? (
                   <td
-                    className={bem("body-genres","body-col")}
+                    className={bem("body-row-genres","body-row-col")}
                     children={(
-                      <span className={bem("body-col-span")}>
+                      <span className={bem("body-row-col-span")}>
                         <DocLinks
                           path="/genre"
                           docs={genres}
@@ -274,9 +290,9 @@ const SongsTable = ({ songs, columnsToIgnore }) => {
   
                 {showColumn("released") ? (
                   <td
-                    className={bem("body-released","body-col")}
+                    className={bem("body-row-released","body-row-col")}
                     children={(
-                      <span className={bem("body-col-span")}>
+                      <span className={bem("body-row-col-span")}>
                         {deserializeDate(album.released)}
                       </span>
                     )}

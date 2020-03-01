@@ -7,8 +7,7 @@ const { ObjectId } = Schema.Types
 const definition = {
   mix: {
     type: String,
-    minlength: 1,
-    required: true,
+    minlength: 0,
     maxlength: 256,
   },
   featuring: [{
@@ -16,12 +15,14 @@ const definition = {
     minlength: 24,
     maxlength: 24,
     type: ObjectId,
+    required: true,
   }],
   remixers: [{
     index: true,
     minlength: 24,
     maxlength: 24,
     type: ObjectId,
+    required: true,
   }],
   artists: [{
     index: true,

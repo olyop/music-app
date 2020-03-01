@@ -1,6 +1,7 @@
 query getGenrePage($id: ID!) {
   genre(id: $id) {
     id
+    name
     songs {
       id
       title

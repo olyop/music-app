@@ -13,14 +13,14 @@ import UserAlbumSchema  from "./schemas/UserAlbum.js"
 // Initialize database connection
 const database = mongoose.createConnection()
 
-database.model("Play", PlaySchema , "plays")
-database.model("Song", SongSchema , "songs")
-database.model("User", UserSchema , "users")
-database.model("Album", AlbumSchema , "albums")
-database.model("Genre", GenreSchema , "genres")
-database.model("Artist", ArtistSchema , "artists")
-database.model("Playlist", PlaylistSchema , "playlists")
-database.model("UserSong", UserSongSchema , "userSongs")
-database.model("UserAlbum", UserAlbumSchema , "userAlbums")
+database.model("Play", PlaySchema, "plays")
+database.model("Song", SongSchema, "songs")
+database.model("User", UserSchema, "users")
+database.model("Album", AlbumSchema, "albums")
+database.model("Genre", GenreSchema, "genres")
+database.model("Artist", ArtistSchema, "artists")
+database.model("Playlist", PlaylistSchema, "playlists")
+database.model("UserSong", UserSongSchema, "userSongs")
+database.model("UserAlbum", UserAlbumSchema, "userAlbums")
 
 export default database

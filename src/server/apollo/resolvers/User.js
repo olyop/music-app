@@ -31,10 +31,10 @@ export default {
       return serializeCollection(collection)
     }
   ),
-  queue: resolver(
+  later: resolver(
     async ({ parent }) => {
-      const { queue } = parent
-      const filter = { _id: { $in: queue } }
+      const { later } = parent
+      const filter = { _id: { $in: later } }
       const query = Song.find(filter)
       const collection = await query.lean().exec()
       return serializeCollection(collection)

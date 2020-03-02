@@ -1,7 +1,6 @@
 import React, { useContext } from "react"
 
 import Icon from "../Icon"
-import UserCtx from "../../ctx/User"
 import PlayCtx from "../../ctx/Play"
 import NowPlaying from "../NowPlaying"
 import { Link } from "react-router-dom"
@@ -13,12 +12,11 @@ import "./Player.scss"
 const bem = reactBem("Player")
 
 const Player = () => {
-  const { id } = useContext(UserCtx)
-  const { play, setPlay } = useContext(PlayCtx)
-  const icon = play ? "play_arrow" : "pause"
-  const togglePlay = () => setPlay(!play)
+  const { play, togglePlay } = useContext(PlayCtx)
+  const playIcon = play ? "play_arrow" : "pause"
+  const handlePlayClick = () => togglePlay(!play)
   return (
-    <div className={bem("")}>
+    <section className={bem("")}>
       <div className={bem("timeline")}>
         <div className={bem("timeline-progress")}/>
       </div>
@@ -29,9 +27,9 @@ const Player = () => {
             className={bem("icon")}
           />
           <Icon
-            icon={icon}
-            onClick={togglePlay}
+            icon={playIcon}
             className={bem("icon")}
+            onClick={handlePlayClick}
           />
           <Icon
             icon="skip_next"
@@ -40,15 +38,19 @@ const Player = () => {
         </div>
         <div className={bem("right")}>
           <NowPlaying/>
-          <Link to={`/user/${id}/queue`} className={bem("link")}>
-            <Icon
-              icon="queue_music"
-              className={bem("icon")}
-            />
-          </Link>
+          <Link
+            to="/user/queue"
+            className={bem("link")}
+            children={(
+              <Icon
+                icon="queue_music"
+                className={bem("icon")}
+              />
+            )}
+          />
         </div>
       </div>
-    </div>
+    </section>
   )
 }
 

@@ -2,6 +2,7 @@ import Search from "../Search"
 import Catalog from "../Catalog"
 import Library from "../Library"
 
+import UserPage from "../UserPage"
 import GenrePage from "../GenrePage"
 import AlbumPage from "../AlbumPage"
 import ArtistPage from "../ArtistPage"
@@ -26,6 +27,12 @@ export default [
     name: "Search",
     path: "/search",
     component: Search,
+  },
+  {
+    ignore: true,
+    path: "/user",
+    id: uniqueId(),
+    component: UserPage,
   },
   {
     ignore: true,

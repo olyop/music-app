@@ -70,7 +70,7 @@ const typeDefs = gql`
     name: String!
     prev: [Song!]!
     next: [Song!]!
-    queue: [Song!]!
+    later: [Song!]!
     plays: [Play!]!
     nowPlaying: Song!
     songs: [UserSong!]!

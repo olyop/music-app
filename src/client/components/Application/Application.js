@@ -17,7 +17,7 @@ import GET_USER from "../../graphql/queries/getUser.graphql"
 
 const Application = () => {
   const id = "5e11e4aa8e0f023c5007dff9"
-  const [ play, setPlay ] = useState(false)
+  const [ play, togglePlay ] = useState(false)
   const [ volume, setVolume ] = useState(0.75)
   const queryOptions = { variables: { id } }
   const { data, loading, error } = useQuery(GET_USER, queryOptions)
@@ -27,7 +27,7 @@ const Application = () => {
     return <ApiError/>
   } else {
     const { user } = data
-    const playInit = { play, setPlay }
+    const playInit = { play, togglePlay }
     const volumeInit = { volume, setVolume }
     return (
       <UserCtx.Provider value={user}>

@@ -1,0 +1,6 @@
+fragment userQueuesFrag on User {
+  prev
+  nowPlaying
+  next
+  later
+}

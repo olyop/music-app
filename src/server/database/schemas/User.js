@@ -25,7 +25,7 @@ const definition = {
     type: ObjectId,
     required: true,
   }],
-  queue: [{
+  later: [{
     index: true,
     minlength: 24,
     maxlength: 24,

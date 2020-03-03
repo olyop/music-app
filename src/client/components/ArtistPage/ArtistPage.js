@@ -11,7 +11,7 @@ import { isUndefined } from "lodash"
 import reactBem from "@oly_op/react-bem"
 import { useParams } from "react-router-dom"
 import { useQuery } from "@apollo/react-hooks"
-import { catalogUrl } from "../../helpers/misc"
+import { catalogUrl, determinePlural } from "../../helpers/misc"
 
 import GET_ARTIST_PAGE from "../../graphql/queries/getArtistPage.graphql"
 
@@ -44,10 +44,16 @@ const ArtistPage = () => {
           </h2>
           <div className={bem("length")}>
             {songs.length}
-            <Fragment> songs</Fragment>
-            <Fragment>, </Fragment>
-            {albums.length}
-            <Fragment> albums</Fragment>
+            <Fragment> song</Fragment>
+            <Fragment>{determinePlural(songs)}</Fragment>
+            {albums.length === 0 ? null : (
+              <Fragment>
+                <Fragment>, </Fragment>
+                {albums.length}
+                <Fragment> album</Fragment>
+                <Fragment>{determinePlural(albums)}</Fragment>
+              </Fragment>
+            )}
           </div>
           {albums.length === 0 ? null : (
             <Albums className={bem("albums")}>

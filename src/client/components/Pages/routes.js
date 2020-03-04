@@ -23,6 +23,7 @@ export default [
     component: Library,
   },
   {
+    ignore: true,
     id: uniqueId(),
     name: "Search",
     path: "/search",

@@ -31,7 +31,7 @@ export const propTypes = {
     name: string.isRequired,
     short: string.isRequired,
     validators: arrayOf(object).isRequired,
-    type: oneOf([ "text", "date", "list", "int" ]).isRequired,
+    type: oneOf(["text","date","list","int","file"]).isRequired,
     init: oneOfType([ array, string, number, object ]).isRequired,
   }).isRequired,
 }

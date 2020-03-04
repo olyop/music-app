@@ -1,5 +1,5 @@
 import { uniqueId, isString } from "lodash"
-import { isStringLengthInRange } from "../helpers"
+import { isStringLengthInRange, noopParse } from "../helpers"
 
 const fieldsConfig = [
   {
@@ -8,7 +8,7 @@ const fieldsConfig = [
     short: "name",
     type: "text",
     isDoc: false,
-    init: "",
+    init: "Led Zeppelin",
     req: true,
     min: 0,
     max: 127,
@@ -26,6 +26,28 @@ const fieldsConfig = [
         id: uniqueId(),
         check: isStringLengthInRange(1, 128),
         msg: "between 1 and 256 characters.",
+      },
+    ],
+  },
+  {
+    id: uniqueId(),
+    name: "Photo",
+    short: "photo",
+    type: "file",
+    isDoc: false,
+    init: "",
+    req: true,
+    min: 0,
+    max: 16777216,
+    parse: {
+      in: noopParse,
+      out: noopParse,
+    },
+    validators: [
+      {
+        id: uniqueId(),
+        check: () => true,
+        msg: "Is True",
       },
     ],
   },

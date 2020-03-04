@@ -3,6 +3,7 @@ import React from "react"
 import {
   determineMin,
   determineMax,
+  determineAccept,
   determineTabIndex,
   determineInputVal,
   determineDisabled,
@@ -32,6 +33,7 @@ const FormInput = ({ field, onFieldChange, val, index }) => {
       onChange={onFieldChange}
       min={determineMin(field)}
       max={determineMax(field)}
+      accept={determineAccept(field)}
       type={determineInputType(field)}
       tabIndex={determineTabIndex(index)}
       value={determineInputVal(field,val)}

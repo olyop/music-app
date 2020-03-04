@@ -8,6 +8,12 @@
     margin-bottom: 25px; }
   &:last-child {
     margin-bottom: 0; }
+  &__file {
+    display: block;
+    font-size: 18px;
+    line-height: 18px;
+    white-space: nowrap;
+    padding: 15px 0 12px 0; }
   &__label {
     display: flex;
     padding: 0 13px;
@@ -27,6 +33,7 @@
     &-name {
       top: -6px;
       left: 9px;
+      cursor: text;
       color: #757575;
       font-size: 14px;
       font-weight: 400;

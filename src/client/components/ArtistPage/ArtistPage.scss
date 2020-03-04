@@ -1,8 +1,7 @@
 .ArtistPage {
   height: 100%;
+  padding: 20px;
   overflow: auto;
-  @media (min-width: 700px) {
-    padding: 20px; }
   &__cover {
     width: 100%;
     height: auto;

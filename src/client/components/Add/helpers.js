@@ -32,3 +32,5 @@ export const validateArrayOfIds = x => (
 )
 
 export const deserializeDate = unix => (new Date(unix)).toLocaleDateString()
+
+export const noopParse = x => x

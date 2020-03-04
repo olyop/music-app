@@ -2,12 +2,12 @@ import deserializeDate from "../../helpers/deserializeDate"
 import { includes, find, isEmpty, concat, isNumber } from "lodash"
 
 export const createFormInit = fields => fields.reduce(
-  (acc, { short, isDoc, init }) => ({
+  (acc, { type, short, isDoc, init }) => ({
     ...acc,
     [short]: isDoc ? {
       val: init,
       input: "",
-    } : init,
+    } : (type === "file" ? { value: init } : init),
   }),
   {},
 )
@@ -35,14 +35,15 @@ export const determineFormValid = (fields, form) => fields.reduce(
   true,
 )
 
-export const handleFieldChange = (form, setForm) => ({ isDoc, short, parse }) => event => {
-  const value = parse.in(event.target.value)
+export const handleFieldChange = (form, setForm) => ({ type, isDoc, short, parse }) => event => {
+  const { value } = event.target
+  const input = parse.in(type === "file" ? { file: event.target.files[0], value } : value)
   setForm({
     ...form,
     [short]: isDoc ? {
       ...form[short],
-      input: value,
-    } : value,
+      input,
+    } : input,
   })
 }
 
@@ -134,6 +135,8 @@ export const determineInputType = ({ type }) => {
     return "date"
   } else if (includes(["num","int"], type)) {
     return "number"
+  } else if (type === "file") {
+    return "file"
   } else {
     return undefined
   }
@@ -150,6 +153,14 @@ export const determineMin = ({ type, min }) => {
 export const determineMax = ({ type, max }) => {
   if (includes(["int","num","date"], type)) {
     return max
+  } else {
+    return undefined
+  }
+}
+
+export const determineAccept = ({ type }) => {
+  if (type === "file") {
+    return "image/jpeg"
   } else {
     return undefined
   }
@@ -191,6 +202,8 @@ export const determineInputVal = ({ type, isDoc, parse }, val) => {
     out = val.input
   } else if (type === "date") {
     out = deserializeDate(val)
+  } else if (type === "file") {
+    out = val.value
   } else {
     out = val
   }
@@ -213,4 +226,11 @@ export const validatorVisibility = ({ isDoc }, val) => {
   } else {
     return !isEmpty(val)
   }
+}
+
+export const bytesToSize = bytes => {
+  const sizes = ["Bytes", "kb", "mb", "gb", "tb"]
+  if (bytes === 0) return "0 Byte"
+  const i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)), 10)
+  return `${Math.round(bytes / 1024 ** i, 2)} ${sizes[i]}`
 }

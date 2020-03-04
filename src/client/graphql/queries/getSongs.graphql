@@ -23,6 +23,7 @@ query librarySongs {
     album {
       id
       title
+      released
     }
   }
 }

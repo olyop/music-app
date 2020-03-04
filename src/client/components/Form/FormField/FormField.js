@@ -6,12 +6,13 @@ import FormValidator from "../FormValidator"
 import FormFieldListDoc from "../FormFieldListDoc"
 import FormDropDownItem from "../FormDropDownItem"
 
-import { isEmpty } from "lodash"
 import { propTypes } from "prop-types"
 import reactBem from "@oly_op/react-bem"
+import { isEmpty, isUndefined } from "lodash"
 import findMatches from "../../../helpers/findMatches"
 
 import {
+  bytesToSize,
   determineFieldDoc,
   validatorVisibility,
   determineValidatorVal,
@@ -29,6 +30,7 @@ const FormField = ({ field, val, index, onFieldChange, onFieldHitClick, onFieldD
       <label
         htmlFor={id}
         className={bem("label")}
+        style={{ cursor: type === "file" ? "pointer" : undefined }}
         children={(
           <Fragment>
             <span
@@ -54,6 +56,19 @@ const FormField = ({ field, val, index, onFieldChange, onFieldHitClick, onFieldD
                 onFieldDocRemove={onFieldDocRemove}
                 doc={determineFieldDoc(val.val,field)}
               />
+            ) : null}
+            {type === "file" ? (
+              <p className={bem("file")}>
+                {isUndefined(val.file) ? (
+                  "Choose file..."
+                ) : (
+                  <Fragment>
+                    <Fragment>{val.file.type}</Fragment>
+                    <Fragment> - </Fragment>
+                    <Fragment>{bytesToSize(val.file.size)}</Fragment>
+                  </Fragment>
+                )}
+              </p>
             ) : null}
             <FormInput
               val={val}

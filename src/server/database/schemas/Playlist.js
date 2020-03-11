@@ -20,6 +20,6 @@ const definition = {
   }],
 }
 
-const playlistSchema = new Schema(definition, SCHEMA_OPTIONS)
+const schema = new Schema(definition, SCHEMA_OPTIONS)
 
-export default playlistSchema
+export default schema

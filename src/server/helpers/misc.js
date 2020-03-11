@@ -14,3 +14,5 @@ export const currySortBy = func => collection => sortBy(collection, func)
 export const resolver = callback => (parent, args, context, info) => callback({ parent, args, context, info })
 
 export const request = callback => (req, res, nxt) => callback({ req, res, nxt })
+
+export const determineS3Key = id => `catalog/${id}.jpg`

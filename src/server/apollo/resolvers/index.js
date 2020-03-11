@@ -9,6 +9,7 @@ import Playlist from "./Playlist.js"
 import Mutation from "./Mutation.js"
 import UserSong from "./UserSong.js"
 import UserAlbum from "./UserAlbum.js"
+import UserArtist from "./UserArtist.js"
 
 export default {
   Play,
@@ -22,5 +23,6 @@ export default {
   Mutation,
   UserSong,
   UserAlbum,
+  UserArtist,
 }
 

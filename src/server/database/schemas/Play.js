@@ -21,6 +21,6 @@ const definition = {
   },
 }
 
-const playSchema = new Schema(definition, SCHEMA_OPTIONS)
+const schema = new Schema(definition, SCHEMA_OPTIONS)
 
-export default playSchema
+export default schema

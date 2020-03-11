@@ -4,10 +4,12 @@ import { resolver } from "../../helpers/misc.js"
 import {
   deserializeDocument,
   determineUserSelect,
-  determineAlbumSelect,
+  determinePlaySelect,
+  determineArtistSelect,
+  deserializeCollection,
 } from "../../helpers/resolvers.js"
 
-const { User, Song, Album } = database.models
+const { User, Song, Play } = database.models
 
 export default {
   user: resolver(
@@ -18,12 +20,21 @@ export default {
       return deserializeDocument(doc)
     },
   ),
-  album: resolver(
-    async ({ info, parent: { album } }) => {
-      const query = Album.findById(album)
-      const select = determineAlbumSelect(info)
+  artist: resolver(
+    async ({ info, parent: { song } }) => {
+      const query = Song.findById(song)
+      const select = determineArtistSelect(info)
       const doc = await query.select(select).lean().exec()
       return deserializeDocument(doc)
+    },
+  ),
+  plays: resolver(
+    async ({ info, parent: { user, song } }) => {
+      const filter = { user, song }
+      const query = Play.find(filter)
+      const select = determinePlaySelect(info)
+      const collection = await query.select(select).lean().exec()
+      return deserializeCollection(collection)
     },
   ),
   numOfPlays: resolver(

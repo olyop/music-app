@@ -51,6 +51,11 @@ const definition = {
     required: true,
     maxlength: 2048,
   },
+  audio: {
+    type: Buffer,
+    select: false,
+    validate: Buffer.isBuffer,
+  },
   trackNumber: {
     min: 1,
     max: 99,
@@ -74,6 +79,6 @@ const definition = {
   },
 }
 
-const songSchema = new Schema(definition, SCHEMA_OPTIONS)
+const schema = new Schema(definition, SCHEMA_OPTIONS)
 
-export default songSchema
+export default schema

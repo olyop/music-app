@@ -12,6 +12,15 @@ query getUser($id: ID!) {
     }
     albums {
       id
+      album {
+        id
+      }
+    }
+    artists {
+      id
+      artist {
+        id
+      }
     }
     playlists {
       id

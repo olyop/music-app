@@ -5,15 +5,15 @@ const { Schema } = mongoose
 const { ObjectId } = Schema.Types
 
 const definition = {
+  inLibrary: {
+    type: Boolean,
+    required: true,
+  },
   user: {
     index: true,
     minlength: 24,
     maxlength: 24,
     type: ObjectId,
-    required: true,
-  },
-  inLibrary: {
-    type: Boolean,
     required: true,
   },
   song: {
@@ -25,6 +25,6 @@ const definition = {
   },
 }
 
-const userSongSchema = new Schema(definition, SCHEMA_OPTIONS)
+const schema = new Schema(definition, SCHEMA_OPTIONS)
 
-export default userSongSchema
+export default schema

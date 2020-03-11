@@ -1,0 +1,5 @@
+mutation addUserArtist($userId: ID!, $artistId: ID!) {
+  addUserAlbum(userId: $userId, artistId: $artistId) {
+    id
+  }
+}

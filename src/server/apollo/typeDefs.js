@@ -49,19 +49,28 @@ const typeDefs = gql`
     song: Song!
   }
 
+  type UserArtist {
+    id: ID!
+    user: User!
+    artist: Artist!
+    numOfPlays: Int!
+    inLibrary: Boolean!
+  }
+  
+  type UserAlbum {
+    id: ID!
+    user: User!
+    album: Album!
+    numOfPlays: Int!
+    inLibrary: Boolean!
+  }
+
   type UserSong {
     id: ID!
     user: User!
     song: Song!
     plays: [Play!]!
     numOfPlays: Int!
-    inLibrary: Boolean!
-  }
-
-  type UserAlbum {
-    id: ID!
-    user: User!
-    album: Album!
     inLibrary: Boolean!
   }
 
@@ -75,6 +84,7 @@ const typeDefs = gql`
     nowPlaying: Song!
     songs: [UserSong!]!
     albums: [UserAlbum!]!
+    artists: [UserArtist!]!
     playlists: [Playlist!]!
   }
 
@@ -83,6 +93,7 @@ const typeDefs = gql`
       userId: ID!
       songId: ID!
     ): User!
+
     addUserSong(
       userId: ID!
       songId: ID!
@@ -90,7 +101,12 @@ const typeDefs = gql`
     addUserAlbum(
       userId: ID!
       albumId: ID!
-    ): Song!
+    ): Album!
+    addUserArtist(
+      userId: ID!
+      artistId: ID!
+    ): Artist!
+
     removeUserSong(
       userId: ID!
       songId: ID!
@@ -99,8 +115,14 @@ const typeDefs = gql`
       userId: ID!
       albumId: ID!
     ): Song!
+    removeUserArtist(
+      userId: ID!
+      artistId: ID!
+    ): Song!
+
     addArtist(
       name: String!
+      photo: Upload!
     ): Artist!
     addGenre(
       name: String!
@@ -108,6 +130,7 @@ const typeDefs = gql`
     addAlbum(
       title: String!
       released: Int!
+      cover: Upload!
       artists: [ID!]!
     ): Album!
     addSong(
@@ -115,6 +138,7 @@ const typeDefs = gql`
       mix: String!
       genres: [ID!]!
       title: String!
+      audio: Upload!
       artists: [ID!]!
       discNumber: Int!
       remixers: [ID!]!
@@ -134,8 +158,8 @@ const typeDefs = gql`
     albums: [Album!]!
     genres: [Genre!]!
     artists: [Artist!]!
-    song(id: ID!): Song!
     user(id: ID!): User!
+    song(id: ID!): Song!
     album(id: ID!): Album!
     genre(id: ID!): Genre!
     artist(id: ID!): Artist!

@@ -72,12 +72,17 @@ export const handleToggleRemember = (remember, setRemember) => () => setRemember
 
 export const deserializeForm = (fields, form) => fields.reduce(
   (doc, field) => {
-    const { short, isDoc, parse } = field 
+    const { type, short, isDoc, parse } = field 
     const val = form[short]
     if (isDoc) {
       return {
         ...doc,
         [short]: val.val,
+      }
+    } else if (type === "file") {
+      return {
+        ...doc,
+        [short]: val.file,
       }
     } else {
       return {
@@ -229,7 +234,7 @@ export const validatorVisibility = ({ isDoc }, val) => {
 }
 
 export const bytesToSize = bytes => {
-  const sizes = ["Bytes", "kb", "mb", "gb", "tb"]
+  const sizes = ["Bytes", "KB", "MB", "GB", "TB"]
   if (bytes === 0) return "0 Byte"
   const i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)), 10)
   return `${Math.round(bytes / 1024 ** i, 2)} ${sizes[i]}`

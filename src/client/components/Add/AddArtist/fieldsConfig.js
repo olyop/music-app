@@ -1,4 +1,4 @@
-import { uniqueId, isString } from "lodash"
+import { uniqueId, isString, isUndefined } from "lodash"
 import { isStringLengthInRange, noopParse } from "../helpers"
 
 const fieldsConfig = [
@@ -8,7 +8,7 @@ const fieldsConfig = [
     short: "name",
     type: "text",
     isDoc: false,
-    init: "Led Zeppelin",
+    init: "",
     req: true,
     min: 0,
     max: 127,
@@ -46,8 +46,18 @@ const fieldsConfig = [
     validators: [
       {
         id: uniqueId(),
-        check: () => true,
-        msg: "Is True",
+        msg: "data type of file.",
+        check: val => val.file instanceof File,
+      },
+      {
+        id: uniqueId(),
+        msg: "file size less than 16 MB",
+        check: val => (isUndefined(val.file) ? false : val.file.size < 16777216),
+      },
+      {
+        id: uniqueId(),
+        msg: "file type of jpg.",
+        check: val => (isUndefined(val.file) ? false : val.file.type === "image/jpeg"),
       },
     ],
   },

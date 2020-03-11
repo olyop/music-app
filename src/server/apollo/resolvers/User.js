@@ -1,79 +1,105 @@
 import database from "../../database/index.js"
 import { resolver } from "../../helpers/misc.js"
-import { serializeDocument, serializeCollection } from "../../helpers/collection.js"
 
-const { Play, Song, UserSong, UserAlbum, Playlist } = database.models
+import {
+  deserializeDocument,
+  determineSongSelect,
+  determinePlaySelect,
+  deserializeCollection,
+  determinePlaylistSelect,
+  determineUserSongSelect,
+  determineUserAlbumSelect,
+  determineUserArtistSelect,
+} from "../../helpers/resolvers.js"
+
+const {
+  Play,
+  Song,
+  Playlist,
+  UserSong,
+  UserAlbum,
+  UserArtist,
+} = database.models
 
 export default {
-  nowPlaying: resolver(
-    async ({ parent }) => {
-      const { nowPlaying } = parent
-      const query = Song.findById(nowPlaying)
-      const doc = await query.lean().exec()
-      return serializeDocument(doc)
+  prev: resolver(
+    async ({ info, parent: { prev } }) => {
+      const filter = { _id: prev }
+      const query = Song.find(filter)
+      const select = determineSongSelect(info)
+      const collection = await query.select(select).lean().exec()
+      return deserializeCollection(collection)
     }
   ),
-  prev: resolver(
-    async ({ parent }) => {
-      const { prev } = parent
-      const filter = { _id: { $in: prev } }
-      const query = Song.find(filter)
-      const collection = await query.lean().exec()
-      return serializeCollection(collection)
+  nowPlaying: resolver(
+    async ({ info, parent: { nowPlaying } }) => {
+      const query = Song.findById(nowPlaying)
+      const select = determineSongSelect(info)
+      const doc = await query.select(select).lean().exec()
+      return deserializeDocument(doc)
     }
   ),
   next: resolver(
-    async ({ parent }) => {
-      const { next } = parent
-      const filter = { _id: { $in: next } }
+    async ({ info, parent: { next } }) => {
+      const filter = { _id: next }
       const query = Song.find(filter)
-      const collection = await query.lean().exec()
-      return serializeCollection(collection)
+      const select = determineSongSelect(info)
+      const collection = await query.select(select).lean().exec()
+      return deserializeCollection(collection)
     }
   ),
   later: resolver(
-    async ({ parent }) => {
-      const { later } = parent
-      const filter = { _id: { $in: later } }
+    async ({ info, parent: { later } }) => {
+      const filter = { _id: later }
       const query = Song.find(filter)
-      const collection = await query.lean().exec()
-      return serializeCollection(collection)
+      const select = determineSongSelect(info)
+      const collection = await query.select(select).lean().exec()
+      return deserializeCollection(collection)
     }
   ),
   playlists: resolver(
-    async ({ parent }) => {
-      const { playlists } = parent
-      const filter = { _id: { $in: playlists } }
+    async ({ info, parent: { playlists } }) => {
+      const filter = { _id: playlists }
       const query = Playlist.find(filter)
-      const collection = await query.lean().exec()
-      return serializeCollection(collection)
+      const select = determinePlaylistSelect(info)
+      const collection = await query.select(select).lean().exec()
+      return deserializeCollection(collection)
     },
   ),
   plays: resolver(
-    async ({ parent }) => {
-      const { id: user } = parent
-      const filter = { user }
+    async ({ info, parent: { id } }) => {
+      const filter = { user: id }
       const query = Play.find(filter)
-      const collection = await query.lean().exec()
-      return serializeCollection(collection)
+      const select = determinePlaySelect(info)
+      const collection = await query.select(select).lean().exec()
+      return deserializeCollection(collection)
     }
   ),
   songs: resolver(
-    async ({ parent }) => {
-      const { id: user } = parent
-      const filter = { inLibrary: true, user }
+    async ({ info, parent: { id } }) => {
+      const filter = { user: id, inLibrary: true }
       const query = UserSong.find(filter)
-      const collection = await query.lean().exec()
-      return serializeCollection(collection)
+      const select = determineUserSongSelect(info)
+      const collection = await query.select(select).lean().exec()
+      return deserializeCollection(collection)
     }
   ),
   albums: resolver(
-    async ({ parent }) => {
-      const { id: user } = parent
-      const filter = { inLibrary: true, user }
+    async ({ info, parent: { id } }) => {
+      const filter = { user: id, inLibrary: true }
       const query = UserAlbum.find(filter)
-      const collection = await query.lean().exec()
-      return serializeCollection(collection)
+      const select = determineUserAlbumSelect(info)
+      const collection = await query.select(select).lean().exec()
+      return deserializeCollection(collection)
+    }
+  ),
+  artists: resolver(
+    async ({ info, parent: { id } }) => {
+      const filter = { user: id, inLibrary: true }
+      const query = UserArtist.find(filter)
+      const select = determineUserArtistSelect(info)
+      const collection = await query.select(select).lean().exec()
+      return deserializeCollection(collection)
     }
   ),
 }

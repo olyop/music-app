@@ -1,0 +1,3 @@
+fragment userArtistsFrag on User {
+  artists
+}

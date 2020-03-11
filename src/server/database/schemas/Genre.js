@@ -12,6 +12,6 @@ const definition = {
   },
 }
 
-const genreSchema = new Schema(definition, SCHEMA_OPTIONS)
+const schema = new Schema(definition, SCHEMA_OPTIONS)
 
-export default genreSchema
+export default schema

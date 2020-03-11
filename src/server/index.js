@@ -21,9 +21,9 @@ import {
   LOG_FORMAT,
   BUILD_PATH,
   CORS_OPTIONS,
-  APOLLO_OPTIONS,
-  BUILD_PATH_ENTRY,
   MONGOOSE_OPTIONS,
+  BUILD_ENTRY_PATH,
+  APOLLO_APPLY_OPTIONS,
 } from "./globals.js"
 
 // connect to database
@@ -43,14 +43,13 @@ app.use(cookieParser())
 app.use(globalHeaders())
 
 // apply apollo server to app
-apolloServer.applyMiddleware({ app, ...APOLLO_OPTIONS })
+apolloServer.applyMiddleware({ app, ...APOLLO_APPLY_OPTIONS })
 
 // serve static assests
 app.use(express.static(BUILD_PATH))
 
 // send index.html
-app.use("*", request(({ res }) => res.sendFile(BUILD_PATH_ENTRY)))
+app.use("*", request(({ res }) => res.sendFile(BUILD_ENTRY_PATH)))
 
 app.on("error", onError)
-
 app.listen(PORT, HOST)

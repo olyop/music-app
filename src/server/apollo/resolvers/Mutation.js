@@ -1,126 +1,106 @@
-import toInteger from "lodash/toInteger.js"
+import s3 from "../../s3.js"
 import database from "../../database/index.js"
-import { resolver } from "../../helpers/misc.js"
-import { serializeDocument } from "../../helpers/collection.js"
+import { resolver, determineS3Key } from "../../helpers/misc.js"
+import { S3_BUCKET_NAME as Bucket, S3_ACL as ACL } from "../../globals.js"
 
-const { Song, User, Album, Genre, Artist, UserSong, UserAlbum } = database.models
+import {
+  determineDuration,
+  determineReleased,
+  deserializeDocument,
+  determineUserSelect,
+  determineUserSongSelect,
+} from "../../helpers/resolvers.js"
 
-const determineReleased = released => released / 86400
-
-const determineDuration = duration => {
-  const minutes = toInteger(duration.slice(0,1))
-  const seconds = toInteger(duration.slice(2,4))
-  return (minutes * 60) + seconds
-}
+const { Song, User, Album, Genre, Artist, UserSong } = database.models
 
 export default {
   addArtist: resolver(
-    async ({ args }) => {
-      const artist = await Artist.create(args)
-      return serializeDocument(artist.toObject())
+    async ({ args: { photo, ...data } }) => {
+      const upload = await photo
+      const stream = upload.createReadStream()
+      let chunks = []
+      for await (const chunk of stream) chunks.push(chunk)
+      const Body = Buffer.concat(chunks)
+      const doc = await Artist.create({ ...data, photo: Body })
+      const docObj = deserializeDocument(doc.toObject())
+      const Key = determineS3Key(docObj.id)
+      const params = { Key, ACL, Bucket, Body }
+      await s3.upload(params).promise()
+      return docObj
     }
   ),
   addAlbum: resolver(
-    async ({ args }) => {
-      const released = determineReleased(args.released)
-      const newArgs = { ...args, released }
-      const album = await Album.create(newArgs)
-      return serializeDocument(album.toObject())
+    async ({ args: { cover, released, ...argsRest } }) => {
+      const data = { ...argsRest, released: determineReleased(released) }
+      const upload = await cover
+      const stream = upload.createReadStream()
+      let chunks = []
+      for await (const chunk of stream) chunks.push(chunk)
+      const Body = Buffer.concat(chunks)
+      const doc = await Album.create({ ...data, cover: Body })
+      const docObj = deserializeDocument(doc.toObject())
+      const Key = determineS3Key(docObj.id)
+      const params = { Key, ACL, Bucket, Body }
+      await s3.upload(params).promise()
+      return docObj
     }
   ),
   addGenre: resolver(
     async ({ args }) => {
       const genre = await Genre.create(args)
-      return serializeDocument(genre.toObject())
+      return deserializeDocument(genre.toObject())
     }
   ),
   addSong: resolver(
-    async ({ args }) => {
-      const duration = determineDuration(args.duration)
-      const newArgs = { ...args, duration }
+    async ({ args: { duration, ...data } }) => {
+      const newArgs = { ...data, duration: determineDuration(duration) }
       const song = await Song.create(newArgs)
-      return serializeDocument(song.toObject())
+      return deserializeDocument(song.toObject())
     }
   ),
   addUserSong: resolver(
-    async ({ args }) => {
-      const { userId, songId } = args
+    async ({ info, args: { userId, songId } }) => {
       const filter = { user: userId, song: songId }
       const exists = await UserSong.exists(filter)
       if (exists) {
-        const update = { inLibrary: true }
+        const update = { ...filter, inLibrary: true }
         const query = UserSong.findOneAndUpdate(filter, update)
-        const doc = await query.lean().exec()
-        return serializeDocument(doc)
+        const select = determineUserSongSelect(info)
+        const doc = await query.select(select).lean().exec()
+        return deserializeDocument(doc)
       } else {
-        const update = { ...filter, inLibrary: true }
-        const mutation = UserSong.create(update)
+        const data = { ...filter, inLibrary: true }
+        const mutation = UserSong.create(data)
         const doc = await mutation
-        return serializeDocument(doc.toObject())
-      }
-    }
-  ),
-  addUserAlbum: resolver(
-    async ({ args }) => {
-      const { userId, albumId } = args
-      const filter = { user: userId, album: albumId }
-      const exists = await UserAlbum.exists(filter)
-      if (exists) {
-        const update = { inLibrary: true }
-        const query = UserAlbum.findOneAndUpdate(filter, update)
-        const doc = await query.lean().exec()
-        return serializeDocument(doc)
-      } else {
-        const update = { ...filter, inLibrary: true }
-        const mutation = UserAlbum.create(update)
-        const doc = await mutation
-        return serializeDocument(doc.toObject())
+        return deserializeDocument(doc.toObject())
       }
     }
   ),
   removeUserSong: resolver(
-    async ({ args }) => {
-      const { userId, songId } = args
+    async ({ info, args: { userId, songId } }) => {
       const filter = { user: userId, song: songId }
       const exists = await UserSong.exists(filter)
       if (exists) {
-        const update = { inLibrary: false }
+        const update = { ...filter, inLibrary: false }
         const query = UserSong.findOneAndUpdate(filter, update)
-        const doc = await query.lean().exec()
-        return serializeDocument(doc)
+        const select = determineUserSongSelect(info)
+        const doc = await query.select(select).lean().exec()
+        return deserializeDocument(doc)
       } else {
         const update = { ...filter, inLibrary: false }
         const mutation = UserSong.create(update)
         const doc = await mutation
-        return serializeDocument(doc.toObject())
-      }
-    }
-  ),
-  removeUserAlbum: resolver(
-    async ({ args }) => {
-      const { userId, songId } = args
-      const filter = { user: userId, song: songId }
-      const exists = await UserSong.exists(filter)
-      if (exists) {
-        const update = { inLibrary: false }
-        const query = UserAlbum.findOneAndUpdate(filter, update)
-        const doc = await query.lean().exec()
-        return serializeDocument(doc)
-      } else {
-        const update = { ...filter, inLibrary: false }
-        const mutation = UserAlbum.create(update)
-        const doc = await mutation
-        return serializeDocument(doc.toObject())
+        return deserializeDocument(doc.toObject())
       }
     }
   ),
   updateNowPlaying: resolver(
-    async ({ args }) => {
-      const { userId, songId } = args
+    async ({ info, args: { userId, songId } }) => {
       const update = { nowPlaying: songId }
-      const mutation = User.findByIdAndUpdate(userId, update)
-      const doc = await mutation.lean().exec()
-      return serializeDocument(doc)
+      const query = User.findByIdAndUpdate(userId, update)
+      const select = determineUserSelect(info)
+      const doc = await query.select(select).lean().exec()
+      return deserializeDocument(doc)
     }
   ),
 }

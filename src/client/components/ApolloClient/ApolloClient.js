@@ -1,9 +1,9 @@
 import React from "react"
 
-import { HttpLink } from "apollo-link-http"
-import { ApolloClient as Client } from "apollo-client"
 import { ApolloProvider } from "react-apollo"
 import { InMemoryCache } from "apollo-cache-inmemory"
+import { ApolloClient as Client } from "apollo-client"
+import { createUploadLink } from "apollo-upload-client"
 
 import { node } from "prop-types"
 import { API_URL } from "../../globals"
@@ -12,7 +12,7 @@ const cache = new InMemoryCache({
   dataIdFromObject: ({ id }) => id,
 })
 
-const link = new HttpLink({
+const link = createUploadLink({
   uri: API_URL,
 })
 

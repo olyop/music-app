@@ -100,13 +100,13 @@ module.exports = ({ mode }) => {
       new HtmlWebpackPlugin({
         template: path.join(publicPath, "index.html"),
         minify: {
-          collapseWhitespace: true,
           removeComments: true,
+          useShortDoctype: true,
+          collapseWhitespace: true,
           removeRedundantAttributes: true,
           removeScriptTypeAttributes: true,
           removeStyleLinkTypeAttributes: true,
-          useShortDoctype: true
-        }
+        },
       }),
       new WriteFilePlugin(),
       new CopyPlugin([{

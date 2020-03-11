@@ -63,9 +63,10 @@ const FormField = ({ field, val, index, onFieldChange, onFieldHitClick, onFieldD
                   "Choose file..."
                 ) : (
                   <Fragment>
-                    <Fragment>{val.file.type}</Fragment>
-                    <Fragment> - </Fragment>
+                    <Fragment>{val.file.name}</Fragment>
+                    <Fragment> (</Fragment>
                     <Fragment>{bytesToSize(val.file.size)}</Fragment>
+                    <Fragment>)</Fragment>
                   </Fragment>
                 )}
               </p>

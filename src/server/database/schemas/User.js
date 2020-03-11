@@ -41,6 +41,6 @@ const definition = {
   }],
 }
 
-const userSchema = new Schema(definition, SCHEMA_OPTIONS)
+const schema = new Schema(definition, SCHEMA_OPTIONS)
 
-export default userSchema
+export default schema

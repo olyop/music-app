@@ -5,25 +5,23 @@ const { Schema } = mongoose
 const { ObjectId } = Schema.Types
 
 const definition = {
-  title: {
-    type: String,
-    minlength: 1,
+  inLibrary: {
+    type: Boolean,
     required: true,
-    maxlength: 256,
   },
-  artists: [{
+  user: {
     index: true,
     minlength: 24,
     maxlength: 24,
     type: ObjectId,
     required: true,
-  }],
-  released: {
-    min: 1,
-    type: Number,
-    max: Infinity,
+  },
+  artist: {
+    index: true,
+    minlength: 24,
+    maxlength: 24,
+    type: ObjectId,
     required: true,
-    validate: Number.isInteger,
   },
 }
 

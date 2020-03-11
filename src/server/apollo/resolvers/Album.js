@@ -1,30 +1,36 @@
 import database from "../../database/index.js"
 import { pipe, resolver } from "../../helpers/misc.js"
-import { restoreOrder, serializeCollection } from "../../helpers/collection.js"
+
+import {
+  restoreOrder,
+  determineSongSelect,
+  determineArtistSelect,
+  deserializeCollection,
+} from "../../helpers/resolvers.js"
 
 const { Artist, Song } = database.models
 
 export default {
   artists: resolver(
-    async ({ parent }) => {
-      const { artists } = parent
-      const filter = { _id: { $in: artists } }
+    async ({ info, parent: { artists } }) => {
+      const filter = { _id: artists }
       const query = Artist.find(filter)
-      const collection = await query.lean().exec()
+      const select = determineArtistSelect(info)
+      const collection = await query.select(select).lean().exec()
       return pipe(collection)(
-        serializeCollection,
+        deserializeCollection,
         restoreOrder(artists),
       )
     }
   ),
   songs: resolver(
-    async ({ parent }) => {
-      const { id } = parent
+    async ({ info, parent: { id } }) => {
       const filter = { album: id }
       const sortArgs = { discNumber: "asc", trackNumber: "asc" }
       const query = Song.find(filter).sort(sortArgs)
-      const collection = await query.lean().exec()
-      return serializeCollection(collection)
+      const select = determineSongSelect(info)
+      const collection = await query.select(select).lean().exec()
+      return deserializeCollection(collection)
     }
   ),
 }

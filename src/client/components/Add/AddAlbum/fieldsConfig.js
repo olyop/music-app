@@ -1,6 +1,5 @@
-import { inRange as curryInRange } from "lodash/fp"
-import { uniqueId, isString, toSafeInteger } from "lodash"
-import { isStringLengthInRange, validateArrayOfIds } from "../helpers"
+import { uniqueId, isString, isUndefined } from "lodash"
+import { isStringLengthInRange, validateArrayOfIds, noopParse } from "../helpers"
 
 const fieldsConifg = ({ artists }) => [
   {
@@ -26,7 +25,7 @@ const fieldsConifg = ({ artists }) => [
       {
         id: uniqueId(),
         check: isStringLengthInRange(1, 128),
-        msg: "between 1 and 256 characters.",
+        msg: "between 1 and 128 characters.",
       },
     ],
   },
@@ -34,21 +33,26 @@ const fieldsConifg = ({ artists }) => [
     id: uniqueId(),
     name: "Released",
     short: "released",
-    type: "int",
+    type: "text",
     isDoc: false,
-    init: Math.floor(Date.now() / 1000),
+    init: "",
     req: true,
     min: 0,
-    max: Date.now(),
+    max: 127,
     parse: {
-      in: toSafeInteger,
-      out: toSafeInteger,
+      in: encodeURI,
+      out: decodeURI,
     },
     validators: [
       {
         id: uniqueId(),
-        check: curryInRange(1, Infinity),
-        msg: "a valid integer.",
+        check: isString,
+        msg: "data type of string.",
+      },
+      {
+        id: uniqueId(),
+        check: isStringLengthInRange(1, 128),
+        msg: "between 1 and 128 characters.",
       },
     ],
   },
@@ -72,6 +76,38 @@ const fieldsConifg = ({ artists }) => [
         id: uniqueId(),
         check: validateArrayOfIds,
         msg: "Must be a valid artists.",
+      },
+    ],
+  },
+  {
+    id: uniqueId(),
+    name: "Cover",
+    short: "cover",
+    type: "file",
+    isDoc: false,
+    init: "",
+    req: true,
+    min: 0,
+    max: 16777216,
+    parse: {
+      in: noopParse,
+      out: noopParse,
+    },
+    validators: [
+      {
+        id: uniqueId(),
+        msg: "data type of file.",
+        check: val => val.file instanceof File,
+      },
+      {
+        id: uniqueId(),
+        msg: "file size less than 16 MB",
+        check: val => (isUndefined(val.file) ? false : val.file.size < 16777216),
+      },
+      {
+        id: uniqueId(),
+        msg: "file type of jpg.",
+        check: val => (isUndefined(val.file) ? false : val.file.type === "image/jpeg"),
       },
     ],
   },

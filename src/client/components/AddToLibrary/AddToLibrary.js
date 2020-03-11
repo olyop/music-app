@@ -11,48 +11,95 @@ import { useMutation, useApolloClient } from "@apollo/react-hooks"
 
 import ADD_USER_SONG from "../../graphql/mutations/addUserSong.graphql"
 import ADD_USER_ALBUM from "../../graphql/mutations/addUserAlbum.graphql"
+import ADD_USER_ARTIST from "../../graphql/mutations/addUserAlbum.graphql"
+
 import USER_SONGS_FRAG from "../../graphql/fragments/userSongsFrag.graphql"
 import USER_ALBUMS_FRAG from "../../graphql/fragments/userAlbumsFrag.graphql"
+import USER_ARTISTS_FRAG from "../../graphql/fragments/userAlbumsFrag.graphql"
+
 import REMOVE_USER_SONG from "../../graphql/mutations/removeUserSong.graphql"
 import REMOVE_USER_ALBUM from "../../graphql/mutations/removeUserAlbum.graphql"
+import REMOVE_USER_ARTIST from "../../graphql/mutations/removeUserAlbum.graphql"
 
 import "./AddToLibrary.scss"
 
 const bem = reactBem("AddSongToLibrary")
 
 const AddToLibrary = ({ doc, className }) => {
+
   const user = useContext(UserCtx)
   const client = useApolloClient()
   
   const [ addUserSong ] = useMutation(ADD_USER_SONG)
-  const [ addUserAlbum] = useMutation(ADD_USER_ALBUM)
+  const [ addUserAlbum ] = useMutation(ADD_USER_ALBUM)
+  const [ addUserArtist ] = useMutation(ADD_USER_ARTIST)
+
   const [ removeUserSong ] = useMutation(REMOVE_USER_SONG)
   const [ removeUserAlbum ] = useMutation(REMOVE_USER_ALBUM)
+  const [ removeUserArtist ] = useMutation(REMOVE_USER_ARTIST)
 
-  const isSong = doc.__typename === "Song"
-  const key = isSong ? "songs" : "albums"
-  const userDocKey = isSong ? "song" : "album"
-  const variablesKey = isSong ? "songId" : "albumId"
-  const fragment = isSong ? USER_SONGS_FRAG : USER_ALBUMS_FRAG
+  const determineReturn = ({ __typename }) => ({ song, album, artist }) => {
+    if (__typename === "Song") return song
+    else if (__typename === "Album") return album
+    else return artist
+  }
+
+  const key = determineReturn(doc)({
+    song: "songs",
+    album: "albums",
+    artist: "artists",
+  })
+
+  const userDocKey = determineReturn(doc)({
+    song: "song",
+    album: "album",
+    artist: "artist",
+  })
+
+  const variablesKey = determineReturn(doc)({
+    song: "songId",
+    album: "albumId",
+    artist: "artistId",
+  })
+
+  const fragment = determineReturn(doc)({
+    song: USER_SONGS_FRAG,
+    album: USER_ALBUMS_FRAG,
+    artist: USER_ARTISTS_FRAG,
+  })
+
+  const addMutation = determineReturn(doc)({
+    song: addUserSong,
+    album: addUserAlbum,
+    artist: addUserArtist,
+  })
+
+  const removeMutation = determineReturn(doc)({
+    song: removeUserSong,
+    album: removeUserAlbum,
+    artist: removeUserArtist,
+  })
   
   const { id: docId } = doc
   const { id: userId, [key]: docs } = user
   const variables = { userId, [variablesKey]: docId }
-  const inLibrary = includes(docs.map(({ song }) => song.id), docId)
+  const inLibrary = includes(docs.map(({ [userDocKey]: { id } }) => id), docId)
   const icon = inLibrary ? "done" : "add"
 
-  const handleClick = () => {
-    let newDocs
+  const determineNewDocs = () => {
     if (inLibrary) {
-      if (isSong) removeUserSong({ variables })
-      else removeUserAlbum({ variables })
-      newDocs = filter(docs, ({ song }) => song.id !== docId)
+      removeMutation({ variables })
+      const docFilter = ({ [userDocKey]: { id } }) => id !== docId
+      return filter(docs, docFilter)
     } else {
-      if (isSong) addUserSong({ variables })
-      else addUserAlbum({ variables })
+      addMutation({ variables })
       const newDoc = { id: uniqueId(), [userDocKey]: doc }
-      newDocs = concat(docs, newDoc)
+      return concat(docs, newDoc)
     }
+  }
+
+  const handleClick = () => {
+    const newDocs = determineNewDocs()
     const userFrag = { [key]: newDocs, __typename: "User" }
     client.writeFragment({ id: userId, fragment, data: userFrag })
   }

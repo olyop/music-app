@@ -1,5 +1,5 @@
-mutation addArtist($name: String!) {
-  addArtist(name: $name) {
+mutation addArtist($name: String!, $photo: Upload!) {
+  addArtist(name: $name, photo: $photo) {
     id
     name
   }

@@ -1,42 +1,49 @@
 import database from "../../database/index.js"
 import { resolver } from "../../helpers/misc.js"
-import { serializeDocument, serializeCollection } from "../../helpers/collection.js"
+
+import {
+  deserializeDocument,
+  determineUserSelect,
+  determineSongSelect,
+  determinePlaySelect,
+  deserializeCollection,
+} from "../../helpers/resolvers.js"
 
 const { User, Song, Play } = database.models
 
 export default {
   user: resolver(
-    async ({ parent }) => {
-      const { user } = parent
+    async ({ info, parent: { user } }) => {
       const query = User.findById(user)
-      const doc = await query.lean().exec()
-      return serializeDocument(doc)
-    }
+      const select = determineUserSelect(info)
+      const doc = await query.select(select).lean().exec()
+      return deserializeDocument(doc)
+    },
   ),
   song: resolver(
-    async ({ parent }) => {
-      const { song } = parent
+    async ({ parent: { song } }) => {
       const query = Song.findById(song)
-      const doc = await query.lean().exec()
-      return serializeDocument(doc)
-    }
+      const select = determineSongSelect(info)
+      const doc = await query.select(select).lean().exec()
+      return deserializeDocument(doc)
+    },
   ),
   plays: resolver(
-    async ({ parent }) => {
-      const { user, song } = parent
+    async ({ parent: { user, song } }) => {
       const filter = { user, song }
       const query = Play.find(filter)
-      const doc = await query.lean().exec()
-      return serializeCollection(doc)
-    }
+      const select = determinePlaySelect(info)
+      const collection = await query.select(select).lean().exec()
+      return deserializeCollection(collection)
+    },
   ),
   numOfPlays: resolver(
-    async ({ parent }) => {
-      const { user, song } = parent
+    async ({ parent: { user, song } }) => {
       const filter = { user, song }
       const query = Play.find(filter)
-      const collection = await query.lean().exec()
-      return collection.length
-    }
-  )
+      const select = determinePlaySelect(info)
+      const collection = await query.select(select).lean().exec()
+      return deserializeCollection(collection).length
+    },
+  ),
 }

@@ -1,18 +1,22 @@
 import database from "../../database/index.js"
 import { resolver } from "../../helpers/misc.js"
-import { serializeCollection } from "../../helpers/collection.js"
+
+import {
+  determineSongSelect,
+  deserializeCollection,
+} from "../../helpers/resolvers.js"
 
 const { Song } = database.models
 
 export default {
   songs: resolver(
-    async ({ parent }) => {
-      const { id } = parent
+    async ({ info, parent: { id } }) => {
       const filter = { genres: id }
       const sortArgs = { title: "asc" }
       const query = Song.find(filter).sort(sortArgs)
-      const collection = await query.lean().exec()
-      return serializeCollection(collection)
+      const select = determineSongSelect(info)
+      const collection = await query.select(select).lean().exec()
+      return deserializeCollection(collection)
     }
   )
 }

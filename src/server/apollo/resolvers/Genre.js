@@ -10,13 +10,14 @@ const { Song } = database.models
 
 export default {
   songs: resolver(
-    async ({ info, parent: { id } }) => {
-      const filter = { genres: id }
-      const sortArgs = { title: "asc" }
-      const query = Song.find(filter).sort(sortArgs)
-      const select = determineSongSelect(info)
-      const collection = await query.select(select).lean().exec()
-      return deserializeCollection(collection)
-    }
+    async ({ info, parent: { id } }) => await (
+      Song
+        .find({ genres: id })
+        .sort({ title: "asc" })
+        .select(determineSongSelect(info))
+        .lean()
+        .map(deserializeCollection)
+        .exec()
+    )
   )
 }

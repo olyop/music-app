@@ -11,19 +11,23 @@ const { User, Song } = database.models
 
 export default {
   user: resolver(
-    async ({ info, parent: { user } }) => {
-      const query = User.findById(user)
-      const select = determineUserSelect(info)
-      const doc = await query.select(select).lean().exec()
-      return deserializeDocument(doc)
-    }
+    async ({ info, parent: { user } }) => await (
+      User
+        .findById(user)
+        .select(determineUserSelect(info))
+        .lean()
+        .map(deserializeDocument)
+        .exec()
+    ),
   ),
   song: resolver(
-    async ({ info, parent: { song } }) => {
-      const query = Song.findById(song)
-      const select = determineSongSelect(info)
-      const doc = await query.select(select).lean().exec()
-      return deserializeDocument(doc)
-    }
+    async ({ info, parent: { song } }) => await (
+      Song
+        .findById(song)
+        .select(determineSongSelect(info))
+        .lean()
+        .map(deserializeDocument)
+        .exec()
+    ),
   ),
 }

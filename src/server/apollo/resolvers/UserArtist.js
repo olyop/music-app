@@ -4,38 +4,41 @@ import { resolver } from "../../helpers/misc.js"
 import {
   deserializeDocument,
   determineUserSelect,
-  determinePlaySelect,
   determineArtistSelect,
   deserializeCollection,
 } from "../../helpers/resolvers.js"
 
-const { User, Song, Play } = database.models
+const { User, Artist, Play } = database.models
 
 export default {
   user: resolver(
-    async ({ info, parent: { user } }) => {
-      const query = User.findById(user)
-      const select = determineUserSelect(info)
-      const doc = await query.select(select).lean().exec()
-      return deserializeDocument(doc)
-    },
+    async ({ info, parent: { user } }) => await (
+      User
+        .findById(user)
+        .select(determineUserSelect(info))
+        .lean()
+        .map(deserializeDocument)
+        .exec()
+    ),
   ),
   artist: resolver(
-    async ({ info, parent: { song } }) => {
-      const query = Song.findById(song)
-      const select = determineArtistSelect(info)
-      const doc = await query.select(select).lean().exec()
-      return deserializeDocument(doc)
-    },
+    async ({ info, parent: { artist } }) => await (
+      Artist
+        .findById(artist)
+        .select(determineArtistSelect(info))
+        .lean()
+        .map(deserializeDocument)
+        .exec()
+    ),
   ),
   plays: resolver(
-    async ({ info, parent: { user, song } }) => {
-      const filter = { user, song }
-      const query = Play.find(filter)
-      const select = determinePlaySelect(info)
-      const collection = await query.select(select).lean().exec()
-      return deserializeCollection(collection)
-    },
+    async () => await (
+      Play
+        .find()
+        .lean()
+        .map(deserializeCollection)
+        .exec()
+    ),
   ),
   numOfPlays: resolver(
     async () => {

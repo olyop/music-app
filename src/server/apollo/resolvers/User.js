@@ -23,83 +23,93 @@ const {
 
 export default {
   prev: resolver(
-    async ({ info, parent: { prev } }) => {
-      const filter = { _id: prev }
-      const query = Song.find(filter)
-      const select = determineSongSelect(info)
-      const collection = await query.select(select).lean().exec()
-      return deserializeCollection(collection)
-    }
+    async ({ info, parent: { prev } }) => await (
+      Song
+        .find({ _id: prev })
+        .select(determineSongSelect(info))
+        .lean()
+        .map(deserializeCollection)
+        .exec()
+    ),
   ),
   nowPlaying: resolver(
-    async ({ info, parent: { nowPlaying } }) => {
-      const query = Song.findById(nowPlaying)
-      const select = determineSongSelect(info)
-      const doc = await query.select(select).lean().exec()
-      return deserializeDocument(doc)
-    }
+    async ({ info, parent: { nowPlaying } }) => await (
+      Song
+        .findById(nowPlaying)
+        .select(determineSongSelect(info))
+        .lean()
+        .map(deserializeDocument)
+        .exec()
+    ),
   ),
   next: resolver(
-    async ({ info, parent: { next } }) => {
-      const filter = { _id: next }
-      const query = Song.find(filter)
-      const select = determineSongSelect(info)
-      const collection = await query.select(select).lean().exec()
-      return deserializeCollection(collection)
-    }
+    async ({ info, parent: { next } }) => await (
+      Song
+        .find(next)
+        .select(determineSongSelect(info))
+        .lean()
+        .map(deserializeDocument)
+        .exec()
+    ),
   ),
   later: resolver(
-    async ({ info, parent: { later } }) => {
-      const filter = { _id: later }
-      const query = Song.find(filter)
-      const select = determineSongSelect(info)
-      const collection = await query.select(select).lean().exec()
-      return deserializeCollection(collection)
-    }
+    async ({ info, parent: { later } }) => await (
+      Song
+        .find({ _id: later })
+        .select(determineSongSelect(info))
+        .lean()
+        .map(deserializeCollection)
+        .exec()
+    ),
   ),
   playlists: resolver(
-    async ({ info, parent: { playlists } }) => {
-      const filter = { _id: playlists }
-      const query = Playlist.find(filter)
-      const select = determinePlaylistSelect(info)
-      const collection = await query.select(select).lean().exec()
-      return deserializeCollection(collection)
-    },
+    async ({ info, parent: { playlists } }) => await (
+      Playlist
+        .find({ _id: playlists })
+        .select(determinePlaylistSelect(info))
+        .lean()
+        .map(deserializeCollection)
+        .exec()
+    ),
   ),
   plays: resolver(
-    async ({ info, parent: { id } }) => {
-      const filter = { user: id }
-      const query = Play.find(filter)
-      const select = determinePlaySelect(info)
-      const collection = await query.select(select).lean().exec()
-      return deserializeCollection(collection)
-    }
+    async ({ info, parent: { id } }) => await (
+      Play
+        .find({ user: id })
+        .select(determinePlaySelect(info))
+        .lean()
+        .map(deserializeCollection)
+        .exec()
+    ),
   ),
   songs: resolver(
-    async ({ info, parent: { id } }) => {
-      const filter = { user: id, inLibrary: true }
-      const query = UserSong.find(filter)
-      const select = determineUserSongSelect(info)
-      const collection = await query.select(select).lean().exec()
-      return deserializeCollection(collection)
-    }
+    async ({ info, parent: { id } }) => await (
+      UserSong
+        .find({ user: id, inLibrary: true })
+        .select(determineUserSongSelect(info))
+        .lean()
+        .map(deserializeCollection)
+        .exec()
+    ),
   ),
   albums: resolver(
-    async ({ info, parent: { id } }) => {
-      const filter = { user: id, inLibrary: true }
-      const query = UserAlbum.find(filter)
-      const select = determineUserAlbumSelect(info)
-      const collection = await query.select(select).lean().exec()
-      return deserializeCollection(collection)
-    }
+    async ({ info, parent: { id } }) => await (
+      UserAlbum
+        .find({ user: id, inLibrary: true })
+        .select(determineUserAlbumSelect(info))
+        .lean()
+        .map(deserializeCollection)
+        .exec()
+    ),
   ),
   artists: resolver(
-    async ({ info, parent: { id } }) => {
-      const filter = { user: id, inLibrary: true }
-      const query = UserArtist.find(filter)
-      const select = determineUserArtistSelect(info)
-      const collection = await query.select(select).lean().exec()
-      return deserializeCollection(collection)
-    }
+    async ({ info, parent: { id } }) => await (
+      UserArtist
+        .find({ user: id, inLibrary: true })
+        .select(determineUserArtistSelect(info))
+        .lean()
+        .map(deserializeCollection)
+        .exec()
+    ),
   ),
 }

@@ -13,37 +13,43 @@ const { User, Song, Play } = database.models
 
 export default {
   user: resolver(
-    async ({ info, parent: { user } }) => {
-      const query = User.findById(user)
-      const select = determineUserSelect(info)
-      const doc = await query.select(select).lean().exec()
-      return deserializeDocument(doc)
-    },
+    async ({ info, parent: { user } }) => await (
+      User
+        .findById(user)
+        .select(determineUserSelect(info))
+        .lean()
+        .map(deserializeDocument)
+        .exec()
+    ),
   ),
   song: resolver(
-    async ({ parent: { song } }) => {
-      const query = Song.findById(song)
-      const select = determineSongSelect(info)
-      const doc = await query.select(select).lean().exec()
-      return deserializeDocument(doc)
-    },
+    async ({ parent: { song } }) => await (
+      Song
+        .findById(song)
+        .select(determineSongSelect(info))
+        .lean()
+        .map(deserializeDocument)
+        .exec()
+    ),
   ),
   plays: resolver(
-    async ({ parent: { user, song } }) => {
-      const filter = { user, song }
-      const query = Play.find(filter)
-      const select = determinePlaySelect(info)
-      const collection = await query.select(select).lean().exec()
-      return deserializeCollection(collection)
-    },
+    async ({ info, parent: { user, song } }) => await (
+      Play
+        .find({ user, song })
+        .select(determinePlaySelect(info))
+        .lean()
+        .map(deserializeCollection)
+        .exec()
+    ),
   ),
   numOfPlays: resolver(
-    async ({ parent: { user, song } }) => {
-      const filter = { user, song }
-      const query = Play.find(filter)
-      const select = determinePlaySelect(info)
-      const collection = await query.select(select).lean().exec()
-      return deserializeCollection(collection).length
-    },
+    async ({ info, parent: { user, song } }) => await (
+      Play
+        .find({ user, song })
+        .select(determinePlaySelect(info))
+        .lean()
+        .map(collection => collection.length)
+        .exec()
+    ),
   ),
 }

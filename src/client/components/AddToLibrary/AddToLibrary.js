@@ -11,15 +11,15 @@ import { useMutation, useApolloClient } from "@apollo/react-hooks"
 
 import ADD_USER_SONG from "../../graphql/mutations/addUserSong.graphql"
 import ADD_USER_ALBUM from "../../graphql/mutations/addUserAlbum.graphql"
-import ADD_USER_ARTIST from "../../graphql/mutations/addUserAlbum.graphql"
+import ADD_USER_ARTIST from "../../graphql/mutations/addUserArtist.graphql"
 
 import USER_SONGS_FRAG from "../../graphql/fragments/userSongsFrag.graphql"
 import USER_ALBUMS_FRAG from "../../graphql/fragments/userAlbumsFrag.graphql"
-import USER_ARTISTS_FRAG from "../../graphql/fragments/userAlbumsFrag.graphql"
+import USER_ARTISTS_FRAG from "../../graphql/fragments/userArtistsFrag.graphql"
 
 import REMOVE_USER_SONG from "../../graphql/mutations/removeUserSong.graphql"
 import REMOVE_USER_ALBUM from "../../graphql/mutations/removeUserAlbum.graphql"
-import REMOVE_USER_ARTIST from "../../graphql/mutations/removeUserAlbum.graphql"
+import REMOVE_USER_ARTIST from "../../graphql/mutations/removeUserArtist.graphql"
 
 import "./AddToLibrary.scss"
 

@@ -5,26 +5,40 @@ import {
   deserializeDocument,
   determineUserSelect,
   determineAlbumSelect,
+  deserializeCollection,
 } from "../../helpers/resolvers.js"
 
-const { User, Song, Album } = database.models
+const { User, Album, Play } = database.models
 
 export default {
   user: resolver(
-    async ({ info, parent: { user } }) => {
-      const query = User.findById(user)
-      const select = determineUserSelect(info)
-      const doc = await query.select(select).lean().exec()
-      return deserializeDocument(doc)
-    },
+    async ({ info, parent: { user } }) => await (
+      User
+        .findById(user)
+        .select(determineUserSelect(info))
+        .lean()
+        .map(deserializeDocument)
+        .exec()
+    ),
   ),
   album: resolver(
-    async ({ info, parent: { album } }) => {
-      const query = Album.findById(album)
-      const select = determineAlbumSelect(info)
-      const doc = await query.select(select).lean().exec()
-      return deserializeDocument(doc)
-    },
+    async ({ info, parent: { album } }) => await (
+      Album
+        .findById(album)
+        .select(determineAlbumSelect(info))
+        .lean()
+        .map(deserializeDocument)
+        .exec()
+    ),
+  ),
+  plays: resolver(
+    async () => await (
+      Play
+        .find()
+        .lean()
+        .map(deserializeCollection)
+        .exec()
+    ),
   ),
   numOfPlays: resolver(
     async () => {

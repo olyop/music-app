@@ -1,5 +1,5 @@
 import database from "../../database/index.js"
-import { pipe, resolver } from "../../helpers/misc.js"
+import { resolver } from "../../helpers/misc.js"
 
 import {
   restoreOrder,
@@ -12,25 +12,26 @@ const { Artist, Song } = database.models
 
 export default {
   artists: resolver(
-    async ({ info, parent: { artists } }) => {
-      const filter = { _id: artists }
-      const query = Artist.find(filter)
-      const select = determineArtistSelect(info)
-      const collection = await query.select(select).lean().exec()
-      return pipe(collection)(
-        deserializeCollection,
-        restoreOrder(artists),
-      )
-    }
+    async ({ info, parent: { artists } }) => await (
+      Artist
+        .find({ _id: artists })
+        .sort({ name: "asc" })
+        .select(determineArtistSelect(info))
+        .lean()
+        .map(deserializeCollection)
+        .map(restoreOrder(artists))
+        .exec()
+    ),
   ),
   songs: resolver(
-    async ({ info, parent: { id } }) => {
-      const filter = { album: id }
-      const sortArgs = { discNumber: "asc", trackNumber: "asc" }
-      const query = Song.find(filter).sort(sortArgs)
-      const select = determineSongSelect(info)
-      const collection = await query.select(select).lean().exec()
-      return deserializeCollection(collection)
-    }
+    async ({ info, parent: { id } }) => await (
+      Song
+        .find({ album: id })
+        .sort({ discNumber: "asc", trackNumber: "asc" })
+        .select(determineSongSelect(info))
+        .lean()
+        .map(deserializeCollection)
+        .exec()
+    ),
   ),
 }

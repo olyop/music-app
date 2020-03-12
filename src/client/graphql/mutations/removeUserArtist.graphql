@@ -1,0 +1,5 @@
+mutation removeUserArtist($userId: ID!, $artistId: ID!) {
+  removeUserArtist(userId: $userId, artistId: $artistId) {
+    id
+  }
+}

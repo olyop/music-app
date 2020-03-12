@@ -15,79 +15,97 @@ const { Song, User, Album, Genre, Artist } = database.models
 
 export default {
   artist: resolver(
-    async ({ info, args: { id } }) => {
-      const query = Artist.findById(id)
-      const select = determineArtistSelect(info)
-      const doc = await query.select(select).lean().exec()
-      return deserializeDocument(doc)
-    }
+    async ({ info, args: { id } }) => await (
+      Artist
+        .findById(id)
+        .select(determineArtistSelect(info))
+        .lean()
+        .map(deserializeDocument)
+        .exec()
+    ),
   ),
   album: resolver(
-    async ({ info, args: { id } }) => {
-      const query = Album.findById(id)
-      const select = determineAlbumSelect(info)
-      const doc = await query.select(select).lean().exec()
-      return deserializeDocument(doc)
-    }
+    async ({ info, args: { id } }) => await (
+      Album
+        .findById(id)
+        .select(determineAlbumSelect(info))
+        .lean()
+        .map(deserializeDocument)
+        .exec()
+    ),
   ),
   genre: resolver(
-    async ({ info, args: { id } }) => {
-      const query = Genre.findById(id)
-      const select = determineGenreSelect(info)
-      const doc = await query.select(select).lean().exec()
-      return deserializeDocument(doc)
-    }
+    async ({ info, args: { id } }) => await (
+      Genre
+        .findById(id)
+        .select(determineGenreSelect(info))
+        .lean()
+        .map(deserializeDocument)
+        .exec()
+    ),
   ),
   song: resolver(
-    async ({ info, args: { id } }) => {
-      const query = Song.findById(id)
-      const select = determineSongSelect(info)
-      const doc = await query.select(select).lean().exec()
-      return deserializeDocument(doc)
-    }
+    async ({ info, args: { id } }) => await (
+      Song
+        .findById(id)
+        .select(determineSongSelect(info))
+        .lean()
+        .map(deserializeDocument)
+        .exec()
+    ),
   ),
   user: resolver(
-    async ({ info, args: { id } }) => {
-      const query = User.findById(id)
-      const select = determineUserSelect(info)
-      const doc = await query.select(select).lean().exec()
-      return deserializeDocument(doc)
-    }
+    async ({ info, args: { id } }) => await (
+      User
+        .findById(id)
+        .select(determineUserSelect(info))
+        .lean()
+        .map(deserializeDocument)
+        .exec()
+    ),
   ),
   artists: resolver(
-    async ({ info }) => {
-      const sortArgs = { name: "asc" }
-      const query = Artist.find().sort(sortArgs)
-      const select = determineArtistSelect(info)
-      const collection = await query.select(select).lean().exec()
-      return deserializeCollection(collection)
-    }
+    async ({ info }) => await (
+      Artist
+        .find()
+        .sort({ name: "asc" })
+        .select(determineArtistSelect(info))
+        .lean()
+        .map(deserializeCollection)
+        .exec()
+    ),
   ),
   albums: resolver(
-    async ({ info }) => {
-      const sortArgs = { released: "desc" }
-      const query = Album.find().sort(sortArgs)
-      const select = determineAlbumSelect(info)
-      const collection = await query.select(select).lean().exec()
-      return deserializeCollection(collection)
-    }
+    async ({ info }) => await (
+      Album
+        .find()
+        .sort({ released: "desc" })
+        .select(determineAlbumSelect(info))
+        .lean()
+        .map(deserializeCollection)
+        .exec()
+    ),
   ),
   genres: resolver(
-    async ({ info }) => {
-      const sortArgs = { name: "asc" }
-      const query = Genre.find().sort(sortArgs)
-      const select = determineGenreSelect(info)
-      const collection = await query.select(select).lean().exec()
-      return deserializeCollection(collection)
-    }
+    async ({ info }) => await (
+      Genre
+        .find()
+        .sort({ name: "asc" })
+        .select(determineGenreSelect(info))
+        .lean()
+        .map(deserializeCollection)
+        .exec()
+    ),
   ),
   songs: resolver(
-    async ({ info }) => {
-      const sortArgs = { title: "asc" }
-      const query = Song.find().sort(sortArgs)
-      const select = determineSongSelect(info)
-      const collection = await query.select(select).lean().exec()
-      return deserializeCollection(collection)
-    }
+    async ({ info }) => await (
+      Song
+        .find()
+        .sort({ title: "asc" })
+        .select(determineSongSelect(info))
+        .lean()
+        .map(deserializeCollection)
+        .exec()
+    ),
   ),
 }

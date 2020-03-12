@@ -97,6 +97,7 @@
     "formidable": "^1.2.2",
     "graphql": "^14.6.0",
     "graphql-fields": "^2.0.3",
+    "graphql-import": "^1.0.0-beta.2",
     "graphql-tag": "^2.10.3",
     "graphql-upload": "^10.0.0",
     "helmet": "^3.21.3",

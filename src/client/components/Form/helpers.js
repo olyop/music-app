@@ -163,14 +163,6 @@ export const determineMax = ({ type, max }) => {
   }
 }
 
-export const determineAccept = ({ type }) => {
-  if (type === "file") {
-    return "image/jpeg"
-  } else {
-    return undefined
-  }
-}
-
 export const determineMinLength = ({ type, min }) => {
   if (includes(["text","list"], type)) {
     return min

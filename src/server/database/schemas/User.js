@@ -18,6 +18,13 @@ const definition = {
     type: ObjectId,
     required: true,
   },
+  prev: [{
+    index: true,
+    minlength: 24,
+    maxlength: 24,
+    type: ObjectId,
+    required: true,
+  }],
   next: [{
     index: true,
     minlength: 24,

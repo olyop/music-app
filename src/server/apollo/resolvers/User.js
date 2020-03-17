@@ -2,15 +2,18 @@ import database from "../../database/index.js"
 import { resolver } from "../../helpers/misc.js"
 
 import {
-  deserializeDocument,
   determineSongSelect,
   determinePlaySelect,
-  deserializeCollection,
   determinePlaylistSelect,
   determineUserSongSelect,
   determineUserAlbumSelect,
   determineUserArtistSelect,
 } from "../../helpers/resolvers.js"
+
+import {
+  deserializeDocument,
+  deserializeCollection,
+} from "../../helpers/collections.js"
 
 const {
   Play,
@@ -23,54 +26,59 @@ const {
 
 export default {
   prev: resolver(
-    async ({ info, parent: { prev } }) => await (
-      Song
-        .find({ _id: prev })
-        .select(determineSongSelect(info))
-        .lean()
-        .map(deserializeCollection)
-        .exec()
-    ),
+    async ({ info, parent: { prev } }) => {
+      const query =
+        Song
+          .find({ _id: prev })
+          .select(determineSongSelect(info))
+          .lean()
+          .exec()
+      return deserializeCollection(await query)
+    },
   ),
   nowPlaying: resolver(
-    async ({ info, parent: { nowPlaying } }) => await (
-      Song
-        .findById(nowPlaying)
-        .select(determineSongSelect(info))
-        .lean()
-        .map(deserializeDocument)
-        .exec()
-    ),
+    async ({ info, parent: { nowPlaying } }) => {
+      const query =
+        Song
+          .findById(nowPlaying)
+          .select(determineSongSelect(info))
+          .lean()
+          .exec()
+      return deserializeDocument(await query)
+    }
   ),
   next: resolver(
-    async ({ info, parent: { next } }) => await (
-      Song
-        .find(next)
-        .select(determineSongSelect(info))
-        .lean()
-        .map(deserializeDocument)
-        .exec()
-    ),
+    async ({ info, parent: { next } }) => {
+      const query =
+        Song
+          .find({ _id: next })
+          .select(determineSongSelect(info))
+          .lean()
+          .exec()
+      return deserializeCollection(await query)
+    },
   ),
   later: resolver(
-    async ({ info, parent: { later } }) => await (
-      Song
-        .find({ _id: later })
-        .select(determineSongSelect(info))
-        .lean()
-        .map(deserializeCollection)
-        .exec()
-    ),
+    async ({ info, parent: { later } }) => {
+      const query =
+        Song
+          .find({ _id: later })
+          .select(determineSongSelect(info))
+          .lean()
+          .exec()
+      return deserializeCollection(await query)
+    },
   ),
   playlists: resolver(
-    async ({ info, parent: { playlists } }) => await (
-      Playlist
-        .find({ _id: playlists })
-        .select(determinePlaylistSelect(info))
-        .lean()
-        .map(deserializeCollection)
-        .exec()
-    ),
+    async ({ info, parent: { playlists } }) => {
+      const query =
+        Playlist
+          .find({ _id: playlists })
+          .select(determinePlaylistSelect(info))
+          .lean()
+          .exec()
+      return deserializeCollection(await query)
+    },
   ),
   plays: resolver(
     async ({ info, parent: { id } }) => await (

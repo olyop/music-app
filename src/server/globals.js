@@ -11,7 +11,6 @@ export const HOST = os.networkInterfaces().Ethernet[1].address
 // export const PORT = 80
 export const PORT = serializePort(process.env.PORT || 3000)
 
-export const S3_ACL = "public-read"
 export const S3_BUCKET_NAME = "5e0585af655578193c6bd0b0"
 
 export const LOG_FORMAT = "dev"
@@ -21,10 +20,12 @@ export const CORS_OPTIONS = {
   optionsSuccessStatus: 200,
 }
 
-export const DB_URL = "mongodb://localhost:27017/music-app"
+export const DB_URL = "mongodb://localhost:27017"
 
 export const MONGOOSE_OPTIONS = {
   poolSize: 1,
+  dbName: "music-app",
+  loggerLevel: "error",
   useCreateIndex: true,
   useNewUrlParser: true,
   useFindAndModify: false,
@@ -49,7 +50,7 @@ export const BUILD_ENTRY_PATH = path.join(BUILD_PATH, "index.html")
 
 export const SCHEMA_OPTIONS = {
   id: false,
-  versionKey: true,
+  versionKey: false,
   timestamps: false,
 }
 
@@ -58,3 +59,10 @@ export const APOLLO_SERVER_OPTIONS = {
 }
 
 export const SONG_ARTISTS_FIELDS = ["artists", "remixers", "featuring"]
+
+export const USER_EMPTY_QUEUE = {
+  prev: [],
+  next: [],
+  later: [],
+  nowPlaying: undefined,
+}

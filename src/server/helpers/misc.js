@@ -1,6 +1,8 @@
 import sortBy from "lodash/sortBy.js"
+import fpPipe from "fp-pipe-then"
 
 export const pipe = x => (...funcs) => funcs.reduce((val, func) => func(val), x)
+export const pipeAsync = x => (...funcs) => fpPipe(...funcs)(x)
 
 export const stringify = obj => JSON.stringify(obj)
 export const stringifyFormat = obj => JSON.stringify(obj, undefined, 2)
@@ -14,5 +16,3 @@ export const currySortBy = func => collection => sortBy(collection, func)
 export const resolver = callback => (parent, args, context, info) => callback({ parent, args, context, info })
 
 export const request = callback => (req, res, nxt) => callback({ req, res, nxt })
-
-export const determineS3Key = id => `catalog/${id}.jpg`

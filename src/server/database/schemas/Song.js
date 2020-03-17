@@ -51,11 +51,6 @@ const definition = {
     required: true,
     maxlength: 2048,
   },
-  audio: {
-    type: Buffer,
-    select: false,
-    validate: Buffer.isBuffer,
-  },
   trackNumber: {
     min: 1,
     max: 99,

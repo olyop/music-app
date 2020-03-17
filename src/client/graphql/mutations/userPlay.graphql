@@ -1,5 +1,11 @@
-mutation updateNowPlaying($userId: ID!, $songId: ID!) {
-  updateNowPlaying(userId: $userId, songId: $songId) {
+mutation userPlay(
+  $userId: ID!
+  $songId: ID!
+) {
+  userPlay(
+    userId: $userId
+    songId: $songId
+  ) {
     id
     nowPlaying {
       id

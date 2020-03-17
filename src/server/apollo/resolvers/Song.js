@@ -1,70 +1,86 @@
 import database from "../../database/index.js"
-import { resolver } from "../../helpers/misc.js"
+import { resolver, pipe } from "../../helpers/misc.js"
 
 import {
   restoreOrder,
-  deserializeDocument,
   determineGenreSelect,
   determineAlbumSelect,
   determineArtistSelect,
-  deserializeCollection,
 } from "../../helpers/resolvers.js"
+
+import {
+  deserializeDocument,
+  deserializeCollection,
+} from "../../helpers/collections.js"
 
 const { Artist, Genre, Album } = database.models
 
 export default {
   featuring: resolver(
-    async ({ info, parent: { featuring } }) => await (
-      Artist
-        .find({ _id: featuring })
-        .select(determineArtistSelect(info))
-        .lean()
-        .map(deserializeCollection)
-        .map(restoreOrder(featuring))
-        .exec()
-    ),
+    async ({ info, parent: { featuring } }) => {
+      const query =
+        Artist
+          .find({ _id: featuring })
+          .select(determineArtistSelect(info))
+          .lean()
+          .exec()
+      return pipe(await query)(
+        deserializeCollection,
+        restoreOrder(featuring),
+      )
+    },
   ),
   remixers: resolver(
-    async ({ info, parent: { remixers } }) => await (
-      Artist
-        .find({ _id: remixers })
-        .select(determineArtistSelect(info))
-        .lean()
-        .map(deserializeCollection)
-        .map(restoreOrder(remixers))
-        .exec()
-    ),
+    async ({ info, parent: { remixers } }) => {
+      const query =
+        Artist
+          .find({ _id: remixers })
+          .select(determineArtistSelect(info))
+          .lean()
+          .exec()
+      return pipe(await query)(
+        deserializeCollection,
+        restoreOrder(remixers),
+      )
+    },
   ),
   artists: resolver(
-    async ({ info, parent: { artists } }) => await (
-      Artist
-        .find({ _id: artists })
-        .select(determineArtistSelect(info))
-        .lean()
-        .map(deserializeCollection)
-        .map(restoreOrder(artists))
-        .exec()
-    ),
+    async ({ info, parent: { artists } }) => {
+      const query =
+        Artist
+          .find({ _id: artists })
+          .select(determineArtistSelect(info))
+          .lean()
+          .exec()
+      return pipe(await query)(
+        deserializeCollection,
+        restoreOrder(artists),
+      )
+    },
   ),
   genres: resolver(
-    async ({ info, parent: { genres } }) => await (
-      Genre
-        .find({ _id: genres })
-        .select(determineGenreSelect(info))
-        .lean()
-        .map(deserializeCollection)
-        .map(restoreOrder(genres))
-        .exec()
-    ),
+    async ({ info, parent: { genres } }) => {
+      const query =
+        Genre
+          .find({ _id: genres })
+          .select(determineGenreSelect(info))
+          .lean()
+          .exec()
+      return pipe(await query)(
+        deserializeCollection,
+        restoreOrder(genres),
+      )
+    },
   ),
   album: resolver(
-    async ({ info, parent: { album } }) => await (
-      Album
-        .findById(album)
-        .select(determineAlbumSelect(info))
-        .lean()
-        .map(deserializeDocument)
-        .exec()
-    )
+    async ({ info, parent: { album } }) => {
+      const query =
+        Album
+          .findById(album)
+          .select(determineAlbumSelect(info))
+          .lean()
+          .exec()
+      return deserializeDocument(await query)
+    },
   ),
 }

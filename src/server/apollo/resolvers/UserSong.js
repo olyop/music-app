@@ -2,54 +2,61 @@ import database from "../../database/index.js"
 import { resolver } from "../../helpers/misc.js"
 
 import {
-  deserializeDocument,
   determineUserSelect,
   determineSongSelect,
   determinePlaySelect,
-  deserializeCollection,
 } from "../../helpers/resolvers.js"
+
+import {
+  deserializeDocument,
+  deserializeCollection,
+} from "../../helpers/collections.js"
 
 const { User, Song, Play } = database.models
 
 export default {
   user: resolver(
-    async ({ info, parent: { user } }) => await (
-      User
-        .findById(user)
-        .select(determineUserSelect(info))
-        .lean()
-        .map(deserializeDocument)
-        .exec()
-    ),
+    async ({ info, parent: { user } }) => {
+      const query =
+        User
+          .findById(user)
+          .select(determineUserSelect(info))
+          .lean()
+          .exec()
+      return deserializeDocument(await query)
+    },
   ),
   song: resolver(
-    async ({ parent: { song } }) => await (
-      Song
-        .findById(song)
-        .select(determineSongSelect(info))
-        .lean()
-        .map(deserializeDocument)
-        .exec()
-    ),
+    async ({ info, parent: { song } }) => {
+      const query =
+        Song
+          .findById(song)
+          .select(determineSongSelect(info))
+          .lean()
+          .exec()
+      return deserializeDocument(await query)
+    },
   ),
   plays: resolver(
-    async ({ info, parent: { user, song } }) => await (
-      Play
-        .find({ user, song })
-        .select(determinePlaySelect(info))
-        .lean()
-        .map(deserializeCollection)
-        .exec()
-    ),
+    async ({ info, parent: { user, song } }) => {
+      const query =
+        Play
+          .find({ user, song })
+          .select(determinePlaySelect(info))
+          .lean()
+          .exec()
+      return deserializeCollection(await query)
+    },
   ),
   numOfPlays: resolver(
-    async ({ info, parent: { user, song } }) => await (
-      Play
-        .find({ user, song })
-        .select(determinePlaySelect(info))
-        .lean()
-        .map(collection => collection.length)
-        .exec()
-    ),
+    async ({ info, parent: { user, song } }) => {
+      const query =
+        Play
+          .find({ user, song })
+          .select(determinePlaySelect(info))
+          .lean()
+          .exec()
+      return deserializeCollection(await query).length
+    },
   ),
 }

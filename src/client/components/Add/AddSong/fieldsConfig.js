@@ -1,4 +1,5 @@
 import {
+  noopParse,
   validateId,
   isNotEmpty,
   validateArrayOfIds,
@@ -8,6 +9,7 @@ import {
 import {
   uniqueId,
   isString,
+  isUndefined,
   toSafeInteger,
   isSafeInteger,
 } from "lodash"
@@ -264,6 +266,38 @@ const fieldsConifg = ({ artists, albums, genres }) => [
         id: uniqueId(),
         check: validateId,
         msg: "must be a valid album.",
+      },
+    ],
+  },
+  {
+    id: uniqueId(),
+    name: "Audio",
+    short: "audio",
+    type: "file",
+    isDoc: false,
+    init: "",
+    req: true,
+    min: 0,
+    max: 16777216,
+    parse: {
+      in: noopParse,
+      out: noopParse,
+    },
+    validators: [
+      {
+        id: uniqueId(),
+        msg: "data type of file.",
+        check: val => val.file instanceof File,
+      },
+      {
+        id: uniqueId(),
+        msg: "file size less than 16 MB",
+        check: val => (isUndefined(val.file) ? false : val.file.size < 16777216),
+      },
+      {
+        id: uniqueId(),
+        msg: "file type of mp3.",
+        check: val => (isUndefined(val.file) ? false : val.file.type === "audio/mp3"),
       },
     ],
   },

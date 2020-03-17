@@ -5,8 +5,8 @@ mutation addAlbum(
   $released: String!,
 ) {
   addAlbum(
-    title: $title,
     cover: $cover,
+    title: $title,
     artists: $artists,
     released: $released,
   ) {

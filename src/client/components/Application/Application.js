@@ -8,7 +8,6 @@ import ApiError from "../ApiError"
 
 import UserCtx from "../../ctx/User"
 import PlayCtx from "../../ctx/Play"
-import VolumeCtx from "../../ctx/Volume"
 
 import { isUndefined } from "lodash"
 import { useQuery } from "@apollo/react-hooks"
@@ -18,7 +17,6 @@ import GET_USER from "../../graphql/queries/getUser.graphql"
 const Application = () => {
   const id = "5e11e4aa8e0f023c5007dff9"
   const [ play, setPlay ] = useState(false)
-  const [ volume, setVolume ] = useState(0.75)
   const queryOptions = { variables: { id } }
   const { data, loading, error } = useQuery(GET_USER, queryOptions)
   if (loading) {
@@ -28,15 +26,12 @@ const Application = () => {
   } else {
     const { user } = data
     const playInit = { play, setPlay }
-    const volumeInit = { volume, setVolume }
     return (
       <UserCtx.Provider value={user}>
         <PlayCtx.Provider value={playInit}>
-          <VolumeCtx.Provider value={volumeInit}>
-            <Header/>
-            <Pages/>
-            <Player/>
-          </VolumeCtx.Provider>
+          <Header/>
+          <Pages/>
+          <Player/>
         </PlayCtx.Provider>
       </UserCtx.Provider>
     )

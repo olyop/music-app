@@ -1,23 +1,21 @@
 import database from "../../database/index.js"
 import { resolver } from "../../helpers/misc.js"
-
-import {
-  determineSongSelect,
-  deserializeCollection,
-} from "../../helpers/resolvers.js"
+import { determineSongSelect } from "../../helpers/resolvers.js"
+import { deserializeCollection } from "../../helpers/collections.js"
 
 const { Song } = database.models
 
 export default {
   songs: resolver(
-    async ({ info, parent: { songs } }) => await (
-      Song
-        .find({ _id: songs })
-        .sort({ name: "asc" })
-        .select(determineSongSelect(info))
-        .lean()
-        .map(deserializeCollection)
-        .exec()
-    ),
+    async ({ info, parent: { songs } }) => {
+      const query =
+        Song
+          .find({ _id: songs })
+          .sort({ name: "asc" })
+          .select(determineSongSelect(info))
+          .lean()
+          .exec()
+      return deserializeCollection(await query)
+    },
   ),
 }

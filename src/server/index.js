@@ -52,4 +52,5 @@ app.use(express.static(BUILD_PATH))
 app.use("*", request(({ res }) => res.sendFile(BUILD_ENTRY_PATH)))
 
 app.on("error", onError)
+
 app.listen(PORT, HOST)

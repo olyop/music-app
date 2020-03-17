@@ -19,12 +19,11 @@ const AddAlbum = () => {
   } else if (!isUndefined(error)) {
     return <ApiError/>
   } else {
-    const submit = variables => addAlbum({ variables })
     return (
       <Form
-        submit={submit}
         title="Add Album"
         fields={fieldsConfig(data)}
+        submit={variables => addAlbum({ variables })}
       />
     )
   }

@@ -1,55 +1,15 @@
-import mongoose from "mongoose"
 import find from "lodash/find.js"
 import keys from "lodash/keys.js"
 import map from "lodash/fp/map.js"
 import concat from "lodash/concat.js"
 import uniqBy from "lodash/uniqBy.js"
-import isEmpty from "lodash/isEmpty.js"
-import isArray from "lodash/isArray.js"
 import filter from "lodash/fp/filter.js"
 import reduce from "lodash/fp/reduce.js"
 import { pipe } from "../helpers/misc.js"
 import includes from "lodash/includes.js"
 import graphqlFields from "graphql-fields"
 import database from "../database/index.js"
-import mapValues from "lodash/mapValues.js"
 import toInteger from "lodash/toInteger.js"
-
-const {
-  Play,
-  Song,
-  User,
-  Album,
-  Genre,
-  Artist,
-  Playlist,
-  UserSong,
-  UserAlbum,
-  UserArtist,
-} = database.models
-
-const { ObjectId } = mongoose.Types
-
-export const deserializeDocument = ({ _id, __v, ...doc }) => ({
-  id: _id.toString(),
-  ...mapValues(doc, val => {
-    if (isArray(val) && !isEmpty(val)) {
-      if (val[0] instanceof ObjectId) {
-        return val.map(id => id.toString())
-      } else {
-        return val
-      }
-    } else {
-      if (val instanceof ObjectId) {
-        return val.toString()
-      } else {
-        return val
-      }
-    }
-  }),
-})
-
-export const deserializeCollection = collection => collection.map(deserializeDocument)
 
 export const restoreOrder = ids => collection => ids.reduce(
   (acc, id) => concat(
@@ -82,6 +42,19 @@ export const determineSelect = Model => {
     )
   }
 }
+
+const {
+  Play,
+  Song,
+  User,
+  Album,
+  Genre,
+  Artist,
+  Playlist,
+  UserSong,
+  UserAlbum,
+  UserArtist,
+} = database.models
 
 export const determinePlaySelect = determineSelect(Play)
 export const determineSongSelect = determineSelect(Song)

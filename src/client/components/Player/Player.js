@@ -1,4 +1,4 @@
-import React, { useContext, Fragment } from "react"
+import React, { useState, useContext, Fragment } from "react"
 
 import Song from "../Song"
 import Icon from "../Icon"
@@ -7,7 +7,7 @@ import ApiError from "../ApiError"
 import PlayCtx from "../../ctx/Play"
 import UserCtx from "../../ctx/User"
 import { Link } from "react-router-dom"
-import VolumeCtx from "../../ctx/Volume"
+import Slider from "@material-ui/core/Slider"
 
 import GET_NOW_PLAYING from "../../graphql/queries/getNowPlaying.graphql"
 import USER_NOW_PLAYING_FRAG from "../../graphql/fragments/userNowPlayingFrag.graphql"
@@ -23,8 +23,8 @@ const bem = reactBem("Player")
 
 const Player = () => {
   const user = useContext(UserCtx)
+  const [ volume, setVolume ] = useState(50)
   const { play, setPlay } = useContext(PlayCtx)
-  const { volume, setVolume } = useContext(VolumeCtx)
 
   const { id } = user
   const playIcon = play ? "play_arrow" : "pause"
@@ -33,7 +33,7 @@ const Player = () => {
   const { loading, error, data, client } = useQuery(GET_NOW_PLAYING, queryOptions)
 
   const handlePlayClick = () => setPlay(!play)
-  const handleVolumeInput = ({ target }) => setVolume(target.value)
+  const handleVolumeInput = (_, value) => setVolume(value)
 
   if (loading) {
     return <Spinner/>
@@ -41,10 +41,10 @@ const Player = () => {
     return <ApiError/>
   } else {
     const { nowPlaying } = data.user
+    const { duration } = nowPlaying
     const fragment = USER_NOW_PLAYING_FRAG
     const userFrag = { nowPlaying, __typename: "User" }
     client.writeFragment({ id, fragment, data: userFrag })
-    const { duration } = nowPlaying
     return (
       <section className={bem("")}>
         <div className={bem("timeline")}>
@@ -84,16 +84,13 @@ const Player = () => {
                 <Fragment>{determineDuration(duration)}</Fragment>
               </div>
               <div className={bem("info-right-volume")}>
-                <input
-                  min="0"
-                  max="1"
-                  step="0.01"
-                  id="volume"
-                  type="range"
+                <Slider
+                  min={0}
+                  max={100}
                   name="volume"
                   value={volume}
+                  valueLabelDisplay="auto"
                   onChange={handleVolumeInput}
-                  className={bem("info-right-volume-input")}
                 />
               </div>
               <Icon

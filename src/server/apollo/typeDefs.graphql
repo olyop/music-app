@@ -87,9 +87,12 @@ type User {
 }
 
 type Mutation {
-  updateNowPlaying(
+  userPlay(
     userId: ID!
     songId: ID!
+  ): User!
+  userPrev(
+    userId: ID!
   ): User!
   addUserSong(
     userId: ID!
@@ -124,9 +127,9 @@ type Mutation {
   ): Genre!
   addAlbum(
     title: String!
-    released: Int!
     cover: Upload!
     artists: [ID!]!
+    released: String!
   ): Album!
   addSong(
     album: ID!

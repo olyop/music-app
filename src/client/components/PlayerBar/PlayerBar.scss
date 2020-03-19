@@ -1,0 +1,56 @@
+@import "../../globals/index.scss";
+
+.PlayerBar {
+  z-index: 4; 
+  width: 100%;
+  display: flex;
+  height: $PLAYER_HEIGHT;
+  box-shadow: 0 1px 4px 0 rgba(51, 51, 51, 0.3);
+  &__link {
+    text-decoration: none;
+    &:hover {
+      text-decoration: none; } }
+  &__icon {
+    outline: none;
+    font-size: 40rem;
+    transition: .2s all;
+    border-radius: 100%;
+    &:hover {
+      background-color: #e0e0e0; } }
+  &__main,
+  &__queue,
+  &__controls,
+  &__fullscreen {
+    height: 100%;
+    display: block;
+    border-right: 1px solid #e0e0e0;
+    &:last-child {
+      border: none; } }
+  &__queue,
+  &__controls,
+  &__fullscreen {
+    display: flex;
+    align-items: center; }
+  &__controls {
+    padding: 15px; }
+  &__main {
+    width: 100%;
+    padding: 15px 15px 13px 19px;
+    &-info {
+      display: flex;
+      padding-bottom: 13px;
+      justify-content: space-between;
+      &-right {
+        display: flex;
+        align-items: center; } } }
+  &__queue,
+  &__fullscreen {
+    padding: 0 5px;
+    cursor: pointer;
+    transition: .2s all;
+    &:hover {
+      background-color: #e0e0e0; }
+    &-icon {
+      border-radius: 0;
+      &:hover {
+        background-color: transparent; } } } }

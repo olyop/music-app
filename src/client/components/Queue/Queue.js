@@ -55,7 +55,7 @@ const Queue = () => {
                     <Song
                       song={song}
                       key={song.id}
-                      className={bem("song")}
+                      className={bem("section-song")}
                     />
                   ),
                 )}

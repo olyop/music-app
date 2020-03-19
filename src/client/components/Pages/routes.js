@@ -1,4 +1,6 @@
+import Queue from "../Queue"
 import Search from "../Search"
+import Player from "../Player"
 import Catalog from "../Catalog"
 import Library from "../Library"
 
@@ -28,6 +30,20 @@ export default [
     name: "Search",
     path: "/search",
     component: Search,
+  },
+  {
+    ignore: true,
+    id: uniqueId(),
+    name: "Queue",
+    path: "/queue",
+    component: Queue,
+  },
+  {
+    ignore: true,
+    id: uniqueId(),
+    name: "Player",
+    path: "/player",
+    component: Player,
   },
   {
     ignore: true,

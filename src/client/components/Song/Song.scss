@@ -11,6 +11,9 @@
     height: 35px;
     margin-right: 10px;
     border-radius: $BORDER_RADIUS;
+    box-shadow:
+      0 3px 6px rgba(#000000, .16),
+      0 3px 6px rgba(#000000, .23);
     @media (min-width: 700px) {
       width: 41px;
       height: 41px; }
@@ -31,9 +34,9 @@
       line-height: 15rem;
       margin-bottom: 5px;
       @media (min-width: 700px) {
-        font-size: 18rem;
-        max-height: 18rem;
-        line-height: 18rem; } }
+        font-size: 19rem;
+        max-height: 19rem;
+        line-height: 19rem; } }
       &-mix {
         color: #757575;
         font-weight: 400; }

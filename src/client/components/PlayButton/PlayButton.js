@@ -15,36 +15,46 @@ import "./PlayButton.scss"
 const bem = reactBem("PlayButton")
 
 const PlayButton = ({ song, className }) => {
-  
+
   const user = useContext(UserCtx)
-  const [ userPlay ] = useMutation(USER_PLAY)
 
   const { id: userId } = user
   const { id: songId } = song
   const variables = { userId, songId }
 
-  const handleClick = () => {
-    userPlay({
-      variables,
-      optimisticResponse: {
-        __typename: "Mutation",
-        userPlay: {
-          ...user,
-          prev: [],
-          next: [],
-          later: [],
-          nowPlaying: song,
-          __typename: "User",
-        },
-      },
-      update: (client, { data }) => {
-        const fragment = USER_NOW_PLAYING_FRAG
-        const { userPlay: { nowPlaying } } = data
-        const userFrag = { nowPlaying, __typename: "User" }
-        client.writeFragment({ id: userId, fragment, data: userFrag })
+  const optimisticResponse = {
+    __typename: "Mutation",
+    userPlay: {
+      prev: [],
+      next: [],
+      later: [],
+      id: userId,
+      nowPlaying: song,
+      __typename: "User",
+    },
+  }
+
+  const update = (client, result) => {
+    const { nowPlaying } = result.data.userPlay
+    client.writeFragment({
+      id: userId,
+      fragment: USER_NOW_PLAYING_FRAG,
+      data: {
+        prev: [],
+        next: [],
+        later: [],
+        nowPlaying,
+        __typename: "User",
       },
     })
   }
+
+  const [ userPlay ] = useMutation(
+    USER_PLAY,
+    { update, variables, optimisticResponse },
+  )
+
+  const handleClick = () => userPlay()
 
   return (
     <Icon

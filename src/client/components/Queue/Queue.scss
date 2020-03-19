@@ -3,7 +3,7 @@
 .Queue {
   padding: 20px;
   &__section {
-    padding: 20px;
+    padding: 10px 0;
     margin-bottom: 12px;
     background-color: #ffffff;
     border-radius: $BORDER_RADIUS;
@@ -11,7 +11,13 @@
     &-text {
       color: #757575;
       font-size: 18rem;
-      margin-bottom: 15px; } }
+      padding: 10px 20px; }
+    &-song {
+      cursor: pointer;
+      padding: 10px 20px;
+      transition: .2s all;
+      &:hover {
+        background-color: #EEEEEE; } } }
   &__song {
     margin-bottom: 12px;
     &:last-child {

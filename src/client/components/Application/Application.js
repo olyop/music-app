@@ -2,9 +2,9 @@ import React, { useState } from "react"
 
 import Pages from "../Pages"
 import Header from "../Header"
-import Player from "../Player"
 import Loading from "../Loading"
 import ApiError from "../ApiError"
+import PlayerBar from "../PlayerBar"
 
 import UserCtx from "../../ctx/User"
 import PlayCtx from "../../ctx/Play"
@@ -31,7 +31,7 @@ const Application = () => {
         <PlayCtx.Provider value={playInit}>
           <Header/>
           <Pages/>
-          <Player/>
+          <PlayerBar/>
         </PlayCtx.Provider>
       </UserCtx.Provider>
     )

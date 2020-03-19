@@ -95,7 +95,7 @@ export default {
       const query =
         Album
           .find()
-          .sort({ title: "asc" })
+          .sort({ released: "desc", title: "asc" })
           .select(determineAlbumSelect(info))
           .lean()
           .exec()

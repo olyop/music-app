@@ -81,43 +81,47 @@ export default {
     },
   ),
   plays: resolver(
-    async ({ info, parent: { id } }) => await (
-      Play
-        .find({ user: id })
-        .select(determinePlaySelect(info))
-        .lean()
-        .map(deserializeCollection)
-        .exec()
-    ),
+    async ({ info, parent: { id } }) => {
+      const query =
+        Play
+          .find({ user: id })
+          .select(determinePlaySelect(info))
+          .lean()
+          .exec()
+      return deserializeCollection(await query)
+    },
   ),
   songs: resolver(
-    async ({ info, parent: { id } }) => await (
-      UserSong
-        .find({ user: id, inLibrary: true })
-        .select(determineUserSongSelect(info))
-        .lean()
-        .map(deserializeCollection)
-        .exec()
-    ),
+    async ({ info, parent: { id } }) => {
+      const query =
+        UserSong
+          .find({ user: id, inLibrary: true })
+          .select(determineUserSongSelect(info))
+          .lean()
+          .exec()
+      return deserializeCollection(await query)
+    },
   ),
   albums: resolver(
-    async ({ info, parent: { id } }) => await (
-      UserAlbum
-        .find({ user: id, inLibrary: true })
-        .select(determineUserAlbumSelect(info))
-        .lean()
-        .map(deserializeCollection)
-        .exec()
-    ),
+    async ({ info, parent: { id } }) => {
+      const query =
+        UserAlbum
+          .find({ user: id, inLibrary: true })
+          .select(determineUserAlbumSelect(info))
+          .lean()
+          .exec()
+      return deserializeCollection(await query)
+    },
   ),
   artists: resolver(
-    async ({ info, parent: { id } }) => await (
-      UserArtist
-        .find({ user: id, inLibrary: true })
-        .select(determineUserArtistSelect(info))
-        .lean()
-        .map(deserializeCollection)
-        .exec()
-    ),
+    async ({ info, parent: { id } }) => {
+      const query =
+        UserArtist
+          .find({ user: id, inLibrary: true })
+          .select(determineUserArtistSelect(info))
+          .lean()
+          .exec()
+      return deserializeCollection(await query)
+    },
   ),
 }

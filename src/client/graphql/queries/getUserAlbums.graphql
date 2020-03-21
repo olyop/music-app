@@ -1,5 +1,6 @@
 query getUserAlbums($id: ID!) {
   user(id: $id) {
+    id
     albums {
       id
       album {

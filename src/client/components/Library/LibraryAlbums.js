@@ -7,8 +7,6 @@ import Spinner from "../Spinner"
 import ApiError from "../ApiError"
 import UserCtx from "../../ctx/User"
 
-import { map } from "lodash/fp"
-import { pipe } from "../../helpers/misc"
 import { isUndefined, isEmpty } from "lodash"
 import { useQuery, useApolloClient } from "@apollo/react-hooks"
 
@@ -18,12 +16,12 @@ import USER_ALBUMS_FRAG from "../../graphql/fragments/userAlbumsFrag.graphql"
 const LibraryAlbums = () => {
   const user = useContext(UserCtx)
   const client = useApolloClient()
-  
+
   const { id } = user
   const query = GET_USER_ALBUMS
-  const options = { variables: { id } }
-  const { loading, error, data } = useQuery(query, options)
-  
+  const variables = { id }
+  const { loading, error, data } = useQuery(query, { variables })
+
   if (loading) {
     return <Spinner/>
   } else if (!isUndefined(error)) {
@@ -37,14 +35,13 @@ const LibraryAlbums = () => {
     client.writeFragment({ id, fragment, data: userFrag })
     return (
       <Albums>
-        {pipe(albums)(
-          map(({ album }) => album),
-          map(album => (
+        {albums.map(
+          ({ album }) => (
             <Album
               album={album}
               key={album.id}
             />
-          )),
+          ),
         )}
       </Albums>
     )

@@ -1,0 +1,24 @@
+.Player {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  &__main {
+    &-cover {
+      width: 30vw;
+      height: auto;
+      display: block;
+      margin-bottom: 40px;
+      box-shadow:
+        0 3px 6px rgba(#000000, .16),
+        0 3px 6px rgba(#000000, .23); }
+    &-title,
+    &-artists {
+      text-align: center; }
+    &-title {
+      font-size: 30rem;
+      margin-bottom: 15px; }
+    &-artists {
+      font-weight: 400;
+      font-size: 25rem; } } }

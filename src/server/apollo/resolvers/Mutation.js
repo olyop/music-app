@@ -1,6 +1,4 @@
 import s3 from "../../s3.js"
-import last from "lodash/last.js"
-import isEmpty from "lodash/isEmpty.js"
 import database from "../../database/index.js"
 import { resolver } from "../../helpers/misc.js"
 import { deserializeDocument } from "../../helpers/collections.js"
@@ -11,6 +9,7 @@ import {
   determineReleased,
   determineUserSelect,
   determineUserSongSelect,
+  determineUserAlbumSelect,
 } from "../../helpers/resolvers.js"
 
 const {
@@ -20,6 +19,7 @@ const {
   Genre,
   Artist,
   UserSong,
+  UserAlbum,
 } = database.models
 
 export default {
@@ -97,25 +97,55 @@ export default {
       }
     },
   ),
-  removeUserSong: resolver(
-    async ({ info, args: { userId, songId } }) => {
-      const filter = { user: userId, song: songId }
-      const exists = await UserSong.exists(filter)
+  addUserAlbum: resolver(
+    async ({ info, args: { userId, albumId } }) => {
+      const filter = { user: userId, album: albumId }
+      const exists = await UserAlbum.exists(filter)
       if (exists) {
         const query =
-          UserSong
-            .findOneAndUpdate(filter, { inLibrary: false })
+          UserAlbum
+            .findOneAndUpdate(filter, { inLibrary: true })
             .setOptions({ new: true })
-            .select(determineUserSongSelect(info))
+            .select(determineUserAlbumSelect(info))
             .lean()
             .exec()
         return deserializeDocument(await query)
       } else {
-        const update = { ...filter, inLibrary: false }
-        const mutation = UserSong.create(update)
+        const data = { ...filter, inLibrary: true }
+        const mutation = UserAlbum.create(data)
         const doc = await mutation
         return deserializeDocument(doc.toObject())
       }
+    },
+  ),
+  removeUserSong: resolver(
+    async ({ info, args: { userId, songId } }) => {
+      const query =
+        UserSong
+          .findOneAndUpdate(
+            { user: userId, song: songId },
+            { inLibrary: false },
+            { new: true },
+          )
+          .select(determineUserSongSelect(info))
+          .lean()
+          .exec()
+      return deserializeDocument(await query)
+    },
+  ),
+  removeUserAlbum: resolver(
+    async ({ info, args: { userId, albumId } }) => {
+      const query =
+        UserAlbum
+          .findOneAndUpdate(
+            { user: userId, album: albumId },
+            { inLibrary: false },
+            { new: true },
+          )
+          .select(determineUserAlbumSelect(info))
+          .lean()
+          .exec()
+      return deserializeDocument(await query)
     },
   ),
   userPlay: resolver(

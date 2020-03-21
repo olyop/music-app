@@ -1,7 +1,7 @@
 import React, { Fragment } from "react"
 
 import Cover from "../Cover"
-import Loading from "../Loading"
+import Spinner from "../Spinner"
 import ApiError from "../ApiError"
 import DocLinks from "../DocLinks"
 import SongsTable from "../SongsTable"
@@ -28,7 +28,7 @@ const AlbumPage = () => {
   const queryOptions = { variables: { id } }
   const { loading, error, data } = useQuery(GET_ALBUM_PAGE, queryOptions)
   if (loading) {
-    return <Loading/>
+    return <Spinner/>
   } else if (!isUndefined(error)) {
     return <ApiError/>
   } else {
@@ -69,6 +69,7 @@ const AlbumPage = () => {
           {discs.length === 1 ? (
             <SongsTable
               songs={discs[0].songs}
+              orderByInit={{ field: "trackNumber", order: true }}
               columnsToIgnore={["album","cover","plays","released"]}
             />
           ) : (
@@ -79,6 +80,7 @@ const AlbumPage = () => {
                     <p className={bem("disc-number")}>{`Disc ${disc.number}`}</p>
                     <SongsTable
                       songs={disc.songs}
+                      orderByInit={{ field: "trackNumber", order: true }}
                       columnsToIgnore={["album","cover","plays","released"]}
                     />
                   </div>

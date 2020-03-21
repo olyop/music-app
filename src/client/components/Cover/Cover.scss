@@ -10,7 +10,7 @@
   &:hover &__black-box {
     background-color: rgba(#000000, .8); }
   &:hover &__button {
-    display: flex; }
+    opacity: 1; }
   &__img {
     border-radius: $BORDER_RADIUS; }
   &__black-box {
@@ -23,19 +23,20 @@
     position: absolute;
     background-color: transparent; }
   &__button {
+    opacity: 0;
     z-index: 2;
     width: 50%;
     height: 50%;
     border: none;
-    display: none;
+    display: flex;
     outline: none;
     position: absolute;
     align-items: center;
     flex-direction: column;
     justify-content: center;
+    transition: .4s opacity;
     background-color: transparent;
     transform: translate(-50%, -50%);
-    transition: .5s background-color;
     &:hover {
       background-color: rgba(#ffffff, .2); }
     &:active {

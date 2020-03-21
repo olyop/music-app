@@ -4,6 +4,7 @@ import Img from "../Img"
 import DocLink from "../DocLink"
 import DocLinks from "../DocLinks"
 import { Link } from "react-router-dom"
+import AddToLibrary from "../AddToLibrary"
 import FeaturingArtists from "../FeaturingArtists"
 
 import { isEmpty } from "lodash"
@@ -15,7 +16,7 @@ import "./Song.scss"
 
 const bem = reactBem("Song")
 
-const Song = ({ song, showCover, className }) => {
+const Song = ({ song, showAdd, showCover, className }) => {
   const { mix, artists, featuring, remixers, album } = song
   return (
     <div className={bem({ ignore: true, className },"")}>
@@ -37,16 +38,16 @@ const Song = ({ song, showCover, className }) => {
           {isEmpty(remixers) ? (
             <Fragment>
               {isEmpty(mix) ? null : (
-                <span className={bem("text-mix")}>
-                  <Fragment> - </Fragment>
+                <span className={bem("text-title-mix")}>
+                  <Fragment>- </Fragment>
                   {mix}
                   <Fragment> Mix</Fragment>
                 </span>
               )}
             </Fragment>
           ) : (
-            <span className={bem("text-mix")}>
-              <Fragment> - </Fragment>
+            <span className={bem("text-title-mix")}>
+              <Fragment>- </Fragment>
               <DocLinks
                 path="/artist"
                 docs={remixers}
@@ -57,6 +58,12 @@ const Song = ({ song, showCover, className }) => {
               <Fragment> Remix</Fragment>
             </span>
           )}
+          {showAdd ? (
+            <AddToLibrary
+              doc={song}
+              className={bem("text-title-add")}
+            />
+          ) : null}
         </p>
         <p className={bem("text-artists")}>
           <FeaturingArtists

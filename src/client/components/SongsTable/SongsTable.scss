@@ -11,22 +11,31 @@
       height: 33px;
       border-bottom: 1px solid #e0e0e0;
       &-col {
-        padding: 4px 12px;
+        cursor: pointer;
         font-size: 16px;
         text-align: left;
         line-height: 16px;
+        padding: 5px 12px;
+        user-select: none;
+        transition: .2s all;
         text-transform: uppercase;
+        &:hover {
+          background-color: #EEEEEE; }
         &-icon {
           height: 23px;
           color: #757575;
           font-size: 23px;
           line-height: 23px;
-          border-radius: 100%; } } }
+          border-radius: 100%; } }
+      &-noHover {
+        cursor: auto;
+        transition: none;
+        &:hover {
+          background-color: transparent; } } }
     &-cover,
     &-duration {
-      vertical-align: middle;
-      text-align: center;
-      padding: 4px; }
+      padding: 4px;
+      text-align: center; }
     &-trackNumber {
       padding-left: 0;
       padding-right: 0;
@@ -46,8 +55,7 @@
       border-bottom: 1px solid #e0e0e0;
       &:hover {
         background-color: #eeeeee; }
-      &:hover &-plays-span,
-      &:hover &-add-icon {
+      &:hover &-plays-span {
         display: block; }
       &:last-child {
         border-bottom: none; }
@@ -60,9 +68,6 @@
           line-height: 16px;
           white-space: nowrap;
           text-overflow: ellipsis; } }
-      &-add {
-        &-icon {
-          display: none; } }
       &-add,
       &-play {
         width: 40px;
@@ -73,12 +78,8 @@
         &-icon {
           width: 32px;
           height: 32px;
-          color: #757575;
           font-size: 32px;
-          line-height: 32px;
-          border-radius: 100%;
-          &:hover {
-            background-color: #E0E0E0; } } }
+          line-height: 32px; } }
       &-plays,
       &-album,
       &-genres,

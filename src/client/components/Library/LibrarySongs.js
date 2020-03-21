@@ -6,6 +6,8 @@ import ApiError from "../ApiError"
 import UserCtx from "../../ctx/User"
 import SongsTable from "../SongsTable"
 
+import { filter, map } from "lodash/fp"
+import { pipe } from "../../helpers/misc"
 import { isUndefined, isEmpty } from "lodash"
 import { useQuery, useApolloClient } from "@apollo/react-hooks"
 
@@ -34,8 +36,12 @@ const LibrarySongs = () => {
     client.writeFragment({ id, fragment, data: userFrag })
     return (
       <SongsTable
+        orderByInit={{ field: "title", order: true }}
         columnsToIgnore={["cover","trackNumber","released"]}
-        songs={songs.map(({ song, numOfPlays }) => ({ ...song, numOfPlays }))}
+        songs={pipe(songs)(
+          filter(({ inLibrary }) => inLibrary),
+          map(({ song, numOfPlays }) => ({ ...song, numOfPlays })),
+        )}
       />
     )
   }

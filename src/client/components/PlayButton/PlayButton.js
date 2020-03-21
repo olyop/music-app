@@ -8,7 +8,7 @@ import { useMutation } from "@apollo/react-hooks"
 import { propTypes, defaultProps } from "./props"
 
 import USER_PLAY from "../../graphql/mutations/userPlay.graphql"
-import USER_NOW_PLAYING_FRAG from "../../graphql/fragments/userNowPlayingFrag.graphql"
+import USER_PLAY_FRAG from "../../graphql/fragments/userPlayFrag.graphql"
 
 import "./PlayButton.scss"
 
@@ -35,17 +35,10 @@ const PlayButton = ({ song, className }) => {
   }
 
   const update = (client, result) => {
-    const { nowPlaying } = result.data.userPlay
     client.writeFragment({
       id: userId,
-      fragment: USER_NOW_PLAYING_FRAG,
-      data: {
-        prev: [],
-        next: [],
-        later: [],
-        nowPlaying,
-        __typename: "User",
-      },
+      fragment: USER_PLAY_FRAG,
+      data: { ...result.data.userPlay, __typename: "User" },
     })
   }
 

@@ -25,7 +25,7 @@ const PlayerBar = () => {
   const { id } = user
   const variables = { id }
 
-  const [ current, setCurrent ] = useState(100)
+  const [ current, setCurrent ] = useState(0)
   const { loading, data } = useQuery(GET_NOW_PLAYING, { variables })
 
   const handlePlayClick = () => setPlay(!play)
@@ -49,7 +49,12 @@ const PlayerBar = () => {
       </div>
       <div className={bem("main")}>
         <div className={bem("main-info")}>
-          {loading ? <Spinner/> : <Song song={data.user.nowPlaying} />}
+          {loading ? <Spinner/> : (
+            <Song
+              showAdd={true}
+              song={data.user.nowPlaying}
+            />
+          )}
           <div className={bem("main-info-right")}>
             <Icon
               icon="volume_up"

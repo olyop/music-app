@@ -1,26 +1,39 @@
 @import "../../globals/index.scss";
 
 .Album {
+  &:hover &__info-add {
+    opacity: 1; }
   &__info {
     width: 100%;
-    overflow: hidden;
+    display: flex;
     padding-top: 10px;
-    border-color: #e0e0e0; }
-    &__title,
-    &__artists {
-      display: block;
+    align-items: center;
+    border-color: #e0e0e0;
+    justify-content: space-between;
+    &-text {
       overflow: hidden;
-      max-height: 14rem;
-      @media (min-width: 600px) {
-        & { max-height: 16rem; } } }
-    &__title {
-      font-size: 14rem;
-      font-weight: 700;
-      margin-bottom: 3px;
-      @media (min-width: 600px) {
-        & { font-size: 16rem; } } }
-    &__artists {
-      font-size: 14rem;
-      font-weight: 400;
-      @media (min-width: 600px) {
-        & { font-size: 15rem; } } } }
+      &-title,
+      &-artists {
+        display: block;
+        overflow: hidden;
+        max-height: 14rem;
+        @media (min-width: 600px) {
+          max-height: 16rem; } }
+      &-title {
+        font-size: 14rem;
+        font-weight: 700;
+        margin-bottom: 3px;
+        @media (min-width: 600px) {
+          font-size: 16rem; } }
+      &-artists {
+        font-size: 14rem;
+        font-weight: 400;
+        @media (min-width: 600px) {
+          font-size: 15rem; } } }
+    &-add {
+      opacity: 0;
+      padding: 5px;
+      display: block;
+      color: #757575;
+      font-size: 25rem;
+      transition: .4s opacity; } } }

@@ -6,6 +6,8 @@
   display: flex;
   align-items: center;
   flex-direction: row;
+  &:hover &__text-title-add {
+    color: #757575; }
   &__cover {
     width: 35px;
     height: 35px;
@@ -28,18 +30,27 @@
       overflow: hidden;
       text-overflow: ellipsis; }
     &-title {
+      display: flex;
       font-size: 15rem;
       font-weight: 700;
+      overflow: visible;
       max-height: 15rem;
       line-height: 15rem;
       margin-bottom: 5px;
+      align-items: center;
       @media (min-width: 700px) {
         font-size: 19rem;
         max-height: 19rem;
-        line-height: 19rem; } }
+        line-height: 19rem; }
       &-mix {
         color: #757575;
-        font-weight: 400; }
+        font-weight: 400;
+        margin-left: 5px; }
+      &-add {
+        font-size: 26rem;
+        margin-left: 3px;
+        color: transparent;
+        margin-bottom: 2px; } }
     &-artists {
       font-size: 15rem;
       max-height: 15rem;

@@ -31,6 +31,7 @@ const GenrePage = () => {
         <div className={bem("songs")}>
           <SongsTable
             songs={songs}
+            orderByInit={{ field: "title", order: true }}
             columnsToIgnore={["cover","plays","trackNumber","released"]}
           />
         </div>

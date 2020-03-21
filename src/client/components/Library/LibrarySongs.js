@@ -15,12 +15,12 @@ import USER_SONGS_FRAG from "../../graphql/fragments/userSongsFrag.graphql"
 const LibrarySongs = () => {
   const user = useContext(UserCtx)
   const client = useApolloClient()
-  
+
   const { id } = user
   const query = GET_USER_SONGS
   const options = { variables: { id } }
   const { loading, error, data } = useQuery(query, options)
-  
+
   if (loading) {
     return <Spinner/>
   } else if (!isUndefined(error)) {

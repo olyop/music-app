@@ -97,27 +97,27 @@ type Mutation {
   addUserSong(
     userId: ID!
     songId: ID!
-  ): Song!
+  ): UserSong!
   addUserAlbum(
     userId: ID!
     albumId: ID!
-  ): Album!
+  ): UserAlbum!
   addUserArtist(
     userId: ID!
     artistId: ID!
-  ): Artist!
+  ): UserArtist!
   removeUserSong(
     userId: ID!
     songId: ID!
-  ): Song!
+  ): UserSong!
   removeUserAlbum(
     userId: ID!
     albumId: ID!
-  ): Song!
+  ): UserAlbum!
   removeUserArtist(
     userId: ID!
     artistId: ID!
-  ): Song!
+  ): UserArtist!
   addArtist(
     name: String!
     photo: Upload!

@@ -16,7 +16,7 @@ export const determineFormValid = (fields, form) => fields.reduce(
   (isValid, field) => {
     const { short, req, isDoc, type } = field
     if (!req) {
-      isValid = true 
+      isValid = true
     } else if (isDoc) {
       if (isEmpty(form[short].val)) {
         isValid = false
@@ -72,7 +72,7 @@ export const handleToggleRemember = (remember, setRemember) => () => setRemember
 
 export const deserializeForm = (fields, form) => fields.reduce(
   (doc, field) => {
-    const { type, short, isDoc, parse } = field 
+    const { type, short, isDoc, parse } = field
     const val = form[short]
     if (isDoc) {
       return {

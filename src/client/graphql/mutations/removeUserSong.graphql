@@ -1,5 +1,31 @@
 mutation removeUserSong($userId: ID!, $songId: ID!) {
   removeUserSong(userId: $userId, songId: $songId) {
     id
+    song {
+      id
+      title
+      mix
+      duration
+      featuring {
+        id
+        name
+      }
+      remixers {
+        id
+        name
+      }
+      artists {
+        id
+        name
+      }
+      genres {
+        id
+        name
+      }
+      album {
+        id
+        title
+      }
+    }
   }
 }

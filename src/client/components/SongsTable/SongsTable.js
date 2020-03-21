@@ -27,7 +27,7 @@ const SongsTable = ({ songs, columnsToIgnore }) => {
     <table className={bem("")}>
       <thead className={bem("head")}>
         <tr className={bem("head-row")}>
-  
+
           {showColumn("cover") ? (
             <th
               children={(
@@ -52,7 +52,7 @@ const SongsTable = ({ songs, columnsToIgnore }) => {
               className={bem("head-trackNumber","head-row-col")}
             />
           ) : null}
-  
+
           {showColumn("title") ? (
             <th
               children="Title"
@@ -83,42 +83,42 @@ const SongsTable = ({ songs, columnsToIgnore }) => {
               )}
             />
           ) : null}
-          
+
           {showColumn("artists") ? (
             <th
               children="Artists"
               className={bem("head-artists","head-row-col")}
             />
           ) : null}
-  
+
           {showColumn("remixers") ? (
             <th
               children="Remixers"
               className={bem("head-remixers","head-row-col")}
             />
           ) : null}
-  
+
           {showColumn("album") ? (
             <th
               children="Album"
               className={bem("head-album","head-row-col")}
             />
           ) : null}
-  
+
           {showColumn("genres") ? (
             <th
               children="Genres"
               className={bem("head-genres","head-row-col")}
             />
           ) : null}
-  
+
           {showColumn("released") ? (
             <th
               children="Released"
               className={bem("head-released","head-row-col")}
             />
           ) : null}
-          
+
         </tr>
       </thead>
       <tbody className={bem("body")}>
@@ -137,7 +137,7 @@ const SongsTable = ({ songs, columnsToIgnore }) => {
             } = song
             return (
               <tr key={id} className={bem("body-row")}>
-  
+
                 {showColumn("cover") ? (
                   <td
                     className={bem("body-row-cover","body-row-col")}
@@ -149,7 +149,7 @@ const SongsTable = ({ songs, columnsToIgnore }) => {
                     )}
                   />
                 ) : null}
-  
+
                 {showColumn("play") ? (
                   <td
                     className={bem("body-row-play","body-row-col")}
@@ -161,7 +161,7 @@ const SongsTable = ({ songs, columnsToIgnore }) => {
                     )}
                   />
                 ) : null}
-  
+
                 {showColumn("trackNumber") ? (
                   <td
                     className={bem("body-row-trackNumber","body-row-col")}
@@ -169,10 +169,10 @@ const SongsTable = ({ songs, columnsToIgnore }) => {
                       <span className={bem("body-row-trackNumber-span","body-row-col-span")}>
                         {trackNumber}
                       </span>
-                    )} 
+                    )}
                   />
                 ) : null}
-  
+
                 {showColumn("title") ? (
                   <td
                     className={bem("body-row-title","body-row-col")}
@@ -203,7 +203,7 @@ const SongsTable = ({ songs, columnsToIgnore }) => {
                     )}
                   />
                 ) : null}
-  
+
                 {showColumn("add") ? (
                   <td
                     className={bem("body-row-add","body-row-col")}
@@ -215,7 +215,7 @@ const SongsTable = ({ songs, columnsToIgnore }) => {
                     )}
                   />
                 ) : null}
-  
+
                 {showColumn("duration") ? (
                   <td
                     className={bem("body-row-duration","body-row-col")}
@@ -226,7 +226,7 @@ const SongsTable = ({ songs, columnsToIgnore }) => {
                     )}
                   />
                 ) : null}
-  
+
                 {showColumn("artists") ? (
                   <td
                     className={bem("body-row-artists","body-row-col")}
@@ -241,7 +241,7 @@ const SongsTable = ({ songs, columnsToIgnore }) => {
                     )}
                   />
                 ) : null}
-  
+
                 {showColumn("remixers") ? (
                   <td
                     className={bem("body-row-remixers","body-row-col")}
@@ -258,7 +258,7 @@ const SongsTable = ({ songs, columnsToIgnore }) => {
                     )}
                   />
                 ) : null}
-  
+
                 {showColumn("album") ? (
                   <td
                     className={bem("body-row-album","body-row-col")}
@@ -272,7 +272,7 @@ const SongsTable = ({ songs, columnsToIgnore }) => {
                     )}
                   />
                 ) : null}
-  
+
                 {showColumn("genres") ? (
                   <td
                     className={bem("body-row-genres","body-row-col")}
@@ -287,7 +287,7 @@ const SongsTable = ({ songs, columnsToIgnore }) => {
                     )}
                   />
                 ) : null}
-  
+
                 {showColumn("released") ? (
                   <td
                     className={bem("body-row-released","body-row-col")}
@@ -298,7 +298,7 @@ const SongsTable = ({ songs, columnsToIgnore }) => {
                     )}
                   />
                 ) : null}
-  
+
               </tr>
             )
           },

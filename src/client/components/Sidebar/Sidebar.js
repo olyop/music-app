@@ -3,7 +3,7 @@ import React, { Fragment } from "react"
 import { NavLink } from "react-router-dom"
 
 import { propTypes } from "./props"
-import { animated } from "react-spring" 
+import { animated } from "react-spring"
 import reactBem from "@oly_op/react-bem"
 
 import routesPages from "../Pages/routes"

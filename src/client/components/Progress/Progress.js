@@ -1,4 +1,7 @@
-import React, { useState } from "react"
+/* eslint-disable no-unused-vars */
+import React from "react"
+
+import Slider from "@material-ui/core/Slider"
 
 import { propTypes } from "./props"
 import reactBem from "@oly_op/react-bem"
@@ -8,33 +11,22 @@ import "./Progress.scss"
 
 const bem = reactBem("Progress")
 
-const Progress = ({ position, duration }) => {
-
-  const [ left, setLeft ] = useState(position)
-  
-  const handleDrag = ({ nativeEvent }) => {
-    const { offsetX } = nativeEvent
-    setLeft(position - offsetX)
-  }
-
+const Progress = ({ duration, current, setCurrent }) => {
+  const handleChange = (_, value) => setCurrent(value)
   return (
     <div className={bem("")}>
       <p
-        children="0:00"
         className={bem("start")}
+        children={determineDuration(current)}
       />
-      <div className={bem("bar")}>
-
-        <div className={bem("bar-track")} />
-
-        <div className={bem("bar-progress")} />
-
-        <div
-          style={{ left }}
-          onDrag={handleDrag}
-          className={bem("bar-thumb")}
+      <div className={bem("slider")}>
+        <Slider
+          min={0}
+          step={1}
+          max={duration}
+          value={current}
+          onChange={handleChange}
         />
-
       </div>
       <p
         className={bem("end")}

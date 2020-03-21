@@ -1,5 +1,13 @@
 mutation addUserAlbum($userId: ID!, $albumId: ID!) {
   addUserAlbum(userId: $userId, albumId: $albumId) {
     id
+    album {
+      id
+      title
+      artists {
+        id
+        name
+      }
+    }
   }
 }

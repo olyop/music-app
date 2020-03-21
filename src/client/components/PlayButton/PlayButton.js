@@ -51,7 +51,7 @@ const PlayButton = ({ song, className }) => {
 
   const [ userPlay ] = useMutation(
     USER_PLAY,
-    { update, variables, optimisticResponse },
+    { variables, optimisticResponse, update },
   )
 
   const handleClick = () => userPlay()

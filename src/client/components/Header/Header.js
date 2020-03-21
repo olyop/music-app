@@ -5,7 +5,7 @@ import Sidebar from "../Sidebar"
 import { NavLink } from "react-router-dom"
 
 import reactBem from "@oly_op/react-bem"
-import { useSpring } from "react-spring" 
+import { useSpring } from "react-spring"
 import { SIDEBAR_ANIMATION_LENGTH as duration } from "../../globals"
 
 import "./Header.scss"

@@ -35,9 +35,9 @@ const Form = ({ title, fields, rememberText, submitText, submit }) => {
   const onFieldDocRemove = handleFieldDocRemove(form,setForm)
   const onToggleRemember = handleToggleRemember(remember,setRemember)
   const onFormSubmit = handleFormSubmit(fields,init,form,setForm,remember,submit)
-  
+
   const isFormValid = determineFormValid(fields,form)
-  
+
   return (
     <form className={bem("")} onSubmit={onFormSubmit}>
 

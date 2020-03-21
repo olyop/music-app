@@ -1,6 +1,7 @@
-import { number } from "prop-types"
+import { number, func } from "prop-types"
 
 export const propTypes = {
-  position: number.isRequired,
+  current: number.isRequired,
   duration: number.isRequired,
+  setCurrent: func.isRequired,
 }

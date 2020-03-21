@@ -3,7 +3,7 @@
 .Queue {
   padding: 20px;
   &__section {
-    padding: 10px 0;
+    padding: 20px;
     margin-bottom: 12px;
     background-color: #ffffff;
     border-radius: $BORDER_RADIUS;
@@ -11,13 +11,18 @@
     &-text {
       color: #757575;
       font-size: 18rem;
-      padding: 10px 20px; }
+      margin-bottom: 10px; }
     &-song {
-      cursor: pointer;
-      padding: 10px 20px;
-      transition: .2s all;
-      &:hover {
-        background-color: #EEEEEE; } } }
+      display: flex;
+      align-items: center;
+      &-playButton {
+        font-size: 32rem;
+        margin-left: -9px;
+        margin-right: 10px;
+        border-radius: 100%;
+        transition: .2s all;
+        &:hover {
+          background-color: #e0e0e0; } } } }
   &__song {
     margin-bottom: 12px;
     &:last-child {

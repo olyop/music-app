@@ -25,9 +25,9 @@ const PlayerBar = () => {
   const { id } = user
   const variables = { id }
 
-  const [ volume, setVolume ] = useState(50)
+  const [ current, setCurrent ] = useState(100)
   const { loading, data } = useQuery(GET_NOW_PLAYING, { variables })
-  
+
   const handlePlayClick = () => setPlay(!play)
 
   return (
@@ -50,25 +50,31 @@ const PlayerBar = () => {
       <div className={bem("main")}>
         <div className={bem("main-info")}>
           {loading ? <Spinner/> : <Song song={data.user.nowPlaying} />}
-          <div className={bem("main-info-right")}/>
+          <div className={bem("main-info-right")}>
+            <Icon
+              icon="volume_up"
+              className={bem("main-info-right-volume","icon")}
+            />
+            <Link to="/queue" className={bem("link")}>
+              <Icon
+                icon="queue_music"
+                className={bem("main-info-right-queue","icon")}
+              />
+            </Link>
+            <Link to="/player" className={bem("link")}>
+              <Icon
+                icon="fullscreen"
+                className={bem("main-info-right-fullscreen","icon")}
+              />
+            </Link>
+          </div>
         </div>
         <Progress
-          position={loading ? 0 : 100}
+          current={current}
+          setCurrent={setCurrent}
           duration={loading ? 0 : data.user.nowPlaying.duration}
         />
       </div>
-      <Link to="/queue" className={bem("queue","link")}>
-        <Icon
-          icon="queue_music"
-          className={bem("queue-icon","icon")}
-        />
-      </Link>
-      <Link to="/player" className={bem("fullscreen","link")}>
-        <Icon
-          icon="fullscreen"
-          className={bem("fullscreen-icon","icon")}
-        />
-      </Link>
     </section>
   )
 }

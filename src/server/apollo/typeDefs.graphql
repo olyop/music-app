@@ -68,7 +68,6 @@ type UserSong {
   user: User!
   song: Song!
   plays: [Play!]!
-  numOfPlays: Int!
   inLibrary: Boolean!
 }
 

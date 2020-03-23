@@ -1,4 +1,4 @@
-import { shape, string } from "prop-types"
+import { shape, string, bool } from "prop-types"
 
 export const propTypes = {
   song: shape({
@@ -6,4 +6,5 @@ export const propTypes = {
     mix: string.isRequired,
     title: string.isRequired,
   }),
+  showRemixers: bool.isRequired,
 }

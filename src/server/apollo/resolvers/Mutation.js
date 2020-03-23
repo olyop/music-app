@@ -13,6 +13,7 @@ import {
 } from "../../helpers/resolvers.js"
 
 const {
+  Play,
   Song,
   User,
   Album,
@@ -150,11 +151,12 @@ export default {
   ),
   userPlay: resolver(
     async ({ info, args: { userId, songId } }) => {
+      await Play.create({ user: userId, song: songId })
       const query =
         User
           .findByIdAndUpdate(userId, {
             ...USER_EMPTY_QUEUE,
-            nowPlaying: songId
+            nowPlaying: songId,
           })
           .setOptions({ new: true })
           .select(determineUserSelect(info))

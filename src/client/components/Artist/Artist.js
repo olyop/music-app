@@ -11,25 +11,20 @@ import "./Artist.scss"
 
 const bem = reactBem("Artist")
 
-const Artist = ({ artist }) => {
-  const { id } = artist
-  return (
-    <div className={bem("")}>
-      <Cover
-        url={catalogUrl(id)}
-        className={bem("cover")}
+const Artist = ({ artist }) => (
+  <div className={bem("")}>
+    <Cover
+      url={catalogUrl(artist)}
+      className={bem("cover")}
+    />
+    <h2 className={bem("name")}>
+      <DocLink
+        doc={artist}
+        path="/artist"
       />
-      <h2 className={bem("name")}>
-        {artist.name === "Various Artists" ? artist.name : (
-          <DocLink
-            doc={artist}
-            path="/artist"
-          />
-        )}
-      </h2>
-    </div>
-  )
-}
+    </h2>
+  </div>
+)
 
 Artist.propTypes = propTypes
 

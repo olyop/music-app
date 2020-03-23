@@ -1,6 +1,7 @@
 import React, { Fragment } from "react"
 
 import DocLink from "../DocLink"
+import DocLinks from "../DocLinks"
 
 import { isEmpty } from "lodash"
 import { propTypes } from "./props"
@@ -10,19 +11,57 @@ import "./SongTitle.scss"
 
 const bem = reactBem("SongTitle")
 
-const SongTitle = ({ song }) => {
-  const { mix } = song
-  return (
-    <Fragment>
-      <DocLink
-        doc={song}
-        path="/song"
-      />
-      <span className={bem("mix")}>
-        {isEmpty(mix) ? "" : ` - ${mix} Mix`}
-      </span>
-    </Fragment>
-  )
+const SongTitle = ({ song, showRemixers }) => {
+  const { mix, remixers } = song
+  if (showRemixers) {
+    return (
+      <Fragment>
+        <DocLink
+          doc={song}
+          path="/song"
+        />
+        {isEmpty(remixers) ? (
+          <Fragment>
+            {isEmpty(mix) ? null : (
+              <span className={bem("mix")}>
+                <Fragment>- </Fragment>
+                {mix}
+                <Fragment> Mix</Fragment>
+              </span>
+            )}
+          </Fragment>
+        ) : (
+          <span className={bem("mix")}>
+            <Fragment>- </Fragment>
+            <DocLinks
+              path="/artist"
+              docs={remixers}
+              ampersand={true}
+            />
+            <Fragment> </Fragment>
+            {mix}
+            <Fragment> Remix</Fragment>
+          </span>
+        )}
+      </Fragment>
+    )
+  } else {
+    return (
+      <Fragment>
+        <DocLink
+          doc={song}
+          path="/song"
+        />
+        {isEmpty(mix) ? null : (
+          <span className={bem("mix")}>
+            <Fragment>- </Fragment>
+            <Fragment>{mix}</Fragment>
+            <Fragment> Mix</Fragment>
+          </span>
+        )}
+      </Fragment>
+    )
+  }
 }
 
 SongTitle.propTypes = propTypes

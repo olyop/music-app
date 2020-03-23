@@ -205,7 +205,10 @@ const SongsTable = ({ songs, orderByInit, columnsToIgnore }) => {
                       children={(
                         <Fragment>
                           <div className={bem("body-row-title-span","body-row-col-span")}>
-                            <SongTitle song={song}/>
+                            <SongTitle
+                              song={song}
+                              showRemixers={false}
+                            />
                           </div>
                           <Song
                             song={song}
@@ -222,7 +225,7 @@ const SongsTable = ({ songs, orderByInit, columnsToIgnore }) => {
                       className={bem("body-row-plays","body-row-col")}
                       children={(
                         <Link
-                          to={`/user/${id}/plays`}
+                          to={`/plays/${id}`}
                           children={numOfPlays === 0 ? undefined : numOfPlays}
                           className={bem("body-row-plays-span","body-row-col-span")}
                         />

@@ -12,6 +12,7 @@ const bem = reactBem("DocLink")
 
 const DocLink = ({ path, doc }) => {
   const text = doc[determineKeyName(doc)]
+  if (text === "Various Artists") return text
   return (
     <Link
       title={text}

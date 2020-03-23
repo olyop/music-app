@@ -1,11 +1,11 @@
 import React, { useContext } from "react"
 
 import Img from "../Img"
-import DocLink from "../DocLink"
 import Spinner from "../Spinner"
 import ApiError from "../ApiError"
-import DocLinks from "../DocLinks"
+import SongTitle from "../SongTitle"
 import UserCtx from "../../ctx/User"
+import FeaturingArtists from "../FeaturingArtists"
 
 import { isUndefined } from "lodash"
 import reactBem from "@oly_op/react-bem"
@@ -27,7 +27,7 @@ const Player = () => {
     return <ApiError/>
   } else {
     const { nowPlaying } = data.user
-    const { artists, album } = nowPlaying
+    const { artists, featuring, album } = nowPlaying
     return (
       <div className={bem("")}>
         <div className={bem("main")}>
@@ -36,16 +36,15 @@ const Player = () => {
             url={catalogUrl(album.id)}
           />
           <h1 className={bem("main-title")}>
-            <DocLink
-              path="/song"
-              doc={nowPlaying}
+            <SongTitle
+              song={nowPlaying}
+              showRemixers={true}
             />
           </h1>
           <h2 className={bem("main-artists")}>
-            <DocLinks
-              path="/artist"
-              docs={artists}
-              ampersand={true}
+            <FeaturingArtists
+              artists={artists}
+              featuring={featuring}
             />
           </h2>
         </div>

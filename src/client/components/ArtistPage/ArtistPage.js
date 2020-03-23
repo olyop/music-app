@@ -28,12 +28,13 @@ const ArtistPage = () => {
   } else if (!isUndefined(error)) {
     return <ApiError/>
   } else {
-    const { name, songs, albums } = data.artist
+    const { artist } = data
+    const { name, songs, albums } = artist
     return (
       <div className={bem("")}>
         {name === "Various Artists" ? null : (
           <Cover
-            url={catalogUrl(id)}
+            url={catalogUrl(artist)}
             className={bem("cover")}
             imgClassName={bem("cover-img")}
           />

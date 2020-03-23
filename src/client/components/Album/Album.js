@@ -13,35 +13,32 @@ import "./Album.scss"
 
 const bem = reactBem("Album")
 
-const Album = ({ album }) => {
-  const { id, artists } = album
-  return (
-    <div className={bem("")}>
-      <Cover url={catalogUrl(id)} />
-      <div className={bem("info")}>
-        <div className={bem("info-text")}>
-          <p className={bem("info-text-title")}>
-            <DocLink
-              doc={album}
-              path="/album"
-            />
-          </p>
-          <p className={bem("info-text-artists")}>
-            <DocLinks
-              path="/artist"
-              docs={artists}
-              ampersand={true}
-            />
-          </p>
-        </div>
-        <AddToLibrary
-          doc={album}
-          className={bem("info-add")}
-        />
+const Album = ({ album }) => (
+  <div className={bem("")}>
+    <Cover url={catalogUrl(album)} />
+    <div className={bem("info")}>
+      <div className={bem("info-text")}>
+        <p className={bem("info-text-title")}>
+          <DocLink
+            doc={album}
+            path="/album"
+          />
+        </p>
+        <p className={bem("info-text-artists")}>
+          <DocLinks
+            path="/artist"
+            ampersand={true}
+            docs={album.artists}
+          />
+        </p>
       </div>
+      <AddToLibrary
+        doc={album}
+        className={bem("info-add")}
+      />
     </div>
-  )
-}
+  </div>
+)
 
 Album.propTypes = propTypes
 

@@ -39,7 +39,7 @@ const AlbumPage = () => {
     return (
       <div className={bem("")}>
         <Cover
-          url={catalogUrl(id)}
+          url={catalogUrl(album)}
           className={bem("cover")}
         />
         <div className={bem("main")}>
@@ -51,11 +51,13 @@ const AlbumPage = () => {
             />
           </h2>
           <h4 className={bem("artists")}>
-            <DocLinks
-              path="/artist"
-              docs={artists}
-              ampersand={true}
-            />
+            {artists[0].name === "Various Artists" ? artists[0].name : (
+              <DocLinks
+                path="/artist"
+                docs={artists}
+                ampersand={true}
+              />
+            )}
             <Fragment> - </Fragment>
             {deserializeDate(released)}
           </h4>

@@ -48,15 +48,4 @@ export default {
       return deserializeCollection(await query)
     },
   ),
-  numOfPlays: resolver(
-    async ({ info, parent: { user, song } }) => {
-      const query =
-        Play
-          .find({ user, song })
-          .select(determinePlaySelect(info))
-          .lean()
-          .exec()
-      return deserializeCollection(await query).length
-    },
-  ),
 }

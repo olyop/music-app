@@ -1,5 +1,6 @@
 query getArtistPage($id: ID!) {
   artist(id: $id) {
+    id
     name
     songs {
       id

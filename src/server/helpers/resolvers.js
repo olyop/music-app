@@ -1,8 +1,8 @@
 import find from "lodash/find.js"
 import keys from "lodash/keys.js"
 import map from "lodash/fp/map.js"
-import concat from "lodash/concat.js"
 import uniqBy from "lodash/uniqBy.js"
+import concat from "lodash/fp/concat.js"
 import filter from "lodash/fp/filter.js"
 import reduce from "lodash/fp/reduce.js"
 import { pipe } from "../helpers/misc.js"
@@ -12,10 +12,7 @@ import database from "../database/index.js"
 import toInteger from "lodash/toInteger.js"
 
 export const restoreOrder = ids => collection => ids.reduce(
-  (acc, id) => concat(
-    acc,
-    find(collection, { id }),
-  ),
+  (acc, id) => concat(acc)(find(collection, { id })),
   [],
 )
 
@@ -32,12 +29,12 @@ export const determineDuration = duration => {
 export const determineSelect = Model => {
   const { paths } = Model.schema
   const topFields = pipe(paths)(keys, filter(field => field !== "true"))
-  return info => {
-    const fields = graphqlFields(info)
-    return pipe(fields)(
+  return (info, includeFields = []) => {
+    return pipe(graphqlFields(info))(
       keys,
       map(field => field === "id" ? "_id" : field),
       filter(field => includes(topFields, field)),
+      concat(includeFields),
       reduce((fields, field) => ({ ...fields, [field]: 1 }), {}),
     )
   }

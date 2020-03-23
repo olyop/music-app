@@ -4,7 +4,9 @@ query getUserSongs($id: ID!) {
     songs {
       id
       inLibrary
-      numOfPlays
+      plays {
+        id
+      }
       song {
         id
         title

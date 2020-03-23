@@ -13,13 +13,9 @@
       height: 360px; } }
   &__main {
     width: 100%; }
-    &__title,
-    &__artists {
-      margin-bottom: 5px;
-      @media (min-width: 700px) {
-        margin-bottom: 8px; } }
     &__title {
       display: flex;
+      margin-bottom: 8px;
       align-items: center;
       &-text {
         font-size: 26rem;
@@ -35,7 +31,8 @@
           background-color: #e0e0e0; } } }
     &__artists {
       font-size: 17rem;
-      font-weight: 500; }
+      font-weight: 500;
+      margin-bottom: 10px; }
     &__genres {
       font-size: 17rem;
       font-weight: 400;

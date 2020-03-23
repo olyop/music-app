@@ -96,7 +96,7 @@ export default {
       const query =
         UserSong
           .find({ user: id, inLibrary: true })
-          .select(determineUserSongSelect(info))
+          .select(determineUserSongSelect(info,["user"]))
           .lean()
           .exec()
       return deserializeCollection(await query)

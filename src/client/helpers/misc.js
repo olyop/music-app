@@ -13,7 +13,7 @@ export const curryReduce = (func, accumulator) => collection => collection.reduc
 export const isLength = (str, length) => str.length === length
 export const isHex = str => (str.match(/([0-9]|[a-f])/gim) || []).length === str.length
 
-export const catalogUrl = id => `${S3}/${id}.jpg`
+export const catalogUrl = ({ id }) => `${S3}/${id}.jpg`
 
 export const show = array => item => !includes(array, item)
 

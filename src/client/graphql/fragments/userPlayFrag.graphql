@@ -1,6 +1,0 @@
-fragment userPlayFrag on User {
-  prev
-  nowPlaying
-  next
-  later
-}

@@ -13,18 +13,18 @@ import GET_USER_QUEUES from "../../graphql/queries/getUserQueues.graphql"
 
 import reactBem from "@oly_op/react-bem"
 
-import "./Queue.scss"
+import "./Queues.scss"
 
-const bem = reactBem("Queue")
+const bem = reactBem("Queues")
 
-const createQueueArray = ({ prev, nowPlaying, next, later }) => [
-  { id: uniqueId(), key: "prev", name: "Previous", queue: prev },
-  { id: uniqueId(), key: "nowPlaying", name: "Now Playing", queue: [nowPlaying] },
-  { id: uniqueId(), key: "next", name: "Next", queue: next },
-  { id: uniqueId(), key: "later", name: "Later", queue: later },
+const createQueuesArray = ({ prev, current, next, queue }) => [
+  { id: uniqueId(), key: "prev", name: "Previous", songs: prev },
+  { id: uniqueId(), key: "current", name: "Playing", songs: [current] },
+  { id: uniqueId(), key: "next", name: "Next", songs: next },
+  { id: uniqueId(), key: "queue", name: "Later", songs: queue },
 ]
 
-const Queue = () => {
+const Queues = () => {
   const user = useContext(UserCtx)
 
   const { id } = user
@@ -36,28 +36,22 @@ const Queue = () => {
   } else if (!isUndefined(error)) {
     return <ApiError/>
   } else {
-    const queues = createQueueArray(data.user)
+    const queues = createQueuesArray(data.user)
     return (
       <div className={bem("")}>
         {queues.map(
           queue => {
-            if (isEmpty(queue.queue)) {
+            if (isEmpty(queue.songs)) {
               return null
             } else {
               return (
                 <div key={queue.id} className={bem("section", queue.key)}>
                   <p className={bem("section-text")}>{queue.name}</p>
-                  {queue.queue.map(
+                  {queue.songs.map(
                     song => (
                       <div key={song.id} className={bem("section-song")}>
-                        <PlayButton
-                          song={song}
-                          className={bem("section-song-playButton")}
-                        />
-                        <Song
-                          song={song}
-                          className={bem("section-song-song")}
-                        />
+                        <PlayButton className={bem("section-song-playButton")} song={song} />
+                        <Song song={song} />
                       </div>
                     ),
                   )}
@@ -71,4 +65,4 @@ const Queue = () => {
   }
 }
 
-export default Queue
+export default Queues

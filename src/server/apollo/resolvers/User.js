@@ -36,11 +36,11 @@ export default {
       return deserializeCollection(await query)
     },
   ),
-  nowPlaying: resolver(
-    async ({ info, parent: { nowPlaying } }) => {
+  current: resolver(
+    async ({ info, parent: { current } }) => {
       const query =
         Song
-          .findById(nowPlaying)
+          .findById(current)
           .select(determineSongSelect(info))
           .lean()
           .exec()
@@ -58,11 +58,11 @@ export default {
       return deserializeCollection(await query)
     },
   ),
-  later: resolver(
-    async ({ info, parent: { later } }) => {
+  queue: resolver(
+    async ({ info, parent: { queue } }) => {
       const query =
         Song
-          .find({ _id: later })
+          .find({ _id: queue })
           .select(determineSongSelect(info))
           .lean()
           .exec()

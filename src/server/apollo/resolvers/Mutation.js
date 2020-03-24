@@ -7,6 +7,8 @@ import { S3_BUCKET_NAME as Bucket, USER_EMPTY_QUEUE } from "../../globals.js"
 import {
   determineDuration,
   determineReleased,
+  determineUserPrev,
+  determineUserNext,
   determineUserSelect,
   determineUserSongSelect,
   determineUserAlbumSelect,
@@ -149,6 +151,27 @@ export default {
       return deserializeDocument(await query)
     },
   ),
+  userPrev: resolver(
+    async ({ info, args: { userId } }) => {
+      const userQuery =
+        User
+          .findById(userId)
+          .select({ prev: 1, current: 1, next: 1, queue: 1 })
+          .lean()
+          .exec()
+      const user = deserializeDocument(await userQuery)
+      const update = determineUserPrev(user)
+      console.log(update)
+      return user
+      // const userUpdate =
+      //   User
+      //     .findByIdAndUpdate(userId, update)
+      //     .select(determineUserSelect(info))
+      //     .lean()
+      //     .exec()
+      // return deserializeDocument(await userUpdate)
+    }
+  ),
   userPlay: resolver(
     async ({ info, args: { userId, songId } }) => {
       await Play.create({ user: userId, song: songId })
@@ -156,7 +179,7 @@ export default {
         User
           .findByIdAndUpdate(userId, {
             ...USER_EMPTY_QUEUE,
-            nowPlaying: songId,
+            current: songId,
           })
           .setOptions({ new: true })
           .select(determineUserSelect(info))
@@ -165,23 +188,25 @@ export default {
       return deserializeDocument(await query)
     }
   ),
-  userPrev: resolver(
+  userNext: resolver(
     async ({ info, args: { userId } }) => {
-      const user = deserializeDocument(
-        await User
+      const userQuery =
+        User
           .findById(userId)
+          .select({ prev: 1, current: 1, next: 1, queue: 1 })
           .lean()
           .exec()
-      )
-
-      return deserializeDocument(
-        await User
-          .findByIdAndUpdate(userId, {})
-          .setOptions({ new: true })
-          .select(determineUserSelect(info))
-          .lean()
-          .exec()
-      )
+      const user = deserializeDocument(await userQuery)
+      const update = determineUserNext(user)
+      console.log(update)
+      return user
+      // const userUpdate =
+      //   User
+      //     .findByIdAndUpdate(userId, update)
+      //     .select(determineUserSelect(info))
+      //     .lean()
+      //     .exec()
+      // return deserializeDocument(await userUpdate)
     }
   )
 }

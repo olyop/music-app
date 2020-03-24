@@ -1,18 +1,24 @@
 import find from "lodash/find.js"
 import keys from "lodash/keys.js"
+import head from "lodash/head.js"
+import last from "lodash/last.js"
+import tail from "lodash/tail.js"
 import map from "lodash/fp/map.js"
+import concat from "lodash/concat.js"
 import uniqBy from "lodash/uniqBy.js"
-import concat from "lodash/fp/concat.js"
+import initial from "lodash/initial.js"
+import isEmpty from "lodash/isEmpty.js"
 import filter from "lodash/fp/filter.js"
 import reduce from "lodash/fp/reduce.js"
 import { pipe } from "../helpers/misc.js"
 import includes from "lodash/includes.js"
+import concatFp from "lodash/fp/concat.js"
 import graphqlFields from "graphql-fields"
 import database from "../database/index.js"
 import toInteger from "lodash/toInteger.js"
 
 export const restoreOrder = ids => collection => ids.reduce(
-  (acc, id) => concat(acc)(find(collection, { id })),
+  (acc, id) => concat(acc, find(collection, { id })),
   [],
 )
 
@@ -34,9 +40,51 @@ export const determineSelect = Model => {
       keys,
       map(field => field === "id" ? "_id" : field),
       filter(field => includes(topFields, field)),
-      concat(includeFields),
+      concatFp(includeFields),
       reduce((fields, field) => ({ ...fields, [field]: 1 }), {}),
     )
+  }
+}
+
+export const determineUserPrev = ({ prev, current, next, queue }) => {
+  if (isEmpty(prev)) {
+    return {}
+  } else if (isEmpty(next)) {
+    return {
+      prev: initial(prev),
+      current: last(prev),
+      queue: concat(current, queue),
+    }
+  } else if (isEmpty(queue)) {
+    return {
+      prev: initial(prev),
+      current: last(prev),
+      queue: [current],
+    }
+  } else {
+    return {
+      prev: initial(prev),
+      current: last(prev),
+      next: concat(current, next),
+    }
+  }
+}
+
+export const determineUserNext = ({ prev, current, next, queue }) => {
+  if (isEmpty(next)) {
+    return {
+      prev: concat(prev, current),
+      current: head(queue),
+      queue: tail(queue),
+    }
+  } else if (isEmpty(queue)) {
+    return {}
+  } else {
+    return {
+      prev: concat(prev, current),
+      current: head(next),
+      next: tail(next),
+    }
   }
 }
 

@@ -11,13 +11,6 @@ const definition = {
     maxlength: 256,
     required: true,
   },
-  nowPlaying: {
-    index: true,
-    minlength: 24,
-    maxlength: 24,
-    type: ObjectId,
-    required: true,
-  },
   prev: [{
     index: true,
     minlength: 24,
@@ -25,6 +18,13 @@ const definition = {
     type: ObjectId,
     required: true,
   }],
+  current: {
+    index: true,
+    minlength: 24,
+    maxlength: 24,
+    type: ObjectId,
+    required: true,
+  },
   next: [{
     index: true,
     minlength: 24,
@@ -32,7 +32,7 @@ const definition = {
     type: ObjectId,
     required: true,
   }],
-  later: [{
+  queue: [{
     index: true,
     minlength: 24,
     maxlength: 24,

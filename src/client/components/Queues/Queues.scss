@@ -1,6 +1,6 @@
 @import "../../globals/index.scss";
 
-.Queue {
+.Queues {
   padding: 20px;
   &__section {
     padding: 20px;
@@ -15,6 +15,9 @@
     &-song {
       display: flex;
       align-items: center;
+      margin-bottom: 12px;
+      &:last-child {
+        margin-bottom: 0; }
       &-playButton {
         font-size: 32rem;
         margin-left: -9px;
@@ -22,8 +25,4 @@
         border-radius: 100%;
         transition: .2s all;
         &:hover {
-          background-color: #e0e0e0; } } } }
-  &__song {
-    margin-bottom: 12px;
-    &:last-child {
-      margin-bottom: 0; } } }
+          background-color: #e0e0e0; } } } } }

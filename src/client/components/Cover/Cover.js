@@ -30,14 +30,14 @@ const Cover = ({ url, className, imgClassName }) => (
           className={bem("button-top-left","button")}
         />
         <IconText
-          text="Queue"
-          icon="queue_music"
+          text="Next"
+          icon="playlist_add"
           iconClassName={bem("button-icon")}
           className={bem("button-top-right","button")}
         />
         <IconText
-          text="Next"
-          icon="playlist_add"
+          text="Queue"
+          icon="queue_music"
           iconClassName={bem("button-icon")}
           className={bem("button-bottom-left","button")}
         />

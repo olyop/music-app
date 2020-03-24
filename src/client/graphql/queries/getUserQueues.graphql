@@ -1,4 +1,4 @@
-query($id: ID!) {
+query getUserQueues($id: ID!) {
   user(id: $id) {
     id
     prev {
@@ -27,7 +27,7 @@ query($id: ID!) {
         title
       }
     }
-    nowPlaying {
+    current {
       id
       title
       mix
@@ -79,7 +79,7 @@ query($id: ID!) {
         title
       }
     }
-    later {
+    queue {
       id
       title
       mix

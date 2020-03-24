@@ -2,7 +2,7 @@ query getUser($id: ID!) {
   user(id: $id) {
     id
     name
-    nowPlaying {
+    current {
       id
     }
     songs {

@@ -8,20 +8,14 @@ import ApiError from "../ApiError"
 import UserCtx from "../../ctx/User"
 
 import { isUndefined, isEmpty } from "lodash"
-import { useQuery, useApolloClient } from "@apollo/react-hooks"
+import { useQuery } from "@apollo/react-hooks"
 
 import GET_USER_ALBUMS from "../../graphql/queries/getUserAlbums.graphql"
-import USER_ALBUMS_FRAG from "../../graphql/fragments/userAlbumsFrag.graphql"
 
 const LibraryAlbums = () => {
   const user = useContext(UserCtx)
-  const client = useApolloClient()
-
-  const { id } = user
-  const query = GET_USER_ALBUMS
-  const variables = { id }
-  const { loading, error, data } = useQuery(query, { variables })
-
+  const variables = { id: user.id }
+  const { loading, error, data } = useQuery(GET_USER_ALBUMS, { variables })
   if (loading) {
     return <Spinner/>
   } else if (!isUndefined(error)) {
@@ -29,13 +23,9 @@ const LibraryAlbums = () => {
   } else if (isEmpty(data.user.albums)) {
     return <Empty/>
   } else {
-    const { albums } = data.user
-    const fragment = USER_ALBUMS_FRAG
-    const userFrag = { albums, __typename: "User" }
-    client.writeFragment({ id, fragment, data: userFrag })
     return (
       <Albums>
-        {albums.map(
+        {data.user.albums.map(
           ({ album }) => (
             <Album
               album={album}

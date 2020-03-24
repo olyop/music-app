@@ -81,6 +81,18 @@ const SongsTable = ({ songs, orderByInit, columnsToIgnore }) => {
             />
           ) : null}
 
+          {showColumn("next") ? (
+            <th
+              className={bem("head-next","head-row-noHover","head-row-col")}
+            />
+          ) : null}
+
+          {showColumn("queue") ? (
+            <th
+              className={bem("head-queue","head-row-noHover","head-row-col")}
+            />
+          ) : null}
+
           {showColumn("add") ? (
             <th
               className={bem("head-add","head-row-noHover","head-row-col")}
@@ -228,6 +240,30 @@ const SongsTable = ({ songs, orderByInit, columnsToIgnore }) => {
                           to={`/plays/${id}`}
                           children={numOfPlays === 0 ? undefined : numOfPlays}
                           className={bem("body-row-plays-span","body-row-col-span")}
+                        />
+                      )}
+                    />
+                  ) : null}
+
+                  {showColumn("next") ? (
+                    <td
+                      className={bem("body-row-next","body-row-col")}
+                      children={(
+                        <Icon
+                          icon="playlist_add"
+                          className={bem("body-row-next-icon")}
+                        />
+                      )}
+                    />
+                  ) : null}
+
+                  {showColumn("queue") ? (
+                    <td
+                      className={bem("body-row-queue","body-row-col")}
+                      children={(
+                        <Icon
+                          icon="queue_music"
+                          className={bem("body-row-queue-icon")}
                         />
                       )}
                     />

@@ -1,8 +1,8 @@
 {
   "private": true,
-  "name": "boilerplate",
+  "name": "music-app",
   "version": "1.0.0",
-  "description": "boilerplate",
+  "description": "music-app",
   "deprecated": false,
   "type": "module",
   "scripts": {
@@ -16,7 +16,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/olyop/boilerplate.git"
+    "url": "https://github.com/olyop/music-app.git"
   },
   "keywords": [
     "lodash",
@@ -34,12 +34,12 @@
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/olyop/boilerplate/issues"
+    "url": "https://github.com/olyop/music-app/issues"
   },
   "optionalDependencies": {
     "fsevents": "*"
   },
-  "homepage": "https://github.com/olyop/boilerplate#readme",
+  "homepage": "https://github.com/olyop/music-app#readme",
   "devDependencies": {
     "@babel/core": "^7.9.0",
     "@babel/plugin-proposal-class-properties": "^7.7.4",
@@ -63,8 +63,8 @@
     "eslint-plugin-react": "^7.19.0",
     "eslint-plugin-react-hooks": "^1.7.0",
     "file-loader": "^6.0.0",
-    "html-loader": "^0.5.5",
-    "html-webpack-plugin": "^3.2.0",
+    "html-loader": "^1.0.0",
+    "html-webpack-plugin": "^4.0.1",
     "lodash-webpack-plugin": "^0.11.5",
     "mini-css-extract-plugin": "^0.9.0",
     "node-sass": "^4.13.0",
@@ -89,7 +89,7 @@
     "apollo-server": "^2.11.0",
     "apollo-server-express": "^2.11.0",
     "apollo-upload-client": "^12.1.0",
-    "aws-sdk": "^2.643.0",
+    "aws-sdk": "^2.644.0",
     "body-parser": "^1.19.0",
     "compression": "^1.7.4",
     "cookie-parser": "^1.4.5",
@@ -106,7 +106,7 @@
     "http-errors": "^1.7.3",
     "lodash": "^4.17.15",
     "mongodb": "^3.5.5",
-    "mongoose": "^5.9.5",
+    "mongoose": "^5.9.6",
     "morgan": "^1.10.0",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",

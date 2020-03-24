@@ -1,7 +1,7 @@
-query getNowPlaying($id: ID!) {
-  user(id: $id) {
+query getUserCurrent($userId: ID!) {
+  user(id: $userId) {
     id
-    nowPlaying {
+    current {
       id
       title
       mix

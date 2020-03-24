@@ -1,4 +1,4 @@
-import Queue from "../Queue"
+import Queues from "../Queues"
 import Search from "../Search"
 import Catalog from "../Catalog"
 import Library from "../Library"
@@ -33,9 +33,9 @@ export default [
   {
     ignore: true,
     id: uniqueId(),
-    name: "Queue",
-    path: "/queue",
-    component: Queue,
+    name: "Queues",
+    path: "/queues",
+    component: Queues,
   },
   {
     ignore: true,

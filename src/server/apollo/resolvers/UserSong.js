@@ -48,4 +48,15 @@ export default {
       return deserializeCollection(await query)
     },
   ),
+  numOfPlays: resolver(
+    async ({ parent: { user, song } }) => {
+      const query =
+        Play
+          .find({ user, song })
+          .select({ _id: 1 })
+          .lean()
+          .exec()
+      return (await query).length
+    },
+  ),
 }

@@ -23,8 +23,8 @@
   &__controls {
     padding: 15px;
     display: flex;
-    border-right: 1px solid #e0e0e0;
-    align-items: center; }
+    align-items: center;
+    border-right: 1px solid #e0e0e0; }
   &__main {
     width: 100%;
     padding: 15px 19px 13px 19px;
@@ -36,10 +36,10 @@
         display: flex;
         margin-top: 2px;
         align-items: center;
-        &-queue,
-        &-volume {
+        &-volume,
+        &-queues {
           margin-right: 10px; }
         &-volume {
           font-size: 35rem; }
         &-fullscreen {
-          margin-right: -8px; } } } } }
+          margin-right: -7px; } } } } }

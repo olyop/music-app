@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React, { useState, useContext } from "react"
 
 import Song from "../Song"
@@ -9,10 +8,15 @@ import PlayCtx from "../../ctx/Play"
 import UserCtx from "../../ctx/User"
 import { Link } from "react-router-dom"
 
-import GET_NOW_PLAYING from "../../graphql/queries/getNowPlaying.graphql"
-
 import reactBem from "@oly_op/react-bem"
-import { useQuery } from "@apollo/react-hooks"
+import { useQuery, useMutation } from "@apollo/react-hooks"
+import determineUserPrevUpdate from "./determineUserPrevUpdate"
+import determineUserNextUpdate from "./determineUserNextUpdate"
+
+import USER_PREV from "../../graphql/mutations/userPrev.graphql"
+import USER_NEXT from "../../graphql/mutations/userNext.graphql"
+import GET_USER_CURRENT from "../../graphql/queries/getUserCurrent.graphql"
+import USER_QUEUES_FRAG from "../../graphql/fragments/userQueuesFrag.graphql"
 
 import "./PlayerBar.scss"
 
@@ -22,13 +26,44 @@ const PlayerBar = () => {
   const user = useContext(UserCtx)
   const { play, setPlay } = useContext(PlayCtx)
 
-  const { id } = user
-  const variables = { id }
+  const { id: userId } = user
+  const variables = { userId }
 
   const [ current, setCurrent ] = useState(0)
-  const { loading, data } = useQuery(GET_NOW_PLAYING, { variables })
+  const { loading, data } = useQuery(GET_USER_CURRENT, { variables })
 
+  const optimisticResponse = (name, updateFunc) => ({
+    __typename: "Mutation",
+    [name]: {
+      id: userId,
+      __typename: "User",
+      ...updateFunc(user),
+    },
+  })
+
+  const update = name => (client, result) => {
+    client.writeFragment({
+      id: userId,
+      fragment: USER_QUEUES_FRAG,
+      data: { ...result.data[name], __typename: "User" },
+    })
+  }
+
+  const [ userPrev ] = useMutation(USER_PREV, {
+    variables,
+    update: update("userPrev"),
+    optimisticResponse: optimisticResponse("userPrev", determineUserPrevUpdate),
+  })
+
+  const [ userNext ] = useMutation(USER_NEXT, {
+    variables,
+    update: update("userNext"),
+    optimisticResponse: optimisticResponse("userNext", determineUserNextUpdate),
+  })
+
+  const handlePrevClick = () => userPrev()
   const handlePlayClick = () => setPlay(!play)
+  const handleNextClick = () => userNext()
 
   return (
     <section className={bem("")}>
@@ -36,6 +71,7 @@ const PlayerBar = () => {
         <Icon
           icon="skip_previous"
           className={bem("icon")}
+          onClick={handlePrevClick}
         />
         <Icon
           className={bem("icon")}
@@ -45,6 +81,7 @@ const PlayerBar = () => {
         <Icon
           icon="skip_next"
           className={bem("icon")}
+          onClick={handleNextClick}
         />
       </div>
       <div className={bem("main")}>
@@ -52,7 +89,7 @@ const PlayerBar = () => {
           {loading ? <Spinner/> : (
             <Song
               showAdd={true}
-              song={data.user.nowPlaying}
+              song={data.user.current}
             />
           )}
           <div className={bem("main-info-right")}>
@@ -60,10 +97,10 @@ const PlayerBar = () => {
               icon="volume_up"
               className={bem("main-info-right-volume","icon")}
             />
-            <Link to="/queue" className={bem("link")}>
+            <Link to="/queues" className={bem("link")}>
               <Icon
                 icon="queue_music"
-                className={bem("main-info-right-queue","icon")}
+                className={bem("main-info-right-queues","icon")}
               />
             </Link>
             <Link to="/player" className={bem("link")}>
@@ -77,7 +114,7 @@ const PlayerBar = () => {
         <Progress
           current={current}
           setCurrent={setCurrent}
-          duration={loading ? 0 : data.user.nowPlaying.duration}
+          duration={loading ? 0 : data.user.current.duration}
         />
       </div>
     </section>

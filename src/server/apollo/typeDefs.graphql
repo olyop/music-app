@@ -68,6 +68,7 @@ type UserSong {
   user: User!
   song: Song!
   plays: [Play!]!
+  numOfPlays: Int!
   inLibrary: Boolean!
 }
 
@@ -75,10 +76,10 @@ type User {
   id: ID!
   name: String!
   prev: [Song!]!
+  current: Song!
   next: [Song!]!
-  later: [Song!]!
+  queue: [Song!]!
   plays: [Play!]!
-  nowPlaying: Song!
   songs: [UserSong!]!
   albums: [UserAlbum!]!
   artists: [UserArtist!]!
@@ -86,11 +87,14 @@ type User {
 }
 
 type Mutation {
+  userPrev(
+    userId: ID!
+  ): User!
   userPlay(
     userId: ID!
     songId: ID!
   ): User!
-  userPrev(
+  userNext(
     userId: ID!
   ): User!
   addUserSong(

@@ -1,43 +1,50 @@
 import React, { useContext } from "react"
 
 import Img from "../Img"
+import Icon from "../Icon"
 import Spinner from "../Spinner"
 import ApiError from "../ApiError"
 import SongTitle from "../SongTitle"
 import UserCtx from "../../ctx/User"
 import FeaturingArtists from "../FeaturingArtists"
 
+import { propTypes } from "./props"
 import { isUndefined } from "lodash"
 import reactBem from "@oly_op/react-bem"
 import { useQuery } from "@apollo/react-hooks"
 import { catalogUrl } from "../../helpers/misc"
-import GET_NOW_PLAYING from "../../graphql/queries/getNowPlaying.graphql"
+import GET_USER_CURRENT from "../../graphql/queries/getUserCurrent.graphql"
 
 import "./Player.scss"
 
 const bem = reactBem("Player")
 
-const Player = () => {
+const Player = ({ history }) => {
   const { id } = useContext(UserCtx)
   const queryOptions = { variables: { id } }
-  const { loading, error, data } = useQuery(GET_NOW_PLAYING, queryOptions)
+  const { loading, error, data } = useQuery(GET_USER_CURRENT, queryOptions)
   if (loading) {
     return <Spinner/>
   } else if (!isUndefined(error)) {
     return <ApiError/>
   } else {
-    const { nowPlaying } = data.user
-    const { artists, featuring, album } = nowPlaying
+    const { current } = data.user
+    const { artists, featuring, album } = current
     return (
       <div className={bem("")}>
+        <Icon
+          icon="close"
+          onClick={history.goBack}
+          className={bem("close")}
+        />
         <div className={bem("main")}>
           <Img
+            url={catalogUrl(album)}
             className={bem("main-cover")}
-            url={catalogUrl(album.id)}
           />
           <h1 className={bem("main-title")}>
             <SongTitle
-              song={nowPlaying}
+              song={current}
               showRemixers={true}
             />
           </h1>
@@ -52,5 +59,7 @@ const Player = () => {
     )
   }
 }
+
+Player.propTypes = propTypes
 
 export default Player

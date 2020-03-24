@@ -55,8 +55,11 @@
       border-bottom: 1px solid #e0e0e0;
       &:hover {
         background-color: #eeeeee; }
+      &:hover &-add-icon,
+      &:hover &-next-icon,
+      &:hover &-queue-icon,
       &:hover &-plays-span {
-        display: block; }
+        opacity: 1; }
       &:last-child {
         border-bottom: none; }
       &-col {
@@ -69,17 +72,31 @@
           white-space: nowrap;
           text-overflow: ellipsis; } }
       &-add,
-      &-play {
+      &-play,
+      &-next,
+      &-queue {
         width: 40px;
         height: 40px; }
       &-add,
-      &-play {
+      &-play,
+      &-next,
+      &-queue {
         padding: 4px;
         &-icon {
           width: 32px;
           height: 32px;
+          color: #757575;
           font-size: 32px;
-          line-height: 32px; } }
+          line-height: 32px;
+          transition: .3s all;
+          border-radius: 100%;
+          &:hover {
+            background-color: #e0e0e0; } } }
+      &-add,
+      &-next,
+      &-queue {
+        &-icon {
+          opacity: 0; } }
       &-plays,
       &-album,
       &-genres,
@@ -125,7 +142,7 @@
       &-plays,
       &-duration {
         &-span {
-          color: #757575;} }
+          color: #757575; } }
       &-artists {
         width: 12vw; }
       &-remixers {

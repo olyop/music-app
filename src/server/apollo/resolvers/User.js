@@ -1,7 +1,8 @@
 import database from "../../database/index.js"
-import { resolver } from "../../helpers/misc.js"
+import { resolver, pipe } from "../../helpers/misc.js"
 
 import {
+  restoreOrder,
   determineSongSelect,
   determinePlaySelect,
   determinePlaylistSelect,
@@ -33,7 +34,10 @@ export default {
           .select(determineSongSelect(info))
           .lean()
           .exec()
-      return deserializeCollection(await query)
+      return pipe(await query)(
+        deserializeCollection,
+        restoreOrder(prev),
+      )
     },
   ),
   current: resolver(
@@ -55,7 +59,10 @@ export default {
           .select(determineSongSelect(info))
           .lean()
           .exec()
-      return deserializeCollection(await query)
+      return pipe(await query)(
+        deserializeCollection,
+        restoreOrder(next),
+      )
     },
   ),
   queue: resolver(
@@ -66,7 +73,10 @@ export default {
           .select(determineSongSelect(info))
           .lean()
           .exec()
-      return deserializeCollection(await query)
+      return pipe(await query)(
+        deserializeCollection,
+        restoreOrder(queue),
+      )
     },
   ),
   playlists: resolver(

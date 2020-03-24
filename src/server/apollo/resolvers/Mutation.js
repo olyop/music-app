@@ -152,7 +152,7 @@ export default {
     },
   ),
   userPrev: resolver(
-    async ({ info, args: { userId } }) => {
+    async ({ args: { userId } }) => {
       const userQuery =
         User
           .findById(userId)
@@ -161,15 +161,13 @@ export default {
           .exec()
       const user = deserializeDocument(await userQuery)
       const update = determineUserPrev(user)
-      console.log(update)
-      return user
-      // const userUpdate =
-      //   User
-      //     .findByIdAndUpdate(userId, update)
-      //     .select(determineUserSelect(info))
-      //     .lean()
-      //     .exec()
-      // return deserializeDocument(await userUpdate)
+      const userUpdate =
+        User
+          .findByIdAndUpdate(userId, update)
+          .select({ prev: 1, current: 1, next: 1, queue: 1 })
+          .lean()
+          .exec()
+      return deserializeDocument(await userUpdate)
     }
   ),
   userPlay: resolver(
@@ -189,7 +187,7 @@ export default {
     }
   ),
   userNext: resolver(
-    async ({ info, args: { userId } }) => {
+    async ({ args: { userId } }) => {
       const userQuery =
         User
           .findById(userId)
@@ -198,15 +196,13 @@ export default {
           .exec()
       const user = deserializeDocument(await userQuery)
       const update = determineUserNext(user)
-      console.log(update)
-      return user
-      // const userUpdate =
-      //   User
-      //     .findByIdAndUpdate(userId, update)
-      //     .select(determineUserSelect(info))
-      //     .lean()
-      //     .exec()
-      // return deserializeDocument(await userUpdate)
+      const userUpdate =
+        User
+          .findByIdAndUpdate(userId, update)
+          .select({ prev: 1, current: 1, next: 1, queue: 1 })
+          .lean()
+          .exec()
+      return deserializeDocument(await userUpdate)
     }
   )
 }

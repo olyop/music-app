@@ -30,11 +30,12 @@
     border: none;
     display: flex;
     outline: none;
+    box-shadow: none;
     position: absolute;
     align-items: center;
     flex-direction: column;
     justify-content: center;
-    transition: .4s opacity;
+    transition: .2s all ease-in;
     background-color: transparent;
     transform: translate(-50%, -50%);
     &:hover {
@@ -42,22 +43,24 @@
     &:active {
       background-color: rgba(#ffffff, .4); }
     &-icon {
-      outline: none;
+      margin: 0;
       color: #ffffff;
       font-size: 35rem; }
+    &-text {
+      color: #ffffff; }
     &-top-left {
       top: 25%;
       left: 25%;
-      border-top-left-radius: $BORDER_RADIUS; }
+      border-radius: $BORDER_RADIUS 0 0 0; }
     &-top-right {
       top: 25%;
       left: 75%;
-      border-top-right-radius: $BORDER_RADIUS; }
+      border-radius: 0 $BORDER_RADIUS 0 0; }
     &-bottom-left {
       top: 75%;
       left: 25%;
-      border-bottom-left-radius: $BORDER_RADIUS; }
+      border-radius: 0 0 0 $BORDER_RADIUS; }
     &-bottom-right {
       top: 75%;
       left: 75%;
-      border-bottom-right-radius: $BORDER_RADIUS; } } }
+      border-radius: 0 0 $BORDER_RADIUS 0; } } }

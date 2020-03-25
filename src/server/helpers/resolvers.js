@@ -24,7 +24,7 @@ export const restoreOrder = ids => collection => ids.reduce(
 
 export const removeDup = collection => uniqBy(collection, "id")
 
-export const determineReleased = released => ((new Date(released)).valueOf()) / 86400
+export const determineReleased = released => ((new Date(released)).getTime() / 1000) / 86400
 
 export const determineDuration = duration => {
   const minutes = toInteger(duration.slice(0,1))
@@ -46,7 +46,7 @@ export const determineSelect = Model => {
   }
 }
 
-export const determineUserPrev = ({ prev, current, next, queue }) => {
+export const determineUserPrevUpdate = ({ prev, current, next, queue }) => {
   if (isEmpty(prev)) {
     return {}
   } else if (isEmpty(next)) {
@@ -54,12 +54,6 @@ export const determineUserPrev = ({ prev, current, next, queue }) => {
       prev: initial(prev),
       current: last(prev),
       queue: concat(current, queue),
-    }
-  } else if (isEmpty(queue)) {
-    return {
-      prev: initial(prev),
-      current: last(prev),
-      queue: [current],
     }
   } else {
     return {
@@ -70,15 +64,15 @@ export const determineUserPrev = ({ prev, current, next, queue }) => {
   }
 }
 
-export const determineUserNext = ({ prev, current, next, queue }) => {
-  if (isEmpty(next)) {
+export const determineUserNextUpdate = ({ prev, current, next, queue }) => {
+  if (isEmpty(next) && isEmpty(queue)) {
+    return {}
+  } else if (isEmpty(next)) {
     return {
       prev: concat(prev, current),
       current: head(queue),
       queue: tail(queue),
     }
-  } else if (isEmpty(queue)) {
-    return {}
   } else {
     return {
       prev: concat(prev, current),
@@ -87,7 +81,6 @@ export const determineUserNext = ({ prev, current, next, queue }) => {
     }
   }
 }
-
 const {
   Play,
   Song,

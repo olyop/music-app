@@ -15,11 +15,10 @@ import cookieParser from "cookie-parser"
 import { globalHeaders } from "./middleware.js"
 
 import {
-  HOST,
-  PORT,
-  DB_URL,
+  HOST, PORT,
   LOG_FORMAT,
   BUILD_PATH,
+  MONGODB_URL,
   CORS_OPTIONS,
   MONGOOSE_OPTIONS,
   BUILD_ENTRY_PATH,
@@ -27,7 +26,7 @@ import {
 } from "./globals.js"
 
 // connect to database
-database.openUri(DB_URL, MONGOOSE_OPTIONS)
+database.openUri(MONGODB_URL, MONGOOSE_OPTIONS)
 
 const app = express()
 

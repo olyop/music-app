@@ -76,7 +76,7 @@ const PlayerBar = () => {
         <Icon
           className={bem("icon")}
           onClick={handlePlayClick}
-          icon={play ? "play_arrow" : "pause"}
+          icon={play ? "pause" : "play_arrow"}
         />
         <Icon
           icon="skip_next"

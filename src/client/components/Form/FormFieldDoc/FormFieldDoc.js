@@ -12,28 +12,25 @@ import "./FormFieldDoc.scss"
 
 const bem = reactBem("FormFieldDoc")
 
-const FormFieldDoc = ({ doc, onFieldDocRemove }) => {
-  const { id } = doc
-  return (
-    <div className={bem("")}>
-      {doc.__typename === "Genre" ? null : (
-        <Img
-          url={catalogUrl(id)}
-          className={bem("cover")}
-        />
-      )}
-      <p
-        className={bem("text")}
-        children={doc[determineKeyName(doc)]}
+const FormFieldDoc = ({ doc, onFieldDocRemove }) => (
+  <div className={bem("")}>
+    {doc.__typename === "Genre" ? null : (
+      <Img
+        url={catalogUrl(doc)}
+        className={bem("cover")}
       />
-      <Icon
-        icon="close"
-        className={bem("close")}
-        onClick={onFieldDocRemove(doc)}
-      />
-    </div>
-  )
-}
+    )}
+    <p
+      className={bem("text")}
+      children={doc[determineKeyName(doc)]}
+    />
+    <Icon
+      icon="close"
+      className={bem("close")}
+      onClick={onFieldDocRemove(doc)}
+    />
+  </div>
+)
 
 FormFieldDoc.propTypes = propTypes
 FormFieldDoc.defaultProps = defaultProps

@@ -20,8 +20,8 @@ import "./Player.scss"
 const bem = reactBem("Player")
 
 const Player = ({ history }) => {
-  const { id } = useContext(UserCtx)
-  const queryOptions = { variables: { id } }
+  const { id: userId } = useContext(UserCtx)
+  const queryOptions = { variables: { userId } }
   const { loading, error, data } = useQuery(GET_USER_CURRENT, queryOptions)
   if (loading) {
     return <Spinner/>

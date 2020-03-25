@@ -57,6 +57,7 @@
         background-color: #eeeeee; }
       &:hover &-add-icon,
       &:hover &-next-icon,
+      &:hover &-later-icon,
       &:hover &-queue-icon,
       &:hover &-plays-span {
         opacity: 1; }
@@ -74,13 +75,10 @@
       &-add,
       &-play,
       &-next,
+      &-later,
       &-queue {
         width: 40px;
-        height: 40px; }
-      &-add,
-      &-play,
-      &-next,
-      &-queue {
+        height: 40px;
         padding: 4px;
         &-icon {
           width: 32px;
@@ -94,8 +92,11 @@
             background-color: #e0e0e0; } } }
       &-add,
       &-next,
+      &-later,
       &-queue {
         &-icon {
+          opacity: 0; }
+        &-text {
           opacity: 0; } }
       &-plays,
       &-album,
@@ -103,7 +104,8 @@
       &-artists,
       &-released,
       &-remixers,
-      &-duration {
+      &-duration,
+      &-dateCreated {
         @media (max-width: 700px) {
           display: none; } }
       &-play {
@@ -151,7 +153,8 @@
         width: 12vw; }
       &-genres {
         width: 12vw; }
-      &-released {
+      &-released,
+      &-dateCreated {
         width: 110px; } } } }
 
 @keyframes play {

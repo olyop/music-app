@@ -23,7 +23,7 @@ const BrowseSongs = () => {
       <SongsTable
         songs={data.songs}
         orderByInit={{ field: "title", order: true }}
-        columnsToIgnore={["cover","trackNumber","plays","released"]}
+        columnsToIgnore={["cover","trackNumber","plays","released","dateCreated"]}
       />
     )
   }

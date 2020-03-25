@@ -1,3 +1,4 @@
+import toInteger from "lodash/toInteger.js"
 import database from "../../database/index.js"
 import { resolver } from "../../helpers/misc.js"
 
@@ -15,6 +16,9 @@ import {
 const { User, Song, Play } = database.models
 
 export default {
+  dateCreated: resolver(
+    ({ parent: { dateCreated } }) => toInteger(dateCreated.getTime()) / 1000,
+  ),
   user: resolver(
     async ({ info, parent: { user } }) => {
       const query =

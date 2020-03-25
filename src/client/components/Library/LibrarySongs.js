@@ -30,7 +30,7 @@ const LibrarySongs = () => {
         columnsToIgnore={["cover","trackNumber","released"]}
         songs={pipe(data.user.songs)(
           filter(({ inLibrary }) => inLibrary),
-          map(({ song, numOfPlays }) => ({ ...song, numOfPlays })),
+          map(({ song, dateCreated, numOfPlays }) => ({ ...song, numOfPlays, dateCreated })),
         )}
       />
     )

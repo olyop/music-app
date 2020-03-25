@@ -98,7 +98,7 @@ export const createFormInitRemember = doc => ({
   ...doc,
   title: "",
   mix: "",
-  duration: 1,
+  duration: "",
   discNumber: doc.discNumber,
   trackNumber: doc.trackNumber + 1,
   featuring: {

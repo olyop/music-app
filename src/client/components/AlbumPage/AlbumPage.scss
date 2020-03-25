@@ -9,8 +9,8 @@
     margin-bottom: 20px;
     box-shadow: 0 1px 4px 0 rgba(#333333, .3);
     @media (min-width: 700px) {
-      width: 360px;
-      height: 360px; } }
+      width: 400px;
+      height: 400px; } }
   &__main {
     width: 100%; }
     &__title {
@@ -29,13 +29,16 @@
         border-radius: 100%;
         &:hover {
           background-color: #e0e0e0; } } }
+    &__genres,
     &__artists {
-      font-size: 17rem;
-      font-weight: 500;
-      margin-bottom: 10px; }
+      font-size: 17rem;}
     &__genres {
-      font-size: 17rem;
       font-weight: 400;
+      margin-bottom: 10px; }
+    &__artists {
+      font-weight: 500;
+      margin-bottom: 15px; }
+    &__controls {
       margin-bottom: 20px; }
     &__disc {
       margin-bottom: 15px;

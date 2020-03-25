@@ -5,6 +5,7 @@ query getUserSongs($id: ID!) {
       id
       inLibrary
       numOfPlays
+      dateCreated
       song {
         id
         title

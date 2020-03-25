@@ -2,6 +2,7 @@ import React, { Fragment } from "react"
 
 import Cover from "../Cover"
 import Spinner from "../Spinner"
+import IconText from "../IconText"
 import ApiError from "../ApiError"
 import DocLinks from "../DocLinks"
 import SongsTable from "../SongsTable"
@@ -50,6 +51,15 @@ const AlbumPage = () => {
               className={bem("title-add")}
             />
           </h2>
+          <h3 className={bem("genres")}>
+            <DocLinks
+              path="/genre"
+              ampersand={true}
+              docs={genresFromAlbum(album)}
+            />
+            <Fragment> - </Fragment>
+            {deserializeDate(released)}
+          </h3>
           <h4 className={bem("artists")}>
             {artists[0].name === "Various Artists" ? artists[0].name : (
               <DocLinks
@@ -58,38 +68,33 @@ const AlbumPage = () => {
                 ampersand={true}
               />
             )}
-            <Fragment> - </Fragment>
-            {deserializeDate(released)}
           </h4>
-          <h3 className={bem("genres")}>
-            <DocLinks
-              path="/genre"
-              ampersand={true}
-              docs={genresFromAlbum(album)}
+          <div className={bem("controls")}>
+            <IconText
+              text="Shuffle"
+              icon="shuffle"
+              className={bem("controls-shuffle")}
             />
-          </h3>
-          {discs.length === 1 ? (
-            <SongsTable
-              songs={discs[0].songs}
-              orderByInit={{ field: "trackNumber", order: true }}
-              columnsToIgnore={["album","cover","plays","released"]}
-            />
-          ) : (
-            <div className={bem("discs")}>
-              {discs.map(
-                disc => (
-                  <div key={disc.number} className={bem("disc")}>
-                    <p className={bem("disc-number")}>{`Disc ${disc.number}`}</p>
-                    <SongsTable
-                      songs={disc.songs}
-                      orderByInit={{ field: "trackNumber", order: true }}
-                      columnsToIgnore={["album","cover","plays","released"]}
+          </div>
+          <div className={bem("discs")}>
+            {discs.map(
+              disc => (
+                <div key={disc.number} className={bem("disc")}>
+                  {discs.length === 1 ? null : (
+                    <p
+                      className={bem("disc-number")}
+                      children={`Disc ${disc.number}`}
                     />
-                  </div>
-                ),
-              )}
-            </div>
-          )}
+                  )}
+                  <SongsTable
+                    songs={disc.songs}
+                    orderByInit={{ field: "trackNumber", order: true }}
+                    columnsToIgnore={["album","cover","plays","released","dateCreated"]}
+                  />
+                </div>
+              ),
+            )}
+          </div>
         </div>
       </div>
     )

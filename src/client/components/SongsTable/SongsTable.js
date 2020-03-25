@@ -14,8 +14,8 @@ import { propTypes } from "./props"
 import reactBem from "@oly_op/react-bem"
 import { orderBy, map } from "lodash/fp"
 import { isEmpty, concat } from "lodash"
-import { pipe, catalogUrl, show } from "../../helpers/misc"
 import deserializeDate from "../../helpers/deserializeDate"
+import { pipe, catalogUrl, show } from "../../helpers/misc"
 import determineFieldOrderText from "./determineFieldOrderText"
 import deserializeDuration from "../../helpers/deserializeDuration"
 
@@ -76,7 +76,7 @@ const SongsTable = ({ songs, orderByInit, columnsToIgnore }) => {
 
           {showColumn("plays") ? (
             <th
-              className={bem("head-plays","head-row-col")}
+              className={bem("head-plays","head-row-noHover","head-row-col")}
               onClick={() => handleFieldHeadClick("plays")}
             />
           ) : null}
@@ -84,6 +84,12 @@ const SongsTable = ({ songs, orderByInit, columnsToIgnore }) => {
           {showColumn("next") ? (
             <th
               className={bem("head-next","head-row-noHover","head-row-col")}
+            />
+          ) : null}
+
+          {showColumn("later") ? (
+            <th
+              className={bem("head-later","head-row-noHover","head-row-col")}
             />
           ) : null}
 
@@ -149,6 +155,14 @@ const SongsTable = ({ songs, orderByInit, columnsToIgnore }) => {
               children="Released"
               className={bem("head-released","head-row-col")}
               onClick={() => handleFieldHeadClick("released")}
+            />
+          ) : null}
+
+          {showColumn("dateCreated") ? (
+            <th
+              children="Added"
+              className={bem("head-dateCreated","head-row-col")}
+              onClick={() => handleFieldHeadClick("dateCreated")}
             />
           ) : null}
 
@@ -250,8 +264,22 @@ const SongsTable = ({ songs, orderByInit, columnsToIgnore }) => {
                       className={bem("body-row-next","body-row-col")}
                       children={(
                         <Icon
-                          icon="playlist_add"
+                          title="Next"
+                          icon="double_arrow"
                           className={bem("body-row-next-icon")}
+                        />
+                      )}
+                    />
+                  ) : null}
+
+                  {showColumn("later") ? (
+                    <td
+                      className={bem("body-row-later","body-row-col")}
+                      children={(
+                        <Icon
+                          title="Later"
+                          icon="playlist_add"
+                          className={bem("body-row-later-icon")}
                         />
                       )}
                     />
@@ -262,6 +290,7 @@ const SongsTable = ({ songs, orderByInit, columnsToIgnore }) => {
                       className={bem("body-row-queue","body-row-col")}
                       children={(
                         <Icon
+                          title="Queue"
                           icon="queue_music"
                           className={bem("body-row-queue-icon")}
                         />
@@ -359,6 +388,17 @@ const SongsTable = ({ songs, orderByInit, columnsToIgnore }) => {
                       children={(
                         <span className={bem("body-row-col-span")}>
                           {deserializeDate(album.released)}
+                        </span>
+                      )}
+                    />
+                  ) : null}
+
+                  {showColumn("dateCreated") ? (
+                    <td
+                      className={bem("body-row-dateCreated","body-row-col")}
+                      children={(
+                        <span className={bem("body-row-col-span")}>
+                          {deserializeDate(song.dateCreated / 86400)}
                         </span>
                       )}
                     />

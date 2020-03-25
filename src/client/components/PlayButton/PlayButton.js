@@ -2,6 +2,7 @@ import React, { useContext } from "react"
 
 import Icon from "../Icon"
 import UserCtx from "../../ctx/User"
+import PlayCtx from "../../ctx/Play"
 
 import reactBem from "@oly_op/react-bem"
 import { useMutation } from "@apollo/react-hooks"
@@ -17,17 +18,21 @@ const bem = reactBem("PlayButton")
 const PlayButton = ({ song, className }) => {
 
   const user = useContext(UserCtx)
+  const { play, setPlay } = useContext(PlayCtx)
 
-  const { id: userId } = user
   const { id: songId } = song
+  const { id: userId, current } = user
   const variables = { userId, songId }
+
+  const isPlay = current.id === songId
+  const isPlaying = isPlay && play
 
   const optimisticResponse = {
     __typename: "Mutation",
     userPlay: {
       prev: [],
       next: [],
-      later: [],
+      queue: [],
       id: userId,
       current: song,
       __typename: "User",
@@ -47,12 +52,15 @@ const PlayButton = ({ song, className }) => {
     { variables, optimisticResponse, update },
   )
 
-  const handleClick = () => userPlay()
+  const handleClick = () => {
+    if (isPlay) setPlay(!play)
+    else userPlay()
+  }
 
   return (
     <Icon
-      icon="play_arrow"
       onClick={handleClick}
+      icon={isPlaying ? "pause" : "play_arrow"}
       className={bem({ ignore: true, className }, "")}
     />
   )

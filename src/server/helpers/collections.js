@@ -7,6 +7,7 @@ const { ObjectId } = mongoose.Types
 
 export const deserializeDocument = ({ _id, __v, ...doc }) => ({
   id: _id.toString(),
+  dateCreated: ObjectId(_id).getTimestamp(),
   ...mapValues(doc, val => {
     if (isArray(val) && !isEmpty(val)) {
       if (val[0] instanceof ObjectId) {

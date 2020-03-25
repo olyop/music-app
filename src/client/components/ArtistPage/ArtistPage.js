@@ -73,7 +73,7 @@ const ArtistPage = () => {
               <SongsTable
                 songs={songs}
                 orderByInit={{ field: "title", order: true }}
-                columnsToIgnore={["cover","plays","trackNumber"]}
+                columnsToIgnore={["cover","plays","trackNumber","dateCreated"]}
               />
             </div>
           )}

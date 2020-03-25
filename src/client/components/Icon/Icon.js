@@ -8,10 +8,11 @@ import "./Icon.scss"
 
 const bem = reactBem("Icon")
 
-const Icon = ({ icon, disabled, className, onClick }) => (
+const Icon = ({ icon, title, disabled, className, onClick }) => (
   <i
     tabIndex={0}
     role="button"
+    title={title}
     children={icon}
     onClick={disabled ? noop : onClick}
     className={bem(

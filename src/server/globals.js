@@ -20,7 +20,7 @@ export const CORS_OPTIONS = {
   optionsSuccessStatus: 200,
 }
 
-export const DB_URL = "mongodb://localhost:27017"
+export const MONGODB_URL = "mongodb://localhost:27017"
 
 export const MONGOOSE_OPTIONS = {
   poolSize: 1,
@@ -63,6 +63,6 @@ export const SONG_ARTISTS_FIELDS = ["artists", "remixers", "featuring"]
 export const USER_EMPTY_QUEUE = {
   prev: [],
   next: [],
-  later: [],
-  nowPlaying: undefined,
+  queue: [],
+  current: undefined,
 }

@@ -27,11 +27,17 @@
         0 3px 6px rgba(#000000, .16),
         0 3px 6px rgba(#000000, .23); }
     &-title,
+    &-album,
     &-artists {
       text-align: center; }
     &-title {
-      font-size: 30rem;
-      margin-bottom: 15px; }
-    &-artists {
+      font-size: 35rem;
+      font-weight: 700;
+      margin-bottom: 12px; }
+    &-album {
+      font-size: 23rem;
       font-weight: 400;
-      font-size: 25rem; } } }
+      margin-bottom: 12px; }
+    &-artists {
+      font-weight: 500;
+      font-size: 23rem; } } }

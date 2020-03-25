@@ -74,13 +74,6 @@ const SongsTable = ({ songs, orderByInit, columnsToIgnore }) => {
             />
           ) : null}
 
-          {showColumn("plays") ? (
-            <th
-              className={bem("head-plays","head-row-noHover","head-row-col")}
-              onClick={() => handleFieldHeadClick("plays")}
-            />
-          ) : null}
-
           {showColumn("next") ? (
             <th
               className={bem("head-next","head-row-noHover","head-row-col")}
@@ -102,6 +95,13 @@ const SongsTable = ({ songs, orderByInit, columnsToIgnore }) => {
           {showColumn("add") ? (
             <th
               className={bem("head-add","head-row-noHover","head-row-col")}
+            />
+          ) : null}
+
+          {showColumn("plays") ? (
+            <th
+              className={bem("head-plays","head-row-noHover","head-row-col")}
+              onClick={() => handleFieldHeadClick("plays")}
             />
           ) : null}
 
@@ -246,19 +246,6 @@ const SongsTable = ({ songs, orderByInit, columnsToIgnore }) => {
                     />
                   ) : null}
 
-                  {showColumn("plays") ? (
-                    <td
-                      className={bem("body-row-plays","body-row-col")}
-                      children={(
-                        <Link
-                          to={`/plays/${id}`}
-                          children={numOfPlays === 0 ? undefined : numOfPlays}
-                          className={bem("body-row-plays-span","body-row-col-span")}
-                        />
-                      )}
-                    />
-                  ) : null}
-
                   {showColumn("next") ? (
                     <td
                       className={bem("body-row-next","body-row-col")}
@@ -305,6 +292,19 @@ const SongsTable = ({ songs, orderByInit, columnsToIgnore }) => {
                         <AddToLibrary
                           doc={song}
                           className={bem("body-row-add-icon")}
+                        />
+                      )}
+                    />
+                  ) : null}
+
+                  {showColumn("plays") ? (
+                    <td
+                      className={bem("body-row-plays","body-row-col")}
+                      children={numOfPlays === 0 ? null : (
+                        <Link
+                          to={`/plays/${id}`}
+                          children={numOfPlays}
+                          className={bem("body-row-plays-span","body-row-col-span")}
                         />
                       )}
                     />

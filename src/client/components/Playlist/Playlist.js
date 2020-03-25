@@ -19,7 +19,7 @@ const Playlist = ({ playlist }) => (
           <Img
             key={id}
             className={bem("img")}
-            url={catalogUrl(album.id)}
+            url={catalogUrl(album)}
           />
         ),
       )}

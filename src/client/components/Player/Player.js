@@ -2,6 +2,7 @@ import React, { useContext } from "react"
 
 import Img from "../Img"
 import Icon from "../Icon"
+import DocLink from "../DocLink"
 import Spinner from "../Spinner"
 import ApiError from "../ApiError"
 import SongTitle from "../SongTitle"
@@ -46,6 +47,12 @@ const Player = ({ history }) => {
             <SongTitle
               song={current}
               showRemixers={true}
+            />
+          </h1>
+          <h1 className={bem("main-album")}>
+            <DocLink
+              doc={album}
+              path="/album"
             />
           </h1>
           <h2 className={bem("main-artists")}>

@@ -98,6 +98,18 @@ type Mutation {
   userNext(
     userId: ID!
   ): User!
+  userSongNext(
+    userId: ID!
+    songId: ID!
+  ): User!
+  userSongLater(
+    userId: ID!
+    songId: ID!
+  ): User!
+  userSongQueue(
+    userId: ID!
+    songId: ID!
+  ): User!
   addUserSong(
     userId: ID!
     songId: ID!

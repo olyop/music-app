@@ -1,6 +1,6 @@
 import React from "react"
 
-import { Switch, Route } from "react-router-dom"
+import NestedRouter from "../NestedRouter"
 
 import routes from "./routes"
 import reactBem from "@oly_op/react-bem"
@@ -11,17 +11,7 @@ const bem = reactBem("Pages")
 
 const Pages = () => (
   <main className={bem("")}>
-    <Switch>
-      {routes.map(
-        route => (
-          <Route
-            key={route.id}
-            path={route.path}
-            component={route.component}
-          />
-        ),
-      )}
-    </Switch>
+    <NestedRouter routes={routes} />
   </main>
 )
 

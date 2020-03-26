@@ -17,15 +17,11 @@
       border-radius: 0;
       @media (max-width: 700px) {
         border-radius: 0; } } }
-  &__main {
-    width: 100%;
-    @media (max-width: 700px) {
-      padding: 20px; } }
-    &__title {
-      font-size: 30rem;
-      margin-bottom: 10px; }
-    &__length {
-      font-size: 17rem;
-      margin-bottom: 20px; }
-    &__albums {
-      margin-bottom: 20px; } }
+  &__title {
+    font-size: 30rem;
+    margin-bottom: 10px; }
+  &__length {
+    font-size: 17rem;
+    margin-bottom: 20px; }
+  &__albums {
+    margin-bottom: 20px; } }

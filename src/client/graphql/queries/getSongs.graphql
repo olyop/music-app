@@ -1,4 +1,4 @@
-query librarySongs {
+query getSongs {
   songs {
     id
     title

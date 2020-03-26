@@ -12,8 +12,9 @@ import FeaturingArtists from "../FeaturingArtists"
 import { propTypes } from "./props"
 import { isUndefined } from "lodash"
 import reactBem from "@oly_op/react-bem"
+import { catalogUrl } from "../../helpers"
 import { useQuery } from "@apollo/react-hooks"
-import { catalogUrl } from "../../helpers/misc"
+
 import GET_USER_CURRENT from "../../graphql/queries/getUserCurrent.graphql"
 
 import "./Player.scss"

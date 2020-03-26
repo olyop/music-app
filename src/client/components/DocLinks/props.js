@@ -1,4 +1,4 @@
-import { arrayOf, object, string, bool } from "prop-types"
+import { string, bool, arrayOf, object } from "prop-types"
 
 export const propTypes = {
   path: string.isRequired,

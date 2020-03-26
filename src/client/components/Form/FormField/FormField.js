@@ -8,8 +8,8 @@ import FormDropDownItem from "../FormDropDownItem"
 
 import { propTypes } from "prop-types"
 import reactBem from "@oly_op/react-bem"
-import { isEmpty, isUndefined } from "lodash"
-import findMatches from "../../../helpers/findMatches"
+import { isUndefined, isEmpty } from "lodash"
+import { findMatches } from "../../../helpers"
 
 import {
   bytesToSize,
@@ -59,13 +59,11 @@ const FormField = ({ field, val, index, onFieldChange, onFieldHitClick, onFieldD
             ) : null}
             {type === "file" ? (
               <p className={bem("file")}>
-                {isUndefined(val.file) ? (
-                  "Choose file..."
-                ) : (
+                {isUndefined(val.file) ? "Choose file..." : (
                   <Fragment>
-                    <Fragment>{val.file.name}</Fragment>
+                    {val.file.name}
                     <Fragment> (</Fragment>
-                    <Fragment>{bytesToSize(val.file.size)}</Fragment>
+                    {bytesToSize(val.file.size)}
                     <Fragment>)</Fragment>
                   </Fragment>
                 )}

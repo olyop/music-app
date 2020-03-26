@@ -1,6 +1,8 @@
 query getUserAlbums($id: ID!) {
   user(id: $id) {
     id
+    inLibrary
+    dateCreated
     albums {
       id
       album {

@@ -1,4 +1,4 @@
-import { string, arrayOf, object, shape } from "prop-types"
+import { shape, string, arrayOf, object } from "prop-types"
 
 export const propTypes = {
   album: shape({

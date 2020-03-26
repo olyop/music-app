@@ -1,4 +1,4 @@
-import { string, node } from "prop-types"
+import { node, string } from "prop-types"
 
 export const propTypes = {
   children: node,

@@ -6,7 +6,6 @@ import { NavLink } from "react-router-dom"
 
 import reactBem from "@oly_op/react-bem"
 import { useSpring } from "react-spring"
-import { SIDEBAR_ANIMATION_LENGTH as duration } from "../../globals"
 
 import "./Header.scss"
 
@@ -15,7 +14,7 @@ const bem = reactBem("Header")
 const Header = () => {
   const [ sidebar, setSidebar ] = useState(false)
   const toggleSidebar = () => setSidebar(!sidebar)
-  const style = useSpring({ config: { duration }, left: sidebar ? 0 : -300 })
+  const style = useSpring({ config: { duration: 250 }, left: sidebar ? 0 : -300 })
   return (
     <Fragment>
       <header className={bem("")}>

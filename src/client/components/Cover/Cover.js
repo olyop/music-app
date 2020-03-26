@@ -13,14 +13,8 @@ const bem = reactBem("Cover")
 const Cover = ({ url, className, imgClassName }) => (
   <Img
     url={url}
-    className={bem(
-      { ignore: true, className },
-      "",
-    )}
-    imgClassName={bem(
-      { ignore: true, className: imgClassName },
-      "img",
-    )}
+    className={bem({ ignore: true, className }, "")}
+    imgClassName={bem({ ignore: true, className: imgClassName }, "img")}
     children={(
       <Fragment>
         <IconText

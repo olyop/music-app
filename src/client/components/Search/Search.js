@@ -9,14 +9,15 @@ const bem = reactBem("Search")
 
 const Search = () => {
   const [ input, setInput ] = useState("")
+  const handleChange = event => setInput(event.target.value)
   return (
     <div className={bem("")}>
       <div className={bem("bar")}>
         <input
           val={input}
+          onChange={handleChange}
           placeholder="Search..."
           className={bem("bar-input")}
-          onChange={event => setInput(event.target.value)}
         />
       </div>
       {isEmpty(input) ? null : (

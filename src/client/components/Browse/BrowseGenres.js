@@ -6,8 +6,8 @@ import Genres from "../Genres"
 import Spinner from "../Spinner"
 import ApiError from "../ApiError"
 
-import { useQuery } from "@apollo/react-hooks"
 import { isUndefined, isEmpty } from "lodash"
+import { useQuery } from "@apollo/react-hooks"
 
 import GET_GENRES from "../../graphql/queries/getGenres.graphql"
 

@@ -1,7 +1,7 @@
 import React from "react"
 
 import Form from "../../Form"
-import Loading from "../../Loading"
+import Spinner from "../../Spinner"
 import ApiError from "../../ApiError"
 
 import { isUndefined } from "lodash"
@@ -15,13 +15,13 @@ const AddSong = () => {
   const [ addSong ] = useMutation(ADD_SONG)
   const { loading, error, data } = useQuery(GET_ADD_SONG)
   if (loading) {
-    return <Loading/>
+    return <Spinner/>
   } else if (!isUndefined(error)) {
     return <ApiError/>
   } else {
     return (
       <Form
-        title="Add Song"
+        title="Song"
         fields={fieldsConfig(data)}
         submit={variables => addSong({ variables })}
       />

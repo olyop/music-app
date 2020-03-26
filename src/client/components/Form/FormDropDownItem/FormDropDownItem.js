@@ -4,14 +4,13 @@ import Img from "../../Img"
 
 import reactBem from "@oly_op/react-bem"
 import { propTypes, defaultProps } from "./props"
-import { catalogUrl } from "../../../helpers/misc"
-import determineKeyName from "../../../helpers/determineKeyName"
+import { catalogUrl, determineKeyName } from "../../../helpers"
 
 import "./FormDropDownItem.scss"
 
 const bem = reactBem("FormDropDownItem")
 
-const FormDropDownItem = ({ doc, onFieldHitClick, tabIndex }) => (
+const FormDropDownItem = ({ doc, tabIndex, onFieldHitClick }) => (
   <button
     type="button"
     tabIndex={tabIndex}

@@ -1,4 +1,4 @@
-import deserializeDate from "../../helpers/deserializeDate"
+import { deserializeDate } from "../../helpers"
 import { includes, find, isEmpty, concat, isNumber } from "lodash"
 
 export const createFormInit = fields => fields.reduce(

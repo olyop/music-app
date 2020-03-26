@@ -11,7 +11,7 @@ const AddGenre = () => {
   const [ addGenre ] = useMutation(ADD_GENRE)
   return (
     <Form
-      title="Add Genre"
+      title="Genre"
       fields={fieldsConfig}
       submit={variables => addGenre({ variables })}
     />

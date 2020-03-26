@@ -1,8 +1,8 @@
 import React, { useContext } from "react"
 
 import Icon from "../Icon"
-import UserCtx from "../../ctx/User"
-import PlayCtx from "../../ctx/Play"
+import UserCtx from "../../contexts/User"
+import PlayCtx from "../../contexts/Play"
 
 import reactBem from "@oly_op/react-bem"
 import { useMutation } from "@apollo/react-hooks"

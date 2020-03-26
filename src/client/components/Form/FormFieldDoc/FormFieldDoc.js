@@ -5,8 +5,7 @@ import Icon from "../../Icon"
 
 import reactBem from "@oly_op/react-bem"
 import { propTypes, defaultProps } from "./props"
-import { catalogUrl } from "../../../helpers/misc"
-import determineKeyName from "../../../helpers/determineKeyName"
+import { catalogUrl, determineKeyName } from "../../../helpers"
 
 import "./FormFieldDoc.scss"
 

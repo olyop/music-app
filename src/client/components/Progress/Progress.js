@@ -1,11 +1,10 @@
-/* eslint-disable no-unused-vars */
 import React from "react"
 
 import Slider from "@material-ui/core/Slider"
 
 import { propTypes } from "./props"
 import reactBem from "@oly_op/react-bem"
-import determineDuration from "../../helpers/deserializeDuration"
+import { determineDuration } from "../../helpers"
 
 import "./Progress.scss"
 

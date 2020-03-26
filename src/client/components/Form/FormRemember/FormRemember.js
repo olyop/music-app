@@ -13,7 +13,7 @@ const FormRemember = ({ text, remember, onToggleRemember }) => (
       name="remember"
       type="checkbox"
       checked={remember}
-      className={bem("check-box")}
+      className={bem("check")}
       onChange={onToggleRemember}
     />
     <span

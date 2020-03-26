@@ -27,7 +27,6 @@ const BrowseAlbums = () => {
             <Album
               album={album}
               key={album.id}
-              loading={true}
             />
           ),
         )}

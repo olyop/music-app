@@ -1,6 +1,6 @@
 import React from "react"
 
-import { Switch, Route } from "react-router-dom"
+import NestedRouter from "../NestedRouter"
 
 import routes from "./routes"
 import { propTypes } from "./props"
@@ -12,17 +12,10 @@ const bem = reactBem("Catalog")
 
 const Catalog = ({ match }) => (
   <div className={bem("")}>
-    <Switch>
-      {routes.map(
-        route => (
-          <Route
-            key={route.id}
-            component={route.component}
-            path={match.path + route.path}
-          />
-        ),
-      )}
-    </Switch>
+    <NestedRouter
+      routes={routes}
+      path={match.path}
+    />
   </div>
 )
 

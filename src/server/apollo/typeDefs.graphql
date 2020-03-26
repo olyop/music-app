@@ -60,6 +60,7 @@ type UserAlbum {
   album: Album!
   plays: [Play!]!
   numOfPlays: Int!
+  dateCreated: Int!
   inLibrary: Boolean!
 }
 

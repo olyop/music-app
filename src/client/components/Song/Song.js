@@ -7,7 +7,7 @@ import AddToLibrary from "../AddToLibrary"
 import FeaturingArtists from "../FeaturingArtists"
 
 import reactBem from "@oly_op/react-bem"
-import { catalogUrl } from "../../helpers/misc"
+import { catalogUrl } from "../../helpers"
 import { propTypes, defaultProps } from "./props"
 
 import "./Song.scss"

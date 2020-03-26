@@ -1,5 +1,5 @@
 import { uniq } from "lodash"
-import { pipe } from "../../helpers/misc"
+import { pipe } from "../../helpers"
 import { map, flattenDepth } from "lodash/fp"
 
 const genresFromAlbum = album => pipe(album)(

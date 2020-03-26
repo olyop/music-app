@@ -7,7 +7,7 @@ import AddToLibrary from "../AddToLibrary"
 
 import { propTypes } from "./props"
 import reactBem from "@oly_op/react-bem"
-import { catalogUrl } from "../../helpers/misc"
+import { catalogUrl } from "../../helpers"
 
 import "./Album.scss"
 

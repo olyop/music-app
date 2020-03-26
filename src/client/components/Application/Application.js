@@ -12,37 +12,43 @@ import UserCtx from "../../ctx/User"
 import PlayCtx from "../../ctx/Play"
 
 import { isUndefined } from "lodash"
+import { USER_ID } from "../../globals"
 import { useQuery } from "@apollo/react-hooks"
 
-import GET_USER from "../../graphql/queries/getUser.graphql"
+import GET_USER from "../../graphql/queries/getUser.graphql" 
 
-const Main = () => (
-  <Fragment>
-    <Header/>
-    <Pages/>
-    <PlayerBar/>
-  </Fragment>
+const ApplicationInner = () => (
+  <Switch>
+    <Route
+      exact
+      path="/player"
+      component={Player}
+    />
+    <Route
+      component={() => (
+        <Fragment>
+          <Header/>
+          <Pages/>
+          <PlayerBar/>
+        </Fragment>
+      )}
+    />
+  </Switch>
 )
 
 const Application = () => {
-  const id = "5e11e4aa8e0f023c5007dff9"
   const [ play, setPlay ] = useState(false)
-  const queryOptions = { variables: { id } }
-  const { data, loading, error } = useQuery(GET_USER, queryOptions)
+  const variables = { id: USER_ID }
+  const { data, loading, error } = useQuery(GET_USER, { variables })
   if (loading) {
     return <Loading/>
   } else if (!isUndefined(error)) {
     return <ApiError/>
   } else {
-    const { user } = data
-    const playInit = { play, setPlay }
     return (
-      <UserCtx.Provider value={user}>
-        <PlayCtx.Provider value={playInit}>
-          <Switch>
-            <Route exact path="/player" component={Player} />
-            <Route component={Main} />
-          </Switch>
+      <UserCtx.Provider value={data.user}>
+        <PlayCtx.Provider value={{ play, setPlay }}>
+          <ApplicationInner/>
         </PlayCtx.Provider>
       </UserCtx.Provider>
     )

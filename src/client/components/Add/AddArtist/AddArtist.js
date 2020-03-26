@@ -11,7 +11,7 @@ const AddArtist = () => {
   const [ addArtist ] = useMutation(ADD_ARTIST)
   return (
     <Form
-      title="Add Artist"
+      title="Artist"
       fields={fieldsConfig}
       submit={variables => addArtist({ variables })}
     />

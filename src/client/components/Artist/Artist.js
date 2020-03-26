@@ -5,7 +5,7 @@ import DocLink from "../DocLink"
 
 import { propTypes } from "./props"
 import reactBem from "@oly_op/react-bem"
-import { catalogUrl } from "../../helpers/misc"
+import { catalogUrl } from "../../helpers"
 
 import "./Artist.scss"
 

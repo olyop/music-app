@@ -7,11 +7,11 @@ import Loading from "../Loading"
 import ApiError from "../ApiError"
 import SongsTable from "../SongsTable"
 
-import { isUndefined } from "lodash"
 import reactBem from "@oly_op/react-bem"
 import { useParams } from "react-router-dom"
+import { isUndefined, isEmpty } from "lodash"
 import { useQuery } from "@apollo/react-hooks"
-import { catalogUrl, determinePlural } from "../../helpers/misc"
+import { catalogUrl, determinePlural } from "../../helpers"
 
 import GET_ARTIST_PAGE from "../../graphql/queries/getArtistPage.graphql"
 
@@ -21,8 +21,8 @@ const bem = reactBem("ArtistPage")
 
 const ArtistPage = () => {
   const { id } = useParams()
-  const queryOptions = { variables: { id } }
-  const { loading, error, data } = useQuery(GET_ARTIST_PAGE, queryOptions)
+  const variables = { id }
+  const { loading, error, data } = useQuery(GET_ARTIST_PAGE, { variables })
   if (loading) {
     return <Loading/>
   } else if (!isUndefined(error)) {
@@ -32,52 +32,46 @@ const ArtistPage = () => {
     const { name, songs, albums } = artist
     return (
       <div className={bem("")}>
-        {name === "Various Artists" ? null : (
-          <Cover
-            url={catalogUrl(artist)}
-            className={bem("cover")}
-            imgClassName={bem("cover-img")}
-          />
-        )}
-        <div className={bem("main")}>
-          <h2 className={bem("title")}>
-            {name}
-          </h2>
-          <div className={bem("length")}>
-            {songs.length}
-            <Fragment> song</Fragment>
-            <Fragment>{determinePlural(songs)}</Fragment>
-            {albums.length === 0 ? null : (
-              <Fragment>
-                <Fragment>, </Fragment>
-                {albums.length}
-                <Fragment> album</Fragment>
-                <Fragment>{determinePlural(albums)}</Fragment>
-              </Fragment>
-            )}
-          </div>
-          {albums.length === 0 ? null : (
-            <Albums className={bem("albums")}>
-              {albums.map(
-                album => (
-                  <Album
-                    album={album}
-                    key={album.id}
-                  />
-                ),
-              )}
-            </Albums>
-          )}
-          {songs.length === 0 ? null : (
-            <div className={bem("songs")}>
-              <SongsTable
-                songs={songs}
-                orderByInit={{ field: "title", order: true }}
-                columnsToIgnore={["cover","plays","trackNumber","dateCreated"]}
-              />
-            </div>
+        <Cover
+          url={catalogUrl(artist)}
+          className={bem("cover")}
+          imgClassName={bem("cover-img")}
+        />
+        <h2 className={bem("title")}>{name}</h2>
+        <div className={bem("length")}>
+          {songs.length}
+          <Fragment> song</Fragment>
+          <Fragment>{determinePlural(songs)}</Fragment>
+          {isEmpty(albums) ? null : (
+            <Fragment>
+              <Fragment>, </Fragment>
+              {albums.length}
+              <Fragment> album</Fragment>
+              <Fragment>{determinePlural(albums)}</Fragment>
+            </Fragment>
           )}
         </div>
+        {isEmpty(albums) ? null : (
+          <Albums className={bem("albums")}>
+            {albums.map(
+              album => (
+                <Album
+                  album={album}
+                  key={album.id}
+                />
+              ),
+            )}
+          </Albums>
+        )}
+        {isEmpty(songs) ? null : (
+          <div className={bem("songs")}>
+            <SongsTable
+              songs={songs}
+              orderByInit={{ field: "title", order: true }}
+              columnsToIgnore={["cover","plays","trackNumber","dateCreated"]}
+            />
+          </div>
+        )}
       </div>
     )
   }

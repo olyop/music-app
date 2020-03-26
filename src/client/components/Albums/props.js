@@ -1,4 +1,4 @@
-import { node, string } from "prop-types"
+import { string, node } from "prop-types"
 
 export const propTypes = {
   className: string,

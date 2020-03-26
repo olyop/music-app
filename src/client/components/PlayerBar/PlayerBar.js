@@ -4,9 +4,9 @@ import Song from "../Song"
 import Icon from "../Icon"
 import Spinner from "../Spinner"
 import Progress from "../Progress"
-import PlayCtx from "../../ctx/Play"
-import UserCtx from "../../ctx/User"
 import { Link } from "react-router-dom"
+import UserContext from "../../context/User"
+import PlayContext from "../../context/Play"
 
 import reactBem from "@oly_op/react-bem"
 import { useQuery, useMutation } from "@apollo/react-hooks"
@@ -23,8 +23,9 @@ import "./PlayerBar.scss"
 const bem = reactBem("PlayerBar")
 
 const PlayerBar = () => {
-  const user = useContext(UserCtx)
-  const { play, setPlay } = useContext(PlayCtx)
+
+  const user = useContext(UserContext)
+  const { play, setPlay } = useContext(PlayContext)
 
   const { id: userId } = user
   const variables = { userId }

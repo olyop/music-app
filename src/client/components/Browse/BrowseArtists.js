@@ -5,11 +5,9 @@ import Artist from "../Artist"
 import Artists from "../Artists"
 import Spinner from "../Spinner"
 import ApiError from "../ApiError"
-import { useQuery } from "@apollo/react-hooks"
 
-import { map, filter } from "lodash/fp"
-import { pipe } from "../../helpers/misc"
 import { isUndefined, isEmpty } from "lodash"
+import { useQuery } from "@apollo/react-hooks"
 
 import GET_ARTISTS from "../../graphql/queries/getArtists.graphql"
 
@@ -24,15 +22,12 @@ const BrowseArtists = () => {
   } else {
     return (
       <Artists>
-        {pipe(data.artists)(
-          filter(({ name }) => name !== "Various Artists"),
-          map(
-            artist => (
-              <Artist
-                key={artist.id}
-                artist={artist}
-              />
-            ),
+        {data.artists.map(
+          artist => (
+            <Artist
+              key={artist.id}
+              artist={artist}
+            />
           ),
         )}
       </Artists>

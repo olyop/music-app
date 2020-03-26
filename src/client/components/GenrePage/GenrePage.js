@@ -17,8 +17,8 @@ const bem = reactBem("GenrePage")
 
 const GenrePage = () => {
   const { id } = useParams()
-  const queryOptions = { variables: { id } }
-  const { loading, error, data } = useQuery(GET_GENRE_PAGE, queryOptions)
+  const variables = { id }
+  const { loading, error, data } = useQuery(GET_GENRE_PAGE, { variables })
   if (loading) {
     return <Loading/>
   } else if (!isUndefined(error)) {

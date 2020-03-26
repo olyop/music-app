@@ -5,7 +5,7 @@ export const propTypes = {
     name: string,
     title: string,
     id: string.isRequired,
-  }),
+  }).isRequired,
   onFieldDocRemove: func.isRequired,
 }
 

@@ -1,4 +1,4 @@
-import { oneOfType, string, number, object, func, shape } from "prop-types"
+import { number, shape, string, func, oneOfType, object } from "prop-types"
 
 export const propTypes = {
   index: number.isRequired,

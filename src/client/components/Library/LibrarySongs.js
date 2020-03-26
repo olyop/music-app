@@ -6,8 +6,8 @@ import ApiError from "../ApiError"
 import UserCtx from "../../ctx/User"
 import SongsTable from "../SongsTable"
 
+import { pipe } from "../../helpers"
 import { filter, map } from "lodash/fp"
-import { pipe } from "../../helpers/misc"
 import { isUndefined, isEmpty } from "lodash"
 import { useQuery } from "@apollo/react-hooks"
 

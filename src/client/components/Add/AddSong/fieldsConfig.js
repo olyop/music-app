@@ -291,8 +291,8 @@ const fieldsConifg = ({ artists, albums, genres }) => [
       },
       {
         id: uniqueId(),
-        msg: "file size less than 16 MB",
-        check: val => (isUndefined(val.file) ? false : val.file.size < 16777216),
+        msg: "file size less than 30 MB",
+        check: val => (isUndefined(val.file) ? false : val.file.size < 30000000),
       },
       {
         id: uniqueId(),

@@ -13,8 +13,8 @@ import { useQuery } from "@apollo/react-hooks"
 import GET_USER_PLAYLISTS from "../../graphql/queries/getUserPlaylists.graphql"
 
 const LibraryPlaylists = () => {
-  const user = useContext(UserCtx)
-  const variables = { id: user.id }
+  const { id } = useContext(UserCtx)
+  const variables = { id }
   const { loading, error, data } = useQuery(GET_USER_PLAYLISTS, { variables })
   if (loading) {
     return <Spinner/>

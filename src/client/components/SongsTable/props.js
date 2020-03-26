@@ -1,4 +1,4 @@
-import { arrayOf, string, object, shape, bool } from "prop-types"
+import { shape, bool, string, arrayOf, object } from "prop-types"
 
 export const propTypes = {
   orderByInit: shape({

@@ -12,6 +12,7 @@ mutation addAlbum(
   ) {
     id
     title
+    released
     artists {
       id
       name

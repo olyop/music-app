@@ -14,10 +14,15 @@ import { propTypes } from "./props"
 import reactBem from "@oly_op/react-bem"
 import { orderBy, map } from "lodash/fp"
 import { isEmpty, concat } from "lodash"
-import deserializeDate from "../../helpers/deserializeDate"
-import { pipe, catalogUrl, show } from "../../helpers/misc"
-import determineFieldOrderText from "./determineFieldOrderText"
-import deserializeDuration from "../../helpers/deserializeDuration"
+import { determineFieldOrderText } from "./helpers"
+
+import {
+  pipe,
+  show,
+  catalogUrl,
+  deserializeDate,
+  deserializeDuration,
+} from "../../helpers"
 
 import "./SongsTable.scss"
 

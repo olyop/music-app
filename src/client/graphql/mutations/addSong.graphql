@@ -7,7 +7,6 @@ mutation addSong(
   $artists: [ID!]!,
   $remixers: [ID!]!,
   $discNumber: Int!,
-  $duration: String!,
   $featuring: [ID!]!,
   $trackNumber: Int!,
 ) {
@@ -19,7 +18,6 @@ mutation addSong(
     genres: $genres,
     artists: $artists,
     remixers: $remixers,
-    duration: $duration,
     featuring: $featuring,
     discNumber: $discNumber,
     trackNumber: $trackNumber,

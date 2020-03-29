@@ -2,6 +2,7 @@ query getAlbumPage($id: ID!) {
   album(id: $id) {
     id
     title
+    cover
     released
     artists {
       id

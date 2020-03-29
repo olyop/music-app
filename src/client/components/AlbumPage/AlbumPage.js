@@ -12,7 +12,7 @@ import { isUndefined } from "lodash"
 import reactBem from "@oly_op/react-bem"
 import { useParams } from "react-router-dom"
 import { useQuery } from "@apollo/react-hooks"
-import { catalogUrl, deserializeDate } from "../../helpers"
+import { deserializeDate } from "../../helpers"
 import { songsWithAlbum, determineDiscs, genresFromAlbum } from "./helpers"
 
 import GET_ALBUM_PAGE from "../../graphql/queries/getAlbumPage.graphql"
@@ -37,7 +37,7 @@ const AlbumPage = () => {
     return (
       <div className={bem("")}>
         <Cover
-          url={catalogUrl(album)}
+          url={album.cover}
           className={bem("cover")}
         />
         <h2 className={bem("title")}>
@@ -49,8 +49,8 @@ const AlbumPage = () => {
         </h2>
         <h3 className={bem("info")}>
           <DocLinks
+            ampersand
             path="/genre"
-            ampersand={true}
             docs={genresFromAlbum(album)}
           />
           <Fragment> - </Fragment>
@@ -58,9 +58,9 @@ const AlbumPage = () => {
         </h3>
         <h4 className={bem("artists")}>
           <DocLinks
+            ampersand
             path="/artist"
             docs={artists}
-            ampersand={true}
           />
         </h4>
         <div className={bem("controls")}>

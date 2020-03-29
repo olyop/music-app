@@ -1,10 +1,11 @@
-import React, { useContext } from "react"
+import React, { useContext, Fragment } from "react"
 
 import Empty from "../Empty"
 import Album from "../Album"
 import Albums from "../Albums"
 import Spinner from "../Spinner"
 import ApiError from "../ApiError"
+import { Link } from "react-router-dom"
 import UserCtx from "../../contexts/User"
 
 import { pipe } from "../../helpers"
@@ -23,7 +24,18 @@ const LibraryAlbums = () => {
   } else if (!isUndefined(error)) {
     return <ApiError/>
   } else if (isEmpty(data.user.albums)) {
-    return <Empty/>
+    return (
+      <Empty
+        title="Your library is empty"
+        text={(
+          <Fragment>
+            <Fragment>You can </Fragment>
+            <Link to="/catalog/browse/albums">browse</Link>
+            <Fragment> the catalog to add albums.</Fragment>
+          </Fragment>
+        )}
+      />
+    )
   } else {
     return (
       <Albums>
@@ -35,7 +47,7 @@ const LibraryAlbums = () => {
                 album={album}
                 key={album.id}
               />
-            )
+            ),
           ),
         )}
       </Albums>

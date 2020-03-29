@@ -7,7 +7,6 @@ import AddToLibrary from "../AddToLibrary"
 
 import { propTypes } from "./props"
 import reactBem from "@oly_op/react-bem"
-import { catalogUrl } from "../../helpers"
 
 import "./Album.scss"
 
@@ -15,7 +14,7 @@ const bem = reactBem("Album")
 
 const Album = ({ album }) => (
   <div className={bem("")}>
-    <Cover url={catalogUrl(album)} />
+    <Cover url={album.cover} />
     <div className={bem("info")}>
       <div className={bem("info-text")}>
         <p className={bem("info-text-title")}>
@@ -26,8 +25,8 @@ const Album = ({ album }) => (
         </p>
         <p className={bem("info-text-artists")}>
           <DocLinks
+            ampersand
             path="/artist"
-            ampersand={true}
             docs={album.artists}
           />
         </p>

@@ -9,8 +9,8 @@
     margin-bottom: 20px;
     box-shadow: 0 1px 4px 0 rgba(#333333, .3);
     @media (min-width: 600px) {
-      width: 400px;
-      height: 400px; } }
+      width: 500px;
+      height: 500px; } }
   &__title {
     display: flex;
     margin-bottom: 8px;
@@ -26,7 +26,7 @@
   &__info,
   &__artists {
     font-size: 17rem;}
-  &____info {
+  &__info {
     font-weight: 400;
     margin-bottom: 10px; }
   &__artists {

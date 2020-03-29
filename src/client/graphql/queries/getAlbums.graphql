@@ -2,6 +2,7 @@ query getAlbums {
   albums {
     id
     title
+    cover
     artists {
       id
       name

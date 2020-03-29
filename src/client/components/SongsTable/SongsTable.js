@@ -15,14 +15,7 @@ import reactBem from "@oly_op/react-bem"
 import { orderBy, map } from "lodash/fp"
 import { isEmpty, concat } from "lodash"
 import { determineFieldOrderText } from "./helpers"
-
-import {
-  pipe,
-  show,
-  catalogUrl,
-  deserializeDate,
-  deserializeDuration,
-} from "../../helpers"
+import { pipe, show, deserializeDate, deserializeDuration } from "../../helpers"
 
 import "./SongsTable.scss"
 
@@ -103,13 +96,6 @@ const SongsTable = ({ songs, orderByInit, columnsToIgnore }) => {
             />
           ) : null}
 
-          {showColumn("plays") ? (
-            <th
-              className={bem("head-plays","head-row-noHover","head-row-col")}
-              onClick={() => handleFieldHeadClick("plays")}
-            />
-          ) : null}
-
           {showColumn("duration") ? (
             <th
               className={bem("head-duration","head-row-col")}
@@ -152,6 +138,13 @@ const SongsTable = ({ songs, orderByInit, columnsToIgnore }) => {
               children="Genres"
               className={bem("head-genres","head-row-col")}
               onClick={() => handleFieldHeadClick("genres")}
+            />
+          ) : null}
+
+          {showColumn("plays") ? (
+            <th
+              onClick={() => handleFieldHeadClick("plays")}
+              className={bem("head-plays","head-row-noHover","head-row-col")}
             />
           ) : null}
 
@@ -200,7 +193,7 @@ const SongsTable = ({ songs, orderByInit, columnsToIgnore }) => {
                       className={bem("body-row-cover","body-row-col")}
                       children={(
                         <Img
-                          url={catalogUrl(album.id)}
+                          url={album.cover}
                           children={<PlayButton song={song}/>}
                         />
                       )}
@@ -302,19 +295,6 @@ const SongsTable = ({ songs, orderByInit, columnsToIgnore }) => {
                     />
                   ) : null}
 
-                  {showColumn("plays") ? (
-                    <td
-                      className={bem("body-row-plays","body-row-col")}
-                      children={numOfPlays === 0 ? null : (
-                        <Link
-                          to={`/plays/${id}`}
-                          children={numOfPlays}
-                          className={bem("body-row-plays-span","body-row-col-span")}
-                        />
-                      )}
-                    />
-                  ) : null}
-
                   {showColumn("duration") ? (
                     <td
                       className={bem("body-row-duration","body-row-col")}
@@ -394,6 +374,19 @@ const SongsTable = ({ songs, orderByInit, columnsToIgnore }) => {
                         <span className={bem("body-row-col-span")}>
                           {deserializeDate(album.released)}
                         </span>
+                      )}
+                    />
+                  ) : null}
+
+                  {showColumn("plays") ? (
+                    <td
+                      className={bem("body-row-plays","body-row-col")}
+                      children={numOfPlays === 0 ? null : (
+                        <Link
+                          to={`/plays/${id}`}
+                          children={numOfPlays}
+                          className={bem("body-row-plays-span","body-row-col-span")}
+                        />
                       )}
                     />
                   ) : null}

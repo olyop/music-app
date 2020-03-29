@@ -23,12 +23,20 @@ const Header = () => {
           className={bem("hamburger")}
           icon={sidebar ? "close" : "menu"}
         />
-        <NavLink to="/search">
-          <Icon
-            icon="search"
-            className={bem("search")}
-          />
-        </NavLink>
+        <div className={bem("right")}>
+          <NavLink className={bem("link")} to="/search">
+            <Icon
+              icon="search"
+              className={bem("icon")}
+            />
+          </NavLink>
+          <NavLink className={bem("link")} to="/user">
+            <Icon
+              icon="account_circle"
+              className={bem("icon")}
+            />
+          </NavLink>
+        </div>
       </header>
       <Sidebar
         style={style}

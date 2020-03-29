@@ -4,7 +4,7 @@ import Slider from "@material-ui/core/Slider"
 
 import { propTypes } from "./props"
 import reactBem from "@oly_op/react-bem"
-import { determineDuration } from "../../helpers"
+import { deserializeDuration } from "../../helpers"
 
 import "./Progress.scss"
 
@@ -16,7 +16,7 @@ const Progress = ({ duration, current, setCurrent }) => {
     <div className={bem("")}>
       <p
         className={bem("start")}
-        children={determineDuration(current)}
+        children={deserializeDuration(current)}
       />
       <div className={bem("slider")}>
         <Slider
@@ -29,7 +29,7 @@ const Progress = ({ duration, current, setCurrent }) => {
       </div>
       <p
         className={bem("end")}
-        children={determineDuration(duration)}
+        children={deserializeDuration(duration)}
       />
     </div>
   )

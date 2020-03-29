@@ -8,17 +8,17 @@ import { propTypes } from "./props"
 const FeaturingArtists = ({ artists, featuring }) => (
   <Fragment>
     <DocLinks
+      ampersand
       path="/artist"
       docs={artists}
-      ampersand={true}
     />
     {isEmpty(featuring) ? null : (
       <Fragment>
         <Fragment> feat. </Fragment>
         <DocLinks
+          ampersand
           path="/artist"
           docs={featuring}
-          ampersand={true}
         />
       </Fragment>
     )}

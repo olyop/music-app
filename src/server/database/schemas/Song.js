@@ -72,6 +72,10 @@ const definition = {
     required: true,
     validate: Number.isInteger,
   },
+  audio: {
+    type: Buffer,
+    required: true,
+  },
 }
 
 const schema = new Schema(definition, SCHEMA_OPTIONS)

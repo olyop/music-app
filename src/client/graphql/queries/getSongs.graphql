@@ -1,8 +1,8 @@
 query getSongs {
   songs {
     id
-    title
     mix
+    title
     duration
     featuring {
       id
@@ -23,6 +23,7 @@ query getSongs {
     album {
       id
       title
+      cover
     }
   }
 }

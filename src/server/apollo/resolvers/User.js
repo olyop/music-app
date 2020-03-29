@@ -1,4 +1,5 @@
 import database from "../../database/index.js"
+import isUndefined from "lodash/isUndefined.js"
 import { resolver, pipe } from "../../helpers/misc.js"
 
 import {
@@ -42,12 +43,15 @@ export default {
   ),
   current: resolver(
     async ({ info, parent: { current } }) => {
+      if (isUndefined(current)) return null
+
       const query =
         Song
           .findById(current)
           .select(determineSongSelect(info))
           .lean()
           .exec()
+
       return deserializeDocument(await query)
     }
   ),
@@ -117,7 +121,7 @@ export default {
       const query =
         UserAlbum
           .find({ user: id, inLibrary: true })
-          .select(determineUserAlbumSelect(info))
+          .select(determineUserAlbumSelect(info,["user"]))
           .lean()
           .exec()
       return deserializeCollection(await query)

@@ -11,7 +11,7 @@ export const HOST = os.networkInterfaces().Ethernet[1].address
 // export const PORT = 80
 export const PORT = serializePort(process.env.PORT || 3000)
 
-export const S3_BUCKET_NAME = "5e0585af655578193c6bd0b0"
+export const S3_BUCKET = "5e0585af655578193c6bd0b0"
 
 export const LOG_FORMAT = "dev"
 
@@ -24,7 +24,7 @@ export const MONGODB_URL = "mongodb://localhost:27017"
 
 export const MONGOOSE_OPTIONS = {
   poolSize: 1,
-  dbName: "music-app",
+  dbName: "temp",
   loggerLevel: "error",
   useCreateIndex: true,
   useNewUrlParser: true,
@@ -64,5 +64,4 @@ export const USER_EMPTY_QUEUE = {
   prev: [],
   next: [],
   queue: [],
-  current: undefined,
 }

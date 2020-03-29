@@ -10,6 +10,10 @@ const definition = {
     required: true,
     maxlength: 256,
   },
+  photo: {
+    type: Buffer,
+    required: true,
+  },
 }
 
 const schema = new Schema(definition, SCHEMA_OPTIONS)

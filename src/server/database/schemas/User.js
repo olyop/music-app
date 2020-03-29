@@ -23,7 +23,6 @@ const definition = {
     minlength: 24,
     maxlength: 24,
     type: ObjectId,
-    required: true,
   },
   next: [{
     index: true,

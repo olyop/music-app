@@ -3,7 +3,7 @@ import React from "react"
 import { Link } from "react-router-dom"
 
 import reactBem from "@oly_op/react-bem"
-import { determineKeyName } from "../../helpers"
+import { determineNameKey } from "../../helpers"
 import { propTypes, defaultProps } from "./props"
 
 import "./DocLink.scss"
@@ -11,7 +11,7 @@ import "./DocLink.scss"
 const bem = reactBem("DocLink")
 
 const DocLink = ({ path, doc }) => {
-  const text = doc[determineKeyName(doc)]
+  const text = doc[determineNameKey(doc)]
   return (
     <Link
       title={text}

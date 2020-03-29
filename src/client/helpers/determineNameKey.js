@@ -1,9 +1,9 @@
 import { isUndefined } from "lodash"
 
-const determineKeyName = doc => {
+const determineNameKey = doc => {
   if (!isUndefined(doc.name)) return "name"
   else if (!isUndefined(doc.title)) return "title"
   else return "name"
 }
 
-export default determineKeyName
+export default determineNameKey

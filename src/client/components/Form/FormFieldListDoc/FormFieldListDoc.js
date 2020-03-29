@@ -5,7 +5,7 @@ import Icon from "../../Icon"
 
 import reactBem from "@oly_op/react-bem"
 import { propTypes, defaultProps } from "./props"
-import { catalogUrl, determineKeyName } from "../../../helpers/misc"
+import { determinePhotoKey, determineNameKey } from "../../../helpers"
 
 import "./FormFieldListDoc.scss"
 
@@ -15,12 +15,12 @@ const FormFieldListDoc = ({ doc, onFieldDocRemove }) => (
   <div className={bem("")}>
     {doc.__typename === "Genre" ? null : (
       <Img
-        url={catalogUrl(doc)}
         className={bem("img")}
+        url={doc[determinePhotoKey(doc)]}
       />
     )}
     <p className={bem("text")}>
-      {doc[determineKeyName(doc)]}
+      {doc[determineNameKey(doc)]}
     </p>
     <Icon
       icon="close"

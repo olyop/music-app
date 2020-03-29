@@ -82,9 +82,9 @@ export const determineUserNextUpdate = ({ prev, current, next, queue }) => {
   }
 }
 const {
+  User,
   Play,
   Song,
-  User,
   Album,
   Genre,
   Artist,
@@ -94,9 +94,9 @@ const {
   UserArtist,
 } = database.models
 
+export const determineUserSelect = determineSelect(User)
 export const determinePlaySelect = determineSelect(Play)
 export const determineSongSelect = determineSelect(Song)
-export const determineUserSelect = determineSelect(User)
 export const determineAlbumSelect = determineSelect(Album)
 export const determineGenreSelect = determineSelect(Genre)
 export const determineArtistSelect = determineSelect(Artist)

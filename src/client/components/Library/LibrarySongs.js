@@ -1,10 +1,11 @@
-import React, { useContext } from "react"
+import React, { useContext, Fragment } from "react"
 
 import Empty from "../Empty"
 import Spinner from "../Spinner"
 import ApiError from "../ApiError"
-import UserCtx from "../../ctx/User"
 import SongsTable from "../SongsTable"
+import { Link } from "react-router-dom"
+import UserContext from "../../contexts/User"
 
 import { pipe } from "../../helpers"
 import { filter, map } from "lodash/fp"
@@ -14,15 +15,26 @@ import { useQuery } from "@apollo/react-hooks"
 import GET_USER_SONGS from "../../graphql/queries/getUserSongs.graphql"
 
 const LibrarySongs = () => {
-  const user = useContext(UserCtx)
-  const variables = { id: user.id }
+  const { id } = useContext(UserContext)
+  const variables = { id }
   const { loading, error, data } = useQuery(GET_USER_SONGS, { variables })
   if (loading) {
     return <Spinner/>
   } else if (!isUndefined(error)) {
     return <ApiError/>
   } else if (isEmpty(data.user.songs)) {
-    return <Empty/>
+    return (
+      <Empty
+        title="Your library is empty"
+        text={(
+          <Fragment>
+            <Fragment>You can </Fragment>
+            <Link to="/catalog/browse/songs">browse</Link>
+            <Fragment> the catalog to add songs.</Fragment>
+          </Fragment>
+        )}
+      />
+    )
   } else {
     return (
       <SongsTable

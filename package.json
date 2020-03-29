@@ -6,11 +6,12 @@
   "deprecated": false,
   "type": "module",
   "scripts": {
+    "dependencies": "npm i",
     "build": "rm -r -f src/server/build && clear && webpack --config webpack.config.cjs --env.mode production",
     "server": "clear && node src/server/index.js",
     "dev-server": "node_modules/.bin/nodemon src/server/index.js",
-    "dev-client": "node_modules/.bin/webpack-dev-server --config webpack.config.cjs --env.mode development",
-    "dev": "rm -r -f src/server/build && clear && concurrently \"npm run dev-client\" \"npm run dev-server\" && clear",
+    "dev-client": "node_modules/.bin/webpack-dev-server --config \"webpack.config.cjs\" --env.mode development",
+    "dev": "rm -d -r -f src/server/build && clear && concurrently \"npm run dev-client\" \"npm run dev-server\" && clear",
     "sync": "git checkout . && git remote update && git pull",
     "push": "git status && git add -A && git commit -m \"Update\" && git push -u origin master"
   },
@@ -109,6 +110,8 @@
     "mongodb": "^3.5.5",
     "mongoose": "^5.9.6",
     "morgan": "^1.10.0",
+    "mp3-duration": "^1.1.0",
+    "node-id3": "^0.1.16",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
     "react-apollo": "^3.1.3",

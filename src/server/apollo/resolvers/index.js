@@ -6,10 +6,10 @@ import Album from "./Album.js"
 import Genre from "./Genre.js"
 import Artist from "./Artist.js"
 import Playlist from "./Playlist.js"
-import Mutation from "./Mutation.js"
 import UserSong from "./UserSong.js"
 import UserAlbum from "./UserAlbum.js"
 import UserArtist from "./UserArtist.js"
+import Mutation from "./Mutation/index.js"
 
 export default {
   Play,

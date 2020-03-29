@@ -6,13 +6,10 @@ import importTypeDefs from "../helpers/importTypeDefs.js"
 
 const { ApolloServer } = ApolloServerExpress
 
-const typeDefs = importTypeDefs()
-
-const options = {
-  typeDefs, resolvers,
+const apolloServer = new ApolloServer({
+  resolvers,
   ...APOLLO_SERVER_OPTIONS,
-}
-
-const apolloServer = new ApolloServer(options)
+  typeDefs: importTypeDefs(),
+})
 
 export default apolloServer

@@ -11,7 +11,7 @@ import reactBem from "@oly_op/react-bem"
 import { useParams } from "react-router-dom"
 import { isUndefined, isEmpty } from "lodash"
 import { useQuery } from "@apollo/react-hooks"
-import { catalogUrl, determinePlural } from "../../helpers"
+import { determinePlural } from "../../helpers"
 
 import GET_ARTIST_PAGE from "../../graphql/queries/getArtistPage.graphql"
 
@@ -29,11 +29,11 @@ const ArtistPage = () => {
     return <ApiError/>
   } else {
     const { artist } = data
-    const { name, songs, albums } = artist
+    const { name, photo, songs, albums } = artist
     return (
       <div className={bem("")}>
         <Cover
-          url={catalogUrl(artist)}
+          url={photo}
           className={bem("cover")}
           imgClassName={bem("cover-img")}
         />

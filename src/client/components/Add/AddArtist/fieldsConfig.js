@@ -51,11 +51,6 @@ const fieldsConfig = [
       },
       {
         id: uniqueId(),
-        msg: "file size less than 16 MB",
-        check: val => (isUndefined(val.file) ? false : val.file.size < 16777216),
-      },
-      {
-        id: uniqueId(),
         msg: "file type of jpg.",
         check: val => (isUndefined(val.file) ? false : val.file.type === "image/jpeg"),
       },

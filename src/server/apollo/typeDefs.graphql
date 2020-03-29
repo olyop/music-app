@@ -1,6 +1,7 @@
 type Artist {
   id: ID!
   name: String!
+  photo: String!
   songs: [Song!]!
   albums: [Album!]!
 }
@@ -8,6 +9,7 @@ type Artist {
 type Album {
   id: ID!
   title: String!
+  cover: String!
   released: Int!
   songs: [Song!]!
   artists: [Artist!]!
@@ -77,8 +79,8 @@ type UserSong {
 type User {
   id: ID!
   name: String!
+  current: Song
   prev: [Song!]!
-  current: Song!
   next: [Song!]!
   queue: [Song!]!
   plays: [Play!]!
@@ -135,6 +137,9 @@ type Mutation {
     userId: ID!
     artistId: ID!
   ): UserArtist!
+  addUser(
+    name: String!
+  ): User!
   addArtist(
     name: String!
     photo: Upload!
@@ -157,7 +162,6 @@ type Mutation {
     artists: [ID!]!
     discNumber: Int!
     remixers: [ID!]!
-    duration: String!
     trackNumber: Int!
     featuring: [ID!]!
   ): Song!
@@ -169,6 +173,7 @@ type Mutation {
 }
 
 type Query {
+  users: [User!]!
   songs: [Song!]!
   albums: [Album!]!
   genres: [Genre!]!

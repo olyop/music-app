@@ -4,6 +4,7 @@ import Icon from "../Icon"
 import UserCtx from "../../contexts/User"
 import PlayCtx from "../../contexts/Play"
 
+import { isNull } from "lodash"
 import reactBem from "@oly_op/react-bem"
 import { useMutation } from "@apollo/react-hooks"
 import { propTypes, defaultProps } from "./props"
@@ -24,7 +25,7 @@ const PlayButton = ({ song, className }) => {
   const { id: userId, current } = user
   const variables = { userId, songId }
 
-  const isPlay = current.id === songId
+  const isPlay = isNull(current) ? false : (current.id === songId)
   const isPlaying = isPlay && play
 
   const optimisticResponse = {

@@ -1,10 +1,11 @@
-import React from "react"
+import React, { Fragment } from "react"
 
 import Empty from "../Empty"
 import Album from "../Album"
 import Albums from "../Albums"
 import Spinner from "../Spinner"
 import ApiError from "../ApiError"
+import { Link } from "react-router-dom"
 
 import { isUndefined, isEmpty } from "lodash"
 import { useQuery } from "@apollo/react-hooks"
@@ -18,7 +19,18 @@ const BrowseAlbums = () => {
   } else if (!isUndefined(error)) {
     return <ApiError/>
   } else if (isEmpty(data.albums)) {
-    return <Empty/>
+    return (
+      <Empty
+        title="The catalog is empty."
+        text={(
+          <Fragment>
+            <Fragment>You can </Fragment>
+            <Link to="/catalog/add/album">add</Link>
+            <Fragment> albums to the catalog.</Fragment>
+          </Fragment>
+        )}
+      />
+    )
   } else {
     return (
       <Albums>

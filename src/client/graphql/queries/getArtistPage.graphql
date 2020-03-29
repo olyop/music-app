@@ -2,6 +2,7 @@ query getArtistPage($id: ID!) {
   artist(id: $id) {
     id
     name
+    photo
     songs {
       id
       title
@@ -32,6 +33,7 @@ query getArtistPage($id: ID!) {
     albums {
       id
       title
+      cover
       artists {
         id
         name

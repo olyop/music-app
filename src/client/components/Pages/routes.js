@@ -1,8 +1,8 @@
 import Queues from "../Queues"
 import Search from "../Search"
+import Player from "../Player"
 import Catalog from "../Catalog"
 import Library from "../Library"
-
 import UserPage from "../UserPage"
 import GenrePage from "../GenrePage"
 import AlbumPage from "../AlbumPage"
@@ -22,6 +22,13 @@ export default [
     name: "Library",
     path: "/library",
     component: Library,
+  },
+  {
+    ignore: true,
+    id: uniqueId(),
+    name: "Player",
+    path: "/player",
+    component: Player,
   },
   {
     ignore: true,

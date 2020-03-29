@@ -7,7 +7,6 @@ import AddToLibrary from "../AddToLibrary"
 import FeaturingArtists from "../FeaturingArtists"
 
 import reactBem from "@oly_op/react-bem"
-import { catalogUrl } from "../../helpers"
 import { propTypes, defaultProps } from "./props"
 
 import "./Song.scss"
@@ -21,7 +20,7 @@ const Song = ({ song, showAdd, showCover, className }) => {
       {showCover ? (
         <Link to={`/album/${album.id}`} title={album.title}>
           <Img
-            url={catalogUrl(album)}
+            url={album.cover}
             className={bem("cover")}
             imgClassName={bem("cover-img")}
           />
@@ -29,10 +28,7 @@ const Song = ({ song, showAdd, showCover, className }) => {
       ) : null}
       <div className={bem("text")}>
         <p className={bem("text-title")}>
-          <SongTitle
-            song={song}
-            showRemixers={true}
-          />
+          <span><SongTitle song={song} showRemixers /></span>
           {showAdd ? (
             <AddToLibrary
               doc={song}

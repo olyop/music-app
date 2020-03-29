@@ -4,7 +4,7 @@ import Song from "../Song"
 import Spinner from "../Spinner"
 import ApiError from "../ApiError"
 import PlayButton from "../PlayButton"
-import UserContext from "../../context/User"
+import UserContext from "../../contexts/User"
 
 import reactBem from "@oly_op/react-bem"
 import { useQuery } from "@apollo/react-hooks"

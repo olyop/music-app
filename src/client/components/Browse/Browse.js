@@ -1,8 +1,7 @@
 import React, { Fragment } from "react"
 
 import Icon from "../Icon"
-import { NavLink } from "react-router-dom"
-import NestedRouter from "../NestedRouter"
+import { NavLink, Switch, Route } from "react-router-dom"
 
 import routes from "./routes"
 import { propTypes } from "./props"
@@ -41,10 +40,17 @@ const Browse = ({ match }) => (
       </div>
     </div>
     <div className={bem("main")}>
-      <NestedRouter
-        routes={routes}
-        path={match.path}
-      />
+      <Switch>
+        {routes.map(
+          route => (
+            <Route
+              key={route.id}
+              component={route.component}
+              path={match.path + route.path}
+            />
+          ),
+        )}
+      </Switch>
     </div>
   </div>
 )

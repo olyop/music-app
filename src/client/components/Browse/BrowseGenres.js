@@ -1,10 +1,11 @@
-import React from "react"
+import React, { Fragment } from "react"
 
 import Genre from "../Genre"
 import Empty from "../Empty"
 import Genres from "../Genres"
 import Spinner from "../Spinner"
 import ApiError from "../ApiError"
+import { Link } from "react-router-dom"
 
 import { isUndefined, isEmpty } from "lodash"
 import { useQuery } from "@apollo/react-hooks"
@@ -18,7 +19,18 @@ const BrowseGenres = () => {
   } else if (!isUndefined(error)) {
     return <ApiError/>
   } else if (isEmpty(data.genres)) {
-    return <Empty/>
+    return (
+      <Empty
+        title="The catalog is empty."
+        text={(
+          <Fragment>
+            <Fragment>You can </Fragment>
+            <Link to="/catalog/add/genre">add</Link>
+            <Fragment> genres to the catalog.</Fragment>
+          </Fragment>
+        )}
+      />
+    )
   } else {
     return (
       <Genres>

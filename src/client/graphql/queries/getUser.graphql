@@ -26,6 +26,7 @@ query getUser($id: ID!) {
       album {
         id
         title
+        cover
       }
     }
     current {
@@ -52,6 +53,7 @@ query getUser($id: ID!) {
       album {
         id
         title
+        cover
       }
     }
     next {
@@ -78,6 +80,7 @@ query getUser($id: ID!) {
       album {
         id
         title
+        cover
       }
     }
     queue {
@@ -104,6 +107,7 @@ query getUser($id: ID!) {
       album {
         id
         title
+        cover
       }
     }
     songs {

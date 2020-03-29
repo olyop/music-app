@@ -1,5 +1,5 @@
 import { isEmpty } from "lodash"
-import { pipe } from "../../helpers/misc"
+import { pipe } from "../../helpers"
 import { map, flattenDepth } from "lodash/fp"
 
 export const isSongsFieldEmpty = (collection, field) => pipe(collection)(

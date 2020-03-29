@@ -2,20 +2,19 @@ import React, { useState, useContext } from "react"
 
 import Song from "../Song"
 import Icon from "../Icon"
-import Spinner from "../Spinner"
 import Progress from "../Progress"
 import { Link } from "react-router-dom"
-import UserContext from "../../context/User"
-import PlayContext from "../../context/Play"
+import UserContext from "../../contexts/User"
+import PlayContext from "../../contexts/Play"
 
+import { isNull } from "lodash"
 import reactBem from "@oly_op/react-bem"
-import { useQuery, useMutation } from "@apollo/react-hooks"
+import { useMutation } from "@apollo/react-hooks"
 import determineUserPrevUpdate from "./determineUserPrevUpdate"
 import determineUserNextUpdate from "./determineUserNextUpdate"
 
 import USER_PREV from "../../graphql/mutations/userPrev.graphql"
 import USER_NEXT from "../../graphql/mutations/userNext.graphql"
-import GET_USER_CURRENT from "../../graphql/queries/getUserCurrent.graphql"
 import USER_QUEUES_FRAG from "../../graphql/fragments/userQueuesFrag.graphql"
 
 import "./PlayerBar.scss"
@@ -31,7 +30,6 @@ const PlayerBar = () => {
   const variables = { userId }
 
   const [ current, setCurrent ] = useState(0)
-  const { loading, data } = useQuery(GET_USER_CURRENT, { variables })
 
   const optimisticResponse = (name, updateFunc) => ({
     __typename: "Mutation",
@@ -66,6 +64,8 @@ const PlayerBar = () => {
   const handlePlayClick = () => setPlay(!play)
   const handleNextClick = () => userNext()
 
+  const isCurrent = !isNull(user.current)
+
   return (
     <section className={bem("")}>
       <div className={bem("controls")}>
@@ -87,12 +87,7 @@ const PlayerBar = () => {
       </div>
       <div className={bem("main")}>
         <div className={bem("main-info")}>
-          {loading ? <Spinner/> : (
-            <Song
-              showAdd={true}
-              song={data.user.current}
-            />
-          )}
+          {isCurrent ? <Song showAdd song={user.current} /> : <div/>}
           <div className={bem("main-info-right")}>
             <Icon
               icon="volume_up"
@@ -115,7 +110,7 @@ const PlayerBar = () => {
         <Progress
           current={current}
           setCurrent={setCurrent}
-          duration={loading ? 0 : data.user.current.duration}
+          duration={isCurrent ? user.current.duration : 0}
         />
       </div>
     </section>

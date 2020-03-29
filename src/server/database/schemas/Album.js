@@ -11,6 +11,10 @@ const definition = {
     required: true,
     maxlength: 256,
   },
+  cover: {
+    type: Buffer,
+    required: true,
+  },
   artists: [{
     index: true,
     minlength: 24,

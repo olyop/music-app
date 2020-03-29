@@ -1,7 +1,7 @@
 import React, { useContext } from "react"
 
 import Icon from "../Icon"
-import UserCtx from "../../ctx/User"
+import UserContext from "../../contexts/User"
 
 import reactBem from "@oly_op/react-bem"
 import { includes, uniqueId } from "lodash"
@@ -27,7 +27,7 @@ const bem = reactBem("AddToLibrary")
 
 const AddToLibrary = ({ doc, className }) => {
 
-  const user = useContext(UserCtx)
+  const user = useContext(UserContext)
   const determineReturn = determineReturnFromDoc(doc)
 
   const key = determineReturn("songs","albums","artists")

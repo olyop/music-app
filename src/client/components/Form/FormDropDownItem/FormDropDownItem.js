@@ -4,7 +4,7 @@ import Img from "../../Img"
 
 import reactBem from "@oly_op/react-bem"
 import { propTypes, defaultProps } from "./props"
-import { catalogUrl, determineKeyName } from "../../../helpers"
+import { determinePhotoKey, determineNameKey } from "../../../helpers"
 
 import "./FormDropDownItem.scss"
 
@@ -20,11 +20,11 @@ const FormDropDownItem = ({ doc, tabIndex, onFieldHitClick }) => (
       <Fragment>
         {doc.__typename === "Genre" ? null : (
           <Img
-            url={catalogUrl(doc)}
             className={bem("img")}
+            url={doc[determinePhotoKey(doc)]}
           />
         )}
-        <span>{doc[determineKeyName(doc)]}</span>
+        <span>{doc[determineNameKey(doc)]}</span>
       </Fragment>
     )}
   />

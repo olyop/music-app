@@ -6,7 +6,7 @@ import DocLink from "../DocLink"
 import Spinner from "../Spinner"
 import ApiError from "../ApiError"
 import SongTitle from "../SongTitle"
-import UserCtx from "../../ctx/User"
+import UserContext from "../../contexts/User"
 import FeaturingArtists from "../FeaturingArtists"
 
 import { propTypes } from "./props"
@@ -22,7 +22,7 @@ import "./Player.scss"
 const bem = reactBem("Player")
 
 const Player = ({ history }) => {
-  const { id: userId } = useContext(UserCtx)
+  const { id: userId } = useContext(UserContext)
   const queryOptions = { variables: { userId } }
   const { loading, error, data } = useQuery(GET_USER_CURRENT, queryOptions)
   if (loading) {
@@ -46,8 +46,8 @@ const Player = ({ history }) => {
           />
           <h1 className={bem("main-title")}>
             <SongTitle
+              showRemixers
               song={current}
-              showRemixers={true}
             />
           </h1>
           <h1 className={bem("main-album")}>

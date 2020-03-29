@@ -2,10 +2,12 @@ query getAddSong {
   artists {
     id
     name
+    photo
   }
   albums {
     id
     title
+    cover
   }
   genres {
     id

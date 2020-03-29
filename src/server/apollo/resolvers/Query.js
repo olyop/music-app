@@ -26,8 +26,7 @@ export default {
   artist: resolver(
     async ({ info, args: { id } }) => {
       const query =
-        Artist
-          .findById(id)
+        Artist.findById(id)
           .select(determineArtistSelect(info))
           .lean()
           .exec()
@@ -37,8 +36,7 @@ export default {
   album: resolver(
     async ({ info, args: { id } }) => {
       const query =
-        Album
-          .findById(id)
+        Album.findById(id)
           .select(determineAlbumSelect(info))
           .lean()
           .exec()
@@ -48,8 +46,7 @@ export default {
   genre: resolver(
     async ({ info, args: { id } }) => {
       const query =
-        Genre
-          .findById(id)
+        Genre.findById(id)
           .select(determineGenreSelect(info))
           .lean()
           .exec()
@@ -59,8 +56,7 @@ export default {
   song: resolver(
     async ({ info, args: { id } }) => {
       const query =
-        Song
-          .findById(id)
+        Song.findById(id)
           .select(determineSongSelect(info))
           .lean()
           .exec()
@@ -70,8 +66,7 @@ export default {
   user: resolver(
     async ({ info, args: { id } }) => {
       const query =
-        User
-          .findById(id)
+        User.findById(id)
           .select(determineUserSelect(info))
           .lean()
           .exec()
@@ -81,8 +76,7 @@ export default {
   artists: resolver(
     async ({ info }) => {
       const query =
-        Artist
-          .find()
+        Artist.find()
           .sort({ name: "asc" })
           .select(determineArtistSelect(info))
           .lean()
@@ -93,8 +87,7 @@ export default {
   albums: resolver(
     async ({ info }) => {
       const query =
-        Album
-          .find()
+        Album.find()
           .sort({ released: "desc", title: "asc" })
           .select(determineAlbumSelect(info))
           .lean()
@@ -105,8 +98,7 @@ export default {
   genres: resolver(
     async ({ info }) => {
       const query =
-        Genre
-          .find()
+        Genre.find()
           .sort({ name: "asc" })
           .select(determineGenreSelect(info))
           .lean()
@@ -117,10 +109,20 @@ export default {
   songs: resolver(
     async ({ info }) => {
       const query =
-        Song
-          .find()
+        Song.find()
           .sort({ title: "asc" })
           .select(determineSongSelect(info))
+          .lean()
+          .exec()
+      return deserializeCollection(await query)
+    },
+  ),
+  users: resolver(
+    async ({ info }) => {
+      const query =
+        User.find()
+          .sort({ name: "asc" })
+          .select(determineUserSelect(info))
           .lean()
           .exec()
       return deserializeCollection(await query)

@@ -5,7 +5,7 @@ import Spinner from "../Spinner"
 import ApiError from "../ApiError"
 import Playlist from "../Playlist"
 import Playlists from "../Playlists"
-import UserCtx from "../../ctx/User"
+import UserContext from "../../contexts/User"
 
 import { isUndefined, isEmpty } from "lodash"
 import { useQuery } from "@apollo/react-hooks"
@@ -13,7 +13,7 @@ import { useQuery } from "@apollo/react-hooks"
 import GET_USER_PLAYLISTS from "../../graphql/queries/getUserPlaylists.graphql"
 
 const LibraryPlaylists = () => {
-  const { id } = useContext(UserCtx)
+  const { id } = useContext(UserContext)
   const variables = { id }
   const { loading, error, data } = useQuery(GET_USER_PLAYLISTS, { variables })
   if (loading) {

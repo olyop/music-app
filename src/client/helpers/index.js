@@ -7,7 +7,8 @@ import _findMatches from "./findMatches"
 import _deserializeDate from "./deserializeDate"
 import _determineConcat from "./determineConcat"
 import _determinePlural from "./determinePlural"
-import _determineKeyName from "./determineKeyName"
+import _determineNameKey from "./determineNameKey"
+import _determinePhotoKey from "./determinePhotoKey"
 import _deserializeDuration from "./deserializeDuration"
 
 export const pipe = _pipe
@@ -19,5 +20,6 @@ export const findMatches = _findMatches
 export const deserializeDate = _deserializeDate
 export const determineConcat = _determineConcat
 export const determinePlural = _determinePlural
-export const determineKeyName = _determineKeyName
+export const determineNameKey = _determineNameKey
+export const determinePhotoKey = _determinePhotoKey
 export const deserializeDuration = _deserializeDuration

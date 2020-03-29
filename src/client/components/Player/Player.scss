@@ -17,6 +17,9 @@
     &:hover {
       background-color: #e0e0e0; } }
   &__main {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
     &-cover {
       width: 30vw;
       height: auto;

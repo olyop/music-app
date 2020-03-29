@@ -5,7 +5,6 @@ import DocLink from "../DocLink"
 
 import { propTypes } from "./props"
 import reactBem from "@oly_op/react-bem"
-import { catalogUrl } from "../../helpers"
 
 import "./Artist.scss"
 
@@ -14,7 +13,7 @@ const bem = reactBem("Artist")
 const Artist = ({ artist }) => (
   <div className={bem("")}>
     <Cover
-      url={catalogUrl(artist)}
+      url={artist.photo}
       className={bem("cover")}
     />
     <h2 className={bem("name")}>

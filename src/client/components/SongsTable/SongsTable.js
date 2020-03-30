@@ -7,6 +7,7 @@ import DocLink from "../DocLink"
 import DocLinks from "../DocLinks"
 import SongTitle from "../SongTitle"
 import PlayButton from "../PlayButton"
+import NextButton from "../NextButton"
 import { Link } from "react-router-dom"
 import AddToLibrary from "../AddToLibrary"
 
@@ -25,10 +26,10 @@ const SongsTable = ({ songs, orderByInit, columnsToIgnore }) => {
 
   const [ orderByParams, setOrderByParams ] = useState(orderByInit)
 
-  const handleFieldHeadClick = name => {
+  const handleFieldHeadClick = name => () => {
     const { field, order } = orderByParams
     if (field === name) setOrderByParams({ field, order: !order })
-    else setOrderByParams({ field: name, order: true })
+    else setOrderByParams({ field: name, order: false })
   }
 
   const showColumn = show(columnsToIgnore)
@@ -59,16 +60,16 @@ const SongsTable = ({ songs, orderByInit, columnsToIgnore }) => {
           {showColumn("trackNumber") ? (
             <th
               children="#"
+              onClick={handleFieldHeadClick("trackNumber")}
               className={bem("head-trackNumber","head-row-col")}
-              onClick={() => handleFieldHeadClick("trackNumber")}
             />
           ) : null}
 
           {showColumn("title") ? (
             <th
               children="Title"
+              onClick={handleFieldHeadClick("title")}
               className={bem("head-title","head-row-col")}
-              onClick={() => handleFieldHeadClick("title")}
             />
           ) : null}
 
@@ -98,12 +99,12 @@ const SongsTable = ({ songs, orderByInit, columnsToIgnore }) => {
 
           {showColumn("duration") ? (
             <th
+              onClick={handleFieldHeadClick("duration")}
               className={bem("head-duration","head-row-col")}
               children={(
                 <Icon
                   icon="access_time"
                   className={bem("head-row-col-icon")}
-                  onClick={() => handleFieldHeadClick("duration")}
                 />
               )}
             />
@@ -112,55 +113,61 @@ const SongsTable = ({ songs, orderByInit, columnsToIgnore }) => {
           {showColumn("artists") ? (
             <th
               children="Artists"
+              onClick={handleFieldHeadClick("artists")}
               className={bem("head-artists","head-row-col")}
-              onClick={() => handleFieldHeadClick("artists")}
             />
           ) : null}
 
           {showColumn("remixers") ? (
             <th
               children="Remixers"
+              onClick={handleFieldHeadClick("remixers")}
               className={bem("head-remixers","head-row-col")}
-              onClick={() => handleFieldHeadClick("remixers")}
             />
           ) : null}
 
           {showColumn("album") ? (
             <th
               children="Album"
+              onClick={handleFieldHeadClick("album")}
               className={bem("head-album","head-row-col")}
-              onClick={() => handleFieldHeadClick("album")}
             />
           ) : null}
 
           {showColumn("genres") ? (
             <th
               children="Genres"
+              onClick={handleFieldHeadClick("genres")}
               className={bem("head-genres","head-row-col")}
-              onClick={() => handleFieldHeadClick("genres")}
             />
           ) : null}
 
-          {showColumn("plays") ? (
+          {showColumn("numOfPlays") ? (
             <th
-              onClick={() => handleFieldHeadClick("plays")}
-              className={bem("head-plays","head-row-noHover","head-row-col")}
+              onClick={handleFieldHeadClick("numOfPlays")}
+              className={bem("head-numOfPlays","head-row-col")}
+              children={(
+                <Icon
+                  icon="audiotrack"
+                  className={bem("head-row-col-icon")}
+                />
+              )}
             />
           ) : null}
 
           {showColumn("released") ? (
             <th
               children="Released"
+              onClick={handleFieldHeadClick("released")}
               className={bem("head-released","head-row-col")}
-              onClick={() => handleFieldHeadClick("released")}
             />
           ) : null}
 
           {showColumn("dateCreated") ? (
             <th
               children="Added"
+              onClick={handleFieldHeadClick("dateCreated")}
               className={bem("head-dateCreated","head-row-col")}
-              onClick={() => handleFieldHeadClick("dateCreated")}
             />
           ) : null}
 
@@ -248,9 +255,8 @@ const SongsTable = ({ songs, orderByInit, columnsToIgnore }) => {
                     <td
                       className={bem("body-row-next","body-row-col")}
                       children={(
-                        <Icon
-                          title="Next"
-                          icon="double_arrow"
+                        <NextButton
+                          doc={song}
                           className={bem("body-row-next-icon")}
                         />
                       )}
@@ -378,14 +384,14 @@ const SongsTable = ({ songs, orderByInit, columnsToIgnore }) => {
                     />
                   ) : null}
 
-                  {showColumn("plays") ? (
+                  {showColumn("numOfPlays") ? (
                     <td
-                      className={bem("body-row-plays","body-row-col")}
+                      className={bem("body-row-numOfPlays","body-row-col")}
                       children={numOfPlays === 0 ? null : (
                         <Link
                           to={`/plays/${id}`}
                           children={numOfPlays}
-                          className={bem("body-row-plays-span","body-row-col-span")}
+                          className={bem("body-row-numOfPlays-span","body-row-col-span")}
                         />
                       )}
                     />

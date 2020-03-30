@@ -53,6 +53,7 @@ type UserArtist {
   plays: [Play!]!
   artist: Artist!
   numOfPlays: Int!
+  dateCreated: Int!
   inLibrary: Boolean!
 }
 
@@ -101,15 +102,15 @@ type Mutation {
   userNext(
     userId: ID!
   ): User!
-  userSongNext(
+  userAddSongNext(
     userId: ID!
     songId: ID!
   ): User!
-  userSongLater(
+  userAddSongLater(
     userId: ID!
     songId: ID!
   ): User!
-  userSongQueue(
+  userAddSongQueue(
     userId: ID!
     songId: ID!
   ): User!

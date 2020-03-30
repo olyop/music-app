@@ -48,7 +48,7 @@ export default {
   ),
   numOfPlays: resolver(
     async () => {
-      return 1
+      return 0
     },
   ),
 }

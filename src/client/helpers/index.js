@@ -10,6 +10,7 @@ import _determinePlural from "./determinePlural"
 import _determineNameKey from "./determineNameKey"
 import _determinePhotoKey from "./determinePhotoKey"
 import _deserializeDuration from "./deserializeDuration"
+import _determineReturnFromDoc from "./determineReturnFromDoc"
 
 export const pipe = _pipe
 export const show = _show
@@ -23,3 +24,4 @@ export const determinePlural = _determinePlural
 export const determineNameKey = _determineNameKey
 export const determinePhotoKey = _determinePhotoKey
 export const deserializeDuration = _deserializeDuration
+export const determineReturnFromDoc = _determineReturnFromDoc

@@ -1,11 +1,5 @@
-mutation userPlay(
-  $userId: ID!
-  $songId: ID!
-) {
-  userPlay(
-    userId: $userId
-    songId: $songId
-  ) {
+mutation userPlay($userId: ID!, $songId: ID!) {
+  userPlay(userId: $userId, songId: $songId) {
     id
     prev {
       id
@@ -31,6 +25,7 @@ mutation userPlay(
       album {
         id
         title
+        cover
       }
     }
     current {
@@ -57,6 +52,7 @@ mutation userPlay(
       album {
         id
         title
+        cover
       }
     }
     next {
@@ -83,6 +79,7 @@ mutation userPlay(
       album {
         id
         title
+        cover
       }
     }
     queue {
@@ -109,6 +106,7 @@ mutation userPlay(
       album {
         id
         title
+        cover
       }
     }
   }

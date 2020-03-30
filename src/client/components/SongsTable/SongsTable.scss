@@ -33,6 +33,7 @@
         &:hover {
           background-color: transparent; } } }
     &-cover,
+    &-numOfPlays,
     &-duration {
       padding: 4px;
       text-align: center; }
@@ -42,11 +43,11 @@
       text-align: center; }
     &-album,
     &-genres,
-    &-plays,
     &-artists,
     &-released,
     &-remixers,
-    &-duration {
+    &-duration,
+    &-numOfPlays {
       @media (max-width: 700px) {
         display: none; } } }
   &__body {
@@ -59,7 +60,7 @@
       &:hover &-next-icon,
       &:hover &-later-icon,
       &:hover &-queue-icon,
-      &:hover &-plays-span {
+      &:hover &-numOfPlays-span {
         opacity: 1; }
       &:last-child {
         border-bottom: none; }
@@ -98,13 +99,13 @@
           opacity: 0; }
         &-text {
           opacity: 0; } }
-      &-plays,
       &-album,
       &-genres,
       &-artists,
       &-released,
       &-remixers,
       &-duration,
+      &-numOfPlays,
       &-dateCreated {
         @media (max-width: 700px) {
           display: none; } }
@@ -131,7 +132,7 @@
         &-song {
           @media (min-width: 700px) {
             display: none; } } }
-      &-plays {
+      &-numOfPlays {
         width: 33px;
         text-align: right;
         &-span {
@@ -140,8 +141,8 @@
             text-decoration: underline; } } }
       &-duration {
         width: 55px; }
-      &-plays,
-      &-duration {
+      &-duration,
+      &-numOfPlays {
         &-span {
           color: #757575; } }
       &-artists {

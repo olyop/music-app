@@ -1,28 +1,17 @@
 import React, { useContext, Fragment } from "react"
 
 import Empty from "../Empty"
-import Spinner from "../Spinner"
-import ApiError from "../ApiError"
 import SongsTable from "../SongsTable"
 import { Link } from "react-router-dom"
 import UserContext from "../../contexts/User"
 
+import { isEmpty } from "lodash"
 import { pipe } from "../../helpers"
-import { filter, map } from "lodash/fp"
-import { isUndefined, isEmpty } from "lodash"
-import { useQuery } from "@apollo/react-hooks"
-
-import GET_USER_SONGS from "../../graphql/queries/getUserSongs.graphql"
+import { filter, map, orderBy } from "lodash/fp"
 
 const LibrarySongs = () => {
-  const { id } = useContext(UserContext)
-  const variables = { id }
-  const { loading, error, data } = useQuery(GET_USER_SONGS, { variables })
-  if (loading) {
-    return <Spinner/>
-  } else if (!isUndefined(error)) {
-    return <ApiError/>
-  } else if (isEmpty(data.user.songs)) {
+  const { songs } = useContext(UserContext)
+  if (isEmpty(songs)) {
     return (
       <Empty
         title="Your library is empty"
@@ -40,9 +29,10 @@ const LibrarySongs = () => {
       <SongsTable
         orderByInit={{ field: "title", order: true }}
         columnsToIgnore={["cover","trackNumber","released"]}
-        songs={pipe(data.user.songs)(
+        songs={pipe(songs)(
           filter(({ inLibrary }) => inLibrary),
           map(({ song, dateCreated, numOfPlays }) => ({ ...song, numOfPlays, dateCreated })),
+          orderBy("dateCreated","desc"),
         )}
       />
     )

@@ -6,9 +6,9 @@ import { determineUserAlbumSelect } from "../../../helpers/resolvers.js"
 const { UserAlbum } = database.models
 
 const removeUserAlbum = async ({ info, args }) => {
-  const  { userId, songId } = args
+  const  { userId, albumId } = args
 
-  const filter = { user: userId, song: songId }
+  const filter = { user: userId, album: albumId }
 
   const query =
     UserAlbum.findOneAndUpdate(filter, { inLibrary: false })

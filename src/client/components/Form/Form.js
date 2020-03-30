@@ -61,7 +61,7 @@ const Form = ({ title, fields, rememberText, submitText, submit }) => {
         )}
       </FormFields>
 
-      {title === "Add Song" ? (
+      {title === "Song" ? (
         <FormRemember
           text={rememberText}
           remember={remember}

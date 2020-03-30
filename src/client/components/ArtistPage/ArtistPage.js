@@ -6,6 +6,7 @@ import Albums from "../Albums"
 import Loading from "../Loading"
 import ApiError from "../ApiError"
 import SongsTable from "../SongsTable"
+import AddToLibrary from "../AddToLibrary"
 
 import reactBem from "@oly_op/react-bem"
 import { useParams } from "react-router-dom"
@@ -37,7 +38,13 @@ const ArtistPage = () => {
           className={bem("cover")}
           imgClassName={bem("cover-img")}
         />
-        <h2 className={bem("title")}>{name}</h2>
+        <h2 className={bem("name")}>
+          <span className={bem("name-text")}>{name}</span>
+          <AddToLibrary
+            doc={artist}
+            className={bem("name-add")}
+          />
+        </h2>
         <div className={bem("length")}>
           {songs.length}
           <Fragment> song</Fragment>
@@ -68,7 +75,7 @@ const ArtistPage = () => {
             <SongsTable
               songs={songs}
               orderByInit={{ field: "title", order: true }}
-              columnsToIgnore={["cover","plays","trackNumber","dateCreated"]}
+              columnsToIgnore={["cover","numOfPlays","trackNumber","dateCreated"]}
             />
           </div>
         )}

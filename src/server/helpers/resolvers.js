@@ -46,7 +46,7 @@ export const determineSelect = Model => {
   }
 }
 
-export const determineUserPrevUpdate = ({ prev, current, next, queue }) => {
+export const determineUserPrev = ({ prev, current, next, queue }) => {
   if (isEmpty(prev)) {
     return {}
   } else if (isEmpty(next)) {
@@ -64,7 +64,7 @@ export const determineUserPrevUpdate = ({ prev, current, next, queue }) => {
   }
 }
 
-export const determineUserNextUpdate = ({ prev, current, next, queue }) => {
+export const determineUserNext = ({ prev, current, next, queue }) => {
   if (isEmpty(next) && isEmpty(queue)) {
     return {}
   } else if (isEmpty(next)) {
@@ -81,6 +81,7 @@ export const determineUserNextUpdate = ({ prev, current, next, queue }) => {
     }
   }
 }
+
 const {
   User,
   Play,

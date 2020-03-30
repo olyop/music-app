@@ -17,8 +17,7 @@ export default {
   user: resolver(
     async ({ info, parent: { user } }) => {
       const query =
-        User
-          .findById(user)
+        User.findById(user)
           .select(determineUserSelect(info))
           .lean()
           .exec()
@@ -28,8 +27,7 @@ export default {
   artist: resolver(
     async ({ info, parent: { artist } }) => {
       const query =
-        Artist
-          .findById(artist)
+        Artist.findById(artist)
           .select(determineArtistSelect(info))
           .lean()
           .exec()
@@ -38,8 +36,7 @@ export default {
   ),
   plays: resolver(
     async () => await (
-      Play
-        .find()
+      Play.find()
         .lean()
         .map(deserializeCollection)
         .exec()
@@ -47,7 +44,7 @@ export default {
   ),
   numOfPlays: resolver(
     async () => {
-      return 1
+      return 0
     },
   ),
 }

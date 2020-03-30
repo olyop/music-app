@@ -17,9 +17,18 @@
       border-radius: 0;
       @media (max-width: 700px) {
         border-radius: 0; } } }
-  &__title {
-    font-size: 30rem;
-    margin-bottom: 10px; }
+  &__name {
+    display: flex;
+    margin-bottom: 8px;
+    align-items: center;
+    &-text {
+      font-size: 26rem;
+      @media (min-width: 700px) {
+        font-size: 30rem; } }
+    &-add {
+      font-size: 25rem;
+      margin-left: 5px;
+      border-radius: 100%; } }
   &__length {
     font-size: 17rem;
     margin-bottom: 20px; }

@@ -1,5 +1,5 @@
+import isNull from "lodash/isNull.js"
 import database from "../../database/index.js"
-import isUndefined from "lodash/isUndefined.js"
 import { resolver, pipe } from "../../helpers/misc.js"
 
 import {
@@ -30,8 +30,7 @@ export default {
   prev: resolver(
     async ({ info, parent: { prev } }) => {
       const query =
-        Song
-          .find({ _id: prev })
+        Song.find({ _id: prev })
           .select(determineSongSelect(info))
           .lean()
           .exec()
@@ -43,11 +42,9 @@ export default {
   ),
   current: resolver(
     async ({ info, parent: { current } }) => {
-      if (isUndefined(current)) return null
-
+      if (isNull(current)) return null
       const query =
-        Song
-          .findById(current)
+        Song.findById(current)
           .select(determineSongSelect(info))
           .lean()
           .exec()
@@ -58,8 +55,7 @@ export default {
   next: resolver(
     async ({ info, parent: { next } }) => {
       const query =
-        Song
-          .find({ _id: next })
+        Song.find({ _id: next })
           .select(determineSongSelect(info))
           .lean()
           .exec()
@@ -72,8 +68,7 @@ export default {
   queue: resolver(
     async ({ info, parent: { queue } }) => {
       const query =
-        Song
-          .find({ _id: queue })
+        Song.find({ _id: queue })
           .select(determineSongSelect(info))
           .lean()
           .exec()
@@ -86,8 +81,7 @@ export default {
   playlists: resolver(
     async ({ info, parent: { playlists } }) => {
       const query =
-        Playlist
-          .find({ _id: playlists })
+        Playlist.find({ _id: playlists })
           .select(determinePlaylistSelect(info))
           .lean()
           .exec()
@@ -97,8 +91,7 @@ export default {
   plays: resolver(
     async ({ info, parent: { id } }) => {
       const query =
-        Play
-          .find({ user: id })
+        Play.find({ user: id })
           .select(determinePlaySelect(info))
           .lean()
           .exec()
@@ -108,8 +101,7 @@ export default {
   songs: resolver(
     async ({ info, parent: { id } }) => {
       const query =
-        UserSong
-          .find({ user: id, inLibrary: true })
+        UserSong.find({ user: id, inLibrary: true })
           .select(determineUserSongSelect(info,["user"]))
           .lean()
           .exec()
@@ -119,8 +111,7 @@ export default {
   albums: resolver(
     async ({ info, parent: { id } }) => {
       const query =
-        UserAlbum
-          .find({ user: id, inLibrary: true })
+        UserAlbum.find({ user: id, inLibrary: true })
           .select(determineUserAlbumSelect(info,["user"]))
           .lean()
           .exec()
@@ -130,8 +121,7 @@ export default {
   artists: resolver(
     async ({ info, parent: { id } }) => {
       const query =
-        UserArtist
-          .find({ user: id, inLibrary: true })
+        UserArtist.find({ user: id, inLibrary: true })
           .select(determineUserArtistSelect(info))
           .lean()
           .exec()

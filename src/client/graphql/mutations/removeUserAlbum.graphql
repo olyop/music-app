@@ -1,6 +1,8 @@
 mutation removeUserAlbum($userId: ID!, $albumId: ID!) {
   removeUserAlbum(userId: $userId, albumId: $albumId) {
     id
+    inLibrary
+    dateCreated
     album {
       id
       title

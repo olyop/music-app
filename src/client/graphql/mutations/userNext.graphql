@@ -25,6 +25,7 @@ mutation userNext($userId: ID!) {
       album {
         id
         title
+        cover
       }
     }
     current {
@@ -51,6 +52,7 @@ mutation userNext($userId: ID!) {
       album {
         id
         title
+        cover
       }
     }
     next {
@@ -77,6 +79,7 @@ mutation userNext($userId: ID!) {
       album {
         id
         title
+        cover
       }
     }
     queue {
@@ -103,6 +106,7 @@ mutation userNext($userId: ID!) {
       album {
         id
         title
+        cover
       }
     }
   }

@@ -1,31 +1,25 @@
 import React, { useContext } from "react"
 
 import Empty from "../Empty"
-import Spinner from "../Spinner"
-import ApiError from "../ApiError"
 import Playlist from "../Playlist"
 import Playlists from "../Playlists"
 import UserContext from "../../contexts/User"
 
-import { isUndefined, isEmpty } from "lodash"
-import { useQuery } from "@apollo/react-hooks"
-
-import GET_USER_PLAYLISTS from "../../graphql/queries/getUserPlaylists.graphql"
+import { isEmpty } from "lodash"
 
 const LibraryPlaylists = () => {
-  const { id } = useContext(UserContext)
-  const variables = { id }
-  const { loading, error, data } = useQuery(GET_USER_PLAYLISTS, { variables })
-  if (loading) {
-    return <Spinner/>
-  } else if (!isUndefined(error)) {
-    return <ApiError/>
-  } else if (isEmpty(data.user.playlists)) {
-    return <Empty/>
+  const { playlists } = useContext(UserContext)
+  if (isEmpty(playlists)) {
+    return (
+      <Empty
+        title="No Playlists"
+        text="You have not created any playlists yet."
+      />
+    )
   } else {
     return (
       <Playlists>
-        {data.user.playlists.map(
+        {playlists.map(
           playlist => (
             <Playlist
               key={playlist.id}

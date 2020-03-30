@@ -4,6 +4,7 @@ export const propTypes = {
   className: string,
   doc: shape({
     id: string.isRequired,
+    __typename: string.isRequired,
   }).isRequired,
 }
 

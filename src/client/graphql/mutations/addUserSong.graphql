@@ -1,6 +1,9 @@
 mutation addUserSong($userId: ID!, $songId: ID!) {
   addUserSong(userId: $userId, songId: $songId) {
     id
+    inLibrary
+    numOfPlays
+    dateCreated
     song {
       id
       title

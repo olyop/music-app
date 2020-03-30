@@ -112,24 +112,91 @@ query getUser($id: ID!) {
     }
     songs {
       id
+      inLibrary
+      numOfPlays
+      dateCreated
       song {
         id
-      }
+        mix
+        title
+        duration
+        featuring {
+          id
+          name
+        }
+        remixers {
+          id
+          name
+        }
+        artists {
+          id
+          name
+        }
+        genres {
+          id
+          name
+        }
+        album {
+          id
+          title
+        }
+      } 
     }
     albums {
       id
+      inLibrary
+      dateCreated
       album {
         id
+        title
+        cover
+        artists {
+          id
+          name
+        }
       }
     }
     artists {
       id
+      inLibrary
+      dateCreated
       artist {
         id
+        name
+        photo
       }
     }
     playlists {
       id
+      name
+      songs {
+        id
+        mix
+        title
+        duration
+        featuring {
+          id
+          name
+        }
+        remixers {
+          id
+          name
+        }
+        artists {
+          id
+          name
+        }
+        genres {
+          id
+          name
+        }
+        album {
+          id
+          title
+          cover
+          released
+        }
+      }
     }
   }
 }

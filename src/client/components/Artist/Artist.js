@@ -2,6 +2,7 @@ import React from "react"
 
 import Cover from "../Cover"
 import DocLink from "../DocLink"
+import AddToLibrary from "../AddToLibrary"
 
 import { propTypes } from "./props"
 import reactBem from "@oly_op/react-bem"
@@ -16,12 +17,18 @@ const Artist = ({ artist }) => (
       url={artist.photo}
       className={bem("cover")}
     />
-    <h2 className={bem("name")}>
-      <DocLink
+    <div className={bem("info")}>
+      <h2 className={bem("info-name")}>
+        <DocLink
+          doc={artist}
+          path="/artist"
+        />
+      </h2>
+      <AddToLibrary
         doc={artist}
-        path="/artist"
+        className={bem("info-add")}
       />
-    </h2>
+    </div>
   </div>
 )
 

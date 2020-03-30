@@ -3,34 +3,24 @@ import React, { useContext } from "react"
 import Img from "../Img"
 import Icon from "../Icon"
 import DocLink from "../DocLink"
-import Spinner from "../Spinner"
-import ApiError from "../ApiError"
 import SongTitle from "../SongTitle"
 import UserContext from "../../contexts/User"
 import FeaturingArtists from "../FeaturingArtists"
 
+import { isNull } from "lodash"
 import { propTypes } from "./props"
-import { isUndefined } from "lodash"
 import reactBem from "@oly_op/react-bem"
 import { catalogUrl } from "../../helpers"
-import { useQuery } from "@apollo/react-hooks"
-
-import GET_USER_CURRENT from "../../graphql/queries/getUserCurrent.graphql"
 
 import "./Player.scss"
 
 const bem = reactBem("Player")
 
 const Player = ({ history }) => {
-  const { id: userId } = useContext(UserContext)
-  const queryOptions = { variables: { userId } }
-  const { loading, error, data } = useQuery(GET_USER_CURRENT, queryOptions)
-  if (loading) {
-    return <Spinner/>
-  } else if (!isUndefined(error)) {
-    return <ApiError/>
+  const { current } = useContext(UserContext)
+  if (isNull(current)) {
+    return <div className={bem("")} />
   } else {
-    const { current } = data.user
     const { artists, featuring, album } = current
     return (
       <div className={bem("")}>

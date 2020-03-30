@@ -29,7 +29,6 @@ const PlayButton = ({ song, className }) => {
   const isPlaying = isPlay && play
 
   const optimisticResponse = {
-    __typename: "Mutation",
     userPlay: {
       prev: [],
       next: [],
@@ -44,7 +43,10 @@ const PlayButton = ({ song, className }) => {
     client.writeFragment({
       id: userId,
       fragment: USER_QUEUES_FRAG,
-      data: { ...result.data.userPlay, __typename: "User" },
+      data: {
+        ...result.data.userPlay,
+        __typename: "User",
+      },
     })
   }
 

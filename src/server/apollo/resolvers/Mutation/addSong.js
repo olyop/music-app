@@ -1,5 +1,6 @@
-import NodeID3 from "node-id3"
+import s3 from "../../../s3.js"
 import mp3Duration from "mp3-duration"
+import { S3_BUCKET } from "../../../globals.js"
 import database from "../../../database/index.js"
 import { resolver } from "../../../helpers/misc.js"
 import { deserializeDocument } from "../../../helpers/collections.js"
@@ -14,19 +15,27 @@ const addSong = async ({ args }) => {
   let chunks = []
   const stream = upload.createReadStream()
   for await (const chunk of stream) chunks.push(chunk)
-  const audioFile = Buffer.concat(chunks)
+  const buffer = Buffer.concat(chunks)
 
-  const duration = await mp3Duration(audioFile)
-  const audioBuffer = NodeID3.removeTagsFromBuffer(audioFile)
+  const duration = await mp3Duration(buffer)
 
   // create in database
   const doc = await Song.create({
     ...fields,
-    audio: audioBuffer,
     duration: Math.floor(duration),
   })
 
-  return deserializeDocument(doc.toObject())
+  const song = deserializeDocument(doc.toObject())
+
+  // upload to s3
+  await s3.upload({
+    Body: buffer,
+    Bucket: S3_BUCKET,
+    ACL: "public-read",
+    Key: `songs/${song.id}.mp3`
+  }).promise()
+
+  return song
 }
 
 export default resolver(addSong)

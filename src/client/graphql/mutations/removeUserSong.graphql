@@ -1,6 +1,8 @@
 mutation removeUserSong($userId: ID!, $songId: ID!) {
   removeUserSong(userId: $userId, songId: $songId) {
     id
+    inLibrary
+    dateCreated
     song {
       id
       title

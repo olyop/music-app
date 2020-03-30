@@ -4,10 +4,10 @@ import Icon from "../Icon"
 import UserContext from "../../contexts/User"
 
 import reactBem from "@oly_op/react-bem"
-import { includes, uniqueId } from "lodash"
 import { useMutation } from "@apollo/react-hooks"
 import { propTypes, defaultProps } from "./props"
-import determineReturnFromDoc from "./determineReturnFromDoc"
+import { includes, find, uniqueId } from "lodash"
+import { determineReturnFromDoc } from "../../helpers"
 
 import ADD_USER_SONG from "../../graphql/mutations/addUserSong.graphql"
 import ADD_USER_ALBUM from "../../graphql/mutations/addUserAlbum.graphql"
@@ -41,6 +41,7 @@ const AddToLibrary = ({ doc, className }) => {
   const { id: userId, [key]: docs } = user
   const variables = { userId, [variablesKey]: docId }
   const inLibrary = includes(docs.map(({ [userDocKey]: { id } }) => id), docId)
+  const userDocId = inLibrary ? find(docs, ({ [userDocKey]: { id } }) => id === docId).id : uniqueId()
   const mutationName = inLibrary ? mutationRemoveName : mutationAddName
 
   const MUTATION = inLibrary ? determineReturn(
@@ -60,12 +61,13 @@ const AddToLibrary = ({ doc, className }) => {
   )
 
   const optimisticResponse = {
-    __typename: "Mutation",
     [mutationName]: {
-      id: uniqueId(),
+      numOfPlays: 0,
+      id: userDocId,
       [userDocKey]: doc,
       inLibrary: !inLibrary,
       __typename: docTypeName,
+      dateCreated: Math.floor(Date.now() / 1000),
     },
   }
 

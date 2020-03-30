@@ -9,8 +9,7 @@ export default {
   songs: resolver(
     async ({ info, parent: { songs } }) => {
       const query =
-        Song
-          .find({ _id: songs })
+        Song.find({ _id: songs })
           .sort({ name: "asc" })
           .select(determineSongSelect(info))
           .lean()

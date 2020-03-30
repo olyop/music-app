@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import {
   noopParse,
   validateId,
@@ -250,8 +251,8 @@ const fieldsConifg = ({ artists, albums, genres }) => [
     isDoc: false,
     init: "",
     req: true,
-    min: 0,
-    max: 16777216,
+    min: 1,
+    max: 5e7,
     parse: {
       in: noopParse,
       out: noopParse,
@@ -259,13 +260,13 @@ const fieldsConifg = ({ artists, albums, genres }) => [
     validators: [
       {
         id: uniqueId(),
-        msg: "data type of file.",
-        check: val => val.file instanceof File,
+        msg: "valid and of file type of mp3.",
+        check: val => (isUndefined(val.file) ? false : val.file.type === "audio/mp3") && val.file instanceof File,
       },
       {
         id: uniqueId(),
-        msg: "file type of mp3.",
-        check: val => (isUndefined(val.file) ? false : val.file.type === "audio/mp3"),
+        msg: "size no more than 50 MB",
+        check: val => (isUndefined(val.file) ? false : val.file.size < 5e7),
       },
     ],
   },

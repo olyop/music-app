@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import { uniqueId, isString, isUndefined } from "lodash"
 import { isStringLengthInRange, validateArrayOfIds, noopParse } from "../helpers"
 
@@ -88,7 +89,7 @@ const fieldsConifg = ({ artists }) => [
     init: "",
     req: true,
     min: 0,
-    max: 16777216,
+    max: 250000,
     parse: {
       in: noopParse,
       out: noopParse,
@@ -96,13 +97,13 @@ const fieldsConifg = ({ artists }) => [
     validators: [
       {
         id: uniqueId(),
-        msg: "data type of file.",
-        check: val => val.file instanceof File,
+        msg: "valid file and of type of jpg.",
+        check: val => (isUndefined(val.file) ? false : val.file.type === "image/jpeg") && val.file instanceof File,
       },
       {
         id: uniqueId(),
-        msg: "file type of jpg.",
-        check: val => (isUndefined(val.file) ? false : val.file.type === "image/jpeg"),
+        msg: "size no more than 250 KB",
+        check: val => (isUndefined(val.file) ? false : val.file.size < 250000),
       },
     ],
   },

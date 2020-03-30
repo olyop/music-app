@@ -13,8 +13,7 @@ export default {
   user: resolver(
     async ({ info, parent: { user } }) => {
       const query =
-        User
-          .findById(user)
+        User.findById(user)
           .select(determineUserSelect(info))
           .lean()
           .exec()
@@ -24,8 +23,7 @@ export default {
   song: resolver(
     async ({ info, parent: { song } }) => {
       const query =
-        Song
-          .findById(song)
+        Song.findById(song)
           .select(determineSongSelect(info))
           .lean()
           .exec()

@@ -5,7 +5,7 @@ import Song from "../Song"
 import PlayButton from "../PlayButton"
 import UserContext from "../../contexts/User"
 
-import { isEmpty } from "lodash"
+import { isNull, isEmpty } from "lodash"
 import reactBem from "@oly_op/react-bem"
 import createQueuesArray from "./createQueuesArray"
 
@@ -20,7 +20,9 @@ const Queues = () => {
     <div className={bem("")}>
       {queues.map(
         queue => {
-          if (isEmpty(queue.songs)) {
+          if (isNull(queue.songs[0])) {
+            return null
+          } else if (isEmpty(queue.songs)) {
             return null
           } else {
             return (

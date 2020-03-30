@@ -18,8 +18,7 @@ export default {
   user: resolver(
     async ({ info, parent: { user } }) => {
       const query =
-        User
-          .findById(user)
+        User.findById(user)
           .select(determineUserSelect(info))
           .lean()
           .exec()
@@ -29,8 +28,7 @@ export default {
   song: resolver(
     async ({ info, parent: { song } }) => {
       const query =
-        Song
-          .findById(song)
+        Song.findById(song)
           .select(determineSongSelect(info))
           .lean()
           .exec()
@@ -40,8 +38,7 @@ export default {
   plays: resolver(
     async ({ info, parent: { user, song } }) => {
       const query =
-        Play
-          .find({ user, song })
+        Play.find({ user, song })
           .select(determinePlaySelect(info))
           .lean()
           .exec()
@@ -51,8 +48,7 @@ export default {
   numOfPlays: resolver(
     async ({ parent: { user, song } }) => {
       const query =
-        Play
-          .find({ user, song })
+        Play.find({ user, song })
           .select({ _id: 1 })
           .lean()
           .exec()

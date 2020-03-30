@@ -90,7 +90,7 @@
     "apollo-link-http": "^1.5.16",
     "apollo-server": "^2.11.0",
     "apollo-server-express": "^2.11.0",
-    "apollo-upload-client": "^12.1.0",
+    "apollo-upload-client": "^13.0.0",
     "aws-sdk": "^2.646.0",
     "body-parser": "^1.19.0",
     "compression": "^1.7.4",

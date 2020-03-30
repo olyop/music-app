@@ -81,11 +81,7 @@ export default {
           .select(determineArtistSelect(info))
           .lean()
           .exec()
-      const temp = deserializeCollection(await query)
-      return temp.map(x => {
-        console.log(x)
-        return x
-      })
+      return deserializeCollection(await query)
     },
   ),
   albums: resolver(

@@ -1,6 +1,8 @@
 @import "../../globals/index.scss";
 
 .Artist {
+  &:hover &__info-add {
+    opacity: 1; }
   &__cover:before {
     padding-top: 56.25%; }
   &__info {
@@ -13,5 +15,7 @@
       padding-top: 10px;
       font-size: 20rem; }
     &-add {
+      opacity: 0;
+      margin-top: 4px;
       font-size: 26rem;
-      margin-top: 4px; } } }
+      transition: .4s opacity;  } } }

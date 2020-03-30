@@ -19,8 +19,7 @@ export default {
   featuring: resolver(
     async ({ info, parent: { featuring } }) => {
       const query =
-        Artist
-          .find({ _id: featuring })
+        Artist.find({ _id: featuring })
           .select(determineArtistSelect(info))
           .lean()
           .exec()
@@ -33,8 +32,7 @@ export default {
   remixers: resolver(
     async ({ info, parent: { remixers } }) => {
       const query =
-        Artist
-          .find({ _id: remixers })
+        Artist.find({ _id: remixers })
           .select(determineArtistSelect(info))
           .lean()
           .exec()
@@ -47,8 +45,7 @@ export default {
   artists: resolver(
     async ({ info, parent: { artists } }) => {
       const query =
-        Artist
-          .find({ _id: artists })
+        Artist.find({ _id: artists })
           .select(determineArtistSelect(info))
           .lean()
           .exec()
@@ -61,8 +58,7 @@ export default {
   genres: resolver(
     async ({ info, parent: { genres } }) => {
       const query =
-        Genre
-          .find({ _id: genres })
+        Genre.find({ _id: genres })
           .select(determineGenreSelect(info))
           .lean()
           .exec()
@@ -75,8 +71,7 @@ export default {
   album: resolver(
     async ({ info, parent: { album } }) => {
       const query =
-        Album
-          .findById(album)
+        Album.findById(album)
           .select(determineAlbumSelect(info))
           .lean()
           .exec()

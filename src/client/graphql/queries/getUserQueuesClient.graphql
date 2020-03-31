@@ -1,0 +1,9 @@
+query getUserQueuesClient($id: ID!) {
+  user(id: $id) {
+    id
+    prev
+    current
+    next
+    later
+  }
+}

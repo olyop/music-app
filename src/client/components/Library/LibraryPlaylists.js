@@ -1,20 +1,19 @@
-import React, { useContext } from "react"
+import React from "react"
 
 import Empty from "../Empty"
 import Spinner from "../Spinner"
 import ApiError from "../ApiError"
 import Playlist from "../Playlist"
 import Playlists from "../Playlists"
-import UserContext from "../../contexts/User"
 
+import { USER_ID } from "../../globals"
 import { isUndefined, isEmpty } from "lodash"
 import { useQuery } from "@apollo/react-hooks"
 
 import GET_USER_PLAYLISTS from "../../graphql/queries/getUserPlaylists.graphql"
 
 const LibraryPlaylists = () => {
-  const { id } = useContext(UserContext)
-  const variables = { id }
+  const variables = { id: USER_ID }
   const { data, loading, error } = useQuery(GET_USER_PLAYLISTS, { variables })
   if (loading) {
     return <Spinner/>

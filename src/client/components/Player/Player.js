@@ -1,27 +1,36 @@
-import React, { useContext } from "react"
+import React from "react"
 
 import Img from "../Img"
 import Icon from "../Icon"
+import Spinner from "../Spinner"
 import DocLink from "../DocLink"
+import ApiError from "../ApiError"
 import SongTitle from "../SongTitle"
-import UserContext from "../../contexts/User"
 import FeaturingArtists from "../FeaturingArtists"
 
-import { isNull } from "lodash"
 import { propTypes } from "./props"
+import { USER_ID } from "../../globals"
 import reactBem from "@oly_op/react-bem"
-import { catalogUrl } from "../../helpers"
+import { isNull, isUndefined } from "lodash"
+import { useQuery } from "@apollo/react-hooks"
+
+import GET_USER_QUEUES from "../../graphql/queries/getUserQueues.graphql"
 
 import "./Player.scss"
 
 const bem = reactBem("Player")
 
 const Player = ({ history }) => {
-  const { current } = useContext(UserContext)
-  if (isNull(current)) {
+  const variables = { id: USER_ID }
+  const { data, loading, error } = useQuery(GET_USER_QUEUES, { variables })
+  if (loading) {
+    return <Spinner/>
+  } else if (!isUndefined(error)) {
+    return <ApiError error={error} />
+  } else if (isNull(data.user.current)) {
     return <div className={bem("")} />
   } else {
-    const { artists, featuring, album } = current
+    const { artists, featuring, album } = data.user.current
     return (
       <div className={bem("")}>
         <Icon
@@ -31,7 +40,7 @@ const Player = ({ history }) => {
         />
         <div className={bem("main")}>
           <Img
-            url={catalogUrl(album)}
+            url={album.cover}
             className={bem("main-cover")}
           />
           <h1 className={bem("main-title")}>

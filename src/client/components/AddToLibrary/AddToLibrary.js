@@ -1,12 +1,12 @@
-import React, { useContext } from "react"
+import React from "react"
 
 import Icon from "../Icon"
-import UserContext from "../../contexts/User"
 
-import { useMutation } from "@apollo/react-hooks"
+import { USER_ID } from "../../globals"
 import { propTypes, defaultProps } from "./props"
 import { includes, find, uniqueId } from "lodash"
 import { determineReturnFromDoc } from "../../helpers"
+import { useApolloClient, useMutation } from "@apollo/react-hooks"
 
 import ADD_USER_SONG from "../../graphql/mutations/addUserSong.graphql"
 import ADD_USER_ALBUM from "../../graphql/mutations/addUserAlbum.graphql"
@@ -20,9 +20,17 @@ import REMOVE_USER_SONG from "../../graphql/mutations/removeUserSong.graphql"
 import REMOVE_USER_ALBUM from "../../graphql/mutations/removeUserAlbum.graphql"
 import REMOVE_USER_ARTIST from "../../graphql/mutations/removeUserArtist.graphql"
 
+import GET_USER_QUEUES_CLIENT from "../../graphql/queries/getUserQueues.graphql"
+
 const AddToLibrary = ({ doc, className }) => {
 
-  const user = useContext(UserContext)
+  const client = useApolloClient()
+
+  const user = client.readQuery({
+    variables: { id: USER_ID },
+    query: GET_USER_QUEUES_CLIENT,
+  })
+
   const determineReturn = determineReturnFromDoc(doc)
 
   const key = determineReturn("songs","albums","artists")
@@ -66,8 +74,7 @@ const AddToLibrary = ({ doc, className }) => {
     },
   }
 
-  const update = (client, result) => {
-    console.log(result)
+  const update = (_, result) => {
     const newDocs = inLibrary ?
       docs.filter(({ [userDocKey]: { id } }) => id !== docId) :
       docs.concat(result.data[mutationName])

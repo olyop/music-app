@@ -6,14 +6,25 @@ import Loading from "../Loading"
 import ApiError from "../ApiError"
 import PlayerBar from "../PlayerBar"
 
-import UserContext from "../../contexts/User"
 import PlayContext from "../../contexts/Play"
 
 import { isUndefined } from "lodash"
+import { cache } from "../../apollo"
 import { USER_ID as id } from "../../globals"
 import { useQuery } from "@apollo/react-hooks"
 
 import GET_USER from "../../graphql/queries/getUser.graphql"
+
+const userDefault = {
+  songs: [],
+  albums: [],
+  artists: [],
+  playlists: [],
+  prev: [],
+  next: [],
+  queue: [],
+  current: [],
+}
 
 const Application = () => {
   const variables = { id }
@@ -24,14 +35,13 @@ const Application = () => {
   } else if (!isUndefined(error)) {
     return <ApiError error={error} />
   } else {
+    cache.writeData({ id, data: { ...userDefault, ...data } })
     return (
-      <UserContext.Provider value={data.user}>
-        <PlayContext.Provider value={{ play, setPlay }}>
-          <Header/>
-          <Pages/>
-          <PlayerBar/>
-        </PlayContext.Provider>
-      </UserContext.Provider>
+      <PlayContext.Provider value={{ play, setPlay }}>
+        <Header/>
+        <Pages/>
+        <PlayerBar/>
+      </PlayContext.Provider>
     )
   }
 }

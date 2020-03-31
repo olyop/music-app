@@ -1,0 +1,3 @@
+fragment userCurrentFrag on User {
+  current
+}

@@ -5,10 +5,10 @@ import Icon from "../Icon"
 import Spinner from "../Spinner"
 import Progress from "../Progress"
 import { Link } from "react-router-dom"
-import UserContext from "../../contexts/User"
 import PlayContext from "../../contexts/Play"
 
 import { isNull } from "lodash"
+import { USER_ID } from "../../globals"
 import reactBem from "@oly_op/react-bem"
 import { useQuery, useMutation } from "@apollo/react-hooks"
 import determineUserPrevUpdate from "./determineUserPrevUpdate"
@@ -17,7 +17,7 @@ import determineUserNextUpdate from "./determineUserNextUpdate"
 import USER_PREV from "../../graphql/mutations/userPrev.graphql"
 import USER_NEXT from "../../graphql/mutations/userNext.graphql"
 import GET_USER_CURRENT from "../../graphql/queries/getUserCurrent.graphql"
-import USER_QUEUES_FRAG from "../../graphql/fragments/userQueuesFrag.graphql"
+import USER_CURRENT_FRAG from "../../graphql/fragments/userCurrentFrag.graphql"
 
 import "./PlayerBar.scss"
 
@@ -25,16 +25,14 @@ const bem = reactBem("PlayerBar")
 
 const PlayerBar = () => {
 
-  const user = useContext(UserContext)
   const { play, setPlay } = useContext(PlayContext)
 
-  const { id } = user
-  const variables = { id }
-  const { data, loading } = useQuery(GET_USER_CURRENT, { variables })
+  const variables = { id: USER_ID }
+  const { loading, data } = useQuery(GET_USER_CURRENT, { variables })
 
   const optimisticResponse = (name, updateFunc) => ({
     [name]: {
-      id,
+      id: USER_ID,
       __typename: "User",
       ...updateFunc(user),
     },
@@ -42,9 +40,9 @@ const PlayerBar = () => {
 
   const update = name => (client, result) => {
     client.writeFragment({
-      id,
+      id: USER_ID,
       data: result.data[name],
-      fragment: USER_QUEUES_FRAG,
+      fragment: USER_CURRENT_FRAG,
     })
   }
 
@@ -66,7 +64,7 @@ const PlayerBar = () => {
   const handlePlayClick = () => setPlay(!play)
   const handleNextClick = () => userNext()
 
-  const isCurrent = !isNull(data.user.current)
+  const isCurrent = !loading && !isNull(data.user.current)
 
   return (
     <section className={bem("")}>

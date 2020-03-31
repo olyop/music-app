@@ -1,4 +1,4 @@
-import React, { useContext, Fragment } from "react"
+import React, { Fragment } from "react"
 
 import Empty from "../Empty"
 import Artist from "../Artist"
@@ -6,9 +6,9 @@ import Artists from "../Artists"
 import Spinner from "../Spinner"
 import ApiError from "../ApiError"
 import { Link } from "react-router-dom"
-import UserContext from "../../contexts/User"
 
 import { pipe } from "../../helpers"
+import { USER_ID } from "../../globals"
 import { isUndefined, isEmpty } from "lodash"
 import { useQuery } from "@apollo/react-hooks"
 import { filter, map, orderBy } from "lodash/fp"
@@ -16,8 +16,7 @@ import { filter, map, orderBy } from "lodash/fp"
 import GET_USER_ARTISTS from "../../graphql/queries/getUserArtists.graphql"
 
 const LibraryArtists = () => {
-  const { id } = useContext(UserContext)
-  const variables = { id }
+  const variables = { id: USER_ID }
   const { data, loading, error } = useQuery(GET_USER_ARTISTS, { variables })
   if (loading) {
     return <Spinner/>

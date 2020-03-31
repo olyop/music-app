@@ -1,26 +1,25 @@
 /* eslint-disable react/no-array-index-key */
-import React, { useContext } from "react"
+import React from "react"
 
 import Song from "../Song"
 import Spinner from "../Spinner"
 import ApiError from "../ApiError"
 import PlayButton from "../PlayButton"
-import UserContext from "../../contexts/User"
 
+import { USER_ID } from "../../globals"
 import reactBem from "@oly_op/react-bem"
 import { useQuery } from "@apollo/react-hooks"
 import createQueuesArray from "./createQueuesArray"
 import { isUndefined, isEmpty, isNull } from "lodash"
 
-import "./Queues.scss"
-
 import GET_USER_QUEUES from "../../graphql/queries/getUserQueues.graphql"
+
+import "./Queues.scss"
 
 const bem = reactBem("Queues")
 
 const Queues = () => {
-  const { id } = useContext(UserContext)
-  const variables = { id }
+  const variables = { id: USER_ID }
   const { data, loading, error } = useQuery(GET_USER_QUEUES, { variables })
   if (loading) {
     return <Spinner/>

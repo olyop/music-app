@@ -1,0 +1,10 @@
+fragment userEmptyFrag on User {
+  prev
+  current
+  next
+  queue
+  songs
+  albums
+  artists
+  playlists
+}

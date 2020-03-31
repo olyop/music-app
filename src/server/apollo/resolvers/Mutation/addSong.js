@@ -22,7 +22,7 @@ const addSong = async ({ args }) => {
   // create in database
   const doc = await Song.create({
     ...fields,
-    duration: Math.floor(duration),
+    duration: Math.ceil(duration),
   })
 
   const song = deserializeDocument(doc.toObject())

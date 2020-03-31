@@ -6,10 +6,10 @@ import { determineUserSelect, determineUserPrev } from "../../../helpers/resolve
 const { User } = database.models
 
 const userPrev = async ({ args }) => {
-  const { userId } = args
+  const { id } = args
 
   const query =
-    User.findById(userId)
+    User.findById(id)
       .select(userQueueSelect)
       .lean()
       .exec()

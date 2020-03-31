@@ -11,36 +11,48 @@ import "./Header.scss"
 
 const bem = reactBem("Header")
 
+const duration = 250
+
 const Header = () => {
   const [ sidebar, setSidebar ] = useState(false)
   const toggleSidebar = () => setSidebar(!sidebar)
-  const style = useSpring({ config: { duration: 250 }, left: sidebar ? 0 : -300 })
   return (
     <Fragment>
       <header className={bem("")}>
         <Icon
+          title="Menu"
           onClick={toggleSidebar}
-          className={bem("hamburger")}
           icon={sidebar ? "close" : "menu"}
+          className={bem("hamburger","icon")}
         />
         <div className={bem("right")}>
-          <NavLink className={bem("link")} to="/search">
-            <Icon
-              icon="search"
-              className={bem("icon")}
-            />
-          </NavLink>
-          <NavLink className={bem("link")} to="/user">
-            <Icon
-              icon="account_circle"
-              className={bem("icon")}
-            />
-          </NavLink>
+          <NavLink
+            to="/search"
+            className={bem("link")}
+            children={(
+              <Icon
+                title="Search"
+                icon="search"
+                className={bem("right-search","icon")}
+              />
+            )}
+          />
+          <NavLink
+            to="/user"
+            className={bem("link")}
+            children={(
+              <Icon
+                title="Account"
+                icon="account_circle"
+                className={bem("right-user","icon")}
+              />
+            )}
+          />
         </div>
       </header>
       <Sidebar
-        style={style}
         toggleSidebar={toggleSidebar}
+        style={useSpring({ config: { duration }, left: sidebar ? 0 : -300 })}
       />
       {sidebar ? (
         <div

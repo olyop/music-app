@@ -42,11 +42,8 @@ const PlayButton = ({ song, className }) => {
   const update = (client, result) => {
     client.writeFragment({
       id: userId,
+      data: result.data.userPlay,
       fragment: USER_QUEUES_FRAG,
-      data: {
-        ...result.data.userPlay,
-        __typename: "User",
-      },
     })
   }
 

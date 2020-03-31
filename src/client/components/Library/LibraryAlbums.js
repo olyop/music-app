@@ -3,16 +3,27 @@ import React, { useContext, Fragment } from "react"
 import Empty from "../Empty"
 import Album from "../Album"
 import Albums from "../Albums"
+import Spinner from "../Spinner"
+import ApiError from "../ApiError"
 import { Link } from "react-router-dom"
-import UserCtx from "../../contexts/User"
+import UserContext from "../../contexts/User"
 
-import { isEmpty } from "lodash"
 import { pipe } from "../../helpers"
+import { isUndefined, isEmpty } from "lodash"
+import { useQuery } from "@apollo/react-hooks"
 import { filter, map, orderBy } from "lodash/fp"
 
+import GET_USER_ALBUMS from "../../graphql/queries/getUserAlbums.graphql"
+
 const LibraryAlbums = () => {
-  const { albums } = useContext(UserCtx)
-  if (isEmpty(albums)) {
+  const { id } = useContext(UserContext)
+  const variables = { id }
+  const { data, loading, error } = useQuery(GET_USER_ALBUMS, { variables })
+  if (loading) {
+    return <Spinner/>
+  } else if (!isUndefined(error)) {
+    return <ApiError error={error} />
+  } else if (isEmpty(data.user.albums)) {
     return (
       <Empty
         title="Your library is empty"
@@ -28,7 +39,7 @@ const LibraryAlbums = () => {
   } else {
     return (
       <Albums>
-        {pipe(albums)(
+        {pipe(data.user.albums)(
           filter(({ inLibrary }) => inLibrary),
           map(({ album, dateCreated }) => ({ ...album, dateCreated })),
           orderBy("dateCreated","desc"),

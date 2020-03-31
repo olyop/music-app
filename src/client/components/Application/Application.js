@@ -2,29 +2,27 @@ import React, { useState } from "react"
 
 import Pages from "../Pages"
 import Header from "../Header"
-// import Player from "../Player"
 import Loading from "../Loading"
 import ApiError from "../ApiError"
 import PlayerBar from "../PlayerBar"
-// import { Switch, Route } from "react-router-dom"
 
 import UserContext from "../../contexts/User"
 import PlayContext from "../../contexts/Play"
 
 import { isUndefined } from "lodash"
-import { USER_ID } from "../../globals"
+import { USER_ID as id } from "../../globals"
 import { useQuery } from "@apollo/react-hooks"
 
 import GET_USER from "../../graphql/queries/getUser.graphql"
 
 const Application = () => {
+  const variables = { id }
+  const { loading, error, data } = useQuery(GET_USER, { variables })
   const [ play, setPlay ] = useState(false)
-  const variables = { id: USER_ID }
-  const { data, loading, error } = useQuery(GET_USER, { variables })
   if (loading) {
     return <Loading/>
   } else if (!isUndefined(error)) {
-    return <ApiError/>
+    return <ApiError error={error} />
   } else {
     return (
       <UserContext.Provider value={data.user}>

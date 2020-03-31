@@ -5,7 +5,7 @@
   width: 100%;
   display: flex;
   height: $PLAYER_HEIGHT;
-  box-shadow: 0 1px 4px 0 rgba(51, 51, 51, 0.3);
+  box-shadow: $BOX_SHADOW;
   &__link {
     text-decoration: none;
     &:hover {

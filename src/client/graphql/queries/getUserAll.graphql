@@ -1,0 +1,30 @@
+query getUserAll($id: ID!) {
+  user(id: $id) {
+    id
+    name
+    prev {
+      id
+    }
+    current {
+      id
+    }
+    next {
+      id
+    }
+    queue {
+      id
+    }
+    songs {
+      id
+    }
+    albums {
+      id
+    }
+    artists {
+      id
+    }
+    playlists {
+      id
+    }
+  }
+}

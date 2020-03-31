@@ -1,7 +1,13 @@
+@import "../../globals/index.scss";
+
 .Icon {
   outline: none;
   display: block;
   cursor: pointer;
+  font-size: 30rem;
   user-select: none;
-  &__disabled {
-    color: #e0e0e0; } }
+  transition: .2s all;
+  border-radius: 100%;
+  color: $TEXT_COLOR_LIGHT;
+  &:hover {
+    background-color: #eee; } }

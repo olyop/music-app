@@ -1,9 +1,13 @@
 import React from "react"
 
-const ApiError = () => (
+import { propTypes } from "./props"
+
+const ApiError = ({ error }) => (
   <div>
-    ApiError
+    <pre>{JSON.stringify(error, undefined, 2)}</pre>
   </div>
 )
+
+ApiError.propTypes = propTypes
 
 export default ApiError

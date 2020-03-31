@@ -3,16 +3,27 @@ import React, { useContext, Fragment } from "react"
 import Empty from "../Empty"
 import Artist from "../Artist"
 import Artists from "../Artists"
+import Spinner from "../Spinner"
+import ApiError from "../ApiError"
 import { Link } from "react-router-dom"
 import UserContext from "../../contexts/User"
 
-import { isEmpty } from "lodash"
 import { pipe } from "../../helpers"
+import { isUndefined, isEmpty } from "lodash"
+import { useQuery } from "@apollo/react-hooks"
 import { filter, map, orderBy } from "lodash/fp"
 
+import GET_USER_ARTISTS from "../../graphql/queries/getUserArtists.graphql"
+
 const LibraryArtists = () => {
-  const { artists } = useContext(UserContext)
-  if (isEmpty(artists)) {
+  const { id } = useContext(UserContext)
+  const variables = { id }
+  const { data, loading, error } = useQuery(GET_USER_ARTISTS, { variables })
+  if (loading) {
+    return <Spinner/>
+  } else if (!isUndefined(error)) {
+    return <ApiError error={error} />
+  } else if (isEmpty(data.user.artists)) {
     return (
       <Empty
         title="Your library is empty"
@@ -28,7 +39,7 @@ const LibraryArtists = () => {
   } else {
     return (
       <Artists>
-        {pipe(artists)(
+        {pipe(data.user.artists)(
           filter(({ inLibrary }) => inLibrary),
           map(({ artist, dateCreated }) => ({ ...artist, dateCreated })),
           orderBy("dateCreated","desc"),

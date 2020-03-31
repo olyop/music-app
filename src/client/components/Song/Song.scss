@@ -12,10 +12,8 @@
     width: 35px;
     height: 35px;
     margin-right: 10px;
+    box-shadow: $BOX_SHADOW;
     border-radius: $BORDER_RADIUS;
-    box-shadow:
-      0 3px 6px rgba(#000000, .16),
-      0 3px 6px rgba(#000000, .23);
     @media (min-width: 700px) {
       width: 41px;
       height: 41px; }

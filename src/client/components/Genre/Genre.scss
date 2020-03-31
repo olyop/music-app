@@ -1,10 +1,12 @@
+@import "../../globals/index.scss";
+
 .Genre {
   display: flex;
   border-radius: 3px;
   align-items: center;
   flex-direction: column;
+  box-shadow: $BOX_SHADOW;
   background-color: transparent;
-  box-shadow: 0 1px 4px 0 rgba(#333333, .3);
   &__name {
     margin: 0;
     width: 100%;

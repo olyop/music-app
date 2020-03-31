@@ -11,8 +11,6 @@ import { propTypes, defaultProps } from "./props"
 import USER_NEXT_FRAG from "../../graphql/fragments/userNextFrag.graphql"
 import USER_ADD_SONG_NEXT from "../../graphql/mutations/userAddSongNext.graphql"
 
-import "./NextButton.scss"
-
 const bem = reactBem("NextButton")
 
 const NextButton = ({ doc, className }) => {

@@ -5,9 +5,9 @@
   &__section {
     padding: 20px;
     margin-bottom: 12px;
-    background-color: #ffffff;
+    background-color: #fff;
+    box-shadow: $BOX_SHADOW;
     border-radius: $BORDER_RADIUS;
-    box-shadow: 0 2px 4px rgba(0,0,0, 0.1);
     &-text {
       color: #757575;
       font-size: 18rem;

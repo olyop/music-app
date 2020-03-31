@@ -3,7 +3,6 @@ import React, { useContext } from "react"
 import Icon from "../Icon"
 import UserContext from "../../contexts/User"
 
-import reactBem from "@oly_op/react-bem"
 import { useMutation } from "@apollo/react-hooks"
 import { propTypes, defaultProps } from "./props"
 import { includes, find, uniqueId } from "lodash"
@@ -20,10 +19,6 @@ import USER_ARTISTS_FRAG from "../../graphql/fragments/userArtistsFrag.graphql"
 import REMOVE_USER_SONG from "../../graphql/mutations/removeUserSong.graphql"
 import REMOVE_USER_ALBUM from "../../graphql/mutations/removeUserAlbum.graphql"
 import REMOVE_USER_ARTIST from "../../graphql/mutations/removeUserArtist.graphql"
-
-import "./AddToLibrary.scss"
-
-const bem = reactBem("AddToLibrary")
 
 const AddToLibrary = ({ doc, className }) => {
 
@@ -62,8 +57,8 @@ const AddToLibrary = ({ doc, className }) => {
 
   const optimisticResponse = {
     [mutationName]: {
-      numOfPlays: 0,
       id: userDocId,
+      numOfPlays: 0,
       [userDocKey]: doc,
       inLibrary: !inLibrary,
       __typename: docTypeName,
@@ -72,6 +67,7 @@ const AddToLibrary = ({ doc, className }) => {
   }
 
   const update = (client, result) => {
+    console.log(result)
     const newDocs = inLibrary ?
       docs.filter(({ [userDocKey]: { id } }) => id !== docId) :
       docs.concat(result.data[mutationName])
@@ -92,8 +88,8 @@ const AddToLibrary = ({ doc, className }) => {
   return (
     <Icon
       onClick={handleClick}
+      className={className}
       icon={inLibrary ? "done" : "add"}
-      className={bem({ ignore: true, className }, "")}
     />
   )
 }

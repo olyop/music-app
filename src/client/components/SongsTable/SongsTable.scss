@@ -1,3 +1,5 @@
+@import "../../globals/index.scss";
+
 .SongsTable {
   width: 100%;
   border-spacing: 0;
@@ -23,10 +25,10 @@
           background-color: #EEEEEE; }
         &-icon {
           height: 23px;
-          color: #757575;
           font-size: 23px;
           line-height: 23px;
-          border-radius: 100%; } }
+          border-radius: 100%;
+          color: $TEXT_COLOR_LIGHT; } }
       &-noHover {
         cursor: auto;
         transition: none;
@@ -144,7 +146,7 @@
       &-duration,
       &-numOfPlays {
         &-span {
-          color: #757575; } }
+          color: $TEXT_COLOR_LIGHT; } }
       &-artists {
         width: 12vw; }
       &-remixers {

@@ -93,14 +93,14 @@ type User {
 
 type Mutation {
   userPrev(
-    userId: ID!
+    id: ID!
   ): User!
   userPlay(
     userId: ID!
     songId: ID!
   ): User!
   userNext(
-    userId: ID!
+    id: ID!
   ): User!
   userAddSongNext(
     userId: ID!

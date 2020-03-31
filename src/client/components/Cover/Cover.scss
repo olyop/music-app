@@ -1,10 +1,8 @@
 @import "../../globals/index.scss";
 
 .Cover {
+  box-shadow: $BOX_SHADOW;
   border-radius: $BORDER_RADIUS;
-  box-shadow:
-    0 3px 6px rgba(#000000, .16),
-    0 3px 6px rgba(#000000, .23);
   &:hover &__img {
     filter: blur(10px); }
   &:hover &__black-box {
@@ -45,7 +43,9 @@
     &-icon {
       margin: 0;
       color: #ffffff;
-      font-size: 35rem; }
+      font-size: 35rem;
+      &:hover {
+        background-color: unset; } }
     &-text {
       color: #ffffff; }
     &-top-left {

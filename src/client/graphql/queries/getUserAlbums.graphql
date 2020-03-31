@@ -1,0 +1,19 @@
+query getUserAlbums($id: ID!) {
+  user(id: $id) {
+    id
+    albums {
+      id
+      inLibrary
+      dateCreated
+      album {
+        id
+        title
+        cover
+        artists {
+          id
+          name
+        }
+      }
+    }
+  }
+}

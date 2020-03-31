@@ -1,39 +1,34 @@
 @import "../../globals/index.scss";
 
 .Header {
-  z-index: 4;
+  z-index: 3;
   width: 100vw;
   display: flex;
   font-size: 16rem;
   position: relative;
   height: $HEADER_HEIGHT;
-  background-color: #ffffff;
+  background-color: #fff;
+  box-shadow: $BOX_SHADOW_LIGHT;
   justify-content: space-between;
-  box-shadow: 0 2px 4px rgba(0,0,0, 0.1);
-  &__icon,
-  &__hamburger {
-    outline: none;
-    font-size: 48rem;
-    padding: 6px 10px;
-    line-height: 48rem; }
   &__link {
     text-decoration: none;
     &:hover,
     &:focus {
       text-decoration: none; } }
   &__icon {
-    margin: 8px;
+    margin: 6px;
+    padding: 6px;
     font-size: 36px;
     line-height: 36px;
-    transition: .2s all;
-    border-radius: 100%;
-    text-decoration: none;
-    padding: 3px 4px 5px 4px;
-    &:hover {
-      background-color: #e0e0e0; } }
+    color: $TEXT_COLOR;
+    text-decoration: none; }
+  &__hamburger {
+    margin: 6px 10px; }
   &__right {
     display: flex;
-    align-items: center; }
+    align-items: center;
+    &-search {
+      margin-right: 4px; } }
   &__close {
     left: 0;
     z-index: 2;

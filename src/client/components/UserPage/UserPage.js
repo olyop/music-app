@@ -1,10 +1,11 @@
-import React from "react"
+import React, { useContext } from "react"
 
-import { USER_ID } from "../../globals"
+import UserContext from "../../contexts/User"
+
 import reactBem from "@oly_op/react-bem"
 import { useApolloClient } from "react-apollo"
 
-import GET_USER_NAME_CLIENT from "../../graphql/queries/getUserNameClient.graphql"
+import USER_NAME_FRAG from "../../graphql/fragments/userNameFrag.graphql"
 
 import "./UserPage.scss"
 
@@ -13,11 +14,8 @@ const bem = reactBem("UserPage")
 const UserPage = () => {
 
   const client = useApolloClient()
- 
-  const user = client.readQuery({
-    variables: { id: USER_ID },
-    query: GET_USER_NAME_CLIENT,
-  })
+  const id = useContext(UserContext)
+  const user = client.readFragment({ id, fragment: USER_NAME_FRAG })
 
   return (
     <div className={bem("")}>

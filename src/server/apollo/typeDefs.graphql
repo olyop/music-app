@@ -33,6 +33,7 @@ type Song {
   artists: [Artist!]!
   remixers: [Artist!]!
   featuring: [Artist!]!
+  plays(userId: ID!): [Play!]!
 }
 
 type Playlist {
@@ -45,6 +46,7 @@ type Play {
   id: ID!
   user: User!
   song: Song!
+  dateCreated: Int!
 }
 
 type UserArtist {

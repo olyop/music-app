@@ -1,0 +1,6 @@
+fragment temp on User {
+  prev
+  current
+  next
+  queue
+}

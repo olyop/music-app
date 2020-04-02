@@ -1,36 +1,31 @@
-import React from "react"
+import React, { useContext } from "react"
 
 import Img from "../Img"
 import Icon from "../Icon"
-import Spinner from "../Spinner"
 import DocLink from "../DocLink"
-import ApiError from "../ApiError"
 import SongTitle from "../SongTitle"
+import UserContext from "../../contexts/User"
 import FeaturingArtists from "../FeaturingArtists"
 
+import { isNull } from "lodash"
 import { propTypes } from "./props"
-import { USER_ID } from "../../globals"
 import reactBem from "@oly_op/react-bem"
-import { isNull, isUndefined } from "lodash"
-import { useQuery } from "@apollo/react-hooks"
+import { useApolloClient } from "@apollo/react-hooks"
 
-import GET_USER_QUEUES from "../../graphql/queries/getUserQueues.graphql"
+import USER_CURRENT_FRAG from "../../graphql/fragments/userCurrentFrag.graphql"
 
 import "./Player.scss"
 
 const bem = reactBem("Player")
 
 const Player = ({ history }) => {
-  const variables = { id: USER_ID }
-  const { data, loading, error } = useQuery(GET_USER_QUEUES, { variables })
-  if (loading) {
-    return <Spinner/>
-  } else if (!isUndefined(error)) {
-    return <ApiError error={error} />
-  } else if (isNull(data.user.current)) {
+  const client = useApolloClient()
+  const id = useContext(UserContext)
+  const { current } = client.readFragment({ id, fragment: USER_CURRENT_FRAG })
+  if (isNull(current)) {
     return <div className={bem("")} />
   } else {
-    const { artists, featuring, album } = data.user.current
+    const { artists, featuring, album } = current
     return (
       <div className={bem("")}>
         <Icon

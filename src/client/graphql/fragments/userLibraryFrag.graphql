@@ -1,10 +1,14 @@
-query getUserQueues($id: ID!) {
-  user(id: $id) {
+fragment userLibraryFrag on User {
+  id
+  songs {
     id
-    prev {
+    inLibrary
+    numOfPlays
+    dateCreated
+    song {
       id
-      title
       mix
+      title
       duration
       featuring {
         id
@@ -26,39 +30,40 @@ query getUserQueues($id: ID!) {
         id
         title
         cover
+      }
+    } 
+  }
+  albums {
+    id
+    inLibrary
+    dateCreated
+    album {
+      id
+      title
+      cover
+      artists {
+        id
+        name
       }
     }
-    current {
+  }
+  artists {
+    id
+    inLibrary
+    dateCreated
+    artist {
       id
-      mix
-      title
-      duration
-      featuring {
-        id
-        name
-      }
-      remixers {
-        id
-        name
-      }
-      artists {
-        id
-        name
-      }
-      genres {
-        id
-        name
-      }
-      album {
-        id
-        title
-        cover
-      }
+      name
+      photo
     }
-    next {
+  }
+  playlists {
+    id
+    name
+    songs {
       id
-      title
       mix
+      title
       duration
       featuring {
         id
@@ -80,33 +85,7 @@ query getUserQueues($id: ID!) {
         id
         title
         cover
-      }
-    }
-    queue {
-      id
-      title
-      mix
-      duration
-      featuring {
-        id
-        name
-      }
-      remixers {
-        id
-        name
-      }
-      artists {
-        id
-        name
-      }
-      genres {
-        id
-        name
-      }
-      album {
-        id
-        title
-        cover
+        released
       }
     }
   }

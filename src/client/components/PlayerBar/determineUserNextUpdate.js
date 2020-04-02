@@ -2,7 +2,12 @@ import { head, tail, concat, isEmpty } from "lodash"
 
 const determineUserNextUpdate = ({ prev, current, next, queue }) => {
   if (isEmpty(next) && isEmpty(queue)) {
-    return { prev, current, next, queue }
+    return {
+      prev,
+      current,
+      next,
+      queue,
+    }
   } else if (isEmpty(next)) {
     return {
       prev: concat(prev, current),

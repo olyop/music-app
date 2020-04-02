@@ -4,6 +4,7 @@ import Player from "../Player"
 import Catalog from "../Catalog"
 import Library from "../Library"
 import UserPage from "../UserPage"
+import PlaysPage from "../PlaysPage"
 import GenrePage from "../GenrePage"
 import AlbumPage from "../AlbumPage"
 import ArtistPage from "../ArtistPage"
@@ -49,6 +50,12 @@ export default [
     path: "/user",
     id: uniqueId(),
     component: UserPage,
+  },
+  {
+    ignore: true,
+    path: "/plays/:id",
+    id: uniqueId(),
+    component: PlaysPage,
   },
   {
     ignore: true,

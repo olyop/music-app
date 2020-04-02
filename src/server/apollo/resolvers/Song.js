@@ -3,6 +3,7 @@ import { resolver, pipe } from "../../helpers/misc.js"
 
 import {
   restoreOrder,
+  determinePlaySelect,
   determineGenreSelect,
   determineAlbumSelect,
   determineArtistSelect,
@@ -13,7 +14,7 @@ import {
   deserializeCollection,
 } from "../../helpers/collections.js"
 
-const { Artist, Genre, Album } = database.models
+const { Artist, Genre, Album, Play } = database.models
 
 export default {
   featuring: resolver(
@@ -76,6 +77,16 @@ export default {
           .lean()
           .exec()
       return deserializeDocument(await query)
+    },
+  ),
+  plays: resolver(
+    async ({ info, args: { userId: user }, parent: { id: song } }) => {
+      const query =
+        Play.find({ user, song })
+          .select(determinePlaySelect(info))
+          .lean()
+          .exec()
+      return deserializeCollection(await query)
     },
   ),
 }

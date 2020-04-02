@@ -1,0 +1,14 @@
+fragment userInitFrag on User {
+  songs {
+    id
+  }
+  albums {
+    id
+  }
+  artists {
+    id
+  }
+  playlists {
+    id
+  }
+}

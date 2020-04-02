@@ -1,6 +1,0 @@
-query getUserNextClient($id: ID!) {
-  user(id: $id) {
-    id
-    next
-  }
-}

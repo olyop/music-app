@@ -1,3 +1,12 @@
 fragment userArtistsFrag on User {
-  artists
+  artists {
+    id
+    inLibrary
+    dateCreated
+    artist {
+      id
+      name
+      photo
+    }
+  }
 }

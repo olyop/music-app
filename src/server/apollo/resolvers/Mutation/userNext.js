@@ -5,7 +5,7 @@ import { determineUserSelect, determineUserNext } from "../../../helpers/resolve
 
 const { User } = database.models
 
-const userNext = async ({ args }) => {
+const userNext = async ({ info, args }) => {
   const { id } = args
 
   const query =
@@ -17,7 +17,7 @@ const userNext = async ({ args }) => {
   const user = deserializeDocument(await query)
 
   const mutation =
-    User.findByIdAndUpdate(userId, determineUserNext(user))
+    User.findByIdAndUpdate(id, determineUserNext(user))
       .setOptions({ new: true })
       .select(determineUserSelect(info, userQueueSelect))
       .lean()

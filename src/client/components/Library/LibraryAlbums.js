@@ -1,14 +1,13 @@
-import React, { Fragment } from "react"
+import React, { useContext, Fragment } from "react"
 
 import Empty from "../Empty"
 import Album from "../Album"
 import Albums from "../Albums"
-import Spinner from "../Spinner"
 import ApiError from "../ApiError"
 import { Link } from "react-router-dom"
+import UserContext from "../../contexts/User"
 
 import { pipe } from "../../helpers"
-import { USER_ID } from "../../globals"
 import { isUndefined, isEmpty } from "lodash"
 import { useQuery } from "@apollo/react-hooks"
 import { filter, map, orderBy } from "lodash/fp"
@@ -16,11 +15,14 @@ import { filter, map, orderBy } from "lodash/fp"
 import GET_USER_ALBUMS from "../../graphql/queries/getUserAlbums.graphql"
 
 const LibraryAlbums = () => {
-  const variables = { id: USER_ID }
-  const { data, loading, error } = useQuery(GET_USER_ALBUMS, { variables })
-  if (loading) {
-    return <Spinner/>
-  } else if (!isUndefined(error)) {
+  const id = useContext(UserContext)
+
+  const { error, data } = useQuery(
+    GET_USER_ALBUMS,
+    { fetchPolicy: "cache-and-network", variables: { id } },
+  )
+
+  if (!isUndefined(error)) {
     return <ApiError error={error} />
   } else if (isEmpty(data.user.albums)) {
     return (

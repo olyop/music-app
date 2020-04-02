@@ -1,10 +1,10 @@
-import React from "react"
+import React, { useContext } from "react"
 
 import Icon from "../Icon"
+import UserContext from "../../contexts/User"
 
-import { USER_ID } from "../../globals"
+import { includes, find } from "lodash"
 import { propTypes, defaultProps } from "./props"
-import { includes, find, uniqueId } from "lodash"
 import { determineReturnFromDoc } from "../../helpers"
 import { useApolloClient, useMutation } from "@apollo/react-hooks"
 
@@ -15,21 +15,17 @@ import ADD_USER_ARTIST from "../../graphql/mutations/addUserArtist.graphql"
 import USER_SONGS_FRAG from "../../graphql/fragments/userSongsFrag.graphql"
 import USER_ALBUMS_FRAG from "../../graphql/fragments/userAlbumsFrag.graphql"
 import USER_ARTISTS_FRAG from "../../graphql/fragments/userArtistsFrag.graphql"
+import USER_LIBRARY_FRAG from "../../graphql/fragments/userLibraryFrag.graphql"
 
 import REMOVE_USER_SONG from "../../graphql/mutations/removeUserSong.graphql"
 import REMOVE_USER_ALBUM from "../../graphql/mutations/removeUserAlbum.graphql"
 import REMOVE_USER_ARTIST from "../../graphql/mutations/removeUserArtist.graphql"
 
-import GET_USER_QUEUES_CLIENT from "../../graphql/queries/getUserQueues.graphql"
-
 const AddToLibrary = ({ doc, className }) => {
 
   const client = useApolloClient()
-
-  const user = client.readQuery({
-    variables: { id: USER_ID },
-    query: GET_USER_QUEUES_CLIENT,
-  })
+  const id = useContext(UserContext)
+  const user = client.readFragment({ id, fragment: USER_LIBRARY_FRAG })
 
   const determineReturn = determineReturnFromDoc(doc)
 
@@ -41,10 +37,14 @@ const AddToLibrary = ({ doc, className }) => {
   const mutationRemoveName = determineReturn("removeUserSong","removeUserAlbum","removeUserArtist")
 
   const { id: docId } = doc
-  const { id: userId, [key]: docs } = user
-  const variables = { userId, [variablesKey]: docId }
-  const inLibrary = includes(docs.map(({ [userDocKey]: { id } }) => id), docId)
-  const userDocId = inLibrary ? find(docs, ({ [userDocKey]: { id } }) => id === docId).id : uniqueId()
+  const { [key]: docs } = user
+  const variables = { userId: id, [variablesKey]: docId }
+
+  const inLibrary =
+    includes(docs.map(userDoc => userDoc.id), -1) ||
+    includes(docs.map(({ [userDocKey]: userDoc }) => userDoc.id), docId)
+
+  const userDocId = inLibrary ? find(docs, ({ [userDocKey]: userDoc }) => userDoc.id === docId).id : -1
   const mutationName = inLibrary ? mutationRemoveName : mutationAddName
 
   const MUTATION = inLibrary ? determineReturn(
@@ -67,19 +67,25 @@ const AddToLibrary = ({ doc, className }) => {
     [mutationName]: {
       id: userDocId,
       numOfPlays: 0,
+      dateCreated: 0,
       [userDocKey]: doc,
       inLibrary: !inLibrary,
       __typename: docTypeName,
-      dateCreated: Math.floor(Date.now() / 1000),
     },
   }
 
-  const update = (_, result) => {
+  const update = (proxy, result) => {
+    const { [key]: tempDocs } = proxy.readFragment({
+      id,
+      fragment: USER_LIBRARY_FRAG,
+    })
+
     const newDocs = inLibrary ?
-      docs.filter(({ [userDocKey]: { id } }) => id !== docId) :
-      docs.concat(result.data[mutationName])
-    client.writeFragment({
-      id: userId,
+      tempDocs.filter(({ [userDocKey]: userDoc }) => userDoc.id !== docId) :
+      tempDocs.concat(result.data[mutationName])
+
+    proxy.writeFragment({
+      id,
       fragment: USER_FRAG,
       data: { [key]: newDocs, __typename: "User" },
     })
@@ -87,7 +93,7 @@ const AddToLibrary = ({ doc, className }) => {
 
   const [ mutation ] = useMutation(
     MUTATION,
-    { update, variables, optimisticResponse },
+    { variables, update, optimisticResponse },
   )
 
   const handleClick = () => mutation()

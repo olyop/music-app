@@ -1,23 +1,21 @@
-import React, { useState, useContext, Fragment } from "react"
+import React, { useContext, useState } from "react"
 
 import Song from "../Song"
 import Icon from "../Icon"
-import Spinner from "../Spinner"
 import Progress from "../Progress"
 import { Link } from "react-router-dom"
+import UserContext from "../../contexts/User"
 import PlayContext from "../../contexts/Play"
 
 import { isNull } from "lodash"
-import { USER_ID } from "../../globals"
 import reactBem from "@oly_op/react-bem"
-import { useQuery, useMutation } from "@apollo/react-hooks"
 import determineUserPrevUpdate from "./determineUserPrevUpdate"
 import determineUserNextUpdate from "./determineUserNextUpdate"
+import { useApolloClient, useMutation } from "@apollo/react-hooks"
 
 import USER_PREV from "../../graphql/mutations/userPrev.graphql"
 import USER_NEXT from "../../graphql/mutations/userNext.graphql"
-import GET_USER_CURRENT from "../../graphql/queries/getUserCurrent.graphql"
-import USER_CURRENT_FRAG from "../../graphql/fragments/userCurrentFrag.graphql"
+import USER_QUEUES_FRAG from "../../graphql/fragments/userQueuesFrag.graphql"
 
 import "./PlayerBar.scss"
 
@@ -25,24 +23,25 @@ const bem = reactBem("PlayerBar")
 
 const PlayerBar = () => {
 
-  const { play, setPlay } = useContext(PlayContext)
+  const client = useApolloClient()
+  const id = useContext(UserContext)
+  const user = client.readFragment({ id, fragment: USER_QUEUES_FRAG })
 
-  const variables = { id: USER_ID }
-  const { loading, data } = useQuery(GET_USER_CURRENT, { variables })
+  const variables = { id }
 
-  const optimisticResponse = (name, updateFunc) => ({
+  const optimisticResponse = (name, updateQueueFunc) => ({
     [name]: {
-      id: USER_ID,
+      id,
       __typename: "User",
-      ...updateFunc(user),
+      ...updateQueueFunc(user),
     },
   })
 
-  const update = name => (client, result) => {
-    client.writeFragment({
-      id: USER_ID,
+  const update = name => (proxy, result) => {
+    proxy.writeFragment({
+      id,
       data: result.data[name],
-      fragment: USER_CURRENT_FRAG,
+      fragment: USER_QUEUES_FRAG,
     })
   }
 
@@ -59,12 +58,13 @@ const PlayerBar = () => {
   })
 
   const [ current, setCurrent ] = useState(0)
+  const { play, setPlay } = useContext(PlayContext)
 
   const handlePrevClick = () => userPrev()
   const handlePlayClick = () => setPlay(!play)
   const handleNextClick = () => userNext()
 
-  const isCurrent = !loading && !isNull(data.user.current)
+  const isCurrent = !isNull(user.current)
 
   return (
     <section className={bem("")}>
@@ -87,11 +87,7 @@ const PlayerBar = () => {
       </div>
       <div className={bem("main")}>
         <div className={bem("main-info")}>
-          {loading ? <Spinner/> : (
-            <Fragment>
-              {isCurrent ? <Song showAdd song={data.user.current} /> : <div/>}
-            </Fragment>
-          )}
+          {isCurrent ? <Song showAdd song={user.current} /> : <div/>}
           <div className={bem("main-info-right")}>
             <Icon
               icon="volume_up"
@@ -114,7 +110,7 @@ const PlayerBar = () => {
         <Progress
           current={current}
           setCurrent={setCurrent}
-          duration={loading ? 0 : (isCurrent ? data.user.current.duration : 0)}
+          duration={isCurrent ? user.current.duration : 0}
         />
       </div>
     </section>

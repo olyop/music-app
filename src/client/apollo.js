@@ -2,17 +2,32 @@ import { ApolloClient } from "apollo-client"
 import { InMemoryCache } from "apollo-cache-inmemory"
 import { createUploadLink } from "apollo-upload-client"
 
-import { API_URL } from "./globals"
+import { API_URL, USER_ID } from "./globals"
+import USER_INIT_FRAG from "./graphql/fragments/userInitFrag.graphql"
 
-export const cache = new InMemoryCache({
+const cache = new InMemoryCache({
   dataIdFromObject: ({ id }) => id,
 })
 
-export const link = createUploadLink({
+cache.writeFragment({
+  id: USER_ID,
+  fragment: USER_INIT_FRAG,
+  data: {
+    songs: [],
+    albums: [],
+    artists: [],
+    playlists: [],
+    __typename: "User",
+  },
+})
+
+const link = createUploadLink({
   uri: API_URL,
 })
 
-export const client = new ApolloClient({
+const client = new ApolloClient({
   link,
   cache,
 })
+
+export default client

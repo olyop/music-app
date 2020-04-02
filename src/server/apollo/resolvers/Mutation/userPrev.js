@@ -5,7 +5,7 @@ import { determineUserSelect, determineUserPrev } from "../../../helpers/resolve
 
 const { User } = database.models
 
-const userPrev = async ({ args }) => {
+const userPrev = async ({ info, args }) => {
   const { id } = args
 
   const query =
@@ -17,7 +17,7 @@ const userPrev = async ({ args }) => {
   const user = deserializeDocument(await query)
 
   const mutation =
-    User.findByIdAndUpdate(userId, determineUserPrev(user))
+    User.findByIdAndUpdate(id, determineUserPrev(user))
       .setOptions({ new: true })
       .select(determineUserSelect(info, userQueueSelect))
       .lean()

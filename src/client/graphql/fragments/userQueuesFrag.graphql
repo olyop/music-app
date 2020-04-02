@@ -1,6 +1,110 @@
 fragment userQueuesFrag on User {
-  prev
-  current
-  next
-  queue
+  prev {
+    id
+    title
+    mix
+    duration
+    featuring {
+      id
+      name
+    }
+    remixers {
+      id
+      name
+    }
+    artists {
+      id
+      name
+    }
+    genres {
+      id
+      name
+    }
+    album {
+      id
+      title
+      cover
+    }
+  }
+  current {
+    id
+    mix
+    title
+    duration
+    featuring {
+      id
+      name
+    }
+    remixers {
+      id
+      name
+    }
+    artists {
+      id
+      name
+    }
+    genres {
+      id
+      name
+    }
+    album {
+      id
+      title
+      cover
+    }
+  }
+  next {
+    id
+    title
+    mix
+    duration
+    featuring {
+      id
+      name
+    }
+    remixers {
+      id
+      name
+    }
+    artists {
+      id
+      name
+    }
+    genres {
+      id
+      name
+    }
+    album {
+      id
+      title
+      cover
+    }
+  }
+  queue {
+    id
+    title
+    mix
+    duration
+    featuring {
+      id
+      name
+    }
+    remixers {
+      id
+      name
+    }
+    artists {
+      id
+      name
+    }
+    genres {
+      id
+      name
+    }
+    album {
+      id
+      title
+      cover
+    }
+  }
 }

@@ -6,6 +6,7 @@ mutation removeUserArtist($userId: ID!, $artistId: ID!) {
     artist {
       id
       name
+      photo
     }
   }
 }

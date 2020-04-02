@@ -1,3 +1,5 @@
 fragment userCurrentFrag on User {
-  current
+  current {
+    id
+  }
 }

@@ -1,4 +1,6 @@
-import React, { useState } from "react"
+import React, { useState, Fragment } from "react"
+
+import Spinner from "../Spinner"
 
 import FormTitle from "./FormTitle"
 import FormField from "./FormField"
@@ -24,7 +26,7 @@ import "./Form.scss"
 
 const bem = reactBem("Form")
 
-const Form = ({ title, fields, rememberText, submitText, submit }) => {
+const Form = ({ title, fields, rememberText, result, submitText, submit }) => {
   const init = createFormInit(fields)
 
   const [ form, setForm ] = useState(init)
@@ -38,41 +40,51 @@ const Form = ({ title, fields, rememberText, submitText, submit }) => {
 
   const isFormValid = determineFormValid(fields,form)
 
+  const { loading, error } = result
+
+  if (error) return <pre>{JSON.stringify(error, undefined, 2)}</pre>
+
   return (
     <form className={bem("")} onSubmit={onFormSubmit}>
 
-      <FormTitle>
-        {title}
-      </FormTitle>
+      {loading ? <Spinner/> : (
+        <Fragment>
 
-      <FormFields>
-        {fields.map(
-          (field, index) => (
-            <FormField
-              index={index}
-              field={field}
-              key={field.id}
-              val={determineFieldVal(field,form)}
-              onFieldChange={onFieldChange(field)}
-              onFieldHitClick={onFieldHitClick(field)}
-              onFieldDocRemove={onFieldDocRemove(field)}
+          <FormTitle>
+            {title}
+          </FormTitle>
+
+          <FormFields>
+            {fields.map(
+              (field, index) => (
+                <FormField
+                  index={index}
+                  field={field}
+                  key={field.id}
+                  val={determineFieldVal(field,form)}
+                  onFieldChange={onFieldChange(field)}
+                  onFieldHitClick={onFieldHitClick(field)}
+                  onFieldDocRemove={onFieldDocRemove(field)}
+                />
+              ),
+            )}
+          </FormFields>
+
+          {title === "Song" ? (
+            <FormRemember
+              text={rememberText}
+              remember={remember}
+              onToggleRemember={onToggleRemember}
             />
-          ),
-        )}
-      </FormFields>
+          ) : null}
 
-      {title === "Song" ? (
-        <FormRemember
-          text={rememberText}
-          remember={remember}
-          onToggleRemember={onToggleRemember}
-        />
-      ) : null}
+          <FormSubmit
+            text={submitText}
+            isFormValid={isFormValid}
+          />
 
-      <FormSubmit
-        text={submitText}
-        isFormValid={isFormValid}
-      />
+        </Fragment>
+      )}
 
     </form>
   )

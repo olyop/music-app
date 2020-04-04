@@ -39,7 +39,7 @@ const fieldsConfig = [
     init: "",
     req: true,
     min: 0,
-    max: 250000,
+    max: 256000,
     parse: {
       in: noopParse,
       out: noopParse,
@@ -53,7 +53,7 @@ const fieldsConfig = [
       {
         id: uniqueId(),
         msg: "size no more than 250 KB",
-        check: val => (isUndefined(val.file) ? false : val.file.size < 250000),
+        check: val => (isUndefined(val.file) ? false : val.file.size < 256000),
       },
     ],
   },

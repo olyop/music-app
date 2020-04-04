@@ -1,24 +1,40 @@
-type Artist {
-  id: ID!
-  name: String!
-  photo: String!
+type Query {
+  users: [User!]!
+  plays: [Play!]!
   songs: [Song!]!
   albums: [Album!]!
-}
-
-type Album {
-  id: ID!
-  title: String!
-  cover: String!
-  released: Int!
-  songs: [Song!]!
+  genres: [Genre!]!
   artists: [Artist!]!
+  playlists: [Playlist!]!
+  user(userId: ID!): User!
+  play(playId: ID!): Play!
+  song(songId: ID!): Song!
+  album(albumId: ID!): Album!
+  genre(genreId: ID!): Genre!
+  artist(artistId: ID!): Artist!
+  playlist(playlistId: ID!): Playlist!
 }
 
-type Genre {
+type User {
   id: ID!
   name: String!
+  current: Song
+  prev: [Song!]!
+  next: [Song!]!
+  queue: [Song!]!
+  plays: [Play!]!
   songs: [Song!]!
+  genres: [Genre!]!
+  albums: [Album!]!
+  artists: [Artist!]!
+  playlists: [Playlist!]!
+}
+
+type Play {
+  id: ID!
+  user: User!
+  song: Song!
+  dateCreated: Int!
 }
 
 type Song {
@@ -33,76 +49,70 @@ type Song {
   artists: [Artist!]!
   remixers: [Artist!]!
   featuring: [Artist!]!
-  plays(userId: ID!): [Play!]!
+  plays(userId: ID!): [Play!]
+  dateAdded(userId: ID!): Int
+  numOfPlays(userId: ID!): Int
+  inLibrary(userId: ID!): Boolean
+  dateAddedToPlaylist(playlistid: ID!): Int
+}
+
+type Genre {
+  id: ID!
+  name: String!
+  songs: [Song!]!
+  plays(userId: ID!): [Play!]
+  dateAdded(userId: ID!): Int
+  numOfPlays(userId: ID!): Int
+  inLibrary(userId: ID!): Boolean
+}
+
+type Album {
+  id: ID!
+  title: String!
+  cover: String!
+  released: Int!
+  songs: [Song!]!
+  artists: [Artist!]!
+  plays(userId: ID!): [Play!]
+  dateAdded(userId: ID!): Int
+  numOfPlays(userId: ID!): Int
+  inLibrary(userId: ID!): Boolean
+}
+
+type Artist {
+  id: ID!
+  name: String!
+  photo: String!
+  songs: [Song!]!
+  albums: [Album!]!
+  plays(userId: ID!): [Play!]
+  dateAdded(userId: ID!): Int
+  numOfPlays(userId: ID!): Int
+  inLibrary(userId: ID!): Boolean
 }
 
 type Playlist {
   id: ID!
+  user: User!
   name: String!
   songs: [Song!]!
-}
-
-type Play {
-  id: ID!
-  user: User!
-  song: Song!
   dateCreated: Int!
-}
-
-type UserArtist {
-  id: ID!
-  user: User!
-  plays: [Play!]!
-  artist: Artist!
-  numOfPlays: Int!
-  dateCreated: Int!
-  inLibrary: Boolean!
-}
-
-type UserAlbum {
-  id: ID!
-  user: User!
-  album: Album!
-  plays: [Play!]!
-  numOfPlays: Int!
-  dateCreated: Int!
-  inLibrary: Boolean!
-}
-
-type UserSong {
-  id: ID!
-  user: User!
-  song: Song!
-  plays: [Play!]!
-  numOfPlays: Int!
-  dateCreated: Int!
-  inLibrary: Boolean!
-}
-
-type User {
-  id: ID!
-  name: String!
-  current: Song
-  prev: [Song!]!
-  next: [Song!]!
-  queue: [Song!]!
-  plays: [Play!]!
-  songs: [UserSong!]!
-  albums: [UserAlbum!]!
-  artists: [UserArtist!]!
-  playlists: [Playlist!]!
+  plays(userId: ID!): [Play!]
+  dateAdded(userId: ID!): Int
+  numOfPlays(userId: ID!): Int
+  inLibrary(userId: ID!): Boolean
 }
 
 type Mutation {
   userPrev(
-    id: ID!
+    userId: ID!
   ): User!
   userPlay(
     userId: ID!
     songId: ID!
   ): User!
   userNext(
-    id: ID!
+    userId: ID!
   ): User!
   userAddSongNext(
     userId: ID!
@@ -116,30 +126,30 @@ type Mutation {
     userId: ID!
     songId: ID!
   ): User!
-  addUserSong(
-    userId: ID!
-    songId: ID!
-  ): UserSong!
-  addUserAlbum(
-    userId: ID!
-    albumId: ID!
-  ): UserAlbum!
-  addUserArtist(
-    userId: ID!
-    artistId: ID!
-  ): UserArtist!
-  removeUserSong(
-    userId: ID!
-    songId: ID!
-  ): UserSong!
-  removeUserAlbum(
-    userId: ID!
-    albumId: ID!
-  ): UserAlbum!
-  removeUserArtist(
-    userId: ID!
-    artistId: ID!
-  ): UserArtist!
+  # addUserSong(
+  #   userId: ID!
+  #   songId: ID!
+  # ): UserSong!
+  # addUserAlbum(
+  #   userId: ID!
+  #   albumId: ID!
+  # ): UserAlbum!
+  # addUserArtist(
+  #   userId: ID!
+  #   artistId: ID!
+  # ): UserArtist!
+  # removeUserSong(
+  #   userId: ID!
+  #   songId: ID!
+  # ): UserSong!
+  # removeUserAlbum(
+  #   userId: ID!
+  #   albumId: ID!
+  # ): UserAlbum!
+  # removeUserArtist(
+  #   userId: ID!
+  #   artistId: ID!
+  # ): UserArtist!
   addUser(
     name: String!
   ): User!
@@ -173,17 +183,4 @@ type Mutation {
     name: String!
     songs: [ID!]!
   ): Playlist!
-}
-
-type Query {
-  users: [User!]!
-  songs: [Song!]!
-  albums: [Album!]!
-  genres: [Genre!]!
-  artists: [Artist!]!
-  user(id: ID!): User!
-  song(id: ID!): Song!
-  album(id: ID!): Album!
-  genre(id: ID!): Genre!
-  artist(id: ID!): Artist!
 }

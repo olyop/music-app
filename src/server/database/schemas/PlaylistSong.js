@@ -5,39 +5,24 @@ const { Schema } = mongoose
 const { ObjectId } = Schema.Types
 
 const definition = {
-  name: {
-    type: String,
-    minlength: 1,
-    maxlength: 256,
+  inPlaylist: {
+    type: Boolean,
     required: true,
   },
-  prev: [{
+  playlist: {
     index: true,
     minlength: 24,
     maxlength: 24,
     type: ObjectId,
     required: true,
-  }],
-  current: {
-    index: true,
-    minlength: 24,
-    maxlength: 24,
-    type: ObjectId,
   },
-  next: [{
+  song: {
     index: true,
     minlength: 24,
     maxlength: 24,
     type: ObjectId,
     required: true,
-  }],
-  queue: [{
-    index: true,
-    minlength: 24,
-    maxlength: 24,
-    type: ObjectId,
-    required: true,
-  }],
+  },
 }
 
 const schema = new Schema(definition, SCHEMA_OPTIONS)

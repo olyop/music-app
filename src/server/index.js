@@ -12,16 +12,17 @@ import bodyParser from "body-parser"
 import compression from "compression"
 import responseTime from "response-time"
 import cookieParser from "cookie-parser"
-import { globalHeaders } from "./middleware.js"
 
 import {
-  HOST, PORT,
+  HOST,
+  PORT,
   LOG_FORMAT,
   BUILD_PATH,
   MONGODB_URL,
   CORS_OPTIONS,
   MONGOOSE_OPTIONS,
   BUILD_ENTRY_PATH,
+  GLOBAL_HTTP_HEADERS,
   APOLLO_APPLY_OPTIONS,
 } from "./globals.js"
 
@@ -31,23 +32,30 @@ database.openUri(MONGODB_URL, MONGOOSE_OPTIONS)
 const app = express()
 
 // middleware stack
-app.use(logger(LOG_FORMAT))
-app.use(responseTime())
-app.use(helmet())
-app.use(compression())
-app.use(cors(CORS_OPTIONS))
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({ extended: false }))
-app.use(cookieParser())
-app.use(globalHeaders())
+app.use(
+  logger(LOG_FORMAT),
+  responseTime(),
+  helmet(),
+  compression(),
+  cors(CORS_OPTIONS),
+  bodyParser.json(),
+  bodyParser.urlencoded({ extended: false }),
+  cookieParser(),
+)
 
-// apply apollo server to app
+// set global response headers
+app.use(request(({ res, nxt }) => {
+  res.set(GLOBAL_HTTP_HEADERS)
+  nxt()
+}))
+
+// apply apollo server
 apolloServer.applyMiddleware({ app, ...APOLLO_APPLY_OPTIONS })
 
 // serve static assests
 app.use(express.static(BUILD_PATH))
 
-// send index.html
+// serve index.html
 app.use("*", request(({ res }) => res.sendFile(BUILD_ENTRY_PATH)))
 
 app.on("error", onError)

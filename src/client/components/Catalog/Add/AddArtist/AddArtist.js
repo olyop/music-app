@@ -8,11 +8,12 @@ import { useMutation } from "@apollo/react-hooks"
 import ADD_ARTIST from "../../../../graphql/mutations/addArtist.graphql"
 
 const AddArtist = () => {
-  const [ addArtist ] = useMutation(ADD_ARTIST)
+  const [ addArtist, addArtistResult ] = useMutation(ADD_ARTIST)
   return (
     <Form
       title="Artist"
       fields={fieldsConfig}
+      result={addArtistResult}
       submit={variables => addArtist({ variables })}
     />
   )

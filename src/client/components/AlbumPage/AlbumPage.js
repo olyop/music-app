@@ -1,4 +1,4 @@
-import React, { Fragment } from "react"
+import React, { Fragment, useContext } from "react"
 
 import Cover from "../Cover"
 import Spinner from "../Spinner"
@@ -7,6 +7,7 @@ import ApiError from "../ApiError"
 import DocLinks from "../DocLinks"
 import SongsTable from "../SongsTable"
 import AddToLibrary from "../AddToLibrary"
+import UserContext from "../../contexts/User"
 
 import { isUndefined } from "lodash"
 import reactBem from "@oly_op/react-bem"
@@ -22,9 +23,15 @@ import "./AlbumPage.scss"
 const bem = reactBem("AlbumPage")
 
 const AlbumPage = () => {
-  const { id } = useParams()
-  const queryOptions = { variables: { id } }
-  const { loading, error, data } = useQuery(GET_ALBUM_PAGE, queryOptions)
+
+  const { id: albumId } = useParams()
+  const userId = useContext(UserContext)
+
+  const { loading, error, data } = useQuery(
+    GET_ALBUM_PAGE,
+    { variables: { albumId, userId } },
+  )
+
   if (loading) {
     return <Spinner/>
   } else if (!isUndefined(error)) {

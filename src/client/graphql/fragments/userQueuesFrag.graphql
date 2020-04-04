@@ -1,4 +1,5 @@
 fragment userQueuesFrag on User {
+  id
   prev {
     id
     title

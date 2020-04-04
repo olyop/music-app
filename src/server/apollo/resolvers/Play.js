@@ -11,9 +11,9 @@ const { User, Song } = database.models
 
 export default {
   user: resolver(
-    async ({ info, parent: { user } }) => {
+    async ({ parent }) => {
       const query =
-        User.findById(user)
+        User.findById(parent.userId)
           .select(determineUserSelect(info))
           .lean()
           .exec()
@@ -21,9 +21,9 @@ export default {
     },
   ),
   song: resolver(
-    async ({ info, parent: { song } }) => {
+    async ({ parent }) => {
       const query =
-        Song.findById(song)
+        Song.findById(parent.songId)
           .select(determineSongSelect(info))
           .lean()
           .exec()

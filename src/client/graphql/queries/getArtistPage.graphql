@@ -1,8 +1,9 @@
-query getArtistPage($id: ID!) {
-  artist(id: $id) {
+query getArtistPage($artistId: ID!, $userId: ID!) {
+  artist(artistId: $artistId) {
     id
     name
     photo
+    inLibrary(userId: $userId)
     songs {
       id
       title

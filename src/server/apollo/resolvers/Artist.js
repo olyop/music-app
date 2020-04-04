@@ -1,47 +1,165 @@
+import isNull from "lodash/isNull.js"
+import isEmpty from "lodash/isEmpty.js"
 import flatten from "lodash/flatten.js"
-import orderBy from "lodash/fp/orderBy.js"
 import database from "../../database/index.js"
-import { pipe, resolver, dataUrl } from "../../helpers/misc.js"
 import { SONG_ARTISTS_FIELDS as fields } from "../../globals.js"
-import { deserializeCollection } from "../../helpers/collections.js"
+import { pipe, resolver, toDataUrl } from "../../helpers/misc.js"
 
 import {
   removeDup,
+  determinePlaySelect,
   determineSongSelect,
   determineAlbumSelect,
 } from "../../helpers/resolvers.js"
 
-const { Album, Song } = database.models
+import {
+  deserializeDocument,
+  deserializeCollection,
+} from "../../helpers/collections.js"
+
+const {
+  Play,
+  Song,
+  Album,
+  UserArtist,
+} = database.models
 
 export default {
   photo: resolver(
-    async ({ parent: { photo } }) => dataUrl(photo),
+    ({ parent }) => toDataUrl(parent.photo),
+  ),
+  songs: resolver(
+    async ({ parent, info }) => {
+      const { artistId } = parent
+
+      const query = field =>
+        Song.find({ [field]: artistId })
+          .select(determineSongSelect(info))
+          .lean()
+          .exec()
+
+      const queries = Promise.all(fields.map(query))
+
+      return pipe(await queries)(
+        flatten,
+        deserializeCollection,
+        removeDup,
+      )
+    },
   ),
   albums: resolver(
-    async ({ info, parent: { id } }) => {
+    async ({ parent, info }) => {
+      const { artistId } = parent
+
       const query =
-        Album.find({ artists: id })
-          .sort({ released: "desc" })
+        Album.find({ artists: artistId })
           .select(determineAlbumSelect(info))
           .lean()
           .exec()
+
       return deserializeCollection(await query)
     },
   ),
-  songs: resolver(
-    async ({ info, parent: { id } }) => {
-      const query = field =>
-        Song.find({ [field]: id })
-          .select(determineSongSelect(info))
+  plays: resolver(
+    async ({ parent, args, info }) => {
+      const { userId } = args
+      const { id: artistId } = parent
+
+      const songsQuery =
+        Song.find({ artist: artistId })
+          .select({ _id: 1 })
           .lean()
-          .map(deserializeCollection)
           .exec()
-      const queries = Promise.all(fields.map(query))
-      return pipe(await queries)(
-        flatten,
-        removeDup,
-        orderBy("title","asc"),
-      )
+
+      const songs = deserializeCollection(await songsQuery)
+      const songsId = songs.map(({ id }) => id)
+
+      const playQuery =
+        Play.find({ user: userId, song: songsId })
+          .select(determinePlaySelect(info))
+          .lean()
+          .exec()
+
+      const plays = deserializeCollection(await playQuery)
+
+      if (isEmpty(plays)) {
+        return null
+      } else {
+        return plays
+      }
+    },
+  ),
+  dateAdded: resolver(
+    async ({ args, parent }) => {
+      const { userId } = args
+      const { id: artistId } = parent
+
+      const query =
+        UserArtist.findOne({ user: userId, artist: artistId })
+          .select({ _id: 1 })
+          .lean()
+          .exec()
+      
+      const userArtist = await query
+
+      if (isNull(userArtist)) {
+        return null
+      } else {
+        return deserializeDocument(userArtist).dateCreated
+      }
+    },
+  ),
+  numOfPlays: resolver(
+    async ({ parent, args, info }) => {
+      const { userId } = args
+      const { id: artistId } = parent
+
+      const songsQuery =
+        Song.find({ artist: artistId })
+          .select({ _id: 1 })
+          .lean()
+          .exec()
+
+      const songs = deserializeCollection(await songsQuery)
+      const songsId = songs.map(({ id }) => id)
+
+      const playQuery =
+        Play.find({ user: userId, song: songsId })
+          .select(determinePlaySelect(info))
+          .lean()
+          .exec()
+
+      const plays = deserializeCollection(await playQuery)
+
+      if (isEmpty(plays)) {
+        return null
+      } else {
+        return plays.length
+      }
+    },
+  ),
+  inLibrary: resolver(
+    async ({ parent, args }) => {
+      const { userId } = args
+      const { id: artistId } = parent
+
+      const query =
+        UserArtist.findOne({
+            user: userId,
+            inLibrary: true,
+            artist: artistId,
+          })
+          .select({ inLibrary: 1 })
+          .lean()
+          .exec()
+      
+      const userArtist = await query
+
+      if (isNull(userArtist)) {
+        return null
+      } else {
+        return deserializeDocument(userArtist).inLibrary
+      }
     },
   ),
 }

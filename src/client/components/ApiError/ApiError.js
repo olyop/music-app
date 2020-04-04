@@ -1,11 +1,14 @@
 import React from "react"
 
 import { propTypes } from "./props"
+import reactBem from "@oly_op/react-bem"
+
+import "./ApiError.scss"
+
+const bem = reactBem("ApiError")
 
 const ApiError = ({ error }) => (
-  <div>
-    <pre>{JSON.stringify(error, undefined, 2)}</pre>
-  </div>
+  <pre className={bem("")}>{JSON.stringify(error, undefined, 2)}</pre>
 )
 
 ApiError.propTypes = propTypes

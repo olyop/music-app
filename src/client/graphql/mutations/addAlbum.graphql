@@ -11,11 +11,5 @@ mutation addAlbum(
     released: $released,
   ) {
     id
-    title
-    released
-    artists {
-      id
-      name
-    }
   }
 }

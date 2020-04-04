@@ -9,7 +9,16 @@ const cache = new InMemoryCache({
   dataIdFromObject: ({ id }) => id,
 })
 
-cache.writeFragment({
+const link = createUploadLink({
+  uri: API_URL,
+})
+
+const client = new ApolloClient({
+  link,
+  cache,
+})
+
+client.writeFragment({
   id: USER_ID,
   fragment: USER_INIT_FRAG,
   data: {
@@ -19,15 +28,6 @@ cache.writeFragment({
     playlists: [],
     __typename: "User",
   },
-})
-
-const link = createUploadLink({
-  uri: API_URL,
-})
-
-const client = new ApolloClient({
-  link,
-  cache,
 })
 
 export default client

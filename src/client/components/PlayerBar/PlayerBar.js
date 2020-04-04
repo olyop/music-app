@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react"
 
-import Song from "../Song"
 import Icon from "../Icon"
+import Current from "../Current"
 import Progress from "../Progress"
 import { Link } from "react-router-dom"
 import UserContext from "../../contexts/User"
@@ -87,7 +87,7 @@ const PlayerBar = () => {
       </div>
       <div className={bem("main")}>
         <div className={bem("main-info")}>
-          {isCurrent ? <Song showAdd song={user.current} /> : <div/>}
+          {isCurrent ? <Current/> : <div/>}
           <div className={bem("main-info-right")}>
             <Icon
               icon="volume_up"

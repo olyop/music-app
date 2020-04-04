@@ -12,8 +12,8 @@ import ADD_SONG from "../../../../graphql/mutations/addSong.graphql"
 import GET_ADD_SONG from "../../../../graphql/queries/getAddSong.graphql"
 
 const AddSong = () => {
-  const [ addSong ] = useMutation(ADD_SONG)
   const { loading, error, data } = useQuery(GET_ADD_SONG)
+  const [ addSong, addSongResult ] = useMutation(ADD_SONG)
   if (loading) {
     return <Spinner/>
   } else if (!isUndefined(error)) {
@@ -22,6 +22,7 @@ const AddSong = () => {
     return (
       <Form
         title="Song"
+        result={addSongResult}
         fields={fieldsConfig(data)}
         submit={variables => addSong({ variables })}
       />

@@ -17,6 +17,6 @@ export const resolver = callback => (parent, args, context, info) => callback({ 
 
 export const request = callback => (req, res, nxt) => callback({ req, res, nxt })
 
-export const dataUrl = binary => `data:image/jpeg;base64,${binary.toString("base64")}`
+export const toDataUrl = binary => `data:image/jpeg;base64,${binary.toString("base64")}`
 
 export const userQueueSelect = { prev: 1, current: 1, next: 1, queue: 1 }

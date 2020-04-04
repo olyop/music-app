@@ -12,8 +12,8 @@ import ADD_ALBUM from "../../../../graphql/mutations/addAlbum.graphql"
 import GET_ARTISTS from "../../../../graphql/queries/getArtists.graphql"
 
 const AddAlbum = () => {
-  const [ addAlbum ] = useMutation(ADD_ALBUM)
   const { loading, error, data } = useQuery(GET_ARTISTS)
+  const [ addAlbum, addAlbumResult ] = useMutation(ADD_ALBUM)
   if (loading) {
     return <Spinner/>
   } else if (!isUndefined(error)) {
@@ -22,6 +22,7 @@ const AddAlbum = () => {
     return (
       <Form
         title="Album"
+        result={addAlbumResult}
         fields={fieldsConfig(data)}
         submit={variables => addAlbum({ variables })}
       />

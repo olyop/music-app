@@ -24,7 +24,7 @@ export const MONGODB_URL = "mongodb://localhost:27017"
 
 export const MONGOOSE_OPTIONS = {
   poolSize: 1,
-  dbName: "temp",
+  dbName: "music-app",
   loggerLevel: "error",
   useCreateIndex: true,
   useNewUrlParser: true,
@@ -64,4 +64,5 @@ export const USER_EMPTY_QUEUE = {
   prev: [],
   next: [],
   queue: [],
+  current: null,
 }

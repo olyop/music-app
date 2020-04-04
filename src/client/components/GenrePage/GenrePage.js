@@ -1,8 +1,9 @@
-import React from "react"
+import React, { useContext } from "react"
 
 import Loading from "../Loading"
 import ApiError from "../ApiError"
 import SongsTable from "../SongsTable"
+import UserContext from "../../contexts/User"
 
 import { isUndefined } from "lodash"
 import reactBem from "@oly_op/react-bem"
@@ -16,9 +17,15 @@ import "./GenrePage.scss"
 const bem = reactBem("GenrePage")
 
 const GenrePage = () => {
-  const { id } = useParams()
-  const variables = { id }
-  const { loading, error, data } = useQuery(GET_GENRE_PAGE, { variables })
+
+  const { id: genreId } = useParams()
+  const userId = useContext(UserContext)
+
+  const { loading, error, data } = useQuery(
+    GET_GENRE_PAGE,
+    { variables: { genreId, userId } },
+  )
+
   if (loading) {
     return <Loading/>
   } else if (!isUndefined(error)) {

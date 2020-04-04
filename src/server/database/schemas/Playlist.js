@@ -11,13 +11,13 @@ const definition = {
     required: true,
     maxlength: 256,
   },
-  songs: [{
+  user: {
     index: true,
     minlength: 24,
     maxlength: 24,
     type: ObjectId,
     required: true,
-  }],
+  },
 }
 
 const schema = new Schema(definition, SCHEMA_OPTIONS)

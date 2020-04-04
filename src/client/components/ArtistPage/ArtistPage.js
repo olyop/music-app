@@ -1,12 +1,13 @@
-import React, { Fragment } from "react"
+import React, { Fragment, useContext } from "react"
 
 import Cover from "../Cover"
 import Album from "../Album"
 import Albums from "../Albums"
-import Loading from "../Loading"
+import Spinner from "../Spinner"
 import ApiError from "../ApiError"
 import SongsTable from "../SongsTable"
 import AddToLibrary from "../AddToLibrary"
+import UserContext from "../../contexts/User"
 
 import reactBem from "@oly_op/react-bem"
 import { useParams } from "react-router-dom"
@@ -21,11 +22,16 @@ import "./ArtistPage.scss"
 const bem = reactBem("ArtistPage")
 
 const ArtistPage = () => {
-  const { id } = useParams()
-  const variables = { id }
-  const { loading, error, data } = useQuery(GET_ARTIST_PAGE, { variables })
+  const { id: artistId } = useParams()
+  const userId = useContext(UserContext)
+
+  const { loading, error, data } = useQuery(
+    GET_ARTIST_PAGE,
+    { variables: { artistId, userId } },
+  )
+
   if (loading) {
-    return <Loading/>
+    return <Spinner className={bem("spinner")} />
   } else if (!isUndefined(error)) {
     return <ApiError/>
   } else {

@@ -22,6 +22,33 @@ import {
 const fieldsConifg = ({ artists, albums, genres }) => [
   {
     id: uniqueId(),
+    name: "Audio",
+    short: "audio",
+    type: "file",
+    isDoc: false,
+    init: "",
+    req: true,
+    min: 1,
+    max: 52428800,
+    parse: {
+      in: noopParse,
+      out: noopParse,
+    },
+    validators: [
+      {
+        id: uniqueId(),
+        msg: "valid and of file type of mp3.",
+        check: val => (isUndefined(val.file) ? false : val.file.type === "audio/mp3") && val.file instanceof File,
+      },
+      {
+        id: uniqueId(),
+        msg: "size no more than 50 MB",
+        check: val => (isUndefined(val.file) ? false : val.file.size < 52428800),
+      },
+    ],
+  },
+  {
+    id: uniqueId(),
     name: "Title",
     short: "title",
     type: "text",
@@ -240,33 +267,6 @@ const fieldsConifg = ({ artists, albums, genres }) => [
         id: uniqueId(),
         check: validateId,
         msg: "must be a valid album.",
-      },
-    ],
-  },
-  {
-    id: uniqueId(),
-    name: "Audio",
-    short: "audio",
-    type: "file",
-    isDoc: false,
-    init: "",
-    req: true,
-    min: 1,
-    max: 5e7,
-    parse: {
-      in: noopParse,
-      out: noopParse,
-    },
-    validators: [
-      {
-        id: uniqueId(),
-        msg: "valid and of file type of mp3.",
-        check: val => (isUndefined(val.file) ? false : val.file.type === "audio/mp3") && val.file instanceof File,
-      },
-      {
-        id: uniqueId(),
-        msg: "size no more than 50 MB",
-        check: val => (isUndefined(val.file) ? false : val.file.size < 5e7),
       },
     ],
   },

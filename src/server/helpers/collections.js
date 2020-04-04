@@ -5,7 +5,7 @@ import mapValues from "lodash/mapValues.js"
 
 const { ObjectId } = mongoose.Types
 
-export const deserializeDocument = ({ _id, __v, ...doc }) => ({
+export const deserializeDocument = ({ _id, ...doc }) => ({
   id: _id.toString(),
   dateCreated: Math.floor(ObjectId(_id).getTimestamp().getTime() / 1000),
   ...mapValues(doc, val => {

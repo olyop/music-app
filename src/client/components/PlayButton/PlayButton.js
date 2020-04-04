@@ -4,8 +4,8 @@ import Icon from "../Icon"
 import UserContext from "../../contexts/User"
 import PlayContext from "../../contexts/Play"
 
+import { isNull } from "lodash"
 import reactBem from "@oly_op/react-bem"
-import { isUndefined, isNull } from "lodash"
 import { propTypes, defaultProps } from "./props"
 import { useMutation, useApolloClient } from "@apollo/react-hooks"
 
@@ -25,35 +25,35 @@ const PlayButton = ({ song, className }) => {
 
   const user = client.readFragment({ id, fragment: USER_CURRENT_FRAG })
 
+  const { current } = user
   const { id: songId } = song
-  const { id: userId, current } = user
-  const variables = { userId, songId }
+  const variables = { userId: id, songId }
 
-  const isPlay = isUndefined(current) || isNull(current) ? false : (current.id === songId)
+  const isPlay = isNull(current) ? false : (current.id === songId)
   const isPlaying = isPlay && play
 
   const optimisticResponse = {
     userPlay: {
+      id,
       prev: [],
       next: [],
       queue: [],
-      id: userId,
+      current: song,
       __typename: "User",
-      current: { ...song, cover: "" },
     },
   }
 
   const update = (proxy, result) => {
     proxy.writeFragment({
-      id: userId,
-      data: result.data.userPlay,
+      id,
       fragment: USER_QUEUES_FRAG,
+      data: { ...result.data.userPlay },
     })
   }
 
   const [ userPlay ] = useMutation(
     USER_PLAY,
-    { variables, optimisticResponse, update },
+    { variables, update, optimisticResponse },
   )
 
   const handleClick = () => {

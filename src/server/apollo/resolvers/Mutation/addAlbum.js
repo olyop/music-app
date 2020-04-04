@@ -7,6 +7,7 @@ const { Album } = database.models
 
 const addAlbum = async ({ args }) => {
   const { cover, released, ...fields } = args
+
   const upload = await cover
 
   // upload cover

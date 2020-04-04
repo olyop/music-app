@@ -2,11 +2,13 @@ import database from "../../database/index.js"
 import { resolver } from "../../helpers/misc.js"
 
 import {
+  determinePlaySelect,
   determineUserSelect,
   determineSongSelect,
   determineAlbumSelect,
   determineGenreSelect,
   determineArtistSelect,
+  determinePlaylistSelect,
 } from "../../helpers/resolvers.js"
 
 import {
@@ -15,70 +17,41 @@ import {
 } from "../../helpers/collections.js"
 
 const {
-  Song,
   User,
+  Play,
+  Song,
   Album,
   Genre,
   Artist,
+  Playlist,
 } = database.models
 
 export default {
-  artist: resolver(
-    async ({ info, args: { id } }) => {
+  users: resolver(
+    async ({ info }) => {
       const query =
-        Artist.findById(id)
-          .select(determineArtistSelect(info))
-          .lean()
-          .exec()
-      return deserializeDocument(await query)
-    },
-  ),
-  album: resolver(
-    async ({ info, args: { id } }) => {
-      const query =
-        Album.findById(id)
-          .select(determineAlbumSelect(info))
-          .lean()
-          .exec()
-      return deserializeDocument(await query)
-    },
-  ),
-  genre: resolver(
-    async ({ info, args: { id } }) => {
-      const query =
-        Genre.findById(id)
-          .select(determineGenreSelect(info))
-          .lean()
-          .exec()
-      return deserializeDocument(await query)
-    },
-  ),
-  song: resolver(
-    async ({ info, args: { id } }) => {
-      const query =
-        Song.findById(id)
-          .select(determineSongSelect(info))
-          .lean()
-          .exec()
-      return deserializeDocument(await query)
-    },
-  ),
-  user: resolver(
-    async ({ info, args: { id } }) => {
-      const query =
-        User.findById(id)
+        User.find()
           .select(determineUserSelect(info))
           .lean()
           .exec()
-      return deserializeDocument(await query)
+      return deserializeCollection(await query)
     },
   ),
-  artists: resolver(
+  plays: resolver(
     async ({ info }) => {
       const query =
-        Artist.find()
-          .sort({ name: "asc" })
-          .select(determineArtistSelect(info))
+        Play.find()
+          .select(determinePlaySelect(info))
+          .lean()
+          .exec()
+      return deserializeCollection(await query)
+    },
+  ),
+  songs: resolver(
+    async ({ info }) => {
+      const query =
+        Song.find()
+          .select(determineSongSelect(info))
           .lean()
           .exec()
       return deserializeCollection(await query)
@@ -88,7 +61,6 @@ export default {
     async ({ info }) => {
       const query =
         Album.find()
-          .sort({ released: "desc", title: "asc" })
           .select(determineAlbumSelect(info))
           .lean()
           .exec()
@@ -99,33 +71,100 @@ export default {
     async ({ info }) => {
       const query =
         Genre.find()
-          .sort({ name: "asc" })
           .select(determineGenreSelect(info))
           .lean()
           .exec()
       return deserializeCollection(await query)
     },
   ),
-  songs: resolver(
+  artists: resolver(
     async ({ info }) => {
       const query =
-        Song.find()
-          .sort({ title: "asc" })
-          .select(determineSongSelect(info))
+        Artist.find()
+          .select(determineArtistSelect(info))
           .lean()
           .exec()
       return deserializeCollection(await query)
     },
   ),
-  users: resolver(
+  playlists: resolver(
     async ({ info }) => {
       const query =
-        User.find()
-          .sort({ name: "asc" })
+        Playlist.find()
+          .select(determinePlaylistSelect(info))
+          .lean()
+          .exec()
+      return deserializeCollection(await query)
+    }
+  ),
+  user: resolver(
+    async ({ args, info }) => {
+      const query =
+        User.findById(args.userId)
           .select(determineUserSelect(info))
           .lean()
           .exec()
-      return deserializeCollection(await query)
+      return deserializeDocument(await query)
     },
   ),
+  play: resolver(
+    async ({ args, info }) => {
+      const query =
+        Play.findById(args.playId)
+          .select(determinePlaySelect(info))
+          .lean()
+          .exec()
+      return deserializeDocument(await query)
+    },
+  ),
+  song: resolver(
+    async ({ args, info }) => {
+      const query =
+        Song.findById(args.songId)
+          .select(determineSongSelect(info))
+          .lean()
+          .exec()
+      return deserializeDocument(await query)
+    },
+  ),
+  album: resolver(
+    async ({ args, info }) => {
+      const query =
+        Album.findById(args.albumId)
+          .select(determineAlbumSelect(info))
+          .lean()
+          .exec()
+      return deserializeDocument(await query)
+    },
+  ),
+  genre: resolver(
+    async ({ args, info }) => {
+      const query =
+        Genre.findById(args.genreId)
+          .select(determineGenreSelect(info))
+          .lean()
+          .exec()
+      return deserializeDocument(await query)
+    },
+  ),
+  artist: resolver(
+    async ({ args, info }) => {
+      const query =
+        Artist.findById(args.artistId)
+          .select(determineArtistSelect(info))
+          .lean()
+          .exec()
+      return deserializeDocument(await query)
+    },
+  ),
+  playlist: resolver(
+    async ({ args, info }) => {
+      const query =
+        Playlist.findById(args.playlistId)
+          .select(determinePlaylistSelect(info))
+          .lean()
+          .exec()
+      return deserializeDocument(await query)
+    },
+  ), 
 }

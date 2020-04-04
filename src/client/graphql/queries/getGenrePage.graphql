@@ -1,7 +1,8 @@
-query getGenrePage($id: ID!) {
-  genre(id: $id) {
+query getGenrePage($genreId: ID!, $userId: ID!) {
+  genre(genreId: $genreId) {
     id
     name
+    inLibrary(userId: $userId)
     songs {
       id
       title

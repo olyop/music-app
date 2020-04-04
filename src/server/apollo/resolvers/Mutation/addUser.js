@@ -10,11 +10,12 @@ const addUser = async ({ args }) => {
 
   const doc = await User.create({
     name,
+    songs: [],
+    albums: [],
+    artists: [],
     playlists: [],
     ...USER_EMPTY_QUEUE,
   })
-
-  console.log(deserializeDocument(doc.toObject()))
 
   return deserializeDocument(doc.toObject())
 }

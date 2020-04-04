@@ -41,6 +41,7 @@ export const determineSelect = Model => {
       map(field => field === "id" ? "_id" : field),
       filter(field => includes(topFields, field)),
       concatFp(includeFields),
+      filter(field => field !== "_id"),
       reduce((fields, field) => ({ ...fields, [field]: 1 }), {}),
     )
   }

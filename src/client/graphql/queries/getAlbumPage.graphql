@@ -1,9 +1,10 @@
-query getAlbumPage($id: ID!) {
-  album(id: $id) {
+query getAlbumPage($albumId: ID!, $userId: ID!) {
+  album(albumId: $albumId) {
     id
     title
     cover
     released
+    inLibrary(userId: $userId)
     artists {
       id
       name

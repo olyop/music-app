@@ -8,11 +8,12 @@ import { useMutation } from "@apollo/react-hooks"
 import ADD_GENRE from "../../../../graphql/mutations/addGenre.graphql"
 
 const AddGenre = () => {
-  const [ addGenre ] = useMutation(ADD_GENRE)
+  const [ addGenre, addGenreResult ] = useMutation(ADD_GENRE)
   return (
     <Form
       title="Genre"
       fields={fieldsConfig}
+      result={addGenreResult}
       submit={variables => addGenre({ variables })}
     />
   )

@@ -1,6 +1,5 @@
 import React, { Fragment, useState } from "react"
 
-import Img from "../Img"
 import Icon from "../Icon"
 import Song from "../Song"
 import DocLink from "../DocLink"
@@ -9,7 +8,7 @@ import SongTitle from "../SongTitle"
 import PlayButton from "../PlayButton"
 import NextButton from "../NextButton"
 import { Link } from "react-router-dom"
-import AddToLibrary from "../AddToLibrary"
+import InLibraryButton from "../InLibraryButton"
 
 import { propTypes } from "./props"
 import reactBem from "@oly_op/react-bem"
@@ -39,21 +38,9 @@ const SongsTable = ({ songs, orderByInit, columnsToIgnore }) => {
       <thead className={bem("head")}>
         <tr className={bem("head-row")}>
 
-          {showColumn("cover") ? (
-            <th
-              children={(
-                <Icon
-                  icon="album"
-                  className={bem("head-row-col-icon")}
-                />
-              )}
-              className={bem("head-cover","head-row-col")}
-            />
-          ) : null}
-
           {showColumn("play") ? (
             <th
-              className={bem("head-play","head-row-noHover","head-row-col")}
+              className={bem("head-play", "head-row-noHover", "head-row-col")}
             />
           ) : null}
 
@@ -61,7 +48,7 @@ const SongsTable = ({ songs, orderByInit, columnsToIgnore }) => {
             <th
               children="#"
               onClick={handleFieldHeadClick("trackNumber")}
-              className={bem("head-trackNumber","head-row-col")}
+              className={bem("head-trackNumber", "head-row-col")}
             />
           ) : null}
 
@@ -69,38 +56,38 @@ const SongsTable = ({ songs, orderByInit, columnsToIgnore }) => {
             <th
               children="Title"
               onClick={handleFieldHeadClick("title")}
-              className={bem("head-title","head-row-col")}
+              className={bem("head-title", "head-row-col")}
             />
           ) : null}
 
           {showColumn("next") ? (
             <th
-              className={bem("head-next","head-row-noHover","head-row-col")}
+              className={bem("head-next", "head-row-noHover", "head-row-col")}
             />
           ) : null}
 
           {showColumn("later") ? (
             <th
-              className={bem("head-later","head-row-noHover","head-row-col")}
+              className={bem("head-later", "head-row-noHover", "head-row-col")}
             />
           ) : null}
 
           {showColumn("queue") ? (
             <th
-              className={bem("head-queue","head-row-noHover","head-row-col")}
+              className={bem("head-queue", "head-row-noHover", "head-row-col")}
             />
           ) : null}
 
           {showColumn("add") ? (
             <th
-              className={bem("head-add","head-row-noHover","head-row-col")}
+              className={bem("head-add", "head-row-noHover", "head-row-col")}
             />
           ) : null}
 
           {showColumn("duration") ? (
             <th
               onClick={handleFieldHeadClick("duration")}
-              className={bem("head-duration","head-row-col")}
+              className={bem("head-duration", "head-row-col")}
               children={(
                 <Icon
                   icon="access_time"
@@ -114,7 +101,7 @@ const SongsTable = ({ songs, orderByInit, columnsToIgnore }) => {
             <th
               children="Artists"
               onClick={handleFieldHeadClick("artists")}
-              className={bem("head-artists","head-row-col")}
+              className={bem("head-artists", "head-row-col")}
             />
           ) : null}
 
@@ -122,7 +109,7 @@ const SongsTable = ({ songs, orderByInit, columnsToIgnore }) => {
             <th
               children="Remixers"
               onClick={handleFieldHeadClick("remixers")}
-              className={bem("head-remixers","head-row-col")}
+              className={bem("head-remixers", "head-row-col")}
             />
           ) : null}
 
@@ -130,7 +117,7 @@ const SongsTable = ({ songs, orderByInit, columnsToIgnore }) => {
             <th
               children="Album"
               onClick={handleFieldHeadClick("album")}
-              className={bem("head-album","head-row-col")}
+              className={bem("head-album", "head-row-col")}
             />
           ) : null}
 
@@ -138,14 +125,14 @@ const SongsTable = ({ songs, orderByInit, columnsToIgnore }) => {
             <th
               children="Genres"
               onClick={handleFieldHeadClick("genres")}
-              className={bem("head-genres","head-row-col")}
+              className={bem("head-genres", "head-row-col")}
             />
           ) : null}
 
           {showColumn("numOfPlays") ? (
             <th
               onClick={handleFieldHeadClick("numOfPlays")}
-              className={bem("head-numOfPlays","head-row-col")}
+              className={bem("head-numOfPlays", "head-row-col")}
               children={(
                 <Icon
                   icon="audiotrack"
@@ -159,7 +146,7 @@ const SongsTable = ({ songs, orderByInit, columnsToIgnore }) => {
             <th
               children="Released"
               onClick={handleFieldHeadClick("released")}
-              className={bem("head-released","head-row-col")}
+              className={bem("head-released", "head-row-col")}
             />
           ) : null}
 
@@ -167,7 +154,7 @@ const SongsTable = ({ songs, orderByInit, columnsToIgnore }) => {
             <th
               children="Added"
               onClick={handleFieldHeadClick("dateCreated")}
-              className={bem("head-dateCreated","head-row-col")}
+              className={bem("head-dateCreated", "head-row-col")}
             />
           ) : null}
 
@@ -195,21 +182,9 @@ const SongsTable = ({ songs, orderByInit, columnsToIgnore }) => {
               return (
                 <tr key={id} className={bem("body-row")}>
 
-                  {showColumn("cover") ? (
-                    <td
-                      className={bem("body-row-cover","body-row-col")}
-                      children={(
-                        <Img
-                          url={album.cover}
-                          children={<PlayButton song={song}/>}
-                        />
-                      )}
-                    />
-                  ) : null}
-
                   {showColumn("play") ? (
                     <td
-                      className={bem("body-row-play","body-row-col")}
+                      className={bem("body-row-play", "body-row-col")}
                       children={(
                         <PlayButton
                           song={song}
@@ -221,9 +196,9 @@ const SongsTable = ({ songs, orderByInit, columnsToIgnore }) => {
 
                   {showColumn("trackNumber") ? (
                     <td
-                      className={bem("body-row-trackNumber","body-row-col")}
+                      className={bem("body-row-trackNumber", "body-row-col")}
                       children={(
-                        <span className={bem("body-row-trackNumber-span","body-row-col-span")}>
+                        <span className={bem("body-row-trackNumber-span", "body-row-col-span")}>
                           {trackNumber}
                         </span>
                       )}
@@ -232,10 +207,10 @@ const SongsTable = ({ songs, orderByInit, columnsToIgnore }) => {
 
                   {showColumn("title") ? (
                     <td
-                      className={bem("body-row-title","body-row-col")}
+                      className={bem("body-row-title", "body-row-col")}
                       children={(
                         <Fragment>
-                          <div className={bem("body-row-title-span","body-row-col-span")}>
+                          <div className={bem("body-row-title-span", "body-row-col-span")}>
                             <SongTitle
                               song={song}
                               showRemixers={false}
@@ -244,7 +219,7 @@ const SongsTable = ({ songs, orderByInit, columnsToIgnore }) => {
                           <Song
                             song={song}
                             showCover={false}
-                            className={bem("body-row-title-song","body-row-col-span")}
+                            className={bem("body-row-title-song", "body-row-col-span")}
                           />
                         </Fragment>
                       )}
@@ -253,7 +228,7 @@ const SongsTable = ({ songs, orderByInit, columnsToIgnore }) => {
 
                   {showColumn("next") ? (
                     <td
-                      className={bem("body-row-next","body-row-col")}
+                      className={bem("body-row-next", "body-row-col")}
                       children={(
                         <NextButton
                           doc={song}
@@ -265,7 +240,7 @@ const SongsTable = ({ songs, orderByInit, columnsToIgnore }) => {
 
                   {showColumn("later") ? (
                     <td
-                      className={bem("body-row-later","body-row-col")}
+                      className={bem("body-row-later", "body-row-col")}
                       children={(
                         <Icon
                           title="Later"
@@ -278,7 +253,7 @@ const SongsTable = ({ songs, orderByInit, columnsToIgnore }) => {
 
                   {showColumn("queue") ? (
                     <td
-                      className={bem("body-row-queue","body-row-col")}
+                      className={bem("body-row-queue", "body-row-col")}
                       children={(
                         <Icon
                           title="Queue"
@@ -291,9 +266,9 @@ const SongsTable = ({ songs, orderByInit, columnsToIgnore }) => {
 
                   {showColumn("add") ? (
                     <td
-                      className={bem("body-row-add","body-row-col")}
+                      className={bem("body-row-add", "body-row-col")}
                       children={(
-                        <AddToLibrary
+                        <InLibraryButton
                           doc={song}
                           className={bem("body-row-add-icon")}
                         />
@@ -303,9 +278,9 @@ const SongsTable = ({ songs, orderByInit, columnsToIgnore }) => {
 
                   {showColumn("duration") ? (
                     <td
-                      className={bem("body-row-duration","body-row-col")}
+                      className={bem("body-row-duration", "body-row-col")}
                       children={(
-                        <span className={bem("body-row-duration-span","body-row-col-span")}>
+                        <span className={bem("body-row-duration-span", "body-row-col-span")}>
                           {deserializeDuration(duration)}
                         </span>
                       )}
@@ -314,13 +289,13 @@ const SongsTable = ({ songs, orderByInit, columnsToIgnore }) => {
 
                   {showColumn("artists") ? (
                     <td
-                      className={bem("body-row-artists","body-row-col")}
+                      className={bem("body-row-artists", "body-row-col")}
                       children={(
                         <span className={bem("body-row-col-span")}>
                           <DocLinks
                             path="/artist"
                             ampersand={false}
-                            docs={concat(artists,featuring)}
+                            docs={concat(artists, featuring)}
                           />
                         </span>
                       )}
@@ -329,7 +304,7 @@ const SongsTable = ({ songs, orderByInit, columnsToIgnore }) => {
 
                   {showColumn("remixers") ? (
                     <td
-                      className={bem("body-row-remixers","body-row-col")}
+                      className={bem("body-row-remixers", "body-row-col")}
                       children={(
                         <span className={bem("body-row-col-span")}>
                           {isEmpty(remixers) ? null : (
@@ -346,7 +321,7 @@ const SongsTable = ({ songs, orderByInit, columnsToIgnore }) => {
 
                   {showColumn("album") ? (
                     <td
-                      className={bem("body-row-album","body-row-col")}
+                      className={bem("body-row-album", "body-row-col")}
                       children={(
                         <span className={bem("body-row-col-span")}>
                           <DocLink
@@ -360,7 +335,7 @@ const SongsTable = ({ songs, orderByInit, columnsToIgnore }) => {
 
                   {showColumn("genres") ? (
                     <td
-                      className={bem("body-row-genres","body-row-col")}
+                      className={bem("body-row-genres", "body-row-col")}
                       children={(
                         <span className={bem("body-row-col-span")}>
                           <DocLinks
@@ -375,7 +350,7 @@ const SongsTable = ({ songs, orderByInit, columnsToIgnore }) => {
 
                   {showColumn("released") ? (
                     <td
-                      className={bem("body-row-released","body-row-col")}
+                      className={bem("body-row-released", "body-row-col")}
                       children={(
                         <span className={bem("body-row-col-span")}>
                           {deserializeDate(album.released)}
@@ -386,12 +361,12 @@ const SongsTable = ({ songs, orderByInit, columnsToIgnore }) => {
 
                   {showColumn("numOfPlays") ? (
                     <td
-                      className={bem("body-row-numOfPlays","body-row-col")}
+                      className={bem("body-row-numOfPlays", "body-row-col")}
                       children={numOfPlays === 0 ? null : (
                         <Link
                           to={`/plays/${id}`}
                           children={numOfPlays}
-                          className={bem("body-row-numOfPlays-span","body-row-col-span")}
+                          className={bem("body-row-numOfPlays-span", "body-row-col-span")}
                         />
                       )}
                     />
@@ -399,7 +374,7 @@ const SongsTable = ({ songs, orderByInit, columnsToIgnore }) => {
 
                   {showColumn("dateCreated") ? (
                     <td
-                      className={bem("body-row-dateCreated","body-row-col")}
+                      className={bem("body-row-dateCreated", "body-row-col")}
                       children={(
                         <span className={bem("body-row-col-span")}>
                           {deserializeDate(song.dateCreated / 86400)}

@@ -91,18 +91,18 @@ const PlayerBar = () => {
           <div className={bem("main-info-right")}>
             <Icon
               icon="volume_up"
-              className={bem("main-info-right-volume","icon")}
+              className={bem("main-info-right-volume", "icon")}
             />
             <Link to="/queues" className={bem("link")}>
               <Icon
                 icon="queue_music"
-                className={bem("main-info-right-queues","icon")}
+                className={bem("main-info-right-queues", "icon")}
               />
             </Link>
             <Link to="/player" className={bem("link")}>
               <Icon
                 icon="fullscreen"
-                className={bem("main-info-right-fullscreen","icon")}
+                className={bem("main-info-right-fullscreen", "icon")}
               />
             </Link>
           </div>

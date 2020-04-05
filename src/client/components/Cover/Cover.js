@@ -22,28 +22,28 @@ const Cover = ({ url, className, imgClassName }) => (
           icon="play_arrow"
           iconClassName={bem("button-icon")}
           textClassName={bem("button-text")}
-          className={bem("button-top-left","button")}
+          className={bem("button-top-left", "button")}
         />
         <IconText
           text="Next"
           icon="double_arrow"
           iconClassName={bem("button-icon")}
           textClassName={bem("button-text")}
-          className={bem("button-top-right","button")}
+          className={bem("button-top-right", "button")}
         />
         <IconText
           text="Later"
           icon="playlist_add"
           iconClassName={bem("button-icon")}
           textClassName={bem("button-text")}
-          className={bem("button-bottom-left","button")}
+          className={bem("button-bottom-left", "button")}
         />
         <IconText
           text="Queue"
           icon="queue_music"
           iconClassName={bem("button-icon")}
           textClassName={bem("button-text")}
-          className={bem("button-bottom-right","button")}
+          className={bem("button-bottom-right", "button")}
         />
         <div className={bem("black-box")} />
       </Fragment>

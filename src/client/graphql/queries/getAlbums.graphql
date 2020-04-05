@@ -1,8 +1,9 @@
-query getAlbums {
+query getAlbums($userId: ID!) {
   albums {
     id
     title
     cover
+    inLibrary(userId: $userId)
     artists {
       id
       name

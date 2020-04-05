@@ -151,7 +151,7 @@ export default {
       const userAlbum = await query
 
       if (isNull(userAlbum)) {
-        return null
+        return false
       } else {
         return deserializeDocument(userAlbum).inLibrary
       }

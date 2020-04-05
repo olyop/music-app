@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React, { useContext, useState } from "react"
 
 import Pages from "../Pages"
@@ -15,8 +14,8 @@ import { useQuery } from "@apollo/react-hooks"
 import GET_USER from "../../graphql/queries/getUser.graphql"
 
 const Application = () => {
-  const id = useContext(UserContext)
-  const { loading, error } = useQuery(GET_USER, { variables: { id } })
+  const userId = useContext(UserContext)
+  const { loading, error } = useQuery(GET_USER, { variables: { userId } })
   const [ play, setPlay ] = useState(false)
   if (loading) {
     return <Loading/>

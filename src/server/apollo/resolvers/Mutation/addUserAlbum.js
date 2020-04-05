@@ -1,28 +1,29 @@
 import database from "../../../database/index.js"
 import { resolver } from "../../../helpers/misc.js"
+import { determineAlbumSelect } from "../../../helpers/resolvers.js"
 import { deserializeDocument } from "../../../helpers/collections.js"
-import { determineUserAlbumSelect } from "../../../helpers/resolvers.js"
 
-const { UserAlbum } = database.models
+const { Album, UserAlbum } = database.models
 
-const addUserAlbum = async ({ info, args }) => {
+const addUserAlbum = async ({ args, info }) => {
   const { userId, albumId } = args
 
   const filter = { user: userId, album: albumId }
   const exists = await UserAlbum.exists(filter)
 
   if (exists) {
-    const query =
-      UserAlbum.findOneAndUpdate(filter, { inLibrary: true })
-        .setOptions({ new: true })
-        .select(determineUserAlbumSelect(info))
-        .lean()
-        .exec()
-    return deserializeDocument(await query)
+    await UserAlbum.findOneAndUpdate(filter, { inLibrary: true }).exec()
   } else {
-    const doc = await UserAlbum.create({ ...filter, inLibrary: true })
-    return deserializeDocument(doc.toObject())
+    await UserAlbum.create({ ...filter, inLibrary: true })
   }
+
+  const query =
+    Album.findById(albumId)
+      .select(determineAlbumSelect(info))
+      .lean()
+      .exec()
+
+  return deserializeDocument(await query)
 }
 
 export default resolver(addUserAlbum)

@@ -1,15 +1,12 @@
-query getUserArtists($id: ID!) {
-  user(id: $id) {
+query getUserArtists($userId: ID!) {
+  user(userId: $userId) {
     id
     artists {
       id
-      inLibrary
-      dateCreated
-      artist {
-        id
-        name
-        photo
-      }
+      name
+      photo
+      inLibrary(userId: $userId)
+      dateAdded(userId: $userId)
     }
   }
 }

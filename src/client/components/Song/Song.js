@@ -3,7 +3,7 @@ import React from "react"
 import Img from "../Img"
 import SongTitle from "../SongTitle"
 import { Link } from "react-router-dom"
-import AddToLibrary from "../AddToLibrary"
+import InLibraryButton from "../InLibraryButton"
 import FeaturingArtists from "../FeaturingArtists"
 
 import reactBem from "@oly_op/react-bem"
@@ -16,7 +16,7 @@ const bem = reactBem("Song")
 const Song = ({ song, showAdd, showCover, className }) => {
   const { artists, featuring, album } = song
   return (
-    <div className={bem({ ignore: true, className },"")}>
+    <div className={bem({ ignore: true, className }, "")}>
       {showCover ? (
         <Link to={`/album/${album.id}`} title={album.title}>
           <Img
@@ -30,7 +30,7 @@ const Song = ({ song, showAdd, showCover, className }) => {
         <p className={bem("text-title")}>
           <span><SongTitle song={song} showRemixers /></span>
           {showAdd ? (
-            <AddToLibrary
+            <InLibraryButton
               doc={song}
               className={bem("text-title-add")}
             />

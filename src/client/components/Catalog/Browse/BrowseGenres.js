@@ -1,4 +1,4 @@
-import React, { Fragment } from "react"
+import React, { Fragment, useContext } from "react"
 
 import Genre from "../../Genre"
 import Empty from "../../Empty"
@@ -6,6 +6,7 @@ import Genres from "../../Genres"
 import Spinner from "../../Spinner"
 import ApiError from "../../ApiError"
 import { Link } from "react-router-dom"
+import UserContext from "../../../contexts/User"
 
 import { isUndefined, isEmpty } from "lodash"
 import { useQuery } from "@apollo/react-hooks"
@@ -13,7 +14,13 @@ import { useQuery } from "@apollo/react-hooks"
 import GET_GENRES from "../../../graphql/queries/getGenres.graphql"
 
 const BrowseGenres = () => {
-  const { loading, error, data } = useQuery(GET_GENRES)
+  const userId = useContext(UserContext)
+
+  const { loading, error, data } = useQuery(
+    GET_GENRES,
+    { variables: { userId } },
+  )
+
   if (loading) {
     return <Spinner/>
   } else if (!isUndefined(error)) {

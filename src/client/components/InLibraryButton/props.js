@@ -1,9 +1,10 @@
-import { string, shape } from "prop-types"
+import { string, shape, bool } from "prop-types"
 
 export const propTypes = {
   className: string,
   doc: shape({
     id: string.isRequired,
+    inLibrary: bool.isRequired,
     __typename: string.isRequired,
   }).isRequired,
 }

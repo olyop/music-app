@@ -134,11 +134,11 @@ export const handleFormSubmit = (fields, init, form, setForm, remember, submit) 
 }
 
 export const determineInputType = ({ type }) => {
-  if (includes(["text","list"], type)) {
+  if (includes(["text", "list"], type)) {
     return "text"
   } else if (type === "date") {
     return "date"
-  } else if (includes(["num","int"], type)) {
+  } else if (includes(["num", "int"], type)) {
     return "number"
   } else if (type === "file") {
     return "file"
@@ -148,7 +148,7 @@ export const determineInputType = ({ type }) => {
 }
 
 export const determineMin = ({ type, min }) => {
-  if (includes(["int","num","date"], type)) {
+  if (includes(["int", "num", "date"], type)) {
     return min
   } else {
     return undefined
@@ -156,7 +156,7 @@ export const determineMin = ({ type, min }) => {
 }
 
 export const determineMax = ({ type, max }) => {
-  if (includes(["int","num","date"], type)) {
+  if (includes(["int", "num", "date"], type)) {
     return max
   } else {
     return undefined
@@ -164,7 +164,7 @@ export const determineMax = ({ type, max }) => {
 }
 
 export const determineMinLength = ({ type, min }) => {
-  if (includes(["text","list"], type)) {
+  if (includes(["text", "list"], type)) {
     return min
   } else {
     return undefined
@@ -172,7 +172,7 @@ export const determineMinLength = ({ type, min }) => {
 }
 
 export const determineMaxLength = ({ type, max }) => {
-  if (includes(["text","list"], type)) {
+  if (includes(["text", "list"], type)) {
     return max
   } else {
     return undefined

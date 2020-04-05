@@ -32,13 +32,13 @@ const Form = ({ title, fields, rememberText, result, submitText, submit }) => {
   const [ form, setForm ] = useState(init)
   const [ remember, setRemember ] = useState(false)
 
-  const onFieldChange = handleFieldChange(form,setForm)
-  const onFieldHitClick = handleFieldHitClick(form,setForm)
-  const onFieldDocRemove = handleFieldDocRemove(form,setForm)
-  const onToggleRemember = handleToggleRemember(remember,setRemember)
-  const onFormSubmit = handleFormSubmit(fields,init,form,setForm,remember,submit)
+  const onFieldChange = handleFieldChange(form, setForm)
+  const onFieldHitClick = handleFieldHitClick(form, setForm)
+  const onFieldDocRemove = handleFieldDocRemove(form, setForm)
+  const onToggleRemember = handleToggleRemember(remember, setRemember)
+  const onFormSubmit = handleFormSubmit(fields, init, form, setForm, remember, submit)
 
-  const isFormValid = determineFormValid(fields,form)
+  const isFormValid = determineFormValid(fields, form)
 
   const { loading, error } = result
 
@@ -61,7 +61,7 @@ const Form = ({ title, fields, rememberText, result, submitText, submit }) => {
                   index={index}
                   field={field}
                   key={field.id}
-                  val={determineFieldVal(field,form)}
+                  val={determineFieldVal(field, form)}
                   onFieldChange={onFieldChange(field)}
                   onFieldHitClick={onFieldHitClick(field)}
                   onFieldDocRemove={onFieldDocRemove(field)}

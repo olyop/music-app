@@ -6,9 +6,10 @@ query getArtistPage($artistId: ID!, $userId: ID!) {
     inLibrary(userId: $userId)
     songs {
       id
-      title
       mix
+      title
       duration
+      inLibrary(userId: $userId)
       featuring {
         id
         name
@@ -28,7 +29,6 @@ query getArtistPage($artistId: ID!, $userId: ID!) {
       album {
         id
         title
-        cover
         released
       }
     }
@@ -36,6 +36,7 @@ query getArtistPage($artistId: ID!, $userId: ID!) {
       id
       title
       cover
+      inLibrary(userId: $userId)
       artists {
         id
         name

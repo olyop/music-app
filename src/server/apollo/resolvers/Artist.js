@@ -30,7 +30,7 @@ export default {
   ),
   songs: resolver(
     async ({ parent, info }) => {
-      const { artistId } = parent
+      const { id: artistId } = parent
 
       const query = field =>
         Song.find({ [field]: artistId })
@@ -49,7 +49,7 @@ export default {
   ),
   albums: resolver(
     async ({ parent, info }) => {
-      const { artistId } = parent
+      const { id: artistId } = parent
 
       const query =
         Album.find({ artists: artistId })
@@ -65,13 +65,20 @@ export default {
       const { userId } = args
       const { id: artistId } = parent
 
-      const songsQuery =
-        Song.find({ artist: artistId })
+      const songsQuery = field =>
+        Song.find({ [field]: artistId })
           .select({ _id: 1 })
           .lean()
           .exec()
 
-      const songs = deserializeCollection(await songsQuery)
+      const songsQueries = Promise.all(fields.map(songsQuery))
+
+      const songs = pipe(await songsQueries)(
+        flatten,
+        deserializeCollection,
+        removeDup,
+      )
+
       const songsId = songs.map(({ id }) => id)
 
       const playQuery =
@@ -156,7 +163,7 @@ export default {
       const userArtist = await query
 
       if (isNull(userArtist)) {
-        return null
+        return false
       } else {
         return deserializeDocument(userArtist).inLibrary
       }

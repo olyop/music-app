@@ -5,9 +5,10 @@ query getGenrePage($genreId: ID!, $userId: ID!) {
     inLibrary(userId: $userId)
     songs {
       id
-      title
       mix
+      title
       duration
+      inLibrary(userId: $userId)
       featuring {
         id
         name

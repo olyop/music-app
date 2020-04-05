@@ -1,25 +1,25 @@
-import React, { Fragment } from "react"
+import React, { Fragment, useContext } from "react"
 
 import Empty from "../../Empty"
 import Spinner from "../../Spinner"
 import ApiError from "../../ApiError"
-import SongsTable from "../../SongsTable"
 import { Link } from "react-router-dom"
+import SongsTable from "../../SongsTable"
+import UserContext from "../../../contexts/User"
 
 import { isUndefined, isEmpty } from "lodash"
 import { useQuery } from "@apollo/react-hooks"
 
 import GET_SONGS from "../../../graphql/queries/getSongs.graphql"
 
-const addEmptyAlbumCoverToSongs = songs => songs.map(
-  song => ({
-    ...song,
-    album: { ...song.album, cover: "" },
-  }),
-)
-
 const BrowseSongs = () => {
-  const { loading, error, data } = useQuery(GET_SONGS)
+  const userId = useContext(UserContext)
+
+  const { loading, error, data } = useQuery(
+    GET_SONGS,
+    { variables: { userId } },
+  )
+
   if (loading) {
     return <Spinner/>
   } else if (!isUndefined(error)) {
@@ -40,9 +40,9 @@ const BrowseSongs = () => {
   } else {
     return (
       <SongsTable
+        songs={data.songs}
         orderByInit={{ field: "title", order: true }}
-        songs={addEmptyAlbumCoverToSongs(data.songs)}
-        columnsToIgnore={["cover","trackNumber","numOfPlays","released","dateCreated"]}
+        columnsToIgnore={["trackNumber", "numOfPlays", "released", "dateCreated"]}
       />
     )
   }

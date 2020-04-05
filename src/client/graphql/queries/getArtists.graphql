@@ -1,7 +1,8 @@
-query getArtists {
+query getArtists($userId: ID!) {
   artists {
     id
     name
     photo
+    inLibrary(userId: $userId)
   }
 }

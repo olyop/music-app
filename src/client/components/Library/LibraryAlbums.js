@@ -3,6 +3,7 @@ import React, { useContext, Fragment } from "react"
 import Empty from "../Empty"
 import Album from "../Album"
 import Albums from "../Albums"
+import Spinner from "../Spinner"
 import ApiError from "../ApiError"
 import { Link } from "react-router-dom"
 import UserContext from "../../contexts/User"
@@ -10,52 +11,57 @@ import UserContext from "../../contexts/User"
 import { pipe } from "../../helpers"
 import { isUndefined, isEmpty } from "lodash"
 import { useQuery } from "@apollo/react-hooks"
-import { filter, map, orderBy } from "lodash/fp"
+import { filter, orderBy, map } from "lodash/fp"
 
 import GET_USER_ALBUMS from "../../graphql/queries/getUserAlbums.graphql"
 
 const LibraryAlbums = () => {
-  const id = useContext(UserContext)
+  const userId = useContext(UserContext)
 
-  const { error, data } = useQuery(
+  const { loading, error, data } = useQuery(
     GET_USER_ALBUMS,
-    { fetchPolicy: "cache-and-network", variables: { id } },
+    { variables: { id: userId } },
   )
+
+  if (loading) {
+    return <Spinner/>
+  }
 
   if (!isUndefined(error)) {
     return <ApiError error={error} />
-  } else if (isEmpty(data.user.albums)) {
+  }
+
+  if (isEmpty(data.user.albums)) {
     return (
       <Empty
         title="Your library is empty"
         text={(
           <Fragment>
-            <Fragment>You can </Fragment>
-            <Link to="/catalog/browse/albums">browse</Link>
-            <Fragment> the catalog to add albums.</Fragment>
+            <Fragment>You can browse the </Fragment>
+            <Link to="/catalog/browse/albums">catalog</Link>
+            <Fragment> to add albums.</Fragment>
           </Fragment>
         )}
       />
     )
-  } else {
-    return (
-      <Albums>
-        {pipe(data.user.albums)(
-          filter(({ inLibrary }) => inLibrary),
-          map(({ album, dateCreated }) => ({ ...album, dateCreated })),
-          orderBy("dateCreated","desc"),
-          map(
-            album => (
-              <Album
-                album={album}
-                key={album.id}
-              />
-            ),
-          ),
-        )}
-      </Albums>
-    )
   }
+
+  return (
+    <Albums>
+      {pipe(data.user.albums)(
+        filter(({ inLibrary }) => !inLibrary),
+        orderBy("dateAdded", "desc"),
+        map(
+          album => (
+            <Album
+              album={album}
+              key={album.id}
+            />
+          ),
+        ),
+      )}
+    </Albums>
+  )
 }
 
 export default LibraryAlbums

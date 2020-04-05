@@ -1,5 +1,6 @@
 import LibrarySongs from "./LibrarySongs"
 import LibraryAlbums from "./LibraryAlbums"
+import LibraryGenres from "./LibraryGenres"
 import LibraryArtists from "./LibraryArtists"
 import LibraryPlaylists from "./LibraryPlaylists"
 
@@ -7,18 +8,11 @@ import { uniqueId } from "lodash"
 
 const routes = [
   {
-    icon: "playlist_play",
+    name: "Songs",
     id: uniqueId(),
-    name: "Playlists",
-    path: "/playlists",
-    component: LibraryPlaylists,
-  },
-  {
-    name: "Artists",
-    id: uniqueId(),
-    path: "/artists",
-    icon: "person",
-    component: LibraryArtists,
+    path: "/songs",
+    icon: "audiotrack",
+    component: LibrarySongs,
   },
   {
     name: "Albums",
@@ -28,11 +22,25 @@ const routes = [
     component: LibraryAlbums,
   },
   {
-    name: "Songs",
+    name: "Genres",
     id: uniqueId(),
-    path: "/songs",
-    icon: "audiotrack",
-    component: LibrarySongs,
+    path: "/genres",
+    icon: "palette",
+    component: LibraryGenres,
+  },
+  {
+    name: "Artists",
+    id: uniqueId(),
+    path: "/artists",
+    icon: "person",
+    component: LibraryArtists,
+  },
+  {
+    icon: "playlist_play",
+    id: uniqueId(),
+    name: "Playlists",
+    path: "/playlists",
+    component: LibraryPlaylists,
   },
 ]
 

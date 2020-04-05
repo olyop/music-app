@@ -6,8 +6,8 @@ import IconText from "../IconText"
 import ApiError from "../ApiError"
 import DocLinks from "../DocLinks"
 import SongsTable from "../SongsTable"
-import AddToLibrary from "../AddToLibrary"
 import UserContext from "../../contexts/User"
+import InLibraryButton from "../InLibraryButton"
 
 import { isUndefined } from "lodash"
 import reactBem from "@oly_op/react-bem"
@@ -23,7 +23,6 @@ import "./AlbumPage.scss"
 const bem = reactBem("AlbumPage")
 
 const AlbumPage = () => {
-
   const { id: albumId } = useParams()
   const userId = useContext(UserContext)
 
@@ -49,7 +48,7 @@ const AlbumPage = () => {
         />
         <h2 className={bem("title")}>
           <span className={bem("title-text")}>{title}</span>
-          <AddToLibrary
+          <InLibraryButton
             doc={album}
             className={bem("title-add")}
           />
@@ -90,7 +89,7 @@ const AlbumPage = () => {
                 <SongsTable
                   songs={disc.songs}
                   orderByInit={{ field: "trackNumber", order: true }}
-                  columnsToIgnore={["album","cover","numOfPlays","released","dateCreated"]}
+                  columnsToIgnore={["album", "numOfPlays", "released", "dateCreated"]}
                 />
               </div>
             ),

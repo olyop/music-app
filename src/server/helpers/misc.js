@@ -1,8 +1,6 @@
 import sortBy from "lodash/sortBy.js"
-import fpPipe from "fp-pipe-then"
 
 export const pipe = x => (...funcs) => funcs.reduce((val, func) => func(val), x)
-export const pipeAsync = x => (...funcs) => fpPipe(...funcs)(x)
 
 export const stringify = obj => JSON.stringify(obj)
 export const stringifyFormat = obj => JSON.stringify(obj, undefined, 2)

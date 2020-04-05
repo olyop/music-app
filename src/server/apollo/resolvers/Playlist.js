@@ -150,7 +150,7 @@ export default {
       const userPlaylist = await query
 
       if (isNull(userPlaylist)) {
-        return null
+        return false
       } else {
         return deserializeDocument(userPlaylist).inLibrary
       }

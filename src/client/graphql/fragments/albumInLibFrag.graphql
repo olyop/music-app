@@ -1,0 +1,3 @@
+fragment albumInLibraryFrag on Song {
+  inLibrary
+}

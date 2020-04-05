@@ -1,9 +1,10 @@
-query getSongs {
+query getSongs($userId: ID!) {
   songs {
     id
     mix
     title
     duration
+    inLibrary(userId: $userId)
     featuring {
       id
       name

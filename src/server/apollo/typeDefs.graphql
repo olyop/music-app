@@ -52,7 +52,7 @@ type Song {
   plays(userId: ID!): [Play!]
   dateAdded(userId: ID!): Int
   numOfPlays(userId: ID!): Int
-  inLibrary(userId: ID!): Boolean
+  inLibrary(userId: ID!): Boolean!
   dateAddedToPlaylist(playlistid: ID!): Int
 }
 
@@ -63,7 +63,7 @@ type Genre {
   plays(userId: ID!): [Play!]
   dateAdded(userId: ID!): Int
   numOfPlays(userId: ID!): Int
-  inLibrary(userId: ID!): Boolean
+  inLibrary(userId: ID!): Boolean!
 }
 
 type Album {
@@ -76,7 +76,7 @@ type Album {
   plays(userId: ID!): [Play!]
   dateAdded(userId: ID!): Int
   numOfPlays(userId: ID!): Int
-  inLibrary(userId: ID!): Boolean
+  inLibrary(userId: ID!): Boolean!
 }
 
 type Artist {
@@ -88,7 +88,7 @@ type Artist {
   plays(userId: ID!): [Play!]
   dateAdded(userId: ID!): Int
   numOfPlays(userId: ID!): Int
-  inLibrary(userId: ID!): Boolean
+  inLibrary(userId: ID!): Boolean!
 }
 
 type Playlist {
@@ -100,7 +100,7 @@ type Playlist {
   plays(userId: ID!): [Play!]
   dateAdded(userId: ID!): Int
   numOfPlays(userId: ID!): Int
-  inLibrary(userId: ID!): Boolean
+  inLibrary(userId: ID!): Boolean!
 }
 
 type Mutation {
@@ -126,30 +126,38 @@ type Mutation {
     userId: ID!
     songId: ID!
   ): User!
-  # addUserSong(
-  #   userId: ID!
-  #   songId: ID!
-  # ): UserSong!
-  # addUserAlbum(
-  #   userId: ID!
-  #   albumId: ID!
-  # ): UserAlbum!
-  # addUserArtist(
-  #   userId: ID!
-  #   artistId: ID!
-  # ): UserArtist!
-  # removeUserSong(
-  #   userId: ID!
-  #   songId: ID!
-  # ): UserSong!
-  # removeUserAlbum(
-  #   userId: ID!
-  #   albumId: ID!
-  # ): UserAlbum!
-  # removeUserArtist(
-  #   userId: ID!
-  #   artistId: ID!
-  # ): UserArtist!
+  addUserSong(
+    userId: ID!
+    songId: ID!
+  ): Song!
+  addUserAlbum(
+    userId: ID!
+    albumId: ID!
+  ): Album!
+  addUserGenre(
+    userId: ID!
+    genreId: ID!
+  ): Genre!
+  addUserArtist(
+    userId: ID!
+    artistId: ID!
+  ): Artist!
+  rmUserSong(
+    userId: ID!
+    songId: ID!
+  ): Song!
+  rmUserAlbum(
+    userId: ID!
+    albumId: ID!
+  ): Album!
+  rmUserGenre(
+    userId: ID!
+    genreId: ID!
+  ): Genre!
+  rmUserArtist(
+    userId: ID!
+    artistId: ID!
+  ): Artist!
   addUser(
     name: String!
   ): User!

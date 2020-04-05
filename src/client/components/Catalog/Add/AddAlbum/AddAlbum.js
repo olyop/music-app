@@ -9,15 +9,15 @@ import fieldsConfig from "./fieldsConfig"
 import { useQuery, useMutation } from "@apollo/react-hooks"
 
 import ADD_ALBUM from "../../../../graphql/mutations/addAlbum.graphql"
-import GET_ARTISTS from "../../../../graphql/queries/getArtists.graphql"
+import GET_ADD_ALBUM from "../../../../graphql/queries/getAddAlbum.graphql"
 
 const AddAlbum = () => {
-  const { loading, error, data } = useQuery(GET_ARTISTS)
+  const { loading, error, data } = useQuery(GET_ADD_ALBUM)
   const [ addAlbum, addAlbumResult ] = useMutation(ADD_ALBUM)
   if (loading) {
     return <Spinner/>
   } else if (!isUndefined(error)) {
-    return <ApiError/>
+    return <ApiError error={error} />
   } else {
     return (
       <Form

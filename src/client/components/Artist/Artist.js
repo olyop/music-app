@@ -2,7 +2,7 @@ import React from "react"
 
 import Cover from "../Cover"
 import DocLink from "../DocLink"
-import AddToLibrary from "../AddToLibrary"
+import InLibraryButton from "../InLibraryButton"
 
 import { propTypes } from "./props"
 import reactBem from "@oly_op/react-bem"
@@ -24,7 +24,7 @@ const Artist = ({ artist }) => (
           path="/artist"
         />
       </h2>
-      <AddToLibrary
+      <InLibraryButton
         doc={artist}
         className={bem("info-add")}
       />

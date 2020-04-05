@@ -22,7 +22,7 @@ const {
 export default {
   songs: resolver(
     async ({ parent, info }) => {
-      const { genreId }  = parent
+      const { id: genreId }  = parent
 
       const query =
         Song.find({ genres: genreId })
@@ -129,7 +129,7 @@ export default {
       const userGenre = await query
 
       if (isNull(userGenre)) {
-        return null
+        return false
       } else {
         return deserializeDocument(userGenre).inLibrary
       }

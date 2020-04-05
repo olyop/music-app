@@ -3,7 +3,7 @@ import React from "react"
 import Cover from "../Cover"
 import DocLink from "../DocLink"
 import DocLinks from "../DocLinks"
-import AddToLibrary from "../AddToLibrary"
+import InLibraryButton from "../InLibraryButton"
 
 import { propTypes } from "./props"
 import reactBem from "@oly_op/react-bem"
@@ -31,7 +31,7 @@ const Album = ({ album }) => (
           />
         </p>
       </div>
-      <AddToLibrary
+      <InLibraryButton
         doc={album}
         className={bem("info-add")}
       />

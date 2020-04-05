@@ -180,7 +180,7 @@ export default {
       const userSong = await query
 
       if (isNull(userSong)) {
-        return null
+        return false
       } else {
         return deserializeDocument(userSong).inLibrary
       }

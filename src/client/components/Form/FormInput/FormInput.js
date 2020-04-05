@@ -34,10 +34,10 @@ const FormInput = ({ field, onFieldChange, val, index }) => {
       max={determineMax(field)}
       type={determineInputType(field)}
       tabIndex={determineTabIndex(index)}
-      value={determineInputVal(field,val)}
+      value={determineInputVal(field, val)}
       minLength={determineMinLength(field)}
       maxLength={determineMaxLength(field)}
-      disabled={determineDisabled(field,val)}
+      disabled={determineDisabled(field, val)}
     />
   )
 }

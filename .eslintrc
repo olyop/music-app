@@ -33,7 +33,6 @@
     "operator-linebreak": [2, "after"],
     "padded-blocks": [0],
     "arrow-body-style": [0],
-    "comma-spacing": [0],
     "array-bracket-spacing": [0],
     "no-nested-ternary": [0],
     "array-callback-return": [0],

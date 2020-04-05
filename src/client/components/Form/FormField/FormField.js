@@ -45,7 +45,7 @@ const FormField = ({ field, val, index, onFieldChange, onFieldHitClick, onFieldD
                     <FormFieldListDoc
                       key={docId}
                       onFieldDocRemove={onFieldDocRemove}
-                      doc={determineFieldDoc(docId,field)}
+                      doc={determineFieldDoc(docId, field)}
                     />
                   ),
                 )}
@@ -54,7 +54,7 @@ const FormField = ({ field, val, index, onFieldChange, onFieldHitClick, onFieldD
             {isDoc && !isList && !isEmpty(val.val) ? (
               <FormFieldDoc
                 onFieldDocRemove={onFieldDocRemove}
-                doc={determineFieldDoc(val.val,field)}
+                doc={determineFieldDoc(val.val, field)}
               />
             ) : null}
             {type === "file" ? (

@@ -1,17 +1,13 @@
 mutation addUserAlbum($userId: ID!, $albumId: ID!) {
   addUserAlbum(userId: $userId, albumId: $albumId) {
     id
-    inLibrary
-    numOfPlays
-    dateCreated
-    album {
+    title
+    cover
+    inLibrary(userId: $userId)
+    dateAdded(userId: $userId)
+    artists {
       id
-      title
-      cover
-      artists {
-        id
-        name
-      }
+      name
     }
   }
 }

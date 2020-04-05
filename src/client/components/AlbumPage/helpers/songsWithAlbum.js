@@ -3,7 +3,7 @@ import { omit } from "lodash"
 const songsWithAlbum = album => album.songs.map(
   song => ({
     ...song,
-    album: omit(album, ["songs","released"]),
+    album: omit(album, ["songs", "released"]),
   }),
 )
 

@@ -6,8 +6,8 @@ import Albums from "../Albums"
 import Spinner from "../Spinner"
 import ApiError from "../ApiError"
 import SongsTable from "../SongsTable"
-import AddToLibrary from "../AddToLibrary"
 import UserContext from "../../contexts/User"
+import InLibraryButton from "../InLibraryButton"
 
 import reactBem from "@oly_op/react-bem"
 import { useParams } from "react-router-dom"
@@ -22,6 +22,7 @@ import "./ArtistPage.scss"
 const bem = reactBem("ArtistPage")
 
 const ArtistPage = () => {
+
   const { id: artistId } = useParams()
   const userId = useContext(UserContext)
 
@@ -46,7 +47,7 @@ const ArtistPage = () => {
         />
         <h2 className={bem("name")}>
           <span className={bem("name-text")}>{name}</span>
-          <AddToLibrary
+          <InLibraryButton
             doc={artist}
             className={bem("name-add")}
           />
@@ -81,7 +82,7 @@ const ArtistPage = () => {
             <SongsTable
               songs={songs}
               orderByInit={{ field: "title", order: true }}
-              columnsToIgnore={["cover","numOfPlays","trackNumber","dateCreated"]}
+              columnsToIgnore={["numOfPlays", "trackNumber", "dateCreated"]}
             />
           </div>
         )}

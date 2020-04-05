@@ -4,9 +4,10 @@ query getUser($userId: ID!) {
     name
     prev {
       id
-      title
       mix
+      title
       duration
+      inLibrary(userId: $userId)
       featuring {
         id
         name
@@ -34,6 +35,7 @@ query getUser($userId: ID!) {
       mix
       title
       duration
+      inLibrary(userId: $userId)
       featuring {
         id
         name
@@ -58,9 +60,10 @@ query getUser($userId: ID!) {
     }
     next {
       id
-      title
       mix
+      title
       duration
+      inLibrary(userId: $userId)
       featuring {
         id
         name
@@ -85,9 +88,10 @@ query getUser($userId: ID!) {
     }
     queue {
       id
-      title
       mix
+      title
       duration
+      inLibrary(userId: $userId)
       featuring {
         id
         name

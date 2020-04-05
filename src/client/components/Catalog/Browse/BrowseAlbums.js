@@ -1,4 +1,4 @@
-import React, { Fragment } from "react"
+import React, { Fragment, useContext } from "react"
 
 import Empty from "../../Empty"
 import Album from "../../Album"
@@ -6,14 +6,23 @@ import Albums from "../../Albums"
 import Spinner from "../../Spinner"
 import ApiError from "../../ApiError"
 import { Link } from "react-router-dom"
+import UserContext from "../../../contexts/User"
 
+import { pipe } from "../../../helpers"
+import { orderBy, map } from "lodash/fp"
 import { isUndefined, isEmpty } from "lodash"
 import { useQuery } from "@apollo/react-hooks"
 
 import GET_ALBUMS from "../../../graphql/queries/getAlbums.graphql"
 
 const BrowseAlbums = () => {
-  const { loading, error, data } = useQuery(GET_ALBUMS)
+  const userId = useContext(UserContext)
+
+  const { loading, error, data } = useQuery(
+    GET_ALBUMS,
+    { variables: { userId } },
+  )
+
   if (loading) {
     return <Spinner/>
   } else if (!isUndefined(error)) {
@@ -34,12 +43,15 @@ const BrowseAlbums = () => {
   } else {
     return (
       <Albums>
-        {data.albums.map(
-          album => (
-            <Album
-              album={album}
-              key={album.id}
-            />
+        {pipe(data.albums)(
+          orderBy("released", "desc"),
+          map(
+            album => (
+              <Album
+                album={album}
+                key={album.id}
+              />
+            ),
           ),
         )}
       </Albums>

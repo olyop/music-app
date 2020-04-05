@@ -11,11 +11,12 @@ query getAlbumPage($albumId: ID!, $userId: ID!) {
     }
     songs {
       id
-      title
       mix
+      title
+      duration
       discNumber
       trackNumber
-      duration
+      inLibrary(userId: $userId)
       featuring {
         id
         name

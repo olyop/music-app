@@ -1,0 +1,8 @@
+mutation rmUserGenre($userId: ID!, $genreId: ID!) {
+  rmUserAlbum(userId: $userId, genreId: $genreId) {
+    id
+    name
+    inLibrary(userId: $userId)
+    dateAdded(userId: $userId)
+  }
+}

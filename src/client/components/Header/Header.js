@@ -23,7 +23,7 @@ const Header = () => {
           title="Menu"
           onClick={toggleSidebar}
           icon={sidebar ? "close" : "menu"}
-          className={bem("hamburger","icon")}
+          className={bem("hamburger", "icon")}
         />
         <div className={bem("right")}>
           <NavLink
@@ -33,7 +33,7 @@ const Header = () => {
               <Icon
                 title="Search"
                 icon="search"
-                className={bem("right-search","icon")}
+                className={bem("right-search", "icon")}
               />
             )}
           />
@@ -44,7 +44,7 @@ const Header = () => {
               <Icon
                 title="Account"
                 icon="account_circle"
-                className={bem("right-user","icon")}
+                className={bem("right-user", "icon")}
               />
             )}
           />

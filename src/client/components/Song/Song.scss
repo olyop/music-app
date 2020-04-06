@@ -9,14 +9,16 @@
   &:hover &__text-title-add {
     color: #757575; }
   &__cover {
-    width: 35px;
-    height: 35px;
+    width: 41px;
+    height: 41px;
     margin-right: 10px;
     box-shadow: $BOX_SHADOW;
     border-radius: $BORDER_RADIUS;
-    @media (min-width: 700px) {
-      width: 41px;
-      height: 41px; }
+    @media (max-width: 700px) {
+      width: 30px;
+      height: 30px;
+      margin-top: 1px;
+      margin-bottom: 1px; }
     &-img {
       border-radius: $BORDER_RADIUS; } }
   &__text {
@@ -29,27 +31,28 @@
       text-overflow: ellipsis; }
     &-title {
       display: flex;
-      font-size: 15rem;
       font-weight: 700;
+      font-size: 19rem;
+      max-height: 19rem;
       overflow: visible;
-      max-height: 15rem;
-      line-height: 15rem;
+      line-height: 19rem;
       margin-bottom: 5px;
       align-items: center;
-      @media (min-width: 700px) {
-        font-size: 19rem;
-        max-height: 19rem;
-        line-height: 19rem; }
+      @media (max-width: 700px) {
+        font-size: 13rem;
+        max-height: 13rem;
+        line-height: 13rem;
+        margin-bottom: 6px; }
       &-add {
         font-size: 26rem;
         margin-left: 3px;
         color: transparent;
         margin-bottom: 2px; } }
     &-artists {
-      font-size: 15rem;
-      max-height: 15rem;
-      line-height: 15rem;
-      @media (min-width: 700px) {
-        font-size: 18rem;
-        max-height: 18rem;
-        line-height: 18rem; } } } }
+      font-size: 18rem;
+      max-height: 18rem;
+      line-height: 18rem;
+      @media (max-width: 700px) {
+        font-size: 13rem;
+        max-height: 13rem;
+        line-height: 13rem; } } } }

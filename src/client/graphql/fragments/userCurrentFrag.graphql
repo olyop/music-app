@@ -4,6 +4,7 @@ fragment userCurrentFrag on User {
     mix
     title
     duration
+    inLibrary(userId: $userId)
     featuring {
       id
       name

@@ -5,6 +5,7 @@ query getSongs($userId: ID!) {
     title
     duration
     inLibrary(userId: $userId)
+    isCurrent(userId: $userId)
     featuring {
       id
       name

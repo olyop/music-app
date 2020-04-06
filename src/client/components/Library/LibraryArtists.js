@@ -8,10 +8,10 @@ import ApiError from "../ApiError"
 import { Link } from "react-router-dom"
 import UserContext from "../../contexts/User"
 
-import { pipe } from "../../helpers"
+import { orderBy, map } from "lodash/fp"
 import { isUndefined, isEmpty } from "lodash"
 import { useQuery } from "@apollo/react-hooks"
-import { filter, orderBy, map } from "lodash/fp"
+import { filterInLibrary, pipe } from "../../helpers"
 
 import GET_USER_ARTISTS from "../../graphql/queries/getUserArtists.graphql"
 
@@ -20,7 +20,7 @@ const LibraryArtists = () => {
 
   const { loading, error, data } = useQuery(
     GET_USER_ARTISTS,
-    { variables: { id: userId } },
+    { variables: { userId } },
   )
 
   if (loading) {
@@ -31,7 +31,9 @@ const LibraryArtists = () => {
     return <ApiError error={error} />
   }
 
-  if (isEmpty(data.user.artists)) {
+  const artists = filterInLibrary(data.user.artists)
+
+  if (isEmpty(artists)) {
     return (
       <Empty
         title="Your library is empty"
@@ -48,8 +50,7 @@ const LibraryArtists = () => {
 
   return (
     <Artists>
-      {pipe(data.user.artists)(
-        filter(({ inLibrary }) => !inLibrary),
+      {pipe(artists)(
         orderBy("dateAdded", "desc"),
         map(
           artist => (

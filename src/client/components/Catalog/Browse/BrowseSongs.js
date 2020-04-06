@@ -22,9 +22,13 @@ const BrowseSongs = () => {
 
   if (loading) {
     return <Spinner/>
-  } else if (!isUndefined(error)) {
+  }
+
+  if (!isUndefined(error)) {
     return <ApiError/>
-  } else if (isEmpty(data.songs)) {
+  }
+
+  if (isEmpty(data.songs)) {
     return (
       <Empty
         title="The catalog is empty."
@@ -37,15 +41,15 @@ const BrowseSongs = () => {
         )}
       />
     )
-  } else {
-    return (
-      <SongsTable
-        songs={data.songs}
-        orderByInit={{ field: "title", order: true }}
-        columnsToIgnore={["trackNumber", "numOfPlays", "released", "dateCreated"]}
-      />
-    )
   }
+
+  return (
+    <SongsTable
+      songs={data.songs}
+      orderByInit={{ field: "title", order: true }}
+      columnsToIgnore={["trackNumber", "numOfPlays", "released", "dateCreated"]}
+    />
+  )
 }
 
 export default BrowseSongs

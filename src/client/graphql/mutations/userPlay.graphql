@@ -3,9 +3,10 @@ mutation userPlay($userId: ID!, $songId: ID!) {
     id
     prev {
       id
-      title
       mix
+      title
       duration
+      inLibrary(userId: $userId)
       featuring {
         id
         name
@@ -30,9 +31,10 @@ mutation userPlay($userId: ID!, $songId: ID!) {
     }
     current {
       id
-      title
       mix
+      title
       duration
+      inLibrary(userId: $userId)
       featuring {
         id
         name
@@ -57,9 +59,10 @@ mutation userPlay($userId: ID!, $songId: ID!) {
     }
     next {
       id
-      title
       mix
+      title
       duration
+      inLibrary(userId: $userId)
       featuring {
         id
         name
@@ -84,9 +87,10 @@ mutation userPlay($userId: ID!, $songId: ID!) {
     }
     queue {
       id
-      title
       mix
+      title
       duration
+      inLibrary(userId: $userId)
       featuring {
         id
         name

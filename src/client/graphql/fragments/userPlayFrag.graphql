@@ -1,9 +1,9 @@
-fragment userQueuesFrag on User {
+fragment userPlayFrag on User {
   id
   prev {
     id
-    title
     mix
+    title
     duration
     inLibrary(userId: $userId)
     featuring {
@@ -58,8 +58,8 @@ fragment userQueuesFrag on User {
   }
   next {
     id
-    title
     mix
+    title
     duration
     inLibrary(userId: $userId)
     featuring {
@@ -86,8 +86,8 @@ fragment userQueuesFrag on User {
   }
   queue {
     id
-    title
     mix
+    title
     duration
     inLibrary(userId: $userId)
     featuring {

@@ -1,6 +1,7 @@
 import React from "react"
 
 import DocLink from "../DocLink"
+import InLibraryButton from "../InLibraryButton"
 
 import { propTypes } from "./props"
 import reactBem from "@oly_op/react-bem"
@@ -18,6 +19,10 @@ const Genre = ({ genre }) => {
           path="/genre"
         />
       </h2>
+      <InLibraryButton
+        doc={genre}
+        className={bem("add")}
+      />
     </div>
   )
 }

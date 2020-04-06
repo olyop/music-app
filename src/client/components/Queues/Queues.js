@@ -2,27 +2,41 @@
 import React, { useContext } from "react"
 
 import Song from "../Song"
+import Spinner from "../Spinner"
+import ApiError from "../ApiError"
 import PlayButton from "../PlayButton"
 import UserContext from "../../contexts/User"
 
 import reactBem from "@oly_op/react-bem"
-import { isEmpty, isNull } from "lodash"
-import { useApolloClient } from "@apollo/react-hooks"
+import { useQuery } from "@apollo/react-hooks"
 import createQueuesArray from "./createQueuesArray"
+import { isUndefined, isEmpty, isNull } from "lodash"
 
-import USER_QUEUES_FRAG from "../../graphql/fragments/userQueuesFrag.graphql"
+import GET_USER_QUEUES from "../../graphql/queries/getUserQueues.graphql"
 
 import "./Queues.scss"
 
 const bem = reactBem("Queues")
 
 const Queues = () => {
-  const client = useApolloClient()
-  const id = useContext(UserContext)
-  const user = client.readFragment({ id, fragment: USER_QUEUES_FRAG })
+  const userId = useContext(UserContext)
+
+  const { loading, error, data } = useQuery(
+    GET_USER_QUEUES,
+    { variables: { userId } },
+  )
+
+  if (loading) {
+    return <Spinner/>
+  }
+
+  if (!isUndefined(error)) {
+    return <ApiError error={error} />
+  }
+
   return (
     <div className={bem("")}>
-      {createQueuesArray(user).map(
+      {createQueuesArray(data.user).map(
         queue => {
           if (isNull(queue.songs[0])) {
             return null

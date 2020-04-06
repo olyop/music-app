@@ -1,3 +1,16 @@
 .ApiError {
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10;
+  width: 100vw;
+  height: 100vh;
   padding: 20px;
+  display: block;
+  overflow: scroll;
+  font-weight: 500;
+  font-size: 18rem;
+  position: absolute;
+  background-color: #fff;
   font-family: 'Courier New', Courier, monospace; }

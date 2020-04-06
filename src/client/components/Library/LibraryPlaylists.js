@@ -7,10 +7,10 @@ import Playlist from "../Playlist"
 import Playlists from "../Playlists"
 import UserContext from "../../contexts/User"
 
-import { pipe } from "../../helpers"
 import { map, orderBy } from "lodash/fp"
 import { isUndefined, isEmpty } from "lodash"
 import { useQuery } from "@apollo/react-hooks"
+import { filterInLibrary, pipe } from "../../helpers"
 
 import GET_USER_PLAYLISTS from "../../graphql/queries/getUserPlaylists.graphql"
 
@@ -19,7 +19,7 @@ const LibraryPlaylists = () => {
 
   const { loading, error, data } = useQuery(
     GET_USER_PLAYLISTS,
-    { variables: { id: userId } },
+    { variables: { userId } },
   )
 
   if (loading) {
@@ -30,7 +30,9 @@ const LibraryPlaylists = () => {
     return <ApiError error={error} />
   }
 
-  if (isEmpty(data.user.playlists)) {
+  const playlists = filterInLibrary(data.user.playlists)
+
+  if (isEmpty(playlists)) {
     return (
       <Empty
         title="No Playlists"
@@ -41,7 +43,7 @@ const LibraryPlaylists = () => {
 
   return (
     <Playlists>
-      {pipe(data.user.playlists)(
+      {pipe(playlists)(
         orderBy("dateAdded", "desc"),
         map(
           playlist => (

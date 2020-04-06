@@ -377,7 +377,7 @@ const SongsTable = ({ songs, orderByInit, columnsToIgnore }) => {
                       className={bem("body-row-dateCreated", "body-row-col")}
                       children={(
                         <span className={bem("body-row-col-span")}>
-                          {deserializeDate(song.dateCreated / 86400)}
+                          {deserializeDate(song.dateAdded / 86400)}
                         </span>
                       )}
                     />

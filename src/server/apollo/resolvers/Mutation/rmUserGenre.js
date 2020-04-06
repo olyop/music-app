@@ -15,8 +15,8 @@ const rmUserGenre = async ({ args, info }) => {
   const query =
     Genre.findById(genreId)
       .select(determineGenreSelect(info))
-      .exec()
       .lean()
+      .exec()
 
   return deserializeDocument(await query)
 }

@@ -13,10 +13,10 @@ const rmUserSong = async ({ args, info }) => {
   await UserSong.findOneAndUpdate(filter, { inLibrary: false }).exec()
 
   const query =
-    Song.findById(SongId)
+    Song.findById(songId)
       .select(determineSongSelect(info))
-      .exec()
       .lean()
+      .exec()
 
   return deserializeDocument(await query)
 }

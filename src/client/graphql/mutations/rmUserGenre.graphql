@@ -1,5 +1,5 @@
 mutation rmUserGenre($userId: ID!, $genreId: ID!) {
-  rmUserAlbum(userId: $userId, genreId: $genreId) {
+  rmUserGenre(userId: $userId, genreId: $genreId) {
     id
     name
     inLibrary(userId: $userId)

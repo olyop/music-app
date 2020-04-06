@@ -7,10 +7,9 @@ import SongsTable from "../SongsTable"
 import { Link } from "react-router-dom"
 import UserContext from "../../contexts/User"
 
-import { pipe } from "../../helpers"
-import { filter, orderBy } from "lodash/fp"
-import { isUndefined, isEmpty } from "lodash"
 import { useQuery } from "@apollo/react-hooks"
+import { filterInLibrary } from "../../helpers"
+import { isUndefined, isEmpty, orderBy } from "lodash"
 
 import GET_USER_SONGS from "../../graphql/queries/getUserSongs.graphql"
 
@@ -30,7 +29,9 @@ const LibrarySongs = () => {
     return <ApiError error={error} />
   }
 
-  if (isEmpty(data.user.songs)) {
+  const songs = filterInLibrary(data.user.songs)
+
+  if (isEmpty(songs)) {
     return (
       <Empty
         title="Your library is empty"
@@ -48,11 +49,8 @@ const LibrarySongs = () => {
   return (
     <SongsTable
       orderByInit={{ field: "title", order: true }}
+      songs={orderBy(songs, "dateCreated", "desc")}
       columnsToIgnore={["trackNumber", "released"]}
-      songs={pipe(data.user.songs)(
-        filter(({ inLibrary }) => inLibrary),
-        orderBy("dateCreated", "desc"),
-      )}
     />
   )
 }

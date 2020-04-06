@@ -17,6 +17,7 @@ import {
 } from "../../helpers/collections.js"
 
 const {
+  User,
   Play,
   Genre,
   Album,
@@ -183,6 +184,28 @@ export default {
         return false
       } else {
         return deserializeDocument(userSong).inLibrary
+      }
+    },
+  ),
+  isCurrent: resolver(
+    async ({ parent, args }) => {
+      const { userId } = args
+      const { id: songId } = parent
+
+      const query =
+        User.findById(userId)
+          .select({ current: 1 })
+          .lean()
+          .exec()
+      
+      const { current } = deserializeDocument(await query)
+
+      if (isNull(current)) {
+        return false
+      } else if (current === songId) {
+        return true
+      } else {
+        return false
       }
     },
   ),

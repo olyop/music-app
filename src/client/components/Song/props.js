@@ -8,11 +8,13 @@ export const propTypes = {
     id: string.isRequired,
     mix: string.isRequired,
     title: string.isRequired,
+    inLibrary: bool.isRequired,
     duration: number.isRequired,
     featuring: arrayOf(object).isRequired,
     remixers: arrayOf(object).isRequired,
     artists: arrayOf(object).isRequired,
     album: shape({
+      cover: string,
       id: string.isRequired,
       title: string.isRequired,
     }).isRequired,

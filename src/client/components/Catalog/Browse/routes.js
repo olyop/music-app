@@ -24,7 +24,7 @@ const routes = [
     id: uniqueId(),
     path: "/genres",
     name: "Genres",
-    icon: "person",
+    icon: "palette",
     component: BrowseGenres,
   },
   {

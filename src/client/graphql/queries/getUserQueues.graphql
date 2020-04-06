@@ -1,5 +1,5 @@
-mutation userPrev($userId: ID!) {
-  userPrev(userId: $userId) {
+query getUserQueues($userId: ID!) {
+  user(userId: $userId) {
     id
     prev {
       id
@@ -31,8 +31,8 @@ mutation userPrev($userId: ID!) {
     }
     current {
       id
-      title
       mix
+      title
       duration
       inLibrary(userId: $userId)
       featuring {
@@ -59,8 +59,8 @@ mutation userPrev($userId: ID!) {
     }
     next {
       id
-      title
       mix
+      title
       duration
       inLibrary(userId: $userId)
       featuring {
@@ -87,8 +87,8 @@ mutation userPrev($userId: ID!) {
     }
     queue {
       id
-      title
       mix
+      title
       duration
       inLibrary(userId: $userId)
       featuring {

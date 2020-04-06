@@ -1,0 +1,33 @@
+query getUserCurrent($userId: ID!) {
+  user(userId: $userId) {
+    id
+    current {
+      id
+      mix
+      title
+      duration
+      inLibrary(userId: $userId)
+      featuring {
+        id
+        name
+      }
+      remixers {
+        id
+        name
+      }
+      artists {
+        id
+        name
+      }
+      genres {
+        id
+        name
+      }
+      album {
+        id
+        title
+        cover
+      }
+    }
+  }
+}

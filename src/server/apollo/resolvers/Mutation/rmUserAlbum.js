@@ -15,8 +15,8 @@ const rmUserAlbum = async ({ args, info }) => {
   const query =
     Album.findById(albumId)
       .select(determineAlbumSelect(info))
-      .exec()
       .lean()
+      .exec()
 
   return deserializeDocument(await query)
 }

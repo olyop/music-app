@@ -53,6 +53,7 @@ type Song {
   dateAdded(userId: ID!): Int
   numOfPlays(userId: ID!): Int
   inLibrary(userId: ID!): Boolean!
+  isCurrent(userId: ID!): Boolean!
   dateAddedToPlaylist(playlistid: ID!): Int
 }
 

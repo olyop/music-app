@@ -4,4 +4,6 @@
   width: 100vw;
   overflow: hidden;
   background-color: #FAFAFA;
-  height: calc(100vh - #{$HEADER_HEIGHT} - #{$PLAYER_HEIGHT}); }
+  height: calc(100vh - #{$HEADER_HEIGHT} - #{$PLAYER_HEIGHT});
+  @media(max-width: 700px) {
+    height: calc(100vh - #{$HEADER_HEIGHT} - #{$PLAYER_HEIGHT_MOBILE}); } }

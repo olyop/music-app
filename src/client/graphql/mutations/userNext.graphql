@@ -1,11 +1,12 @@
-mutation userNext($id: ID!) {
-  userNext(id: $id) {
+mutation userNext($userId: ID!) {
+  userNext(userId: $userId) {
     id
     prev {
       id
-      title
       mix
+      title
       duration
+      inLibrary(userId: $userId)
       featuring {
         id
         name
@@ -33,6 +34,7 @@ mutation userNext($id: ID!) {
       title
       mix
       duration
+      inLibrary(userId: $userId)
       featuring {
         id
         name
@@ -60,6 +62,7 @@ mutation userNext($id: ID!) {
       title
       mix
       duration
+      inLibrary(userId: $userId)
       featuring {
         id
         name
@@ -87,6 +90,7 @@ mutation userNext($id: ID!) {
       title
       mix
       duration
+      inLibrary(userId: $userId)
       featuring {
         id
         name

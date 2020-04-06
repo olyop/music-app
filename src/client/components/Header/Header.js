@@ -56,8 +56,9 @@ const Header = () => {
       />
       {sidebar ? (
         <div
-          role="button"
           tabIndex={0}
+          role="button"
+          title="Close"
           onClick={toggleSidebar}
           className={bem("close")}
         />

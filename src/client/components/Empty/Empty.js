@@ -9,11 +9,10 @@ import "./Empty.scss"
 
 const bem = reactBem("Empty")
 
-const Empty = ({ title, text }) => (
+const Empty = ({ title }) => (
   <div className={bem("")}>
     <Icon className={bem("icon")} icon="help" />
     <h2 className={bem("title")}>{title}</h2>
-    <p className={bem("text")}>{text}</p>
   </div>
 )
 

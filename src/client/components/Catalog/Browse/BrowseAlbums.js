@@ -25,9 +25,13 @@ const BrowseAlbums = () => {
 
   if (loading) {
     return <Spinner/>
-  } else if (!isUndefined(error)) {
-    return <ApiError/>
-  } else if (isEmpty(data.albums)) {
+  }
+
+  if (!isUndefined(error)) {
+    return <ApiError error={error} />
+  }
+
+  if (isEmpty(data.albums)) {
     return (
       <Empty
         title="The catalog is empty."
@@ -40,23 +44,23 @@ const BrowseAlbums = () => {
         )}
       />
     )
-  } else {
-    return (
-      <Albums>
-        {pipe(data.albums)(
-          orderBy("released", "desc"),
-          map(
-            album => (
-              <Album
-                album={album}
-                key={album.id}
-              />
-            ),
-          ),
-        )}
-      </Albums>
-    )
   }
+
+  return (
+    <Albums>
+      {pipe(data.albums)(
+        orderBy("released", "desc"),
+        map(
+          album => (
+            <Album
+              album={album}
+              key={album.id}
+            />
+          ),
+        ),
+      )}
+    </Albums>
+  )
 }
 
 export default BrowseAlbums

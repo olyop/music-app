@@ -1,5 +1,6 @@
-import { any } from "prop-types"
+import { instanceOf } from "prop-types"
+import { ApolloError } from "apollo-client"
 
 export const propTypes = {
-  error: any.isRequired,
+  error: instanceOf(ApolloError).isRequired,
 }

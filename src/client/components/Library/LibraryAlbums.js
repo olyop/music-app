@@ -11,8 +11,9 @@ import GET_USER_ALBUMS from "../../graphql/queries/getUserAlbums.graphql"
 
 const LibraryAlbums = () => (
   <QueryApi
+    library
     query={GET_USER_ALBUMS}
-    collectionName="albums"
+    resultPath="user.albums"
     children={
       albums => (
         <Albums>

@@ -22,6 +22,7 @@ const InLibraryButton = ({ doc, className }) => {
 
   const determineReturn = determineReturnFromDoc(doc)
   const variablesKey = determineReturn("songId", "albumId", "genreId", "artistId")
+  const refetchQuery = `getUser${determineReturn("Song", "Album", "Genre", "Artist")}s`
 
   const { id: docId, inLibrary } = doc
   const userId = useContext(UserContext)
@@ -31,10 +32,8 @@ const InLibraryButton = ({ doc, className }) => {
     determineReturn(ADD_USER_SONG, ADD_USER_ALBUM, ADD_USER_GENRE, ADD_USER_ARTIST)
 
   const [ mutation, { loading, error } ] = useMutation(MUTATION, {
-    variables: {
-      userId,
-      [variablesKey]: docId,
-    },
+    refetchQueries: [refetchQuery],
+    variables: { userId, [variablesKey]: docId },
   })
 
   if (error) {

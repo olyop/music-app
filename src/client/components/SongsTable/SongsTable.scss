@@ -58,7 +58,6 @@
       border-bottom: 1px solid #e0e0e0;
       &:hover {
         background-color: #eeeeee; }
-      &:hover &-add-icon,
       &:hover &-next-icon,
       &:hover &-later-icon,
       &:hover &-queue-icon,
@@ -93,7 +92,6 @@
           border-radius: 100%;
           &:hover {
             background-color: #e0e0e0; } } }
-      &-add,
       &-next,
       &-later,
       &-queue {

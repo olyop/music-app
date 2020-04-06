@@ -1,8 +1,12 @@
-import { DocumentNode } from "apollo"
-import { func, string, instanceOf } from "prop-types"
+import { func, string, any, bool } from "prop-types"
 
 export const propTypes = {
+  library: bool,
+  query: any.isRequired,
   children: func.isRequired,
-  collectionName: string.isRequired,
-  query: instanceOf(DocumentNode).isRequired,
+  resultPath: string.isRequired,
+}
+
+export const defaultProps = {
+  library: false,
 }

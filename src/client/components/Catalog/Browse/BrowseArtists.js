@@ -1,57 +1,36 @@
-import React, { Fragment, useContext } from "react"
+import React from "react"
 
-import Empty from "../../Empty"
 import Artist from "../../Artist"
 import Artists from "../../Artists"
-import Spinner from "../../Spinner"
-import ApiError from "../../ApiError"
-import { Link } from "react-router-dom"
-import UserContext from "../../../contexts/User"
+import QueryApi from "../../QueryApi"
 
-import { isUndefined, isEmpty } from "lodash"
-import { useQuery } from "@apollo/react-hooks"
+import { pipe } from "../../../helpers"
+import { orderBy, map } from "lodash/fp"
 
 import GET_ARTISTS from "../../../graphql/queries/getArtists.graphql"
 
-const BrowseArtists = () => {
-  const userId = useContext(UserContext)
-
-  const { loading, error, data } = useQuery(
-    GET_ARTISTS,
-    { variables: { userId } },
-  )
-
-  if (loading) {
-    return <Spinner/>
-  } else if (!isUndefined(error)) {
-    return <ApiError/>
-  } else if (isEmpty(data.artists)) {
-    return (
-      <Empty
-        title="The catalog is empty."
-        text={(
-          <Fragment>
-            <Fragment>You can </Fragment>
-            <Link to="/catalog/add/artist">add</Link>
-            <Fragment> artists to the catalog.</Fragment>
-          </Fragment>
-        )}
-      />
-    )
-  } else {
-    return (
-      <Artists>
-        {data.artists.map(
-          artist => (
-            <Artist
-              key={artist.id}
-              artist={artist}
-            />
-          ),
-        )}
-      </Artists>
-    )
-  }
-}
+const BrowseArtists = () => (
+  <QueryApi
+    query={GET_ARTISTS}
+    resultPath="artists"
+    children={
+      artists => (
+        <Artists>
+          {pipe(artists)(
+            orderBy("released", "desc"),
+            map(
+              artist => (
+                <Artist
+                  key={artist.id}
+                  artist={artist}
+                />
+              ),
+            ),
+          )}
+        </Artists>
+      )
+    }
+  />
+)
 
 export default BrowseArtists

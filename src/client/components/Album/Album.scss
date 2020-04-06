@@ -1,8 +1,6 @@
 @import "../../globals/index.scss";
 
 .Album {
-  &:hover &__info-add {
-    opacity: 1; }
   &__info {
     width: 100%;
     display: flex;
@@ -31,10 +29,7 @@
         @media (max-width: 600px) {
           font-size: 14rem; } } }
     &-add {
-      opacity: 0;
       margin: 2px;
       padding: 3px;
-      display: block;
       color: #757575;
-      font-size: 25rem;
-      transition: .4s opacity; } } }
+      font-size: 25rem; } } }

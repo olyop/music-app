@@ -1,8 +1,7 @@
-import React from "react"
+import React, { useState } from "react"
 
 import Slider from "@material-ui/core/Slider"
 
-import { propTypes } from "./props"
 import reactBem from "@oly_op/react-bem"
 import { deserializeDuration } from "../../helpers"
 
@@ -10,7 +9,9 @@ import "./Progress.scss"
 
 const bem = reactBem("Progress")
 
-const Progress = ({ duration, current, setCurrent }) => {
+const Progress = () => {
+  const duration = 0
+  const [ current, setCurrent ] = useState(0)
   const handleChange = (_, value) => setCurrent(value)
   return (
     <div className={bem("")}>
@@ -34,7 +35,5 @@ const Progress = ({ duration, current, setCurrent }) => {
     </div>
   )
 }
-
-Progress.propTypes = propTypes
 
 export default Progress

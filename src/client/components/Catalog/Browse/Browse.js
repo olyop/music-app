@@ -22,6 +22,7 @@ const Browse = ({ match }) => (
         {routes.map(
           route => (
             <Route
+              exact
               key={route.id}
               component={route.component}
               path={match.path + route.path}

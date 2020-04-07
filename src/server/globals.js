@@ -1,5 +1,4 @@
 import path from "path"
-import { serializePort } from "./helpers/server.js"
 
 import os from "os"
 
@@ -9,7 +8,7 @@ process.env.UV_THREADPOOL_SIZE = 12
 export const HOST = os.networkInterfaces().Ethernet[1].address
 
 // export const PORT = 80
-export const PORT = serializePort(process.env.PORT || 3000)
+export const PORT = process.env.PORT || 3000
 
 export const S3_BUCKET = "5e0585af655578193c6bd0b0"
 
@@ -66,3 +65,5 @@ export const USER_EMPTY_QUEUE = {
   queue: [],
   current: null,
 }
+
+export const USER_QUEUE_SELECT = { prev: 1, current: 1, next: 1, queue: 1 }

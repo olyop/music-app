@@ -1,7 +1,10 @@
 import database from "../../../database/index.js"
-import { resolver } from "../../../helpers/misc.js"
-import { determineGenreSelect } from "../../../helpers/resolvers.js"
-import { deserializeDocument } from "../../../helpers/collections.js"
+
+import {
+  resolver,
+  genreSelect,
+  deserializeDocument,
+} from "../../../helpers/index.js"
 
 const { UserGenre, Genre } = database.models
 
@@ -14,7 +17,7 @@ const rmUserGenre = async ({ args, info }) => {
 
   const query =
     Genre.findById(genreId)
-      .select(determineGenreSelect(info))
+      .select(genreSelect(info))
       .lean()
       .exec()
 

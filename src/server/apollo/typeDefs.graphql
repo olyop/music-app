@@ -1,6 +1,5 @@
 type Query {
-  users: [User!]!
-  plays: [Play!]!
+  # database queries
   songs: [Song!]!
   albums: [Album!]!
   genres: [Genre!]!
@@ -13,6 +12,15 @@ type Query {
   genre(genreId: ID!): Genre!
   artist(artistId: ID!): Artist!
   playlist(playlistId: ID!): Playlist!
+
+  # complex queries
+  browse(userId: ID!): Browse!
+}
+
+type Browse {
+  topTen: [Song!]!
+  newAlbums: [Album!]!
+  popularArtists: [Artist!]!
 }
 
 type User {

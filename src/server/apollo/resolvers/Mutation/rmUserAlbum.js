@@ -1,7 +1,10 @@
 import database from "../../../database/index.js"
-import { resolver } from "../../../helpers/misc.js"
-import { determineAlbumSelect } from "../../../helpers/resolvers.js"
-import { deserializeDocument } from "../../../helpers/collections.js"
+
+import {
+  resolver,
+  albumSelect,
+  deserializeDocument,
+} from "../../../helpers/index.js"
 
 const { UserAlbum, Album } = database.models
 
@@ -14,7 +17,7 @@ const rmUserAlbum = async ({ args, info }) => {
 
   const query =
     Album.findById(albumId)
-      .select(determineAlbumSelect(info))
+      .select(albumSelect(info))
       .lean()
       .exec()
 

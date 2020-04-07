@@ -1,15 +1,4 @@
-export const serializePort = val => {
-  const port = parseInt(val, 10)
-  if (isNaN(port)) {
-    return val
-  } else if (port >= 0) {
-    return port
-  } else {
-    return false
-  }
-}
-
-export const onError = ({ syscall, code }) => {
+const onError = ({ syscall, code }) => {
   if (syscall === "listen") {
     const bind = (isString(port) ? "Pipe" : "Port") + " port"
     switch (code) {
@@ -28,3 +17,5 @@ export const onError = ({ syscall, code }) => {
     throw error
   }
 }
+
+export default onError

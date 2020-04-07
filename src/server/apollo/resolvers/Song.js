@@ -1,20 +1,18 @@
 import isNull from "lodash/isNull.js"
 import isEmpty from "lodash/isEmpty.js"
 import database from "../../database/index.js"
-import { resolver, pipe } from "../../helpers/misc.js"
 
 import {
+  pipe,
+  resolver,
+  playSelect,
+  albumSelect,
+  genreSelect,
+  artistSelect,
   restoreOrder,
-  determinePlaySelect,
-  determineGenreSelect,
-  determineAlbumSelect,
-  determineArtistSelect,
-} from "../../helpers/resolvers.js"
-
-import {
   deserializeDocument,
   deserializeCollection,
-} from "../../helpers/collections.js"
+} from "../../helpers/index.js"
 
 const {
   User,
@@ -32,7 +30,7 @@ export default {
 
       const query =
         Album.findById(album)
-          .select(determineAlbumSelect(info))
+          .select(albumSelect(info))
           .lean()
           .exec()
       
@@ -45,7 +43,7 @@ export default {
 
       const query =
         Genre.find({ _id: genres })
-          .select(determineGenreSelect(info))
+          .select(genreSelect(info))
           .lean()
           .exec()
       
@@ -61,7 +59,7 @@ export default {
 
       const query =
         Artist.find({ _id: artists })
-          .select(determineArtistSelect(info))
+          .select(artistSelect(info))
           .lean()
           .exec()
       
@@ -77,7 +75,7 @@ export default {
 
       const query =
         Artist.find({ _id: remixers })
-          .select(determineArtistSelect(info))
+          .select(artistSelect(info))
           .lean()
           .exec()
       
@@ -93,7 +91,7 @@ export default {
 
       const query =
         Artist.find({ _id: featuring })
-          .select(determineArtistSelect(info))
+          .select(artistSelect(info))
           .lean()
           .exec()
       
@@ -110,7 +108,7 @@ export default {
 
       const query =
         Play.find({ user: userId, song: songId })
-          .select(determinePlaySelect(info))
+          .select(playSelect(info))
           .lean()
           .exec()
 
@@ -150,7 +148,7 @@ export default {
 
       const query =
         Play.find({ user: userId, song: songId })
-          .select(determinePlaySelect(info))
+          .select(playSelect(info))
           .lean()
           .exec()
 

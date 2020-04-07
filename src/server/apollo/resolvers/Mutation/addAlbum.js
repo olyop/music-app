@@ -1,7 +1,10 @@
 import database from "../../../database/index.js"
-import { resolver } from "../../../helpers/misc.js"
-import { determineReleased } from "../../../helpers/resolvers.js"
-import { deserializeDocument } from "../../../helpers/collections.js"
+
+import {
+  resolver,
+  determineReleased,
+  deserializeDocument,
+} from "../../../helpers/index.js"
 
 const { Album } = database.models
 

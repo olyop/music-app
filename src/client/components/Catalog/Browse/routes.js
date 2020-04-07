@@ -1,3 +1,4 @@
+import BrowseHome from "./BrowseHome"
 import BrowseSongs from "./BrowseSongs"
 import BrowseAlbums from "./BrowseAlbums"
 import BrowseGenres from "./BrowseGenres"
@@ -6,6 +7,13 @@ import BrowseArtists from "./BrowseArtists"
 import { uniqueId } from "lodash"
 
 const routes = [
+  {
+    id: uniqueId(),
+    path: "",
+    name: "Home",
+    icon: "home",
+    component: BrowseHome,
+  },
   {
     id: uniqueId(),
     path: "/albums",

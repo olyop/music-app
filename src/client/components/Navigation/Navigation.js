@@ -15,6 +15,7 @@ const Navigation = ({ match, routes, className }) => (
     {routes.map(
       route => (
         <NavLink
+          exact
           key={route.id}
           to={match.path + route.path}
           className={bem("link")}

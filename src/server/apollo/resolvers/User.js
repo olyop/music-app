@@ -1,21 +1,19 @@
 import isNull from "lodash/isNull.js"
 import database from "../../database/index.js"
-import { resolver, pipe } from "../../helpers/misc.js"
 
 import {
+  pipe,
+  resolver,
+  playSelect,
+  songSelect,
+  albumSelect,
+  genreSelect,
+  artistSelect,
   restoreOrder,
-  determineSongSelect,
-  determinePlaySelect,
-  determineGenreSelect,
-  determineAlbumSelect,
-  determineArtistSelect,
-  determinePlaylistSelect,
-} from "../../helpers/resolvers.js"
-
-import {
+  playlistSelect,
   deserializeDocument,
   deserializeCollection,
-} from "../../helpers/collections.js"
+} from "../../helpers/index.js"
 
 const {
   Play,
@@ -40,7 +38,7 @@ export default {
       } else {
         const query =
           Song.findById(current)
-            .select(determineSongSelect(info))
+            .select(songSelect(info))
             .lean()
             .exec()
         return deserializeDocument(await query)
@@ -53,7 +51,7 @@ export default {
 
       const query =
         Song.find({ _id: parent.prev })
-          .select(determineSongSelect(info))
+          .select(songSelect(info))
           .lean()
           .exec()
 
@@ -69,7 +67,7 @@ export default {
 
       const query =
         Song.find({ _id: next })
-          .select(determineSongSelect(info))
+          .select(songSelect(info))
           .lean()
           .exec()
       
@@ -85,7 +83,7 @@ export default {
 
       const query =
         Song.find({ _id: queue })
-          .select(determineSongSelect(info))
+          .select(songSelect(info))
           .lean()
           .exec()
       
@@ -101,7 +99,7 @@ export default {
 
       const query =
         Play.find({ user: userId })
-          .select(determinePlaySelect(info))
+          .select(playSelect(info))
           .lean()
           .exec()
           
@@ -123,7 +121,7 @@ export default {
 
       const songsQuery =
         Song.find({ _id: userSongsIds })
-          .select(determineSongSelect(info))
+          .select(songSelect(info))
           .lean()
           .exec()
 
@@ -145,7 +143,7 @@ export default {
 
       const genresQuery =
         Genre.find({ _id: userGenresId })
-          .select(determineGenreSelect(info))
+          .select(genreSelect(info))
           .lean()
           .exec()
 
@@ -167,7 +165,7 @@ export default {
 
       const albumsQuery =
         Album.find({ _id: userAlbumsId })
-          .select(determineAlbumSelect(info))
+          .select(albumSelect(info))
           .lean()
           .exec()
 
@@ -189,7 +187,7 @@ export default {
 
       const artistsQuery =
         Artist.find({ _id: userArtistsId })
-          .select(determineArtistSelect(info))
+          .select(artistSelect(info))
           .lean()
           .exec()
 
@@ -211,7 +209,7 @@ export default {
 
       const playlistsQuery =
         Playlist.find({ _id: userPlaylistsId })
-          .select(determinePlaylistSelect(info))
+          .select(playlistSelect(info))
           .lean()
           .exec()
 

@@ -1,17 +1,15 @@
 import isNull from "lodash/isNull.js"
 import isEmpty from "lodash/isEmpty.js"
 import database from "../../database/index.js"
-import { resolver } from "../../helpers/misc.js"
 
 import {
-  determinePlaySelect,
-  determineSongSelect,
-} from "../../helpers/resolvers.js"
-
-import {
+  resolver,
+  playSelect,
+  userSelect,
+  songSelect,
   deserializeDocument,
   deserializeCollection,
-} from "../../helpers/collections.js"
+} from "../../helpers/index.js"
 
 const {
   Play,
@@ -26,7 +24,7 @@ export default {
     async ({ parent, info }) => {
       const query =
         User.findById(parent.user)
-          .select(determineUserSelect(info))
+          .select(userSelect(info))
           .lean()
           .exec()
       return deserializeDocument(await query)
@@ -47,7 +45,7 @@ export default {
 
       const songsQuery =
         Song.find({ _id: playlistSongsIds })
-          .select(determineSongSelect(info))
+          .select(songSelect(info))
           .lean()
           .exec()
 
@@ -70,7 +68,7 @@ export default {
 
       const playQuery =
         Play.find({ user: userId, song: playlistSongsIds })
-          .select(determinePlaySelect(info))
+          .select(playSelect(info))
           .lean()
           .exec()
 

@@ -1,7 +1,12 @@
 import database from "../../../database/index.js"
-import { resolver, userQueueSelect } from "../../../helpers/misc.js"
-import { deserializeDocument } from "../../../helpers/collections.js"
-import { determineUserSelect, determineUserPrev } from "../../../helpers/resolvers.js"
+import { USER_QUEUE_SELECT } from "../../../globals.js"
+
+import {
+  resolver,
+  userSelect,
+  determineUserPrev,
+  deserializeDocument,
+} from "../../../helpers/index.js"
 
 const { User } = database.models
 
@@ -10,7 +15,7 @@ const userPrev = async ({ info, args }) => {
 
   const query =
     User.findById(id)
-      .select(userQueueSelect)
+      .select(USER_QUEUE_SELECT)
       .lean()
       .exec()
 
@@ -19,7 +24,7 @@ const userPrev = async ({ info, args }) => {
   const mutation =
     User.findByIdAndUpdate(id, determineUserPrev(user))
       .setOptions({ new: true })
-      .select(determineUserSelect(info, userQueueSelect))
+      .select(userSelect(info))
       .lean()
       .exec()
   

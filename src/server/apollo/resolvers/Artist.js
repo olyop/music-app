@@ -3,19 +3,18 @@ import isEmpty from "lodash/isEmpty.js"
 import flatten from "lodash/flatten.js"
 import database from "../../database/index.js"
 import { SONG_ARTISTS_FIELDS as fields } from "../../globals.js"
-import { pipe, resolver, toDataUrl } from "../../helpers/misc.js"
 
 import {
+  pipe,
+  resolver,
+  toDataUrl,
   removeDup,
-  determinePlaySelect,
-  determineSongSelect,
-  determineAlbumSelect,
-} from "../../helpers/resolvers.js"
-
-import {
+  playSelect,
+  songSelect,
+  albumSelect,
   deserializeDocument,
   deserializeCollection,
-} from "../../helpers/collections.js"
+} from "../../helpers/index.js"
 
 const {
   Play,
@@ -34,7 +33,7 @@ export default {
 
       const query = field =>
         Song.find({ [field]: artistId })
-          .select(determineSongSelect(info))
+          .select(songSelect(info))
           .lean()
           .exec()
 
@@ -53,7 +52,7 @@ export default {
 
       const query =
         Album.find({ artists: artistId })
-          .select(determineAlbumSelect(info))
+          .select(albumSelect(info))
           .lean()
           .exec()
 
@@ -83,7 +82,7 @@ export default {
 
       const playQuery =
         Play.find({ user: userId, song: songsId })
-          .select(determinePlaySelect(info))
+          .select(playSelect(info))
           .lean()
           .exec()
 

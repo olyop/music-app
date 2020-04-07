@@ -1,8 +1,11 @@
 import database from "../../../database/index.js"
-import { resolver } from "../../../helpers/misc.js"
 import { USER_EMPTY_QUEUE } from "../../../globals.js"
-import { determineUserSelect } from "../../../helpers/resolvers.js"
-import { deserializeDocument } from "../../../helpers/collections.js"
+
+import {
+  resolver,
+  userSelect,
+  deserializeDocument,
+} from "../../../helpers/index.js"
 
 const { Play, User } = database.models
 
@@ -20,7 +23,7 @@ const userPlay = async ({ info, args }) => {
         current: songId,
       })
       .setOptions({ new: true })
-      .select(determineUserSelect(info))
+      .select(userSelect(info))
       .lean()
       .exec()
 

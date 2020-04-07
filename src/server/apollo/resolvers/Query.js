@@ -1,20 +1,19 @@
 import database from "../../database/index.js"
-import { resolver } from "../../helpers/misc.js"
+
+import ComplexQueries from "./ComplexQueries/index.js"
 
 import {
-  determinePlaySelect,
-  determineUserSelect,
-  determineSongSelect,
-  determineAlbumSelect,
-  determineGenreSelect,
-  determineArtistSelect,
-  determinePlaylistSelect,
-} from "../../helpers/resolvers.js"
-
-import {
+  resolver,
+  playSelect,
+  userSelect,
+  songSelect,
+  albumSelect,
+  genreSelect,
+  artistSelect,
+  playlistSelect,
   deserializeDocument,
   deserializeCollection,
-} from "../../helpers/collections.js"
+} from "../../helpers/index.js"
 
 const {
   User,
@@ -27,31 +26,12 @@ const {
 } = database.models
 
 export default {
-  users: resolver(
-    async ({ info }) => {
-      const query =
-        User.find()
-          .select(determineUserSelect(info))
-          .lean()
-          .exec()
-      return deserializeCollection(await query)
-    },
-  ),
-  plays: resolver(
-    async ({ info }) => {
-      const query =
-        Play.find()
-          .select(determinePlaySelect(info))
-          .lean()
-          .exec()
-      return deserializeCollection(await query)
-    },
-  ),
+  ...ComplexQueries,
   songs: resolver(
     async ({ info }) => {
       const query =
         Song.find()
-          .select(determineSongSelect(info))
+          .select(songSelect(info))
           .lean()
           .exec()
       return deserializeCollection(await query)
@@ -61,7 +41,7 @@ export default {
     async ({ info }) => {
       const query =
         Album.find()
-          .select(determineAlbumSelect(info))
+          .select(albumSelect(info))
           .lean()
           .exec()
       return deserializeCollection(await query)
@@ -71,7 +51,7 @@ export default {
     async ({ info }) => {
       const query =
         Genre.find()
-          .select(determineGenreSelect(info))
+          .select(genreSelect(info))
           .lean()
           .exec()
       return deserializeCollection(await query)
@@ -81,7 +61,7 @@ export default {
     async ({ info }) => {
       const query =
         Artist.find()
-          .select(determineArtistSelect(info))
+          .select(artistSelect(info))
           .lean()
           .exec()
       return deserializeCollection(await query)
@@ -91,7 +71,7 @@ export default {
     async ({ info }) => {
       const query =
         Playlist.find()
-          .select(determinePlaylistSelect(info))
+          .select(playlistSelect(info))
           .lean()
           .exec()
       return deserializeCollection(await query)
@@ -101,7 +81,7 @@ export default {
     async ({ args, info }) => {
       const query =
         User.findById(args.userId)
-          .select(determineUserSelect(info))
+          .select(userSelect(info))
           .lean()
           .exec()
       return deserializeDocument(await query)
@@ -111,7 +91,7 @@ export default {
     async ({ args, info }) => {
       const query =
         Play.findById(args.playId)
-          .select(determinePlaySelect(info))
+          .select(playSelect(info))
           .lean()
           .exec()
       return deserializeDocument(await query)
@@ -121,7 +101,7 @@ export default {
     async ({ args, info }) => {
       const query =
         Song.findById(args.songId)
-          .select(determineSongSelect(info))
+          .select(songSelect(info))
           .lean()
           .exec()
       return deserializeDocument(await query)
@@ -131,7 +111,7 @@ export default {
     async ({ args, info }) => {
       const query =
         Album.findById(args.albumId)
-          .select(determineAlbumSelect(info))
+          .select(albumSelect(info))
           .lean()
           .exec()
       return deserializeDocument(await query)
@@ -141,7 +121,7 @@ export default {
     async ({ args, info }) => {
       const query =
         Genre.findById(args.genreId)
-          .select(determineGenreSelect(info))
+          .select(genreSelect(info))
           .lean()
           .exec()
       return deserializeDocument(await query)
@@ -151,7 +131,7 @@ export default {
     async ({ args, info }) => {
       const query =
         Artist.findById(args.artistId)
-          .select(determineArtistSelect(info))
+          .select(artistSelect(info))
           .lean()
           .exec()
       return deserializeDocument(await query)
@@ -161,10 +141,10 @@ export default {
     async ({ args, info }) => {
       const query =
         Playlist.findById(args.playlistId)
-          .select(determinePlaylistSelect(info))
+          .select(playlistSelect(info))
           .lean()
           .exec()
       return deserializeDocument(await query)
     },
-  ), 
+  ),
 }

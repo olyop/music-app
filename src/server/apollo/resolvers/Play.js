@@ -1,11 +1,11 @@
 import database from "../../database/index.js"
-import { resolver } from "../../helpers/misc.js"
-import { deserializeDocument } from "../../helpers/collections.js"
 
 import {
-  determineUserSelect,
-  determineSongSelect,
-} from "../../helpers/resolvers.js"
+  resolver,
+  userSelect,
+  songSelect,
+  deserializeDocument,
+} from "../../helpers/index.js"
 
 const { User, Song } = database.models
 
@@ -14,7 +14,7 @@ export default {
     async ({ parent }) => {
       const query =
         User.findById(parent.userId)
-          .select(determineUserSelect(info))
+          .select(userSelect(info))
           .lean()
           .exec()
       return deserializeDocument(await query)
@@ -24,7 +24,7 @@ export default {
     async ({ parent }) => {
       const query =
         Song.findById(parent.songId)
-          .select(determineSongSelect(info))
+          .select(songSelect(info))
           .lean()
           .exec()
       return deserializeDocument(await query)

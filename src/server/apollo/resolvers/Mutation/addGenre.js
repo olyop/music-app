@@ -1,6 +1,9 @@
 import database from "../../../database/index.js"
-import { resolver } from "../../../helpers/misc.js"
-import { deserializeDocument } from "../../../helpers/collections.js"
+
+import {
+  resolver,
+  deserializeDocument,
+} from "../../../helpers/index.js"
 
 const { Genre } = database.models
 

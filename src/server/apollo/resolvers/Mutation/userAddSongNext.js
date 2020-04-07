@@ -1,7 +1,10 @@
 import database from "../../../database/index.js"
-import { resolver } from "../../../helpers/misc.js"
-import { determineUserSelect } from "../../../helpers/resolvers.js"
-import { deserializeDocument } from "../../../helpers/collections.js"
+
+import {
+  resolver,
+  userSelect,
+  deserializeDocument,
+} from "../../../helpers/index.js"
 
 const { User } = database.models
 
@@ -14,7 +17,7 @@ const userAddSongNext = async ({ info, args }) => {
         { $push: { next: { $each: [songId], $position: 0 } } },
       )
       .setOptions({ new: true })
-      .select(determineUserSelect(info))
+      .select(userSelect(info))
       .lean()
       .exec()
 

@@ -4,7 +4,7 @@ const noop = require("lodash/noop.js")
 const { ProgressPlugin } = require("webpack")
 const CopyPlugin = require("copy-webpack-plugin")
 const HtmlWebpackPlugin = require("html-webpack-plugin")
-// const MinifyPlugin = require("babel-minify-webpack-plugin")
+const MinifyPlugin = require("babel-minify-webpack-plugin")
 const WriteFilePlugin = require("write-file-webpack-plugin")
 const MiniCssExtractPlugin = require("mini-css-extract-plugin")
 const CompressionPlugin = require("compression-webpack-plugin")
@@ -25,37 +25,38 @@ module.exports = ({ mode }) => {
     mode,
     entry: path.join(clientPath, "index.js"),
     output: {
-      path: path.join(serverPath, "build"),
+      publicPath: "/",
       filename: "[hash].js",
-      publicPath: "/"
+      path: path.join(serverPath, "build"),
     },
     devServer: {
       host: HOST,
       port: 8080,
+      open: false,
       compress: true,
+      stats: "errors-only",
       contentBase: publicPath,
       historyApiFallback: true,
-      open: false,
-      stats: "errors-only"
     },
     module: {
       rules: [
         {
           test: /\.(|jpg|png|ico|txt|json)$/,
           exclude: /node_modules/,
-          loader: "file-loader"
+          loader: "file-loader",
         },
         {
           test: /\.html/,
           exclude: /node_modules/,
-          loader: "html-loader"
+          loader: "html-loader",
         },
         {
           test: /\.css$/,
+          exclude: /node_modules/,
           loader: [
             MiniCssExtractPlugin.loader,
-            "css-loader"
-          ]
+            "css-loader",
+          ],
         },
         {
           test: /\.scss$/,
@@ -63,8 +64,8 @@ module.exports = ({ mode }) => {
           loader: [
             MiniCssExtractPlugin.loader,
             "css-loader",
-            "sass-loader"
-          ]
+            "sass-loader",
+          ],
         },
         {
           test: /\.(graphql|gql)$/,
@@ -74,27 +75,27 @@ module.exports = ({ mode }) => {
         {
           test: /\.js$/,
           exclude: /node_modules/,
-          use:[
+          use: [
             {
               loader: "babel-loader",
               options: {
                 presets: ["@babel/react", "@babel/env"],
-                plugins: ["@babel/plugin-proposal-class-properties", "lodash"]
-              } 
+                plugins: ["@babel/plugin-proposal-class-properties", "lodash"],
+              } ,
             },
             {
-              loader: "eslint-loader"
-            }
-          ]
-        }
-      ]
+              loader: "eslint-loader",
+            },
+          ],
+        },
+      ],
     },
     plugins: [
       isProduction ? new BundleAnalyzerPlugin({ analyzerMode: "static" }) : noop,
       isProduction ? new CompressionPlugin() : noop,
       isProduction ? new ProgressPlugin() : noop,
       isProduction ? new LodashModuleReplacementPlugin() : noop,
-      // isProduction ? new MinifyPlugin({}, { comments: false }) : noop,
+      isProduction ? new MinifyPlugin({}, { comments: false }) : noop,
       isProduction ? new OptimizeCssAssetsPlugin() : noop,
       new MiniCssExtractPlugin({ filename: "[hash].css" }),
       new HtmlWebpackPlugin({
@@ -111,8 +112,8 @@ module.exports = ({ mode }) => {
       new WriteFilePlugin(),
       new CopyPlugin([{
         from: path.join(publicPath),
-        to: path.join(serverPath, "build")
-      }])
-    ]
+        to: path.join(serverPath, "build"),
+      }]),
+    ],
   }
 }

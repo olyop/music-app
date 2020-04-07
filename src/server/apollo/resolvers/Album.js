@@ -1,19 +1,18 @@
 import isNull from "lodash/isNull.js"
 import isEmpty from "lodash/isEmpty.js"
 import database from "../../database/index.js"
-import { resolver, pipe, toDataUrl } from "../../helpers/misc.js"
 
 import {
+  pipe,
+  resolver,
+  toDataUrl,
+  playSelect,
+  songSelect,
+  artistSelect,
   restoreOrder,
-  determinePlaySelect,
-  determineSongSelect,
-  determineArtistSelect,
-} from "../../helpers/resolvers.js"
-
-import {
   deserializeDocument,
   deserializeCollection,
-} from "../../helpers/collections.js"
+} from "../../helpers/index.js"
 
 const {
   Play,
@@ -32,7 +31,7 @@ export default {
 
       const query =
         Song.find({ album: albumId })
-          .select(determineSongSelect(info))
+          .select(songSelect(info))
           .lean()
           .exec()
       
@@ -45,7 +44,7 @@ export default {
 
       const query =
         Artist.find({ _id: artists })
-          .select(determineArtistSelect(info))
+          .select(artistSelect(info))
           .lean()
           .exec()
       
@@ -71,7 +70,7 @@ export default {
 
       const playQuery =
         Play.find({ user: userId, song: songsId })
-          .select(determinePlaySelect(info))
+          .select(playSelect(info))
           .lean()
           .exec()
 

@@ -14,13 +14,8 @@ type Query {
   playlist(playlistId: ID!): Playlist!
 
   # complex queries
-  browse(userId: ID!): Browse!
-}
-
-type Browse {
-  topTen: [Song!]!
   newAlbums: [Album!]!
-  popularArtists: [Artist!]!
+  topTenSongs: [Song!]!
 }
 
 type User {

@@ -22,9 +22,9 @@ const addUserArtist = async ({ args, info }) => {
 
   const query =
     Artist.findById(artistId)
-      .select(artistSelect(info))
-      .lean()
-      .exec()
+          .select(artistSelect(info))
+          .lean()
+          .exec()
 
   return deserializeDocument(await query)
 }

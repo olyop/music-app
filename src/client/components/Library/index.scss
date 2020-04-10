@@ -1,0 +1,13 @@
+@import "../../globals/index.scss";
+
+.Library {
+  z-index: 2;
+  &__main {
+    z-index: 1;
+    width: 100%;
+    overflow: auto;
+    padding: $SPACE;
+    box-shadow: none;
+    height: calc(100vh - #{$HEADER_HEIGHT} - #{$HEADER_HEIGHT} - #{$PLAYER_HEIGHT});
+    @media(max-width: 700px) {
+      height: calc(100vh - #{$HEADER_HEIGHT} - #{$HEADER_HEIGHT} - #{$PLAYER_HEIGHT_MOBILE}); } } }

@@ -12,14 +12,13 @@ const userAddSongLater = async ({ info, args }) => {
   const { userId, songId } = args
   
   const mutation =
-    User.findByIdAndUpdate(
-        userId,
-        { $push: { next: songId } },
-      )
-      .setOptions({ new: true })
-      .select(userSelect(info))
-      .lean()
-      .exec()
+    User.findByIdAndUpdate(userId, {
+          $push: { next: songId }
+        })
+        .setOptions({ new: true })
+        .select(userSelect(info))
+        .lean()
+        .exec()
 
   return deserializeDocument(await mutation)
 }

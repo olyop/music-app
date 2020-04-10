@@ -22,9 +22,9 @@ const addUserGenre = async ({ args, info }) => {
 
   const query =
     Genre.findById(genreId)
-      .select(genreSelect(info))
-      .lean()
-      .exec()
+         .select(genreSelect(info))
+         .lean()
+         .exec()
 
   return deserializeDocument(await query)
 }

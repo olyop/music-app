@@ -1,0 +1,163 @@
+@import "../../globals/index.scss";
+
+.SongsTable {
+  width: 100%;
+  border-spacing: 0;
+  border-collapse: collapse;
+  background-color: #ffffff;
+  box-shadow: 0 1px 4px 0 rgba(#333333, .3);
+  &__head {
+    @media (max-width: 700px) {
+      display: none; }
+    &-row {
+      height: 33px;
+      border-bottom: 1px solid #e0e0e0;
+      &-col {
+        cursor: pointer;
+        font-size: 16px;
+        text-align: left;
+        line-height: 16px;
+        padding: 5px 12px;
+        user-select: none;
+        transition: .2s all;
+        text-transform: uppercase;
+        &:hover {
+          background-color: #EEEEEE; }
+        &-icon {
+          height: 23px;
+          font-size: 23px;
+          line-height: 23px;
+          border-radius: 100%;
+          color: $TEXT_COLOR_LIGHT; } }
+      &-noHover {
+        cursor: auto;
+        transition: none;
+        &:hover {
+          background-color: transparent; } } }
+    &-cover,
+    &-numOfPlays,
+    &-duration {
+      padding: 4px;
+      text-align: center; }
+    &-trackNumber {
+      padding-left: 0;
+      padding-right: 0;
+      text-align: center; }
+    &-album,
+    &-genres,
+    &-artists,
+    &-released,
+    &-remixers,
+    &-duration,
+    &-numOfPlays {
+      @media (max-width: 700px) {
+        display: none; } } }
+  &__body {
+    &-row {
+      height: 41px;
+      border-bottom: 1px solid #e0e0e0;
+      &:hover {
+        background-color: #eeeeee; }
+      &:hover &-next-icon,
+      &:hover &-later-icon,
+      &:hover &-queue-icon,
+      &:hover &-numOfPlays-span {
+        opacity: 1; }
+      &:last-child {
+        border-bottom: none; }
+      &-col {
+        padding: 12px;
+        overflow: hidden;
+        &-span {
+          font-size: 16px;
+          text-align: left;
+          line-height: 16px;
+          white-space: nowrap;
+          text-overflow: ellipsis; } }
+      &-add,
+      &-play,
+      &-next,
+      &-later,
+      &-queue {
+        width: 40px;
+        height: 40px;
+        padding: 4px;
+        &-icon {
+          width: 32px;
+          height: 32px;
+          color: #757575;
+          font-size: 32px;
+          line-height: 32px;
+          transition: .3s all;
+          border-radius: 100%;
+          &:hover {
+            background-color: #e0e0e0; } } }
+      &-next,
+      &-later,
+      &-queue {
+        &-icon {
+          opacity: 0; }
+        &-text {
+          opacity: 0; } }
+      &-album,
+      &-genres,
+      &-artists,
+      &-released,
+      &-remixers,
+      &-duration,
+      &-dateAdded,
+      &-numOfPlays {
+        @media (max-width: 700px) {
+          display: none; } }
+      &-play {
+        width: 36px;
+        padding-right: 0; }
+      &-trackNumber {
+        width: 30px;
+        height: 40px;
+        font-size: 16px;
+        padding-left: 0;
+        padding-right: 0;
+        overflow: visible;
+        text-align: center;
+        &-span {
+          width: 16px;
+          height: 16px; } }
+      &-title {
+        max-width: 20vw;
+        padding-left: 8px;
+        &-span {
+          @media (max-width: 700px) {
+            display: none; } }
+        &-song {
+          @media (min-width: 700px) {
+            display: none; } } }
+      &-numOfPlays {
+        width: 33px;
+        text-align: right;
+        &-span {
+          text-decoration: none;
+          &:hover {
+            text-decoration: underline; } } }
+      &-duration {
+        width: 55px; }
+      &-duration,
+      &-numOfPlays {
+        &-span {
+          color: $TEXT_COLOR_LIGHT; } }
+      &-artists {
+        width: 12vw; }
+      &-remixers {
+        width: 8vw; }
+      &-album {
+        width: 12vw; }
+      &-genres {
+        width: 12vw; }
+      &-released,
+      &-dateAdded {
+        width: 110px; } } } }
+
+@keyframes play {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); } }        

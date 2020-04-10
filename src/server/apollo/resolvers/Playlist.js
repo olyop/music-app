@@ -24,9 +24,9 @@ export default {
     async ({ parent, info }) => {
       const query =
         User.findById(parent.user)
-          .select(userSelect(info))
-          .lean()
-          .exec()
+            .select(userSelect(info))
+            .lean()
+            .exec()
       return deserializeDocument(await query)
     },
   ),
@@ -36,18 +36,18 @@ export default {
 
       const playlistSongQuery =
         PlaylistSong.find({ playlist: playlistId, inPlaylist: true })
-          .select({ song: 1 })
-          .lean()
-          .exec()
+                    .select({ song: 1 })
+                    .lean()
+                    .exec()
 
       const playlistSongs = deserializeCollection(await playlistSongQuery)
       const playlistSongsIds = playlistSongs.map(({ song }) => song)
 
       const songsQuery =
         Song.find({ _id: playlistSongsIds })
-          .select(songSelect(info))
-          .lean()
-          .exec()
+            .select(songSelect(info))
+            .lean()
+            .exec()
 
       return deserializeCollection(await songsQuery)
     },
@@ -59,18 +59,18 @@ export default {
 
       const playlistSongQuery =
         PlaylistSong.find({ playlist: playlistId, inPlaylist: true })
-          .select({ song: 1 })
-          .lean()
-          .exec()
+                    .select({ song: 1 })
+                    .lean()
+                    .exec()
 
       const playlistSongs = deserializeCollection(await playlistSongQuery)
       const playlistSongsIds = playlistSongs.map(({ song }) => song)
 
       const playQuery =
         Play.find({ user: userId, song: playlistSongsIds })
-          .select(playSelect(info))
-          .lean()
-          .exec()
+            .select(playSelect(info))
+            .lean()
+            .exec()
 
       const plays = deserializeCollection(await playQuery)
 
@@ -88,9 +88,9 @@ export default {
 
       const query =
         UserPlaylist.findOne({ user: userId, playlist: playlistId })
-          .select({ inLibrary: 1 })
-          .lean()
-          .exec()
+                    .select({ inLibrary: 1 })
+                    .lean()
+                    .exec()
       
       const userPlaylist = await query
 
@@ -108,18 +108,18 @@ export default {
 
       const playlistSongQuery =
         PlaylistSong.find({ playlist: playlistId, inPlaylist: true })
-          .select({ song: 1 })
-          .lean()
-          .exec()
+                    .select({ song: 1 })
+                    .lean()
+                    .exec()
 
       const playlistSongs = deserializeCollection(await playlistSongQuery)
       const playlistSongsIds = playlistSongs.map(({ song }) => song)
 
       const playQuery =
         Play.find({ user: userId, song: playlistSongsIds })
-          .select(determinePlaySelect(info))
-          .lean()
-          .exec()
+            .select(determinePlaySelect(info))
+            .lean()
+            .exec()
 
       const plays = deserializeCollection(await playQuery)
 
@@ -137,13 +137,13 @@ export default {
       
       const query =
         UserPlaylist.findOne({
-            user: userId,
-            inLibrary: true,
-            playlist: playlistId,
-          })
-          .select({ inLibrary: 1 })
-          .lean()
-          .exec()
+                      user: userId,
+                      inLibrary: true,
+                      playlist: playlistId,
+                    })
+                    .select({ inLibrary: 1 })
+                    .lean()
+                    .exec()
       
       const userPlaylist = await query
 

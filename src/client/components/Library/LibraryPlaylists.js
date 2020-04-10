@@ -1,7 +1,7 @@
 import React from "react"
 
+import Grid from "../Grid"
 import Playlist from "../Playlist"
-import Playlists from "../Playlists"
 import QueryApi from "../QueryApi"
 
 import { pipe } from "../../helpers"
@@ -12,11 +12,12 @@ import GET_USER_PLAYLISTS from "../../graphql/queries/getUserPlaylists.graphql"
 const LibraryPlaylists = () => (
   <QueryApi
     library
+    checkEmpty
     query={GET_USER_PLAYLISTS}
     resultPath="user.playlists"
     children={
       playlists => (
-        <Playlists>
+        <Grid>
           {pipe(playlists)(
             orderBy("dateAdded", "desc"),
             map(
@@ -28,7 +29,7 @@ const LibraryPlaylists = () => (
               ),
             ),
           )}
-        </Playlists>
+        </Grid>
       )
     }
   />

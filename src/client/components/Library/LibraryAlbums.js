@@ -1,7 +1,7 @@
 import React from "react"
 
+import Grid from "../Grid"
 import Album from "../Album"
-import Albums from "../Albums"
 import QueryApi from "../QueryApi"
 
 import { pipe } from "../../helpers"
@@ -12,11 +12,12 @@ import GET_USER_ALBUMS from "../../graphql/queries/getUserAlbums.graphql"
 const LibraryAlbums = () => (
   <QueryApi
     library
+    checkEmpty
     query={GET_USER_ALBUMS}
     resultPath="user.albums"
     children={
       albums => (
-        <Albums>
+        <Grid>
           {pipe(albums)(
             orderBy("dateAdded", "desc"),
             map(
@@ -28,7 +29,7 @@ const LibraryAlbums = () => (
               ),
             ),
           )}
-        </Albums>
+        </Grid>
       )
     }
   />

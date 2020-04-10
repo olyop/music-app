@@ -22,9 +22,9 @@ const addUserSong = async ({ args, info }) => {
 
   const query =
     Song.findById(songId)
-      .select(songSelect(info))
-      .lean()
-      .exec()
+        .select(songSelect(info))
+        .lean()
+        .exec()
 
   return deserializeDocument(await query)
 }

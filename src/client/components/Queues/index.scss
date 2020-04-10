@@ -1,0 +1,31 @@
+@import "../../globals/index.scss";
+
+.Queues {
+  padding: $SPACE;
+  &__section {
+    width: 500px;
+    padding: $SPACE;
+    margin-bottom: 12px;
+    background-color: #fff;
+    box-shadow: $BOX_SHADOW;
+    border-radius: $BORDER_RADIUS;
+    @media (max-width: 640px) {
+      width: 100%; }
+    &-text {
+      color: #757575;
+      font-size: 18rem;
+      margin-bottom: $SPACE_HALF; }
+    &-song {
+      display: flex;
+      align-items: center;
+      margin-bottom: $SPACE_HALF;
+      &:last-child {
+        margin-bottom: 0; }
+      &-playButton {
+        font-size: 32rem;
+        margin-left: -9px;
+        border-radius: 100%;
+        margin-right: $SPACE_HALF;
+        transition: .2s background-color;
+        &:hover {
+          background-color: #e0e0e0; } } } } }

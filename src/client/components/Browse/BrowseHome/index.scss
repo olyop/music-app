@@ -1,0 +1,38 @@
+@import "../../../globals/index.scss";
+
+.BrowseHome {
+  gap: $SPACE;
+  display: grid;
+  align-items: stretch;
+  grid-template-columns: 3fr 1fr;
+  &__heading {
+    font-weight: 700;
+    font-size: 22rem;
+    position: relative;
+    margin-bottom: $SPACE;
+    display: inline-block;
+    &:after {
+      left: 0;
+      right: 0;
+      content: "";
+      width: 100%;
+      height: 2px;
+      bottom: -3px;
+      position: absolute;
+      background-color: $TEXT_COLOR; } }
+  &__topTen,
+  &__newAlbums {
+    padding: $SPACE;
+    background-color: #fff;
+    box-shadow: $BOX_SHADOW;
+    border-radius: $BORDER_RADIUS; }
+  &__topTen {
+    &-song {
+      display: flex;
+      margin-bottom: 10px;
+      &:last-child {
+        margin-bottom: 0; }
+      &-num {
+        width: 30px;
+        height: 42px;
+        font-size: 22rem; } } } }

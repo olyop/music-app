@@ -17,9 +17,9 @@ const rmUserSong = async ({ args, info }) => {
 
   const query =
     Song.findById(songId)
-      .select(determineSongSelect(info))
-      .lean()
-      .exec()
+        .select(songSelect(info))
+        .lean()
+        .exec()
 
   return deserializeDocument(await query)
 }

@@ -19,13 +19,13 @@ const userPlay = async ({ info, args }) => {
 
   const query =
     User.findByIdAndUpdate(userId, {
-        ...USER_EMPTY_QUEUE,
-        current: songId,
-      })
-      .setOptions({ new: true })
-      .select(userSelect(info))
-      .lean()
-      .exec()
+          ...USER_EMPTY_QUEUE,
+          current: songId,
+        })
+        .setOptions({ new: true })
+        .select(userSelect(info))
+        .lean()
+        .exec()
 
   return deserializeDocument(await query)
 }

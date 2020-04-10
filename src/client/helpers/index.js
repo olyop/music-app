@@ -10,6 +10,7 @@ import _determineConcat from "./determineConcat"
 import _determinePlural from "./determinePlural"
 import _determineNameKey from "./determineNameKey"
 import _determinePhotoKey from "./determinePhotoKey"
+import _createQueuesArray from "./createQueuesArray"
 import _deserializeDuration from "./deserializeDuration"
 import _determineReturnFromDoc from "./determineReturnFromDoc"
 
@@ -25,5 +26,6 @@ export const determineConcat = _determineConcat
 export const determinePlural = _determinePlural
 export const determineNameKey = _determineNameKey
 export const determinePhotoKey = _determinePhotoKey
+export const createQueuesArray = _createQueuesArray
 export const deserializeDuration = _deserializeDuration
 export const determineReturnFromDoc = _determineReturnFromDoc

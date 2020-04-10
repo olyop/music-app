@@ -23,9 +23,9 @@ export default {
 
       const query =
         Song.find({ genres: genreId })
-          .select(songSelect(info))
-          .lean()
-          .exec()
+            .select(songSelect(info))
+            .lean()
+            .exec()
       
       return deserializeCollection(await query)
     },
@@ -37,18 +37,18 @@ export default {
 
       const songsQuery =
         Song.find({ genres: genreId })
-          .select({ _id: 1 })
-          .lean()
-          .exec()
+            .select({ _id: 1 })
+            .lean()
+            .exec()
 
       const songs = deserializeCollection(await songsQuery)
       const songsId = songs.map(({ id }) => id)
 
       const playQuery =
         Play.find({ user: userId, song: songsId })
-          .select(playSelect(info))
-          .lean()
-          .exec()
+            .select(playSelect(info))
+            .lean()
+            .exec()
 
       const plays = deserializeCollection(await playQuery)
 
@@ -66,9 +66,9 @@ export default {
 
       const query =
         UserGenre.findOne({ user: userId, genre: genreId })
-          .select({ inLibrary: 1 })
-          .lean()
-          .exec()
+            .select({ inLibrary: 1 })
+            .lean()
+            .exec()
       
       const userGenre = await query
 
@@ -86,18 +86,18 @@ export default {
 
       const songsQuery =
         Song.find({ genres: genreId })
-          .select({ _id: 1 })
-          .lean()
-          .exec()
+            .select({ _id: 1 })
+            .lean()
+            .exec()
 
       const songs = deserializeCollection(await songsQuery)
       const songsId = songs.map(({ id }) => id)
 
       const playQuery =
         Play.find({ user: userId, song: songsId })
-          .select(determinePlaySelect(info))
-          .lean()
-          .exec()
+            .select(determinePlaySelect(info))
+            .lean()
+            .exec()
 
       const plays = deserializeCollection(await playQuery)
 
@@ -115,13 +115,13 @@ export default {
       
       const query =
         UserGenre.findOne({
-            user: userId,
-            genre: genreId,
-            inLibrary: true,
-          })
-          .select({ inLibrary: 1 })
-          .lean()
-          .exec()
+                    user: userId,
+                    genre: genreId,
+                    inLibrary: true,
+                  })
+                  .select({ inLibrary: 1 })
+                  .lean()
+                  .exec()
       
       const userGenre = await query
 

@@ -6,7 +6,6 @@ import _removeDup from "./removeDup.js"
 import _toDataUrl from "./toDataUrl.js"
 import _restoreOrder from "./restoreOrder.js"
 import _importTypeDefs from "./importTypeDefs.js"
-import _determineTopTen from "./determineTopTen.js"
 import _determineDuration from "./determineDuration.js"
 import _determineReleased from "./determineReleased.js"
 import _determineUserNext from "./determineUserNext.js"
@@ -40,7 +39,6 @@ export const removeDup = _removeDup
 export const toDataUrl = _toDataUrl
 export const restoreOrder = _restoreOrder
 export const importTypeDefs = _importTypeDefs
-export const determineTopTen = _determineTopTen
 export const determineDuration = _determineDuration
 export const determineReleased = _determineReleased
 export const determineUserNext = _determineUserNext

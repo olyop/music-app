@@ -30,9 +30,9 @@ export default {
 
       const query =
         Album.findById(album)
-          .select(albumSelect(info))
-          .lean()
-          .exec()
+             .select(albumSelect(info))
+             .lean()
+             .exec()
       
       return deserializeDocument(await query)
     },
@@ -43,9 +43,9 @@ export default {
 
       const query =
         Genre.find({ _id: genres })
-          .select(genreSelect(info))
-          .lean()
-          .exec()
+             .select(genreSelect(info))
+             .lean()
+             .exec()
       
       return pipe(await query)(
         deserializeCollection,
@@ -59,9 +59,9 @@ export default {
 
       const query =
         Artist.find({ _id: artists })
-          .select(artistSelect(info))
-          .lean()
-          .exec()
+              .select(artistSelect(info))
+              .lean()
+              .exec()
       
       return pipe(await query)(
         deserializeCollection,
@@ -75,9 +75,9 @@ export default {
 
       const query =
         Artist.find({ _id: remixers })
-          .select(artistSelect(info))
-          .lean()
-          .exec()
+              .select(artistSelect(info))
+              .lean()
+              .exec()
       
       return pipe(await query)(
         deserializeCollection,
@@ -91,9 +91,9 @@ export default {
 
       const query =
         Artist.find({ _id: featuring })
-          .select(artistSelect(info))
-          .lean()
-          .exec()
+              .select(artistSelect(info))
+              .lean()
+              .exec()
       
       return pipe(await query)(
         deserializeCollection,
@@ -108,9 +108,9 @@ export default {
 
       const query =
         Play.find({ user: userId, song: songId })
-          .select(playSelect(info))
-          .lean()
-          .exec()
+            .select(playSelect(info))
+            .lean()
+            .exec()
 
       const plays = deserializeCollection(await query)
 
@@ -128,9 +128,9 @@ export default {
 
       const query =
         UserSong.findOne({ user: userId, song: songId })
-          .select({ inLibrary: 1 })
-          .lean()
-          .exec()
+                .select({ inLibrary: 1 })
+                .lean()
+                .exec()
       
       const userSong = await query
 
@@ -148,9 +148,9 @@ export default {
 
       const query =
         Play.find({ user: userId, song: songId })
-          .select(playSelect(info))
-          .lean()
-          .exec()
+            .select(playSelect(info))
+            .lean()
+            .exec()
 
       const plays = deserializeCollection(await query)
 
@@ -168,14 +168,14 @@ export default {
 
       const query =
         UserSong.findOne({
-            user: userId,
-            song: songId,
-            inLibrary: true,
-          })
-          .select({ inLibrary: 1 })
-          .lean()
-          .exec()
-      
+                  user: userId,
+                  song: songId,
+                  inLibrary: true,
+                })
+                .select({ inLibrary: 1 })
+                .lean()
+                .exec()
+            
       const userSong = await query
 
       if (isNull(userSong)) {
@@ -192,9 +192,9 @@ export default {
 
       const query =
         User.findById(userId)
-          .select({ current: 1 })
-          .lean()
-          .exec()
+            .select({ current: 1 })
+            .lean()
+            .exec()
       
       const { current } = deserializeDocument(await query)
 

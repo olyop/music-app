@@ -14,9 +14,9 @@ export default {
     async ({ parent }) => {
       const query =
         User.findById(parent.userId)
-          .select(userSelect(info))
-          .lean()
-          .exec()
+            .select(userSelect(info))
+            .lean()
+            .exec()
       return deserializeDocument(await query)
     },
   ),
@@ -24,9 +24,9 @@ export default {
     async ({ parent }) => {
       const query =
         Song.findById(parent.songId)
-          .select(songSelect(info))
-          .lean()
-          .exec()
+            .select(songSelect(info))
+            .lean()
+            .exec()
       return deserializeDocument(await query)
     },
   ),

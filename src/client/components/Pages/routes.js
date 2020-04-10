@@ -53,26 +53,26 @@ export default [
   },
   {
     ignore: true,
-    path: "/plays/:id",
     id: uniqueId(),
     component: PlaysPage,
+    path: "/plays/:songId",
   },
   {
     ignore: true,
     id: uniqueId(),
-    path: "/album/:id",
     component: AlbumPage,
+    path: "/album/:albumId",
   },
   {
     ignore: true,
     id: uniqueId(),
-    path: "/artist/:id",
     component: ArtistPage,
+    path: "/artist/:artistId",
   },
   {
     ignore: true,
     id: uniqueId(),
-    path: "/genre/:id",
     component: GenrePage,
+    path: "/genre/:genreId",
   },
 ]

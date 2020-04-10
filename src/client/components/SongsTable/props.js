@@ -10,5 +10,9 @@ export const propTypes = {
 }
 
 export const defaultProps = {
+  orderByInit: {
+    order: true,
+    field: "title",
+  },
   columnsToIgnore: [],
 }

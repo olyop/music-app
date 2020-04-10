@@ -11,22 +11,21 @@ import {
 const { User } = database.models
 
 const userPrev = async ({ info, args }) => {
-  const { id } = args
+  const { userId } = args
 
   const query =
-    User.findById(id)
-      .select(USER_QUEUE_SELECT)
-      .lean()
-      .exec()
+    User.findById(userId)
+        .select(USER_QUEUE_SELECT)
+        .lean()
+        .exec()
 
   const user = deserializeDocument(await query)
 
   const mutation =
-    User.findByIdAndUpdate(id, determineUserPrev(user))
-      .setOptions({ new: true })
-      .select(userSelect(info))
-      .lean()
-      .exec()
+    User.findByIdAndUpdate(userId, determineUserPrev(user), { new: true })
+        .select(userSelect(info))
+        .lean()
+        .exec()
   
   return deserializeDocument(await mutation)
 }

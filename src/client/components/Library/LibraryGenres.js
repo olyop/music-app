@@ -1,7 +1,7 @@
 import React from "react"
 
+import Grid from "../Grid"
 import Genre from "../Genre"
-import Genres from "../Genres"
 import QueryApi from "../QueryApi"
 
 import { pipe } from "../../helpers"
@@ -12,11 +12,12 @@ import GET_USER_GENRES from "../../graphql/queries/getUserGenres.graphql"
 const LibraryGenres = () => (
   <QueryApi
     library
+    checkEmpty
     query={GET_USER_GENRES}
     resultPath="user.genres"
     children={
       genres => (
-        <Genres>
+        <Grid>
           {pipe(genres)(
             orderBy("dateAdded", "desc"),
             map(
@@ -28,7 +29,7 @@ const LibraryGenres = () => (
               ),
             ),
           )}
-        </Genres>
+        </Grid>
       )
     }
   />

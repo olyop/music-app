@@ -31,9 +31,9 @@ export default {
     async ({ info }) => {
       const query =
         Song.find()
-          .select(songSelect(info))
-          .lean()
-          .exec()
+            .select(songSelect(info))
+            .lean()
+            .exec()
       return deserializeCollection(await query)
     },
   ),
@@ -41,9 +41,9 @@ export default {
     async ({ info }) => {
       const query =
         Album.find()
-          .select(albumSelect(info))
-          .lean()
-          .exec()
+             .select(albumSelect(info))
+             .lean()
+             .exec()
       return deserializeCollection(await query)
     },
   ),
@@ -51,9 +51,9 @@ export default {
     async ({ info }) => {
       const query =
         Genre.find()
-          .select(genreSelect(info))
-          .lean()
-          .exec()
+             .select(genreSelect(info))
+             .lean()
+             .exec()
       return deserializeCollection(await query)
     },
   ),
@@ -61,9 +61,9 @@ export default {
     async ({ info }) => {
       const query =
         Artist.find()
-          .select(artistSelect(info))
-          .lean()
-          .exec()
+              .select(artistSelect(info))
+              .lean()
+              .exec()
       return deserializeCollection(await query)
     },
   ),
@@ -71,9 +71,9 @@ export default {
     async ({ info }) => {
       const query =
         Playlist.find()
-          .select(playlistSelect(info))
-          .lean()
-          .exec()
+                .select(playlistSelect(info))
+                .lean()
+                .exec()
       return deserializeCollection(await query)
     }
   ),
@@ -81,9 +81,9 @@ export default {
     async ({ args, info }) => {
       const query =
         User.findById(args.userId)
-          .select(userSelect(info))
-          .lean()
-          .exec()
+            .select(userSelect(info))
+            .lean()
+            .exec()
       return deserializeDocument(await query)
     },
   ),
@@ -91,9 +91,9 @@ export default {
     async ({ args, info }) => {
       const query =
         Play.findById(args.playId)
-          .select(playSelect(info))
-          .lean()
-          .exec()
+            .select(playSelect(info))
+            .lean()
+            .exec()
       return deserializeDocument(await query)
     },
   ),
@@ -101,9 +101,9 @@ export default {
     async ({ args, info }) => {
       const query =
         Song.findById(args.songId)
-          .select(songSelect(info))
-          .lean()
-          .exec()
+            .select(songSelect(info))
+            .lean()
+            .exec()
       return deserializeDocument(await query)
     },
   ),
@@ -111,9 +111,9 @@ export default {
     async ({ args, info }) => {
       const query =
         Album.findById(args.albumId)
-          .select(albumSelect(info))
-          .lean()
-          .exec()
+             .select(albumSelect(info))
+             .lean()
+             .exec()
       return deserializeDocument(await query)
     },
   ),
@@ -121,9 +121,9 @@ export default {
     async ({ args, info }) => {
       const query =
         Genre.findById(args.genreId)
-          .select(genreSelect(info))
-          .lean()
-          .exec()
+             .select(genreSelect(info))
+             .lean()
+             .exec()
       return deserializeDocument(await query)
     },
   ),
@@ -131,9 +131,9 @@ export default {
     async ({ args, info }) => {
       const query =
         Artist.findById(args.artistId)
-          .select(artistSelect(info))
-          .lean()
-          .exec()
+              .select(artistSelect(info))
+              .lean()
+              .exec()
       return deserializeDocument(await query)
     },
   ),
@@ -141,9 +141,9 @@ export default {
     async ({ args, info }) => {
       const query =
         Playlist.findById(args.playlistId)
-          .select(playlistSelect(info))
-          .lean()
-          .exec()
+                .select(playlistSelect(info))
+                .lean()
+                .exec()
       return deserializeDocument(await query)
     },
   ),

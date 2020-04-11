@@ -1,5 +1,5 @@
 import { createContext } from "react"
 
-const PlayCtx = createContext()
+const PlayContext = createContext()
 
-export default PlayCtx
+export default PlayContext

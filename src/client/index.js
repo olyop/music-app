@@ -11,12 +11,12 @@ import { ROOT_ELEMENT } from "./globals"
 import "./index.scss"
 
 ReactDOM.render(
-  <Authenticate>
-    <ApolloClient>
-      <ReactRouter>
+  <ReactRouter>
+    <Authenticate>
+      <ApolloClient>
         <Application/>
-      </ReactRouter>
-    </ApolloClient>
-  </Authenticate>,
+      </ApolloClient>
+    </Authenticate>
+  </ReactRouter>,
   ROOT_ELEMENT,
 )

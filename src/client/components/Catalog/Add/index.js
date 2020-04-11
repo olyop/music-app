@@ -1,5 +1,6 @@
 import React from "react"
 
+import IconText from "../../IconText"
 import { NavLink, Switch, Route } from "react-router-dom"
 
 import routes from "./routes"
@@ -17,10 +18,16 @@ const Add = ({ match }) => (
         route => (
           <NavLink
             key={route.id}
-            children={route.name}
             className={bem("nav-link")}
             to={match.path + route.path}
             activeClassName={bem("nav-active")}
+            children={(
+              <IconText
+                text={route.name}
+                icon={route.icon}
+                className={bem("nav-link-text")}
+              />
+            )}
           />
         ),
       )}

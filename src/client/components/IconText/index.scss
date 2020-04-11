@@ -16,7 +16,9 @@
   &__icon {
     outline: none;
     font-size: 24rem;
-    margin-right: 8px; }
+    margin-right: 8px;
+    &:hover {
+      background-color: unset; } }
   &__text {
     font-size: 18rem;
     user-select: none; } }

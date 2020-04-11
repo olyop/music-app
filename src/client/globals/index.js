@@ -1,8 +1,6 @@
 // export const SERVER_URL = ""
 export const SERVER_URL = "http://192.168.1.102:3000"
 
-export const USER_ID = "5e868d45d8843a0064342318"
-
 export const API_URL = `${SERVER_URL}/graphql`
 
 export const ROOT_ELEMENT = document.getElementById("Index")

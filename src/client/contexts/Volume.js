@@ -1,5 +1,5 @@
 import { createContext } from "react"
 
-const VolumeCtx = createContext()
+const VolumeContext = createContext()
 
-export default VolumeCtx
+export default VolumeContext

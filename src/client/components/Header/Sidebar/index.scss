@@ -14,6 +14,13 @@
   &__routes {
     display: flex;
     flex-direction: column; }
+  &__logo {
+    font-size: 25rem;
+    text-decoration: underline;
+    padding: 0 $SPACE 0 calc(#{$SPACE} + 4px);
+    margin: $SPACE_HALF 0 calc(#{$SPACE_HALF + #{$SPACE_QUART}});
+    &-link {
+      text-decoration: none !important; } }
   &__route {
     display: flex;
     align-items: center;

@@ -1,8 +1,9 @@
-import React, { Fragment, useState } from "react"
+import React, { Fragment, useState, useContext } from "react"
 
 import Icon from "../Icon"
 import Sidebar from "./Sidebar"
 import { NavLink } from "react-router-dom"
+import AuthContext from "../../contexts/Auth"
 
 import reactBem from "@oly_op/react-bem"
 import { useSpring } from "react-spring"
@@ -14,8 +15,10 @@ const bem = reactBem("Header")
 const duration = 250
 
 const Header = () => {
+  const auth = useContext(AuthContext)
   const [ sidebar, setSidebar ] = useState(false)
   const toggleSidebar = () => setSidebar(!sidebar)
+  const login = () => auth.authorize()
   return (
     <Fragment>
       <header className={bem("")}>
@@ -37,16 +40,11 @@ const Header = () => {
               />
             )}
           />
-          <NavLink
-            to="/user"
-            className={bem("link")}
-            children={(
-              <Icon
-                title="Account"
-                icon="account_circle"
-                className={bem("right-user", "icon")}
-              />
-            )}
+          <Icon
+            title="Account"
+            onClick={login}
+            icon="account_circle"
+            className={bem("right-user", "icon")}
           />
         </div>
       </header>

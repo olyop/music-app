@@ -29,10 +29,14 @@
   &__topTen {
     &-song {
       display: flex;
+      margin-left: -9px;
+      align-items: center;
       margin-bottom: 10px;
       &:last-child {
         margin-bottom: 0; }
       &-num {
         width: 30px;
-        height: 42px;
-        font-size: 22rem; } } } }
+        font-size: 22rem;
+        margin-right: $SPACE_HALF; }
+      &-play {
+        margin-right: 5px; } } } }

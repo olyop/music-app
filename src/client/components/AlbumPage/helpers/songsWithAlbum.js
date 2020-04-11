@@ -1,9 +1,9 @@
-import { omit } from "lodash"
-
-const songsWithAlbum = album => album.songs.map(
+const songsWithAlbum = ({ songs, ...album }) => songs.map(
   song => ({
     ...song,
-    album: omit(album, ["songs", "released"]),
+    album: {
+      ...album,
+    },
   }),
 )
 

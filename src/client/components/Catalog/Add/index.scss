@@ -4,4 +4,28 @@
   display: flex;
   padding: $SPACE;
   align-items: flex-start;
-  justify-content: center; }
+  justify-content: center;
+  &__nav {
+    display: flex;
+    margin-right: $SPACE;
+    padding: $SPACE_HALF 0;
+    flex-direction: column;
+    box-shadow: $BOX_SHADOW;
+    border-radius: $BORDER_RADIUS;
+    background-color: $TEXT_COLOR_WHITE;
+    &-active {
+      background-color: #e0e0e0; }
+    &-link {
+      font-weight: 600;
+      font-size: 18rem;
+      text-transform: uppercase;
+      padding: $SPACE_HALF $SPACE;
+      text-decoration: none !important; } }
+  &__form {
+    padding: $SPACE_HALF;
+    border: 1px solid #e0e0e0;
+    border-radius: $BORDER_RADIUS;
+    background-color: $TEXT_COLOR_WHITE;
+    @media (min-width: 582px) {
+      width: 542px;
+      padding: $SPACE; } } }

@@ -8,8 +8,9 @@
   "scripts": {
     "dependencies": "npm i",
     "server": "node_modules/.bin/nodemon src/server/index.js",
+    "chrome": "start chrome http://192.168.1.102:3000/ --auto-open-devtools-for-tabs --ipc-connection-timeout-10",
     "client": "node_modules/.bin/webpack-dev-server --config \"webpack.config.cjs\" --env.mode development",
-    "dev": "rm -d -r -f src/server/build && clear && concurrently \"npm run client\" \"npm run server\" && clear",
+    "dev": "rm -d -r -f src/server/build && clear && concurrently \"npm run chrome\" \"npm run client\" \"npm run server\" && clear",
     "sync": "git checkout . && git remote update && git pull",
     "push": "git status && git add -A && git commit -m \"Update\" && git push -u origin master"
   },

@@ -37,4 +37,5 @@
     font-size: 16rem;
     position: absolute;
     top: $HEADER_HEIGHT;
+    background-color: rgba($TEXT_COLOR, .1);
     height: calc(100vh - #{$HEADER_HEIGHT}); } }

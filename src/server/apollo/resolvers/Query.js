@@ -41,6 +41,7 @@ export default {
     async ({ info }) => {
       const query =
         Album.find()
+             .sort({ released: "desc" })
              .select(albumSelect(info))
              .lean()
              .exec()
@@ -84,6 +85,7 @@ export default {
             .select(userSelect(info))
             .lean()
             .exec()
+
       return deserializeDocument(await query)
     },
   ),

@@ -3,6 +3,7 @@ query getAlbums($userId: ID!) {
     id
     title
     cover
+    released
     inLibrary(userId: $userId)
     artists {
       id

@@ -80,7 +80,8 @@ const SongsTable = ({ songs, orderByInit, columnsToIgnore }) => {
 
           {showColumn("add") ? (
             <th
-              className={bem("head-add", "head-row-noHover", "head-row-col")}
+              onClick={handleFieldHeadClick("inLibrary")}
+              className={bem("head-add", "head-row-col")}
             />
           ) : null}
 

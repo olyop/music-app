@@ -55,8 +55,9 @@ apolloServer.applyMiddleware({ app, ...APOLLO_APPLY_OPTIONS })
 app.use(express.static(BUILD_PATH))
 
 // serve index.html
-app.use("*", request(({ res }) => res.sendFile(BUILD_ENTRY_PATH)))
+app.use("*", ({ res }) => res.sendFile(BUILD_ENTRY_PATH))
 
+// error handler
 app.on("error", onError)
 
 app.listen(PORT, HOST)

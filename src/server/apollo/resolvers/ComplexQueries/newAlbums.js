@@ -14,7 +14,7 @@ const newAlbums = async ({ info }) => {
     Album.find()
          .sort({ _id: "desc" })
          .select(albumSelect(info))
-         .limit(10)
+         .limit(12)
          .lean()
          .exec()
 

@@ -1,6 +1,6 @@
 import React from "react"
 
-import { Switch, Route } from "react-router-dom"
+import { NavLink, Switch, Route } from "react-router-dom"
 
 import routes from "./routes"
 import { propTypes } from "./props"
@@ -12,17 +12,32 @@ const bem = reactBem("Add")
 
 const Add = ({ match }) => (
   <div className={bem("")}>
-    <Switch>
+    <div className={bem("nav")}>
       {routes.map(
         route => (
-          <Route
+          <NavLink
             key={route.id}
-            component={route.component}
-            path={match.path + route.path}
+            children={route.name}
+            className={bem("nav-link")}
+            to={match.path + route.path}
+            activeClassName={bem("nav-active")}
           />
         ),
       )}
-    </Switch>
+    </div>
+    <div className={bem("form")}>
+      <Switch>
+        {routes.map(
+          route => (
+            <Route
+              key={route.id}
+              component={route.component}
+              path={match.path + route.path}
+            />
+          ),
+        )}
+      </Switch>
+    </div>
   </div>
 )
 

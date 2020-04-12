@@ -1,28 +1,53 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 
-import AuthContext from "../../contexts/Auth"
 import UserContext from "../../contexts/User"
 
-import auth0 from "auth0-js"
+import { toString } from "lodash"
+import { WebAuth } from "auth0-js"
 import { propTypes } from "./props"
+import { useHistory } from "react-router-dom"
 
-const webAuth = new auth0.WebAuth({
-  scope: "openid profile email",
-  responseType: "token id_token",
-  domain: "dev-ttsv9wvu.au.auth0.com",
-  redirectUri: "http://192.168.1.102:8080/",
-  clientID: "10u3OKcXtg3l8FcoLsEflUNUdsM0pNHP",
-})
+import { WEB_AUTH_OPTIONS } from "../../globals"
 
 const Authenticate = ({ children }) => {
-  const [ auth ] = useState(webAuth) 
-  return (
-    <AuthContext.Provider value={auth}>
-      <UserContext.Provider value="5e868d45d8843a0064342318">
-        {children}
-      </UserContext.Provider>
-    </AuthContext.Provider>
-  )
+
+  const history = useHistory()
+  const [ auth ] = useState(new WebAuth(WEB_AUTH_OPTIONS))
+
+  const isAuthenticated = () => {
+    return Date.now() < localStorage.getItem("expiresAt")
+  }
+
+  const setSession = res => {
+    localStorage.setItem("idToken", res.idToken)
+    localStorage.setItem("accessToken", res.accessToken)
+    localStorage.setItem("expiresAt", toString(res.expiresIn * 1000 + Date.now()))
+  }
+
+  const parseHash = (err, hash) => {
+    if (!err && hash && hash.accessToken && hash.idToken) {
+      setSession(hash)
+      history.push("/")
+    }
+  }
+
+  const handleAuthentication = (err, res) => {
+    if (!err) {
+      auth.parseHash({ hash: res }, parseHash)
+    }
+  }
+
+  useEffect(() => {
+    if (!isAuthenticated()) {
+      auth.popup.authorize(handleAuthentication)
+    }
+  })
+
+  return isAuthenticated() ? (
+    <UserContext.Provider value="5e868d45d8843a0064342318">
+      {children}
+    </UserContext.Provider>
+  ) : null
 }
 
 Authenticate.propTypes = propTypes

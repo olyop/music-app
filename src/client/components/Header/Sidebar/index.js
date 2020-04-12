@@ -1,6 +1,5 @@
 import React, { Fragment } from "react"
 
-import Logo from "../Logo"
 import Icon from "../../Icon"
 import { NavLink } from "react-router-dom"
 
@@ -15,12 +14,6 @@ const bem = reactBem("Sidebar")
 const Sidebar = ({ style, toggleSidebar }) => (
   <animated.aside className={bem("")} style={style}>
     <nav className={bem("routes")}>
-      <NavLink
-        to="/"
-        onClick={toggleSidebar}
-        className={bem("logo-link")}
-        children={<Logo className={bem("logo")} />}
-      />
       <NavLink
         to="/catalog/browse"
         onClick={toggleSidebar}

@@ -1,4 +1,8 @@
+import { sql } from "../../database/pg.js"
 import database from "../../database/index.js"
+import { parseSqlRow, parseSqlTable } from "../../helpers/index.js"
+
+import { GET_ALBUM, GET_ALBUMS } from "../../sql/index.js"
 
 import ComplexQueries from "./ComplexQueries/index.js"
 
@@ -26,7 +30,12 @@ const {
 } = database.models
 
 export default {
+
+  _albums: resolver(async () => parseSqlTable(await sql(GET_ALBUMS))),
+  _album: resolver(async ({ args }) => parseSqlRow(await sql(GET_ALBUM, args))),
+
   ...ComplexQueries,
+
   songs: resolver(
     async ({ info }) => {
       const query =

@@ -1,14 +1,14 @@
 const os = require("os")
 const path = require("path")
 const noop = require("lodash/noop.js")
-const { ProgressPlugin } = require("webpack")
+// const { ProgressPlugin } = require("webpack")
 const CopyPlugin = require("copy-webpack-plugin")
 const HtmlWebpackPlugin = require("html-webpack-plugin")
-const MinifyPlugin = require("babel-minify-webpack-plugin")
+// const MinifyPlugin = require("babel-minify-webpack-plugin")
 const WriteFilePlugin = require("write-file-webpack-plugin")
 const MiniCssExtractPlugin = require("mini-css-extract-plugin")
 const CompressionPlugin = require("compression-webpack-plugin")
-const { BundleAnalyzerPlugin } = require("webpack-bundle-analyzer")
+// const { BundleAnalyzerPlugin } = require("webpack-bundle-analyzer")
 const LodashModuleReplacementPlugin = require("lodash-webpack-plugin")
 const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin")
 
@@ -91,11 +91,11 @@ module.exports = ({ mode }) => {
       ],
     },
     plugins: [
-      isProduction ? new BundleAnalyzerPlugin({ analyzerMode: "static" }) : noop,
+      // isProduction ? new BundleAnalyzerPlugin({ analyzerMode: "static" }) : noop,
       isProduction ? new CompressionPlugin() : noop,
-      isProduction ? new ProgressPlugin() : noop,
+      // isProduction ? new ProgressPlugin() : noop,
       isProduction ? new LodashModuleReplacementPlugin() : noop,
-      isProduction ? new MinifyPlugin({}, { comments: false }) : noop,
+      // isProduction ? new MinifyPlugin({}, { comments: false }) : noop,
       isProduction ? new OptimizeCssAssetsPlugin() : noop,
       new MiniCssExtractPlugin({ filename: "[hash].css" }),
       new HtmlWebpackPlugin({

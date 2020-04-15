@@ -8,11 +8,11 @@ process.env.UV_THREADPOOL_SIZE = 12
 export const HOST = os.networkInterfaces().Ethernet[1].address
 
 // export const PORT = 80
-export const PORT = process.env.PORT || 3000
+export const PORT = 3000
 
 export const S3_BUCKET = "5e0585af655578193c6bd0b0"
 
-export const LOG_FORMAT = "dev"
+export const LOG_FORMAT = ":status :date[clf] :url :response-time[0] ms :total-time[0] ms"
 
 export const CORS_OPTIONS = {
   origin: "*",
@@ -67,3 +67,5 @@ export const USER_EMPTY_QUEUE = {
 }
 
 export const USER_QUEUE_SELECT = { prev: 1, current: 1, next: 1, queue: 1 }
+
+export const TYPE_DEFS_PATH = path.resolve("src", "server", "apollo", "typeDefs.graphql")

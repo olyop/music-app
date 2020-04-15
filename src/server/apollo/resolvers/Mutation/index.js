@@ -22,7 +22,21 @@ import userAddSongNext from "./userAddSongNext.js"
 import userAddSongLater from "./userAddSongLater.js"
 import userAddSongQueue from "./userAddSongQueue.js"
 
+import uuid from "uuid"
+import { sql } from "../../../database/pg.js"
+import { ADD_ALBUM, GET_ALBUM } from "../../../sql/index.js"
+import { resolver, parseSqlRow } from "../../../helpers/index.js"
+
 export default {
+
+  _addAlbum: resolver(
+    async ({ args }) => {
+      const albumId = uuid.v4()
+      await sql(ADD_ALBUM, { ...args, albumId })
+      return parseSqlRow(await sql(GET_ALBUM, { albumId }))
+    },
+  ),
+
   addUser,
   addSong,
   userPlay,

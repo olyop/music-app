@@ -16,6 +16,16 @@ type Query {
   # complex queries
   newAlbums: [Album!]!
   topTenSongs: [Song!]!
+
+  # test
+  _albums: [_Album]!
+  _album(albumId: ID!): _Album!
+}
+
+type _Album {
+  albumId: ID!
+  title: String!
+  released: Int!
 }
 
 type User {
@@ -108,6 +118,12 @@ type Playlist {
 }
 
 type Mutation {
+
+  _addAlbum(
+    title: String!
+    released: Int!
+  ): _Album!
+
   userPrev(
     userId: ID!
   ): User!

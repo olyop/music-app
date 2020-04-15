@@ -7,9 +7,11 @@
   "type": "module",
   "scripts": {
     "dependencies": "npm i",
-    "server": "node_modules/.bin/nodemon src/server/index.js",
-    "client": "node_modules/.bin/webpack-dev-server --config \"webpack.config.cjs\" --env.mode development",
-    "dev": "rm -d -r -f src/server/build && clear && concurrently \"npm run client\" \"npm run server\" && clear",
+    "build": "rm -r -f src/server/build && clear && webpack --config webpack.config.cjs --env.mode production",
+    "server": "clear && node src/server/index.js",
+    "dev-server": "node_modules/.bin/nodemon src/server/index.js",
+    "dev-client": "node_modules/.bin/webpack-dev-server --config \"webpack.config.cjs\" --env.mode development",
+    "dev": "rm -r -f src/server/build && clear && concurrently \"npm run dev-client\" \"npm run dev-server\" && clear",
     "sync": "git checkout . && git remote update && git pull",
     "push": "git status && git add -A && git commit -m \"Update\" && git push -u origin master"
   },
@@ -110,12 +112,15 @@
     "mongoose": "^5.9.7",
     "morgan": "^1.10.0",
     "mp3-duration": "^1.1.0",
+    "pg": "^8.0.2",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
     "react-apollo": "^3.1.4",
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.1.2",
     "react-spring": "^8.0.27",
-    "response-time": "^2.3.2"
+    "response-time": "^2.3.2",
+    "uuid": "^7.0.3",
+    "yesql": "^4.1.1"
   }
 }

@@ -1,15 +1,18 @@
 import _pipe from "./pipe.js"
+import _compose from "./compose.js"
 import _request from "./request.js"
-import _onError from "./onError.js"
 import _resolver from "./resolver.js"
 import _removeDup from "./removeDup.js"
 import _toDataUrl from "./toDataUrl.js"
+import _parseSqlRow from "./parseSqlRow.js"
 import _restoreOrder from "./restoreOrder.js"
-import _importTypeDefs from "./importTypeDefs.js"
+import _parseSqlTable from "./parseSqlTable.js"
 import _determineDuration from "./determineDuration.js"
 import _determineReleased from "./determineReleased.js"
 import _determineUserNext from "./determineUserNext.js"
 import _determineUserPrev from "./determineUserPrev.js"
+import _convertToCamelCase from "./convertToCamelCase.js"
+import _convertToSnakeCase from "./convertToSnakeCase.js"
 import _deserializeDocument from "./deserializeDocument.js"
 import _deserializeCollection from "./deserializeCollection.js"
 
@@ -32,16 +35,19 @@ export const artistSelect = _artistSelect
 export const playlistSelect = _playlistSelect
 
 export const pipe = _pipe
+export const compose = _compose
 export const request = _request
-export const onError = _onError
 export const resolver = _resolver
 export const removeDup = _removeDup
 export const toDataUrl = _toDataUrl
+export const parseSqlRow = _parseSqlRow
 export const restoreOrder = _restoreOrder
-export const importTypeDefs = _importTypeDefs
+export const parseSqlTable = _parseSqlTable
 export const determineDuration = _determineDuration
 export const determineReleased = _determineReleased
 export const determineUserNext = _determineUserNext
 export const determineUserPrev = _determineUserPrev
+export const convertToCamelCase = _convertToCamelCase
+export const convertToSnakeCase = _convertToSnakeCase
 export const deserializeDocument = _deserializeDocument
 export const deserializeCollection = _deserializeCollection

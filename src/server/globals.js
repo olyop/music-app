@@ -68,4 +68,10 @@ export const USER_EMPTY_QUEUE = {
 
 export const USER_QUEUE_SELECT = { prev: 1, current: 1, next: 1, queue: 1 }
 
-export const TYPE_DEFS_PATH = path.resolve("src", "server", "apollo", "typeDefs.graphql")
+export const SERVER_PATH = path.resolve("src", "server")
+export const SQL_FOLDER_PATH = path.join(SERVER_PATH, "sql")
+export const TYPE_DEFS_PATH = path.join(SERVER_PATH, "apollo", "typeDefs.graphql")
+
+export const STORAGE_PATH = path.join(SERVER_PATH, "storage")
+export const STORAGE_PATH_ALBUMS = path.join(STORAGE_PATH, "albumss")
+export const STORAGE_PATH_ARTISTS = path.join(STORAGE_PATH, "artists")

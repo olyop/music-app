@@ -17,14 +17,23 @@ type Query {
   newAlbums: [Album!]!
   topTenSongs: [Song!]!
 
-  # test
+  # sql api
   _albums: [_Album]!
+  _artists: [_Artist]!
   _album(albumId: ID!): _Album!
+  _artist(artistId: ID!): _Artist!
+}
+
+type _Artist {
+  artistId: ID!
+  name: String!
+  photo: String!
 }
 
 type _Album {
   albumId: ID!
   title: String!
+  cover: String!
   released: Int!
 }
 
@@ -119,9 +128,17 @@ type Playlist {
 
 type Mutation {
 
+  # sql api
+  _addArtist(
+    name: String!
+    photo: Upload!
+  ): _Artist!
+
   _addAlbum(
     title: String!
-    released: Int!
+    cover: Upload!
+    artists: [ID!]!
+    released: String!
   ): _Album!
 
   userPrev(

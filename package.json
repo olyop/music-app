@@ -13,7 +13,7 @@
     "dev-client": "node_modules/.bin/webpack-dev-server --config \"webpack.config.cjs\" --env.mode development",
     "dev": "rm -r -f src/server/build && clear && concurrently \"npm run dev-client\" \"npm run dev-server\" && clear",
     "sync": "git checkout . && git remote update && git pull",
-    "push": "git status && git add -A && git commit -m \"Update\" && git push -u origin master"
+    "push": "clear && git status && git add -A && git commit -m \"Update\" && git push -u origin master && exit"
   },
   "repository": {
     "type": "git",

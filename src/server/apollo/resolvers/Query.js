@@ -2,7 +2,12 @@ import { sql } from "../../database/pg.js"
 import database from "../../database/index.js"
 import { parseSqlRow, parseSqlTable } from "../../helpers/index.js"
 
-import { GET_ALBUM, GET_ALBUMS } from "../../sql/index.js"
+import {
+  SELECT_ALBUM,
+  SELECT_ALBUMS,
+  SELECT_ARTIST,
+  SELECT_ARTISTS,
+} from "../../sql/index.js"
 
 import ComplexQueries from "./ComplexQueries/index.js"
 
@@ -31,8 +36,11 @@ const {
 
 export default {
 
-  _albums: resolver(async () => parseSqlTable(await sql(GET_ALBUMS))),
-  _album: resolver(async ({ args }) => parseSqlRow(await sql(GET_ALBUM, args))),
+  _albums: resolver(async () => parseSqlTable(await sql(SELECT_ALBUMS))),
+  _artists: resolver(async () => parseSqlTable(await sql(SELECT_ARTISTS))),
+
+  _album: resolver(async ({ args }) => parseSqlRow(await sql(SELECT_ALBUM, args))),
+  _artist: resolver(async ({ args }) => parseSqlRow(await sql(SELECT_ARTIST, args))),
 
   ...ComplexQueries,
 

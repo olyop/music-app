@@ -1,6 +1,6 @@
 import React from "react"
 
-import IconText from "../../IconText"
+import IconText from "../IconText"
 import { NavLink, Switch, Route } from "react-router-dom"
 
 import routes from "./routes"

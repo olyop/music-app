@@ -1,12 +1,19 @@
 import fs from "fs"
 import path from "path"
+import { SQL_FOLDER_PATH } from "../globals.js"
 
-const { readFileSync } = fs
+const importSql = type => name =>
+  fs.readFileSync(path.join(SQL_FOLDER_PATH, type, `${name}.sql`))
+    .toString()
 
-const importQuery = name => readFileSync(
-  path.join("src", "server", "sql", `${name}.sql`),
-).toString()
+const importInsert = importSql("inserts")
+const importSelects = importSql("selects")
 
-export const ADD_ALBUM = importQuery("addAlbum")
-export const GET_ALBUM = importQuery("getAlbum")
-export const GET_ALBUMS = importQuery("getAlbums")
+export const SELECT_ALBUM = importSelects("selectAlbum")
+export const SELECT_ALBUMS = importSelects("selectAlbums")
+export const SELECT_ARTIST = importSelects("selectArtist")
+export const SELECT_ARTISTS = importSelects("selectArtists")
+
+export const INSERT_ALBUM = importInsert("insertAlbum")
+export const INSERT_ARTIST = importInsert("insertArtist")
+export const INSERT_ALBUM_ARTIST = importInsert("insertAlbumArtist")

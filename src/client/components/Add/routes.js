@@ -3,6 +3,8 @@ import AddGenre from "./AddGenre"
 import AddAlbum from "./AddAlbum"
 import AddArtist from "./AddArtist"
 
+import _AddAlbum from "./_AddAlbum"
+
 import { uniqueId } from "lodash"
 
 const routes = [
@@ -33,6 +35,13 @@ const routes = [
     name: "Song",
     icon: "audiotrack",
     component: AddSong,
+  },
+  {
+    id: uniqueId(),
+    path: "/_album",
+    name: "_Album",
+    icon: "album",
+    component: _AddAlbum,
   },
 ]
 

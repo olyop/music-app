@@ -1,12 +1,12 @@
-import pipe from "./pipe.js"
 import keys from "lodash/keys.js"
 import map from "lodash/fp/map.js"
+import pipe from "../utils/pipe.js"
 import filter from "lodash/fp/filter.js"
 import reduce from "lodash/fp/reduce.js"
 import includes from "lodash/includes.js"
 import concatFp from "lodash/fp/concat.js"
 import graphqlFields from "graphql-fields"
-import database from "../database/index.js"
+import database from "../../database/index.js"
 
 const {
   User,

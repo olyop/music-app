@@ -1,15 +1,15 @@
 import React from "react"
 
-import Form from "../../../Form"
-import Spinner from "../../../Spinner"
-import ApiError from "../../../ApiError"
+import Form from "../../Form"
+import Spinner from "../../Spinner"
+import ApiError from "../../ApiError"
 
 import { isUndefined } from "lodash"
 import fieldsConfig from "./fieldsConfig"
 import { useQuery, useMutation } from "@apollo/react-hooks"
 
-import ADD_SONG from "../../../../graphql/mutations/addSong.graphql"
-import GET_ADD_SONG from "../../../../graphql/queries/getAddSong.graphql"
+import ADD_SONG from "../../../graphql/mutations/addSong.graphql"
+import GET_ADD_SONG from "../../../graphql/queries/getAddSong.graphql"
 
 const AddSong = () => {
   const { loading, error, data } = useQuery(GET_ADD_SONG)

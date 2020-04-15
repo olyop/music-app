@@ -6,6 +6,7 @@ import _parseSqlRow from "./sql/parseSqlRow.js"
 import _removeDup from "./resolvers/removeDup.js"
 import _toDataUrl from "./resolvers/toDataUrl.js"
 import _parseSqlTable from "./sql/parseSqlTable.js"
+import _getRowsFromRes from "./sql/getRowsFromRes.js"
 import _restoreOrder from "./resolvers/restoreOrder.js"
 import _convertToCamelCase from "./sql/convertToCamelCase.js"
 import _convertToSnakeCase from "./sql/convertToSnakeCase.js"
@@ -43,6 +44,7 @@ export const toDataUrl = _toDataUrl
 export const parseSqlRow = _parseSqlRow
 export const restoreOrder = _restoreOrder
 export const parseSqlTable = _parseSqlTable
+export const getRowsFromRes = _getRowsFromRes
 export const determineDuration = _determineDuration
 export const determineReleased = _determineReleased
 export const determineUserNext = _determineUserNext

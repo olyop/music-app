@@ -1,8 +1,6 @@
 import head from "lodash/head.js"
 import isUndefined from "lodash/isUndefined.js"
-import { pipe, convertToCamelCase } from "../index.js"
-
-const getRowsFromRes = ({ rows }) => rows
+import { pipe, getRowsFromRes, convertToCamelCase } from "../index.js"
 
 const checkForNullResult = val => isUndefined(val) ? [] : val
 

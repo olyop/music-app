@@ -3,6 +3,7 @@ import database from "../../database/index.js"
 import { parseSqlRow, parseSqlTable } from "../../helpers/index.js"
 
 import {
+  TEST,
   SELECT_ALBUM,
   SELECT_ALBUMS,
   SELECT_ARTIST,
@@ -35,6 +36,8 @@ const {
 } = database.models
 
 export default {
+
+  foo: async () => await sql(TEST),
 
   _albums: resolver(async () => parseSqlTable(await sql(SELECT_ALBUMS))),
   _artists: resolver(async () => parseSqlTable(await sql(SELECT_ARTISTS))),

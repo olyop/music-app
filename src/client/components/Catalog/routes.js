@@ -1,4 +1,4 @@
-import Add from "./Add"
+import Add from "../Add"
 import Browse from "../Browse"
 
 import { uniqueId } from "lodash"

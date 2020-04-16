@@ -9,6 +9,8 @@ const importSql = type => name =>
 const importInsert = importSql("inserts")
 const importSelects = importSql("selects")
 
+export const TEST = importSelects("test")
+
 export const SELECT_ALBUM = importSelects("selectAlbum")
 export const SELECT_ALBUMS = importSelects("selectAlbums")
 export const SELECT_ARTIST = importSelects("selectArtist")

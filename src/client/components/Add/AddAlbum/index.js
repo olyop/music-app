@@ -21,7 +21,7 @@ const AddAlbum = () => {
             result={addAlbumResult}
             fields={fieldsConfig(data)}
             submit={variables => addAlbum({ variables })}
-          /> 
+          />
         )
       }
     />

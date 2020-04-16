@@ -11,10 +11,7 @@ import compression from "compression"
 import cookieParser from "cookie-parser"
 
 import {
-  HOST,
-  PORT,
   LOG_FORMAT,
-  MONGODB_URL,
   CORS_OPTIONS,
   MONGOOSE_OPTIONS,
   APOLLO_APPLY_OPTIONS,
@@ -27,8 +24,8 @@ import {
   globalHeaders,
 } from "./middleware/index.js"
 
-// connect to database
-database.openUri(MONGODB_URL, MONGOOSE_OPTIONS)
+// connect to databases
+database.openUri(process.env.MONGO_URL, MONGOOSE_OPTIONS)
 
 const app = express()
 
@@ -51,4 +48,4 @@ app.use("*", sendIndex)
 
 app.on("error", onError)
 
-app.listen(PORT, HOST)
+app.listen(process.env.PORT, process.env.HOST)

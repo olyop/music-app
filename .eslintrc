@@ -4,7 +4,8 @@
   ],
   "parser": "babel-eslint",
   "plugins": [
-    "react"
+    "react",
+    "react-hooks"
   ],
   "env": {
     "es6": true,

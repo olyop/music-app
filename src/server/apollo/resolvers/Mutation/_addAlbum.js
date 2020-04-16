@@ -1,7 +1,6 @@
 import fs from "fs"
 import uuid from "uuid"
 import { sql } from "../../../database/pg.js"
-import { STORAGE_PATH_ALBUMS } from "../../../globals.js"
 
 import {
   INSERT_ALBUM,
@@ -28,10 +27,10 @@ const _addAlbum = async ({ args }) => {
 
   const albumArtistsInsert = artists.map(albumArtistInsert)
 
-  const coverUpload =
-    (await cover)
-      .createReadStream()
-      .pipe(fs.createWriteStream(STORAGE_PATH_ALBUMS))
+  // const coverUpload =
+  //   (await cover)
+  //     .createReadStream()
+  //     .pipe(fs.createWriteStream(STORAGE_PATH_ALBUMS))
 
   const [ album ] = await Promise.all([ albumInsert, albumArtistsInsert, coverUpload ])
 

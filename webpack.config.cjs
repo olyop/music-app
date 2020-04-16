@@ -1,14 +1,10 @@
 const os = require("os")
 const path = require("path")
-const noop = require("lodash/noop.js")
-// const { ProgressPlugin } = require("webpack")
 const CopyPlugin = require("copy-webpack-plugin")
 const HtmlWebpackPlugin = require("html-webpack-plugin")
-// const MinifyPlugin = require("babel-minify-webpack-plugin")
 const WriteFilePlugin = require("write-file-webpack-plugin")
 const MiniCssExtractPlugin = require("mini-css-extract-plugin")
 const CompressionPlugin = require("compression-webpack-plugin")
-// const { BundleAnalyzerPlugin } = require("webpack-bundle-analyzer")
 const LodashModuleReplacementPlugin = require("lodash-webpack-plugin")
 const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin")
 
@@ -16,8 +12,6 @@ const srcPath = path.resolve("src")
 const clientPath = path.join(srcPath, "client")
 const serverPath = path.join(srcPath, "server")
 const publicPath = path.join(clientPath, "public")
-
-const HOST = os.networkInterfaces().Ethernet[1].address
 
 module.exports = ({ mode }) => {
   const isProduction = mode === "production"
@@ -30,13 +24,13 @@ module.exports = ({ mode }) => {
       path: path.join(serverPath, "build"),
     },
     devServer: {
-      host: HOST,
       port: 8080,
       open: false,
       compress: true,
       stats: "errors-only",
       contentBase: publicPath,
       historyApiFallback: true,
+      host: os.networkInterfaces().Ethernet[1].address,
     },
     module: {
       rules: [
@@ -44,11 +38,6 @@ module.exports = ({ mode }) => {
           test: /\.(|jpg|png|ico|txt|json)$/,
           exclude: /node_modules/,
           loader: "file-loader",
-        },
-        {
-          test: /\.html/,
-          exclude: /node_modules/,
-          loader: "html-loader",
         },
         {
           test: /\.css$/,
@@ -91,12 +80,9 @@ module.exports = ({ mode }) => {
       ],
     },
     plugins: [
-      // isProduction ? new BundleAnalyzerPlugin({ analyzerMode: "static" }) : noop,
-      isProduction ? new CompressionPlugin() : noop,
-      // isProduction ? new ProgressPlugin() : noop,
-      isProduction ? new LodashModuleReplacementPlugin() : noop,
-      // isProduction ? new MinifyPlugin({}, { comments: false }) : noop,
-      isProduction ? new OptimizeCssAssetsPlugin() : noop,
+      ...(isProduction ? [ new CompressionPlugin() ] : []),
+      ...(isProduction ? [ new LodashModuleReplacementPlugin() ] : []),
+      ...(isProduction ? [ new OptimizeCssAssetsPlugin() ] : []),
       new MiniCssExtractPlugin({ filename: "[hash].css" }),
       new HtmlWebpackPlugin({
         template: path.join(publicPath, "index.html"),

@@ -2,4 +2,3 @@ node_modules/
 src/server/build/
 dist/
 .env
-src/server/storage

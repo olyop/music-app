@@ -19,6 +19,14 @@ export const MONGOOSE_OPTIONS = {
   dbName: process.env.MONGO_DB,
 }
 
+export const PG_CONFIG = {
+  port: process.env.AWS_RDS_PORT,
+  user: process.env.AWS_RDS_USER,
+  database: process.env.AWS_RDS_DB,
+  host: process.env.AWS_RDS_ENDPOINT,
+  password: process.env.AWS_RDS_PASSWORD,
+}
+
 export const GLOBAL_HTTP_HEADERS = {
   "Server": "Node.js",
   "X-Powered-By": "Express",
@@ -28,6 +36,7 @@ export const GLOBAL_HTTP_HEADERS = {
 export const APOLLO_APPLY_OPTIONS = {
   cors: false,
   path: "/graphql",
+  subscriptions: false,
   bodyParserConfig: false,
 }
 

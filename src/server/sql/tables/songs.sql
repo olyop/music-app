@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS public.songs (
+CREATE TABLE IF NOT EXISTS songs (
   song_id uuid NOT NULL,
   title text NOT NULL,
   mix text NOT NULL,
@@ -9,12 +9,14 @@ CREATE TABLE IF NOT EXISTS public.songs (
   genre_id uuid NOT NULL,
   CONSTRAINT songs_pk
     PRIMARY KEY (song_id),
-  CONSTRAINT songs_fk_album_id FOREIGN KEY (album_id)
-    REFERENCES public.albums (album_id) MATCH FULL
+  CONSTRAINT songs_fk_album_id
+    FOREIGN KEY (album_id)
+    REFERENCES albums (album_id) MATCH FULL
     ON UPDATE CASCADE
     ON DELETE CASCADE,
-  CONSTRAINT songs_fk_genre_id FOREIGN KEY (genre_id)
-    REFERENCES public.genres (genre_id) MATCH FULL
+  CONSTRAINT songs_fk_genre_id
+    FOREIGN KEY (genre_id)
+    REFERENCES genres (genre_id) MATCH FULL
     ON UPDATE CASCADE
     ON DELETE CASCADE,
   CONSTRAINT songs_check_duration

@@ -2,7 +2,6 @@ import React, { useContext } from "react"
 
 import Empty from "../Empty"
 import Spinner from "../Spinner"
-import ApiError from "../ApiError"
 import UserContext from "../../contexts/User"
 
 import { useQuery } from "@apollo/react-hooks"
@@ -23,7 +22,7 @@ const QueryApi = ({ query, checkEmpty, variables, library, resultPath, children 
   }
 
   if (!isUndefined(error)) {
-    return <ApiError error={error} />
+    return null
   }
 
   const collection = isEmpty(resultPath) ? data : get(data, resultPath)

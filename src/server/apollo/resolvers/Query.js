@@ -1,172 +1,45 @@
-import { sql } from "../../database/pg.js"
-import database from "../../database/index.js"
-import { parseSqlRow, parseSqlTable } from "../../helpers/index.js"
-
 import {
-  TEST,
+  SELECT_NOW,
+  SELECT_SONG,
   SELECT_ALBUM,
+  SELECT_GENRE,
   SELECT_ALBUMS,
+  SELECT_PLAYLIST,
+  SELECT_SONGS,
   SELECT_ARTIST,
+  SELECT_GENRES,
   SELECT_ARTISTS,
+  SELECT_PLAYLISTS,
 } from "../../sql/index.js"
 
 import ComplexQueries from "./ComplexQueries/index.js"
 
-import {
-  resolver,
-  playSelect,
-  userSelect,
-  songSelect,
-  albumSelect,
-  genreSelect,
-  artistSelect,
-  playlistSelect,
-  deserializeDocument,
-  deserializeCollection,
-} from "../../helpers/index.js"
-
-const {
-  User,
-  Play,
-  Song,
-  Album,
-  Genre,
-  Artist,
-  Playlist,
-} = database.models
+import { sql } from "../../database/pg.js"
+import { resolver } from "../../helpers/index.js"
+import { compose, parseSqlRow, parseSqlTable } from "../../helpers/index.js"
 
 export default {
 
-  foo: async () => await sql(TEST),
-
-  _albums: resolver(async () => parseSqlTable(await sql(SELECT_ALBUMS))),
-  _artists: resolver(async () => parseSqlTable(await sql(SELECT_ARTISTS))),
-
-  _album: resolver(async ({ args }) => parseSqlRow(await sql(SELECT_ALBUM, args))),
-  _artist: resolver(async ({ args }) => parseSqlRow(await sql(SELECT_ARTIST, args))),
-
   ...ComplexQueries,
 
-  songs: resolver(
-    async ({ info }) => {
-      const query =
-        Song.find()
-            .select(songSelect(info))
-            .lean()
-            .exec()
-      return deserializeCollection(await query)
-    },
+  now: async () => compose(
+    await sql(SELECT_NOW),
+    ({ rows }) => rows[0].now.getTime(),
+    time => time / 1000,
+    Math.floor,
   ),
-  albums: resolver(
-    async ({ info }) => {
-      const query =
-        Album.find()
-             .sort({ released: "desc" })
-             .select(albumSelect(info))
-             .lean()
-             .exec()
-      return deserializeCollection(await query)
-    },
-  ),
-  genres: resolver(
-    async ({ info }) => {
-      const query =
-        Genre.find()
-             .select(genreSelect(info))
-             .lean()
-             .exec()
-      return deserializeCollection(await query)
-    },
-  ),
-  artists: resolver(
-    async ({ info }) => {
-      const query =
-        Artist.find()
-              .select(artistSelect(info))
-              .lean()
-              .exec()
-      return deserializeCollection(await query)
-    },
-  ),
-  playlists: resolver(
-    async ({ info }) => {
-      const query =
-        Playlist.find()
-                .select(playlistSelect(info))
-                .lean()
-                .exec()
-      return deserializeCollection(await query)
-    }
-  ),
-  user: resolver(
-    async ({ args, info }) => {
-      const query =
-        User.findById(args.userId)
-            .select(userSelect(info))
-            .lean()
-            .exec()
 
-      return deserializeDocument(await query)
-    },
-  ),
-  play: resolver(
-    async ({ args, info }) => {
-      const query =
-        Play.findById(args.playId)
-            .select(playSelect(info))
-            .lean()
-            .exec()
-      return deserializeDocument(await query)
-    },
-  ),
-  song: resolver(
-    async ({ args, info }) => {
-      const query =
-        Song.findById(args.songId)
-            .select(songSelect(info))
-            .lean()
-            .exec()
-      return deserializeDocument(await query)
-    },
-  ),
-  album: resolver(
-    async ({ args, info }) => {
-      const query =
-        Album.findById(args.albumId)
-             .select(albumSelect(info))
-             .lean()
-             .exec()
-      return deserializeDocument(await query)
-    },
-  ),
-  genre: resolver(
-    async ({ args, info }) => {
-      const query =
-        Genre.findById(args.genreId)
-             .select(genreSelect(info))
-             .lean()
-             .exec()
-      return deserializeDocument(await query)
-    },
-  ),
-  artist: resolver(
-    async ({ args, info }) => {
-      const query =
-        Artist.findById(args.artistId)
-              .select(artistSelect(info))
-              .lean()
-              .exec()
-      return deserializeDocument(await query)
-    },
-  ),
-  playlist: resolver(
-    async ({ args, info }) => {
-      const query =
-        Playlist.findById(args.playlistId)
-                .select(playlistSelect(info))
-                .lean()
-                .exec()
-      return deserializeDocument(await query)
-    },
-  ),
+  songs: resolver(async () => parseSqlTable(await sql(SELECT_SONGS))),
+  albums: resolver(async () => parseSqlTable(await sql(SELECT_ALBUMS))),
+  genres: resolver(async () => parseSqlTable(await sql(SELECT_GENRES))),
+  artists: resolver(async () => parseSqlTable(await sql(SELECT_ARTISTS))),
+  playlists: resolver(async () => parseSqlTable(await sql(SELECT_PLAYLISTS))),
+  user: resolver(async ({ args }) => parseSqlRow(await sql(SELECT_USER, args))),
+  play: resolver(async ({ args }) => parseSqlRow(await sql(SELECT_PLAY, args))),
+  song: resolver(async ({ args }) => parseSqlRow(await sql(SELECT_SONG, args))),
+  album: resolver(async ({ args }) => parseSqlRow(await sql(SELECT_ALBUM, args))),
+  genre: resolver(async ({ args }) => parseSqlRow(await sql(SELECT_GENRE, args))),
+  artist: resolver(async ({ args }) => parseSqlRow(await sql(SELECT_ARTIST, args))),
+  playlist: resolver(async ({ args }) => parseSqlRow(await sql(SELECT_PLAYLIST, args))),
+
 }

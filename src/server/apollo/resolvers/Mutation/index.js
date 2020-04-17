@@ -26,11 +26,6 @@ import _addAlbum from "./_addAlbum.js"
 import _addArtist from "./_addArtist.js"
 
 export default {
-
-  // sql api
-  _addAlbum,
-  _addArtist,
-
   addUser,
   addSong,
   userPlay,

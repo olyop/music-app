@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS public.albums (
+CREATE TABLE IF NOT EXISTS albums (
   album_id uuid NOT NULL,
   title text NOT NULL,
   released integer NOT NULL,

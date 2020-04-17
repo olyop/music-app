@@ -1,0 +1,1 @@
+\d :table_name;

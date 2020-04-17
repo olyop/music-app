@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS public.users (
+CREATE TABLE IF NOT EXISTS users (
 	user_id uuid NOT NULL,
 	name text NOT NULL,
 	current uuid,
@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS public.users (
 		PRIMARY KEY (user_id),
 	CONSTRAINT users_fk_current
 		FOREIGN KEY (current)
-		REFERENCES public.songs (song_id) MATCH FULL
+		REFERENCES songs (song_id) MATCH FULL
 		ON UPDATE CASCADE
 		ON DELETE CASCADE,
 	CONSTRAINT users_check_date_created

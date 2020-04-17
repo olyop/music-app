@@ -24,20 +24,7 @@ type Query {
   _artist(artistId: ID!): _Artist!
 
   # test
-  foo: String!
-}
-
-type _Artist {
-  artistId: ID!
-  name: String!
-  photo: String!
-}
-
-type _Album {
-  albumId: ID!
-  title: String!
-  cover: String!
-  released: Int!
+  now: Int!
 }
 
 type User {
@@ -95,7 +82,6 @@ type Genre {
 type Album {
   id: ID!
   title: String!
-  cover: String!
   released: Int!
   songs: [Song!]!
   artists: [Artist!]!
@@ -103,18 +89,19 @@ type Album {
   dateAdded(userId: ID!): Int
   numOfPlays(userId: ID!): Int
   inLibrary(userId: ID!): Boolean!
+  cover(size: PhotoSize!): String!
 }
 
 type Artist {
   id: ID!
   name: String!
-  photo: String!
   songs: [Song!]!
   albums: [Album!]!
   plays(userId: ID!): [Play!]
   dateAdded(userId: ID!): Int
   numOfPlays(userId: ID!): Int
   inLibrary(userId: ID!): Boolean!
+  photo(size: PhotoSize!): String!
 }
 
 type Playlist {
@@ -231,4 +218,10 @@ type Mutation {
     name: String!
     songs: [ID!]!
   ): Playlist!
+}
+
+enum PhotoSize = {
+  SMALL
+  MEDIUM
+  LARGE
 }

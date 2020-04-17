@@ -28,7 +28,7 @@ const addSong = async ({ args }) => {
   // upload to s3
   await s3.upload({
     Body: buffer,
-    ACL: "public-read",
+    ACL: "private",
     Key: `songs/${song.id}.mp3`,
     Bucket: process.env.S3_BUCKET,
   }).promise()

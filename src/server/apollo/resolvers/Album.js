@@ -1,59 +1,54 @@
 import {
-  pipe,
   resolver,
   toDataUrl,
   playSelect,
-  songSelect,
-  artistSelect,
-  restoreOrder,
+  parseSqlTable,
   deserializeDocument,
   deserializeCollection,
 } from "../../helpers/index.js"
 
+import {
+  SELECT_ALBUM_SONGS,
+  SELECT_ALBUM_ARTISTS,
+} from "../../sql/index.js"
+
+import s3 from "../../s3.js"
 import isNull from "lodash/isNull.js"
 import isEmpty from "lodash/isEmpty.js"
+import { sql } from "../../database/pg.js"
 import database from "../../database/index.js"
 
 const {
   Play,
   Song,
-  Artist,
   UserAlbum,
 } = database.models
 
 export default {
+
   cover: resolver(
-    ({ parent }) => toDataUrl(parent.cover),
+    async ({ parent: { albumId }, args: { size } }) => (
+      toDataUrl(await
+        s3.getObject({
+          Bucket: process.env.AWS_S3_BUCKET,
+          Key: `catalog/${albumId}_${size}.jpg`,
+        }).promise()
+      )
+    ),
   ),
+
   songs: resolver(
-    async ({ parent, info }) => {
-      const { id: albumId } = parent
-
-      const query =
-        Song.find({ album: albumId })
-            .select(songSelect(info))
-            .lean()
-            .exec()
-      
-      return deserializeCollection(await query)
-    },
+    async ({ parent: albumId }) => (
+      parseSqlTable(await sql(SELECT_ALBUM_SONGS, { albumId }))
+    ),
   ),
+
   artists: resolver(
-    async ({ parent, info }) => {
-      const { artists } = parent
-
-      const query =
-        Artist.find({ _id: artists })
-              .select(artistSelect(info))
-              .lean()
-              .exec()
-      
-      return pipe(await query)(
-        deserializeCollection,
-        restoreOrder(artists),
-      ) 
-    },
+    async ({ parent: albumId }) => (
+      parseSqlTable(await sql(SELECT_ALBUM_ARTISTS, { albumId }))
+    ),
   ),
+  
   plays: resolver(
     async ({ parent, args, info }) => {
       const { userId } = args

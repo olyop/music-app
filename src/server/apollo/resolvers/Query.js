@@ -1,5 +1,4 @@
 import {
-  SELECT_NOW,
   SELECT_SONG,
   SELECT_ALBUM,
   SELECT_GENRE,
@@ -12,34 +11,63 @@ import {
   SELECT_PLAYLISTS,
 } from "../../sql/index.js"
 
-import ComplexQueries from "./ComplexQueries/index.js"
+import complexQueries from "./complexQueries/index.js"
 
 import { sql } from "../../database/pg.js"
+import mapValues from "lodash/mapValues.js"
 import { resolver } from "../../helpers/index.js"
-import { compose, parseSqlRow, parseSqlTable } from "../../helpers/index.js"
+import { parseSqlRow, parseSqlTable } from "../../helpers/index.js"
 
-export default {
+const songs = async () =>
+  parseSqlTable(await sql(SELECT_SONGS))
 
-  ...ComplexQueries,
+const albums = async () =>
+  parseSqlTable(await sql(SELECT_ALBUMS))
 
-  now: async () => compose(
-    await sql(SELECT_NOW),
-    ({ rows }) => rows[0].now.getTime(),
-    time => time / 1000,
-    Math.floor,
-  ),
+const genres = async () =>
+  parseSqlTable(await sql(SELECT_GENRES))
 
-  songs: resolver(async () => parseSqlTable(await sql(SELECT_SONGS))),
-  albums: resolver(async () => parseSqlTable(await sql(SELECT_ALBUMS))),
-  genres: resolver(async () => parseSqlTable(await sql(SELECT_GENRES))),
-  artists: resolver(async () => parseSqlTable(await sql(SELECT_ARTISTS))),
-  playlists: resolver(async () => parseSqlTable(await sql(SELECT_PLAYLISTS))),
-  user: resolver(async ({ args }) => parseSqlRow(await sql(SELECT_USER, args))),
-  play: resolver(async ({ args }) => parseSqlRow(await sql(SELECT_PLAY, args))),
-  song: resolver(async ({ args }) => parseSqlRow(await sql(SELECT_SONG, args))),
-  album: resolver(async ({ args }) => parseSqlRow(await sql(SELECT_ALBUM, args))),
-  genre: resolver(async ({ args }) => parseSqlRow(await sql(SELECT_GENRE, args))),
-  artist: resolver(async ({ args }) => parseSqlRow(await sql(SELECT_ARTIST, args))),
-  playlist: resolver(async ({ args }) => parseSqlRow(await sql(SELECT_PLAYLIST, args))),
+const artists = async () =>
+  parseSqlTable(await sql(SELECT_ARTISTS))
 
+const playlists = async () =>
+  parseSqlTable(await sql(SELECT_PLAYLISTS))
+
+const user = async ({ args }) =>
+  parseSqlRow(await sql(SELECT_USER, { userId: args.userId }))
+
+const play = async ({ args }) =>
+  parseSqlRow(await sql(SELECT_PLAY, { playId: args.playId }))
+
+const song = async ({ args }) =>
+  parseSqlRow(await sql(SELECT_SONG, { songId: args.songId }))
+
+const album = async ({ args }) =>
+  parseSqlRow(await sql(SELECT_ALBUM, { albumId: args.albumId }))
+
+const genre = async ({ args }) =>
+  parseSqlRow(await sql(SELECT_GENRE, { genreId: args.genreId }))
+
+const artist = async ({ args }) =>
+  parseSqlRow(await sql(SELECT_ARTIST, { artistId: args.artistId }))
+
+const playlist = async ({ args }) =>
+  parseSqlRow(await sql(SELECT_PLAYLIST, { playlistId: args.playlistId }))
+
+const queryResolver = {
+  user,
+  play,
+  song,
+  songs,
+  album,
+  genre,
+  albums,
+  genres,
+  artist,
+  artists,
+  playlist,
+  playlists,
+  ...complexQueries,
 }
+
+export default mapValues(queryResolver, resolver)

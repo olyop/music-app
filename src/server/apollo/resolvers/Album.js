@@ -1,154 +1,85 @@
 import {
+  compose,
   resolver,
   toDataUrl,
-  playSelect,
+  parseSqlRow,
   parseSqlTable,
-  deserializeDocument,
-  deserializeCollection,
+  awsCatalogKey,
+  bodyFromAwsRes,
 } from "../../helpers/index.js"
 
 import {
   SELECT_ALBUM_SONGS,
   SELECT_ALBUM_ARTISTS,
+  SELECT_ALBUM_USER_PLAYS,
+  SELECT_ALBUM_USER_ADDED,
+  SELECT_ALBUM_USER_IN_LIBRARY,
 } from "../../sql/index.js"
 
 import s3 from "../../s3.js"
-import isNull from "lodash/isNull.js"
-import isEmpty from "lodash/isEmpty.js"
 import { sql } from "../../database/pg.js"
-import database from "../../database/index.js"
+import mapValues from "lodash/mapValues.js"
+import { AWS_S3_BUCKET } from "../../globals.js"
 
-const {
-  Play,
-  Song,
-  UserAlbum,
-} = database.models
+const cover = async ({ parent, args }) => compose(
+  await s3.getObject({
+    Bucket: AWS_S3_BUCKET,
+    Key: awsCatalogKey(parent.albumId, args.size),
+  }).promise(),
+  bodyFromAwsRes,
+  toDataUrl,
+)
 
-export default {
-
-  cover: resolver(
-    async ({ parent: { albumId }, args: { size } }) => (
-      toDataUrl(await
-        s3.getObject({
-          Bucket: process.env.AWS_S3_BUCKET,
-          Key: `catalog/${albumId}_${size}.jpg`,
-        }).promise()
-      )
-    ),
+const songs = async ({ parent }) => parseSqlTable(
+  await sql(
+    SELECT_ALBUM_SONGS,
+    { albumId: parent.albumId },
   ),
+)
 
-  songs: resolver(
-    async ({ parent: albumId }) => (
-      parseSqlTable(await sql(SELECT_ALBUM_SONGS, { albumId }))
-    ),
+const artists = async ({ parent }) => parseSqlTable(
+  await sql(
+    SELECT_ALBUM_ARTISTS,
+    { albumId: parent.albumId },
   ),
+)
 
-  artists: resolver(
-    async ({ parent: albumId }) => (
-      parseSqlTable(await sql(SELECT_ALBUM_ARTISTS, { albumId }))
-    ),
+const plays = async ({ parent, args }) => parseSqlTable(
+  await sql(
+    SELECT_ALBUM_USER_PLAYS,
+    { albumId: parent.albumId, userId: args.userId },
   ),
-  
-  plays: resolver(
-    async ({ parent, args, info }) => {
-      const { userId } = args
-      const { id: albumId } = parent
+)
 
-      const songsQuery =
-        Song.find({ album: albumId })
-            .select({ _id: 1 })
-            .lean()
-            .exec()
-
-      const songs = deserializeCollection(await songsQuery)
-      const songsId = songs.map(({ id }) => id)
-
-      const playQuery =
-        Play.find({ user: userId, song: songsId })
-            .select(playSelect(info))
-            .lean()
-            .exec()
-
-      const plays = deserializeCollection(await playQuery)
-
-      if (isEmpty(plays)) {
-        return null
-      } else {
-        return plays
-      }
-    },
+const dateAdded = async ({ parent, args }) => parseSqlRow(
+  await sql(
+    SELECT_ALBUM_USER_ADDED,
+    { albumId: parent.albumId, userId: args.userId },
   ),
-  dateAdded: resolver(
-    async ({ parent, args }) => {
-      const { userId } = args
-      const { id: albumId } = parent
+)
 
-      const query =
-        UserAlbum.findOne({ user: userId, album: albumId })
-                 .select({ _id: 1 })
-                 .lean()
-                 .exec()
-      
-      const userAlbum = await query
-
-      if (isNull(userAlbum)) {
-        return null
-      } else {
-        return deserializeDocument(userAlbum).dateCreated
-      }
-    },
+const inLibrary = async ({ parent, args }) => parseSqlRow(
+  await sql(
+    SELECT_ALBUM_USER_IN_LIBRARY,
+    { albumId: parent.albumId, userId: args.userId },
   ),
-  numOfPlays: resolver(
-    async ({ parent, args, info }) => {
-      const { userId } = args
-      const { id: albumId } = parent
+)
 
-      const songsQuery =
-        Song.find({ album: albumId })
-            .select({ _id: 1 })
-            .lean()
-            .exec()
-
-      const songs = deserializeCollection(await songsQuery)
-      const songsId = songs.map(({ id }) => id)
-
-      const playQuery =
-        Play.find({ user: userId, song: songsId })
-            .select(determinePlaySelect(info))
-            .lean()
-            .exec()
-
-      const plays = deserializeCollection(await playQuery)
-
-      if (isEmpty(plays)) {
-        return null
-      } else {
-        return plays.length
-      }
-    },
+const numOfPlays = async ({ parent, args }) => parseSqlTable(
+  await sql(
+    SELECT_ALBUM_USER_PLAYS,
+    { albumId: parent.albumId, userId: args.userId },
   ),
-  inLibrary: resolver(
-    async ({ parent, args }) => {
-      const { userId } = args
-      const { id: albumId } = parent
+).length
 
-      const query =
-        UserAlbum.findOne({
-                    user: userId,
-                    album: albumId,
-                    inLibrary: true,
-                  })
-                  .select({ inLibrary: 1 })
-                  .lean()
-                  .exec()
-      
-      const userAlbum = await query
-
-      if (isNull(userAlbum)) {
-        return false
-      } else {
-        return deserializeDocument(userAlbum).inLibrary
-      }
-    },
-  ),
+const albumResolver = {
+  cover,
+  songs,
+  plays,
+  artists,
+  dateAdded,
+  inLibrary,
+  numOfPlays,
 }
+
+export default mapValues(albumResolver, resolver)

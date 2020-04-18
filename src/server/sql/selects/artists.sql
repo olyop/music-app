@@ -2,4 +2,6 @@ SELECT
   artist_id,
   name
 FROM
-  artists;
+  artists
+ORDER BY
+  name ASC;

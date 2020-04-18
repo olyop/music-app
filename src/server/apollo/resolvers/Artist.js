@@ -1,20 +1,28 @@
+import s3 from "../../s3.js"
 import isNull from "lodash/isNull.js"
 import isEmpty from "lodash/isEmpty.js"
 import flatten from "lodash/flatten.js"
 import database from "../../database/index.js"
-import { SONG_ARTISTS_FIELDS as fields } from "../../globals.js"
 
 import {
   pipe,
+  compose,
   resolver,
   toDataUrl,
   removeDup,
   playSelect,
   songSelect,
   albumSelect,
+  awsCatalogKey,
+  bodyFromAwsRes,
   deserializeDocument,
   deserializeCollection,
 } from "../../helpers/index.js"
+
+import {
+  AWS_S3_BUCKET,
+  SONG_ARTISTS_FIELDS as fields,
+} from "../../globals.js"
 
 const {
   Play,
@@ -25,7 +33,14 @@ const {
 
 export default {
   photo: resolver(
-    ({ parent }) => toDataUrl(parent.photo),
+    async ({ parent, args }) => compose(
+      await s3.getObject({
+        Bucket: AWS_S3_BUCKET,
+        Key: awsCatalogKey(parent.artistId, args.size),
+      }).promise(),
+      bodyFromAwsRes,
+      toDataUrl,
+    ),
   ),
   songs: resolver(
     async ({ parent, info }) => {

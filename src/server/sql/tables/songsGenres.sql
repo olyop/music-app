@@ -16,5 +16,5 @@ CREATE TABLE IF NOT EXISTS songs_genres (
     ON UPDATE CASCADE
     ON DELETE CASCADE,
   CONSTRAINT songs_genres_check_artist_index
-    CHECK (artist_index >= 0)
+    CHECK (genre_index >= 0)
 );

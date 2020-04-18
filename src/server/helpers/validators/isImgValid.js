@@ -1,10 +1,9 @@
 import isEmpty from "lodash/isEmpty.js"
-import isString from "lodash/isString.js"
 
 const isImgValid = img => (
-  isString(img) &&
+  Buffer.isBuffer(img) &&
   !isEmpty(img) &&
-  img.length <= 256000
+  img.length <= 250000
 )
 
 export default isImgValid

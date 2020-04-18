@@ -5,11 +5,11 @@ import {
   parseSqlRow,
   resizeMedium,
   isArtistValid,
+  awsCatalogKey,
 } from "../../../helpers/index.js"
 
 import uuid from "uuid"
 import s3 from "../../../s3.js"
-import toUpper from "lodash/toUpper.js"
 import { sql } from "../../../database/pg.js"
 import { INSERT_ARTIST } from "../../../sql/index.js"
 
@@ -28,6 +28,7 @@ const addArtist = async ({ args }) => {
   }
 
   const artistId = uuid.v4()
+  const { name } = args
 
   const artistInsert =
     sql(INSERT_ARTIST, {
@@ -45,8 +46,8 @@ const addArtist = async ({ args }) => {
     s3.upload({
       Body: img,
       ACL: "private",
-      Bucket: process.env.S3_BUCKET,
-      Key: `catalog/${artistId}_${toUpper(size)}.jpg`,
+      Bucket: process.env.AWS_S3_BUCKET,
+      Key: awsCatalogKey(artistId, size),
     }).promise()
 
   const photosUpload = photos.map(photoUpload)

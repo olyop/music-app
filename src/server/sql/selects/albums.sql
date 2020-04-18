@@ -3,4 +3,6 @@ SELECT
   title,
   released
 FROM
-  albums;
+  albums
+ORDER BY
+  title ASC;

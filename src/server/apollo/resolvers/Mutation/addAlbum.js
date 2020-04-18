@@ -5,14 +5,15 @@ import {
   resizeLarge,
   isAlbumValid,
   resizeMedium,
+  awsCatalogKey,
   determineReleased,
 } from "../../../helpers/index.js"
 
 import uuid from "uuid"
 import s3 from "../../../s3.js"
-import toUpper from "lodash/toUpper.js"
 import { sql } from "../../../database/pg.js"
-import { INSERT_ARTIST, INSERT_ALBUM_ARTIST } from "../../../sql/index.js"
+import { AWS_S3_BUCKET } from "../../../globals.js"
+import { INSERT_ALBUM, INSERT_ALBUM_ARTIST } from "../../../sql/index.js"
 
 const addAlbum = async ({ args }) => {
 
@@ -29,19 +30,21 @@ const addAlbum = async ({ args }) => {
   }
 
   const albumId = uuid.v4()
+  const { title, released, artists } = args
 
   const albumInsert =
-    sql(INSERT_ARTIST, {
+    sql(INSERT_ALBUM, {
       albumId,
       title,
       released: determineReleased(released),
     })
 
-  const albumArtistInsert = artistId =>
+  const albumArtistInsert = (artistId, artistIndex) =>
     sql(INSERT_ALBUM_ARTIST, {
-      albumArtistId: uuid.v4(),
       albumId,
       artistId,
+      artistIndex,
+      albumArtistId: uuid.v4(),
     })
 
   const albumArtistsInserts = artists.map(albumArtistInsert)
@@ -52,20 +55,20 @@ const addAlbum = async ({ args }) => {
     { size: "large" , img: resizeLarge(cover) , },
   ]
 
-  const coverUpload = ({ size, img })
+  const coverUpload = ({ size, img }) =>
     s3.upload({
       Body: img,
       ACL: "private",
-      Bucket: process.env.S3_BUCKET,
-      Key: `catalog/${albumId}_${toUpper(size)}.jpg`,
+      Bucket: AWS_S3_BUCKET,
+      Key: awsCatalogKey(albumId, size),
     }).promise()
 
   const coversUpload = photos.map(coverUpload)
 
   const [ album ] = await Promise.all([
     albumInsert,
-    ...albumArtistsInserts,
     ...coversUpload,
+    ...albumArtistsInserts,
   ])
 
   return parseSqlRow(album)

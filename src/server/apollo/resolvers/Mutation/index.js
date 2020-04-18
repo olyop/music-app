@@ -22,9 +22,6 @@ import userAddSongNext from "./userAddSongNext.js"
 import userAddSongLater from "./userAddSongLater.js"
 import userAddSongQueue from "./userAddSongQueue.js"
 
-import _addAlbum from "./_addAlbum.js"
-import _addArtist from "./_addArtist.js"
-
 export default {
   addUser,
   addSong,

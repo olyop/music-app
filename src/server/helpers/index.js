@@ -9,15 +9,16 @@ import _getRowsFromRes from "./sql/getRowsFromRes.js"
 import _convertToCamelCase from "./sql/convertToCamelCase.js"
 import _convertToSnakeCase from "./sql/convertToSnakeCase.js"
 
+import _isSongValid from "./validators/isSongValid.js"
 import _isAlbumValid from "./validators/isAlbumValid.js"
+import _isGenreValid from "./validators/isGenreValid.js"
 import _isArtistValid from "./validators/isArtistValid.js"
 
 import _removeDup from "./resolvers/removeDup.js"
 import _toDataUrl from "./resolvers/toDataUrl.js"
 import _restoreOrder from "./resolvers/restoreOrder.js"
-import _isAlbumValid from "./resolvers/isAlbumValid.js"
-import _isArtistValid from "./resolvers/isArtistValid.js"
-import _determineDuration from "./resolvers/determineDuration.js"
+import _awsCatalogKey from "./resolvers/awsCatalogKey.js"
+import _bodyFromAwsRes from "./resolvers/bodyFromAwsRes.js"
 import _determineReleased from "./resolvers/determineReleased.js"
 import _determineUserNext from "./resolvers/determineUserNext.js"
 import _determineUserPrev from "./resolvers/determineUserPrev.js"
@@ -58,13 +59,16 @@ export const toDataUrl = _toDataUrl
 export const resizeSmall = _resizeSmall
 export const resizeLarge = _resizeLarge
 export const parseSqlRow = _parseSqlRow
+export const isSongValid = _isSongValid
 export const resizeMedium = _resizeMedium
 export const restoreOrder = _restoreOrder
 export const isAlbumValid = _isAlbumValid
+export const isGenreValid = _isGenreValid
+export const awsCatalogKey = _awsCatalogKey
 export const isArtistValid = _isArtistValid
 export const parseSqlTable = _parseSqlTable
 export const getRowsFromRes = _getRowsFromRes
-export const determineDuration = _determineDuration
+export const bodyFromAwsRes = _bodyFromAwsRes
 export const determineReleased = _determineReleased
 export const determineUserNext = _determineUserNext
 export const determineUserPrev = _determineUserPrev

@@ -6,4 +6,6 @@ SELECT
 FROM
   albums_artists
 WHERE
-  album_id = album_id:
+  album_id = album_id
+ORDER BY
+  artist_index ASC;

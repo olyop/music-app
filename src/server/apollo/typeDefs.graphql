@@ -16,19 +16,10 @@ type Query {
   # complex queries
   newAlbums: [Album!]!
   topTenSongs: [Song!]!
-
-  # sql api
-  _albums: [_Album]!
-  _artists: [_Artist]!
-  _album(albumId: ID!): _Album!
-  _artist(artistId: ID!): _Artist!
-
-  # test
-  now: Int!
 }
 
 type User {
-  id: ID!
+  userId: ID!
   name: String!
   current: Song
   prev: [Song!]!
@@ -43,14 +34,14 @@ type User {
 }
 
 type Play {
-  id: ID!
+  playId: ID!
   user: User!
   song: Song!
   dateCreated: Int!
 }
 
 type Song {
-  id: ID!
+  songId: ID!
   mix: String!
   album: Album!
   title: String!
@@ -70,7 +61,7 @@ type Song {
 }
 
 type Genre {
-  id: ID!
+  genreId: ID!
   name: String!
   songs: [Song!]!
   plays(userId: ID!): [Play!]
@@ -80,7 +71,7 @@ type Genre {
 }
 
 type Album {
-  id: ID!
+  albumId: ID!
   title: String!
   released: Int!
   songs: [Song!]!
@@ -93,7 +84,7 @@ type Album {
 }
 
 type Artist {
-  id: ID!
+  artistId: ID!
   name: String!
   songs: [Song!]!
   albums: [Album!]!
@@ -105,9 +96,9 @@ type Artist {
 }
 
 type Playlist {
-  id: ID!
   user: User!
   name: String!
+  playlistId: ID!
   songs: [Song!]!
   dateCreated: Int!
   plays(userId: ID!): [Play!]
@@ -117,20 +108,6 @@ type Playlist {
 }
 
 type Mutation {
-
-  # sql api
-  _addArtist(
-    name: String!
-    photo: Upload!
-  ): _Artist!
-
-  _addAlbum(
-    title: String!
-    cover: Upload!
-    artists: [ID!]!
-    released: String!
-  ): _Album!
-
   userPrev(
     userId: ID!
   ): User!
@@ -220,7 +197,7 @@ type Mutation {
   ): Playlist!
 }
 
-enum PhotoSize = {
+enum PhotoSize {
   SMALL
   MEDIUM
   LARGE

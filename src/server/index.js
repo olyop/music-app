@@ -24,7 +24,7 @@ import {
   globalHeaders,
 } from "./middleware/index.js"
 
-// connect to databases
+// connect to database
 database.openUri(process.env.MONGO_URL, MONGOOSE_OPTIONS)
 
 const app = express()

@@ -2,7 +2,7 @@ import path from "path"
 
 process.env.UV_THREADPOOL_SIZE = 12
 
-export const LOG_FORMAT = ":status :date[clf] :url :response-time[0] ms :total-time[0] ms"
+export const LOG_FORMAT = ":status :date[clf] :url :total-time[0] ms"
 
 export const CORS_OPTIONS = {
   origin: "*",
@@ -72,3 +72,20 @@ export const USER_QUEUE_SELECT = { prev: 1, current: 1, next: 1, queue: 1 }
 export const SERVER_PATH = path.resolve("src", "server")
 export const SQL_FOLDER_PATH = path.join(SERVER_PATH, "sql")
 export const TYPE_DEFS_PATH = path.join(SERVER_PATH, "apollo", "typeDefs.graphql")
+
+// import environment variables
+export const PORT = process.env.PORT
+export const HOST = process.env.HOST
+export const APP_NAME = process.env.APP_NAME
+export const MONGO_DB = process.env.MONGO_DB
+export const MONGO_URL = process.env.MONGO_URL
+export const AWS_RDS_DB = process.env.AWS_RDS_DB
+export const AWS_RDS_PORT = process.env.AWS_RDS_PORT
+export const AWS_RDS_USER = process.env.AWS_RDS_USER
+export const AWS_S3_BUCKET = process.env.AWS_S3_BUCKET
+export const AWS_RDS_PASSWORD = process.env.AWS_RDS_PASSWORD
+export const AWS_RDS_ENDPOINT = process.env.AWS_RDS_ENDPOINT
+export const AWS_ACCESS_KEY_ID = process.env.AWS_ACCESS_KEY_ID
+export const AWS_SECRET_ACCESS_KEY = process.env.AWS_SECRET_ACCESS_KEY
+
+

@@ -12,8 +12,8 @@ import ApolloServerExpress from "apollo-server-express"
 
 import uuid from "uuid"
 import s3 from "../../../s3.js"
-import { sql } from "../../../database/pg.js"
 import { AWS_S3_ACL, AWS_S3_BUCKET } from "../../../globals.js"
+import { importSql, queryDatabase } from "../../../helpers/index.js"
 import { WHERE_ALBUM, INSERT_ALBUM, INSERT_ALBUM_ARTIST } from "../../../sql/index.js"
 
 const { UserInputError } = ApolloServerExpress

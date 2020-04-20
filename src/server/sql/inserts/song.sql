@@ -10,13 +10,13 @@ INSERT INTO songs
   )
 VALUES
   (
-    :song_id,
-    :mix,
-    :title,
-    :duration,
-    :album_id,
-    :disc_number,
-    :track_number
+    {{ songId }},
+    {{ mix }},
+    {{ title }},
+    {{ duration }},
+    {{ albumId }},
+    {{ discNumber }},
+    {{ trackNumber }}
   )
 RETURNING
   song_id,

@@ -6,9 +6,9 @@ INSERT INTO albums
   )
 VALUES
   (
-    :album_id,
-    :title,
-    :released
+    {{ albumId }},
+    {{ title }},
+    {{ released }}
   )
 RETURNING
   album_id,

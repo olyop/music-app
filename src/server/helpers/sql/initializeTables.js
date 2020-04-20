@@ -1,3 +1,5 @@
+import queryDatabase from "./queryDatabase.js"
+
 import {
   TABLE_PLAYS,
   TABLE_SONGS,
@@ -46,15 +48,15 @@ const queries = [
   TABLE_PLAYS,
 ]
 
-const initializeTables = sql => {
+const initializeTables = () => {
   queries.reduce(
     async (prev, next) => {
       try {
         await prev
       } catch (error) {
-        console.error(error)
+        throw new Error(error)
       }
-      return sql({ query: next })
+      return queryDatabase({ query: next })
     },
     Promise.resolve(),
   )

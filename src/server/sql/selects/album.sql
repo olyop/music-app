@@ -5,4 +5,4 @@ SELECT
 FROM
   albums
 WHERE
-  album_id = :album_id;
+  album_id = {{ albumId }};

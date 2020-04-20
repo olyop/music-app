@@ -1,6 +1,7 @@
 import express from "express"
 import database from "./database/index.js"
 import apolloServer from "./apollo/index.js"
+import { initializeTables } from "./helpers/index.js"
 
 // import middleware
 import cors from "cors"
@@ -9,6 +10,7 @@ import helmet from "helmet"
 import bodyParser from "body-parser"
 import compression from "compression"
 import cookieParser from "cookie-parser"
+
 
 import {
   LOG_FORMAT,
@@ -23,6 +25,8 @@ import {
   sendStatic,
   globalHeaders,
 } from "./middleware/index.js"
+
+initializeTables()
 
 // connect to database
 database.openUri(process.env.MONGO_URL, MONGOOSE_OPTIONS)
@@ -44,6 +48,7 @@ app.use(
 apolloServer.applyMiddleware({ app, ...APOLLO_APPLY_OPTIONS })
 
 app.use(sendStatic)
+
 app.use("*", sendIndex)
 
 app.on("error", onError)

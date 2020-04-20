@@ -21,7 +21,8 @@ export const AWS_S3_BUCKET = process.env.AWS_S3_BUCKET
 export const AWS_ACCESS_KEY_ID = process.env.AWS_ACCESS_KEY_ID
 export const AWS_SECRET_ACCESS_KEY = process.env.AWS_SECRET_ACCESS_KEY
 
-export const LOG_FORMAT = ":status :date[clf] :url :total-time[0] ms"
+export const LOG_FORMAT =
+  ":status :date[clf] :url :total-time[0] ms"
 
 export const CORS_OPTIONS = {
   origin: "*",
@@ -59,9 +60,11 @@ export const APOLLO_APPLY_OPTIONS = {
   bodyParserConfig: false,
 }
 
-export const BUILD_PATH = path.resolve("src", "server", "build")
+export const BUILD_PATH =
+  path.resolve("src", "server", "build")
 
-export const BUILD_ENTRY_PATH = path.join(BUILD_PATH, "index.html")
+export const BUILD_ENTRY_PATH =
+  path.join(BUILD_PATH, "index.html")
 
 export const SCHEMA_OPTIONS = {
   id: false,
@@ -86,10 +89,10 @@ export const USER_EMPTY_QUEUE = {
   current: null,
 }
 
-export const USER_QUEUE_SELECT = { prev: 1, current: 1, next: 1, queue: 1 }
+export const USER_QUEUE_SELECT =
+  { prev: 1, current: 1, next: 1, queue: 1 }
 
-export const SERVER_PATH = path.resolve("src", "server")
-export const SQL_FOLDER_PATH = path.join(SERVER_PATH, "sql")
-export const TYPE_DEFS_PATH = path.join(SERVER_PATH, "apollo", "typeDefs.graphql")
+export const TYPE_DEFS_PATH =
+  path.join("src", "server", "apollo", "typeDefs.graphql")
 
 

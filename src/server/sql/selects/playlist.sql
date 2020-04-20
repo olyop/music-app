@@ -5,4 +5,4 @@ SELECT
 FROM
   playlists
 WHERE
-  playlists_id = :playlists_id;
+  playlists_id = {{ playlistsId }};

@@ -1,6 +1,12 @@
 INSERT INTO artists
-  (artist_id, name)
+  (
+    artist_id,
+    name
+  )
 VALUES
-  (:artist_id, :name)
+  (
+    {{ artistId }},
+    {{ name }}
+  )
 RETURNING
   artist_id, name;

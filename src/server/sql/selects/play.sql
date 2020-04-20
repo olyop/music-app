@@ -4,4 +4,4 @@ SELECT
 FROM
   plays
 WHERE
-  play_id = :play_id;
+  play_id = {{ playId }};

@@ -40,11 +40,6 @@ module.exports = ({ mode }) => {
     module: {
       rules: [
         {
-          test: /\.(|jpg|png|ico|txt|json)$/,
-          exclude: /node_modules/,
-          loader: "file-loader",
-        },
-        {
           test: /\.css$/,
           exclude: /node_modules/,
           loader: [

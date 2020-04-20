@@ -7,8 +7,8 @@ INSERT INTO albums_artists
   )
 VALUES
   (
-    :album_artist_id,
-    :album_id,
-    :artist_id,
-    :artist_index
+    {{ albumArtistId }},
+    {{ albumId }},
+    {{ artistId }},
+    {{ artistIndex }}
   );

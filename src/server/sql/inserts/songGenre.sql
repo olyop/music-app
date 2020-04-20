@@ -7,8 +7,8 @@ INSERT INTO songs_genres
   )
 VALUES
   (
-    :song_id,
-    :genre_id,
-    :genre_index,
-    :song_genre_id
+    {{ songId }},
+    {{ genreId }},
+    {{ genreIndex }},
+    {{ songGenreId }}
   );

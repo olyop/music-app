@@ -4,4 +4,4 @@ SELECT
 FROM
   artists
 WHERE
-  artist_id = :artist_id;
+  artist_id = {{ artistId }};

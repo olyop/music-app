@@ -1,6 +1,12 @@
 INSERT INTO genres
-  (genre_id, name)
+  (
+    genre_id,
+    name
+  )
 VALUES
-  (:genre_id, :name)
+  (
+    {{ genreId }},
+    {{ name }}
+  )
 RETURNING
   genre_id, name;

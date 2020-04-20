@@ -1,1 +1,1 @@
-\d :table_name;
+\d {{ table }};

@@ -4,4 +4,4 @@ SELECT
 FROM
   genres
 WHERE
-  genre_id = :genre_id;
+  genre_id = {{ genreId }};

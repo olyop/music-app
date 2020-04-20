@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS songs_remixers (
-  song_remixer_id uuid NOT NULL,
+  song_remixer_id uuid,
   song_id uuid NOT NULL,
   artist_id uuid NOT NULL,
   artist_index smallint NOT NULL,

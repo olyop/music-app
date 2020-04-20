@@ -54,7 +54,7 @@ const initializeTables = sql => {
       } catch (error) {
         console.error(error)
       }
-      return sql(next)
+      return sql({ query: next })
     },
     Promise.resolve(),
   )

@@ -179,8 +179,8 @@ type Mutation {
     released: String!
   ): Album!
   addSong(
-    album: ID!
     mix: String!
+    albumId: ID!
     genres: [ID!]!
     title: String!
     audio: Upload!

@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS users_queues (
-  user_queue_id uuid NOT NULL,
+  user_queue_id uuid,
   user_id uuid NOT NULL,
   song_id uuid NOT NULL,
   song_index smallint NOT NULL,

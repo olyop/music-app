@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS users_playlists (
-  user_playlist_id uuid NOT NULL,
+  user_playlist_id uuid,
   user_id uuid NOT NULL,
   playlist_id uuid,
   in_library boolean NOT NULL,

@@ -48,7 +48,9 @@ const fieldsConfig = [
       {
         id: uniqueId(),
         msg: "valid file and of type of jpg.",
-        check: val => (isUndefined(val.file) ? false : val.file.type === "image/jpeg") && val.file instanceof File,
+        check: val =>
+          (isUndefined(val.file) ? false : val.file.type === "image/jpeg") &&
+          val.file instanceof File,
       },
       {
         id: uniqueId(),

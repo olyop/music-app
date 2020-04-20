@@ -1,30 +1,49 @@
 import {
+  isGenre,
   resolver,
   parseSqlRow,
-  isGenreValid,
 } from "../../../helpers/index.js"
+
+import ApolloServerExpress from "apollo-server-express"
 
 import uuid from "uuid"
 import { sql } from "../../../database/pg.js"
-import { INSERT_GENRE } from "../../../sql/index.js"
+import { WHERE_GENRE, INSERT_GENRE } from "../../../sql/index.js"
+
+const { UserInputError } = ApolloServerExpress
 
 const addGenre = async ({ args }) => {
 
   // data validation
-  if (!isGenreValid(args)) {
-    throw "Invalid data."
+  if (!isGenre(args)) {
+    throw new UserInputError("Invalid arguments.")
+  }
+
+  // check name is unique
+  if (!(await sqlIsUnique({
+    query: WHERE_GENRE,
+    val: args.name,
+    col: "name",
+  }))) {
+    throw "Name already in use."
   }
 
   const genreId = uuid.v4()
   const { name } = args
 
   const genreInsert =
-    sql(INSERT_GENRE, {
-      genreId,
-      name,
+    sql({
+      query: INSERT_GENRE,
+      parse: parseSqlRow,
+      args: {
+        genreId,
+        name,
+      },
     })
 
-  return parseSqlRow(await genreInsert)
+  const genre = await genreInsert
+  
+  return genre
 }
 
 export default resolver(addGenre)

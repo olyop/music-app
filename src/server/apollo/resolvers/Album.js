@@ -70,7 +70,7 @@ const numOfPlays = async ({ parent, args }) => parseSqlTable(
     SELECT_ALBUM_USER_PLAYS,
     { albumId: parent.albumId, userId: args.userId },
   ),
-).length
+)
 
 const albumResolver = {
   cover,

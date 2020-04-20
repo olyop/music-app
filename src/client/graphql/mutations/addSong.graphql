@@ -1,6 +1,6 @@
 mutation addSong(
-  $album: ID!
   $mix: String!
+  $albumId: ID!
   $audio: Upload!
   $title: String!
   $genres: [ID!]!
@@ -14,8 +14,8 @@ mutation addSong(
     mix: $mix
     audio: $audio
     title: $title
-    album: $album
     genres: $genres
+    albumId: $album
     artists: $artists
     remixers: $remixers
     featuring: $featuring

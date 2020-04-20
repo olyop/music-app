@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS songs (
-  song_id uuid NOT NULL,
+  song_id uuid,
   title text NOT NULL,
   mix text NOT NULL,
   album_id uuid NOT NULL,

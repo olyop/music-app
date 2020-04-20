@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS albums_artists (
-  album_artist_id uuid NOT NULL,
+  album_artist_id uuid,
   album_id uuid NOT NULL,
   artist_id uuid NOT NULL,
   artist_index smallint NOT NULL,

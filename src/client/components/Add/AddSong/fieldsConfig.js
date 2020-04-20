@@ -250,7 +250,7 @@ const fieldsConifg = ({ artists, albums, genres }) => [
   {
     id: uniqueId(),
     name: "Album",
-    short: "album",
+    short: "albumId",
     type: "text",
     isDoc: true,
     db: albums,

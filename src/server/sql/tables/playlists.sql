@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS playlists (
-  playlist_id uuid NOT NULL,
+  playlist_id uuid,
   name text NOT NULL,
   user_id uuid NOT NULL,
   date_created integer NOT NULL,

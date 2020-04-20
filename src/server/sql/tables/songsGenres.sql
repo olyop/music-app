@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS songs_genres (
-  song_genre_id uuid NOT NULL,
+  song_genre_id uuid,
   song_id uuid NOT NULL,
   genre_id uuid NOT NULL,
   genre_index smallint NOT NULL,

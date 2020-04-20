@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS plays (
-  play_id uuid NOT NULL,
+  play_id uuid,
   user_id uuid NOT NULL,
   song_id uuid NOT NULL,
   date_created integer NOT NULL,

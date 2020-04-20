@@ -19,40 +19,83 @@ import { resolver } from "../../helpers/index.js"
 import { parseSqlRow, parseSqlTable } from "../../helpers/index.js"
 
 const songs = async () =>
-  parseSqlTable(await sql(SELECT_SONGS))
+  await sql({
+    query: SELECT_SONGS,
+    parse: parseSqlTable,
+  })
 
 const albums = async () =>
-  parseSqlTable(await sql(SELECT_ALBUMS))
+  await sql({
+    query: SELECT_ALBUMS,
+    parse: parseSqlTable,
+  })
 
 const genres = async () =>
-  parseSqlTable(await sql(SELECT_GENRES))
+  await sql({
+    query: SELECT_GENRES,
+    parse: parseSqlTable,
+  })
 
 const artists = async () =>
-  parseSqlTable(await sql(SELECT_ARTISTS))
+  await sql({
+    query: SELECT_ARTISTS,
+    parse: parseSqlTable,
+  })
 
 const playlists = async () =>
-  parseSqlTable(await sql(SELECT_PLAYLISTS))
+  await sql({
+    query: SELECT_PLAYLISTS,
+    parse: parseSqlTable,
+  })
 
 const user = async ({ args }) =>
-  parseSqlRow(await sql(SELECT_USER, { userId: args.userId }))
+  await sql({
+    query: SELECT_USER,
+    parse: parseSqlRow,
+    args: { userId: args.userId },
+  })
 
 const play = async ({ args }) =>
-  parseSqlRow(await sql(SELECT_PLAY, { playId: args.playId }))
+  await sql({
+    query: SELECT_PLAY,
+    parse: parseSqlRow,
+    args: { playId: args.playId },
+  })
 
 const song = async ({ args }) =>
-  parseSqlRow(await sql(SELECT_SONG, { songId: args.songId }))
+  await sql({
+    query: SELECT_SONG,
+    parse: parseSqlRow,
+    args: { songId: args.songId },
+  })
 
 const album = async ({ args }) =>
-  parseSqlRow(await sql(SELECT_ALBUM, { albumId: args.albumId }))
+  await sql({
+    query: SELECT_ALBUM,
+    parse: parseSqlRow,
+    args: { albumId: args.albumId },
+  })
 
 const genre = async ({ args }) =>
-  parseSqlRow(await sql(SELECT_GENRE, { genreId: args.genreId }))
+  await sql({
+    query: SELECT_GENRE,
+    parse: parseSqlRow,
+    args: { genreId: args.genreId },
+  })
 
 const artist = async ({ args }) =>
-  parseSqlRow(await sql(SELECT_ARTIST, { artistId: args.artistId }))
+  await sql({
+    query: SELECT_ARTIST,
+    parse: parseSqlRow,
+    args: { artistId: args.artistId },
+  })
 
 const playlist = async ({ args }) =>
-  parseSqlRow(await sql(SELECT_PLAYLIST, { playlistId: args.playlistId }))
+  await sql({
+    query: SELECT_PLAYLIST,
+    parse: parseSqlRow,
+    args: { playlistId: args.playlistId },
+  })
 
 const queryResolver = {
   user,

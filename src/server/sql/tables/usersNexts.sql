@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS users_nexts (
-  user_next_id uuid NOT NULL,
+  user_next_id uuid,
   user_id uuid NOT NULL,
   song_id uuid NOT NULL,
   song_index integer NOT NULL,

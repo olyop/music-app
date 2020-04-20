@@ -1,6 +1,13 @@
 import fs from "fs"
 import path from "path"
 import { SQL_FOLDER_PATH } from "../globals.js"
+import { importSql as test } from "../helpers/index.js"
+
+test(SQL_FOLDER_PATH + "/test.sql")({
+  column: "name",
+  table: "artists",
+  value: "Tame Impala",
+})
 
 const importSql = type => name =>
   fs.readFileSync(path.join(SQL_FOLDER_PATH, type, `${name}.sql`))
@@ -8,8 +15,13 @@ const importSql = type => name =>
 
 const importAdmin = importSql("admin")
 const importTable = importSql("tables")
+const importWheres = importSql("wheres")
 const importInsert = importSql("inserts")
 const importSelects = importSql("selects")
+
+export const WHERE_ALBUM = importWheres("album")
+export const WHERE_GENRE = importWheres("genre")
+export const WHERE_ARTIST = importWheres("artist")
 
 export const DESCRIBE_TABLE = importAdmin("describeTable")
 export const DESCRIBE_TABLES = importAdmin("describeTables")

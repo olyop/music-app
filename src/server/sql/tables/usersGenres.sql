@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS users_genres (
-  user_genre_id uuid NOT NULL,
+  user_genre_id uuid,
   user_id uuid NOT NULL,
   genre_id uuid,
   in_library boolean NOT NULL,

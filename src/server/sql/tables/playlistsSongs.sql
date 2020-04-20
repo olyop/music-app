@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS playlists_songs (
-  playlist_song_id uuid NOT NULL,
+  playlist_song_id uuid,
   playlist_id uuid NOT NULL,
   song_id uuid NOT NULL,
   in_playlist boolean NOT NULL,

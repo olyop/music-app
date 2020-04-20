@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS albums (
-  album_id uuid NOT NULL,
+  album_id uuid,
   title text NOT NULL,
   released integer NOT NULL,
   CONSTRAINT albums_pk

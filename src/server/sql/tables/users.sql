@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS users (
-	user_id uuid NOT NULL,
+	user_id uuid,
 	name text NOT NULL,
 	current uuid,
 	date_created integer NOT NULL,

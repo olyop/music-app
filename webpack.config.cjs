@@ -1,6 +1,7 @@
 const os = require("os")
 const path = require("path")
 const CopyPlugin = require("copy-webpack-plugin")
+const TerserPlugin = require("terser-webpack-plugin")
 const HtmlWebpackPlugin = require("html-webpack-plugin")
 const WriteFilePlugin = require("write-file-webpack-plugin")
 const MiniCssExtractPlugin = require("mini-css-extract-plugin")
@@ -22,6 +23,10 @@ module.exports = ({ mode }) => {
       publicPath: "/",
       filename: "[hash].js",
       path: path.join(serverPath, "build"),
+    },
+    optimization: {
+      minimize: isProduction,
+      minimizer: [new TerserPlugin()],
     },
     devServer: {
       port: 8080,
@@ -80,9 +85,9 @@ module.exports = ({ mode }) => {
       ],
     },
     plugins: [
-      ...(isProduction ? [ new CompressionPlugin() ] : []),
-      ...(isProduction ? [ new LodashModuleReplacementPlugin() ] : []),
-      ...(isProduction ? [ new OptimizeCssAssetsPlugin() ] : []),
+      ...(isProduction ? [new CompressionPlugin()] : []),
+      ...(isProduction ? [new LodashModuleReplacementPlugin()] : []),
+      ...(isProduction ? [new OptimizeCssAssetsPlugin()] : []),
       new MiniCssExtractPlugin({ filename: "[hash].css" }),
       new HtmlWebpackPlugin({
         template: path.join(publicPath, "index.html"),

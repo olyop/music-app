@@ -1,19 +1,22 @@
 import {
+  isAlbum,
   resolver,
   parseSqlRow,
-  resizeSmall,
   resizeLarge,
-  isAlbumValid,
   resizeMedium,
   awsCatalogKey,
   determineReleased,
 } from "../../../helpers/index.js"
 
+import ApolloServerExpress from "apollo-server-express"
+
 import uuid from "uuid"
 import s3 from "../../../s3.js"
 import { sql } from "../../../database/pg.js"
-import { AWS_S3_BUCKET } from "../../../globals.js"
-import { INSERT_ALBUM, INSERT_ALBUM_ARTIST } from "../../../sql/index.js"
+import { AWS_S3_ACL, AWS_S3_BUCKET } from "../../../globals.js"
+import { WHERE_ALBUM, INSERT_ALBUM, INSERT_ALBUM_ARTIST } from "../../../sql/index.js"
+
+const { UserInputError } = ApolloServerExpress
 
 const addAlbum = async ({ args }) => {
 
@@ -25,32 +28,47 @@ const addAlbum = async ({ args }) => {
   const cover = Buffer.concat(chunks)
 
   // data validation
-  if (!isAlbumValid({ ...args, cover })) {
-    throw "Invalid data."
+  if (!isAlbum({ ...args, cover })) {
+    throw new UserInputError("Invalid arguments.")
+  }
+
+  // check title is unique
+  if (!(await sqlIsUnique({
+    query: WHERE_ALBUM,
+    val: args.title,
+    col: "title",
+  }))) {
+    throw "Title already in use."
   }
 
   const albumId = uuid.v4()
   const { title, released, artists } = args
 
   const albumInsert =
-    sql(INSERT_ALBUM, {
-      albumId,
-      title,
-      released: determineReleased(released),
+    sql({
+      query: INSERT_ALBUM,
+      parse: parseSqlRow,
+      args: {
+        albumId,
+        title,
+        released: determineReleased(released),
+      },
     })
 
   const albumArtistInsert = (artistId, artistIndex) =>
-    sql(INSERT_ALBUM_ARTIST, {
-      albumId,
-      artistId,
-      artistIndex,
-      albumArtistId: uuid.v4(),
+    sql({
+      query: INSERT_ALBUM_ARTIST,
+      args: {
+        albumId,
+        artistId,
+        artistIndex,
+        albumArtistId: uuid.v4(),
+      },
     })
 
   const albumArtistsInserts = artists.map(albumArtistInsert)
 
   const photos = [
-    { size: "small" , img: resizeSmall(cover) , },
     { size: "medium", img: resizeMedium(cover), },
     { size: "large" , img: resizeLarge(cover) , },
   ]
@@ -58,20 +76,18 @@ const addAlbum = async ({ args }) => {
   const coverUpload = ({ size, img }) =>
     s3.upload({
       Body: img,
-      ACL: "private",
+      ACL: AWS_S3_ACL,
       Bucket: AWS_S3_BUCKET,
       Key: awsCatalogKey(albumId, size),
     }).promise()
 
   const coversUpload = photos.map(coverUpload)
 
-  const [ album ] = await Promise.all([
-    albumInsert,
-    ...coversUpload,
-    ...albumArtistsInserts,
-  ])
+  const album = await albumInsert
+  await Promise.all(albumArtistsInserts)
+  await Promise.all(coversUpload)
 
-  return parseSqlRow(album)
+  return album
 }
 
 export default resolver(addAlbum)

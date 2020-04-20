@@ -1,7 +1,7 @@
 import {
+  isSong,
   resolver,
   parseSqlRow,
-  isSongValid,
   awsCatalogKey,
 } from "../../../helpers/index.js"
 
@@ -13,11 +13,15 @@ import {
   INSERT_SONG_FEATURING,
 } from "../../../sql/index.js"
 
+import ApolloServerExpress from "apollo-server-express"
+
 import uuid from "uuid"
 import s3 from "../../../s3.js"
 import mp3Duration from "mp3-duration"
 import { sql } from "../../../database/pg.js"
-import { AWS_S3_BUCKET } from "../../../globals.js"
+import { AWS_S3_ACL, AWS_S3_BUCKET } from "../../../globals.js"
+
+const { UserInputError } = ApolloServerExpress
 
 const addSong = async ({ args }) => {
 
@@ -29,15 +33,15 @@ const addSong = async ({ args }) => {
   const audio = Buffer.concat(chunks)
 
   // data validation
-  if (!isSongValid({ ...args, audio })) {
-    throw "Invalid data."
+  if (!isSong({ ...args, audio })) {
+    throw new UserInputError("Invalid arguments.")
   }
 
   const {
     mix,
     title,
-    album,
     genres,
+    albumId,
     artists,
     remixers,
     featuring,
@@ -49,46 +53,62 @@ const addSong = async ({ args }) => {
   const duration = Math.ceil(await mp3Duration(audio))
 
   const songInsert =
-    sql(INSERT_SONG, {
-      mix,
-      title,
-      songId,
-      duration,
-      discNumber,
-      trackNumber,
-      albumId: album,
+    sql({
+      query: INSERT_SONG,
+      parse: parseSqlRow,
+      args: {
+        mix,
+        title,
+        songId,
+        albumId,
+        duration,
+        discNumber,
+        trackNumber,
+      },
     })
 
   const songGenreInsert = (genreId, genreIndex) =>
-    sql(INSERT_SONG_GENRE, {
-      songId,
-      genreId,
-      genreIndex,
-      songGenreId: uuid.v4(),
+    sql({
+      query: INSERT_SONG_GENRE,
+      args: {
+        songId,
+        genreId,
+        genreIndex,
+        songGenreId: uuid.v4(),
+      },
     })
 
   const songArtistInsert = (artistId, artistIndex) =>
-    sql(INSERT_SONG_ARTIST, {
-      songId,
-      artistId,
-      artistIndex,
-      songArtistId: uuid.v4(),
+    sql({
+      query: INSERT_SONG_ARTIST,
+      args: {
+        songId,
+        artistId,
+        artistIndex,
+        songArtistId: uuid.v4(),
+      },
     })
   
   const songRemixerInsert = (artistId, artistIndex) =>
-    sql(INSERT_SONG_REMIXER, {
-      songId,
-      artistId,
-      artistIndex,
-      songRemixerId: uuid.v4(),
+    sql({
+      query: INSERT_SONG_REMIXER,
+      args: {
+        songId,
+        artistId,
+        artistIndex,
+        songRemixerId: uuid.v4(),
+      },
     })
   
   const songFeaturingInsert = (artistId, artistIndex) =>
-    sql(INSERT_SONG_FEATURING, {
-      songId, 
-      artistId,
-      artistIndex,
-      songFeaturingId: uuid.v4(),
+    sql({
+      query: INSERT_SONG_FEATURING,
+      args: {
+        songId,
+        artistId,
+        artistIndex,
+        songFeaturingId: uuid.v4(),
+      },
     })
 
   const songGenresInserts = genres.map(songGenreInsert)
@@ -99,21 +119,19 @@ const addSong = async ({ args }) => {
   const audioUpload =
     s3.upload({
       Body: audio,
-      ACL: "private",
+      ACL: AWS_S3_ACL,
       Bucket: AWS_S3_BUCKET,
       Key: awsCatalogKey(songId),
     }).promise()
-  
-  const [ song ] = await Promise.all([
-    songInsert,
-    audioUpload,
-    ...songGenresInserts,
-    ...songArtistsInserts,
-    ...songRemixersInserts,
-    ...songFeaturingInserts,
-  ])
 
-  return parseSqlRow(song)
+  const song = await songInsert
+  await Promise.all(songGenresInserts)
+  await Promise.all(songArtistsInserts)
+  await Promise.all(songRemixersInserts)
+  await Promise.all(songFeaturingInserts)
+  await audioUpload
+
+  return song
 }
 
 export default resolver(addSong)

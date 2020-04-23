@@ -15,6 +15,6 @@ CREATE TABLE IF NOT EXISTS songs_genres (
     REFERENCES songs (song_id) MATCH FULL
     ON UPDATE CASCADE
     ON DELETE CASCADE,
-  CONSTRAINT songs_genres_check_artist_index
+  CONSTRAINT songs_genres_check_genre_index
     CHECK (genre_index >= 0)
 );

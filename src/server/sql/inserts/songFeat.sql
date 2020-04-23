@@ -7,8 +7,8 @@ INSERT INTO songs_featurings
   )
 VALUES
   (
-    {{ songId }},
-    {{ artistId }},
+    '{{ songId }}',
+    '{{ artistId }}',
     {{ artistIndex }},
-    {{ songFeaturingId }}
+    '{{ songFeaturingId }}'
   );

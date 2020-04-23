@@ -5,4 +5,4 @@ SELECT
 FROM
   albums
 WHERE
-  album_id = {{ albumId }};
+  album_id = '{{ albumId }}';

@@ -158,7 +158,7 @@ const fieldsConifg = ({ artists, albums, genres }) => [
   {
     id: uniqueId(),
     name: "Featuring",
-    short: "featuring",
+    short: "featuringIds",
     type: "list",
     isDoc: true,
     db: artists,
@@ -181,7 +181,7 @@ const fieldsConifg = ({ artists, albums, genres }) => [
   {
     id: uniqueId(),
     name: "Remixers",
-    short: "remixers",
+    short: "remixerIds",
     type: "list",
     isDoc: true,
     db: artists,
@@ -204,7 +204,7 @@ const fieldsConifg = ({ artists, albums, genres }) => [
   {
     id: uniqueId(),
     name: "Artists",
-    short: "artists",
+    short: "artistIds",
     type: "list",
     isDoc: true,
     db: artists,
@@ -227,7 +227,7 @@ const fieldsConifg = ({ artists, albums, genres }) => [
   {
     id: uniqueId(),
     name: "Genres",
-    short: "genres",
+    short: "genreIds",
     type: "list",
     isDoc: true,
     db: genres,

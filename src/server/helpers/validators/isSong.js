@@ -1,7 +1,7 @@
 import isFile from "./isFile.js"
 import isUuid from "./isUuid.js"
 import isText from "./isText.js"
-import _ from "lodash/isInteger.js"
+import isInteger from "lodash/isInteger.js"
 import isArrayOfUuids from "./isArrayOfUuids.js"
 
 const isAudioValid = audio => (
@@ -18,24 +18,24 @@ const isSong = ({
   mix,
   title,
   audio,
-  genres,
   albumId,
-  artists,
-  remixers,
-  featuring,
+  genreIds,
+  artistIds,
+  remixerIds,
   discNumber,
   trackNumber,
+  featuringIds,
 }) => (
-  isText(mix) &&
   isText(title) &&
   isUuid(albumId) &&
+  isText(mix, true) &&
   isAudioValid(audio) &&
-  isArrayOfUuids(genres) &&
-  isArrayOfUuids(artists) &&
-  isArrayOfUuids(remixers) &&
-  isArrayOfUuids(featuring) &&
+  isArrayOfUuids(genreIds) &&
+  isArrayOfUuids(artistIds) &&
   isPositiveInt(discNumber) &&
-  isPositiveInt(trackNumber)
+  isArrayOfUuids(remixerIds) &&
+  isPositiveInt(trackNumber) &&
+  isArrayOfUuids(featuringIds)
 )
 
 export default isSong

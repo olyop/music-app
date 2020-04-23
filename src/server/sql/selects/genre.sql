@@ -4,4 +4,4 @@ SELECT
 FROM
   genres
 WHERE
-  genre_id = {{ genreId }};
+  genre_id = '{{ genreId }}';

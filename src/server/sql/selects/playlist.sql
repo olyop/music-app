@@ -5,4 +5,4 @@ SELECT
 FROM
   playlists
 WHERE
-  playlists_id = {{ playlistsId }};
+  playlists_id = '{{ playlistsId }}';

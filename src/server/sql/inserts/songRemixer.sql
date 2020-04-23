@@ -7,8 +7,8 @@ INSERT INTO songs_remixers
   )
 VALUES
   (
-    {{ songId }},
-    {{ artistId }},
+    '{{ songId }}',
+    '{{ artistId }}',
     {{ artistIndex }},
-    {{ songRemixerId }}
+    '{{ songRemixerId }}'
   );

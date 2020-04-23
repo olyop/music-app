@@ -7,8 +7,8 @@ INSERT INTO albums_artists
   )
 VALUES
   (
-    {{ albumArtistId }},
-    {{ albumId }},
-    {{ artistId }},
+    '{{ albumArtistId }}',
+    '{{ albumId }}',
+    '{{ artistId }}',
     {{ artistIndex }}
   );

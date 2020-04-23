@@ -4,4 +4,4 @@ SELECT
 FROM
   plays
 WHERE
-  play_id = {{ playId }};
+  play_id = '{{ playId }}';

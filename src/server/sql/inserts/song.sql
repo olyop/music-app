@@ -10,11 +10,11 @@ INSERT INTO songs
   )
 VALUES
   (
-    {{ songId }},
-    {{ mix }},
-    {{ title }},
+    '{{ songId }}',
+    '{{ mix }}',
+    '{{ title }}',
     {{ duration }},
-    {{ albumId }},
+    '{{ albumId }}',
     {{ discNumber }},
     {{ trackNumber }}
   )

@@ -5,8 +5,8 @@ INSERT INTO genres
   )
 VALUES
   (
-    {{ genreId }},
-    {{ name }}
+    '{{ genreId }}',
+    '{{ name }}'
   )
 RETURNING
   genre_id, name;

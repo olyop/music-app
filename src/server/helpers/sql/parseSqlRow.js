@@ -1,14 +1,17 @@
 import head from "lodash/head.js"
 import isUndefined from "lodash/isUndefined.js"
-import { pipe, getRowsFromRes, convertToCamelCase } from "../index.js"
 
-const checkForNullResult = val => isUndefined(val) ? [] : val
+import pipe from "../utils/pipe.js"
+import getRowsFromRes from "./getRowsFromRes.js"
+import convertToCamelCase from "./convertToCamelCase.js"
 
-const parseSqlTable = sql => pipe(sql)(
+const checkForNullResult = val => (isUndefined(val) ? [] : val)
+
+const parseSqlRow = sql => pipe(sql)(
   getRowsFromRes,
   checkForNullResult,
   head,
   convertToCamelCase,
 )
 
-export default parseSqlTable
+export default parseSqlRow

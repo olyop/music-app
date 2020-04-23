@@ -6,8 +6,8 @@ INSERT INTO albums
   )
 VALUES
   (
-    {{ albumId }},
-    {{ title }},
+    '{{ albumId }}',
+    '{{ title }}',
     {{ released }}
   )
 RETURNING

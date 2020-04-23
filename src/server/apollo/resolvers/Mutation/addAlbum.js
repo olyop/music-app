@@ -1,91 +1,93 @@
 import {
   isAlbum,
   resolver,
+  doIdsExist,
   parseSqlRow,
   resizeLarge,
   resizeMedium,
+  queryDatabase,
   awsCatalogKey,
+  isColumnUnique,
+  uploadFilesToS3,
   determineReleased,
+  uploadFileFromClient,
 } from "../../../helpers/index.js"
 
 import ApolloServerExpress from "apollo-server-express"
 
 import uuid from "uuid"
-import s3 from "../../../s3.js"
-import { AWS_S3_ACL, AWS_S3_BUCKET } from "../../../globals.js"
-import { importSql, queryDatabase } from "../../../helpers/index.js"
-import { WHERE_ALBUM, INSERT_ALBUM, INSERT_ALBUM_ARTIST } from "../../../sql/index.js"
+import every from "lodash/every.js"
+import { INSERT_ALBUM, INSERT_ALBUM_ARTIST } from "../../../sql/index.js"
 
 const { UserInputError } = ApolloServerExpress
 
 const addAlbum = async ({ args }) => {
 
-  // upload photo
-  let chunks = []
-  const stream = await args.cover
-  const upload = stream.createReadStream()
-  for await (const chunk of upload) chunks.push(chunk)
-  const cover = Buffer.concat(chunks)
+  const cover = await uploadFileFromClient(args.cover)
 
-  // data validation
   if (!isAlbum({ ...args, cover })) {
     throw new UserInputError("Invalid arguments.")
   }
 
-  // check title is unique
-  if (!(await sqlIsUnique({
-    query: WHERE_ALBUM,
-    val: args.title,
-    col: "title",
-  }))) {
-    throw "Title already in use."
+  const {
+    title,
+    released,
+    artistIds,
+  } = args
+
+  const isTitleUnique = isColumnUnique("title", title, "albums")
+  const doArtistsExist = doIdsExist(artistIds, "artist_id", "artists")
+
+  const databaseChecks = Promise.all([
+    isTitleUnique,
+    doArtistsExist,
+  ])
+
+  if (!every(await databaseChecks)) {
+    throw new UserInputError("Database checks failed.")
   }
 
   const albumId = uuid.v4()
-  const { title, released, artists } = args
 
   const albumInsert =
-    sql({
+    queryDatabase({
       query: INSERT_ALBUM,
       parse: parseSqlRow,
-      args: {
+      variables: {
         albumId,
         title,
         released: determineReleased(released),
       },
     })
 
-  const albumArtistInsert = (artistId, artistIndex) =>
-    sql({
-      query: INSERT_ALBUM_ARTIST,
-      args: {
-        albumId,
-        artistId,
-        artistIndex,
-        albumArtistId: uuid.v4(),
-      },
-    })
+  const albumArtistsInserts =
+    artistIds.map(
+      (artistId, artistIndex) => (
+        queryDatabase({
+          query: INSERT_ALBUM_ARTIST,
+          variables: {
+            albumId,
+            artistId,
+            artistIndex,
+            albumArtistId: uuid.v4(),
+          },
+        })
+      ),
+    )
 
-  const albumArtistsInserts = artists.map(albumArtistInsert)
-
-  const photos = [
-    { size: "medium", img: resizeMedium(cover), },
-    { size: "large" , img: resizeLarge(cover) , },
-  ]
-
-  const coverUpload = ({ size, img }) =>
-    s3.upload({
-      Body: img,
-      ACL: AWS_S3_ACL,
-      Bucket: AWS_S3_BUCKET,
-      Key: awsCatalogKey(albumId, size),
-    }).promise()
-
-  const coversUpload = photos.map(coverUpload)
+  const coversUpload =
+    uploadFilesToS3([
+      { key: awsCatalogKey(albumId, "index"), file: cover },
+      { key: awsCatalogKey(albumId, "large"), file: resizeLarge(cover) },
+      { key: awsCatalogKey(albumId, "medium"), file: resizeMedium(cover) },
+    ])
 
   const album = await albumInsert
-  await Promise.all(albumArtistsInserts)
-  await Promise.all(coversUpload)
+
+  await Promise.all([
+    ...coversUpload,
+    ...albumArtistsInserts,
+  ])
 
   return album
 }

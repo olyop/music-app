@@ -7,8 +7,8 @@ INSERT INTO songs_genres
   )
 VALUES
   (
-    {{ songId }},
-    {{ genreId }},
+    '{{ songId }}',
+    '{{ genreId }}',
     {{ genreIndex }},
-    {{ songGenreId }}
+    '{{ songGenreId }}'
   );

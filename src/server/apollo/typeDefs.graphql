@@ -175,20 +175,20 @@ type Mutation {
   addAlbum(
     title: String!
     cover: Upload!
-    artists: [ID!]!
+    artistIds: [ID!]!
     released: String!
   ): Album!
   addSong(
     mix: String!
     albumId: ID!
-    genres: [ID!]!
     title: String!
     audio: Upload!
-    artists: [ID!]!
+    genreIds: [ID!]!
     discNumber: Int!
-    remixers: [ID!]!
+    artistIds: [ID!]!
     trackNumber: Int!
-    featuring: [ID!]!
+    remixerIds: [ID!]!
+    featuringIds: [ID!]!
   ): Song!
   addPlaylist(
     user: ID!

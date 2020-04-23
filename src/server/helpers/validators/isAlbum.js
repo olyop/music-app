@@ -5,20 +5,20 @@ import isArrayOfUuids from "./isArrayOfUuids.js"
 
 const isReleased = released => (
   isString(released) &&
-  !isNaN(Date.parse(released)) &&
+  !Number.isNaN(Date.parse(released)) &&
   Date.parse(released) >= 1
 )
 
 const isAlbum = ({
   title,
   cover,
-  artists,
   released,
+  artistIds,
 }) => (
   isImg(cover) &&
   isText(title) &&
   isReleased(released) &&
-  isArrayOfUuids(artists)
+  isArrayOfUuids(artistIds)
 )
 
 export default isAlbum

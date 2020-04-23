@@ -55,16 +55,11 @@ export const GLOBAL_HTTP_HEADERS = {
 
 export const APOLLO_APPLY_OPTIONS = {
   cors: false,
+  debug: true,
   path: "/graphql",
   subscriptions: false,
   bodyParserConfig: false,
 }
-
-export const BUILD_PATH =
-  path.resolve("src", "server", "build")
-
-export const BUILD_ENTRY_PATH =
-  path.join(BUILD_PATH, "index.html")
 
 export const SCHEMA_OPTIONS = {
   id: false,
@@ -92,7 +87,17 @@ export const USER_EMPTY_QUEUE = {
 export const USER_QUEUE_SELECT =
   { prev: 1, current: 1, next: 1, queue: 1 }
 
+export const SERVER_PATH =
+  path.resolve("src", "server")
+
+export const BUILD_PATH =
+  path.resolve(SERVER_PATH, "build")
+
+export const BUILD_ENTRY_PATH =
+  path.join(BUILD_PATH, "index.html")
+
 export const TYPE_DEFS_PATH =
-  path.join("src", "server", "apollo", "typeDefs.graphql")
+  path.join(SERVER_PATH, "apollo", "typeDefs.graphql")
 
-
+export const SQL_FOLER_PATH =
+  path.join(SERVER_PATH, "sql")

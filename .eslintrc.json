@@ -1,13 +1,17 @@
 {
   "extends": [
     "airbnb",
-    "eslint:eslint:recommended"
+    "airbnb/hooks",
+    "eslint:recommended",
+    "plugin:css-modules/recommended"
   ],
   "parser": "babel-eslint",
   "plugins": [
     "react",
-    "import",
-    "react-hooks"
+    "promise",
+    "jsx-a11y",
+    "react-hooks",
+    "css-modules"
   ],
   "env": {
     "es6": true,
@@ -26,6 +30,7 @@
     "no-return-assign": ["off"],
     "arrow-body-style": ["off"],
     "react/jsx-indent": ["off"],
+    "import/extensions": ["off"],
     "no-param-reassign": ["off"],
     "no-nested-ternary": ["off"],
     "no-multi-spaces": ["error"],
@@ -34,10 +39,12 @@
     "no-underscore-dangle": ["off"],
     "prefer-destructuring": ["off"],
     "no-trailing-spaces": ["error"],
+    "no-restricted-syntax": ["off"],
     "array-callback-return": ["off"],
     "react/jsx-tag-spacing": ["off"],
     "object-curly-newline": ["off"],  
     "react/no-children-prop": ["off"],
+    "implicit-arrow-linebreak": ["off"],
     "no-irregular-whitespace": ["error"],
     "react/jsx-boolean-value": ["error"],
     "react/jsx-wrap-multilines": ["off"],
@@ -55,6 +62,7 @@
     "jsx-a11y/click-events-have-key-events": ["off"],
     "jsx-a11y/label-has-associated-control": ["off"],
     "jsx-a11y/control-has-associated-label": ["off"],
-    "no-multiple-empty-lines": ["error", { "max": 1, "maxEOF": 1, "maxBOF": 0 }]
+    "no-multiple-empty-lines": ["error", { "max": 1, "maxEOF": 1, "maxBOF": 0 }],
+    "import/no-extraneous-dependencies": ["error", { "devDependencies": true, "optionalDependencies": false }]
   }
 }

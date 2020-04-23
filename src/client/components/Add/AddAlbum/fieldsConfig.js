@@ -59,7 +59,7 @@ const fieldsConifg = ({ artists }) => [
   {
     id: uniqueId(),
     name: "Artists",
-    short: "artists",
+    short: "artistIds",
     type: "list",
     isDoc: true,
     db: artists,

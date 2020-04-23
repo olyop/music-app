@@ -1,20 +1,20 @@
-const os = require("os")
-const path = require("path")
-const CopyPlugin = require("copy-webpack-plugin")
-const TerserPlugin = require("terser-webpack-plugin")
-const HtmlWebpackPlugin = require("html-webpack-plugin")
-const WriteFilePlugin = require("write-file-webpack-plugin")
-const MiniCssExtractPlugin = require("mini-css-extract-plugin")
-const CompressionPlugin = require("compression-webpack-plugin")
-const LodashModuleReplacementPlugin = require("lodash-webpack-plugin")
-const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin")
+import os from "os"
+import path from "path"
+import CopyPlugin from "copy-webpack-plugin"
+import TerserPlugin from "terser-webpack-plugin"
+import HtmlWebpackPlugin from "html-webpack-plugin"
+import WriteFilePlugin from "write-file-webpack-plugin"
+import MiniCssExtractPlugin from "mini-css-extract-plugin"
+import CompressionPlugin from "compression-webpack-plugin"
+import LodashModuleReplacementPlugin from "lodash-webpack-plugin"
+import OptimizeCssAssetsPlugin from "optimize-css-assets-webpack-plugin"
 
 const srcPath = path.resolve("src")
 const clientPath = path.join(srcPath, "client")
 const serverPath = path.join(srcPath, "server")
 const publicPath = path.join(clientPath, "public")
 
-module.exports = ({ mode }) => {
+const webpackConfig = ({ mode }) => {
   const isProduction = mode === "production"
   return {
     mode,
@@ -26,7 +26,9 @@ module.exports = ({ mode }) => {
     },
     optimization: {
       minimize: isProduction,
-      minimizer: [new TerserPlugin()],
+      minimizer: [
+        new TerserPlugin(),
+      ],
     },
     devServer: {
       port: 8080,
@@ -68,21 +70,25 @@ module.exports = ({ mode }) => {
             {
               loader: "babel-loader",
               options: {
-                presets: ["@babel/react", "@babel/env"],
-                plugins: ["@babel/plugin-proposal-class-properties", "lodash"],
-              } ,
-            },
-            {
-              loader: "eslint-loader",
+                presets: [
+                  "@babel/react",
+                  "@babel/env",
+                ],
+                plugins: [
+                  "@babel/plugin-proposal-optional-chaining",
+                  "@babel/plugin-proposal-class-properties",
+                  "lodash",
+                ],
+              },
             },
           ],
         },
       ],
     },
     plugins: [
-      ...(isProduction ? [new CompressionPlugin()] : []),
-      ...(isProduction ? [new LodashModuleReplacementPlugin()] : []),
-      ...(isProduction ? [new OptimizeCssAssetsPlugin()] : []),
+      ...(isProduction ? [ new CompressionPlugin() ] : []),
+      ...(isProduction ? [ new LodashModuleReplacementPlugin() ] : []),
+      ...(isProduction ? [ new OptimizeCssAssetsPlugin() ] : []),
       new MiniCssExtractPlugin({ filename: "[hash].css" }),
       new HtmlWebpackPlugin({
         template: path.join(publicPath, "index.html"),
@@ -96,10 +102,14 @@ module.exports = ({ mode }) => {
         },
       }),
       new WriteFilePlugin(),
-      new CopyPlugin([{
-        from: path.join(publicPath),
-        to: path.join(serverPath, "build"),
-      }]),
+      new CopyPlugin([
+        {
+          from: path.join(publicPath),
+          to: path.join(serverPath, "build"),
+        },
+      ]),
     ],
   }
 }
+
+export default webpackConfig

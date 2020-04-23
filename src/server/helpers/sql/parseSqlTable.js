@@ -1,5 +1,8 @@
 import map from "lodash/fp/map.js"
-import { pipe, getRowsFromRes, convertToCamelCase } from "../index.js"
+
+import pipe from "../utils/pipe.js"
+import getRowsFromRes from "./getRowsFromRes.js"
+import convertToCamelCase from "./convertToCamelCase.js"
 
 const parseSqlTable = sql => pipe(sql)(
   getRowsFromRes,

@@ -2,13 +2,11 @@ INSERT INTO songs_genres
   (
     song_id,
     genre_id,
-    genre_index,
-    song_genre_id
+    index
   )
 VALUES
   (
-    '{{ songId }}',
-    '{{ genreId }}',
-    {{ genreIndex }},
-    '{{ songGenreId }}'
+    {{ songId }},
+    {{ genreId }},
+    {{ index }}
   );

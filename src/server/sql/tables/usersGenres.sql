@@ -1,11 +1,10 @@
 CREATE TABLE IF NOT EXISTS users_genres (
-  user_genre_id uuid,
-  user_id uuid NOT NULL,
+  user_id uuid,
   genre_id uuid,
   in_library boolean NOT NULL,
   date_created integer NOT NULL,
   CONSTRAINT users_genres_pk
-    PRIMARY KEY (user_genre_id),
+    PRIMARY KEY (user_id, genre_id),
   CONSTRAINT users_genres_fk_genre_id
     FOREIGN KEY (genre_id)
     REFERENCES genres (genre_id) MATCH FULL

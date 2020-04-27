@@ -1,11 +1,10 @@
 CREATE TABLE IF NOT EXISTS playlists_songs (
-  playlist_song_id uuid,
-  playlist_id uuid NOT NULL,
-  song_id uuid NOT NULL,
+  playlist_id uuid,
+  song_id uuid,
   in_playlist boolean NOT NULL,
   date_created integer NOT NULL,
   CONSTRAINT playlists_songs_pk
-    PRIMARY KEY (playlist_song_id),
+    PRIMARY KEY (playlist_id, song_id),
   CONSTRAINT playlists_songs_fk_playlist_id
     FOREIGN KEY (playlist_id)
     REFERENCES playlists (playlist_id) MATCH FULL

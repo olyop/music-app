@@ -1,11 +1,9 @@
 import database from "../../../database/index.js"
-import { USER_EMPTY_QUEUE } from "../../../globals.js"
+import { USER_EMPTY_QUEUE } from "../../../globals/miscellaneous.js"
 
-import {
-  resolver,
-  userSelect,
-  deserializeDocument,
-} from "../../../helpers/index.js"
+import resolver from "../../../helpers/utilities/resolver.js"
+import { userSelect } from "../../../helpers/mongodb/select.js"
+import deserializeDocument from "../../../helpers/mongodb/deserializeDocument.js"
 
 const { Play, User } = database.models
 

@@ -4,10 +4,6 @@
   "explorer.confirmDelete": false,
   "files.autoSave": "onWindowChange",
   "editor.fontFamily": "Liberation Mono, Consolas, 'Courier New', monospace",
-  "files.exclude": {
-    ".vscode/": true,
-    "node_modules/": true,
-  },
   "editor.fontLigatures": true,
   "editor.fontWeight": "600",
   "terminal.integrated.fontWeight": "600",

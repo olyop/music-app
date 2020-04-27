@@ -1,22 +1,39 @@
-import database from "../../../database/index.js"
-import { USER_EMPTY_QUEUE } from "../../../globals.js"
-import { resolver, deserializeDocument } from "../../../helpers/index.js"
+import uuid from "uuid"
+import sqlQuery from "../../../helpers/sql/sqlQuery.js"
+import ApolloServerExpress from "apollo-server-express"
+import isUser from "../../../helpers/validators/isUser.js"
+import sqlParseRow from "../../../helpers/sql/sqlParseRow.js"
+import resolver from "../../../helpers/utilities/resolver.js"
 
-const { User } = database.models
+import { INSERT_USER } from "../../../sql/index.js"
+
+const { UserInputError } = ApolloServerExpress
 
 const addUser = async ({ args }) => {
-  const { name } = args
 
-  const doc = await User.create({
-    name,
-    songs: [],
-    albums: [],
-    artists: [],
-    playlists: [],
-    ...USER_EMPTY_QUEUE,
-  })
+  if (!isUser(args)) {
+    throw new UserInputError("Invalid arguments.")
+  }
 
-  return deserializeDocument(doc.toObject())
+  const userInsert =
+    sqlQuery({
+      query: INSERT_USER,
+      parse: sqlParseRow,
+      variables: [{
+        key: "name",
+        value: args.name,
+        parameterized: true,
+      },{
+        key: "email",
+        value: args.email,
+        parameterized: true,
+      },{
+        key: "userId",
+        value: uuid.v4(),
+      }],
+    })
+
+  return userInsert
 }
 
 export default resolver(addUser)

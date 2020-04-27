@@ -1,57 +1,40 @@
-import s3 from "../../aws/s3.js"
 import isNull from "lodash/isNull.js"
 import isEmpty from "lodash/isEmpty.js"
 import flatten from "lodash/flatten.js"
 import mapValues from "lodash/mapValues.js"
 import database from "../../database/index.js"
+import sqlQuery from "../../helpers/sql/sqlQuery.js"
+import s3GetObject from "../../helpers/s3/s3GetObject.js"
+import resolver from "../../helpers/utilities/resolver.js"
+import toDataUrl from "../../helpers/resolver/toDataUrl.js"
+import sqlParseTable from "../../helpers/sql/sqlParseTable.js"
+import s3CatalogObjectKey from "../../helpers/s3/s3CatalogObjectKey.js"
+import deserializeDocument from "../../helpers/mongodb/deserializeDocument.js"
+import deserializeCollection from "../../helpers/mongodb/deserializeCollection.js"
 
-import {
-  pipe,
-  removeDup,
-  compose,
-  resolver,
-  toDataUrl,
-  parseSqlTable,
-  queryDatabase,
-  albumSelect,
-  playSelect,
-  awsCatalogKey,
-  bodyFromAwsRes,
-  deserializeDocument,
-  deserializeCollection,
-} from "../../helpers/index.js"
+import { SELECT_ARTIST_SONGS } from "../../sql/index.js"
+import { SONG_ARTISTS_FIELDS as fields } from "../../globals/miscellaneous.js"
 
-import {
-  AWS_S3_BUCKET,
-  SONG_ARTISTS_FIELDS as fields,
-} from "../../globals.js"
-
-import {
-  SELECT_ARTIST_SONGS,
-} from "../../sql/index.js"
-
-const {
-  Song,
-  Play,
-  Album,
-  UserArtist,
-} = database.models
+const { Song, Play, Album, UserArtist } = database.models
 
 const photo = async ({ parent, args }) =>
-  compose(
-    await s3.getObject({
-      Bucket: AWS_S3_BUCKET,
-      Key: awsCatalogKey(parent.artistId, args.size),
-    }).promise(),
-    bodyFromAwsRes,
-    toDataUrl,
-  )
+  s3GetObject({
+    parse: toDataUrl,
+    key: s3CatalogObjectKey({
+      id: parent.artistId,
+      size: args.size,
+      format: ".jpg",
+    }),
+  })
 
 const songs = async ({ parent }) =>
-  queryDatabase({
-    parse: parseSqlTable,
+  sqlQuery({
+    parse: sqlParseTable,
     query: SELECT_ARTIST_SONGS,
-    args: { artistId: parent.artistId },
+    variables: [{
+      key: "artistId",
+      value: parent.artistId,
+    }],
   })
 
 const albums = async ({ parent, info }) => {

@@ -15,12 +15,10 @@ const deserializeDocument = ({ _id, ...doc }) => ({
       } else {
         return val
       }
+    } else if (val instanceof ObjectId) {
+      return val.toString()
     } else {
-      if (val instanceof ObjectId) {
-        return val.toString()
-      } else {
-        return val
-      }
+      return val
     }
   }),
 })

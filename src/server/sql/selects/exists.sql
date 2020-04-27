@@ -1,6 +1,8 @@
 SELECT
-  *
+  {{ column }}
 FROM
   {{ table }}
 WHERE
-  {{ column }}
+  {{ column }} = {{ value }}
+LIMIT
+  1;

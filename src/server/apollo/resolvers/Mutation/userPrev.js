@@ -1,12 +1,10 @@
 import database from "../../../database/index.js"
-import { USER_QUEUE_SELECT } from "../../../globals.js"
+import { USER_QUEUE_SELECT } from "../../../globals/miscellaneous.js"
 
-import {
-  resolver,
-  userSelect,
-  determineUserPrev,
-  deserializeDocument,
-} from "../../../helpers/index.js"
+import resolver from "../../../helpers/utilities/resolver.js"
+import { userSelect } from "../../../helpers/mongodb/select.js"
+import determineUserPrev from "../../../helpers/resolver/determineUserPrev.js"
+import deserializeDocument from "../../../helpers/mongodb/deserializeDocument.js"
 
 const { User } = database.models
 

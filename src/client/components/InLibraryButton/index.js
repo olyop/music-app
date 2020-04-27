@@ -1,7 +1,6 @@
 import React, { useContext } from "react"
 
 import Icon from "../Icon"
-import ApiError from "../ApiError"
 import UserContext from "../../contexts/User"
 
 import { useMutation } from "@apollo/react-hooks"
@@ -37,7 +36,7 @@ const InLibraryButton = ({ doc, className }) => {
   })
 
   if (error) {
-    return <ApiError error={error} />
+    return null
   }
 
   const handleClick = () => mutation()

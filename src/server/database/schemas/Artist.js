@@ -1,5 +1,5 @@
 import mongoose from "mongoose"
-import { SCHEMA_OPTIONS } from "../../globals.js"
+import { SCHEMA_CONFIG } from "../../globals/configs.js"
 
 const { Schema } = mongoose
 
@@ -16,6 +16,6 @@ const definition = {
   },
 }
 
-const schema = new Schema(definition, SCHEMA_OPTIONS)
+const schema = new Schema(definition, SCHEMA_CONFIG)
 
 export default schema

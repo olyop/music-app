@@ -80,7 +80,7 @@ type Album {
   dateAdded(userId: ID!): Int
   numOfPlays(userId: ID!): Int
   inLibrary(userId: ID!): Boolean!
-  cover(size: PhotoSize!): String!
+  cover(size: AlbumCoverSizes!): String!
 }
 
 type Artist {
@@ -92,7 +92,7 @@ type Artist {
   dateAdded(userId: ID!): Int
   numOfPlays(userId: ID!): Int
   inLibrary(userId: ID!): Boolean!
-  photo(size: PhotoSize!): String!
+  photo(size: ArtistPhotoSizes!): String!
 }
 
 type Playlist {
@@ -164,6 +164,7 @@ type Mutation {
   ): Artist!
   addUser(
     name: String!
+    email: String!
   ): User!
   addArtist(
     name: String!
@@ -197,8 +198,13 @@ type Mutation {
   ): Playlist!
 }
 
-enum PhotoSize {
-  SMALL
-  MEDIUM
-  LARGE
+enum ArtistPhotoSizes {
+  MINI
+  HALF
+  FULL
+}
+
+enum AlbumCoverSizes {
+  HALF
+  FULL
 }

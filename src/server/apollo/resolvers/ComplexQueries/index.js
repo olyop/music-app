@@ -1,7 +1,7 @@
-import _newAlbums from "./newAlbums.js"
-import _toptenSongs from "./topTenSongs.js"
+import newAlbums from "./newAlbums.js"
+import topTenSongs from "./topTenSongs.js"
 
 export default {
-  newAlbums: _newAlbums,
-  topTenSongs: _toptenSongs,
+  newAlbums,
+  topTenSongs,
 }

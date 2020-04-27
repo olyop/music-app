@@ -1,11 +1,10 @@
 CREATE TABLE IF NOT EXISTS users_songs (
-  user_song_id uuid,
-  user_id uuid NOT NULL,
-  song_id uuid NOT NULL,
+  user_id uuid,
+  song_id uuid,
   in_library boolean NOT NULL,
   date_created integer NOT NULL,
   CONSTRAINT users_songs_pk
-    PRIMARY KEY (user_song_id),
+    PRIMARY KEY (user_id, song_id),
   CONSTRAINT users_songs_fk_song_id
     FOREIGN KEY (song_id)
     REFERENCES songs (song_id) MATCH FULL

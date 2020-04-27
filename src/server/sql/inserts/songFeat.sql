@@ -2,13 +2,11 @@ INSERT INTO songs_featurings
   (
     song_id,
     artist_id,
-    artist_index,
-    song_featuring_id
+    index
   )
 VALUES
   (
-    '{{ songId }}',
-    '{{ artistId }}',
-    {{ artistIndex }},
-    '{{ songFeaturingId }}'
+    {{ songId }},
+    {{ artistId }},
+    {{ index }}
   );

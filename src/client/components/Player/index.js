@@ -4,7 +4,6 @@ import Img from "../Img"
 import Icon from "../Icon"
 import DocLink from "../DocLink"
 import Spinner from "../Spinner"
-import ApiError from "../ApiError"
 import SongTitle from "../SongTitle"
 import UserContext from "../../contexts/User"
 import FeaturingArtists from "../FeaturingArtists"
@@ -33,7 +32,7 @@ const Player = ({ history }) => {
   }
 
   if (!isUndefined(error)) {
-    return <ApiError error={error} />
+    return null
   }
 
   if (isNull(data.user.current)) {

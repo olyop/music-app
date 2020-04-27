@@ -1,10 +1,7 @@
 import database from "../../../database/index.js"
-
-import {
-  resolver,
-  genreSelect,
-  deserializeDocument,
-} from "../../../helpers/index.js"
+import resolver from "../../../helpers/utilities/resolver.js"
+import { genreSelect } from "../../../helpers/mongodb/select.js"
+import deserializeDocument from "../../../helpers/mongodb/deserializeDocument.js"
 
 const { UserGenre, Genre } = database.models
 
@@ -17,9 +14,9 @@ const rmUserGenre = async ({ args, info }) => {
 
   const query =
     Genre.findById(genreId)
-         .select(genreSelect(info))
-         .lean()
-         .exec()
+      .select(genreSelect(info))
+      .lean()
+      .exec()
 
   return deserializeDocument(await query)
 }

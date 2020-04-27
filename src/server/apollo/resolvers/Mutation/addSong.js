@@ -1,15 +1,18 @@
-import {
-  isSong,
-  resolver,
-  isResEmpty,
-  doIdsExist,
-  parseSqlRow,
-  doesIdExist,
-  awsCatalogKey,
-  queryDatabase,
-  uploadFileToS3,
-  uploadFileFromClient,
-} from "../../../helpers/index.js"
+import uuid from "uuid"
+import mp3Duration from "mp3-duration"
+import s3Upload from "../../../helpers/s3/s3Upload.js"
+import ApolloServerExpress from "apollo-server-express"
+import sqlQuery from "../../../helpers/sql/sqlQuery.js"
+import sqlExists from "../../../helpers/sql/sqlExists.js"
+import isSong from "../../../helpers/validators/isSong.js"
+import sqlParseRow from "../../../helpers/sql/sqlParseRow.js"
+import resolver from "../../../helpers/utilities/resolver.js"
+import sqlIsResEmpty from "../../../helpers/sql/sqlIsResEmpty.js"
+import sqlTransaction from "../../../helpers/sql/sqlTransaction.js"
+import s3CatalogObjectKey from "../../../helpers/s3/s3CatalogObjectKey.js"
+import uploadFileFromClient from "../../../helpers/resolver/uploadFileFromClient.js"
+import determineFailedChecks from "../../../helpers/resolver/determineFailedChecks.js"
+import determineChecksResults from "../../../helpers/resolver/determineChecksResults.js"
 
 import {
   INSERT_SONG,
@@ -19,12 +22,6 @@ import {
   INSERT_SONG_REMIXER,
   SELECT_IS_SONG_UNIQUE,
 } from "../../../sql/index.js"
-
-import ApolloServerExpress from "apollo-server-express"
-
-import uuid from "uuid"
-import every from "lodash/every.js"
-import mp3Duration from "mp3-duration"
 
 const { UserInputError } = ApolloServerExpress
 
@@ -36,155 +33,234 @@ const addSong = async ({ args }) => {
     throw new UserInputError("Invalid arguments.")
   }
 
-  const {
-    mix,
-    title,
-    albumId,
-    genreIds,
-    artistIds,
-    remixerIds,
-    discNumber,
-    trackNumber,
-    featuringIds,
-  } = args
+  const checks = [
+    {
+      name: "isUniqueAlbumSong",
+      check: sqlQuery({
+        query: SELECT_IS_SONG_UNIQUE,
+        parse: sqlIsResEmpty,
+        variables: [
+          {
+            key: "title",
+            value: args.title,
+            parameterized: true,
+          },
+          {
+            key: "albumId",
+            value: args.albumId,
+          },
+          {
+            string: false,
+            key: "discNumber",
+            value: args.discNumber,
+          },
+          {
+            string: false,
+            key: "trackNumber",
+            value: args.trackNumber,
+          },
+        ],
+      }),
+    },
+    {
+      name: "doGenresExist",
+      check: sqlExists({
+        table: "genres",
+        column: "genre_id",
+        value: args.genreIds,
+      }),
+    },
+    {
+      name: "doesAlbumExist",
+      check: sqlExists({
+        table: "albums",
+        column: "album_id",
+        value: args.albumId,
+      }),
+    },
+    {
+      name: "doArtistsExist",
+      check: sqlExists({
+        table: "artists",
+        column: "artist_id",
+        value: args.artistIds,
+      }),
+    },
+    {
+      name: "doRemixersExist",
+      check: sqlExists({
+        table: "artists",
+        column: "artist_id",
+        value: args.remixerIds,
+      }),
+    },
+    {
+      name: "doFeaturingExist",
+      check: sqlExists({
+        table: "artists",
+        column: "artist_id",
+        value: args.featuringIds,
+      }),
+    },
+  ]
 
-  const isUniqueAlbumSong =
-    queryDatabase({
-      query: SELECT_IS_SONG_UNIQUE,
-      parse: isResEmpty,
-      variables: {
-        title,
-        albumId,
-        discNumber,
-        trackNumber,
-      },
-    })
+  const checksResults = await determineChecksResults(checks)
 
-  const doGenresExist = doIdsExist(genreIds, "genre_id", "genres")
-  const doesAlbumExist = doesIdExist(albumId, "album_id", "albums")
-  const doArtistsExist = doIdsExist(artistIds, "artist_id", "artists")
-  const doRemixersExist = doIdsExist(remixerIds, "artist_id", "artists")
-  const doFeaturingExist = doIdsExist(featuringIds, "artist_id", "artists")
-
-  const databaseChecks = Promise.all([
-    doGenresExist,
-    doesAlbumExist,
-    doArtistsExist,
-    doRemixersExist,
-    doFeaturingExist,
-    isUniqueAlbumSong,
-  ])
-
-  if (!every(await databaseChecks)) {
-    throw new UserInputError("Database checks failed.")
+  if (!checksResults.every(Boolean)) {
+    const failedChecks = determineFailedChecks(checks, checksResults)
+    throw new UserInputError("Checks failed.", { failedChecks })
   }
 
   const songId = uuid.v4()
-  const duration = Math.ceil(await mp3Duration(audio))
 
-  console.log({
-    mix,
-    title,
-    songId,
-    albumId,
-    genreIds,
-    duration,
-    artistIds,
-    remixerIds,
-    discNumber,
-    trackNumber,
-    featuringIds,
-  })
-
-  const songInsert =
-    queryDatabase({
-      query: INSERT_SONG,
-      parse: parseSqlRow,
-      variables: {
-        mix,
-        title,
-        songId,
-        albumId,
-        duration,
-        discNumber,
-        trackNumber,
+  const insert = {
+    query: INSERT_SONG,
+    parse: sqlParseRow,
+    variables: [
+      {
+        key: "mix",
+        value: args.mix,
+        parameterized: true,
       },
-    })
+      {
+        key: "title",
+        value: args.title,
+        parameterized: true,
+      },
+      {
+        key: "songId",
+        value: songId,
+      },
+      {
+        key: "albumId",
+        value: args.albumId,
+      },
+      {
+        string: false,
+        key: "duration",
+        value: Math.ceil(await mp3Duration(audio)),
+      },
+      {
+        string: false,
+        key: "discNumber",
+        value: args.discNumber,
+      },
+      {
+        string: false,
+        key: "trackNumber",
+        value: args.trackNumber,
+      },
+    ],
+  }
 
-  const songGenresInserts =
-    genreIds.map(
-      (genreId, genreIndex) => (
-        queryDatabase({
-          query: INSERT_SONG_GENRE,
-          variables: {
-            songId,
-            genreId,
-            genreIndex,
-            songGenreId: uuid.v4(),
-          },
-        })
-      ),
-    )
+  const genresInserts = args.genreIds.map(
+    (genreId, index) => ({
+      query: INSERT_SONG_GENRE,
+      variables: [
+        {
+          key: "songId",
+          value: songId,
+        },
+        {
+          key: "genreId",
+          value: genreId,
+        },
+        {
+          value: index,
+          key: "index",
+          string: false,
+        },
+      ],
+    }),
+  )
 
-  const songArtistsInserts =
-    artistIds.map(
-      (artistId, artistIndex) => (
-        queryDatabase({
-          query: INSERT_SONG_ARTIST,
-          variables: {
-            songId,
-            artistId,
-            artistIndex,
-            songArtistId: uuid.v4(),
-          },
-        })
-      ),
-    )
+  const artistsInserts = args.artistIds.map(
+    (artistId, index) => ({
+      query: INSERT_SONG_ARTIST,
+      variables: [
+        {
+          key: "songId",
+          value: songId,
+        },
+        {
+          key: "artistId",
+          value: artistId,
+        },
+        {
+          key: "index",
+          value: index,
+          string: false,
+        },
+      ],
+    }),
+  )
 
-  const songRemixersInserts =
-    remixerIds.map(
-      (artistId, artistIndex) => (
-        queryDatabase({
-          query: INSERT_SONG_REMIXER,
-          variables: {
-            songId,
-            artistId,
-            artistIndex,
-            songRemixerId: uuid.v4(),
-          },
-        })
-      ),
-    )
+  const remixersInserts = args.remixerIds.map(
+    (artistId, index) => ({
+      query: INSERT_SONG_REMIXER,
+      variables: [
+        {
+          key: "songId",
+          value: songId,
+        },
+        {
+          key: "artistId",
+          value: artistId,
+        },
+        {
+          key: "index",
+          value: index,
+          string: false,
+        },
+      ],
+    }),
+  )
 
-  const songFeaturingInserts =
-    featuringIds.map(
-      (artistId, artistIndex) => (
-        queryDatabase({
-          query: INSERT_SONG_FEAT,
-          variables: {
-            songId,
-            artistId,
-            artistIndex,
-            songFeaturingId: uuid.v4(),
-          },
-        })
-      ),
-    )
+  const featuringInserts = args.featuringIds.map(
+    (artistId, index) => ({
+      query: INSERT_SONG_FEAT,
+      variables: [
+        {
+          key: "songId",
+          value: songId,
+        },
+        {
+          key: "artistId",
+          value: artistId,
+        },
+        {
+          key: "index",
+          value: index,
+          string: false,
+        },
+      ],
+    }),
+  )
 
   const audioUpload =
-    uploadFileToS3({ key: awsCatalogKey(songId), file: audio })
+    s3Upload({
+      key: s3CatalogObjectKey({
+        id: songId,
+        size: "FULL",
+        format: "mp3",
+      }),
+      data: audio,
+    })
 
-  const song = await songInsert
-
-  await Promise.all([
-    audioUpload,
-    ...songGenresInserts,
-    ...songArtistsInserts,
-    ...songRemixersInserts,
-    ...songFeaturingInserts,
+  const transaction = sqlTransaction([
+    insert,
+    ...genresInserts,
+    ...artistsInserts,
+    ...remixersInserts,
+    ...featuringInserts,
   ])
 
-  return song
+  const result = await Promise.all([
+    transaction,
+    audioUpload,
+  ])
+
+  return result[0][0]
 }
 
 export default resolver(addSong)

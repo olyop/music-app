@@ -1,22 +1,20 @@
-import {
-  isAlbum,
-  resolver,
-  doIdsExist,
-  parseSqlRow,
-  resizeLarge,
-  resizeMedium,
-  queryDatabase,
-  awsCatalogKey,
-  isColumnUnique,
-  uploadFilesToS3,
-  determineReleased,
-  uploadFileFromClient,
-} from "../../../helpers/index.js"
-
-import ApolloServerExpress from "apollo-server-express"
-
 import uuid from "uuid"
-import every from "lodash/every.js"
+import s3Upload from "../../../helpers/s3/s3Upload.js"
+import ApolloServerExpress from "apollo-server-express"
+import resize from "../../../helpers/resolver/resize.js"
+import sqlExists from "../../../helpers/sql/sqlExists.js"
+import sqlUnique from "../../../helpers/sql/sqlUnique.js"
+import isAlbum from "../../../helpers/validators/isAlbum.js"
+import resolver from "../../../helpers/utilities/resolver.js"
+import sqlParseRow from "../../../helpers/sql/sqlParseRow.js"
+import sqlTransaction from "../../../helpers/sql/sqlTransaction.js"
+import s3CatalogObjectKey from "../../../helpers/s3/s3CatalogObjectKey.js"
+import determineReleased from "../../../helpers/resolver/determineReleased.js"
+import uploadFileFromClient from "../../../helpers/resolver/uploadFileFromClient.js"
+import determineFailedChecks from "../../../helpers/resolver/determineFailedChecks.js"
+import determineChecksResults from "../../../helpers/resolver/determineChecksResults.js"
+
+import { IMAGE_SIZES } from "../../../globals/miscellaneous.js"
 import { INSERT_ALBUM, INSERT_ALBUM_ARTIST } from "../../../sql/index.js"
 
 const { UserInputError } = ApolloServerExpress
@@ -29,67 +27,98 @@ const addAlbum = async ({ args }) => {
     throw new UserInputError("Invalid arguments.")
   }
 
-  const {
-    title,
-    released,
-    artistIds,
-  } = args
+  const checks = [{
+    name: "isAlbumUnique",
+    check: sqlUnique({
+      table: "albums",
+      column: "title",
+      value: args.title,
+    }),
+  },{
+    name: "doArtistsExist",
+    check: sqlExists({
+      table: "artists",
+      column: "artist_id",
+      value: args.artistIds,
+    }),
+  }]
 
-  const isTitleUnique = isColumnUnique("title", title, "albums")
-  const doArtistsExist = doIdsExist(artistIds, "artist_id", "artists")
+  const checksResults = await determineChecksResults(checks)
 
-  const databaseChecks = Promise.all([
-    isTitleUnique,
-    doArtistsExist,
-  ])
-
-  if (!every(await databaseChecks)) {
-    throw new UserInputError("Database checks failed.")
+  if (!checksResults.every(Boolean)) {
+    const failedChecks = determineFailedChecks(checks, checksResults)
+    throw new UserInputError("Checks failed.", { failedChecks })
   }
 
   const albumId = uuid.v4()
 
-  const albumInsert =
-    queryDatabase({
-      query: INSERT_ALBUM,
-      parse: parseSqlRow,
-      variables: {
-        albumId,
-        title,
-        released: determineReleased(released),
-      },
-    })
+  const insert = {
+    query: INSERT_ALBUM,
+    parse: sqlParseRow,
+    variables: [{
+      key: "albumId",
+      value: albumId,
+    },{
+      key: "title",
+      value: args.title,
+      parameterized: true,
+    },{
+      string: false,
+      key: "released",
+      value: determineReleased(args.released),
+    }],
+  }
 
-  const albumArtistsInserts =
-    artistIds.map(
-      (artistId, artistIndex) => (
-        queryDatabase({
-          query: INSERT_ALBUM_ARTIST,
-          variables: {
-            albumId,
-            artistId,
-            artistIndex,
-            albumArtistId: uuid.v4(),
-          },
-        })
-      ),
-    )
+  const artistsInserts = args.artistIds.map(
+    (artistId, index) => ({
+      query: INSERT_ALBUM_ARTIST,
+      variables: [{
+        key: "albumId",
+        value: albumId,
+      },{
+        key: "artistId",
+        value: artistId,
+      },{
+        key: "index",
+        value: index,
+        string: false,
+      }],
+    }),
+  )
 
-  const coversUpload =
-    uploadFilesToS3([
-      { key: awsCatalogKey(albumId, "index"), file: cover },
-      { key: awsCatalogKey(albumId, "large"), file: resizeLarge(cover) },
-      { key: awsCatalogKey(albumId, "medium"), file: resizeMedium(cover) },
-    ])
-
-  const album = await albumInsert
-
-  await Promise.all([
-    ...coversUpload,
-    ...albumArtistsInserts,
+  const transaction = sqlTransaction([
+    insert,
+    ...artistsInserts,
   ])
 
-  return album
+  const coverUploads = [{
+    key: s3CatalogObjectKey({
+      id: albumId,
+      size: "HALF",
+      format: "jpg",
+    }),
+    data: resize({
+      image: cover,
+      dim: IMAGE_SIZES.HALF,
+    }),
+  }, {
+    key: s3CatalogObjectKey({
+      id: albumId,
+      size: "FULL",
+      format: "jpg",
+    }),
+    data: resize({
+      image: cover,
+      dim: IMAGE_SIZES.FULL,
+    }),
+  }]
+
+  const result = await Promise.all([
+    transaction,
+    ...coverUploads.map(s3Upload),
+  ])
+
+  return result[0][0]
 }
 
 export default resolver(addAlbum)

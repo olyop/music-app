@@ -8,4 +8,4 @@ SELECT
 FROM
   songs
 WHERE
-  song_id = '{{ songId }}';
+  song_id = {{ songId }};

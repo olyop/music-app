@@ -9,6 +9,6 @@ SELECT
 FROM
   songs
 WHERE
-  album_id = :album_id
+  album_id = {{ albumId }}
 ORDER BY
   title ASC;

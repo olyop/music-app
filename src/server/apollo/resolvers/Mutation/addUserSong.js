@@ -1,10 +1,7 @@
 import database from "../../../database/index.js"
-
-import {
-  resolver,
-  songSelect,
-  deserializeDocument,
-} from "../../../helpers/index.js"
+import resolver from "../../../helpers/utilities/resolver.js"
+import { songSelect } from "../../../helpers/mongodb/select.js"
+import deserializeDocument from "../../../helpers/mongodb/deserializeDocument.js"
 
 const { UserSong, Song } = database.models
 
@@ -22,9 +19,9 @@ const addUserSong = async ({ args, info }) => {
 
   const query =
     Song.findById(songId)
-        .select(songSelect(info))
-        .lean()
-        .exec()
+      .select(songSelect(info))
+      .lean()
+      .exec()
 
   return deserializeDocument(await query)
 }

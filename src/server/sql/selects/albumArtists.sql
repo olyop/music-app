@@ -1,11 +1,12 @@
 SELECT
-  album_artist_id,
-  album_id,
-  artist_id,
-  artist_index
+  b.name,
+  a.artist_id,
+  a.index
 FROM
-  albums_artists
+  albums_artists AS a
+JOIN
+  artists AS b
+  ON
+    a.artist_id = b.artist_id
 WHERE
-  album_id = album_id
-ORDER BY
-  artist_index ASC;
+  a.album_id = {{ albumId }};

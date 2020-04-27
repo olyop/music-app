@@ -5,4 +5,4 @@ SELECT
 FROM
   users
 WHERE
-  user_id = '{{ userId }}';
+  user_id = {{ userId }};

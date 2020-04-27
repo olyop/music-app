@@ -2,7 +2,6 @@ import React from "react"
 
 import Form from "../../Form"
 import Spinner from "../../Spinner"
-import ApiError from "../../ApiError"
 
 import { isUndefined } from "lodash"
 import fieldsConfig from "./fieldsConfig"
@@ -17,7 +16,7 @@ const AddSong = () => {
   if (loading) {
     return <Spinner/>
   } else if (!isUndefined(error)) {
-    return <ApiError/>
+    return null
   } else {
     return (
       <Form

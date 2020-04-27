@@ -1,10 +1,9 @@
 CREATE TABLE IF NOT EXISTS users_nexts (
-  user_next_id uuid,
-  user_id uuid NOT NULL,
-  song_id uuid NOT NULL,
-  song_index integer NOT NULL,
+  user_id uuid,
+  song_id uuid,
+  index smallint,
   CONSTRAINT users_nexts_pk
-    PRIMARY KEY (user_next_id),
+    PRIMARY KEY (user_id, song_id, index),
   CONSTRAINT users_nexts_fk_song_id
     FOREIGN KEY (song_id)
     REFERENCES songs (song_id) MATCH FULL
@@ -15,6 +14,6 @@ CREATE TABLE IF NOT EXISTS users_nexts (
     REFERENCES users (user_id) MATCH FULL
     ON UPDATE CASCADE
     ON DELETE CASCADE,
-  CONSTRAINT users_nexts_check_song_index
-    CHECK (song_index >= 0)
+  CONSTRAINT users_nexts_check_index
+    CHECK (index >= 0)
 );

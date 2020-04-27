@@ -1,6 +1,6 @@
 import keys from "lodash/keys.js"
 import map from "lodash/fp/map.js"
-import pipe from "../utils/pipe.js"
+import pipe from "../utilities/pipe.js"
 import filter from "lodash/fp/filter.js"
 import reduce from "lodash/fp/reduce.js"
 import includes from "lodash/includes.js"
@@ -24,7 +24,7 @@ const select = Model => {
   return (info, includeFields = []) => {
     return pipe(graphqlFields(info))(
       keys,
-      map(field => field === "id" ? "_id" : field),
+      map(field => (field === "id" ? "_id" : field)),
       filter(field => includes(topFields, field)),
       concatFp(includeFields),
       filter(field => field !== "_id"),

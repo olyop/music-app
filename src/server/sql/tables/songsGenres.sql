@@ -1,10 +1,9 @@
 CREATE TABLE IF NOT EXISTS songs_genres (
-  song_genre_id uuid,
-  song_id uuid NOT NULL,
-  genre_id uuid NOT NULL,
-  genre_index smallint NOT NULL,
+  song_id uuid,
+  genre_id uuid,
+  index smallint,
   CONSTRAINT songs_genres_pk
-    PRIMARY KEY (song_genre_id),
+    PRIMARY KEY (song_id, genre_id, index),
   CONSTRAINT songs_genres_fk_genre_id
     FOREIGN KEY (genre_id)
     REFERENCES genres (genre_id) MATCH FULL
@@ -15,6 +14,6 @@ CREATE TABLE IF NOT EXISTS songs_genres (
     REFERENCES songs (song_id) MATCH FULL
     ON UPDATE CASCADE
     ON DELETE CASCADE,
-  CONSTRAINT songs_genres_check_genre_index
-    CHECK (genre_index >= 0)
+  CONSTRAINT songs_genres_check_index
+    CHECK (index >= 0)
 );

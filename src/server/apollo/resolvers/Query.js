@@ -13,109 +13,130 @@ import {
   SELECT_PLAYLISTS,
 } from "../../sql/index.js"
 
-import {
-  resolver,
-  parseSqlRow,
-  parseSqlTable,
-  queryDatabase,
-} from "../../helpers/index.js"
-
 import mapValues from "lodash/mapValues.js"
+import sqlQuery from "../../helpers/sql/sqlQuery.js"
 import complexQueries from "./complexQueries/index.js"
+import resolver from "../../helpers/utilities/resolver.js"
+import sqlParseRow from "../../helpers/sql/sqlParseRow.js"
+import sqlParseTable from "../../helpers/sql/sqlParseTable.js"
 
 const songs = async () =>
-  queryDatabase({
+  sqlQuery({
     query: SELECT_SONGS,
-    parse: parseSqlTable,
+    parse: sqlParseTable,
   })
 
 const albums = async () =>
-  queryDatabase({
+  sqlQuery({
     query: SELECT_ALBUMS,
-    parse: parseSqlTable,
+    parse: sqlParseTable,
   })
 
 const genres = async () =>
-  queryDatabase({
+  sqlQuery({
     query: SELECT_GENRES,
-    parse: parseSqlTable,
+    parse: sqlParseTable,
   })
 
 const artists = async () =>
-  queryDatabase({
+  sqlQuery({
     query: SELECT_ARTISTS,
-    parse: parseSqlTable,
+    parse: sqlParseTable,
   })
 
 const playlists = async () =>
-  queryDatabase({
+  sqlQuery({
     query: SELECT_PLAYLISTS,
-    parse: parseSqlTable,
+    parse: sqlParseTable,
   })
 
 const user = async ({ args }) =>
-  queryDatabase({
+  sqlQuery({
     query: SELECT_USER,
-    parse: parseSqlRow,
-    args: { userId: args.userId },
+    parse: sqlParseRow,
+    variables: [{
+      key: "userId",
+      value: args.userId,
+    }],
   })
 
 const play = async ({ args }) =>
-  queryDatabase({
+  sqlQuery({
     query: SELECT_PLAY,
-    parse: parseSqlRow,
-    args: { playId: args.playId },
+    parse: sqlParseRow,
+    variables: [{
+      key: "playId",
+      value: args.playId,
+    }],
   })
 
 const song = async ({ args }) =>
-  queryDatabase({
+  sqlQuery({
     query: SELECT_SONG,
-    parse: parseSqlRow,
-    args: { songId: args.songId },
+    parse: sqlParseRow,
+    variables: [{
+      key: "songId",
+      value: args.songId,
+    }],
   })
 
 const album = async ({ args }) =>
-  queryDatabase({
+  sqlQuery({
     query: SELECT_ALBUM,
     parse: parseSqlRow,
-    args: { albumId: args.albumId },
+    variables: [{
+      key: "albumId",
+      value: args.albumId,
+    }],
   })
 
 const genre = async ({ args }) =>
-  queryDatabase({
+  sqlQuery({
     query: SELECT_GENRE,
-    parse: parseSqlRow,
-    args: { genreId: args.genreId },
+    parse: sqlParseRow,
+    variables: [{
+      key: "genreId",
+      value: args.genreId,
+    }],
   })
 
 const artist = async ({ args }) =>
-  queryDatabase({
+  sqlQuery({
     query: SELECT_ARTIST,
-    parse: parseSqlRow,
-    args: { artistId: args.artistId },
+    parse: sqlParseRow,
+    variables: [{
+      key: "artistId",
+      value: args.artistId,
+    }],
   })
 
 const playlist = async ({ args }) =>
-  queryDatabase({
+  sqlQuery({
     query: SELECT_PLAYLIST,
-    parse: parseSqlRow,
-    args: { playlistId: args.playlistId },
+    parse: sqlParseRow,
+    variables: [{
+      key: "playlistId",
+      value: args.playlistId,
+    }],
   })
 
-const queryResolver = mapValues({
-  user,
-  play,
-  song,
-  songs,
-  album,
-  genre,
-  albums,
-  genres,
-  artist,
-  artists,
-  playlist,
-  playlists,
-  ...complexQueries,
-}, resolver)
+const queryResolver = mapValues(
+  {
+    user,
+    play,
+    song,
+    songs,
+    album,
+    genre,
+    albums,
+    genres,
+    artist,
+    artists,
+    playlist,
+    playlists,
+    ...complexQueries,
+  },
+  resolver,
+)
 
 export default queryResolver

@@ -2,7 +2,7 @@ CREATE TABLE IF NOT EXISTS songs_featurings (
   song_featuring_id uuid,
   song_id uuid NOT NULL,
   artist_id uuid NOT NULL,
-  artist_index smallint NOT NULL,
+  index smallint NOT NULL,
   CONSTRAINT songs_featurings_pk
     PRIMARY KEY (song_featuring_id),
   CONSTRAINT songs_featurings_fk_artist_id
@@ -15,6 +15,6 @@ CREATE TABLE IF NOT EXISTS songs_featurings (
     REFERENCES songs (song_id) MATCH FULL
     ON UPDATE CASCADE
     ON DELETE CASCADE,
-  CONSTRAINT songs_featurings_check_artist_index
-    CHECK (artist_index >= 0)
+  CONSTRAINT songs_featurings_check_index
+    CHECK (index >= 0)
 );

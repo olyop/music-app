@@ -1,5 +1,5 @@
-import { request } from "../helpers/index.js"
-import { GLOBAL_HTTP_HEADERS } from "../globals.js"
+import request from "../helpers/utilities/request.js"
+import { GLOBAL_HTTP_HEADERS } from "../globals/miscellaneous.js"
 
 const globalHeaders = ({ res, nxt }) => {
   res.set(GLOBAL_HTTP_HEADERS)

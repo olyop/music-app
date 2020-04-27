@@ -2,6 +2,7 @@ CREATE TABLE IF NOT EXISTS users (
 	user_id uuid,
 	name text NOT NULL,
 	current uuid,
+	email text NOT NULL,
 	date_created integer NOT NULL,
 	CONSTRAINT users_pk
 		PRIMARY KEY (user_id),

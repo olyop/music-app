@@ -5,8 +5,8 @@ INSERT INTO artists
   )
 VALUES
   (
-    '{{ artistId }}',
-    '{{ name }}'
+    {{ artistId }},
+    {{ name }}
   )
 RETURNING
   artist_id,

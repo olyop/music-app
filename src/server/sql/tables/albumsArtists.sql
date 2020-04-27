@@ -1,10 +1,9 @@
 CREATE TABLE IF NOT EXISTS albums_artists (
-  album_artist_id uuid,
-  album_id uuid NOT NULL,
-  artist_id uuid NOT NULL,
-  artist_index smallint NOT NULL,
+  album_id uuid,
+  artist_id uuid,
+  index smallint,
   CONSTRAINT albums_artists_pk
-    PRIMARY KEY (album_artist_id),
+    PRIMARY KEY (album_id, artist_id, index),
   CONSTRAINT albums_artists_fk_album_id
     FOREIGN KEY (album_id)
     REFERENCES albums (album_id) MATCH FULL
@@ -15,6 +14,6 @@ CREATE TABLE IF NOT EXISTS albums_artists (
     REFERENCES artists (artist_id) MATCH FULL
     ON UPDATE CASCADE
     ON DELETE CASCADE,
-  CONSTRAINT albums_artists_check_artist_index
-    CHECK (artist_index >= 0)
+  CONSTRAINT albums_artists_check_index
+    CHECK (index >= 0)
 );

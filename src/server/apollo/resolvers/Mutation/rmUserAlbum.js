@@ -1,10 +1,7 @@
 import database from "../../../database/index.js"
-
-import {
-  resolver,
-  albumSelect,
-  deserializeDocument,
-} from "../../../helpers/index.js"
+import resolver from "../../../helpers/utilities/resolver.js"
+import { albumSelect } from "../../../helpers/mongodb/select.js"
+import deserializeDocument from "../../../helpers/mongodb/deserializeDocument.js"
 
 const { UserAlbum, Album } = database.models
 
@@ -17,9 +14,9 @@ const rmUserAlbum = async ({ args, info }) => {
 
   const query =
     Album.findById(albumId)
-         .select(albumSelect(info))
-         .lean()
-         .exec()
+      .select(albumSelect(info))
+      .lean()
+      .exec()
 
   return deserializeDocument(await query)
 }

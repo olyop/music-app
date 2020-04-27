@@ -1,10 +1,9 @@
 CREATE TABLE IF NOT EXISTS songs_remixers (
-  song_remixer_id uuid,
-  song_id uuid NOT NULL,
-  artist_id uuid NOT NULL,
-  artist_index smallint NOT NULL,
+  song_id uuid,
+  artist_id uuid,
+  index smallint,
   CONSTRAINT songs_remixers_pk
-    PRIMARY KEY (song_remixer_id),
+    PRIMARY KEY (song_id, artist_id, index),
   CONSTRAINT songs_remixers_fk_artist_id
     FOREIGN KEY (artist_id)
     REFERENCES artists (artist_id) MATCH FULL
@@ -15,6 +14,6 @@ CREATE TABLE IF NOT EXISTS songs_remixers (
     REFERENCES songs (song_id) MATCH FULL
     ON UPDATE CASCADE
     ON DELETE CASCADE,
-  CONSTRAINT songs_remixers_check_artist_index
-    CHECK (artist_index >= 0)
+  CONSTRAINT songs_remixers_check_index
+    CHECK (index >= 0)
 );

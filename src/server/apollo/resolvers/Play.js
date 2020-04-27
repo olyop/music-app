@@ -1,11 +1,6 @@
 import database from "../../database/index.js"
-
-import {
-  resolver,
-  userSelect,
-  songSelect,
-  deserializeDocument,
-} from "../../helpers/index.js"
+import resolver from "../../helpers/utilities/resolver.js"
+import deserializeDocument from "../../helpers/mongodb/deserializeDocument.js"
 
 const { User, Song } = database.models
 

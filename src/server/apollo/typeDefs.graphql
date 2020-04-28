@@ -1,3 +1,6 @@
+scalar Uuid
+scalar Email
+
 type Query {
   # database queries
   songs: [Song!]!
@@ -5,13 +8,13 @@ type Query {
   genres: [Genre!]!
   artists: [Artist!]!
   playlists: [Playlist!]!
-  user(userId: ID!): User!
-  play(playId: ID!): Play!
-  song(songId: ID!): Song!
-  album(albumId: ID!): Album!
-  genre(genreId: ID!): Genre!
-  artist(artistId: ID!): Artist!
-  playlist(playlistId: ID!): Playlist!
+  user(userId: Uuid!): User!
+  play(playId: Uuid!): Play!
+  song(songId: Uuid!): Song!
+  album(albumId: Uuid!): Album!
+  genre(genreId: Uuid!): Genre!
+  artist(artistId: Uuid!): Artist!
+  playlist(playlistId: Uuid!): Playlist!
 
   # complex queries
   newAlbums: [Album!]!
@@ -19,7 +22,8 @@ type Query {
 }
 
 type User {
-  userId: ID!
+  userId: Uuid!
+  email: Email!
   name: String!
   current: Song
   prev: [Song!]!
@@ -34,15 +38,15 @@ type User {
 }
 
 type Play {
-  playId: ID!
+  playId: Uuid!
   user: User!
   song: Song!
   dateCreated: Int!
 }
 
 type Song {
-  songId: ID!
   mix: String!
+  songId: Uuid!
   album: Album!
   title: String!
   duration: Int!
@@ -52,119 +56,114 @@ type Song {
   artists: [Artist!]!
   remixers: [Artist!]!
   featuring: [Artist!]!
-  plays(userId: ID!): [Play!]
-  dateAdded(userId: ID!): Int
-  numOfPlays(userId: ID!): Int
-  inLibrary(userId: ID!): Boolean!
-  isCurrent(userId: ID!): Boolean!
-  dateAddedToPlaylist(playlistid: ID!): Int
+  plays(userId: Uuid!): [Play!]
+  dateAdded(userId: Uuid!): Int
+  inLibrary(userId: Uuid!): Boolean!
+  isCurrent(userId: Uuid!): Boolean!
+  dateAddedToPlaylist(playlistid: Uuid!): Int
 }
 
 type Genre {
-  genreId: ID!
   name: String!
+  genreId: Uuid!
   songs: [Song!]!
-  plays(userId: ID!): [Play!]
-  dateAdded(userId: ID!): Int
-  numOfPlays(userId: ID!): Int
-  inLibrary(userId: ID!): Boolean!
+  plays(userId: Uuid!): [Play!]
+  dateAdded(userId: Uuid!): Int
+  inLibrary(userId: Uuid!): Boolean!
 }
 
 type Album {
-  albumId: ID!
+  albumId: Uuid!
   title: String!
   released: Int!
   songs: [Song!]!
   artists: [Artist!]!
-  plays(userId: ID!): [Play!]
-  dateAdded(userId: ID!): Int
-  numOfPlays(userId: ID!): Int
-  inLibrary(userId: ID!): Boolean!
+  plays(userId: Uuid!): [Play!]
+  dateAdded(userId: Uuid!): Int
+  inLibrary(userId: Uuid!): Boolean!
   cover(size: AlbumCoverSizes!): String!
 }
 
 type Artist {
-  artistId: ID!
   name: String!
+  artistId: Uuid!
   songs: [Song!]!
   albums: [Album!]!
-  plays(userId: ID!): [Play!]
-  dateAdded(userId: ID!): Int
-  numOfPlays(userId: ID!): Int
-  inLibrary(userId: ID!): Boolean!
+  plays(userId: Uuid!): [Play!]
+  dateAdded(userId: Uuid!): Int
+  inLibrary(userId: Uuid!): Boolean!
   photo(size: ArtistPhotoSizes!): String!
 }
 
 type Playlist {
   user: User!
   name: String!
-  playlistId: ID!
   songs: [Song!]!
+  playlistId: Uuid!
   dateCreated: Int!
-  plays(userId: ID!): [Play!]
-  dateAdded(userId: ID!): Int
-  numOfPlays(userId: ID!): Int
-  inLibrary(userId: ID!): Boolean!
+  plays(userId: Uuid!): [Play!]
+  dateAdded(userId: Uuid!): Int
+  inLibrary(userId: Uuid!): Boolean!
 }
 
 type Mutation {
   userPrev(
-    userId: ID!
+    userId: Uuid!
   ): User!
   userPlay(
-    userId: ID!
-    songId: ID!
+    userId: Uuid!
+    songId: Uuid!
   ): User!
   userNext(
-    userId: ID!
+    userId: Uuid!
   ): User!
   userAddSongNext(
-    userId: ID!
-    songId: ID!
+    userId: Uuid!
+    songId: Uuid!
   ): User!
   userAddSongLater(
-    userId: ID!
-    songId: ID!
+    userId: Uuid!
+    songId: Uuid!
   ): User!
   userAddSongQueue(
-    userId: ID!
-    songId: ID!
+    userId: Uuid!
+    songId: Uuid!
   ): User!
   addUserSong(
-    userId: ID!
-    songId: ID!
+    userId: Uuid!
+    songId: Uuid!
   ): Song!
   addUserAlbum(
-    userId: ID!
-    albumId: ID!
+    userId: Uuid!
+    albumId: Uuid!
   ): Album!
   addUserGenre(
-    userId: ID!
-    genreId: ID!
+    userId: Uuid!
+    genreId: Uuid!
   ): Genre!
   addUserArtist(
-    userId: ID!
-    artistId: ID!
+    userId: Uuid!
+    artistId: Uuid!
   ): Artist!
   rmUserSong(
-    userId: ID!
-    songId: ID!
+    userId: Uuid!
+    songId: Uuid!
   ): Song!
   rmUserAlbum(
-    userId: ID!
-    albumId: ID!
+    userId: Uuid!
+    albumId: Uuid!
   ): Album!
   rmUserGenre(
-    userId: ID!
-    genreId: ID!
+    userId: Uuid!
+    genreId: Uuid!
   ): Genre!
   rmUserArtist(
-    userId: ID!
-    artistId: ID!
+    userId: Uuid!
+    artistId: Uuid!
   ): Artist!
   addUser(
     name: String!
-    email: String!
+    email: Email!
   ): User!
   addArtist(
     name: String!
@@ -176,25 +175,25 @@ type Mutation {
   addAlbum(
     title: String!
     cover: Upload!
-    artistIds: [ID!]!
+    artistIds: [Uuid!]!
     released: String!
   ): Album!
   addSong(
     mix: String!
-    albumId: ID!
+    albumId: Uuid!
     title: String!
     audio: Upload!
-    genreIds: [ID!]!
+    genreIds: [Uuid!]!
     discNumber: Int!
-    artistIds: [ID!]!
+    artistIds: [Uuid!]!
     trackNumber: Int!
-    remixerIds: [ID!]!
-    featuringIds: [ID!]!
+    remixerIds: [Uuid!]!
+    featuringIds: [Uuid!]!
   ): Song!
   addPlaylist(
-    user: ID!
+    user: Uuid!
     name: String!
-    songs: [ID!]!
+    songs: [Uuid!]!
   ): Playlist!
 }
 

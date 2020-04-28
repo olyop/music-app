@@ -9,4 +9,6 @@ JOIN
   ON
     a.artist_id = b.artist_id
 WHERE
-  a.album_id = {{ albumId }};
+  a.album_id = {{ albumId }}
+ORDER BY
+  index ASC;

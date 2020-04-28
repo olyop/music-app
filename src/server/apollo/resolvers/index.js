@@ -8,7 +8,15 @@ import Artist from "./Artist.js"
 import Playlist from "./Playlist.js"
 import Mutation from "./Mutation/index.js"
 
-export default {
+import Uuid from "./customScalars/Uuid.js"
+import Email from "./customScalars/Email.js"
+
+const customScalars = {
+  Uuid,
+  Email,
+}
+
+const appInterfaces = {
   Play,
   User,
   Song,
@@ -20,3 +28,9 @@ export default {
   Mutation,
 }
 
+const resolvers = {
+  ...customScalars,
+  ...appInterfaces,
+}
+
+export default resolvers

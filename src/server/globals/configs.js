@@ -38,13 +38,13 @@ export const APOLLO_APPLY_CONFIG = {
   bodyParserConfig: false,
 }
 
+export const APOLLO_SERVER_CONFIG = {
+  playground: false,
+  introspection: true,
+}
+
 export const SCHEMA_CONFIG = {
   id: false,
   versionKey: false,
   timestamps: false,
-}
-
-export const APOLLO_SERVER_CONFIG = {
-  playground: false,
-  introspection: true,
 }

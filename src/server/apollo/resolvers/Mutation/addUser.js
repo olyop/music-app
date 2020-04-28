@@ -15,7 +15,7 @@ const addUser = async ({ args }) => {
     throw new UserInputError("Invalid arguments.")
   }
 
-  const userInsert =
+  const insert =
     sqlQuery({
       query: INSERT_USER,
       parse: sqlParseRow,
@@ -33,7 +33,7 @@ const addUser = async ({ args }) => {
       }],
     })
 
-  return userInsert
+  return insert
 }
 
 export default resolver(addUser)

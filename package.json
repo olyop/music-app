@@ -8,8 +8,8 @@
   "scripts": {
     "delete-build": "rm -r -f src/server/build",
     "sync": "git checkout . && git remote update && git pull",
-    "server": "clear && node --require dotenv/config src/server/index.js",
-    "dev-server": "node_modules/.bin/nodemon -r dotenv/config src/server/index.js",
+    "server": "clear && node --no-warnings -r dotenv/config src/server/index.js",
+    "dev-server": "node_modules/.bin/nodemon --no-warnings -r dotenv/config src/server/index.js",
     "dev-client": "node_modules/.bin/webpack-dev-server --config webpack.config.cjs -r dotenv/config --env.mode development",
     "push": "clear && git status && git add -A && git commit -m \"Update\" && git push -u origin master && exit",
     "build": "npm run delete-build && clear && \"node_modules/.bin/webpack\" --config webpack.config.cjs --env.mode production",
@@ -118,7 +118,6 @@
     "sharp": "^0.25.2",
     "terser-webpack-plugin": "^2.3.6",
     "uuid": "^7.0.3",
-    "uuid-validate": "0.0.3",
     "validator": "^13.0.0"
   }
 }

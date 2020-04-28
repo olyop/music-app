@@ -69,8 +69,8 @@ module.exports = ({ mode }) => {
             loader: "babel-loader",
             options: {
               presets: [
-                "@babel/react",
-                "@babel/env",
+                ["@babel/react", { development: !isProduction }],
+                ["@babel/env", { targets: "last 2 versions" }],
               ],
               plugins: [
                 "@babel/plugin-proposal-optional-chaining",

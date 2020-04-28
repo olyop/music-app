@@ -1,21 +1,27 @@
 import isNull from "lodash/isNull.js"
 import isEmpty from "lodash/isEmpty.js"
 import flatten from "lodash/flatten.js"
-import mapValues from "lodash/mapValues.js"
 import database from "../../database/index.js"
+import pipe from "../../helpers/utilities/pipe.js"
 import sqlQuery from "../../helpers/sql/sqlQuery.js"
 import s3GetObject from "../../helpers/s3/s3GetObject.js"
-import resolver from "../../helpers/utilities/resolver.js"
+import removeDup from "../../helpers/mongodb/removeDup.js"
 import toDataUrl from "../../helpers/resolver/toDataUrl.js"
+import { playSelect } from "../../helpers/mongodb/select.js"
 import sqlParseTable from "../../helpers/sql/sqlParseTable.js"
+import mapResolver from "../../helpers/utilities/mapResolver.js"
 import s3CatalogObjectKey from "../../helpers/s3/s3CatalogObjectKey.js"
 import deserializeDocument from "../../helpers/mongodb/deserializeDocument.js"
 import deserializeCollection from "../../helpers/mongodb/deserializeCollection.js"
 
-import { SELECT_ARTIST_SONGS } from "../../sql/index.js"
 import { SONG_ARTISTS_FIELDS as fields } from "../../globals/miscellaneous.js"
 
-const { Song, Play, Album, UserArtist } = database.models
+import {
+  SELECT_ARTIST_SONGS,
+  SELECT_ARTIST_ALBUMS,
+} from "../../sql/index.js"
+
+const { Song, Play, UserArtist } = database.models
 
 const photo = async ({ parent, args }) =>
   s3GetObject({
@@ -29,25 +35,23 @@ const photo = async ({ parent, args }) =>
 
 const songs = async ({ parent }) =>
   sqlQuery({
-    parse: sqlParseTable,
     query: SELECT_ARTIST_SONGS,
+    parse: sqlParseTable,
     variables: [{
       key: "artistId",
       value: parent.artistId,
     }],
   })
 
-const albums = async ({ parent, info }) => {
-  const { id: artistId } = parent
-
-  const query =
-    Album.find({ artists: artistId })
-      .select(albumSelect(info))
-      .lean()
-      .exec()
-
-  return deserializeCollection(await query)
-}
+const albums = async ({ parent }) =>
+  sqlQuery({
+    query: SELECT_ARTIST_ALBUMS,
+    parse: sqlParseTable,
+    variables: [{
+      key: "artistId",
+      value: parent.artistId,
+    }],
+  })
 
 const plays = async ({ parent, args, info }) => {
   const { userId } = args
@@ -61,13 +65,13 @@ const plays = async ({ parent, args, info }) => {
 
   const songsQueries = Promise.all(fields.map(songsQuery))
 
-  const _songs = pipe(await songsQueries)(
+  const ssongs = pipe(await songsQueries)(
     flatten,
     deserializeCollection,
     removeDup,
   )
 
-  const songsId = _songs.map(({ id }) => id)
+  const songsId = ssongs.map(({ id }) => id)
 
   const playQuery =
     Play.find({ user: userId, song: songsId })
@@ -75,9 +79,9 @@ const plays = async ({ parent, args, info }) => {
       .lean()
       .exec()
 
-  const _plays = deserializeCollection(await playQuery)
+  const pplays = deserializeCollection(await playQuery)
 
-  if (isEmpty(_plays)) {
+  if (isEmpty(pplays)) {
     return null
   } else {
     return plays
@@ -100,34 +104,6 @@ const dateAdded = async ({ args, parent }) => {
     return null
   } else {
     return deserializeDocument(userArtist).dateCreated
-  }
-}
-
-const numOfPlays = async ({ parent, args, info }) => {
-  const { userId } = args
-  const { id: artistId } = parent
-
-  const songsQuery =
-    Song.find({ artist: artistId })
-      .select({ _id: 1 })
-      .lean()
-      .exec()
-
-  const _songs = deserializeCollection(await songsQuery)
-  const songsId = _songs.map(({ id }) => id)
-
-  const playQuery =
-    Play.find({ user: userId, song: songsId })
-      .select(playSelect(info))
-      .lean()
-      .exec()
-
-  const _plays = deserializeCollection(await playQuery)
-
-  if (isEmpty(_plays)) {
-    return null
-  } else {
-    return _plays.length
   }
 }
 
@@ -154,14 +130,11 @@ const inLibrary = async ({ parent, args }) => {
   }
 }
 
-const artistResolver = mapValues({
+export default mapResolver({
   photo,
   songs,
   plays,
   albums,
   dateAdded,
   inLibrary,
-  numOfPlays,
-}, resolver)
-
-export default artistResolver
+})

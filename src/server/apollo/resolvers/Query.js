@@ -16,6 +16,7 @@ import {
 import mapValues from "lodash/mapValues.js"
 import sqlQuery from "../../helpers/sql/sqlQuery.js"
 import complexQueries from "./complexQueries/index.js"
+import isUuid from "../../helpers/validators/isUuid.js"
 import resolver from "../../helpers/utilities/resolver.js"
 import sqlParseRow from "../../helpers/sql/sqlParseRow.js"
 import sqlParseTable from "../../helpers/sql/sqlParseTable.js"
@@ -56,6 +57,7 @@ const user = async ({ args }) =>
     parse: sqlParseRow,
     variables: [{
       key: "userId",
+      check: isUuid,
       value: args.userId,
     }],
   })
@@ -66,6 +68,7 @@ const play = async ({ args }) =>
     parse: sqlParseRow,
     variables: [{
       key: "playId",
+      check: isUuid,
       value: args.playId,
     }],
   })
@@ -76,6 +79,7 @@ const song = async ({ args }) =>
     parse: sqlParseRow,
     variables: [{
       key: "songId",
+      check: isUuid,
       value: args.songId,
     }],
   })
@@ -83,8 +87,9 @@ const song = async ({ args }) =>
 const album = async ({ args }) =>
   sqlQuery({
     query: SELECT_ALBUM,
-    parse: parseSqlRow,
+    parse: sqlParseRow,
     variables: [{
+      check: isUuid,
       key: "albumId",
       value: args.albumId,
     }],
@@ -95,6 +100,7 @@ const genre = async ({ args }) =>
     query: SELECT_GENRE,
     parse: sqlParseRow,
     variables: [{
+      check: isUuid,
       key: "genreId",
       value: args.genreId,
     }],
@@ -105,6 +111,7 @@ const artist = async ({ args }) =>
     query: SELECT_ARTIST,
     parse: sqlParseRow,
     variables: [{
+      check: isUuid,
       key: "artistId",
       value: args.artistId,
     }],
@@ -115,6 +122,7 @@ const playlist = async ({ args }) =>
     query: SELECT_PLAYLIST,
     parse: sqlParseRow,
     variables: [{
+      check: isUuid,
       key: "playlistId",
       value: args.playlistId,
     }],

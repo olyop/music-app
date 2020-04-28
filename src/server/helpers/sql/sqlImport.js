@@ -1,6 +1,7 @@
 import fs from "fs"
 
 import uniq from "lodash/uniq.js"
+import identity from "lodash/identity.js"
 
 const getVariableKeys = sql => {
   const keys = []
@@ -34,7 +35,7 @@ const getVariableKeys = sql => {
   return uniq(keys)
 }
 
-const areVariablesValid = (variableKeys, variables) =>
+const areVariablesProvided = (variableKeys, variables) =>
   variables
     .map(({ key }) => variableKeys.includes(key))
     .every(Boolean)
@@ -62,14 +63,14 @@ const sqlImport = path => {
   const sql = fs.readFileSync(path).toString()
   const variableKeys = getVariableKeys(sql)
   return (variables = []) => {
-    if (areVariablesValid(variableKeys, variables)) {
+    if (!areVariablesProvided(variableKeys, variables)) {
+      throw new Error("Invalid query arguments.")
+    } else {
       const params = []
       return {
         sql: replaceSqlWithValues(sql, variables, params),
         params,
       }
-    } else {
-      throw new Error("Invalid query arguments.")
     }
   }
 }

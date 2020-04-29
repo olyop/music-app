@@ -22,7 +22,9 @@ import userAddSongNext from "./userAddSongNext.js"
 import userAddSongLater from "./userAddSongLater.js"
 import userAddSongQueue from "./userAddSongQueue.js"
 
-export default {
+import mapResolver from "../../../helpers/utilities/mapResolver.js"
+
+const mutationResolver = mapResolver({
   addUser,
   addSong,
   userPlay,
@@ -42,4 +44,6 @@ export default {
   userAddSongNext,
   userAddSongLater,
   userAddSongQueue,
-}
+})
+
+export default mutationResolver

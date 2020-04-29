@@ -95,35 +95,6 @@ export default {
       }
     },
   ),
-  numOfPlays: resolver(
-    async ({ parent, args, info }) => {
-      const { userId } = args
-      const { id: playlistId } = parent
-
-      const playlistSongQuery =
-        PlaylistSong.find({ playlist: playlistId, inPlaylist: true })
-                    .select({ song: 1 })
-                    .lean()
-                    .exec()
-
-      const playlistSongs = deserializeCollection(await playlistSongQuery)
-      const playlistSongsIds = playlistSongs.map(({ song }) => song)
-
-      const playQuery =
-        Play.find({ user: userId, song: playlistSongsIds })
-            .select(determinePlaySelect(info))
-            .lean()
-            .exec()
-
-      const plays = deserializeCollection(await playQuery)
-
-      if (isEmpty(plays)) {
-        return null
-      } else {
-        return plays.length
-      }
-    },
-  ),
   inLibrary: resolver(
     async ({ parent, args }) => {
       const { userId } = args

@@ -1,5 +1,4 @@
 import database from "../../../database/index.js"
-import resolver from "../../../helpers/utilities/resolver.js"
 import { userSelect } from "../../../helpers/mongodb/select.js"
 import deserializeDocument from "../../../helpers/mongodb/deserializeDocument.js"
 
@@ -18,4 +17,4 @@ const userAddSongQueue = async ({ info, args }) => {
   return deserializeDocument(await mutation)
 }
 
-export default resolver(userAddSongQueue)
+export default userAddSongQueue

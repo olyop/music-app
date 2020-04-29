@@ -1,10 +1,9 @@
 import database from "../../../database/index.js"
-import { USER_QUEUE_SELECT } from "../../../globals/miscellaneous.js"
-
-import resolver from "../../../helpers/utilities/resolver.js"
 import { userSelect } from "../../../helpers/mongodb/select.js"
 import determineUserNext from "../../../helpers/resolver/determineUserNext.js"
 import deserializeDocument from "../../../helpers/mongodb/deserializeDocument.js"
+
+import { USER_QUEUE_SELECT } from "../../../globals/miscellaneous.js"
 
 const { User } = database.models
 
@@ -29,4 +28,4 @@ const userNext = async ({ info, args }) => {
   return deserializeDocument(await mutation)
 }
 
-export default resolver(userNext)
+export default userNext

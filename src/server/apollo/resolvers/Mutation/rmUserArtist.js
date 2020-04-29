@@ -1,5 +1,4 @@
 import database from "../../../database/index.js"
-import resolver from "../../../helpers/utilities/resolver.js"
 import { artistSelect } from "../../../helpers/mongodb/select.js"
 import deserializeDocument from "../../../helpers/mongodb/deserializeDocument.js"
 
@@ -21,4 +20,4 @@ const rmUserArtist = async ({ args, info }) => {
   return deserializeDocument(await query)
 }
 
-export default resolver(rmUserArtist)
+export default rmUserArtist

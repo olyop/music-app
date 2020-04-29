@@ -13,13 +13,12 @@ import {
   SELECT_PLAYLISTS,
 } from "../../sql/index.js"
 
-import mapValues from "lodash/mapValues.js"
 import sqlQuery from "../../helpers/sql/sqlQuery.js"
 import complexQueries from "./complexQueries/index.js"
 import isUuid from "../../helpers/validators/isUuid.js"
-import resolver from "../../helpers/utilities/resolver.js"
 import sqlParseRow from "../../helpers/sql/sqlParseRow.js"
 import sqlParseTable from "../../helpers/sql/sqlParseTable.js"
+import mapResolver from "../../helpers/utilities/mapResolver.js"
 
 const songs = async () =>
   sqlQuery({
@@ -128,23 +127,20 @@ const playlist = async ({ args }) =>
     }],
   })
 
-const queryResolver = mapValues(
-  {
-    user,
-    play,
-    song,
-    songs,
-    album,
-    genre,
-    albums,
-    genres,
-    artist,
-    artists,
-    playlist,
-    playlists,
-    ...complexQueries,
-  },
-  resolver,
-)
+const queryResolver = mapResolver({
+  user,
+  play,
+  song,
+  songs,
+  album,
+  genre,
+  albums,
+  genres,
+  artist,
+  artists,
+  playlist,
+  playlists,
+  ...complexQueries,
+})
 
 export default queryResolver

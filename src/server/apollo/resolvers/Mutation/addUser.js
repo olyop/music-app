@@ -1,13 +1,13 @@
 import uuid from "uuid"
+import ApolloServer from "apollo-server-express"
+import now from "../../../helpers/utilities/now.js"
 import sqlQuery from "../../../helpers/sql/sqlQuery.js"
-import ApolloServerExpress from "apollo-server-express"
 import isUser from "../../../helpers/validators/isUser.js"
 import sqlParseRow from "../../../helpers/sql/sqlParseRow.js"
-import resolver from "../../../helpers/utilities/resolver.js"
 
 import { INSERT_USER } from "../../../sql/index.js"
 
-const { UserInputError } = ApolloServerExpress
+const { UserInputError } = ApolloServer
 
 const addUser = async ({ args }) => {
 
@@ -20,6 +20,9 @@ const addUser = async ({ args }) => {
       query: INSERT_USER,
       parse: sqlParseRow,
       variables: [{
+        key: "userId",
+        value: uuid.v4(),
+      },{
         key: "name",
         value: args.name,
         parameterized: true,
@@ -28,12 +31,12 @@ const addUser = async ({ args }) => {
         value: args.email,
         parameterized: true,
       },{
-        key: "userId",
-        value: uuid.v4(),
+        key: "dateCreated",
+        value: now(),
       }],
     })
 
   return insert
 }
 
-export default resolver(addUser)
+export default addUser

@@ -132,26 +132,6 @@ export default {
       }
     },
   ),
-  numOfPlays: resolver(
-    async ({ parent, args, info }) => {
-      const { userId } = args
-      const { id: songId } = parent
-
-      const query =
-        Play.find({ user: userId, song: songId })
-            .select(playSelect(info))
-            .lean()
-            .exec()
-
-      const plays = deserializeCollection(await query)
-
-      if (isEmpty(plays)) {
-        return null
-      } else {
-        return plays.length
-      }
-    },
-  ),
   inLibrary: resolver(
     async ({ parent, args }) => {
       const { userId } = args

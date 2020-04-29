@@ -1,29 +1,62 @@
-import database from "../../../database/index.js"
-import resolver from "../../../helpers/utilities/resolver.js"
-import { songSelect } from "../../../helpers/mongodb/select.js"
-import deserializeDocument from "../../../helpers/mongodb/deserializeDocument.js"
+import {
+  INSERT_USER_SONG,
+  USER_LIBRARY_EXISTS,
+  UPDATE_USER_SONG_IN,
+} from "../../../sql/index.js"
 
-const { UserSong, Song } = database.models
+import now from "../../../helpers/utilities/now.js"
+import sqlQuery from "../../../helpers/sql/sqlQuery.js"
+import sqlParseRow from "../../../helpers/sql/sqlParseRow.js"
+import sqlResExists from "../../../helpers/sql/sqlResExists.js"
 
-const addUserSong = async ({ args, info }) => {
-  const { userId, songId } = args
+const addUserSong = async ({ args }) => {
 
-  const filter = { user: userId, song: songId }
-  const exists = await UserSong.exists(filter)
+  const exists = await sqlQuery({
+    query: USER_LIBRARY_EXISTS,
+    parse: sqlResExists,
+    variables: [{
+      key: "table",
+      value: "songs",
+    }, {
+      key: "column",
+      value: "song_id",
+    }, {
+      key: "userId",
+      value: args.userId,
+    }, {
+      key: "id",
+      value: args.songId,
+    }],
+  })
 
   if (exists) {
-    await UserSong.findOneAndUpdate(filter, { inLibrary: true }).exec()
+    return sqlQuery({
+      query: UPDATE_USER_SONG_IN,
+      parse: sqlParseRow,
+      variables: [{
+        key: "userId",
+        value: args.userId,
+      }, {
+        key: "songId",
+        value: args.songId,
+      }],
+    })
   } else {
-    await UserSong.create({ ...filter, inLibrary: true })
+    return sqlQuery({
+      query: INSERT_USER_SONG,
+      parse: sqlParseRow,
+      variables: [{
+        key: "userId",
+        value: args.userId,
+      }, {
+        key: "songId",
+        value: args.songId,
+      }, {
+        key: "dateCreated",
+        value: now(),
+      }],
+    })
   }
-
-  const query =
-    Song.findById(songId)
-      .select(songSelect(info))
-      .lean()
-      .exec()
-
-  return deserializeDocument(await query)
 }
 
-export default resolver(addUserSong)
+export default addUserSong

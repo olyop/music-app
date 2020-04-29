@@ -1,11 +1,10 @@
 import uuid from "uuid"
+import ApolloServer from "apollo-server-express"
 import s3Upload from "../../../helpers/s3/s3Upload.js"
-import ApolloServerExpress from "apollo-server-express"
 import resize from "../../../helpers/resolver/resize.js"
 import sqlExists from "../../../helpers/sql/sqlExists.js"
 import sqlUnique from "../../../helpers/sql/sqlUnique.js"
 import isAlbum from "../../../helpers/validators/isAlbum.js"
-import resolver from "../../../helpers/utilities/resolver.js"
 import sqlParseRow from "../../../helpers/sql/sqlParseRow.js"
 import sqlTransaction from "../../../helpers/sql/sqlTransaction.js"
 import s3CatalogObjectKey from "../../../helpers/s3/s3CatalogObjectKey.js"
@@ -17,7 +16,7 @@ import determineChecksResults from "../../../helpers/resolver/determineChecksRes
 import { IMAGE_SIZES } from "../../../globals/miscellaneous.js"
 import { INSERT_ALBUM, INSERT_ALBUM_ARTIST } from "../../../sql/index.js"
 
-const { UserInputError } = ApolloServerExpress
+const { UserInputError } = ApolloServer
 
 const addAlbum = async ({ args }) => {
 
@@ -52,7 +51,7 @@ const addAlbum = async ({ args }) => {
 
   const albumId = uuid.v4()
 
-  const insert = {
+  const albumInsert = {
     query: INSERT_ALBUM,
     parse: sqlParseRow,
     variables: [{
@@ -69,26 +68,24 @@ const addAlbum = async ({ args }) => {
     }],
   }
 
-  const artistsInserts = args.artistIds.map(
-    (artistId, index) => ({
-      query: INSERT_ALBUM_ARTIST,
-      variables: [{
-        key: "albumId",
-        value: albumId,
-      },{
-        key: "artistId",
-        value: artistId,
-      },{
-        key: "index",
-        value: index,
-        string: false,
-      }],
-    }),
-  )
+  const artistInsert = (artistId, index) => ({
+    query: INSERT_ALBUM_ARTIST,
+    variables: [{
+      key: "albumId",
+      value: albumId,
+    },{
+      key: "artistId",
+      value: artistId,
+    },{
+      key: "index",
+      value: index,
+      string: false,
+    }],
+  })
 
   const transaction = sqlTransaction([
-    insert,
-    ...artistsInserts,
+    albumInsert,
+    ...args.artistIds.map(artistInsert),
   ])
 
   const coverUploads = [{
@@ -101,7 +98,7 @@ const addAlbum = async ({ args }) => {
       image: cover,
       dim: IMAGE_SIZES.HALF,
     }),
-  }, {
+  },{
     key: s3CatalogObjectKey({
       id: albumId,
       size: "FULL",
@@ -121,4 +118,4 @@ const addAlbum = async ({ args }) => {
   return result[0][0]
 }
 
-export default resolver(addAlbum)
+export default addAlbum

@@ -1,29 +1,72 @@
-import database from "../../../database/index.js"
-import resolver from "../../../helpers/utilities/resolver.js"
-import { albumSelect } from "../../../helpers/mongodb/select.js"
-import deserializeDocument from "../../../helpers/mongodb/deserializeDocument.js"
+import {
+  SELECT_ALBUM,
+  INSERT_USER_ALBUM,
+  USER_LIBRARY_EXISTS,
+  UPDATE_USER_ALBUM_IN,
+} from "../../../sql/index.js"
 
-const { Album, UserAlbum } = database.models
+import now from "../../../helpers/utilities/now.js"
+import sqlQuery from "../../../helpers/sql/sqlQuery.js"
+import sqlParseRow from "../../../helpers/sql/sqlParseRow.js"
+import sqlResExists from "../../../helpers/sql/sqlResExists.js"
 
-const addUserAlbum = async ({ args, info }) => {
-  const { userId, albumId } = args
+const addUserAlbum = async ({ args }) => {
 
-  const filter = { user: userId, album: albumId }
-  const exists = await UserAlbum.exists(filter)
+  const exists = await sqlQuery({
+    query: USER_LIBRARY_EXISTS,
+    parse: sqlResExists,
+    variables: [{
+      key: "table",
+      value: "albums",
+    },{
+      key: "column",
+      value: "album_id",
+    },{
+      key: "userId",
+      value: args.userId,
+    },{
+      key: "id",
+      value: args.albumId,
+    }],
+  })
 
   if (exists) {
-    await UserAlbum.findOneAndUpdate(filter, { inLibrary: true }).exec()
+    await sqlQuery({
+      query: UPDATE_USER_ALBUM_IN,
+      parse: sqlParseRow,
+      variables: [{
+        key: "userId",
+        value: args.userId,
+      },{
+        key: "albumId",
+        value: args.albumId,
+      }],
+    })
   } else {
-    await UserAlbum.create({ ...filter, inLibrary: true })
+    await sqlQuery({
+      query: INSERT_USER_ALBUM,
+      parse: sqlParseRow,
+      variables: [{
+        key: "userId",
+        value: args.userId,
+      },{
+        key: "albumId",
+        value: args.albumId,
+      },{
+        key: "dateCreated",
+        value: now(),
+      }],
+    })
   }
 
-  const query =
-    Album.findById(albumId)
-      .select(albumSelect(info))
-      .lean()
-      .exec()
-
-  return deserializeDocument(await query)
+  return sqlQuery({
+    query: SELECT_ALBUM,
+    parse: sqlParseRow,
+    variables: [{
+      key: "albumId",
+      value: args.albumId,
+    }],
+  })
 }
 
-export default resolver(addUserAlbum)
+export default addUserAlbum

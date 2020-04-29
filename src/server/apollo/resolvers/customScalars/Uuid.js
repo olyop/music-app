@@ -1,6 +1,7 @@
-import { GraphQLScalarType, GraphQLError, Kind } from "graphql"
-
+import graphql from "graphql"
 import isUuid from "../../../helpers/validators/isUuid.js"
+
+const { GraphQLScalarType, GraphQLError, Kind } = graphql
 
 const name = "Uuid"
 
@@ -8,27 +9,28 @@ const description =
   `The Uuid scalar type represents UUID values
    as specified by [RFC 4122](https://tools.ietf.org/html/rfc4122).`
 
-const serialize = value => {
-  if (!isUuid(value)) {
-    throw new GraphQLError(`UUID cannot represent non-UUID value: ${value}`)
+const parse = value => {
+  if (isUuid(value)) {
+    return value
   } else {
-    value.toLowerCase()
+    throw new GraphQLError(`Invalid uuid: ${value}`)
   }
 }
 
-const parseLiteral = ast => {
-  if (ast.kind === Kind.STRING) {
-    return ast.value
+const parseLiteral = ({ kind, value }) => {
+  if (kind === Kind.STRING) {
+    return value
   } else {
-    throw new GraphQLError(`Can only validate strings as email addresses but got a: ${ast.kind}`)
+    throw new GraphQLError(`Can only validate strings as uuids but got: ${kind}`)
   }
 }
 
 const Uuid = new GraphQLScalarType({
   name,
   description,
-  serialize,
   parseLiteral,
+  serialize: parse,
+  parseValue: parse,
 })
 
 export default Uuid

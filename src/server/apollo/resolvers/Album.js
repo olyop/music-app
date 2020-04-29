@@ -1,3 +1,11 @@
+import {
+  SELECT_ALBUM_SONGS,
+  SELECT_ALBUM_ARTISTS,
+  SELECT_USER_ALBUM_PLAYS,
+  SELECT_USER_ALBUM_ADDED,
+  SELECT_USER_ALBUM_IN_LIB,
+} from "../../sql/index.js"
+
 import sqlQuery from "../../helpers/sql/sqlQuery.js"
 import s3GetObject from "../../helpers/s3/s3GetObject.js"
 import sqlParseRow from "../../helpers/sql/sqlParseRow.js"
@@ -5,14 +13,6 @@ import toDataUrl from "../../helpers/resolver/toDataUrl.js"
 import sqlParseTable from "../../helpers/sql/sqlParseTable.js"
 import mapResolver from "../../helpers/utilities/mapResolver.js"
 import s3CatalogObjectKey from "../../helpers/s3/s3CatalogObjectKey.js"
-
-import {
-  SELECT_ALBUM_SONGS,
-  SELECT_ALBUM_ARTISTS,
-  SELECT_USER_ALBUM_PLAYS,
-  SELECT_USER_ALBUM_ADDED,
-  SELECT_ALBUM_USER_IN_LIB,
-} from "../../sql/index.js"
 
 const cover = async ({ parent, args }) =>
   s3GetObject({
@@ -72,7 +72,7 @@ const dateAdded = async ({ parent, args }) =>
 
 const inLibrary = async ({ parent, args }) =>
   sqlQuery({
-    query: SELECT_ALBUM_USER_IN_LIB,
+    query: SELECT_USER_ALBUM_IN_LIB,
     parse: sqlParseTable,
     variables: [{
       key: "userId",
@@ -83,11 +83,14 @@ const inLibrary = async ({ parent, args }) =>
     }],
   })
 
-export default mapResolver({
-  cover,
-  songs,
-  plays,
-  artists,
-  dateAdded,
-  inLibrary,
-})
+const albumResolver =
+  mapResolver({
+    cover,
+    songs,
+    plays,
+    artists,
+    dateAdded,
+    inLibrary,
+  })
+
+export default albumResolver

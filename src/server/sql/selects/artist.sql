@@ -4,4 +4,6 @@ SELECT
 FROM
   artists
 WHERE
-  artist_id = {{ artistId }};
+  artist_id = {{ artistId }}
+LIMIT
+  1;

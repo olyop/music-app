@@ -73,34 +73,6 @@ const dateAdded = async ({ parent, args }) => {
   }
 }
 
-const numOfPlays = async ({ parent, args, info }) => {
-  const { userId } = args
-  const { id: genreId } = parent
-
-  const songsQuery =
-    Song.find({ genres: genreId })
-      .select({ _id: 1 })
-      .lean()
-      .exec()
-
-  const ssongs = deserializeCollection(await songsQuery)
-  const songsId = ssongs.map(({ id }) => id)
-
-  const playQuery =
-    Play.find({ user: userId, song: songsId })
-      .select(playSelect(info))
-      .lean()
-      .exec()
-
-  const pplays = deserializeCollection(await playQuery)
-
-  if (isEmpty(plays)) {
-    return null
-  } else {
-    return pplays.length
-  }
-}
-
 const inLibrary = async ({ parent, args }) => {
   const { userId } = args
   const { id: genreId } = parent
@@ -129,6 +101,5 @@ export default mapResolver({
   songs,
   plays,
   dateAdded,
-  numOfPlays,
   inLibrary,
 })

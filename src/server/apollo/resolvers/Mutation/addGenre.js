@@ -1,16 +1,15 @@
 import uuid from "uuid"
+import ApolloServer from "apollo-server-express"
 import sqlQuery from "../../../helpers/sql/sqlQuery.js"
-import ApolloServerExpress from "apollo-server-express"
 import sqlUnique from "../../../helpers/sql/sqlUnique.js"
 import isGenre from "../../../helpers/validators/isGenre.js"
-import resolver from "../../../helpers/utilities/resolver.js"
 import sqlParseRow from "../../../helpers/sql/sqlParseRow.js"
 import determineFailedChecks from "../../../helpers/resolver/determineFailedChecks.js"
 import determineChecksResults from "../../../helpers/resolver/determineChecksResults.js"
 
 import { INSERT_GENRE } from "../../../sql/index.js"
 
-const { UserInputError } = ApolloServerExpress
+const { UserInputError } = ApolloServer
 
 const addGenre = async ({ args }) => {
 
@@ -34,7 +33,7 @@ const addGenre = async ({ args }) => {
     throw new UserInputError("Checks failed.", { failedChecks })
   }
 
-  const insert = sqlQuery({
+  const genreInsert = sqlQuery({
     query: INSERT_GENRE,
     parse: sqlParseRow,
     variables: [{
@@ -47,7 +46,7 @@ const addGenre = async ({ args }) => {
     }],
   })
 
-  return insert
+  return genreInsert
 }
 
-export default resolver(addGenre)
+export default addGenre

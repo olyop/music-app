@@ -1,11 +1,10 @@
 import uuid from "uuid"
+import ApolloServer from "apollo-server-express"
 import s3Upload from "../../../helpers/s3/s3Upload.js"
 import sqlQuery from "../../../helpers/sql/sqlQuery.js"
-import ApolloServerExpress from "apollo-server-express"
 import resize from "../../../helpers/resolver/resize.js"
 import sqlUnique from "../../../helpers/sql/sqlUnique.js"
 import sqlParseRow from "../../../helpers/sql/sqlParseRow.js"
-import resolver from "../../../helpers/utilities/resolver.js"
 import isArtist from "../../../helpers/validators/isArtist.js"
 import s3CatalogObjectKey from "../../../helpers/s3/s3CatalogObjectKey.js"
 import uploadFileFromClient from "../../../helpers/resolver/uploadFileFromClient.js"
@@ -15,7 +14,7 @@ import determineChecksResults from "../../../helpers/resolver/determineChecksRes
 import { INSERT_ARTIST } from "../../../sql/index.js"
 import { IMAGE_SIZES } from "../../../globals/miscellaneous.js"
 
-const { UserInputError } = ApolloServerExpress
+const { UserInputError } = ApolloServer
 
 const addArtist = async ({ args }) => {
 
@@ -43,7 +42,7 @@ const addArtist = async ({ args }) => {
 
   const artistId = uuid.v4()
 
-  const insert = sqlQuery({
+  const artistInsert = sqlQuery({
     query: INSERT_ARTIST,
     parse: sqlParseRow,
     variables: [{
@@ -89,11 +88,11 @@ const addArtist = async ({ args }) => {
   }]
 
   const result = await Promise.all([
-    insert,
+    artistInsert,
     ...photoUploads.map(s3Upload),
   ])
 
   return result[0]
 }
 
-export default resolver(addArtist)
+export default addArtist

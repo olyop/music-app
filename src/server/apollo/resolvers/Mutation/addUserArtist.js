@@ -1,29 +1,62 @@
-import database from "../../../database/index.js"
-import resolver from "../../../helpers/utilities/resolver.js"
-import { artistSelect } from "../../../helpers/mongodb/select.js"
-import deserializeDocument from "../../../helpers/mongodb/deserializeDocument.js"
+import {
+  INSERT_USER_ARTIST,
+  USER_LIBRARY_EXISTS,
+  UPDATE_USER_ARTIST_IN,
+} from "../../../sql/index.js"
 
-const { UserArtist, Artist } = database.models
+import now from "../../../helpers/utilities/now.js"
+import sqlQuery from "../../../helpers/sql/sqlQuery.js"
+import sqlParseRow from "../../../helpers/sql/sqlParseRow.js"
+import sqlResExists from "../../../helpers/sql/sqlResExists.js"
 
-const addUserArtist = async ({ args, info }) => {
-  const { userId, artistId } = args
+const addUserArtist = async ({ args }) => {
 
-  const filter = { user: userId, artist: artistId }
-  const exists = await UserArtist.exists(filter)
+  const exists = await sqlQuery({
+    query: USER_LIBRARY_EXISTS,
+    parse: sqlResExists,
+    variables: [{
+      key: "table",
+      value: "albums",
+    },{
+      key: "column",
+      value: "artist_id",
+    },{
+      key: "userId",
+      value: args.userId,
+    },{
+      key: "id",
+      value: args.artistId,
+    }],
+  })
 
   if (exists) {
-    await UserArtist.findOneAndUpdate(filter, { inLibrary: true }).exec()
+    return sqlQuery({
+      query: UPDATE_USER_ARTIST_IN,
+      parse: sqlParseRow,
+      variables: [{
+        key: "userId",
+        value: args.userId,
+      }, {
+        key: "artistId",
+        value: args.artistId,
+      }],
+    })
   } else {
-    await UserArtist.create({ ...filter, inLibrary: true })
+    return sqlQuery({
+      query: INSERT_USER_ARTIST,
+      parse: sqlParseRow,
+      variables: [{
+        key: "userId",
+        value: args.userId,
+      }, {
+        key: "artistId",
+        value: args.artistId,
+      }, {
+        key: "dateCreated",
+        value: now(),
+      }],
+    })
   }
-
-  const query =
-    Artist.findById(artistId)
-      .select(artistSelect(info))
-      .lean()
-      .exec()
-
-  return deserializeDocument(await query)
 }
 
-export default resolver(addUserArtist)
+export default addUserArtist

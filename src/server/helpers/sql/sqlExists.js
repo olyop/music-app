@@ -1,46 +1,41 @@
-import path from "path"
 import sqlQuery from "./sqlQuery.js"
-import sqlImport from "./sqlImport.js"
 import isArray from "lodash/isArray.js"
-import sqlIsResEmpty from "./sqlIsResEmpty.js"
-import { SQL_FOLER_PATH } from "../../globals/paths.js"
+import sqlResExists from "./sqlResExists.js"
 
-const queryPath = path.join(SQL_FOLER_PATH, "selects", "exists.sql")
+import { COLUMN_EXISTS } from "../../sql/index.js"
 
 const sqlExistsQuery = ({ value, table, column }) =>
   sqlQuery({
-    query: sqlImport(queryPath),
-    parse: res => !sqlIsResEmpty(res),
-    variables: [
-      {
-        value,
-        key: "value",
-        parameterized: true,
-      },
-      {
-        key: "table",
-        value: table,
-        string: false,
-      },
-      {
-        key: "column",
-        value: column,
-        string: false,
-      },
-    ],
+    query: COLUMN_EXISTS,
+    parse: sqlResExists,
+    variables: [{
+      value,
+      key: "value",
+      parameterized: true,
+    },{
+      key: "table",
+      value: table,
+      string: false,
+    },{
+      key: "column",
+      value: column,
+      string: false,
+    }],
   })
 
-const sqlExists = ({ value, table, column }) => new Promise(
-  (resolve, reject) => (
-    isArray(value) ? (
-      Promise
-        .all(value.map(x => sqlExistsQuery({ value: x, table, column })))
+const sqlExists = input => new Promise(
+  (resolve, reject) => {
+    if (isArray(input.value)) {
+      return Promise
+        .all(input.value.map(value => sqlExistsQuery({ ...input, value })))
         .then(res => resolve(res.every(Boolean)))
-    ) : (
-      sqlExistsQuery({ value, table, column })
+        .catch(reject)
+    } else {
+      return sqlExistsQuery(input)
         .then(resolve)
-    )
-  ).catch(reject),
+        .catch(reject)
+    }
+  },
 )
 
 export default sqlExists

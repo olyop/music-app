@@ -7,7 +7,7 @@ const name = "Uuid"
 
 const description =
   `The Uuid scalar type represents UUID values
-   as specified by [RFC 4122](https://tools.ietf.org/html/rfc4122).`
+   as specified in RFC4122: https://tools.ietf.org/html/rfc4122/.`
 
 const parse = value => {
   if (isUuid(value)) {

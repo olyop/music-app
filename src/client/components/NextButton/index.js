@@ -7,7 +7,7 @@ import reactBem from "@oly_op/react-bem"
 import { useMutation } from "react-apollo"
 import { propTypes, defaultProps } from "./props"
 
-import USER_ADD_SONG_NEXT from "../../graphql/mutations/userAddSongNext.graphql"
+import USER_ADD_SONG_NEXT from "../../graphql/mutations/userAddSongNext.gql"
 
 const bem = reactBem("NextButton")
 

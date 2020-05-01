@@ -4,7 +4,7 @@ import QueryApi from "../QueryApi"
 
 import reactBem from "@oly_op/react-bem"
 
-import GET_USER from "../../graphql/queries/getUser.graphql"
+import GET_USER from "../../graphql/queries/getUser.gql"
 
 import "./index.scss"
 

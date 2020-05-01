@@ -1,0 +1,15 @@
+type User {
+  userId: Uuid!
+  email: Email!
+  name: String!
+  current: Song
+  prev: [Song!]!
+  next: [Song!]!
+  queue: [Song!]!
+  plays: [Play!]!
+  songs: [Song!]!
+  genres: [Genre!]!
+  albums: [Album!]!
+  artists: [Artist!]!
+  playlists: [Playlist!]!
+}

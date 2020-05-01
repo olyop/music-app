@@ -1,0 +1,15 @@
+mutation addUserArtist(
+  $userId: ID!
+  $artistId: ID!
+) {
+  addUserArtist(
+    userId: $userId
+    artistId: $artistId
+  ) {
+    artistId
+    name
+    photo
+    inLibrary(userId: $userId)
+    dateAdded(userId: $userId)
+  }
+}

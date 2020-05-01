@@ -1,0 +1,41 @@
+query getAlbumPage(
+  $userId: ID!
+  $albumId: ID!
+) {
+  album(albumId: $albumId) {
+    albumId
+    title
+    cover
+    released
+    inLibrary(userId: $userId)
+    artists {
+      artistId
+      name
+    }
+    songs {
+      id
+      mix
+      title
+      duration
+      discNumber
+      trackNumber
+      inLibrary(userId: $userId)
+      featuring {
+        artistId
+        name
+      }
+      remixers {
+        artistId
+        name
+      }
+      artists {
+        artistId
+        name
+      }
+      genres {
+        artistId
+        name
+      }
+    }
+  }
+}

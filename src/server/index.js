@@ -1,5 +1,4 @@
 import express from "express"
-import database from "./database/index.js"
 import apolloServer from "./apollo/index.js"
 
 // middleware stack
@@ -13,12 +12,9 @@ import sendIndex from "./middleware/sendIndex.js"
 import sendStatic from "./middleware/sendStatic.js"
 import globalHeaders from "./middleware/globalHeaders.js"
 
+import { HOST, PORT } from "./globals/environment.js"
 import { LOG_FORMAT } from "./globals/miscellaneous.js"
-import { HOST, PORT, MONGO_URL } from "./globals/environment.js"
-import { CORS_CONFIG, MONGOOSE_CONFIG, APOLLO_APPLY_CONFIG } from "./globals/configs.js"
-
-// connect to database
-database.openUri(MONGO_URL, MONGOOSE_CONFIG)
+import { CORS_CONFIG, APOLLO_APPLY_CONFIG } from "./globals/configs.js"
 
 const app = express()
 

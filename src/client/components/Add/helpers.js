@@ -8,29 +8,21 @@ export const isStringLength = length => str => str.length === length
 
 export const isNotEmpty = val => !isEmpty(val)
 
-export const validateArray = validator => arr => {
-  if (isEmpty(arr)) {
-    return false
-  } else {
-    return arr.reduce(
-      (acc, val) => validator(val),
-      true,
-    )
-  }
-}
+export const validateArray = validator => arr =>
+  arr.map(val => validator(val))
+     .every(Boolean)
 
-export const validateId = x => (
-  isStringLength(24)(x) &&
-  isString(x) &&
-  isHex(x)
-)
+export const validateId = id =>
+  isStringLength(24)(id) &&
+  isString(id) &&
+  isHex(id)
 
-export const validateArrayOfIds = x => (
-  validateArray(isStringLength(24))(x) &&
+export const validateArrayOfIds = x =>
   validateArray(isString)(x) &&
+  validateArray(isStringLength(24))(x) &&
   validateArray(isHex)(x)
-)
 
-export const deserializeDate = unix => (new Date(unix)).toLocaleDateString()
+export const deserializeDate = unix =>
+  (new Date(unix)).toLocaleDateString()
 
 export const noopParse = x => x

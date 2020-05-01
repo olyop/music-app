@@ -1,7 +1,5 @@
 SELECT
-  album_id,
-  title,
-  released
+  {{ columnNames }}
 FROM
   albums
 ORDER BY

@@ -1,9 +1,0 @@
-mutation rmUserArtist($userId: ID!, $artistId: ID!) {
-  rmUserArtist(userId: $userId, artistId: $artistId) {
-    id
-    name
-    photo
-    inLibrary(userId: $userId)
-    dateAdded(userId: $userId)
-  }
-}

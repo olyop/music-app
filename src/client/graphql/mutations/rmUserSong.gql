@@ -1,0 +1,36 @@
+mutation rmUserSong(
+  $userId: ID!
+  $songId: ID!
+) {
+  rmUserSong(
+    userId: $userId
+    songId: $songId
+  ) {
+    songId
+    mix
+    title
+    duration
+    inLibrary(userId: $userId)
+    dateAdded(userId: $userId)
+    featuring {
+      id
+      name
+    }
+    remixers {
+      id
+      name
+    }
+    artists {
+      id
+      name
+    }
+    genres {
+      id
+      name
+    }
+    album {
+      id
+      title
+    }
+  }
+}

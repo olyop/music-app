@@ -1,7 +1,5 @@
 SELECT
-  user_id,
-  name,
-  date_created
+  {{ columnNames }}
 FROM
   users
 WHERE

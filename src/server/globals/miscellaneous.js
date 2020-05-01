@@ -1,3 +1,5 @@
+/* eslint-disable quote-props */
+
 export const LOG_FORMAT =
   ":status :url :total-time[0] ms"
 

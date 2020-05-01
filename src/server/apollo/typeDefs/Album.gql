@@ -1,0 +1,11 @@
+type Album {
+  albumId: Uuid!
+  title: String!
+  released: Int!
+  songs: [Song!]!
+  artists: [Artist!]!
+  plays(userId: Uuid!): [Play!]
+  dateAdded(userId: Uuid!): Int
+  inLibrary(userId: Uuid!): Boolean!
+  cover(size: AlbumCoverSizes!): String!
+}

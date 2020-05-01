@@ -1,9 +1,7 @@
 export const PORT = process.env.PORT
 export const HOST = process.env.HOST
-export const APP_NAME = process.env.APP_NAME
 
-export const MONGO_DB = process.env.MONGO_DB
-export const MONGO_URL = process.env.MONGO_URL
+export const APP_NAME = process.env.APP_NAME
 
 export const AWS_RDS_DB = process.env.AWS_RDS_DB
 export const AWS_RDS_PORT = process.env.AWS_RDS_PORT

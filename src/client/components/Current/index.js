@@ -6,7 +6,7 @@ import QueryApi from "../QueryApi"
 import reactBem from "@oly_op/react-bem"
 import { propTypes, defaultProps } from "./props"
 
-import GET_USER_CURRENT from "../../graphql/queries/getUserCurrent.graphql"
+import GET_USER_CURRENT from "../../graphql/queries/getUserCurrent.gql"
 
 import "./index.scss"
 

@@ -1,0 +1,10 @@
+type Playlist {
+  user: User!
+  name: String!
+  songs: [Song!]!
+  playlistId: Uuid!
+  dateCreated: Int!
+  plays(userId: Uuid!): [Play!]
+  dateAdded(userId: Uuid!): Int
+  inLibrary(userId: Uuid!): Boolean!
+}

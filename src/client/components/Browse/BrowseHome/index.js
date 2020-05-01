@@ -8,7 +8,7 @@ import PlayButton from "../../PlayButton"
 
 import reactBem from "@oly_op/react-bem"
 
-import GET_BROWSE from "../../../graphql/queries/getBrowse.graphql"
+import GET_BROWSE from "../../../graphql/queries/getBrowse.gql"
 
 import "./index.scss"
 

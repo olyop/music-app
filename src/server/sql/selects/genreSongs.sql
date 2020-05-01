@@ -1,17 +1,12 @@
 SELECT
-  b.song_id,
-  b.title,
-  b.mix,
-  b.duration,
-  b.disc_number,
-  b.track_number
+  {{ columnNames }}
 FROM
-  songs_genres AS a
+  songs_genres
 JOIN
-  songs AS b
+  songs
   ON
-    a.song_id = b.song_id
+    songs_genres.song_id = songs.song_id
 WHERE
-  a.genre_id = {{ genreId }}
+  songs_genres.genre_id = {{ genreId }}
 ORDER BY
-  index ASC;
+  title ASC;

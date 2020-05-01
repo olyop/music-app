@@ -1,0 +1,10 @@
+type Artist {
+  name: String!
+  artistId: Uuid!
+  songs: [Song!]!
+  albums: [Album!]!
+  plays(userId: Uuid!): [Play!]
+  dateAdded(userId: Uuid!): Int
+  inLibrary(userId: Uuid!): Boolean!
+  photo(size: ArtistPhotoSizes!): String!
+}

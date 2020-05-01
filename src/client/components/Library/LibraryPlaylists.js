@@ -7,7 +7,7 @@ import QueryApi from "../QueryApi"
 import { pipe } from "../../helpers"
 import { orderBy, map } from "lodash/fp"
 
-import GET_USER_PLAYLISTS from "../../graphql/queries/getUserPlaylists.graphql"
+import GET_USER_PLAYLISTS from "../../graphql/queries/getUserPlaylists.gql"
 
 const LibraryPlaylists = () => (
   <QueryApi

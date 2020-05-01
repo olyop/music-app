@@ -1,9 +1,0 @@
-mutation addUserArtist($userId: ID!, $artistId: ID!) {
-  addUserArtist(userId: $userId, artistId: $artistId) {
-    id
-    name
-    photo
-    inLibrary(userId: $userId)
-    dateAdded(userId: $userId)
-  }
-}

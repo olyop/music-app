@@ -1,6 +1,5 @@
 SELECT
-  artist_id,
-  name
+  {{ columnNames }}
 FROM
   artists
 WHERE

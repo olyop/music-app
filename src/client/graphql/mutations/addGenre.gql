@@ -1,0 +1,5 @@
+mutation addGenre($name: String!) {
+  addGenre(name: $name) {
+    genreId
+  }
+}

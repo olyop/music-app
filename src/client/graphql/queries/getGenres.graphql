@@ -1,7 +1,0 @@
-query getGenres($userId: ID!) {
-  genres {
-    id
-    name
-    inLibrary(userId: $userId)
-  }
-}

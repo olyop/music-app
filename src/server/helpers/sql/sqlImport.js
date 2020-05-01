@@ -1,7 +1,6 @@
 import fs from "fs"
 
 import uniq from "lodash/uniq.js"
-import identity from "lodash/identity.js"
 
 const getVariableKeys = sql => {
   const keys = []
@@ -67,10 +66,11 @@ const sqlImport = path => {
       throw new Error("Invalid query arguments.")
     } else {
       const params = []
-      return {
+      const temp = {
         sql: replaceSqlWithValues(sql, variables, params),
         params,
       }
+      return temp
     }
   }
 }

@@ -3,7 +3,7 @@ import React from "react"
 import QueryApi from "../QueryApi"
 import SongsTable from "../SongsTable"
 
-import GET_USER_SONGS from "../../graphql/queries/getUserSongs.graphql"
+import GET_USER_SONGS from "../../graphql/queries/getUserSongs.gql"
 
 const LibrarySongs = () => (
   <QueryApi

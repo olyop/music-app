@@ -1,0 +1,15 @@
+mutation addAlbum(
+  $cover: Upload!,
+  $title: String!,
+  $artistIds: [ID!]!,
+  $released: String!,
+) {
+  addAlbum(
+    cover: $cover,
+    title: $title,
+    released: $released,
+    artistIds: $artistIds,
+  ) {
+    albumId
+  }
+}

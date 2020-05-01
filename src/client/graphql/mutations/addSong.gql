@@ -1,0 +1,27 @@
+mutation addSong(
+  $mix: String!
+  $albumId: ID!
+  $audio: Upload!
+  $title: String!
+  $genreIds: [ID!]!
+  $discNumber: Int!
+  $artistIds: [ID!]!
+  $trackNumber: Int!
+  $remixerIds: [ID!]!
+  $featuringIds: [ID!]!
+) {
+  addSong(
+    mix: $mix
+    audio: $audio
+    title: $title
+    albumId: $album
+    genres: $genreIds
+    artists: $artistIds
+    remixers: $remixerIds
+    discNumber: $discNumber
+    featuring: $featuringIds
+    trackNumber: $trackNumber
+  ) {
+    songId
+  }
+}

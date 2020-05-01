@@ -1,0 +1,90 @@
+type Mutation {
+  userPrev(
+    userId: Uuid!
+  ): User!
+  userPlay(
+    userId: Uuid!
+    songId: Uuid!
+  ): User!
+  userNext(
+    userId: Uuid!
+  ): User!
+  userAddSongNext(
+    userId: Uuid!
+    songId: Uuid!
+  ): User!
+  userAddSongLater(
+    userId: Uuid!
+    songId: Uuid!
+  ): User!
+  userAddSongQueue(
+    userId: Uuid!
+    songId: Uuid!
+  ): User!
+  addUserSong(
+    userId: Uuid!
+    songId: Uuid!
+  ): Song!
+  addUserAlbum(
+    userId: Uuid!
+    albumId: Uuid!
+  ): Album!
+  addUserGenre(
+    userId: Uuid!
+    genreId: Uuid!
+  ): Genre!
+  addUserArtist(
+    userId: Uuid!
+    artistId: Uuid!
+  ): Artist!
+  rmUserSong(
+    userId: Uuid!
+    songId: Uuid!
+  ): Song!
+  rmUserAlbum(
+    userId: Uuid!
+    albumId: Uuid!
+  ): Album!
+  rmUserGenre(
+    userId: Uuid!
+    genreId: Uuid!
+  ): Genre!
+  rmUserArtist(
+    userId: Uuid!
+    artistId: Uuid!
+  ): Artist!
+  addUser(
+    name: String!
+    email: Email!
+  ): User!
+  addArtist(
+    name: String!
+    photo: Upload!
+  ): Artist!
+  addGenre(
+    name: String!
+  ): Genre!
+  addAlbum(
+    title: String!
+    cover: Upload!
+    artistIds: [Uuid!]!
+    released: String!
+  ): Album!
+  addSong(
+    mix: String!
+    albumId: Uuid!
+    title: String!
+    audio: Upload!
+    genreIds: [Uuid!]!
+    discNumber: Int!
+    artistIds: [Uuid!]!
+    trackNumber: Int!
+    remixerIds: [Uuid!]!
+    featuringIds: [Uuid!]!
+  ): Song!
+  addPlaylist(
+    user: Uuid!
+    name: String!
+    songs: [Uuid!]!
+  ): Playlist!
+}

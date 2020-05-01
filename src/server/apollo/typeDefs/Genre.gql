@@ -1,0 +1,8 @@
+type Genre {
+  name: String!
+  genreId: Uuid!
+  songs: [Song!]!
+  plays(userId: Uuid!): [Play!]
+  dateAdded(userId: Uuid!): Int
+  inLibrary(userId: Uuid!): Boolean!
+}

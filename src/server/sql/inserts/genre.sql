@@ -9,4 +9,4 @@ VALUES
     {{ name }}
   )
 RETURNING
-  genre_id, name;
+  {{ columnNames }};

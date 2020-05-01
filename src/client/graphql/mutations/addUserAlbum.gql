@@ -1,0 +1,19 @@
+mutation addUserAlbum(
+  $userId: ID!
+  $albumId: ID!
+) {
+  addUserAlbum(
+    userId: $userId
+    albumId: $albumId
+  ) {
+    albumId
+    title
+    cover
+    inLibrary(userId: $userId)
+    dateAdded(userId: $userId)
+    artists {
+      artistId
+      name
+    }
+  }
+}

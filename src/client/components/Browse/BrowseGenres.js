@@ -7,7 +7,7 @@ import QueryApi from "../QueryApi"
 import { pipe } from "../../helpers"
 import { orderBy, map } from "lodash/fp"
 
-import GET_GENRES from "../../graphql/queries/getGenres.graphql"
+import GET_GENRES from "../../graphql/queries/getGenres.gql"
 
 const BrowseGenres = () => (
   <QueryApi

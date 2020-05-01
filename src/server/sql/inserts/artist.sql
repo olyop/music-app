@@ -9,5 +9,4 @@ VALUES
     {{ name }}
   )
 RETURNING
-  artist_id,
-  name;
+  {{ columnNames }};

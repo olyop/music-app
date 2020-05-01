@@ -4,7 +4,7 @@ import Grid from "../Grid"
 import Album from "../Album"
 import QueryApi from "../QueryApi"
 
-import GET_ALBUMS from "../../graphql/queries/getAlbums.graphql"
+import GET_ALBUMS from "../../graphql/queries/getAlbums.gql"
 
 const BrowseAlbums = () => (
   <QueryApi

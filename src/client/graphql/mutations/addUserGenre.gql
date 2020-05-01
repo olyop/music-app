@@ -1,0 +1,14 @@
+mutation addUserGenre(
+  $userId: ID!
+  $genreId: ID!
+) {
+  addUserGenre(
+    userId: $userId
+    genreId: $genreId
+  ) {
+    genreId
+    name
+    inLibrary(userId: $userId)
+    dateAdded(userId: $userId)
+  }
+}

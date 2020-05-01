@@ -1,0 +1,6 @@
+type Play {
+  playId: Uuid!
+  user: User!
+  song: Song!
+  dateCreated: Int!
+}

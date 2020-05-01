@@ -2,7 +2,7 @@ import { shape, string, arrayOf, object, bool } from "prop-types"
 
 export const propTypes = {
   album: shape({
-    id: string.isRequired,
+    albumId: string.isRequired,
     title: string.isRequired,
     cover: string.isRequired,
     inLibrary: bool.isRequired,

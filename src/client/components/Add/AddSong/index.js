@@ -7,8 +7,8 @@ import { isUndefined } from "lodash"
 import fieldsConfig from "./fieldsConfig"
 import { useQuery, useMutation } from "@apollo/react-hooks"
 
-import ADD_SONG from "../../../graphql/mutations/addSong.graphql"
-import GET_ADD_SONG from "../../../graphql/queries/getAddSong.graphql"
+import ADD_SONG from "../../../graphql/mutations/addSong.gql"
+import GET_ADD_SONG from "../../../graphql/queries/getAddSong.gql"
 
 const AddSong = () => {
   const { loading, error, data } = useQuery(GET_ADD_SONG)

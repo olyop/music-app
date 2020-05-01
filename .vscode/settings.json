@@ -36,5 +36,6 @@
   "extensions.ignoreRecommendations": true,
   "workbench.colorTheme": "GitHub Plus",
   "editor.formatOnPaste": true,
-  "window.menuBarVisibility": "default"
+  "window.menuBarVisibility": "default",
+  "editor.renderIndentGuides": false
 }

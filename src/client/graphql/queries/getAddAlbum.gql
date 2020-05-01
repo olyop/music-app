@@ -1,0 +1,7 @@
+query getAddAlbum {
+  artists {
+    arristId
+    name
+    photo
+  }
+}

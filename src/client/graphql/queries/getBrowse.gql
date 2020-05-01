@@ -1,0 +1,42 @@
+query getBrowse($userId: ID!) {
+  topTenSongs {
+    songId
+    mix
+    title
+    duration
+    inLibrary(userId: $userId)
+    isCurrent(userId: $userId)
+    numOfPlays(userId: $userId)
+    featuring {
+      artistId
+      name
+    }
+    remixers {
+      artistId
+      name
+    }
+    artists {
+      artistId
+      name
+    }
+    genres {
+      genreId
+      name
+    }
+    album {
+      albumId
+      title
+      cover
+    }
+  }
+  newAlbums {
+    albumId
+    title
+    cover
+    inLibrary(userId: $userId)
+    artists {
+      artistId
+      name
+    }
+  }
+}

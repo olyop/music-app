@@ -1,0 +1,10 @@
+enum ArtistPhotoSizes {
+  MINI
+  HALF
+  FULL
+}
+
+enum AlbumCoverSizes {
+  HALF
+  FULL
+}

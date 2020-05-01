@@ -10,7 +10,7 @@ VALUES
     {{ userId }},
     {{ name }},
     {{ email }},
-    {{ dateCreated }}
+    now()
   )
 RETURNING
   user_id,

@@ -1,0 +1,13 @@
+query getAlbums($userId: ID!) {
+  albums {
+    albumId
+    title
+    cover
+    released
+    inLibrary(userId: $userId)
+    artists {
+      artistId
+      name
+    }
+  }
+}

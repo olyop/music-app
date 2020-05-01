@@ -1,33 +1,30 @@
 SELECT DISTINCT
-  b.song_id,
-  b.title,
-  b.mix,
-  b.duration,
-  b.disc_number,
-  b.track_number
+  {{ columnNames }}
 FROM
-  (SELECT
-    song_id
-  FROM
-    songs_artists
-  WHERE
-    artist_id = {{ artistId }}
-  UNION
-  SELECT
-    song_id
-  FROM
-    songs_remixers
-  WHERE
-    artist_id = {{ artistId }}
-  UNION
-  SELECT
-    song_id
-  FROM
-    songs_featurings
-  WHERE
-    artist_id = {{ artistId }}) AS a
+  (
+    SELECT
+      song_id
+    FROM
+      songs_artists
+    WHERE
+      artist_id = {{ artistId }}
+    UNION
+    SELECT
+      song_id
+    FROM
+      songs_remixers
+    WHERE
+      artist_id = {{ artistId }}
+    UNION
+    SELECT
+      song_id
+    FROM
+      songs_featurings
+    WHERE
+      artist_id = {{ artistId }}
+  ) AS artist_songs_ids
 JOIN
-  songs AS b ON
-    a.song_id = b.song_id
+  songs
+    ON artist_songs_ids.song_id = songs.song_id
 ORDER BY
-  b.track_number ASC;
+  songs.track_number ASC;

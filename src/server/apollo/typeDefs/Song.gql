@@ -1,0 +1,18 @@
+type Song {
+  mix: String!
+  songId: Uuid!
+  album: Album!
+  title: String!
+  duration: Int!
+  discNumber: Int!
+  trackNumber: Int!
+  genres: [Genre!]!
+  artists: [Artist!]!
+  remixers: [Artist!]!
+  featuring: [Artist!]!
+  plays(userId: Uuid!): [Play!]
+  dateAdded(userId: Uuid!): Int
+  inLibrary(userId: Uuid!): Boolean!
+  isCurrent(userId: Uuid!): Boolean!
+  dateAddedToPlaylist(playlistid: Uuid!): Int
+}

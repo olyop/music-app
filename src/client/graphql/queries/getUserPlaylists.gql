@@ -1,0 +1,11 @@
+query getUserPlaylists($userId: ID!) {
+  user(userId: $userId) {
+    userId
+    playlists {
+      playlistId
+      name
+      dateAdded(userId: $userId)
+      inLibrary(userId: $userId)
+    }
+  }
+}

@@ -1,0 +1,117 @@
+mutation userPrev($userId: ID!) {
+  userPrev(userId: $userId) {
+    userId
+    prev {
+      id
+      mix
+      title
+      duration
+      inLibrary(userId: $userId)
+      featuring {
+        id
+        name
+      }
+      remixers {
+        id
+        name
+      }
+      artists {
+        id
+        name
+      }
+      genres {
+        id
+        name
+      }
+      album {
+        id
+        title
+        cover
+      }
+    }
+    current {
+      id
+      title
+      mix
+      duration
+      inLibrary(userId: $userId)
+      featuring {
+        id
+        name
+      }
+      remixers {
+        id
+        name
+      }
+      artists {
+        id
+        name
+      }
+      genres {
+        id
+        name
+      }
+      album {
+        id
+        title
+        cover
+      }
+    }
+    next {
+      id
+      title
+      mix
+      duration
+      inLibrary(userId: $userId)
+      featuring {
+        id
+        name
+      }
+      remixers {
+        id
+        name
+      }
+      artists {
+        id
+        name
+      }
+      genres {
+        id
+        name
+      }
+      album {
+        id
+        title
+        cover
+      }
+    }
+    queue {
+      id
+      title
+      mix
+      duration
+      inLibrary(userId: $userId)
+      featuring {
+        id
+        name
+      }
+      remixers {
+        id
+        name
+      }
+      artists {
+        id
+        name
+      }
+      genres {
+        id
+        name
+      }
+      album {
+        id
+        title
+        cover
+      }
+    }
+  }
+}

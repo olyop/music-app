@@ -8,7 +8,7 @@ import reactBem from "@oly_op/react-bem"
 import { useMutation } from "@apollo/react-hooks"
 import { propTypes, defaultProps } from "./props"
 
-import USER_PLAY from "../../graphql/mutations/userPlay.graphql"
+import USER_PLAY from "../../graphql/mutations/userPlay.gql"
 
 import "./index.scss"
 

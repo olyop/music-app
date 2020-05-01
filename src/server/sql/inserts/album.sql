@@ -11,6 +11,4 @@ VALUES
     {{ released }}
   )
 RETURNING
-  album_id,
-  title,
-  released;
+  {{ columnNames }};

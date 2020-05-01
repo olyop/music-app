@@ -1,14 +1,9 @@
 SELECT
-  song_id,
-  title,
-  mix,
-  album_id,
-  duration,
-  disc_number,
-  track_number
+  {{ columnNames }}
 FROM
   songs
 WHERE
   album_id = {{ albumId }}
 ORDER BY
-  title ASC;
+  disc_number ASC,
+  track_number ASC;

@@ -6,7 +6,7 @@ import SongsTable from "../SongsTable"
 import reactBem from "@oly_op/react-bem"
 import { useParams } from "react-router-dom"
 
-import GET_GENRE_PAGE from "../../graphql/queries/getGenrePage.graphql"
+import GET_GENRE_PAGE from "../../graphql/queries/getGenrePage.gql"
 
 import "./index.scss"
 

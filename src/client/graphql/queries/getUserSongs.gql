@@ -1,0 +1,34 @@
+query getUserSongs($userId: ID!) {
+  user(userId: $userId) {
+    userId
+    songs {
+      songId
+      title
+      mix
+      duration
+      dateAdded(userId: $userId)
+      inLibrary(userId: $userId)
+      numOfPlays(userId: $userId)
+      featuring {
+        artistId
+        name
+      }
+      remixers {
+        artistId
+        name
+      }
+      artists {
+        artistId
+        name
+      }
+      genres {
+        genreId
+        name
+      }
+      album {
+        albumId
+        title
+      }
+    }
+  }
+}

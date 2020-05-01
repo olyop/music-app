@@ -1,6 +1,5 @@
 SELECT
-  genre_id,
-  name
+  {{ columnNames }}
 FROM
   genres
 WHERE

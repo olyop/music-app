@@ -1,3 +1,4 @@
-const filterInLibrary = library => library.filter(({ inLibrary }) => inLibrary)
+const filterInLibrary = library =>
+  library.filter(({ inLibrary }) => inLibrary)
 
 export default filterInLibrary

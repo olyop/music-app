@@ -1,16 +1,16 @@
 SELECT DISTINCT
-  b.album_id,
-  b.title,
-  b.released
+  {{ columnNames }}
 FROM
-  (SELECT
-    album_id
-  FROM
-    albums_artists
-  WHERE
-    artist_id = {{ artistId }}) AS a
+  (
+    SELECT
+      album_id
+    FROM
+      albums_artists
+    WHERE
+      artist_id = {{ artistId }}
+  ) AS artist_albums
 JOIN
-  albums AS b ON
-    a.album_id = b.album_id
+   albums
+    ON artist_albums.album_id = albums.album_id
 ORDER BY
-  b.released ASC;
+  albums.released ASC;

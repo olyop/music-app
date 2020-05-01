@@ -5,17 +5,17 @@ import UserContext from "../../contexts/User"
 
 import { useMutation } from "@apollo/react-hooks"
 import { propTypes, defaultProps } from "./props"
-import { determineReturnFromDoc } from "../../helpers"
+import { determineReturnFromDoc, determineDocIdKey } from "../../helpers"
 
-import RM_USER_SONG from "../../graphql/mutations/rmUserSong.graphql"
-import RM_USER_ALBUM from "../../graphql/mutations/rmUserAlbum.graphql"
-import RM_USER_GENRE from "../../graphql/mutations/rmUserGenre.graphql"
-import RM_USER_ARTIST from "../../graphql/mutations/rmUserArtist.graphql"
+import RM_USER_SONG from "../../graphql/mutations/rmUserSong.gql"
+import RM_USER_ALBUM from "../../graphql/mutations/rmUserAlbum.gql"
+import RM_USER_GENRE from "../../graphql/mutations/rmUserGenre.gql"
+import RM_USER_ARTIST from "../../graphql/mutations/rmUserArtist.gql"
 
-import ADD_USER_SONG from "../../graphql/mutations/addUserSong.graphql"
-import ADD_USER_ALBUM from "../../graphql/mutations/addUserAlbum.graphql"
-import ADD_USER_GENRE from "../../graphql/mutations/addUserGenre.graphql"
-import ADD_USER_ARTIST from "../../graphql/mutations/addUserArtist.graphql"
+import ADD_USER_SONG from "../../graphql/mutations/addUserSong.gql"
+import ADD_USER_ALBUM from "../../graphql/mutations/addUserAlbum.gql"
+import ADD_USER_GENRE from "../../graphql/mutations/addUserGenre.gql"
+import ADD_USER_ARTIST from "../../graphql/mutations/addUserArtist.gql"
 
 const InLibraryButton = ({ doc, className }) => {
 
@@ -23,8 +23,9 @@ const InLibraryButton = ({ doc, className }) => {
   const variablesKey = determineReturn("songId", "albumId", "genreId", "artistId")
   const refetchQuery = `getUser${determineReturn("Song", "Album", "Genre", "Artist")}s`
 
-  const { id: docId, inLibrary } = doc
+  const { inLibrary } = doc
   const userId = useContext(UserContext)
+  const docId = doc[determineDocIdKey(doc)]
 
   const MUTATION = inLibrary ?
     determineReturn(RM_USER_SONG, RM_USER_ALBUM, RM_USER_GENRE, RM_USER_ARTIST) :

@@ -1,0 +1,19 @@
+type Query {
+  # database queries
+  songs: [Song!]!
+  albums: [Album!]!
+  genres: [Genre!]!
+  artists: [Artist!]!
+  playlists: [Playlist!]!
+  user(userId: Uuid!): User!
+  play(playId: Uuid!): Play!
+  song(songId: Uuid!): Song!
+  album(albumId: Uuid!): Album!
+  genre(genreId: Uuid!): Genre!
+  artist(artistId: Uuid!): Artist!
+  playlist(playlistId: Uuid!): Playlist!
+
+  # complex queries
+  newAlbums: [Album!]!
+  topTenSongs: [Song!]!
+}

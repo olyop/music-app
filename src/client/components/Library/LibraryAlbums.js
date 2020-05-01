@@ -4,7 +4,7 @@ import Grid from "../Grid"
 import Album from "../Album"
 import QueryApi from "../QueryApi"
 
-import GET_USER_ALBUMS from "../../graphql/queries/getUserAlbums.graphql"
+import GET_USER_ALBUMS from "../../graphql/queries/getUserAlbums.gql"
 
 const LibraryAlbums = () => (
   <QueryApi
@@ -19,7 +19,7 @@ const LibraryAlbums = () => (
             album => (
               <Album
                 album={album}
-                key={album.id}
+                key={album.albumId}
               />
             ),
           )}

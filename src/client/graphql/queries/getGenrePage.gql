@@ -1,0 +1,37 @@
+query getGenrePage(
+  $userId: ID!
+  $genreId: ID!
+) {
+  genre(genreId: $genreId) {
+    genreId
+    name
+    inLibrary(userId: $userId)
+    songs {
+      songId
+      title
+      mix
+      duration
+      inLibrary(userId: $userId)
+      featuring {
+        artistId
+        name
+      }
+      remixers {
+        artistId
+        name
+      }
+      artists {
+        artistId
+        name
+      }
+      album {
+        albumId
+        title
+      }
+      genres {
+        genreId
+        name
+      }
+    }
+  }
+}

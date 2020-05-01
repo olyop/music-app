@@ -13,7 +13,7 @@ import { useParams } from "react-router-dom"
 import { pipe, deserializeDate } from "../../helpers"
 import { songsWithAlbum, determineDiscs, genresFromAlbum } from "./helpers"
 
-import GET_ALBUM_PAGE from "../../graphql/queries/getAlbumPage.graphql"
+import GET_ALBUM_PAGE from "../../graphql/queries/getAlbumPage.gql"
 
 import "./index.scss"
 

@@ -1,0 +1,38 @@
+mutation userAddSongNext(
+  $userId: ID!
+  $songId: ID!
+) {
+  userAddSongNext(
+    userId: $userId
+    songId: $songId
+  ) {
+    userId
+    next {
+      id
+      title
+      mix
+      duration
+      featuring {
+        id
+        name
+      }
+      remixers {
+        id
+        name
+      }
+      artists {
+        id
+        name
+      }
+      genres {
+        id
+        name
+      }
+      album {
+        id
+        title
+        cover
+      }
+    }
+  }
+}

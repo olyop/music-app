@@ -5,13 +5,14 @@
   "description": "music-app",
   "deprecated": false,
   "type": "module",
+  "main": "src/server/index.js",
   "scripts": {
+    "server": "clear && node -r dotenv/config",
     "delete-build": "rm -r -f src/server/build",
     "sync": "git checkout . && git remote update && git pull",
-    "server": "clear && node --no-warnings -r dotenv/config src/server/index.js",
-    "dev-server": "node_modules/.bin/nodemon --no-warnings -r dotenv/config src/server/index.js",
-    "dev-client": "node_modules/.bin/webpack-dev-server --config webpack.config.cjs -r dotenv/config --env.mode development",
+    "dev-server": "node_modules/.bin/nodemon -r dotenv/config",
     "push": "clear && git status && git add -A && git commit -m \"Update\" && git push -u origin master && exit",
+    "dev-client": "node_modules/.bin/webpack-dev-server --config webpack.config.cjs -r dotenv/config --env.mode development",
     "build": "npm run delete-build && clear && \"node_modules/.bin/webpack\" --config webpack.config.cjs --env.mode production",
     "dev": "npm run delete-build && clear && \"node_modules/.bin/concurrently\" \"npm run dev-client\" \"npm run dev-server\" && clear"
   },
@@ -41,10 +42,8 @@
   "bugs": "https://github.com/olyop/music-app/issues",
   "homepage": "https://github.com/olyop/music-app/blob/master/README.md",
   "devDependencies": {
-    "@babel/core": "^7.9.0",
     "@babel/plugin-proposal-class-properties": "^7.7.4",
     "@babel/plugin-proposal-optional-chaining": "^7.9.0",
-    "@babel/preset-env": "^7.9.5",
     "@babel/preset-react": "^7.9.4",
     "@types/react": "^16.9.34",
     "@types/webpack": "^4.41.12",
@@ -78,6 +77,8 @@
   },
   "dependencies": {
     "@apollo/react-hooks": "^3.1.5",
+    "@babel/core": "^7.9.6",
+    "@babel/preset-env": "^7.9.6",
     "@material-ui/core": "^4.9.12",
     "@oly_op/react-bem": "^1.0.9",
     "apollo-cache-inmemory": "^1.6.5",
@@ -85,7 +86,7 @@
     "apollo-link-http": "^1.5.17",
     "apollo-server-express": "^2.12.0",
     "apollo-upload-client": "^13.0.0",
-    "aws-sdk": "^2.665.0",
+    "aws-sdk": "^2.667.0",
     "body-parser": "^1.19.0",
     "compression": "^1.7.4",
     "cookie-parser": "^1.4.5",
@@ -99,10 +100,8 @@
     "graphql-tag": "^2.10.3",
     "graphql-upload": "^10.0.0",
     "helmet": "^3.22.0",
-    "html-webpack-plugin": "^4.2.1",
+    "html-webpack-plugin": "^4.3.0",
     "lodash": "^4.17.15",
-    "mongodb": "^3.5.6",
-    "mongoose": "^5.9.10",
     "morgan": "^1.10.0",
     "mp3-duration": "^1.1.0",
     "pg": "^8.0.3",
@@ -113,6 +112,6 @@
     "react-router-dom": "^5.1.2",
     "react-spring": "^8.0.27",
     "sharp": "^0.25.2",
-    "uuid": "^7.0.3"
+    "uuid": "^8.0.0"
   }
 }

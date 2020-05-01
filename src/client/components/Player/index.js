@@ -9,11 +9,11 @@ import UserContext from "../../contexts/User"
 import FeaturingArtists from "../FeaturingArtists"
 
 import { propTypes } from "./props"
-import { isUndefined, isNull } from "lodash"
 import reactBem from "@oly_op/react-bem"
+import { isUndefined, isNull } from "lodash"
 import { useQuery } from "@apollo/react-hooks"
 
-import GET_USER_CURRENT from "../../graphql/queries/getUserCurrent.graphql"
+import GET_USER_CURRENT from "../../graphql/queries/getUserCurrent.gql"
 
 import "./index.scss"
 

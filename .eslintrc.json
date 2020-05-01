@@ -8,6 +8,7 @@
   "parser": "babel-eslint",
   "plugins": [
     "react",
+    "import",
     "promise",
     "jsx-a11y",
     "react-hooks",
@@ -18,9 +19,9 @@
     "browser": true
   },
   "rules": {
+    "no-tabs": ["off"],
     "one-var": ["off"],
     "no-console": ["off"],
-    "quote-props": ["off"],
     "import/order": ["off"],
     "dot-notation": ["off"],
     "arrow-parens": ["off"],
@@ -63,6 +64,7 @@
     "jsx-a11y/click-events-have-key-events": ["off"],
     "jsx-a11y/label-has-associated-control": ["off"],
     "jsx-a11y/control-has-associated-label": ["off"],
+    "indent": ["error", { "ObjectExpression": { "body": 0 } }],
     "no-multiple-empty-lines": ["error", { "max": 1, "maxEOF": 1, "maxBOF": 0 }],
     "import/no-extraneous-dependencies": ["error", { "devDependencies": true, "optionalDependencies": false }]
   }

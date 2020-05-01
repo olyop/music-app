@@ -9,7 +9,7 @@ import reactBem from "@oly_op/react-bem"
 import { isEmpty, isNull } from "lodash"
 import { createQueuesArray } from "../../helpers"
 
-import GET_USER_QUEUES from "../../graphql/queries/getUserQueues.graphql"
+import GET_USER_QUEUES from "../../graphql/queries/getUserQueues.gql"
 
 import "./index.scss"
 

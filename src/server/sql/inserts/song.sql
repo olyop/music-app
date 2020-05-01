@@ -19,10 +19,4 @@ VALUES
     {{ trackNumber }}
   )
 RETURNING
-  mix,
-  title,
-  song_id,
-  album_id,
-  duration,
-  disc_number,
-  track_number;
+  {{ columnNames }};

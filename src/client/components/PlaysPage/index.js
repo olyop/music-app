@@ -5,7 +5,7 @@ import QueryApi from "../QueryApi"
 import reactBem from "@oly_op/react-bem"
 import { deserializeDate } from "../../helpers"
 
-import GET_SONG_PLAYS from "../../graphql/queries/getSongPlays.graphql"
+import GET_SONG_PLAYS from "../../graphql/queries/getSongPlays.gql"
 
 import "./index.scss"
 

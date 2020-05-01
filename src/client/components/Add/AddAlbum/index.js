@@ -6,8 +6,8 @@ import QueryApi from "../../QueryApi"
 import fieldsConfig from "./fieldsConfig"
 import { useMutation } from "@apollo/react-hooks"
 
-import ADD_ALBUM from "../../../graphql/mutations/addAlbum.graphql"
-import GET_ADD_ALBUM from "../../../graphql/queries/getAddAlbum.graphql"
+import ADD_ALBUM from "../../../graphql/mutations/addAlbum.gql"
+import GET_ADD_ALBUM from "../../../graphql/queries/getAddAlbum.gql"
 
 const AddAlbum = () => {
   const [ addAlbum, addAlbumResult ] = useMutation(ADD_ALBUM)

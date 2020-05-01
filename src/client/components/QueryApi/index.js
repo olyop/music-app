@@ -10,8 +10,8 @@ import { propTypes, defaultProps } from "./props"
 import { isUndefined, isEmpty, get } from "lodash"
 
 const QueryApi = ({ query, checkEmpty, variables, library, resultPath, children }) => {
-
   const userId = useContext(UserContext)
+
   const { loading, error, data } = useQuery(
     query,
     { variables: { userId, ...variables } },

@@ -1,0 +1,7 @@
+query getGenres($userId: ID!) {
+  genres {
+    genreId
+    name
+    inLibrary(userId: $userId)
+  }
+}

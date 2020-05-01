@@ -1,19 +1,25 @@
-import Play from "./Play.js"
-import Song from "./Song.js"
-import User from "./User.js"
-import Album from "./Album.js"
-import Genre from "./Genre.js"
-import Query from "./Query.js"
-import Artist from "./Artist.js"
-import Playlist from "./Playlist.js"
-import Mutation from "./Mutation/index.js"
-
 import Uuid from "./customScalars/Uuid.js"
 import Email from "./customScalars/Email.js"
+
+import Play from "./appInterfaces/Play.js"
+import Song from "./appInterfaces/Song.js"
+import User from "./appInterfaces/User.js"
+import Album from "./appInterfaces/Album.js"
+import Genre from "./appInterfaces/Genre.js"
+import Artist from "./appInterfaces/Artist.js"
+import Playlist from "./appInterfaces/Playlist.js"
+
+import Query from "./rootInterfaces/Query.js"
+import Mutation from "./rootInterfaces/Mutation/index.js"
 
 const customScalars = {
   Uuid,
   Email,
+}
+
+const rootInterfaces = {
+  Query,
+  Mutation,
 }
 
 const appInterfaces = {
@@ -25,12 +31,12 @@ const appInterfaces = {
   Album,
   Artist,
   Playlist,
-  Mutation,
 }
 
 const resolvers = {
   ...customScalars,
   ...appInterfaces,
+  ...rootInterfaces,
 }
 
 export default resolvers

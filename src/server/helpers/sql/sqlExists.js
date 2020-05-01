@@ -2,11 +2,11 @@ import sqlQuery from "./sqlQuery.js"
 import isArray from "lodash/isArray.js"
 import sqlResExists from "./sqlResExists.js"
 
-import { COLUMN_EXISTS } from "../../sql/index.js"
+import { EXISTS_COLUMN } from "../../sql/index.js"
 
 const sqlExistsQuery = ({ value, table, column }) =>
   sqlQuery({
-    query: COLUMN_EXISTS,
+    query: EXISTS_COLUMN,
     parse: sqlResExists,
     variables: [{
       value,

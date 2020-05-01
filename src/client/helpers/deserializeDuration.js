@@ -1,8 +1,7 @@
 const deserializeDuration = duration => {
   const minutes = Math.floor(duration / 60)
-  let seconds = duration % 60
-  if (seconds <= 9) seconds = `0${seconds}`
-  return `${minutes}:${seconds}`
+  const seconds = duration % 60
+  return `${minutes}:${seconds <= 9 ? "0" : ""}${seconds}`
 }
 
 export default deserializeDuration

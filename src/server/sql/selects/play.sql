@@ -1,6 +1,5 @@
 SELECT
-  play_id,
-  date_created
+  {{ columnNames }}
 FROM
   plays
 WHERE

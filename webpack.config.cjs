@@ -27,10 +27,12 @@ module.exports = ({ mode }) => {
     },
     optimization: {
       minimize: isProduction,
-      minimizer: [ new TerserPlugin() ],
+      minimizer: [
+        new TerserPlugin(),
+      ],
     },
     devServer: {
-      open: false,
+      open: true,
       compress: true,
       stats: "errors-only",
       host: process.env.HOST,

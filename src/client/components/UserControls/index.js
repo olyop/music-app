@@ -8,8 +8,8 @@ import reactBem from "@oly_op/react-bem"
 import { useMutation } from "@apollo/react-hooks"
 import { propTypes, defaultProps } from "./props"
 
-import USER_PREV from "../../graphql/mutations/userPrev.graphql"
-import USER_NEXT from "../../graphql/mutations/userNext.graphql"
+import USER_PREV from "../../graphql/mutations/userPrev.gql"
+import USER_NEXT from "../../graphql/mutations/userNext.gql"
 
 import "./index.scss"
 

@@ -12,7 +12,7 @@ import reactBem from "@oly_op/react-bem"
 import { useParams } from "react-router-dom"
 import { determinePlural } from "../../helpers"
 
-import GET_ARTIST_PAGE from "../../graphql/queries/getArtistPage.graphql"
+import GET_ARTIST_PAGE from "../../graphql/queries/getArtistPage.gql"
 
 import "./index.scss"
 

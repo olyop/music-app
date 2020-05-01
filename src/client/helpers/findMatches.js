@@ -1,11 +1,11 @@
 import { includes, lowerCase } from "lodash"
-import determineNameKey from "./determineNameKey"
+import determineDocNameKey from "./determineDocNameKey"
 
 const findMatches = (db, text) => (
   db.filter(
     x => (
       includes(
-        lowerCase(x[determineNameKey(x)]),
+        lowerCase(x[determineDocNameKey(x)]),
         lowerCase(text),
       )
     ),

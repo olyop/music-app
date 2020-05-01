@@ -1,0 +1,8 @@
+query getArtists($userId: ID!) {
+  artists {
+    artistId
+    name
+    photo
+    inLibrary(userId: $userId)
+  }
+}

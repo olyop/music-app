@@ -11,6 +11,3 @@ export const BUILD_ENTRY_PATH =
 
 export const SQL_FOLER_PATH =
   path.join(SERVER_PATH, "sql")
-
-export const TYPE_DEFS_PATH =
-  path.join(SERVER_PATH, "apollo", "typeDefs.graphql")

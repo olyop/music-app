@@ -1,6 +1,4 @@
-const determinePhotoKey = ({ __typename }) => {
-  if (__typename === "Album") return "cover"
-  else return "photo"
-}
+const determinePhotoKey = ({ __typename }) =>
+  (__typename === "Album" ? "cover" : "photo")
 
 export default determinePhotoKey

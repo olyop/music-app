@@ -1,0 +1,117 @@
+query getUserQueues($userId: ID!) {
+  user(userId: $userId) {
+    userId
+    prev {
+      songId
+      title
+      mix
+      duration
+      inLibrary(userId: $userId)
+      featuring {
+        artistId
+        name
+      }
+      remixers {
+        artistId
+        name
+      }
+      artists {
+        artistId
+        name
+      }
+      genres {
+        genreId
+        name
+      }
+      album {
+        albumId
+        title
+        cover
+      }
+    }
+    current {
+      songId
+      title
+      mix
+      duration
+      inLibrary(userId: $userId)
+      featuring {
+        artistId
+        name
+      }
+      remixers {
+        artistId
+        name
+      }
+      artists {
+        artistId
+        name
+      }
+      genres {
+        genreId
+        name
+      }
+      album {
+        albumId
+        title
+        cover
+      }
+    }
+    next {
+      songId
+      title
+      mix
+      duration
+      inLibrary(userId: $userId)
+      featuring {
+        artistId
+        name
+      }
+      remixers {
+        artistId
+        name
+      }
+      artists {
+        artistId
+        name
+      }
+      genres {
+        genreId
+        name
+      }
+      album {
+        albumId
+        title
+        cover
+      }
+    }
+    queue {
+      songId
+      title
+      mix
+      duration
+      inLibrary(userId: $userId)
+      featuring {
+        artistId
+        name
+      }
+      remixers {
+        artistId
+        name
+      }
+      artists {
+        artistId
+        name
+      }
+      genres {
+        genreId
+        name
+      }
+      album {
+        albumId
+        title
+        cover
+      }
+    }
+  }
+}

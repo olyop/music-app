@@ -1,8 +1,0 @@
-mutation rmUserGenre($userId: ID!, $genreId: ID!) {
-  rmUserGenre(userId: $userId, genreId: $genreId) {
-    id
-    name
-    inLibrary(userId: $userId)
-    dateAdded(userId: $userId)
-  }
-}

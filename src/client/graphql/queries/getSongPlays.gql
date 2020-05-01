@@ -1,0 +1,13 @@
+query getSongPlays(
+  $userId: ID!
+  $songId: ID!
+) {
+  song(id: $songId) {
+    songId
+    title
+    plays(userId: $userId) {
+      playId
+      dateCreated
+    }
+  }
+}

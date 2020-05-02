@@ -1,5 +1,11 @@
-mutation userPlay($userId: ID!, $songId: ID!) {
-  userPlay(userId: $userId, songId: $songId) {
+mutation userPlay(
+  $userId: Uuid!
+  $songId: Uuid!
+) {
+  userPlay(
+    userId: $userId
+    songId: $songId
+  ) {
     userId
     prev {
       id

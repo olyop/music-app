@@ -1,6 +1,6 @@
 mutation rmUserSong(
-  $userId: ID!
-  $songId: ID!
+  $userId: Uuid!
+  $songId: Uuid!
 ) {
   rmUserSong(
     userId: $userId

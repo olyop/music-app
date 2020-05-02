@@ -170,7 +170,7 @@ const SongsTable = ({ songs, orderByInit, columnsToIgnore }) => {
           map(
             song => {
               const {
-                id,
+                songId,
                 album,
                 genres,
                 artists,
@@ -181,7 +181,7 @@ const SongsTable = ({ songs, orderByInit, columnsToIgnore }) => {
                 trackNumber,
               } = song
               return (
-                <tr key={id} className={bem("body-row")}>
+                <tr key={songId} className={bem("body-row")}>
 
                   {showColumn("play") ? (
                     <td
@@ -362,8 +362,8 @@ const SongsTable = ({ songs, orderByInit, columnsToIgnore }) => {
                       className={bem("body-row-numOfPlays", "body-row-col")}
                       children={numOfPlays === 0 ? null : (
                         <Link
-                          to={`/plays/${id}`}
                           children={numOfPlays}
+                          to={`/plays/${songId}`}
                           className={bem("body-row-numOfPlays-span", "body-row-col-span")}
                         />
                       )}

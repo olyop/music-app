@@ -1,0 +1,13 @@
+@import "../../globals/index.scss";
+
+.ApiError {
+  top: 0;
+  left: 0;
+  z-index: 99;
+  width: 100vw;
+  height: 100vh;
+  padding: $SPACE;
+  font-size: 18rem;
+  position: absolute;
+  font-family: monospace;
+  background-color: #fff; }

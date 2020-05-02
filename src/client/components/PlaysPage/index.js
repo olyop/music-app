@@ -21,7 +21,7 @@ const PlaysPage = () => (
             {song.plays.map(
               play => (
                 <p
-                  key={play.id}
+                  key={play.playId}
                   children={deserializeDate(play.dateCreated / 86400)}
                 />
               ),

@@ -1,6 +1,6 @@
 mutation rmUserGenre(
-  $userId: ID!
-  $genreId: ID!
+  $userId: Uuid!
+  $genreId: Uuid!
 ) {
   rmUserGenre(
     userId: $userId

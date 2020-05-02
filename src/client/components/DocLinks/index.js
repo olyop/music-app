@@ -3,13 +3,13 @@ import React, { Fragment } from "react"
 import DocLink from "../DocLink"
 
 import { propTypes } from "./props"
-import { determineConcat } from "../../helpers"
+import { determineConcat, determineDocIdKey } from "../../helpers"
 
 const DocLinks = ({ path, docs, ampersand }) => (
   <Fragment>
     {docs.map(
       (doc, index) => (
-        <Fragment key={doc.id}>
+        <Fragment key={doc[determineDocIdKey(doc)]}>
           <DocLink doc={doc} path={path} />
           {determineConcat(docs, index, ampersand)}
         </Fragment>

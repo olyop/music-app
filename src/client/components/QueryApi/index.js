@@ -2,6 +2,7 @@ import React, { useContext } from "react"
 
 import Empty from "../Empty"
 import Spinner from "../Spinner"
+import ApiError from "../ApiError"
 import UserContext from "../../contexts/User"
 
 import { useQuery } from "@apollo/react-hooks"
@@ -10,6 +11,7 @@ import { propTypes, defaultProps } from "./props"
 import { isUndefined, isEmpty, get } from "lodash"
 
 const QueryApi = ({ query, checkEmpty, variables, library, resultPath, children }) => {
+
   const userId = useContext(UserContext)
 
   const { loading, error, data } = useQuery(
@@ -22,7 +24,7 @@ const QueryApi = ({ query, checkEmpty, variables, library, resultPath, children 
   }
 
   if (!isUndefined(error)) {
-    return null
+    return <ApiError error={error} />
   }
 
   const collection = isEmpty(resultPath) ? data : get(data, resultPath)

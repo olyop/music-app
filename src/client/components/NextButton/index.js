@@ -13,7 +13,7 @@ const bem = reactBem("NextButton")
 
 const NextButton = ({ doc, className }) => {
 
-  const { id: songId } = doc
+  const { songId } = doc
   const userId = useContext(UserContext)
 
   const [ mutation ] = useMutation(

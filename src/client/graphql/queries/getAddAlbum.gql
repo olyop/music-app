@@ -1,7 +1,7 @@
 query getAddAlbum {
   artists {
-    arristId
+    artistId
     name
-    photo
+    photo(size: HALF)
   }
 }

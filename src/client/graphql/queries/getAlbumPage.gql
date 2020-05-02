@@ -1,6 +1,6 @@
 query getAlbumPage(
-  $userId: ID!
-  $albumId: ID!
+  $userId: Uuid!
+  $albumId: Uuid!
 ) {
   album(albumId: $albumId) {
     albumId

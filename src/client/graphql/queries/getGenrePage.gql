@@ -1,6 +1,6 @@
 query getGenrePage(
-  $userId: ID!
-  $genreId: ID!
+  $userId: Uuid!
+  $genreId: Uuid!
 ) {
   genre(genreId: $genreId) {
     genreId

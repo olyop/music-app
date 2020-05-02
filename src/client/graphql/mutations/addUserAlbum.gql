@@ -1,6 +1,6 @@
 mutation addUserAlbum(
-  $userId: ID!
-  $albumId: ID!
+  $userId: Uuid!
+  $albumId: Uuid!
 ) {
   addUserAlbum(
     userId: $userId

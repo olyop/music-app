@@ -1,4 +1,4 @@
-query getBrowse($userId: ID!) {
+query getBrowse($userId: Uuid!) {
   topTenSongs {
     songId
     mix

@@ -1,4 +1,4 @@
-query getAlbums($userId: ID!) {
+query getAlbums($userId: Uuid!) {
   albums {
     albumId
     title

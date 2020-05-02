@@ -1,4 +1,4 @@
-query getUserArtists($userId: ID!) {
+query getUserArtists($userId: Uuid!) {
   user(userId: $userId) {
     userId
     artists {

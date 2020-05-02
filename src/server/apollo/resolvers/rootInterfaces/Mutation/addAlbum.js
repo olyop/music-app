@@ -100,7 +100,7 @@ const addAlbum = async ({ args }) => {
     }),
     data: resize({
       image: cover,
-      dim: IMAGE_SIZES.HALF,
+      dim: IMAGE_SIZES.ALBUM.HALF,
     }),
   },{
     key: s3CatalogObjectKey({
@@ -110,7 +110,7 @@ const addAlbum = async ({ args }) => {
     }),
     data: resize({
       image: cover,
-      dim: IMAGE_SIZES.FULL,
+      dim: IMAGE_SIZES.ALBUM.FULL,
     }),
   }]
 

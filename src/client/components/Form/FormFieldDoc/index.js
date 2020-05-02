@@ -5,7 +5,7 @@ import Icon from "../../Icon"
 
 import reactBem from "@oly_op/react-bem"
 import { propTypes, defaultProps } from "./props"
-import { determinePhotoKey, determineNameKey } from "../../../helpers"
+import { determinePhotoKey, determineDocNameKey } from "../../../helpers"
 
 import "./index.scss"
 
@@ -21,7 +21,7 @@ const FormFieldDoc = ({ doc, onFieldDocRemove }) => (
     )}
     <p
       className={bem("text")}
-      children={doc[determineNameKey(doc)]}
+      children={doc[determineDocNameKey(doc)]}
     />
     <Icon
       icon="close"

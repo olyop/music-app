@@ -1,6 +1,7 @@
 import React, { useState, Fragment } from "react"
 
 import Spinner from "../Spinner"
+import ApiError from "../ApiError"
 
 import FormTitle from "./FormTitle"
 import FormField from "./FormField"
@@ -42,7 +43,9 @@ const Form = ({ title, fields, rememberText, result, submitText, submit }) => {
 
   const { loading, error } = result
 
-  if (error) return <pre>{JSON.stringify(error, undefined, 2)}</pre>
+  if (error) {
+    return <ApiError error={error} />
+  }
 
   return (
     <form className={bem("")} onSubmit={onFormSubmit}>

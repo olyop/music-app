@@ -1,6 +1,6 @@
 mutation addUserGenre(
-  $userId: ID!
-  $genreId: ID!
+  $userId: Uuid!
+  $genreId: Uuid!
 ) {
   addUserGenre(
     userId: $userId

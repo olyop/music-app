@@ -14,6 +14,7 @@ const determineArgs = input => {
   } else {
     const { query, variables } = input
     const { sql, params } = query(variables)
+    console.log(sql)
     return {
       sql,
       parse,
@@ -24,7 +25,9 @@ const determineArgs = input => {
 
 const sqlBaseQuery = client => config => {
   const { sql, parse, params } = determineArgs(config)
-  return client.query(sql, params).then(res => parse(res))
+  return client.query(sql, params)
+    .then(res => parse(res))
+    .catch(err => console.error(err, sql))
 }
 
 export default sqlBaseQuery

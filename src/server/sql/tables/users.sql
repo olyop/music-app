@@ -3,7 +3,7 @@ CREATE TABLE IF NOT EXISTS users (
 	name text NOT NULL,
 	current uuid,
 	email text NOT NULL,
-	date_created integer NOT NULL,
+  date_created integer NOT NULL DEFAULT date_part('epoch', now()),
 	CONSTRAINT users_pk
 		PRIMARY KEY (user_id),
 	CONSTRAINT users_fk_current

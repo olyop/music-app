@@ -1,6 +1,6 @@
 query getSongPlays(
-  $userId: ID!
-  $songId: ID!
+  $userId: Uuid!
+  $songId: Uuid!
 ) {
   song(id: $songId) {
     songId

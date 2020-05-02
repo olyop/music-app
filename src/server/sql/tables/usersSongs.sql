@@ -2,7 +2,7 @@ CREATE TABLE IF NOT EXISTS users_songs (
   user_id uuid,
   song_id uuid,
   in_library boolean NOT NULL,
-  date_created integer NOT NULL,
+  date_created integer NOT NULL DEFAULT date_part('epoch', now()),
   CONSTRAINT users_songs_pk
     PRIMARY KEY (user_id, song_id),
   CONSTRAINT users_songs_fk_song_id

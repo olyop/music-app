@@ -1,6 +1,6 @@
 mutation userAddSongLater(
-  $userId: ID!
-  $songId: ID!
+  $userId: Uuid!
+  $songId: Uuid!
 ) {
   userAddSongLater(
     userId: $userId

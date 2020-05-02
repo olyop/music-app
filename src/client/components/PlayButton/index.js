@@ -17,7 +17,7 @@ const bem = reactBem("PlayButton")
 const PlayButton = ({ song, className }) => {
   const userId = useContext(UserContext)
 
-  const { id: songId, isCurrent } = song
+  const { songId, isCurrent } = song
 
   const [ userPlay ] = useMutation(USER_PLAY, {
     variables: { userId, songId },

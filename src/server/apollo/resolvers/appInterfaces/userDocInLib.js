@@ -1,6 +1,6 @@
-import { SELECT_USER_DOC_IN_LIB } from "../../../sql/index.js"
-
 import sqlQuery from "../../../helpers/sql/sqlQuery.js"
+
+import { SELECT_USER_DOC_IN_LIB } from "../../../sql/index.js"
 
 const userDocInLib = ({
   key,
@@ -20,9 +20,11 @@ const userDocInLib = ({
       key: "docId",
       value: parent[key],
     },{
+      string: false,
       key: "columnName",
       value: columnName,
     },{
+      string: false,
       key: "tableName",
       value: userDocTable,
     }],

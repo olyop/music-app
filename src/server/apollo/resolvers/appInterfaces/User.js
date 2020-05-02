@@ -5,6 +5,7 @@ import {
 } from "../../../sql/index.js"
 
 import userDocs from "./userDocs.js"
+import isNull from "lodash/isNull.js"
 import columnNames from "../../../sql/columnNames.js"
 import sqlJoin from "../../../helpers/sql/sqlJoin.js"
 import sqlQuery from "../../../helpers/sql/sqlQuery.js"
@@ -14,18 +15,19 @@ import sqlParseTable from "../../../helpers/sql/sqlParseTable.js"
 
 const current =
   async ({ parent }) =>
-    sqlQuery({
-      query: SELECT_SONG,
-      parse: sqlParseRow,
-      variables: [{
-        key: "songId",
-        value: parent.current,
-      },{
-        string: false,
-        key: "columnNames",
-        value: sqlJoin(columnNames.song),
-      }],
-    })
+    (isNull(parent.current) ? null : (
+      sqlQuery({
+        query: SELECT_SONG,
+        parse: sqlParseRow,
+        variables: [{
+          key: "songId",
+          value: parent.current,
+        },{
+          string: false,
+          key: "columnNames",
+          value: sqlJoin(columnNames.song),
+        }],
+      })))
 
 const prev =
   async ({ parent }) =>

@@ -1,4 +1,4 @@
-query getUserQueues($userId: ID!) {
+query getUserQueues($userId: Uuid!) {
   user(userId: $userId) {
     userId
     prev {

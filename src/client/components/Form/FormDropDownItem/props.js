@@ -4,7 +4,6 @@ export const propTypes = {
   doc: shape({
     name: string,
     title: string,
-    id: string.isRequired,
   }),
   tabIndex: number.isRequired,
   onFieldHitClick: func.isRequired,

@@ -2,7 +2,7 @@ CREATE TABLE IF NOT EXISTS plays (
   play_id uuid,
   user_id uuid NOT NULL,
   song_id uuid NOT NULL,
-  date_created integer NOT NULL,
+  date_created integer NOT NULL DEFAULT date_part('epoch', now()),
   CONSTRAINT plays_pk
     PRIMARY KEY (play_id),
   CONSTRAINT plays_fk_song_id

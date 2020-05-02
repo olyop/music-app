@@ -5,9 +5,9 @@ export const propTypes = {
   showCover: bool,
   className: string,
   song: shape({
-    id: string.isRequired,
     mix: string.isRequired,
     title: string.isRequired,
+    songId: string.isRequired,
     inLibrary: bool.isRequired,
     duration: number.isRequired,
     featuring: arrayOf(object).isRequired,
@@ -15,8 +15,8 @@ export const propTypes = {
     artists: arrayOf(object).isRequired,
     album: shape({
       cover: string,
-      id: string.isRequired,
       title: string.isRequired,
+      albumId: string.isRequired,
     }).isRequired,
   }).isRequired,
 }

@@ -1,4 +1,4 @@
-query getGenres($userId: ID!) {
+query getGenres($userId: Uuid!) {
   genres {
     genreId
     name

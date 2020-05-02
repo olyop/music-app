@@ -1,13 +1,13 @@
 query getAddSong {
   artists {
-    aristId
+    artistId
     name
-    photo
+    photo(size: MINI)
   }
   albums {
     albumId
     title
-    cover
+    cover(size: HALF)
   }
   genres {
     genreId

@@ -4,7 +4,7 @@ import Img from "../../Img"
 
 import reactBem from "@oly_op/react-bem"
 import { propTypes, defaultProps } from "./props"
-import { determinePhotoKey, determineNameKey } from "../../../helpers"
+import { determinePhotoKey, determineDocNameKey } from "../../../helpers"
 
 import "./index.scss"
 
@@ -24,7 +24,7 @@ const FormDropDownItem = ({ doc, tabIndex, onFieldHitClick }) => (
             url={doc[determinePhotoKey(doc)]}
           />
         )}
-        <span>{doc[determineNameKey(doc)]}</span>
+        <span>{doc[determineDocNameKey(doc)]}</span>
       </Fragment>
     )}
   />

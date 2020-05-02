@@ -1,4 +1,4 @@
-query getUserPlaylists($userId: ID!) {
+query getUserPlaylists($userId: Uuid!) {
   user(userId: $userId) {
     userId
     playlists {

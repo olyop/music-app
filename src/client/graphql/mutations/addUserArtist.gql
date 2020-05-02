@@ -1,6 +1,6 @@
 mutation addUserArtist(
-  $userId: ID!
-  $artistId: ID!
+  $userId: Uuid!
+  $artistId: Uuid!
 ) {
   addUserArtist(
     userId: $userId

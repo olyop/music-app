@@ -122,16 +122,16 @@ const isCurrent =
 
 const dateAdded =
   userDocDateAdded({
-    key: "albumId",
-    columnName: "album_id",
-    userDocTable: "users_albums",
+    key: "songId",
+    columnName: "song_id",
+    userDocTable: "users_songs",
   })
 
 const inLibrary =
   userDocInLib({
-    key: "albumId",
-    columnName: "album_id",
-    userDocTable: "users_albums",
+    key: "songId",
+    columnName: "song_id",
+    userDocTable: "users_songs",
   })
 
 const songResolver =

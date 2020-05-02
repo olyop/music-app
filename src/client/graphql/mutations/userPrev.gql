@@ -1,4 +1,4 @@
-mutation userPrev($userId: ID!) {
+mutation userPrev($userId: Uuid!) {
   userPrev(userId: $userId) {
     userId
     prev {

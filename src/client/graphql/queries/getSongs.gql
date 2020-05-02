@@ -1,4 +1,4 @@
-query getSongs($userId: ID!) {
+query getSongs($userId: Uuid!) {
   songs {
     songId
     title

@@ -3,6 +3,7 @@ import React from "react"
 import Song from "../Song"
 import QueryApi from "../QueryApi"
 
+import isNull from "lodash/isNull.js"
 import reactBem from "@oly_op/react-bem"
 import { propTypes, defaultProps } from "./props"
 
@@ -16,14 +17,11 @@ const Current = ({ className }) => (
   <div className={bem({ ignore: true, className }, "")}>
     <QueryApi
       query={GET_USER_CURRENT}
-      children={
-        ({ user }) => (
-          <Song
-            showAdd
-            song={user.current}
-          />
+      children={({ user }) => (
+        isNull(user.current) ? null : (
+          <Song showAdd song={user.current} />
         )
-      }
+      )}
     />
   </div>
 )

@@ -9,7 +9,11 @@ import FormDropDownItem from "../FormDropDownItem"
 import { propTypes } from "prop-types"
 import reactBem from "@oly_op/react-bem"
 import { isUndefined, isEmpty } from "lodash"
-import { findMatches } from "../../../helpers"
+
+import {
+  findMatches,
+  determineDocIdKey,
+} from "../../../helpers"
 
 import {
   bytesToSize,
@@ -25,6 +29,7 @@ const bem = reactBem("FormField")
 const FormField = ({ field, val, index, onFieldChange, onFieldHitClick, onFieldDocRemove }) => {
   const { id, name, type, isDoc, db, parse, validators } = field
   const isList = type === "list"
+  if (isList && !isEmpty(val.val)) console.log(val.val)
   return (
     <div className={bem("")}>
       <label
@@ -81,8 +86,8 @@ const FormField = ({ field, val, index, onFieldChange, onFieldHitClick, onFieldD
                   (doc, idx) => (
                     <FormDropDownItem
                       doc={doc}
-                      key={doc.id}
                       tabIndex={index + idx + 2}
+                      key={doc[determineDocIdKey(doc)]}
                       onFieldHitClick={onFieldHitClick(doc)}
                     />
                   ),

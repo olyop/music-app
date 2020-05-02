@@ -18,7 +18,7 @@ const Song = ({ song, showAdd, showCover, className }) => {
   return (
     <div className={bem({ ignore: true, className }, "")}>
       {showCover ? (
-        <Link to={`/album/${album.id}`} title={album.title}>
+        <Link to={`/album/${album.albumId}`} title={album.title}>
           <Img
             url={album.cover}
             className={bem("cover")}

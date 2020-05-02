@@ -1,5 +1,6 @@
 import { v4 as uuid } from "uuid"
 import ApolloServer from "apollo-server-express"
+import sqlJoin from "../../../../helpers/sql/sqlJoin.js"
 import columnNames from "../../../../sql/columnNames.js"
 import s3Upload from "../../../../helpers/s3/s3Upload.js"
 import sqlQuery from "../../../../helpers/sql/sqlQuery.js"
@@ -54,8 +55,9 @@ const addArtist = async ({ args }) => {
       value: args.name,
       parameterized: true,
     },{
+      string: false,
       key: "columnNames",
-      value: columnNames.artist,
+      value: sqlJoin(columnNames.artist),
     }],
   })
 
@@ -67,7 +69,7 @@ const addArtist = async ({ args }) => {
     }),
     data: resize({
       image: photo,
-      dim: IMAGE_SIZES.MINI,
+      dim: IMAGE_SIZES.ARTIST.MINI,
     }),
   },{
     key: s3CatalogObjectKey({
@@ -77,7 +79,7 @@ const addArtist = async ({ args }) => {
     }),
     data: resize({
       image: photo,
-      dim: IMAGE_SIZES.HALF,
+      dim: IMAGE_SIZES.ARTIST.HALF,
     }),
   },{
     key: s3CatalogObjectKey({
@@ -87,7 +89,7 @@ const addArtist = async ({ args }) => {
     }),
     data: resize({
       image: photo,
-      dim: IMAGE_SIZES.FULL,
+      dim: IMAGE_SIZES.ARTIST.FULL,
     }),
   }]
 

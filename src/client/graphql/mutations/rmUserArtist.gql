@@ -1,6 +1,6 @@
 mutation rmUserArtist(
-  $userId: ID!
-  $artistId: ID!
+  $userId: Uuid!
+  $artistId: Uuid!
 ) {
   rmUserArtist(
     userId: $userId

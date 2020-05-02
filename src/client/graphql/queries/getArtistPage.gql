@@ -1,6 +1,6 @@
 query getArtistPage(
-  $userId: ID!
-  $artistId: ID!
+  $userId: Uuid!
+  $artistId: Uuid!
 ) {
   artist(artistId: $artistId) {
     artistId

@@ -2,7 +2,7 @@ CREATE TABLE IF NOT EXISTS playlists_songs (
   playlist_id uuid,
   song_id uuid,
   in_playlist boolean NOT NULL,
-  date_created integer NOT NULL,
+  date_created integer NOT NULL DEFAULT date_part('epoch', now()),
   CONSTRAINT playlists_songs_pk
     PRIMARY KEY (playlist_id, song_id),
   CONSTRAINT playlists_songs_fk_playlist_id

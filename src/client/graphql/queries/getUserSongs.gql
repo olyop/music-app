@@ -8,7 +8,6 @@ query getUserSongs($userId: Uuid!) {
       duration
       dateAdded(userId: $userId)
       inLibrary(userId: $userId)
-      numOfPlays(userId: $userId)
       featuring {
         artistId
         name
@@ -28,6 +27,10 @@ query getUserSongs($userId: Uuid!) {
       album {
         albumId
         title
+      }
+      plays(userId: $userId) {
+        playId
+        dateCreated
       }
     }
   }

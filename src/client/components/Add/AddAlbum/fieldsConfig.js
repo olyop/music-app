@@ -1,5 +1,5 @@
-import { uniqueId, isString, isUndefined } from "lodash"
-import { isStringLengthInRange, validateArrayOfIds, noopParse } from "../helpers"
+import { uniqueId, isString, isUndefined, identity } from "lodash"
+import { isStringLengthInRange, validateArrayOfIds } from "../helpers"
 
 const fieldsConifg = ({ artists }) => [
   {
@@ -90,8 +90,8 @@ const fieldsConifg = ({ artists }) => [
     min: 0,
     max: 256000,
     parse: {
-      in: noopParse,
-      out: noopParse,
+      in: identity,
+      out: identity,
     },
     validators: [
       {

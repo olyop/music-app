@@ -44,7 +44,7 @@
     "no-restricted-syntax": ["off"],
     "react/jsx-tag-spacing": ["off"],
     "array-bracket-spacing": ["off"],
-    "no-underscore-dangle": ["error"],
+    "no-underscore-dangle": ["off"],
     "object-curly-newline": ["off"],  
     "react/no-children-prop": ["off"],
     "implicit-arrow-linebreak": ["off"],
@@ -64,7 +64,7 @@
     "jsx-a11y/click-events-have-key-events": ["off"],
     "jsx-a11y/label-has-associated-control": ["off"],
     "jsx-a11y/control-has-associated-label": ["off"],
-    "indent": ["error", { "ObjectExpression": { "body": 0 } }],
+    "indent": ["error", 2, { "MemberExpression": "off" }],
     "no-multiple-empty-lines": ["error", { "max": 1, "maxEOF": 1, "maxBOF": 0 }],
     "import/no-extraneous-dependencies": ["error", { "devDependencies": true, "optionalDependencies": false }]
   }

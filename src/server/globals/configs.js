@@ -4,11 +4,11 @@ import {
   AWS_RDS_USER,
   AWS_RDS_ENDPOINT,
   AWS_RDS_PASSWORD,
+  APOLLO_ENGINE_KEY,
 } from "./environment.js"
 
 export const CORS_CONFIG = {
   origin: "*",
-  optionsSuccessStatus: 200,
 }
 
 export const PG_CONFIG = {
@@ -19,7 +19,7 @@ export const PG_CONFIG = {
   password: AWS_RDS_PASSWORD,
 }
 
-export const APOLLO_APPLY_CONFIG = {
+export const APOLLO_MIDDLEWARE_CONFIG = {
   cors: false,
   debug: true,
   path: "/graphql",
@@ -30,4 +30,5 @@ export const APOLLO_APPLY_CONFIG = {
 export const APOLLO_SERVER_CONFIG = {
   playground: false,
   introspection: true,
+  engine: { apiKey: APOLLO_ENGINE_KEY },
 }

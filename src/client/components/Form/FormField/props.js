@@ -20,7 +20,6 @@ export const propTypes = {
   field: shape({
     db: arrayOf(object),
     req: bool.isRequired,
-    id: string.isRequired,
     min: number.isRequired,
     max: number.isRequired,
     isDoc: bool.isRequired,

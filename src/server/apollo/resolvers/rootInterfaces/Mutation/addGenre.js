@@ -1,5 +1,6 @@
 import { v4 as uuid } from "uuid"
 import ApolloServer from "apollo-server-express"
+import sqlJoin from "../../../../helpers/sql/sqlJoin.js"
 import columnNames from "../../../../sql/columnNames.js"
 import sqlQuery from "../../../../helpers/sql/sqlQuery.js"
 import sqlUnique from "../../../../helpers/sql/sqlUnique.js"
@@ -45,8 +46,9 @@ const addGenre = async ({ args }) => {
       value: args.name,
       parameterized: true,
     },{
+      string: false,
       key: "columnNames",
-      value: columnNames.genre,
+      value: sqlJoin(columnNames.genre),
     }],
   })
 

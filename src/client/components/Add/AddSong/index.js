@@ -1,32 +1,31 @@
 import React from "react"
 
 import Form from "../../Form"
-import Spinner from "../../Spinner"
+import QueryApi from "../../QueryApi"
 
-import { isUndefined } from "lodash"
 import fieldsConfig from "./fieldsConfig"
-import { useQuery, useMutation } from "@apollo/react-hooks"
+import { useMutation } from "@apollo/react-hooks"
 
 import ADD_SONG from "../../../graphql/mutations/addSong.gql"
 import GET_ADD_SONG from "../../../graphql/queries/getAddSong.gql"
 
 const AddSong = () => {
-  const { loading, error, data } = useQuery(GET_ADD_SONG)
   const [ addSong, addSongResult ] = useMutation(ADD_SONG)
-  if (loading) {
-    return <Spinner/>
-  } else if (!isUndefined(error)) {
-    return null
-  } else {
-    return (
-      <Form
-        title="Song"
-        result={addSongResult}
-        fields={fieldsConfig(data)}
-        submit={variables => addSong({ variables })}
-      />
-    )
-  }
+  return (
+    <QueryApi
+      query={GET_ADD_SONG}
+      children={
+        data => (
+          <Form
+            title="Song"
+            result={addSongResult}
+            fields={fieldsConfig(data)}
+            submit={variables => addSong({ variables })}
+          />
+        )
+      }
+    />
+  )
 }
 
 export default AddSong

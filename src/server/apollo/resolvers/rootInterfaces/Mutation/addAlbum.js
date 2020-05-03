@@ -2,6 +2,7 @@ import { v4 as uuid } from "uuid"
 import ApolloServer from "apollo-server-express"
 import columnNames from "../../../../sql/columnNames.js"
 import s3Upload from "../../../../helpers/s3/s3Upload.js"
+import sqlJoin from "../../../../helpers/sql/sqlJoin.js"
 import resize from "../../../../helpers/resolver/resize.js"
 import sqlExists from "../../../../helpers/sql/sqlExists.js"
 import sqlUnique from "../../../../helpers/sql/sqlUnique.js"
@@ -56,8 +57,9 @@ const addAlbum = async ({ args }) => {
     query: INSERT_ALBUM,
     parse: sqlParseRow,
     variables: [{
+      string: false,
       key: "columnNames",
-      value: columnNames.album,
+      value: sqlJoin(columnNames.album),
     },{
       key: "albumId",
       value: albumId,

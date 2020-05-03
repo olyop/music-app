@@ -1,7 +1,6 @@
 import React, { useState, Fragment } from "react"
 
 import Spinner from "../Spinner"
-import ApiError from "../ApiError"
 
 import FormTitle from "./FormTitle"
 import FormField from "./FormField"
@@ -44,7 +43,7 @@ const Form = ({ title, fields, rememberText, result, submitText, submit }) => {
   const { loading, error } = result
 
   if (error) {
-    return <ApiError error={error} />
+    console.error(...error?.graphQLErrors[0]?.extensions.failedChecks)
   }
 
   return (

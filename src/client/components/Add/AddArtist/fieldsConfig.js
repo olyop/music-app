@@ -1,6 +1,5 @@
-/* eslint-disable max-len */
-import { uniqueId, isString, isUndefined } from "lodash"
-import { isStringLengthInRange, noopParse } from "../helpers"
+import { isStringLengthInRange } from "../helpers"
+import { uniqueId, isString, isUndefined, identity } from "lodash"
 
 const fieldsConfig = [
   {
@@ -41,8 +40,8 @@ const fieldsConfig = [
     min: 0,
     max: 256000,
     parse: {
-      in: noopParse,
-      out: noopParse,
+      in: identity,
+      out: identity,
     },
     validators: [
       {

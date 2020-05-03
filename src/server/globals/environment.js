@@ -1,5 +1,7 @@
-export const PORT = process.env.PORT
 export const HOST = process.env.HOST
+
+export const PORT = process.env.PORT
+export const DEV_PORT = process.env.DEV_PORT
 
 export const APP_NAME = process.env.APP_NAME
 
@@ -13,3 +15,5 @@ export const AWS_S3_ACL = process.env.AWS_S3_ACL
 export const AWS_S3_BUCKET = process.env.AWS_S3_BUCKET
 export const AWS_ACCESS_KEY_ID = process.env.AWS_ACCESS_KEY_ID
 export const AWS_SECRET_ACCESS_KEY = process.env.AWS_SECRET_ACCESS_KEY
+
+export const APOLLO_ENGINE_KEY = process.env.APOLLO_ENGINE_KEY

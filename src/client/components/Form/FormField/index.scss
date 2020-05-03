@@ -1,4 +1,4 @@
-@import "../../../globals/index.scss";
+@import "../../../index.scss";
 
 .FormField {
   width: 100%;
@@ -26,10 +26,9 @@
     border-color: #e0e0e0;
     border-radius: $BORDER_RADIUS;
     &:hover,
+    &:focus, 
     &:hover &-dropdown {
       border-color: #9E9E9E; }
-    &:focus {
-      border-color: #212121; }
     &-name {
       top: -6px;
       left: 9px;

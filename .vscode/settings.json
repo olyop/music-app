@@ -37,5 +37,9 @@
   "workbench.colorTheme": "GitHub Plus",
   "editor.formatOnPaste": true,
   "window.menuBarVisibility": "default",
-  "editor.renderIndentGuides": false
+  "editor.renderIndentGuides": false,
+  "eslint.workingDirectories": [
+    "./src/client",
+    "./src/server"
+  ]
 }

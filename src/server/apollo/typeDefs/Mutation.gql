@@ -75,10 +75,10 @@ type Mutation {
     albumId: Uuid!
     title: String!
     audio: Upload!
-    genreIds: [Uuid!]!
     discNumber: Int!
-    artistIds: [Uuid!]!
+    genreIds: [Uuid!]!
     trackNumber: Int!
+    artistIds: [Uuid!]!
     remixerIds: [Uuid!]!
     featuringIds: [Uuid!]!
   ): Song!

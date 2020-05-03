@@ -5,8 +5,6 @@ import ApolloClient from "./components/ApolloClient"
 import Authenticate from "./components/Authenticate"
 import { BrowserRouter as ReactRouter } from "react-router-dom"
 
-import { ROOT_ELEMENT } from "./globals"
-
 const Index = () => (
   <ReactRouter>
     <Authenticate>
@@ -19,5 +17,5 @@ const Index = () => (
 
 ReactDOM.render(
   <Index/>,
-  ROOT_ELEMENT,
+  document.getElementById("Index"),
 )

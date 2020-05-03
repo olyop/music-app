@@ -6,7 +6,6 @@ query getBrowse($userId: Uuid!) {
     duration
     inLibrary(userId: $userId)
     isCurrent(userId: $userId)
-    numOfPlays(userId: $userId)
     featuring {
       artistId
       name
@@ -27,6 +26,10 @@ query getBrowse($userId: Uuid!) {
       albumId
       title
       cover
+    }
+    plays(userId: $userId) {
+      playId
+      dateCreated
     }
   }
   newAlbums {

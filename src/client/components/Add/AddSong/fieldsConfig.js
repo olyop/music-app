@@ -1,8 +1,7 @@
 /* eslint-disable max-len */
 import {
-  noopParse,
-  validateId,
   isNotEmpty,
+  validateId,
   validateArrayOfIds,
   isStringLengthInRange,
 } from "../helpers"
@@ -10,6 +9,7 @@ import {
 import {
   uniqueId,
   isString,
+  identity,
   isUndefined,
   toSafeInteger,
   isSafeInteger,
@@ -31,14 +31,18 @@ const fieldsConifg = ({ artists, albums, genres }) => [
     min: 1,
     max: 52428800,
     parse: {
-      in: noopParse,
-      out: noopParse,
+      in: identity,
+      out: identity,
     },
     validators: [
       {
         id: uniqueId(),
         msg: "valid and of file type of mp3.",
-        check: val => (isUndefined(val.file) ? false : val.file.type === "audio/mp3") && val.file instanceof File,
+        check: ({ file }) => (
+          isUndefined(file) ?
+            false :
+            file.type === "audio/mpeg" && file instanceof File
+        ),
       },
       {
         id: uniqueId(),

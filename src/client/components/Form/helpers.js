@@ -1,39 +1,41 @@
-import { deserializeDate } from "../../helpers"
+import { deserializeDate, determineDocIdKey } from "../../helpers"
 import { includes, find, isEmpty, concat, isNumber } from "lodash"
 
-export const createFormInit = fields => fields.reduce(
-  (acc, { type, short, isDoc, init }) => ({
-    ...acc,
-    [short]: isDoc ? {
-      val: init,
-      input: "",
-    } : (type === "file" ? { value: init } : init),
-  }),
-  {},
-)
+export const createFormInit = fields =>
+  fields.reduce(
+    (acc, { type, short, isDoc, init }) => ({
+      ...acc,
+      [short]: isDoc ? {
+        val: init,
+        input: "",
+      } : (type === "file" ? { value: init } : init),
+    }),
+    {},
+  )
 
-export const determineFormValid = (fields, form) => fields.reduce(
-  (isValid, field) => {
-    const { short, req, isDoc, type } = field
-    if (!req) {
-      isValid = true
-    } else if (isDoc) {
-      if (isEmpty(form[short].val)) {
+export const determineFormValid = (fields, form) =>
+  fields.reduce(
+    (isValid, field) => {
+      const { short, req, isDoc, type } = field
+      if (!req) {
+        isValid = true
+      } else if (isDoc) {
+        if (isEmpty(form[short].val)) {
+          isValid = false
+        } else {
+          isValid = true
+        }
+      } else if (type === "int") {
+        isValid = true
+      } else if (isEmpty(form[short])) {
         isValid = false
       } else {
         isValid = true
       }
-    } else if (type === "int") {
-      isValid = true
-    } else if (isEmpty(form[short])) {
-      isValid = false
-    } else {
-      isValid = true
-    }
-    return isValid
-  },
-  true,
-)
+      return isValid
+    },
+    true,
+  )
 
 export const handleFieldChange = (form, setForm) => ({ type, isDoc, short, parse }) => event => {
   const { value } = event.target
@@ -47,52 +49,58 @@ export const handleFieldChange = (form, setForm) => ({ type, isDoc, short, parse
   })
 }
 
-export const handleFieldDocRemove = (form, setForm) => ({ type, short }) => ({ id }) => () => {
+export const handleFieldDocRemove = (form, setForm) => ({ type, short }) => doc => () => {
+  const id = doc[determineDocIdKey(doc)]
   setForm({
     ...form,
     [short]: {
       ...form[short],
-      val: type === "list" ? form[short].val.filter(doc => doc !== id) : "",
+      val: type === "list" ? form[short].val.filter(docId => docId !== id) : "",
     },
   })
 }
 
-export const handleFieldHitClick = (form, setForm) => ({ type, isDoc, short }) => ({ id }) => () => {
+export const handleFieldHitClick = (form, setForm) => ({ type, isDoc, short }) => doc => () => {
+  const id = doc[determineDocIdKey(doc)]
   setForm({
     ...form,
     [short]: isDoc ? {
       ...form[short],
       input: "",
-      val: type === "list" ? concat(form[short].val, id) : id,
+      val: type === "list" ? (includes(form[short].val, id) ?
+        form[short].val : concat(form[short].val, id)
+      ) : id,
     } : id,
   })
 }
 
-export const handleToggleRemember = (remember, setRemember) => () => setRemember(!remember)
+export const handleToggleRemember = (remember, setRemember) => () =>
+  setRemember(!remember)
 
-export const deserializeForm = (fields, form) => fields.reduce(
-  (doc, field) => {
-    const { type, short, isDoc, parse } = field
-    const val = form[short]
-    if (isDoc) {
-      return {
-        ...doc,
-        [short]: val.val,
+export const deserializeForm = (fields, form) =>
+  fields.reduce(
+    (doc, field) => {
+      const { type, short, isDoc, parse } = field
+      const val = form[short]
+      if (isDoc) {
+        return {
+          ...doc,
+          [short]: val.val,
+        }
+      } else if (type === "file") {
+        return {
+          ...doc,
+          [short]: val.file,
+        }
+      } else {
+        return {
+          ...doc,
+          [short]: parse.out(val),
+        }
       }
-    } else if (type === "file") {
-      return {
-        ...doc,
-        [short]: val.file,
-      }
-    } else {
-      return {
-        ...doc,
-        [short]: parse.out(val),
-      }
-    }
-  },
-  {},
-)
+    },
+    {},
+  )
 
 export const createFormInitRemember = doc => ({
   ...doc,
@@ -147,51 +155,29 @@ export const determineInputType = ({ type }) => {
   }
 }
 
-export const determineMin = ({ type, min }) => {
-  if (includes(["int", "num", "date"], type)) {
-    return min
-  } else {
-    return undefined
-  }
-}
+export const determineMin = ({ type, min }) =>
+  (includes(["int","num","date"], type) ? min : undefined)
 
-export const determineMax = ({ type, max }) => {
-  if (includes(["int", "num", "date"], type)) {
-    return max
-  } else {
-    return undefined
-  }
-}
+export const determineMax = ({ type, max }) =>
+  (includes(["int","num","date"], type) ? max : undefined)
 
-export const determineMinLength = ({ type, min }) => {
-  if (includes(["text", "list"], type)) {
-    return min
-  } else {
-    return undefined
-  }
-}
+export const determineMinLength = ({ type, min }) =>
+  (includes(["text","list"], type) ? min : undefined)
 
-export const determineMaxLength = ({ type, max }) => {
-  if (includes(["text", "list"], type)) {
-    return max
-  } else {
-    return undefined
-  }
-}
+export const determineMaxLength = ({ type, max }) =>
+  (includes(["text", "list"], type) ? max : undefined)
 
-export const determineDisabled = ({ type, isDoc }, val) => {
-  if (type !== "list" && isDoc && !isEmpty(val.val)) {
-    return true
-  } else {
-    return undefined
-  }
-}
+export const determineDisabled = ({ type, isDoc }, val) =>
+  (type !== "list" && isDoc && !isEmpty(val.val) ? true : undefined)
 
-export const determineTabIndex = index => index + 1
+export const determineTabIndex = index =>
+  index + 1
 
-export const determineFieldVal = ({ short }, form) => form[short]
+export const determineFieldVal = ({ short }, form) =>
+  form[short]
 
-export const determineFieldDoc = (id, { db }) => find(db, { id })
+export const determineFieldDoc = (id, { db }) =>
+  find(db, { [determineDocIdKey(db[0])]: id })
 
 export const determineInputVal = ({ type, isDoc, parse }, val) => {
   let out
@@ -207,13 +193,8 @@ export const determineInputVal = ({ type, isDoc, parse }, val) => {
   return parse.out(out)
 }
 
-export const determineValidatorVal = ({ isDoc }, val) => {
-  if (isDoc) {
-    return val.val
-  } else {
-    return val
-  }
-}
+export const determineValidatorVal = ({ isDoc }, val) =>
+  (isDoc ? val.val : val)
 
 export const validatorVisibility = ({ isDoc }, val) => {
   if (isDoc) {

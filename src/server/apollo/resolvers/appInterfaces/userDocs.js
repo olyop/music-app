@@ -28,7 +28,9 @@ const userDocs = ({
         key: "userId",
         value: parent.userId,
       },{
+        string: false,
         key: "columnNames",
+        foo: (() => console.log(key))(),
         value: sqlJoin(columnNames[key]),
       }],
     })

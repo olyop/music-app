@@ -1,12 +1,14 @@
+@import "../../../index.scss";
+
 .FormTitle {
-  font-size: 20rem;
+  font-size: 28rem;
   position: relative;
-  margin-bottom: 15px;
-  padding-bottom: 10px;
   display: inline-block;
-  @media (min-width: 582px) {
-    font-size: 28rem;
-    margin-bottom: 20px; }
+  margin-bottom: $SPACE;
+  padding-bottom: $SPACE_HALF;
+  @media (max-width: 582px) {
+    font-size: 20rem;
+    margin-bottom: calc(#{$SPACE_HALF} + #{$SPACE_QUART}); }
   &:after {
     left: 0;
     bottom: 0;

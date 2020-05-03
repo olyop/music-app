@@ -2,7 +2,6 @@ import _pipe from "./pipe"
 import _show from "./show"
 import _isHex from "./isHex"
 import _isLength from "./isLength"
-import _catalogUrl from "./catalogUrl"
 import _findMatches from "./findMatches"
 import _filterInLibrary from "./filterInLibrary"
 import _deserializeDate from "./deserializeDate"
@@ -19,7 +18,6 @@ export const pipe = _pipe
 export const show = _show
 export const isHex = _isHex
 export const isLength = _isLength
-export const catalogUrl = _catalogUrl
 export const findMatches = _findMatches
 export const filterInLibrary = _filterInLibrary
 export const deserializeDate = _deserializeDate

@@ -29,7 +29,6 @@ const bem = reactBem("FormField")
 const FormField = ({ field, val, index, onFieldChange, onFieldHitClick, onFieldDocRemove }) => {
   const { id, name, type, isDoc, db, parse, validators } = field
   const isList = type === "list"
-  if (isList && !isEmpty(val.val)) console.log(val.val)
   return (
     <div className={bem("")}>
       <label

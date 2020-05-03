@@ -171,13 +171,13 @@ const SongsTable = ({ songs, orderByInit, columnsToIgnore }) => {
             song => {
               const {
                 songId,
+                plays,
                 album,
                 genres,
                 artists,
                 duration,
                 remixers,
                 featuring,
-                numOfPlays,
                 trackNumber,
               } = song
               return (
@@ -360,10 +360,10 @@ const SongsTable = ({ songs, orderByInit, columnsToIgnore }) => {
                   {showColumn("numOfPlays") ? (
                     <td
                       className={bem("body-row-numOfPlays", "body-row-col")}
-                      children={numOfPlays === 0 ? null : (
+                      children={plays === 0 ? null : (
                         <Link
-                          children={numOfPlays}
                           to={`/plays/${songId}`}
+                          children={plays.length}
                           className={bem("body-row-numOfPlays-span", "body-row-col-span")}
                         />
                       )}

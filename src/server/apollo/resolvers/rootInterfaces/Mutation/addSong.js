@@ -1,6 +1,7 @@
 import { v4 as uuid } from "uuid"
 import mp3Duration from "mp3-duration"
 import ApolloServer from "apollo-server-express"
+import sqlJoin from "../../../../helpers/sql/sqlJoin.js"
 import columnNames from "../../../../sql/columnNames.js"
 import s3Upload from "../../../../helpers/s3/s3Upload.js"
 import sqlQuery from "../../../../helpers/sql/sqlQuery.js"
@@ -37,12 +38,8 @@ const addSong = async ({ args }) => {
     name: "isUniqueAlbumSong",
     check: sqlQuery({
       query: EXISTS_ALBUM_SONG,
-      parse: sqlResExists,
+      parse: res => !sqlResExists(res),
       variables: [{
-        key: "title",
-        value: args.title,
-        parameterized: true,
-      },{
         key: "albumId",
         value: args.albumId,
       },{
@@ -132,8 +129,9 @@ const addSong = async ({ args }) => {
       key: "trackNumber",
       value: args.trackNumber,
     },{
+      string: false,
       key: "columnNames",
-      value: columnNames.song,
+      value: sqlJoin(columnNames.song),
     }],
   }
 
@@ -207,18 +205,17 @@ const addSong = async ({ args }) => {
       data: audio,
     })
 
-  const transaction = sqlTransaction([
-    songInsert,
-    ...args.genreIds.map(genreInsert),
-    ...args.artistIds.map(artistInsert),
-    ...args.remixerIds.map(remixerInsert),
-    ...args.featuringIds.map(featuringInsert),
-  ])
+  const transaction =
+    sqlTransaction([
+      songInsert,
+      ...args.genreIds.map(genreInsert),
+      ...args.artistIds.map(artistInsert),
+      ...args.remixerIds.map(remixerInsert),
+      ...args.featuringIds.map(featuringInsert),
+    ])
 
-  const result = await Promise.all([
-    transaction,
-    audioUpload,
-  ])
+  const result =
+    await Promise.all([ transaction, audioUpload ])
 
   return result[0][0]
 }

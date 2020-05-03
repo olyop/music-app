@@ -2,7 +2,7 @@ query getArtists($userId: Uuid!) {
   artists {
     artistId
     name
-    photo
+    photo(size: HALF)
     inLibrary(userId: $userId)
   }
 }

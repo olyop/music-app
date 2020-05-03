@@ -14,7 +14,7 @@ import globalHeaders from "./middleware/globalHeaders.js"
 
 import { HOST, PORT } from "./globals/environment.js"
 import { LOG_FORMAT } from "./globals/miscellaneous.js"
-import { CORS_CONFIG, APOLLO_APPLY_CONFIG } from "./globals/configs.js"
+import { CORS_CONFIG, APOLLO_MIDDLEWARE_CONFIG } from "./globals/configs.js"
 
 const app = express()
 
@@ -30,7 +30,7 @@ app.use(
   globalHeaders(),
 )
 
-apolloServer.applyMiddleware({ app, ...APOLLO_APPLY_CONFIG })
+app.use(apolloServer.getMiddleware(APOLLO_MIDDLEWARE_CONFIG))
 
 app.use(sendStatic)
 app.use("*", sendIndex)

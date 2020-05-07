@@ -1,7 +1,6 @@
 import React from "react"
 
 import Song from "../../Song"
-import Grid from "../../Grid"
 import Album from "../../Album"
 import QueryApi from "../../QueryApi"
 import PlayButton from "../../PlayButton"
@@ -22,7 +21,7 @@ const BrowseHome = () => (
         <div className={bem("")}>
           <div className={bem("newAlbums")}>
             <h2 className={bem("heading")}>New Albums</h2>
-            <Grid className={bem("newAlbums-albums")}>
+            <div className={bem("newAlbums-albums", "Grid")}>
               {newAlbums.map(
                 album => (
                   <Album
@@ -31,15 +30,14 @@ const BrowseHome = () => (
                   />
                 ),
               )}
-            </Grid>
+            </div>
           </div>
           <div className={bem("topTen")}>
             <h2 className={bem("heading")}>Top 10</h2>
             {topTenSongs.map(
               song => (
                 <div key={song.id} className={bem("topTen-song")}>
-                  {/* <p className={bem("topTen-song-num")}>{`${index + 1}`}</p> */}
-                  <PlayButton song={song} className={bem("topTen-song-play")} />
+                  <PlayButton doc={song} className={bem("topTen-song-play")} />
                   <Song song={song} />
                 </div>
               ),

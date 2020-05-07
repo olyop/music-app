@@ -9,7 +9,7 @@ import "./index.scss"
 
 const bem = reactBem("Info")
 
-const Info = ({ upper, lower, doc, className, addClassName, textClassName }) => (
+const Info = ({ doc, upper, lower, className, addClassName, textClassName }) => (
   <div className={bem(className, "")}>
     <div className={bem(textClassName, "text")}>
       <p className={bem("text-upper")}>{upper}</p>

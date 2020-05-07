@@ -1,6 +1,5 @@
 import React from "react"
 
-import Grid from "../Grid"
 import Genre from "../Genre"
 import QueryApi from "../QueryApi"
 
@@ -14,7 +13,7 @@ const BrowseGenres = () => (
     resultPath="genres"
     children={
       genres => (
-        <Grid>
+        <div className="Grid">
           {genres.map(
             genre => (
               <Genre
@@ -23,7 +22,7 @@ const BrowseGenres = () => (
               />
             ),
           )}
-        </Grid>
+        </div>
       )
     }
   />

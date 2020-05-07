@@ -1,0 +1,9 @@
+.InfoImg {
+  display: flex;
+  align-items: center;
+  &__cover {
+    width: 35px;
+    height: 35px;
+    margin-right: var(--gap);
+    &-img {
+      border-radius: var(--text-border-radius); } } }

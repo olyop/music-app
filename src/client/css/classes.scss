@@ -7,8 +7,18 @@
     0 0 8px 0 rgba($shadow-color, .20);;
   background-color: var(--elevated-color); }
 
+.Space {
+  padding: var(--space); }
+
+.SpaceBottom {
+  margin-bottom: var(--space); }
+
+.Grid {
+  display: grid;
+  gap: var(--space);
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); }
+
 .Card {
-  overflow: hidden;
   transition-property: box-shadow;
   border-radius: var(--border-radius);
   transition-duration: var(--transition-duration);
@@ -30,11 +40,6 @@
 .ButtonHover {
   &:hover {
     background-color: var(--button-hover-color); } }
-
-.Item {
-  margin-bottom: calc(var(--space) * .5);
-  &:last-child {
-    margin-bottom: 0; } }
 
 .ItemBorder {
   border-bottom: $border;

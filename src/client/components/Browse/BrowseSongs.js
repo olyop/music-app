@@ -16,6 +16,7 @@ const BrowseSongs = () => (
             song => (
               <SongItem
                 song={song}
+                showDuration
                 key={song.songId}
               />
             ),

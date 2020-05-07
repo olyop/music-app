@@ -1,6 +1,5 @@
 import React from "react"
 
-import Grid from "../Grid"
 import Artist from "../Artist"
 import QueryApi from "../QueryApi"
 
@@ -14,7 +13,7 @@ const BrowseArtists = () => (
     resultPath="artists"
     children={
       artists => (
-        <Grid>
+        <div className="Grid">
           {artists.map(
             artist => (
               <Artist
@@ -23,7 +22,7 @@ const BrowseArtists = () => (
               />
             ),
           )}
-        </Grid>
+        </div>
       )
     }
   />

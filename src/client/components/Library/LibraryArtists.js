@@ -1,6 +1,5 @@
 import React from "react"
 
-import Grid from "../Grid"
 import Artist from "../Artist"
 import QueryApi from "../QueryApi"
 
@@ -17,7 +16,7 @@ const LibraryArtists = () => (
     resultPath="user.artists"
     children={
       artists => (
-        <Grid>
+        <div className="Grid">
           {pipe(artists)(
             orderBy("dateAdded", "desc"),
             map(
@@ -29,7 +28,7 @@ const LibraryArtists = () => (
               ),
             ),
           )}
-        </Grid>
+        </div>
       )
     }
   />

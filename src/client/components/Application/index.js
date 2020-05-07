@@ -6,6 +6,9 @@ import PlayerBar from "../PlayerBar"
 
 import PlayContext from "../../contexts/Play"
 import SidebarContext from "../../contexts/Sidebar"
+import ListStyleContent from "../../contexts/ListStyle"
+
+import { useLocalStorage } from "../../hooks"
 
 import "./index.scss"
 
@@ -13,6 +16,7 @@ const Application = () => {
 
   const [ play, setPlay ] = useState(false)
   const [ sidebar, setSidebar ] = useState(false)
+  const [ listStyle, setListStyle ] = useLocalStorage("listStyle", "grid")
 
   const toggleSidebar = () => {
     document.documentElement.style.setProperty(
@@ -25,9 +29,11 @@ const Application = () => {
   return (
     <PlayContext.Provider value={{ play, setPlay }}>
       <SidebarContext.Provider value={{ sidebar, toggleSidebar }}>
-        <Header/>
-        <Pages/>
-        <PlayerBar />
+        <ListStyleContent.Provider value={{ listStyle, setListStyle }}>
+          <Header/>
+          <Pages/>
+          <PlayerBar />
+        </ListStyleContent.Provider>
       </SidebarContext.Provider>
     </PlayContext.Provider>
   )

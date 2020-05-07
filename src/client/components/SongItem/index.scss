@@ -15,8 +15,8 @@
   &__song {
     width: 100%; }
     &__info {
-      padding: calc(var(--space) * .5);
-      padding-left: 0; }
+      --padding: calc(var(--space) * .5);
+      padding: var(--padding) var(--padding) calc(var(--padding) - 1px) 0; }
   &__duration {
     margin-right: 0;
     color: var(--text-color-light); } }

@@ -1,4 +1,10 @@
 .UserPage {
-  padding: var(--space);
   &__name {
-    font-size: 30rem; } }
+    font-size: 30rem;
+    margin-bottom: var(--space); }
+  &__option-text {
+    font-size: 18rem;
+    margin-bottom: calc(var(--space) * .25); }
+  &__select,
+  &__select-option {
+    font-size: 16rem; } }

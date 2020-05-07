@@ -1,6 +1,5 @@
 import React from "react"
 
-import Grid from "../Grid"
 import Playlist from "../Playlist"
 import QueryApi from "../QueryApi"
 
@@ -17,7 +16,7 @@ const LibraryPlaylists = () => (
     resultPath="user.playlists"
     children={
       playlists => (
-        <Grid>
+        <div className="Grid">
           {pipe(playlists)(
             orderBy("dateAdded", "desc"),
             map(
@@ -29,7 +28,7 @@ const LibraryPlaylists = () => (
               ),
             ),
           )}
-        </Grid>
+        </div>
       )
     }
   />

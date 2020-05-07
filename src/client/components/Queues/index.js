@@ -30,7 +30,7 @@ const Queues = () => (
                     (song, index) => (
                       <div key={index} className={bem("section-song")}>
                         <PlayButton
-                          song={song}
+                          doc={song}
                           className={bem("section-song-playButton")}
                         />
                         <Song

@@ -6,14 +6,12 @@ import { Switch, Route } from "react-router-dom"
 import routes from "./routes"
 import { propTypes } from "./props"
 
-import "./index.scss"
-
 const Browse = ({ match }) => (
-  <div className="Browse">
+  <div className="Space">
     <Navigation
       match={match}
       routes={routes}
-      className="Browse__nav"
+      className="SpaceBottom"
     />
     <Switch>
       {routes.map(

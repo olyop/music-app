@@ -27,6 +27,7 @@ query getGenrePage(
       album {
         albumId
         title
+        cover(size: HALF)
       }
       genres {
         genreId

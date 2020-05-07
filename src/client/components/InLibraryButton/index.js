@@ -1,6 +1,7 @@
 import React, { useContext } from "react"
 
 import Icon from "../Icon"
+import ApiError from "../ApiError"
 import UserContext from "../../contexts/User"
 
 import { propTypes } from "./props"
@@ -37,7 +38,7 @@ const InLibraryButton = ({ doc, className }) => {
   })
 
   if (error) {
-    return null
+    return <ApiError error={error} />
   }
 
   const handleClick = () => mutation()
@@ -47,7 +48,7 @@ const InLibraryButton = ({ doc, className }) => {
       onClick={handleClick}
       className={className}
       icon={loading || inLibrary ? "done" : "add"}
-      title={`${inLibrary ? "Remove from" : "Add to"} library.`}
+      title={`${inLibrary ? "Remove from" : "Add to"} Library`}
     />
   )
 }

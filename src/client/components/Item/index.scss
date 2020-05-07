@@ -1,0 +1,22 @@
+@import "../../css/variables.scss";
+
+.Item {
+  --gap: calc(var(--space) * .5);
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  border-bottom: $border;
+  padding: 0 calc(var(--space) * .75);
+  &:hover &__info-text {
+    width: calc(100% - var(--gap) - var(--button-size)); }
+  &:hover &__info-add {
+    display: block; }
+  &__play {
+    margin-right: calc(var(--space) * .5);
+    margin-left: calc(var(--space) * -.25); }
+  &__info {
+    --padding: calc(var(--space) * .5);
+    overflow: hidden;
+    padding: var(--padding) 0 calc(var(--padding) - 1px) 0;
+    &-add {
+      margin-left: var(--gap); } } }

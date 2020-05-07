@@ -20,7 +20,7 @@ const SongItem = ({ song, showCover, showDuration, showTrackNumber }) => (
       />
     ) : null}
     <PlayButton
-      song={song}
+      doc={song}
       className={bem("play")}
     />
     <Song

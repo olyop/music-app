@@ -1,6 +1,5 @@
 import React from "react"
 
-import Grid from "../Grid"
 import Album from "../Album"
 import QueryApi from "../QueryApi"
 
@@ -14,7 +13,7 @@ const LibraryAlbums = () => (
     resultPath="user.albums"
     children={
       albums => (
-        <Grid>
+        <div className="Grid">
           {albums.map(
             album => (
               <Album
@@ -23,7 +22,7 @@ const LibraryAlbums = () => (
               />
             ),
           )}
-        </Grid>
+        </div>
       )
     }
   />

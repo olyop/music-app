@@ -2,36 +2,48 @@ import React, { useContext } from "react"
 
 import Icon from "../Icon"
 import { NavLink } from "react-router-dom"
+import UserContext from "../../contexts/User"
 import SidebarContext from "../../contexts/Sidebar"
+
+import reactBem from "@oly_op/react-bem"
 
 import "./index.scss"
 
+const bem = reactBem("Header")
+
 const Header = () => {
+  const userId = useContext(UserContext)
   const { sidebar, toggleSidebar } = useContext(SidebarContext)
   return (
-    <header className="Header Elevated">
+    <header className={bem("", "Elevated")}>
       <Icon
         title="Menu"
         onClick={toggleSidebar}
         icon={sidebar ? "close" : "menu"}
-        className="Header__hamburger Header__icon IconHover"
+        className={bem("hamburger", "icon", "IconHover")}
       />
-      <div className="Header__right">
+      <div className={bem("right")}>
         <NavLink
           to="/search"
-          className="Header__link"
+          className={bem("link")}
           children={(
             <Icon
               icon="search"
               title="Search"
-              className="Header__search Header__icon IconHover"
+              className={bem("search", "icon", "IconHover")}
             />
           )}
         />
-        <Icon
-          title="Account"
-          icon="account_circle"
-          className="Header__icon IconHover"
+        <NavLink
+          to={`/user/${userId}`}
+          className={bem("link")}
+          children={(
+            <Icon
+              title="Account"
+              icon="account_circle"
+              className={bem("icon", "IconHover")}
+            />
+          )}
         />
       </div>
     </header>

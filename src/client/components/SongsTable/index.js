@@ -198,7 +198,7 @@ const SongsTable = ({ songs, orderByInit, columnsToIgnore }) => {
                   className={bem("body-row-play", "body-row-col")}
                   children={(
                     <PlayButton
-                      song={song}
+                      doc={song}
                       className={bem("body-row-play-icon")}
                     />
                   )}

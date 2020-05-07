@@ -46,8 +46,13 @@
     &-text {
       color: var(--text-color-white); }
     &-text {
-      font-size: 16rem; }
+      font-size: 18rem; }
     &-icon {
-      font-size: 30rem;
+      --height: 35rem;
+      margin: 0;
+      width: var(--height);
+      height: var(--height);
+      font-size: var(--height);
+      margin-bottom: calc(var(--space) * .25);
       &:hover {
         background-color: transparent !important; } } } }

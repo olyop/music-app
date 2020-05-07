@@ -1,7 +1,6 @@
 import React, { Fragment } from "react"
 
 import Img from "../Img"
-import Grid from "../Grid"
 import Album from "../Album"
 import QueryApi from "../QueryApi"
 import SongItem from "../SongItem"
@@ -34,33 +33,35 @@ const ArtistPage = () => (
                 className={bem("cover", "Elevated")}
                 children={(
                   <Fragment>
-                    <h1 className={bem("cover-name")}>
-                      <span className={bem("cover-name-text")}>{name}</span>
-                      <InLibraryButton
-                        doc={artist}
-                        className={bem("cover-name-add")}
-                      />
-                    </h1>
+                    <div className={bem("cover-content", "Space")}>
+                      <h1 className={bem("cover-content-name")}>
+                        <span className={bem("cover-content-name-text")}>{name}</span>
+                        <InLibraryButton
+                          doc={artist}
+                          className={bem("cover-content-name-add")}
+                        />
+                      </h1>
+                      <p className={bem("cover-content-stats")}>
+                        {songs.length}
+                        <Fragment> song</Fragment>
+                        <Fragment>{determinePlural(songs)}</Fragment>
+                        {isEmpty(albums) ? null : (
+                          <Fragment>
+                            <Fragment>, </Fragment>
+                            {albums.length}
+                            <Fragment> album</Fragment>
+                            {determinePlural(albums)}
+                          </Fragment>
+                        )}
+                      </p>
+                    </div>
                     <div className={bem("cover-black")} />
                   </Fragment>
                 )}
               />
-              <div className={bem("main")}>
-                <p className={bem("length")}>
-                  {songs.length}
-                  <Fragment> song</Fragment>
-                  <Fragment>{determinePlural(songs)}</Fragment>
-                  {isEmpty(albums) ? null : (
-                    <Fragment>
-                      <Fragment>, </Fragment>
-                      {albums.length}
-                      <Fragment> album</Fragment>
-                      {determinePlural(albums)}
-                    </Fragment>
-                  )}
-                </p>
+              <div className="Space">
                 {isEmpty(albums) ? null : (
-                  <Grid className={bem("albums")}>
+                  <div className={bem("albums", "Grid", "SpaceBottom")}>
                     {albums.map(
                       album => (
                         <Album
@@ -69,7 +70,7 @@ const ArtistPage = () => (
                         />
                       ),
                     )}
-                  </Grid>
+                  </div>
                 )}
                 {isEmpty(songs) ? null : (
                   <div className="Elevated">

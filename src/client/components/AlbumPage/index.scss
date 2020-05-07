@@ -1,12 +1,9 @@
 .AlbumPage {
   display: grid;
-  padding: var(--space);
   gap: calc(var(--space) * 1.25);
   grid-template-columns: 1fr 3fr;
-  &__cover {
-    width: 100%;
-    height: auto;
-    margin-bottom: var(--space); }
+  @media (max-width: 1200px) {
+    grid-template-columns: 1fr 2fr; }
   &__title {
     display: flex;
     font-size: 20rem;
@@ -26,8 +23,7 @@
     margin-bottom: calc(var(--space) * .5); }
   &__info {
     font-size: 16rem;
-    font-weight: 400;
-    margin-bottom: calc(var(--space) * 1.5); }
+    font-weight: 400; }
   &__disc {
     margin-bottom: calc(var(--space) * .75);
     &:last-child {

@@ -20,7 +20,7 @@ import "./index.scss"
 const bem = reactBem("AlbumPage")
 
 const AlbumPage = () => (
-  <div className={bem("")}>
+  <div className={bem("", "Space")}>
     <QueryApi
       query={GET_ALBUM_PAGE}
       variables={useParams()}
@@ -32,7 +32,7 @@ const AlbumPage = () => (
               <div>
                 <Cover
                   url={album.cover}
-                  className={bem("cover", "Card", "Elevated")}
+                  className="Card SpaceBottom Elevated"
                 />
                 <IconText
                   text="Shuffle"
@@ -55,7 +55,7 @@ const AlbumPage = () => (
                     docs={artists}
                   />
                 </h2>
-                <h3 className={bem("info")}>
+                <h3 className={bem("info", "SpaceBottom")}>
                   <DocLinks
                     ampersand
                     path="/genre"

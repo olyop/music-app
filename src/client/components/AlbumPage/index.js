@@ -1,10 +1,10 @@
 import React, { Fragment } from "react"
 
-import QueryApi from "../QueryApi"
 import Cover from "../Cover"
+import QueryApi from "../QueryApi"
 import IconText from "../IconText"
 import DocLinks from "../DocLinks"
-import SongsTable from "../SongsTable"
+import SongItem from "../SongItem"
 import InLibraryButton from "../InLibraryButton"
 
 import { map } from "lodash/fp"
@@ -29,57 +29,68 @@ const AlbumPage = () => (
           const { title, released, artists } = album
           return (
             <Fragment>
-              <Cover
-                url={album.cover}
-                className={bem("cover")}
-              />
-              <h2 className={bem("title")}>
-                <span className={bem("title-text")}>{title}</span>
-                <InLibraryButton
-                  doc={album}
-                  className={bem("title-add")}
+              <div>
+                <Cover
+                  url={album.cover}
+                  className={bem("cover", "Card", "Elevated")}
                 />
-              </h2>
-              <h3 className={bem("info")}>
-                <DocLinks
-                  ampersand
-                  path="/genre"
-                  docs={genresFromAlbum(album)}
-                />
-                <Fragment> - </Fragment>
-                {deserializeDate(released)}
-              </h3>
-              <h4 className={bem("artists")}>
-                <DocLinks
-                  ampersand
-                  path="/artist"
-                  docs={artists}
-                />
-              </h4>
-              <div className={bem("controls")}>
                 <IconText
                   text="Shuffle"
                   icon="shuffle"
-                  className={bem("controls-shuffle")}
+                  className="Button"
                 />
               </div>
-              <div className={bem("discs")}>
-                {pipe(album)(
-                  songsWithAlbum,
-                  determineDiscs,
-                  map(
-                    disc => (
-                      <div className={bem("disc")} key={disc.number}>
-                        <p className={bem("disc-number")}>{`Disc ${disc.number}`}</p>
-                        <SongsTable
-                          songs={disc.songs}
-                          orderByInit={{ field: "trackNumber", order: true }}
-                          columnsToIgnore={["album", "numOfPlays", "released", "dateAdded"]}
+              <div>
+                <h1 className={bem("title")}>
+                  <span className={bem("title-text")}>{title}</span>
+                  <InLibraryButton
+                    doc={album}
+                    className={bem("title-add")}
+                  />
+                </h1>
+                <h2 className={bem("artists")}>
+                  <DocLinks
+                    ampersand
+                    path="/artist"
+                    docs={artists}
+                  />
+                </h2>
+                <h3 className={bem("info")}>
+                  <DocLinks
+                    ampersand
+                    path="/genre"
+                    docs={genresFromAlbum(album)}
+                  />
+                  <Fragment> - </Fragment>
+                  {deserializeDate(released)}
+                </h3>
+                <div className={bem("discs")}>
+                  {pipe(album)(
+                    songsWithAlbum,
+                    determineDiscs,
+                    map(({ number, songs }) => (
+                      <div className={bem("disc")} key={number}>
+                        <h4
+                          children={`Disc ${number}`}
+                          className={bem("disc-number")}
                         />
+                        <div className="Elevated">
+                          {songs.map(
+                            song => (
+                              <SongItem
+                                song={song}
+                                showDuration
+                                showTrackNumber
+                                key={song.songId}
+                                showCover={false}
+                              />
+                            ),
+                          )}
+                        </div>
                       </div>
-                    ),
-                  ),
-                )}
+                    )),
+                  )}
+                </div>
               </div>
             </Fragment>
           )

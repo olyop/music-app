@@ -1,16 +1,14 @@
-@import "../../../index.scss";
-
 .BrowseHome {
-  gap: $SPACE;
   display: grid;
+  gap: var(--space);
   align-items: stretch;
   grid-template-columns: 3fr 1fr;
   &__heading {
-    font-weight: 700;
     font-size: 22rem;
+    font-weight: 700;
     position: relative;
-    margin-bottom: $SPACE;
     display: inline-block;
+    margin-bottom: var(--space);
     &:after {
       left: 0;
       right: 0;
@@ -19,24 +17,24 @@
       height: 2px;
       bottom: -3px;
       position: absolute;
-      background-color: $TEXT_COLOR; } }
+      background-color: var(--text-color); } }
   &__topTen,
   &__newAlbums {
-    padding: $SPACE;
-    background-color: #fff;
-    box-shadow: $BOX_SHADOW;
-    border-radius: $BORDER_RADIUS; }
+    padding: var(--space);
+    box-shadow: var(--box-shadow);
+    border-radius: var(--border-radius);
+    background-color: var(--text-color-white); }
   &__topTen {
     &-song {
       display: flex;
       margin-left: -9px;
       align-items: center;
-      margin-bottom: 10px;
+      margin-bottom: calc(var(--space) * .5);
       &:last-child {
         margin-bottom: 0; }
       &-num {
         width: 30px;
         font-size: 22rem;
-        margin-right: $SPACE_HALF; }
+        margin-right: calc(var(--space) * .5); }
       &-play {
-        margin-right: 5px; } } } }
+        margin-right: calc(var(--space) * .25); } } } }

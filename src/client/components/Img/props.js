@@ -10,6 +10,6 @@ export const propTypes = {
 export const defaultProps = {
   url: "",
   children: null,
-  className: undefined,
-  imgClassName: undefined,
+  className: null,
+  imgClassName: null,
 }

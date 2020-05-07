@@ -10,42 +10,43 @@ import "./index.scss"
 
 const bem = reactBem("Cover")
 
-const Cover = ({ url, className, imgClassName }) => (
+const Cover = ({ url, children, className, imgClassName }) => (
   <Img
     url={url}
-    className={bem({ ignore: true, className }, "")}
-    imgClassName={bem({ ignore: true, className: imgClassName }, "img")}
+    className={bem(className, "")}
+    imgClassName={bem(imgClassName, "img")}
     children={(
       <Fragment>
         <IconText
           text="Play"
           icon="play_arrow"
+          className={bem("button")}
           iconClassName={bem("button-icon")}
           textClassName={bem("button-text")}
-          className={bem("button-top-left", "button")}
         />
         <IconText
           text="Next"
           icon="double_arrow"
+          className={bem("button")}
           iconClassName={bem("button-icon")}
           textClassName={bem("button-text")}
-          className={bem("button-top-right", "button")}
         />
         <IconText
           text="Later"
           icon="playlist_add"
+          className={bem("button")}
           iconClassName={bem("button-icon")}
           textClassName={bem("button-text")}
-          className={bem("button-bottom-left", "button")}
         />
         <IconText
           text="Queue"
           icon="queue_music"
+          className={bem("button")}
           iconClassName={bem("button-icon")}
           textClassName={bem("button-text")}
-          className={bem("button-bottom-right", "button")}
         />
         <div className={bem("black-box")} />
+        {children}
       </Fragment>
     )}
   />

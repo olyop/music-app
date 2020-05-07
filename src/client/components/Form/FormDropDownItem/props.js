@@ -11,7 +11,7 @@ export const propTypes = {
 
 export const defaultProps = {
   doc: {
-    name: undefined,
-    title: undefined,
+    name: null,
+    title: null,
   },
 }

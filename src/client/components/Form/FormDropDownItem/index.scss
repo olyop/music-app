@@ -1,26 +1,23 @@
-@import "../../../index.scss";
-
 .FormDropDownItem {
   width: 100%;
   border: none;
   display: flex;
   padding: 13px;
   outline: none;
-  color: #333333;
   cursor: pointer;
   font-size: 18rem;
   text-align: left;
   user-select: none;
   transition: .2s all;
   align-items: center;
+  color: var(--text-color);
   background-color: transparent;
   &:hover,
   &:focus,
   &:active {
-    background-color: #e0e0e0; }
+    background-color: var(--hover-color); }
   &__img {
     width: 24px;
     height: 24px;
-    margin-right: 10px;
-    border-radius: $BORDER_RADIUS; }
-}
+    margin-right: calc(var(--space) * .5);
+    border-radius: var(--border-radius); } }

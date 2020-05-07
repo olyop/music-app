@@ -21,7 +21,7 @@ const DocLink = ({ path, doc }) => {
       title={text}
       children={text}
       className={bem("")}
-      to={`${path}/${determineDocIdKey(doc)}`}
+      to={`${path}/${doc[determineDocIdKey(doc)]}`}
     />
   )
 }

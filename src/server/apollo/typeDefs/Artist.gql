@@ -2,6 +2,8 @@ type Artist {
   name: String!
   artistId: Uuid!
   songs: [Song!]!
+  numOfSongs: Int!
+  numOfAlbums: Int!
   albums: [Album!]!
   plays(userId: Uuid!): [Play!]
   dateAdded(userId: Uuid!): Int

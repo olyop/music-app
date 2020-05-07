@@ -1,11 +1,7 @@
-@import "../../index.scss";
-
 .SongsTable {
   width: 100%;
   border-spacing: 0;
   border-collapse: collapse;
-  background-color: #ffffff;
-  box-shadow: 0 1px 4px 0 rgba(#333333, .3);
   &__head {
     @media (max-width: 700px) {
       display: none; }
@@ -22,13 +18,13 @@
         transition: .2s all;
         text-transform: uppercase;
         &:hover {
-          background-color: #EEEEEE; }
+          background-color: var(--hover-color); }
         &-icon {
           height: 23px;
           font-size: 23px;
           line-height: 23px;
           border-radius: 100%;
-          color: $TEXT_COLOR_LIGHT; } }
+          color: var(--text-color-white); } }
       &-noHover {
         cursor: auto;
         transition: none;
@@ -144,7 +140,7 @@
       &-duration,
       &-numOfPlays {
         &-span {
-          color: $TEXT_COLOR_LIGHT; } }
+          color: var(--text-color-light); } }
       &-artists {
         width: 12vw; }
       &-remixers {

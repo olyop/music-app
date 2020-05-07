@@ -1,9 +1,10 @@
-import { shape, string, bool } from "prop-types"
+import { shape, string, bool, number } from "prop-types"
 
 export const propTypes = {
   genre: shape({
-    genreId: string.isRequired,
     name: string.isRequired,
+    genreId: string.isRequired,
     inLibrary: bool.isRequired,
+    numOfSongs: number.isRequired,
   }).isRequired,
 }

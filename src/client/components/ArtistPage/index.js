@@ -1,16 +1,16 @@
 import React, { Fragment } from "react"
 
+import Img from "../Img"
 import Grid from "../Grid"
-import Cover from "../Cover"
 import Album from "../Album"
 import QueryApi from "../QueryApi"
-import SongsTable from "../SongsTable"
+import SongItem from "../SongItem"
 import InLibraryButton from "../InLibraryButton"
 
 import { isEmpty } from "lodash"
 import reactBem from "@oly_op/react-bem"
 import { useParams } from "react-router-dom"
-import { determinePlural } from "../../helpers"
+import { determinePlural, determineDocIdKey } from "../../helpers"
 
 import GET_ARTIST_PAGE from "../../graphql/queries/getArtistPage.gql"
 
@@ -28,49 +28,63 @@ const ArtistPage = () => (
           const { name, photo, songs, albums } = artist
           return (
             <Fragment>
-              <Cover
+              <Img
                 url={photo}
-                className={bem("cover")}
                 imgClassName={bem("cover-img")}
-              />
-              <h2 className={bem("name")}>
-                <span className={bem("name-text")}>{name}</span>
-                <InLibraryButton
-                  doc={artist}
-                  className={bem("name-add")}
-                />
-              </h2>
-              <div className={bem("length")}>
-                {songs.length}
-                <Fragment> song</Fragment>
-                <Fragment>{determinePlural(songs)}</Fragment>
-                {isEmpty(albums) ? null : (
+                className={bem("cover", "Elevated")}
+                children={(
                   <Fragment>
-                    <Fragment>, </Fragment>
-                    {albums.length}
-                    <Fragment> album</Fragment>
-                    {determinePlural(albums)}
+                    <h1 className={bem("cover-name")}>
+                      <span className={bem("cover-name-text")}>{name}</span>
+                      <InLibraryButton
+                        doc={artist}
+                        className={bem("cover-name-add")}
+                      />
+                    </h1>
+                    <div className={bem("cover-black")} />
                   </Fragment>
                 )}
-              </div>
-              {isEmpty(albums) ? null : (
-                <Grid className={bem("albums")}>
-                  {albums.map(
-                    album => (
-                      <Album
-                        album={album}
-                        key={album.id}
-                      />
-                    ),
+              />
+              <div className={bem("main")}>
+                <p className={bem("length")}>
+                  {songs.length}
+                  <Fragment> song</Fragment>
+                  <Fragment>{determinePlural(songs)}</Fragment>
+                  {isEmpty(albums) ? null : (
+                    <Fragment>
+                      <Fragment>, </Fragment>
+                      {albums.length}
+                      <Fragment> album</Fragment>
+                      {determinePlural(albums)}
+                    </Fragment>
                   )}
-                </Grid>
-              )}
-              {isEmpty(songs) ? null : (
-                <SongsTable
-                  songs={songs}
-                  columnsToIgnore={["numOfPlays", "trackNumber", "dateAdded"]}
-                />
-              )}
+                </p>
+                {isEmpty(albums) ? null : (
+                  <Grid className={bem("albums")}>
+                    {albums.map(
+                      album => (
+                        <Album
+                          album={album}
+                          key={album[determineDocIdKey(album)]}
+                        />
+                      ),
+                    )}
+                  </Grid>
+                )}
+                {isEmpty(songs) ? null : (
+                  <div className="Elevated">
+                    {songs.map(
+                      song => (
+                        <SongItem
+                          song={song}
+                          showDuration
+                          key={song.songId}
+                        />
+                      ),
+                    )}
+                  </div>
+                )}
+              </div>
             </Fragment>
           )
         }

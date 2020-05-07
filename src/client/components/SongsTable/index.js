@@ -15,11 +15,23 @@ import { orderBy, map } from "lodash/fp"
 import { isEmpty, concat } from "lodash"
 import { propTypes, defaultProps } from "./props"
 import { determineFieldOrderText } from "./helpers"
-import { pipe, show, deserializeDate, deserializeDuration } from "../../helpers"
+
+import {
+  pipe,
+  show,
+  deserializeDate,
+  deserializeDuration,
+} from "../../helpers"
 
 import "./index.scss"
 
 const bem = reactBem("SongsTable")
+
+const rootClassNames = bem(
+  "",
+  { className: "Card", ignore: true },
+  { className: "Elevated", ignore: true },
+)
 
 const SongsTable = ({ songs, orderByInit, columnsToIgnore }) => {
 
@@ -34,7 +46,7 @@ const SongsTable = ({ songs, orderByInit, columnsToIgnore }) => {
   const showColumn = show(columnsToIgnore)
 
   return (
-    <table className={bem("")}>
+    <table className={rootClassNames}>
       <thead className={bem("head")}>
         <tr className={bem("head-row")}>
 
@@ -167,224 +179,220 @@ const SongsTable = ({ songs, orderByInit, columnsToIgnore }) => {
             determineFieldOrderText(orderByParams.field),
             orderByParams.order ? "asc" : "desc",
           ),
-          map(
-            song => {
-              const {
-                songId,
-                plays,
-                album,
-                genres,
-                artists,
-                duration,
-                remixers,
-                featuring,
-                trackNumber,
-              } = song
-              return (
-                <tr key={songId} className={bem("body-row")}>
+          map(song => {
+            const {
+              songId,
+              plays,
+              album,
+              genres,
+              artists,
+              duration,
+              remixers,
+              featuring,
+              trackNumber,
+            } = song
+            return <tr key={songId} className={bem("body-row")}>
 
-                  {showColumn("play") ? (
-                    <td
-                      className={bem("body-row-play", "body-row-col")}
-                      children={(
-                        <PlayButton
-                          song={song}
-                          className={bem("body-row-play-icon")}
+              {showColumn("play") ? (
+                <td
+                  className={bem("body-row-play", "body-row-col")}
+                  children={(
+                    <PlayButton
+                      song={song}
+                      className={bem("body-row-play-icon")}
+                    />
+                  )}
+                />
+              ) : null}
+
+              {showColumn("trackNumber") ? (
+                <td
+                  className={bem("body-row-trackNumber", "body-row-col")}
+                  children={(
+                    <span className={bem("body-row-trackNumber-span", "body-row-col-span")}>
+                      {trackNumber}
+                    </span>
+                  )}
+                />
+              ) : null}
+
+              {showColumn("title") ? (
+                <td
+                  className={bem("body-row-title", "body-row-col")}
+                  children={(
+                    <Fragment>
+                      <div className={bem("body-row-title-span", "body-row-col-span")}>
+                        <SongTitle song={song} showRemixers={false} />
+                      </div>
+                      <Song
+                        song={song}
+                        showCover={false}
+                        className={bem("body-row-title-song", "body-row-col-span")}
+                      />
+                    </Fragment>
+                  )}
+                />
+              ) : null}
+
+              {showColumn("next") ? (
+                <td
+                  className={bem("body-row-next", "body-row-col")}
+                  children={(
+                    <NextButton
+                      doc={song}
+                      className={bem("body-row-next-icon")}
+                    />
+                  )}
+                />
+              ) : null}
+
+              {showColumn("later") ? (
+                <td
+                  className={bem("body-row-later", "body-row-col")}
+                  children={(
+                    <Icon
+                      title="Later"
+                      icon="playlist_add"
+                      className={bem("body-row-later-icon")}
+                    />
+                  )}
+                />
+              ) : null}
+
+              {showColumn("queue") ? (
+                <td
+                  className={bem("body-row-queue", "body-row-col")}
+                  children={(
+                    <Icon
+                      title="Queue"
+                      icon="queue_music"
+                      className={bem("body-row-queue-icon")}
+                    />
+                  )}
+                />
+              ) : null}
+
+              {showColumn("add") ? (
+                <td
+                  className={bem("body-row-add", "body-row-col")}
+                  children={(
+                    <InLibraryButton
+                      doc={song}
+                      className={bem("body-row-add-icon")}
+                    />
+                  )}
+                />
+              ) : null}
+
+              {showColumn("duration") ? (
+                <td
+                  className={bem("body-row-duration", "body-row-col")}
+                  children={(
+                    <span className={bem("body-row-duration-span", "body-row-col-span")}>
+                      {deserializeDuration(duration)}
+                    </span>
+                  )}
+                />
+              ) : null}
+
+              {showColumn("artists") ? (
+                <td
+                  className={bem("body-row-artists", "body-row-col")}
+                  children={(
+                    <span className={bem("body-row-col-span")}>
+                      <DocLinks
+                        path="/artist"
+                        ampersand={false}
+                        docs={concat(artists, featuring)}
+                      />
+                    </span>
+                  )}
+                />
+              ) : null}
+
+              {showColumn("remixers") ? (
+                <td
+                  className={bem("body-row-remixers", "body-row-col")}
+                  children={(
+                    <span className={bem("body-row-col-span")}>
+                      {isEmpty(remixers) ? null : (
+                        <DocLinks
+                          path="/artist"
+                          docs={remixers}
+                          ampersand={false}
                         />
                       )}
-                    />
-                  ) : null}
+                    </span>
+                  )}
+                />
+              ) : null}
 
-                  {showColumn("trackNumber") ? (
-                    <td
-                      className={bem("body-row-trackNumber", "body-row-col")}
-                      children={(
-                        <span className={bem("body-row-trackNumber-span", "body-row-col-span")}>
-                          {trackNumber}
-                        </span>
-                      )}
-                    />
-                  ) : null}
+              {showColumn("album") ? (
+                <td
+                  className={bem("body-row-album", "body-row-col")}
+                  children={(
+                    <span className={bem("body-row-col-span")}>
+                      <DocLink
+                        doc={album}
+                        path="/album"
+                      />
+                    </span>
+                  )}
+                />
+              ) : null}
 
-                  {showColumn("title") ? (
-                    <td
-                      className={bem("body-row-title", "body-row-col")}
-                      children={(
-                        <Fragment>
-                          <div className={bem("body-row-title-span", "body-row-col-span")}>
-                            <SongTitle song={song} showRemixers={false} />
-                          </div>
-                          <Song
-                            song={song}
-                            showCover={false}
-                            className={bem("body-row-title-song", "body-row-col-span")}
-                          />
-                        </Fragment>
-                      )}
-                    />
-                  ) : null}
+              {showColumn("genres") ? (
+                <td
+                  className={bem("body-row-genres", "body-row-col")}
+                  children={(
+                    <span className={bem("body-row-col-span")}>
+                      <DocLinks
+                        path="/genre"
+                        docs={genres}
+                        ampersand={false}
+                      />
+                    </span>
+                  )}
+                />
+              ) : null}
 
-                  {showColumn("next") ? (
-                    <td
-                      className={bem("body-row-next", "body-row-col")}
-                      children={(
-                        <NextButton
-                          doc={song}
-                          className={bem("body-row-next-icon")}
-                        />
-                      )}
-                    />
-                  ) : null}
+              {showColumn("released") ? (
+                <td
+                  className={bem("body-row-released", "body-row-col")}
+                  children={(
+                    <span className={bem("body-row-col-span")}>
+                      {deserializeDate(album.released)}
+                    </span>
+                  )}
+                />
+              ) : null}
 
-                  {showColumn("later") ? (
-                    <td
-                      className={bem("body-row-later", "body-row-col")}
-                      children={(
-                        <Icon
-                          title="Later"
-                          icon="playlist_add"
-                          className={bem("body-row-later-icon")}
-                        />
-                      )}
+              {showColumn("numOfPlays") ? (
+                <td
+                  className={bem("body-row-numOfPlays", "body-row-col")}
+                  children={plays === 0 ? null : (
+                    <Link
+                      to={`/plays/${songId}`}
+                      children={plays.length}
+                      className={bem("body-row-numOfPlays-span", "body-row-col-span")}
                     />
-                  ) : null}
+                  )}
+                />
+              ) : null}
 
-                  {showColumn("queue") ? (
-                    <td
-                      className={bem("body-row-queue", "body-row-col")}
-                      children={(
-                        <Icon
-                          title="Queue"
-                          icon="queue_music"
-                          className={bem("body-row-queue-icon")}
-                        />
-                      )}
-                    />
-                  ) : null}
+              {showColumn("dateAdded") ? (
+                <td
+                  className={bem("body-row-dateAdded", "body-row-col")}
+                  children={(
+                    <span className={bem("body-row-col-span")}>
+                      {deserializeDate(song.dateAdded / 86400)}
+                    </span>
+                  )}
+                />
+              ) : null}
 
-                  {showColumn("add") ? (
-                    <td
-                      className={bem("body-row-add", "body-row-col")}
-                      children={(
-                        <InLibraryButton
-                          doc={song}
-                          className={bem("body-row-add-icon")}
-                        />
-                      )}
-                    />
-                  ) : null}
-
-                  {showColumn("duration") ? (
-                    <td
-                      className={bem("body-row-duration", "body-row-col")}
-                      children={(
-                        <span className={bem("body-row-duration-span", "body-row-col-span")}>
-                          {deserializeDuration(duration)}
-                        </span>
-                      )}
-                    />
-                  ) : null}
-
-                  {showColumn("artists") ? (
-                    <td
-                      className={bem("body-row-artists", "body-row-col")}
-                      children={(
-                        <span className={bem("body-row-col-span")}>
-                          <DocLinks
-                            path="/artist"
-                            ampersand={false}
-                            docs={concat(artists, featuring)}
-                          />
-                        </span>
-                      )}
-                    />
-                  ) : null}
-
-                  {showColumn("remixers") ? (
-                    <td
-                      className={bem("body-row-remixers", "body-row-col")}
-                      children={(
-                        <span className={bem("body-row-col-span")}>
-                          {isEmpty(remixers) ? null : (
-                            <DocLinks
-                              path="/artist"
-                              docs={remixers}
-                              ampersand={false}
-                            />
-                          )}
-                        </span>
-                      )}
-                    />
-                  ) : null}
-
-                  {showColumn("album") ? (
-                    <td
-                      className={bem("body-row-album", "body-row-col")}
-                      children={(
-                        <span className={bem("body-row-col-span")}>
-                          <DocLink
-                            doc={album}
-                            path="/album"
-                          />
-                        </span>
-                      )}
-                    />
-                  ) : null}
-
-                  {showColumn("genres") ? (
-                    <td
-                      className={bem("body-row-genres", "body-row-col")}
-                      children={(
-                        <span className={bem("body-row-col-span")}>
-                          <DocLinks
-                            path="/genre"
-                            docs={genres}
-                            ampersand={false}
-                          />
-                        </span>
-                      )}
-                    />
-                  ) : null}
-
-                  {showColumn("released") ? (
-                    <td
-                      className={bem("body-row-released", "body-row-col")}
-                      children={(
-                        <span className={bem("body-row-col-span")}>
-                          {deserializeDate(album.released)}
-                        </span>
-                      )}
-                    />
-                  ) : null}
-
-                  {showColumn("numOfPlays") ? (
-                    <td
-                      className={bem("body-row-numOfPlays", "body-row-col")}
-                      children={plays === 0 ? null : (
-                        <Link
-                          to={`/plays/${songId}`}
-                          children={plays.length}
-                          className={bem("body-row-numOfPlays-span", "body-row-col-span")}
-                        />
-                      )}
-                    />
-                  ) : null}
-
-                  {showColumn("dateAdded") ? (
-                    <td
-                      className={bem("body-row-dateAdded", "body-row-col")}
-                      children={(
-                        <span className={bem("body-row-col-span")}>
-                          {deserializeDate(song.dateAdded / 86400)}
-                        </span>
-                      )}
-                    />
-                  ) : null}
-
-                </tr>
-              )
-            },
-          ),
+            </tr>
+          }),
         )}
       </tbody>
     </table>

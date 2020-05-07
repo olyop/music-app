@@ -7,8 +7,8 @@
   border: 1px solid;
   border-radius: 3px;
   transition: .2s all;
-  border-color: #E0E0E0;
   background-color: transparent;
+  border-color: var(--border-color);
   @media (min-width: 582px) {
     font-size: 22rem; }
   &:hover {

@@ -1,12 +1,14 @@
-import { string } from "prop-types"
+import { string, node } from "prop-types"
 
 export const propTypes = {
+  children: node,
   className: string,
   imgClassName: string,
   url: string.isRequired,
 }
 
 export const defaultProps = {
-  className: undefined,
-  imgClassName: undefined,
+  children: null,
+  className: null,
+  imgClassName: null,
 }

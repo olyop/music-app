@@ -1,13 +1,6 @@
-@import "../../index.scss";
+@import "../../css/variables.scss";
 
 .Browse {
-  z-index: 2;
-  &__main {
-    z-index: 1;
-    width: 100%;
-    overflow: auto;
-    padding: $SPACE;
-    box-shadow: none;
-    height: calc(100vh - #{$HEADER_HEIGHT} - #{$HEADER_HEIGHT} - #{$PLAYER_HEIGHT});
-    @media(max-width: 600px) {
-      height: calc(100vh - #{$HEADER_HEIGHT} - #{$HEADER_HEIGHT} - #{$PLAYER_HEIGHT_MOBILE}); } } }
+  padding: var(--space);
+  &__nav {
+    margin-bottom: var(--space); } }

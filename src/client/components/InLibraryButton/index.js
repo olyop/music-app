@@ -3,8 +3,8 @@ import React, { useContext } from "react"
 import Icon from "../Icon"
 import UserContext from "../../contexts/User"
 
+import { propTypes } from "./props"
 import { useMutation } from "@apollo/react-hooks"
-import { propTypes, defaultProps } from "./props"
 import { determineReturnFromDoc, determineDocIdKey } from "../../helpers"
 
 import RM_USER_SONG from "../../graphql/mutations/rmUserSong.gql"
@@ -47,11 +47,11 @@ const InLibraryButton = ({ doc, className }) => {
       onClick={handleClick}
       className={className}
       icon={loading || inLibrary ? "done" : "add"}
+      title={`${inLibrary ? "Remove from" : "Add to"} library.`}
     />
   )
 }
 
 InLibraryButton.propTypes = propTypes
-InLibraryButton.defaultProps = defaultProps
 
 export default InLibraryButton

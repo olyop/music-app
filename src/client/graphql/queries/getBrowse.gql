@@ -25,7 +25,7 @@ query getBrowse($userId: Uuid!) {
     album {
       albumId
       title
-      cover
+      cover(size: HALF)
     }
     plays(userId: $userId) {
       playId
@@ -35,7 +35,7 @@ query getBrowse($userId: Uuid!) {
   newAlbums {
     albumId
     title
-    cover
+    cover(size: HALF)
     inLibrary(userId: $userId)
     artists {
       artistId

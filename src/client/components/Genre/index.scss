@@ -1,17 +1,6 @@
-@import "../../index.scss";
-
 .Genre {
-  display: flex;
-  border-radius: 3px;
-  align-items: center;
-  box-shadow: $BOX_SHADOW;
-  background-color: transparent;
-  &__name {
-    margin: 0;
-    width: 100%;
-    font-size: 20rem;
-    padding: $SPACE_HALF; }
-  &__add {
-    margin: 5px;
-    padding: 3px;
-    font-size: 25rem; } }
+    padding: calc(var(--space) * .5);
+  &:hover &__text {
+    width: calc(100% - calc(var(--space) * .25) - var(--button-size)); }
+  &:hover &__add {
+    display: block; } }

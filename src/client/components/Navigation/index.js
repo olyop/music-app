@@ -3,7 +3,6 @@ import React, { Fragment } from "react"
 import Icon from "../Icon"
 import { NavLink } from "react-router-dom"
 
-import { includes } from "lodash"
 import reactBem from "@oly_op/react-bem"
 import { propTypes, defaultProps } from "./props"
 
@@ -11,10 +10,10 @@ import "./index.scss"
 
 const bem = reactBem("Navigation")
 
-const Navigation = ({ match, routes, ignore, className }) => (
-  <div className={bem({ ignore: true, className }, "")}>
+const Navigation = ({ match, routes, className }) => (
+  <nav className={bem(className, "")}>
     {routes.map(
-      route => (includes(ignore, route.name) ? null : (
+      route => (route.ignore ? null : (
         <NavLink
           exact
           key={route.id}
@@ -36,7 +35,7 @@ const Navigation = ({ match, routes, ignore, className }) => (
         />
       )),
     )}
-  </div>
+  </nav>
 )
 
 Navigation.propTypes = propTypes

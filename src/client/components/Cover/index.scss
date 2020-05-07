@@ -1,65 +1,53 @@
-@import "../../index.scss";
-
 .Cover {
-  box-shadow: $BOX_SHADOW;
-  border-radius: $BORDER_RADIUS;
   &:hover &__img {
     filter: blur(10px); }
   &:hover &__black-box {
     background-color: rgba(#000000, .8); }
   &:hover &__button {
     opacity: 1; }
-  &__img {
-    border-radius: $BORDER_RADIUS; }
   &__black-box {
     top: 0;
+    left: 0;
     right: 0;
     bottom: 0;
-    width: 100%;
-    height: 100%;
     cursor: pointer;
     position: absolute;
     background-color: transparent; }
   &__button {
-    opacity: 0;
     z-index: 2;
+    opacity: 0;
+    padding: 0;
     width: 50%;
     height: 50%;
-    border: none;
-    display: flex;
-    outline: none;
-    box-shadow: none;
     position: absolute;
     align-items: center;
+    transition: 3s ease-in;
     flex-direction: column;
     justify-content: center;
-    transition: .2s all ease-in;
     background-color: transparent;
-    transform: translate(-50%, -50%);
+    transition-property: background-color, opacity;
     &:hover {
-      background-color: rgba(#ffffff, .2); }
+      background-color: rgba(#fff, .2) !important; }
     &:active {
-      background-color: rgba(#ffffff, .4); }
+      background-color: rgba(#fff, .4) !important; }
+    &:nth-child(2) {
+      top: 0;
+      left: 0; }
+    &:nth-child(3) {
+      top: 0;
+      right: 0; }
+    &:nth-child(4) {
+      left: 0;
+      bottom: 0; }
+    &:nth-child(5) {
+      right: 0;
+      bottom: 0; }
     &-icon,
     &-text {
-      color: $TEXT_COLOR_WHITE; }
+      color: var(--text-color-white); }
+    &-text {
+      font-size: 16rem; }
     &-icon {
-      font-size: 35rem;
+      font-size: 30rem;
       &:hover {
-        background-color: unset; } }
-    &-top-left {
-      top: 25%;
-      left: 25%;
-      border-radius: $BORDER_RADIUS 0 0 0; }
-    &-top-right {
-      top: 25%;
-      left: 75%;
-      border-radius: 0 $BORDER_RADIUS 0 0; }
-    &-bottom-left {
-      top: 75%;
-      left: 25%;
-      border-radius: 0 0 0 $BORDER_RADIUS; }
-    &-bottom-right {
-      top: 75%;
-      left: 75%;
-      border-radius: 0 0 $BORDER_RADIUS 0; } } }
+        background-color: transparent !important; } } } }

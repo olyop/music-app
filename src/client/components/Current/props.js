@@ -5,5 +5,5 @@ export const propTypes = {
 }
 
 export const defaultProps = {
-  className: undefined,
+  className: null,
 }

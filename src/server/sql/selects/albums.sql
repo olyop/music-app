@@ -3,4 +3,4 @@ SELECT
 FROM
   albums
 ORDER BY
-  title ASC;
+  released DESC;

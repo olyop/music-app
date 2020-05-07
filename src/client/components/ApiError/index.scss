@@ -1,13 +1,11 @@
-@import "../../index.scss";
-
 .ApiError {
   top: 0;
   left: 0;
   z-index: 99;
   width: 100vw;
   height: 100vh;
-  padding: $SPACE;
   font-size: 18rem;
   position: absolute;
+  padding: var(--space);
   font-family: monospace;
-  background-color: #fff; }
+  background-color: var(--text-color-white); }

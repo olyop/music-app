@@ -1,31 +1,29 @@
-@import "../../index.scss";
-
 .Queues {
-  padding: $SPACE;
+  padding: var(--space);
   &__section {
     width: 500px;
-    padding: $SPACE;
     margin-bottom: 12px;
-    background-color: #fff;
-    box-shadow: $BOX_SHADOW;
-    border-radius: $BORDER_RADIUS;
+    padding: var(--space);
+    box-shadow: var(--box-shadow);
+    border-radius: var(--border-radius);
+    background-color: var(--text-color-white);
     @media (max-width: 640px) {
       width: 100%; }
     &-text {
       color: #757575;
       font-size: 18rem;
-      margin-bottom: $SPACE_HALF; }
+      margin-bottom: calc(var(--space) * .5); }
     &-song {
       display: flex;
       align-items: center;
-      margin-bottom: $SPACE_HALF;
+      margin-bottom: calc(var(--space) * .5);
       &:last-child {
         margin-bottom: 0; }
       &-playButton {
         font-size: 32rem;
         margin-left: -9px;
         border-radius: 100%;
-        margin-right: $SPACE_HALF;
         transition: .2s background-color;
+        margin-right: calc(var(--space) * .5);
         &:hover {
-          background-color: #e0e0e0; } } } } }
+          background-color: var(--hover-color); } } } } }

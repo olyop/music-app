@@ -10,7 +10,15 @@ import { filterInLibrary } from "../../helpers"
 import { propTypes, defaultProps } from "./props"
 import { isUndefined, isEmpty, get } from "lodash"
 
-const QueryApi = ({ query, checkEmpty, variables, library, resultPath, children }) => {
+const QueryApi = ({
+  query,
+  library,
+  spinner,
+  children,
+  variables,
+  checkEmpty,
+  resultPath,
+}) => {
 
   const userId = useContext(UserContext)
 
@@ -19,7 +27,7 @@ const QueryApi = ({ query, checkEmpty, variables, library, resultPath, children 
     { variables: { userId, ...variables } },
   )
 
-  if (loading) {
+  if (spinner && loading) {
     return <Spinner />
   }
 

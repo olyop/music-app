@@ -1,7 +1,7 @@
 import React from "react"
 
 import QueryApi from "../QueryApi"
-import SongsTable from "../SongsTable"
+import SongItem from "../SongItem"
 
 import GET_SONGS from "../../graphql/queries/getSongs.gql"
 
@@ -11,10 +11,16 @@ const BrowseSongs = () => (
     resultPath="songs"
     children={
       songs => (
-        <SongsTable
-          songs={songs}
-          columnsToIgnore={["trackNumber", "numOfPlays", "released", "dateAdded"]}
-        />
+        <div className="Elevated">
+          {songs.map(
+            song => (
+              <SongItem
+                song={song}
+                key={song.songId}
+              />
+            ),
+          )}
+        </div>
       )
     }
   />

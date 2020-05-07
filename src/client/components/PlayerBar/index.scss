@@ -1,57 +1,39 @@
-@import "../../index.scss";
+@import "../../css/variables.scss";
 
 .PlayerBar {
-  z-index: 4; 
-  width: 100%;
+  z-index: 2; 
   display: flex;
   flex-direction: row;
-  height: $PLAYER_HEIGHT;
-  box-shadow: $BOX_SHADOW;
+  box-shadow: $box-shadow-5;
+  height: var(--player-height);
+  background-color: var(--elevated-color);
   @media(max-width: 700px) {
-    height: $PLAYER_HEIGHT_MOBILE;
-    flex-direction: column-reverse; }
-  &__link {
-    text-decoration: none;
-    &:hover {
-      text-decoration: none; } }
+    flex-direction: column-reverse;
+    height: var(--player-height-mobile); }
   &__icon {
-    outline: none;
-    font-size: 40rem;
-    color: $TEXT_COLOR;
-    transition: .2s all;
-    border-radius: 100%;
-    @media(max-width: 700px) {
-      font-size: 33rem; }
-    &:hover {
-      background-color: #e0e0e0; } }
+    color: var(--text-color); }
   &__main,
   &__controls {
-    height: 100%; }
+    padding: 0 var(--space); }
   &__controls {
-    padding: 15px;
-    display: flex;
-    align-items: center;
-    border-right: 1px solid #e0e0e0;
-    @media(max-width: 700px) {
-      padding: 8px;
-      justify-content: center; } }
+    border-right: 1px solid var(--border-color); }
   &__main {
     width: 100%;
-    padding: 15px 19px 13px 19px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     @media(max-width: 700px) {
       padding: 8px 8px 10px 8px;
-      border-bottom: 1px solid #e0e0e0; }
+      border-bottom: 1px solid var(--border-color); }
     &-info {
       display: flex;
-      padding-bottom: 13px;
+      flex-direction: row-reverse;
       justify-content: space-between;
-      @media(max-width: 700px) {
-        padding-bottom: 4px; }
-      &-right {
+      margin-bottom: calc(var(--space) * .75);
+      &-controls {
         display: flex;
-        margin-top: 2px;
         align-items: center;
-        &-icon {
-          margin-right: 5px; }
-        &-volume {
-          margin-right: 0; } } } } }
+        &-control {
+          margin-right: calc(var(--space) * .25);
+          &:last-child {
+            margin-right: 0; } } } } } }

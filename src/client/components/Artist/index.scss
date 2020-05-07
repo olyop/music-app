@@ -1,17 +1,9 @@
-@import "../../index.scss";
-
 .Artist {
   &__cover:before {
     padding-top: 56.25%; }
+  &:hover &__text {
+    width: calc(100% - calc(var(--space) * .25) - var(--button-size)); }
+  &:hover &__add {
+    display: block; }
   &__info {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    &-name {
-      margin: 0;
-      font-size: 20rem;
-      padding-top: 10px; }
-    &-add {
-      margin-top: 4px;
-      font-size: 26rem; } } }
+    padding: calc(var(--space) * .5); } }

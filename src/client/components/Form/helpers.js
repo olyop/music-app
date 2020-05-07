@@ -106,28 +106,27 @@ export const createFormInitRemember = doc => ({
   ...doc,
   title: "",
   mix: "",
-  duration: "",
   discNumber: doc.discNumber,
   trackNumber: doc.trackNumber + 1,
-  featuring: {
+  featuringIds: {
     input: "",
     val: [],
   },
-  remixers: {
+  remixerIds: {
     input: "",
     val: [],
   },
-  artists: {
+  artistIds: {
     input: "",
-    val: doc.artists,
+    val: doc.artistIds,
   },
-  genres: {
+  genreIds: {
     input: "",
-    val: doc.genres,
+    val: doc.genreIds,
   },
-  album: {
+  albumId: {
     input: "",
-    val: doc.album,
+    val: doc.albumId,
   },
 })
 

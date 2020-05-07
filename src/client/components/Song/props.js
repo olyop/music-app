@@ -1,9 +1,9 @@
 import { shape, string, number, arrayOf, object, bool } from "prop-types"
 
 export const propTypes = {
-  showAdd: bool,
   showCover: bool,
   className: string,
+  infoClassName: string,
   song: shape({
     mix: string.isRequired,
     title: string.isRequired,
@@ -22,7 +22,7 @@ export const propTypes = {
 }
 
 export const defaultProps = {
-  showAdd: false,
   showCover: true,
-  className: undefined,
+  className: null,
+  infoClassName: null,
 }

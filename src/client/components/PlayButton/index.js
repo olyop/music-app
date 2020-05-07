@@ -4,15 +4,10 @@ import Icon from "../Icon"
 import UserContext from "../../contexts/User"
 import PlayContext from "../../contexts/Play"
 
-import reactBem from "@oly_op/react-bem"
 import { useMutation } from "@apollo/react-hooks"
 import { propTypes, defaultProps } from "./props"
 
 import USER_PLAY from "../../graphql/mutations/userPlay.gql"
-
-import "./index.scss"
-
-const bem = reactBem("PlayButton")
 
 const PlayButton = ({ song, className }) => {
   const userId = useContext(UserContext)
@@ -29,8 +24,9 @@ const PlayButton = ({ song, className }) => {
 
   return (
     <Icon
+      title="Play"
       onClick={handleClick}
-      className={bem({ ignore: true, className }, "")}
+      className={`${className} IconHover`}
       icon={isCurrent && play ? "pause" : "play_arrow"}
     />
   )

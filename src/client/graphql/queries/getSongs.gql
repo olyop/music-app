@@ -25,6 +25,7 @@ query getSongs($userId: Uuid!) {
     album {
       albumId
       title
+      cover(size: HALF)
     }
   }
 }

@@ -26,7 +26,7 @@ query getUserQueues($userId: Uuid!) {
       album {
         albumId
         title
-        cover
+        cover(size: HALF)
       }
     }
     current {
@@ -54,7 +54,7 @@ query getUserQueues($userId: Uuid!) {
       album {
         albumId
         title
-        cover
+        cover(size: HALF)
       }
     }
     next {
@@ -82,7 +82,7 @@ query getUserQueues($userId: Uuid!) {
       album {
         albumId
         title
-        cover
+        cover(size: HALF)
       }
     }
     queue {
@@ -110,7 +110,7 @@ query getUserQueues($userId: Uuid!) {
       album {
         albumId
         title
-        cover
+        cover(size: HALF)
       }
     }
   }

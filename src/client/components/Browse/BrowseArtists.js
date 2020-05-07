@@ -4,8 +4,7 @@ import Grid from "../Grid"
 import Artist from "../Artist"
 import QueryApi from "../QueryApi"
 
-import { pipe } from "../../helpers"
-import { orderBy, map } from "lodash/fp"
+import { determineDocIdKey } from "../../helpers"
 
 import GET_ARTISTS from "../../graphql/queries/getArtists.gql"
 
@@ -16,15 +15,12 @@ const BrowseArtists = () => (
     children={
       artists => (
         <Grid>
-          {pipe(artists)(
-            orderBy("released", "desc"),
-            map(
-              artist => (
-                <Artist
-                  key={artist.id}
-                  artist={artist}
-                />
-              ),
+          {artists.map(
+            artist => (
+              <Artist
+                artist={artist}
+                key={artist[determineDocIdKey(artist)]}
+              />
             ),
           )}
         </Grid>

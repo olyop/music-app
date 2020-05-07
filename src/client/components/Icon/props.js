@@ -10,6 +10,6 @@ export const propTypes = {
 
 export const defaultProps = {
   onClick: noop,
-  title: undefined,
-  className: undefined,
+  title: null,
+  className: null,
 }

@@ -1,35 +1,7 @@
-@import "../../index.scss";
-
 .Album {
+  &:hover &__text {
+    width: calc(100% - calc(var(--space) * .25) - var(--button-size)); }
+  &:hover &__add {
+    display: block; }
   &__info {
-    width: 100%;
-    display: flex;
-    padding-top: 10px;
-    align-items: center;
-    border-color: #e0e0e0;
-    justify-content: space-between;
-    &-text {
-      overflow: hidden;
-      &-title,
-      &-artists {
-        display: block;
-        overflow: hidden;
-        max-height: 16rem;
-        @media (max-width: 600px) {
-          max-height: 14rem; } }
-      &-title {
-        font-size: 16rem;
-        font-weight: 700;
-        margin-bottom: 3px;
-        @media (max-width: 600px) {
-          font-size: 14rem; } }
-      &-artists {
-        font-size: 15rem;
-        font-weight: 400;
-        @media (max-width: 600px) {
-          font-size: 14rem; } } }
-    &-add {
-      margin: 2px;
-      padding: 3px;
-      color: #757575;
-      font-size: 25rem; } } }
+    padding: calc(var(--space) * .5); } }

@@ -1,13 +1,14 @@
-@import "../../index.scss";
+@import "../../css/variables.scss";
 
 .Library {
-  z-index: 2;
+  &__title {
+    font-size: 20rem;
+    margin-bottom: calc(var(--space) * .5); }
   &__main {
-    z-index: 1;
     width: 100%;
     overflow: auto;
-    padding: $SPACE;
-    box-shadow: none;
-    height: calc(100vh - #{$HEADER_HEIGHT} - #{$HEADER_HEIGHT} - #{$PLAYER_HEIGHT});
+    padding: var(--space);
+    box-shadow: $box-shadow-2;
+    height: calc(100vh - var(--header-height) - var(--header-height) - var(--player-height));
     @media(max-width: 700px) {
-      height: calc(100vh - #{$HEADER_HEIGHT} - #{$HEADER_HEIGHT} - #{$PLAYER_HEIGHT_MOBILE}); } } }
+      height: calc(100vh - var(--header-height) - var(--header-height) - var(--player-height-mobile)); } } }

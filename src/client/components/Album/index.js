@@ -1,9 +1,9 @@
 import React from "react"
 
+import Info from "../Info"
 import Cover from "../Cover"
 import DocLink from "../DocLink"
 import DocLinks from "../DocLinks"
-import InLibraryButton from "../InLibraryButton"
 
 import { propTypes } from "./props"
 import reactBem from "@oly_op/react-bem"
@@ -13,29 +13,16 @@ import "./index.scss"
 const bem = reactBem("Album")
 
 const Album = ({ album }) => (
-  <div className={bem("")}>
+  <div className={bem("", "Card", "Elevated")}>
     <Cover url={album.cover} />
-    <div className={bem("info")}>
-      <div className={bem("info-text")}>
-        <p className={bem("info-text-title")}>
-          <DocLink
-            doc={album}
-            path="/album"
-          />
-        </p>
-        <p className={bem("info-text-artists")}>
-          <DocLinks
-            ampersand
-            path="/artist"
-            docs={album.artists}
-          />
-        </p>
-      </div>
-      <InLibraryButton
-        doc={album}
-        className={bem("info-add")}
-      />
-    </div>
+    <Info
+      doc={album}
+      className={bem("info")}
+      addClassName={bem("add")}
+      textClassName={bem("text")}
+      upper={<DocLink doc={album} path="/album" />}
+      lower={<DocLinks ampersand path="/artist" docs={album.artists} />}
+    />
   </div>
 )
 

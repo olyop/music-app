@@ -1,38 +1,30 @@
-@import "../../index.scss";
+@import "../../css/variables.scss";
 
 .Add {
-  display: flex;
-  padding: $SPACE;
-  align-items: flex-start;
-  justify-content: center;
+  margin: var(--space);
+  box-shadow: $box-shadow-2;
+  grid-template-columns: 1fr 4fr;
+  border-radius: var(--border-radius); 
+  background-color: var(--elevated-color);
+  @media (min-width: 840px) {
+    margin: var(--space) auto;
+    width: 800px; }
   &__nav {
-    display: flex;
-    flex-direction: column;
-    border: 1px solid #e0e0e0;
-    margin-right: $SPACE_DOUBLE;
-    border-radius: $BORDER_RADIUS;
-    background-color: $TEXT_COLOR_WHITE;
-    padding: calc(#{$SPACE_HALF} + #{$SPACE_QUART}) 0;
-    &-active {
-      background-color: #e0e0e0; }
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
     &-link {
       text-decoration: none !important;
       &-text {
         width: 100%;
+        display: flex;
         font-weight: 600;
         font-size: 18rem;
-        box-shadow: none;
-        border-radius: 0;
+        align-items: center;
+        justify-content: center;
         text-transform: uppercase;
-        padding: $SPACE_HALF $SPACE;
         background-color: transparent;
+        padding: calc(var(--space) * .5);
         &:hover {
-          background-color: #e0e0e0; } } } }
+          background-color: var(--hover-color); } } } }
   &__form {
-    padding: $SPACE_HALF;
-    border: 1px solid #e0e0e0;
-    border-radius: $BORDER_RADIUS;
-    background-color: $TEXT_COLOR_WHITE;
-    @media (min-width: 582px) {
-      width: 542px;
-      padding: $SPACE; } } }
+    padding: var(--space); } }

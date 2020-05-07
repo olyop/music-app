@@ -15,7 +15,7 @@ import "./index.scss"
 
 const bem = reactBem("UserControls")
 
-const UserControls = ({ className }) => {
+const UserControls = ({ className, iconClassName }) => {
 
   const userId = useContext(UserContext)
   const variables = { userId }
@@ -30,21 +30,21 @@ const UserControls = ({ className }) => {
   const handleNextClick = () => userNext()
 
   return (
-    <div className={bem({ ignore: true, className }, "")}>
+    <div className={bem(className, "")}>
       <Icon
         icon="skip_previous"
-        className={bem("icon")}
         onClick={handlePrevClick}
+        className={bem(iconClassName, "icon")}
       />
       <Icon
-        className={bem("icon")}
         onClick={handlePlayClick}
         icon={play ? "pause" : "play_arrow"}
+        className={bem(iconClassName, "icon")}
       />
       <Icon
         icon="skip_next"
-        className={bem("icon")}
         onClick={handleNextClick}
+        className={bem(iconClassName, "icon")}
       />
     </div>
   )

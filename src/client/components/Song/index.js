@@ -1,9 +1,9 @@
 import React from "react"
 
 import Img from "../Img"
+import Info from "../Info"
 import SongTitle from "../SongTitle"
 import { Link } from "react-router-dom"
-import InLibraryButton from "../InLibraryButton"
 import FeaturingArtists from "../FeaturingArtists"
 
 import reactBem from "@oly_op/react-bem"
@@ -13,36 +13,32 @@ import "./index.scss"
 
 const bem = reactBem("Song")
 
-const Song = ({ song, showAdd, showCover, className }) => {
+const Song = ({ song, showCover, className, infoClassName }) => {
   const { artists, featuring, album } = song
+  const albumUrl = `/album/${album.albumId}`
   return (
-    <div className={bem({ ignore: true, className }, "")}>
+    <div className={bem(className, "")}>
       {showCover ? (
-        <Link to={`/album/${album.albumId}`} title={album.title}>
-          <Img
-            url={album.cover}
-            className={bem("cover")}
-            imgClassName={bem("cover-img")}
-          />
-        </Link>
-      ) : null}
-      <div className={bem("text")}>
-        <p className={bem("text-title")}>
-          <span><SongTitle song={song} showRemixers /></span>
-          {showAdd ? (
-            <InLibraryButton
-              doc={song}
-              className={bem("text-title-add")}
+        <Link
+          to={albumUrl}
+          title={album.title}
+          children={(
+            <Img
+              url={album.cover}
+              imgClassName={bem(className, "cover-img")}
+              className={bem("cover", "Card", "Elevated")}
             />
-          ) : null}
-        </p>
-        <p className={bem("text-artists")}>
-          <FeaturingArtists
-            artists={artists}
-            featuring={featuring}
-          />
-        </p>
-      </div>
+          )}
+        />
+      ) : null}
+      <Info
+        doc={song}
+        className={infoClassName}
+        addClassName={bem("info-add")}
+        textClassName={bem("info-text")}
+        upper={<SongTitle song={song} showRemixers />}
+        lower={<FeaturingArtists artists={artists} featuring={featuring} />}
+      />
     </div>
   )
 }

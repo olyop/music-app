@@ -1,32 +1,6 @@
-// import fonts
-@import url("https://fonts.googleapis.com/css?family=Roboto:300,400,400i,500,700&display=swap");
-@import url("https://fonts.googleapis.com/icon?family=Material+Icons");
-
-@import "../../index.scss";
-
-*,
-*:after,
-*:before {
-  margin: 0;
-  padding: 0;
-  color: inherit;
-  font-size: inherit;
-  box-sizing: inherit;
-  font-family: inherit;
-  line-height: inherit; }
-
-html {
-  color: $TEXT_COLOR;
-  font-size: $FONT_SIZE;
-  box-sizing: border-box;
-  line-height: $LINE_HEIGHT;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-font-smoothing: antialiased;
-  font-family: -apple-system, BlinkMacSystemFont, $FONT_FAMILY, sans-serif; }
-
-#Index {
+#Application {
   width: 100vw;
   height: 100vh;
   overflow: hidden;
-  font-size: 16rem;
-  position: relative; }
+  position: relative;
+  background-color: var(--background-color); }

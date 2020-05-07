@@ -29,8 +29,13 @@ const Queues = () => (
                   {queue.songs.map(
                     (song, index) => (
                       <div key={index} className={bem("section-song")}>
-                        <PlayButton song={song} className={bem("section-song-playButton")} />
-                        <Song song={song} />
+                        <PlayButton
+                          song={song}
+                          className={bem("section-song-playButton")}
+                        />
+                        <Song
+                          song={song}
+                        />
                       </div>
                     ),
                   )}

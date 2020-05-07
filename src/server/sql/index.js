@@ -8,6 +8,7 @@ const sqlPath = (folder, file) =>
   path.join(SQL_FOLER_PATH, folder, `${file}.sql`)
 
 const sqlImportTable = file => sqlImport(sqlPath("tables", file))
+const sqlImportCheck = file => sqlImport(sqlPath("checks", file))
 const sqlImportExists = file => sqlImport(sqlPath("exists", file))
 const sqlImportSelect = file => sqlImport(sqlPath("selects", file))
 const sqlImportInsert = file => sqlImport(sqlPath("inserts", file))
@@ -56,7 +57,6 @@ export const SELECT_USER_DOC_ADDED = sqlImportSelect("userDocAdded")
 export const SELECT_USER_DOC_IN_LIB = sqlImportSelect("userDocInLib")
 export const SELECT_PLAYLIST_SONGS = sqlImportSelect("playlistSongs")
 export const SELECT_SONG_FEATURING = sqlImportSelect("songFeaturing")
-export const SELECT_USER_IS_CURRENT = sqlImportSelect("userIsCurrent")
 export const SELECT_USER_ALBUM_PLAYS = sqlImportSelect("userAlbumPlays")
 
 export const EXISTS_COLUMN = sqlImportExists("column")
@@ -72,6 +72,8 @@ export const UPDATE_USER_SONG_LATER = sqlImportUpdate("userSongLater")
 export const UPDATE_USER_SONG_QUEUE = sqlImportUpdate("userSongQueue")
 
 export const DELETE_USER_DOC = sqlImportDelete("userDoc")
+
+export const CHECK_SONG_IS_CURRENT = sqlImportCheck("songIsCurrent")
 
 export const TABLE_PLAYS = sqlImportTable("plays")
 export const TABLE_SONGS = sqlImportTable("songs")
@@ -119,5 +121,5 @@ const queries = [
   TABLE_PLAYS,
 ]
 
-sqlTransaction(queries)
-  .catch(error => { throw error })
+// sqlTransaction(queries)
+//   .catch(error => { throw error })

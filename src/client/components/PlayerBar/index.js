@@ -3,7 +3,7 @@ import React from "react"
 import Icon from "../Icon"
 import Current from "../Current"
 import Progress from "../Progress"
-import { Link } from "react-router-dom"
+import { NavLink } from "react-router-dom"
 import UserControls from "../UserControls"
 
 import reactBem from "@oly_op/react-bem"
@@ -13,33 +13,36 @@ import "./index.scss"
 const bem = reactBem("PlayerBar")
 
 const PlayerBar = () => (
-  <section className={bem("")}>
-    <UserControls className={bem("controls")} />
+  <div className={bem("", "Elevated")}>
+    <UserControls
+      className={bem("controls")}
+      iconClassName={bem("icon")}
+    />
     <div className={bem("main")}>
       <div className={bem("main-info")}>
-        <Current/>
-        <div className={bem("main-info-right")}>
-          <Link to="/player" className={bem("link")}>
+        <div className={bem("main-info-controls")}>
+          <NavLink className={bem("main-info-controls-control")} to="/player">
             <Icon
               icon="fullscreen"
-              className={bem("main-info-right-icon", "icon")}
+              className={bem("icon", "IconHover")}
             />
-          </Link>
-          <Link to="/queues" className={bem("link")}>
+          </NavLink>
+          <NavLink className={bem("main-info-controls-control")} to="/queues">
             <Icon
               icon="queue_music"
-              className={bem("main-info-right-icon", "icon")}
+              className={bem("icon", "IconHover")}
             />
-          </Link>
+          </NavLink>
           <Icon
             icon="volume_up"
-            className={bem("main-info-right-volume", "icon")}
+            className={bem("main-info-controls-control", "icon", "IconHover")}
           />
         </div>
+        <Current/>
       </div>
-      <Progress />
+      <Progress/>
     </div>
-  </section>
+  </div>
 )
 
 export default PlayerBar

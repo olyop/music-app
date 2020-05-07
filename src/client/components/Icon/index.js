@@ -16,7 +16,8 @@ const Icon = ({ icon, title, disabled, className, onClick }) => (
     children={icon}
     onClick={disabled ? noop : onClick}
     className={bem(
-      { ignore: true, className },
+      className,
+      "ButtonHover",
       "",
       { ignore: true, className: "material-icons" },
     )}

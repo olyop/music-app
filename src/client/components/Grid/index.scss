@@ -1,7 +1,5 @@
-@import "../../index.scss";
-
 .Grid {
-  gap: $SPACE;
   width: 100%;
   display: grid;
+  gap: var(--space);
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); }

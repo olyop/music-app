@@ -4,6 +4,8 @@ import Grid from "../Grid"
 import Album from "../Album"
 import QueryApi from "../QueryApi"
 
+import { determineDocIdKey } from "../../helpers"
+
 import GET_ALBUMS from "../../graphql/queries/getAlbums.gql"
 
 const BrowseAlbums = () => (
@@ -17,7 +19,7 @@ const BrowseAlbums = () => (
             album => (
               <Album
                 album={album}
-                key={album.id}
+                key={album[determineDocIdKey(album)]}
               />
             ),
           )}

@@ -1,13 +1,10 @@
-@import "../../index.scss";
-
 .Icon {
   outline: none;
   display: block;
   cursor: pointer;
-  font-size: 30rem;
   user-select: none;
-  transition: .2s all;
   border-radius: 100%;
-  color: $TEXT_COLOR_LIGHT;
-  &:hover {
-    background-color: #eeeeee; } }
+  width: var(--button-size);
+  height: var(--button-size);
+  font-size: var(--button-size);
+  color: var(--text-color-light); }

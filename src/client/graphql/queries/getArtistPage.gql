@@ -5,7 +5,7 @@ query getArtistPage(
   artist(artistId: $artistId) {
     artistId
     name
-    photo
+    photo(size: FULL)
     inLibrary(userId: $userId)
     songs {
       songId
@@ -33,12 +33,13 @@ query getArtistPage(
         albumId
         title
         released
+        cover(size: HALF)
       }
     }
     albums {
       albumId
       title
-      cover
+      cover(size: HALF)
       inLibrary(userId: $userId)
       artists {
         artistId

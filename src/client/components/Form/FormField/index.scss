@@ -1,11 +1,8 @@
-@import "../../../index.scss";
-
 .FormField {
   width: 100%;
-  margin-bottom: 15px;
+  margin-bottom: calc(var(--space) * .75);
   @media (min-width: 582px) {
-    width: 500px;
-    margin-bottom: 25px; }
+    margin-bottom: calc(var(--space) * 1.25); }
   &:last-child {
     margin-bottom: 0; }
   &__file {
@@ -23,8 +20,8 @@
     transition: .3s all;
     align-items: center;
     border-style: solid;
-    border-color: #e0e0e0;
-    border-radius: $BORDER_RADIUS;
+    border-color: var(--border-color);
+    border-radius: var(--border-radius);
     &:hover,
     &:focus, 
     &:hover &-dropdown {
@@ -61,8 +58,8 @@
       border-right: 1px solid;
       border-bottom: 1px solid;
       background-color: #ffffff;
-      border-radius: 0 0 0 $BORDER_RADIUS;
+      border-radius: 0 0 0 var(--border-radius);
       &:hover {
-        border-color: #9E9E9E; } } }
+        border-color: var(--border-color); } } }
   &__validators {
     margin: 10px 0 0 13px; } }

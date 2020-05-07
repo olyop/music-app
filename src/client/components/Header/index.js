@@ -1,63 +1,40 @@
-import React, { Fragment, useState } from "react"
+import React, { useContext } from "react"
 
 import Icon from "../Icon"
-import Sidebar from "./Sidebar"
 import { NavLink } from "react-router-dom"
-
-import reactBem from "@oly_op/react-bem"
-import { useSpring } from "react-spring"
+import SidebarContext from "../../contexts/Sidebar"
 
 import "./index.scss"
 
-const bem = reactBem("Header")
-
-const duration = 250
-
 const Header = () => {
-  const [ sidebar, setSidebar ] = useState(false)
-  const toggleSidebar = () => setSidebar(!sidebar)
+  const { sidebar, toggleSidebar } = useContext(SidebarContext)
   return (
-    <Fragment>
-      <header className={bem("")}>
-        <Icon
-          title="Menu"
-          onClick={toggleSidebar}
-          icon={sidebar ? "close" : "menu"}
-          className={bem("hamburger", "icon")}
-        />
-        <div className={bem("right")}>
-          <NavLink
-            to="/search"
-            className={bem("link")}
-            children={(
-              <Icon
-                icon="search"
-                title="Search"
-                className={bem("right-search", "icon")}
-              />
-            )}
-          />
-          <Icon
-            title="Account"
-            icon="account_circle"
-            className={bem("right-user", "icon")}
-          />
-        </div>
-      </header>
-      <Sidebar
-        toggleSidebar={toggleSidebar}
-        style={useSpring({ config: { duration }, left: sidebar ? 0 : -300 })}
+    <header className="Header Elevated">
+      <Icon
+        title="Menu"
+        onClick={toggleSidebar}
+        icon={sidebar ? "close" : "menu"}
+        className="Header__hamburger Header__icon IconHover"
       />
-      {sidebar ? (
-        <div
-          tabIndex={0}
-          role="button"
-          title="Close"
-          onClick={toggleSidebar}
-          className={bem("close")}
+      <div className="Header__right">
+        <NavLink
+          to="/search"
+          className="Header__link"
+          children={(
+            <Icon
+              icon="search"
+              title="Search"
+              className="Header__search Header__icon IconHover"
+            />
+          )}
         />
-      ) : null}
-    </Fragment>
+        <Icon
+          title="Account"
+          icon="account_circle"
+          className="Header__icon IconHover"
+        />
+      </div>
+    </header>
   )
 }
 

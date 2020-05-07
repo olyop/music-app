@@ -1,13 +1,9 @@
-@import "../../index.scss";
-
 .Playlist {
   display: flex;
   margin-bottom: 10px;
-  background-color: #ffffff;
-  border-radius: $BORDER_RADIUS;
-  box-shadow:
-    0 3px 6px rgba(#000000, .16),
-    0 3px 6px rgba(#000000, .23);
+  box-shadow: var(--box-shadow);
+  border-radius: var(--border-radius);
+  background-color: var(--text-color);
   &__cover {
     width: 200px;
     height: 200px;
@@ -18,5 +14,5 @@
       width: 100px;
       height: 100px; } }
   &__info {
-    padding: $SPACE;
-    font-size: 18rem; } }
+    font-size: 18rem;
+    padding: var(--space); } }

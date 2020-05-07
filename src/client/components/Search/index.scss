@@ -1,27 +1,24 @@
-@import "../../index.scss";
-
 .Search {
   height: 100%;
+  width: 1200px;
   margin: 0 auto;
   overflow: auto;
-  width: 1200px;
   &__bar,
   &__content {
-    padding: $SPACE; }
+    padding: var(--space); }
   &__bar {
     width: 600px;
     margin: 0 auto;
-    margin-top: calc(2 * #{$SPACE});
+    margin-top: calc(var(--space) * 2);
     &-input {
       width: 100%;
       border: none;
       outline: none;
-      padding: 10px;
       font-size: 20rem;
       text-align: center;
       background-color: transparent;
-      border-bottom: 2px solid #333333;
-    } }
+      padding: calc(var(--space) * .5);
+      border-bottom: 2px solid #333333; } }
   &__content {
-    background-color: #fff;
-    box-shadow: 0 2px 4px rgba(0,0,0, 0.1);; } }
+    box-shadow: var(--box-shadow);
+    background-color: var(--text-color-white); } }

@@ -1,44 +1,44 @@
-@import "../../index.scss";
+@import "../../css/variables.scss";
 
 .Navigation {
   width: 100%;
   display: flex;
-  height: $HEADER_HEIGHT;
-  background-color: #fff;
+  align-items: center;
   justify-content: flex-start;
-  box-shadow: 0 2px 4px rgba(#333, .1);
   &__link {
+    --text-height: 20rem;
     width: auto;
+    height: 100%;
     display: flex;
-    padding: 21px 0;
     position: relative;
-    transition: .2s all;
+    align-items: center;
     text-decoration: none;
-    justify-content: center;
-    &:hover {
-      background-color: #EEEEEE; }
+    margin: 0 calc(var(--space) * .5);
+    padding-bottom: calc(var(--space) * .25);
+    &:first-child {
+      margin-left: 0; }
     &:last-child {
       margin-right: 0; }
-    &-icon {
-      color: #333;
-      outline: none;
-      font-size: 18rem;
-      user-select: none;
-      margin-right: 3px;
-      padding-left: 15px; }
+    &-icon,
     &-text {
-      display: block;
-      font-size: 18rem;
-      font-weight: 700;
-      padding-right: 15px;
+      font-size: var(--text-height); }
+    &-icon {
+      color: var(--text-color);
+      width: var(--text-height);
+      height: var(--text-height);
+      margin-right: calc(var(--space) * .25);
+      &:hover {
+        background-color: transparent !important; } }
+    &-text {
+      font-weight: 600;
       text-decoration: none; 
       text-transform: uppercase; } }
   &__active {
     &:after {
-      bottom: 0;
       width: 100%;
       height: 3px;
       content: "";
+      bottom: -3px;
       position: absolute;
       border-radius: 4px;
       background-color: #333333; } } }

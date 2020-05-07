@@ -13,6 +13,7 @@ const bem = reactBem("Library")
 
 const Library = ({ match }) => (
   <section className={bem("")}>
+    <h1 className={bem("title")}>Library</h1>
     <Navigation
       match={match}
       routes={routes}

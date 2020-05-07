@@ -1,47 +1,39 @@
-@import "../../index.scss";
-
 .AlbumPage {
-  height: 100%;
-  overflow: auto;
-  padding: $SPACE;
+  display: grid;
+  padding: var(--space);
+  gap: calc(var(--space) * 1.25);
+  grid-template-columns: 1fr 3fr;
   &__cover {
     width: 100%;
-    height: auto; 
-    display: block;
-    margin-bottom: $SPACE;
-    box-shadow: $BOX_SHADOW;
-    @media (min-width: 600px) {
-      width: 500px;
-      height: 500px; } }
+    height: auto;
+    margin-bottom: var(--space); }
   &__title {
     display: flex;
-    margin-bottom: 8px;
+    font-size: 20rem;
     align-items: center;
+    margin-bottom: calc(var(--space) * .25);
     &-text {
       font-size: 26rem;
       @media (min-width: 700px) {
-        font-size: 30rem; } }
+        font-size: 34rem; } }
     &-add {
       font-size: 25rem;
-      margin-left: 5px;
-      border-radius: 100%; } }
-  &__info,
+      border-radius: 100%;
+      margin-left: calc(var(--space) * .25); } }
   &__artists {
-    font-size: 17rem;}
-  &__info {
-    font-weight: 400;
-    margin-bottom: 10px; }
-  &__artists {
+    font-size: 18rem;
     font-weight: 500;
-    margin-bottom: 15px; }
-  &__controls {
-    margin-bottom: $SPACE; }
+    margin-bottom: calc(var(--space) * .5); }
+  &__info {
+    font-size: 16rem;
+    font-weight: 400;
+    margin-bottom: calc(var(--space) * 1.5); }
   &__disc {
-    margin-bottom: 15px;
+    margin-bottom: calc(var(--space) * .75);
     &:last-child {
       margin-bottom: 0; }
     &-number {
       font-size: 15rem;
       font-weight: 700;
-      margin-bottom: 10px;
-      text-transform: uppercase; } } }
+      text-transform: uppercase;
+      margin-bottom: calc(var(--space) * .5); } } }

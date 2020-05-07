@@ -5,15 +5,15 @@ query getAlbumPage(
   album(albumId: $albumId) {
     albumId
     title
-    cover
     released
+    cover(size: FULL)
     inLibrary(userId: $userId)
     artists {
       artistId
       name
     }
     songs {
-      id
+      songId
       mix
       title
       duration
@@ -33,7 +33,7 @@ query getAlbumPage(
         name
       }
       genres {
-        artistId
+        genreId
         name
       }
     }

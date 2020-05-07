@@ -1,4 +1,7 @@
 import {
+  HOST,
+  PORT,
+  NODE_ENV,
   AWS_RDS_DB,
   AWS_RDS_PORT,
   AWS_RDS_USER,
@@ -8,7 +11,7 @@ import {
 } from "./environment.js"
 
 export const CORS_CONFIG = {
-  origin: "*",
+  origin: NODE_ENV === "production" ? `http://${HOST}:${PORT}/` : "*",
 }
 
 export const PG_CONFIG = {

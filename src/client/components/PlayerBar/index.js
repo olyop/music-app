@@ -1,12 +1,16 @@
 import React from "react"
 
 import Icon from "../Icon"
-import Current from "../Current"
+import QueryApi from "../QueryApi"
 import Progress from "../Progress"
+import { ItemSong } from "../Item"
 import { NavLink } from "react-router-dom"
 import UserControls from "../UserControls"
 
+import { isNull } from "lodash"
 import reactBem from "@oly_op/react-bem"
+
+import GET_USER_CURRENT from "../../graphql/queries/getUserCurrent.gql"
 
 import "./index.scss"
 
@@ -38,7 +42,20 @@ const PlayerBar = () => (
             className={bem("main-info-controls-control", "icon", "IconHover")}
           />
         </div>
-        <Current/>
+        <QueryApi
+          query={GET_USER_CURRENT}
+          children={
+            ({ user }) => (
+              isNull(user.current) ? null : (
+                <ItemSong
+                  showPlay={false}
+                  showRight={false}
+                  song={user.current}
+                />
+              )
+            )
+          }
+        />
       </div>
       <Progress/>
     </div>

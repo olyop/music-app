@@ -2,15 +2,15 @@ import React, { Fragment } from "react"
 
 import DocLink from "../DocLink"
 
-import { propTypes } from "./props"
+import { bool, arrayOf, object } from "prop-types"
 import { determineConcat, determineDocIdKey } from "../../helpers"
 
-const DocLinks = ({ path, docs, ampersand }) => (
+const DocLinks = ({ docs, ampersand }) => (
   <Fragment>
     {docs.map(
       (doc, index) => (
         <Fragment key={doc[determineDocIdKey(doc)]}>
-          <DocLink doc={doc} path={path} />
+          <DocLink doc={doc} />
           {determineConcat(docs, index, ampersand)}
         </Fragment>
       ),
@@ -18,6 +18,9 @@ const DocLinks = ({ path, docs, ampersand }) => (
   </Fragment>
 )
 
-DocLinks.propTypes = propTypes
+DocLinks.propTypes = {
+  ampersand: bool.isRequired,
+  docs: arrayOf(object).isRequired,
+}
 
 export default DocLinks

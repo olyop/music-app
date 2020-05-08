@@ -12,10 +12,7 @@ const bem = reactBem("Playlist")
 const Playlist = ({ playlist }) => (
   <div className={bem("")}>
     <div className={bem("info")}>
-      <DocLink
-        doc={playlist}
-        path="/playlist"
-      />
+      <DocLink doc={playlist} />
     </div>
   </div>
 )

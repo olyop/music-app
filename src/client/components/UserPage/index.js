@@ -14,7 +14,7 @@ const bem = reactBem("UserPage")
 const UserPage = () => {
   const { listStyle, setListStyle } = useContext(ListStyleContext)
   return (
-    <div className={bem("", "Space")}>
+    <div className={bem("", "Padding")}>
       <QueryApi
         query={GET_USER}
         children={

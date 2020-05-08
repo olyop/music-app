@@ -35,11 +35,8 @@
   "scss.colorDecorators.enable": false,
   "extensions.ignoreRecommendations": true,
   "workbench.colorTheme": "GitHub Plus",
-  "editor.formatOnPaste": true,
+  "editor.formatOnPaste": false,
   "window.menuBarVisibility": "default",
   "editor.renderIndentGuides": false,
-  "eslint.workingDirectories": [
-    "./src/client",
-    "./src/server"
-  ]
+  "eslint.workingDirectories": ["./src/client", "./src/server"]
 }

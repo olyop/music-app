@@ -6,28 +6,21 @@ import { Link } from "react-router-dom"
 
 import reactBem from "@oly_op/react-bem"
 import { string, node, object } from "prop-types"
+import { determineDocPhotoKey } from "../../helpers"
 
 import "./index.scss"
 
 const bem = reactBem("InfoImg")
 
-const InfoImg = ({
-  doc,
-  lower,
-  upper,
-  img,
-  imgUrl,
-  imgTitle,
-  className,
-}) => (
+const InfoImg = ({ doc, lower, upper, imgDoc, className, infoClassName }) => (
   <div className={bem(className, "")}>
     <Link
-      to={imgUrl}
-      title={imgTitle}
+      title={imgDoc.title}
+      to={`/album/${imgDoc.albumId}`}
       children={(
         <Img
-          url={img}
           imgClassName={bem("cover-img")}
+          url={imgDoc[determineDocPhotoKey(imgDoc)]}
           className={bem("cover", "Card", "Elevated")}
         />
       )}
@@ -36,28 +29,24 @@ const InfoImg = ({
       doc={doc}
       upper={upper}
       lower={lower}
-      className={bem("info")}
-      addClassName={bem("info-add")}
-      textClassName={bem("info-text")}
+      className={infoClassName}
     />
   </div>
 )
 
 InfoImg.propTypes = {
-  img: string,
-  imgUrl: string,
-  imgTitle: string,
+  imgDoc: object,
   className: string,
+  infoClassName: string,
   upper: node.isRequired,
   lower: node.isRequired,
   doc: object.isRequired,
 }
 
 InfoImg.defaultProps = {
-  img: "",
-  imgUrl: "",
-  imgTitle: "",
+  imgDoc: null,
   className: null,
+  infoClassName: null,
 }
 
 export default InfoImg

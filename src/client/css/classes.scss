@@ -4,13 +4,16 @@
   box-shadow:
     0 0 4px 0 rgba($shadow-color, .14),
     0 0 3px -2px rgba($shadow-color, .12),
-    0 0 8px 0 rgba($shadow-color, .20);;
+    0 0 8px 0 rgba($shadow-color, .20);
   background-color: var(--elevated-color); }
 
-.Space {
+.Padding {
   padding: var(--space); }
 
-.SpaceBottom {
+.PaddingHalf {
+  padding: calc(var(--space) * .5); }
+
+.MarginBottom {
   margin-bottom: var(--space); }
 
 .Grid {
@@ -19,6 +22,7 @@
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); }
 
 .Card {
+  overflow: hidden;
   transition-property: box-shadow;
   border-radius: var(--border-radius);
   transition-duration: var(--transition-duration);

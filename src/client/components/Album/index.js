@@ -18,10 +18,8 @@ const Album = ({ album }) => (
     <Info
       doc={album}
       className={bem("info")}
-      addClassName={bem("add")}
-      textClassName={bem("text")}
-      upper={<DocLink doc={album} path="/album" />}
-      lower={<DocLinks ampersand path="/artist" docs={album.artists} />}
+      upper={<DocLink doc={album} />}
+      lower={<DocLinks ampersand docs={album.artists} />}
     />
   </div>
 )

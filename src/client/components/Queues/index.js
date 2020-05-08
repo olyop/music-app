@@ -26,19 +26,7 @@ const Queues = () => (
               queue => (isNull(queue.songs[0]) || isEmpty(queue.songs) ? null : (
                 <div key={queue.id} className={bem("section", queue.key)}>
                   <p className={bem("section-text")}>{queue.name}</p>
-                  {queue.songs.map(
-                    (song, index) => (
-                      <div key={index} className={bem("section-song")}>
-                        <PlayButton
-                          doc={song}
-                          className={bem("section-song-playButton")}
-                        />
-                        <Song
-                          song={song}
-                        />
-                      </div>
-                    ),
-                  )}
+                  {queue.songs.map(song => <ItemSong song={song} />)}
                 </div>
               )),
             )}

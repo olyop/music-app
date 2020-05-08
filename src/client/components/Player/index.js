@@ -61,10 +61,7 @@ const Player = ({ history }) => {
           />
         </h1>
         <h1 className={bem("main-album")}>
-          <DocLink
-            doc={album}
-            path="/album"
-          />
+          <DocLink doc={album} />
         </h1>
         <h2 className={bem("main-artists")}>
           <FeaturingArtists

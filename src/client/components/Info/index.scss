@@ -1,7 +1,7 @@
 .Info {
+  --gap: calc(var(--space) * .5);
   display: flex;
   align-items: center;
-  justify-content: space-between;
   &__text {
     width: 100%;
     &-upper,
@@ -19,5 +19,5 @@
       max-height: 15rem;} } 
   &__add {
     display: none;
-    margin-left: calc(var(--space) * .25);
+    margin-left: var(--gap);
     background-color: var(--color-elevated); } }

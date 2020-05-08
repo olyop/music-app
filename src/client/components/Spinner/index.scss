@@ -1,14 +1,14 @@
 .Spinner {
-  width: 35px;
-  height: 35px;
   display: block;
   position: relative;
+  width: var(--info-height);
+  height: var(--info-height);
   &__spin {
-    width: 35px;
-    height: 35px;
     position: absolute;
     border-radius: 50%;
     border: 2px solid #333;
+    width: var(--info-height);
+    height: var(--info-height);
     border-color: #333 transparent transparent transparent;
     animation: spin 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
     &:nth-child(1) { animation-delay: -0.45s; }

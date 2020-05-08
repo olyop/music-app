@@ -7,11 +7,11 @@ import routes from "./routes"
 import { propTypes } from "./props"
 
 const Browse = ({ match }) => (
-  <div className="Space">
+  <div className="Padding">
     <Navigation
       match={match}
       routes={routes}
-      className="SpaceBottom"
+      className="MarginBottom"
     />
     <Switch>
       {routes.map(

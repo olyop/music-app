@@ -1,8 +1,8 @@
-import Queues from "../Queues"
+// import Queues from "../Queues"
 import Search from "../Search"
 import Player from "../Player"
 import Catalog from "../Catalog"
-import Library from "../Library"
+// import Library from "../Library"
 import UserPage from "../UserPage"
 import PlaysPage from "../PlaysPage"
 import GenrePage from "../GenrePage"
@@ -18,12 +18,12 @@ export default [
     path: "/catalog",
     component: Catalog,
   },
-  {
-    id: uniqueId(),
-    name: "Library",
-    path: "/library",
-    component: Library,
-  },
+  // {
+  //   id: uniqueId(),
+  //   name: "Library",
+  //   path: "/library",
+  //   component: Library,
+  // },
   {
     ignore: true,
     id: uniqueId(),
@@ -38,13 +38,13 @@ export default [
     path: "/search",
     component: Search,
   },
-  {
-    ignore: true,
-    id: uniqueId(),
-    name: "Queues",
-    path: "/queues",
-    component: Queues,
-  },
+  // {
+  //   ignore: true,
+  //   id: uniqueId(),
+  //   name: "Queues",
+  //   path: "/queues",
+  //   component: Queues,
+  // },
   {
     ignore: true,
     path: "/user",

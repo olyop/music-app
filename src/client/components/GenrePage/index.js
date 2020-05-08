@@ -1,7 +1,7 @@
 import React, { Fragment } from "react"
 
 import QueryApi from "../QueryApi"
-import SongItem from "../SongItem"
+import { ItemSong } from "../Item"
 
 import reactBem from "@oly_op/react-bem"
 import { useParams } from "react-router-dom"
@@ -23,18 +23,9 @@ const GenrePage = () => (
           return (
             <Fragment>
               <h1 className={bem("name", "Elevated")}>{name}</h1>
-              <div className="Space">
+              <div className="Padding">
                 <div className="Elevated">
-                  {songs.map(
-                    song => (
-                      <SongItem
-                        showCover
-                        song={song}
-                        showDuration
-                        key={song.songId}
-                      />
-                    ),
-                  )}
+                  {songs.map(song => <ItemSong song={song} />)}
                 </div>
               </div>
             </Fragment>

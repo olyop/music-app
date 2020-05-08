@@ -1,7 +1,7 @@
 import React from "react"
 
 import QueryApi from "../QueryApi"
-import SongItem from "../SongItem"
+import { ItemSong } from "../Item"
 
 import GET_SONGS from "../../graphql/queries/getSongs.gql"
 
@@ -14,10 +14,10 @@ const BrowseSongs = () => (
         <div className="Elevated">
           {songs.map(
             song => (
-              <SongItem
+              <ItemSong
                 song={song}
-                showDuration
                 key={song.songId}
+                className="PaddingHalf Hover ItemBorder"
               />
             ),
           )}

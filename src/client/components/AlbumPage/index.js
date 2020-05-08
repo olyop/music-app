@@ -4,7 +4,7 @@ import Cover from "../Cover"
 import QueryApi from "../QueryApi"
 import IconText from "../IconText"
 import DocLinks from "../DocLinks"
-import SongItem from "../SongItem"
+import { ItemSong } from "../Item"
 import InLibraryButton from "../InLibraryButton"
 
 import { map } from "lodash/fp"
@@ -20,7 +20,7 @@ import "./index.scss"
 const bem = reactBem("AlbumPage")
 
 const AlbumPage = () => (
-  <div className={bem("", "Space")}>
+  <div className={bem("", "Padding")}>
     <QueryApi
       query={GET_ALBUM_PAGE}
       variables={useParams()}
@@ -32,7 +32,7 @@ const AlbumPage = () => (
               <div>
                 <Cover
                   url={album.cover}
-                  className="Card SpaceBottom Elevated"
+                  className="Card MarginBottom Elevated"
                 />
                 <IconText
                   text="Shuffle"
@@ -49,18 +49,10 @@ const AlbumPage = () => (
                   />
                 </h1>
                 <h2 className={bem("artists")}>
-                  <DocLinks
-                    ampersand
-                    path="/artist"
-                    docs={artists}
-                  />
+                  <DocLinks ampersand docs={artists} />
                 </h2>
-                <h3 className={bem("info", "SpaceBottom")}>
-                  <DocLinks
-                    ampersand
-                    path="/genre"
-                    docs={genresFromAlbum(album)}
-                  />
+                <h3 className={bem("info", "MarginBottom")}>
+                  <DocLinks ampersand docs={genresFromAlbum(album)} />
                   <Fragment> - </Fragment>
                   {deserializeDate(released)}
                 </h3>
@@ -77,10 +69,8 @@ const AlbumPage = () => (
                         <div className="Elevated">
                           {songs.map(
                             song => (
-                              <SongItem
+                              <ItemSong
                                 song={song}
-                                showDuration
-                                showTrackNumber
                                 key={song.songId}
                                 showCover={false}
                               />

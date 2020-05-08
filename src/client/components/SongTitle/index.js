@@ -4,8 +4,8 @@ import DocLink from "../DocLink"
 import DocLinks from "../DocLinks"
 
 import { isEmpty } from "lodash"
-import { propTypes } from "./props"
 import reactBem from "@oly_op/react-bem"
+import { shape, string, bool } from "prop-types"
 
 import "./index.scss"
 
@@ -18,7 +18,6 @@ const SongTitle = ({ song, showRemixers }) => {
       <Fragment>
         <DocLink
           doc={song}
-          path="/song"
         />
         {isEmpty(remixers) ? (
           <Fragment>
@@ -35,7 +34,6 @@ const SongTitle = ({ song, showRemixers }) => {
             <Fragment> </Fragment>
             <DocLinks
               ampersand
-              path="/artist"
               docs={remixers}
             />
             <Fragment> </Fragment>
@@ -48,10 +46,7 @@ const SongTitle = ({ song, showRemixers }) => {
   } else {
     return (
       <Fragment>
-        <DocLink
-          doc={song}
-          path="/song"
-        />
+        <DocLink doc={song} />
         {isEmpty(mix) ? null : (
           <span className={bem("mix")}>
             <Fragment> - </Fragment>
@@ -64,6 +59,17 @@ const SongTitle = ({ song, showRemixers }) => {
   }
 }
 
-SongTitle.propTypes = propTypes
+SongTitle.propTypes = {
+  song: shape({
+    mix: string.isRequired,
+    title: string.isRequired,
+    songId: string.isRequired,
+  }),
+  showRemixers: bool,
+}
+
+SongTitle.defaultProps = {
+  showRemixers: true,
+}
 
 export default SongTitle

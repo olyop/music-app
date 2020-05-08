@@ -14,7 +14,7 @@ const Genre = ({ genre }) => (
     textClassName="Genre__text"
     className="Genre Card Elevated"
     lower={`${genre.numOfSongs} songs`}
-    upper={<DocLink doc={genre} path="/genre" />}
+    upper={<DocLink doc={genre} />}
   />
 )
 

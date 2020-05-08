@@ -1,9 +1,7 @@
 import React from "react"
 
-import Genre from "../Genre"
+import Genres from "../Genres"
 import QueryApi from "../QueryApi"
-
-import { determineDocIdKey } from "../../helpers"
 
 import GET_GENRES from "../../graphql/queries/getGenres.gql"
 
@@ -11,20 +9,7 @@ const BrowseGenres = () => (
   <QueryApi
     query={GET_GENRES}
     resultPath="genres"
-    children={
-      genres => (
-        <div className="Grid">
-          {genres.map(
-            genre => (
-              <Genre
-                genre={genre}
-                key={genre[determineDocIdKey(genre)]}
-              />
-            ),
-          )}
-        </div>
-      )
-    }
+    children={genres => <Genres genres={genres} />}
   />
 )
 

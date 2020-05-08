@@ -19,7 +19,7 @@ const Artist = ({ artist }) => (
       className="Artist__info"
       addClassName="Artist__add"
       textClassName="Artist__text"
-      upper={<DocLink doc={artist} path="/artist" />}
+      upper={<DocLink doc={artist} />}
       lower={`${artist.numOfAlbums} albums, ${artist.numOfSongs} of songs`}
     />
   </div>

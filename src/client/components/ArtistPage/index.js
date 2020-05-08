@@ -3,7 +3,7 @@ import React, { Fragment } from "react"
 import Img from "../Img"
 import Album from "../Album"
 import QueryApi from "../QueryApi"
-import SongItem from "../SongItem"
+import { ItemSong } from "../Item"
 import InLibraryButton from "../InLibraryButton"
 
 import { isEmpty } from "lodash"
@@ -33,7 +33,7 @@ const ArtistPage = () => (
                 className={bem("cover", "Elevated")}
                 children={(
                   <Fragment>
-                    <div className={bem("cover-content", "Space")}>
+                    <div className={bem("cover-content", "Padding")}>
                       <h1 className={bem("cover-content-name")}>
                         <span className={bem("cover-content-name-text")}>{name}</span>
                         <InLibraryButton
@@ -59,9 +59,9 @@ const ArtistPage = () => (
                   </Fragment>
                 )}
               />
-              <div className="Space">
+              <div className="Padding">
                 {isEmpty(albums) ? null : (
-                  <div className={bem("albums", "Grid", "SpaceBottom")}>
+                  <div className={bem("albums", "Grid", "MarginBottom")}>
                     {albums.map(
                       album => (
                         <Album
@@ -76,9 +76,8 @@ const ArtistPage = () => (
                   <div className="Elevated">
                     {songs.map(
                       song => (
-                        <SongItem
+                        <ItemSong
                           song={song}
-                          showDuration
                           key={song.songId}
                         />
                       ),

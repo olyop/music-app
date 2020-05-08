@@ -1,9 +1,8 @@
 import React from "react"
 
-import Song from "../../Song"
 import Album from "../../Album"
 import QueryApi from "../../QueryApi"
-import PlayButton from "../../PlayButton"
+import { ItemSong } from "../../Item"
 
 import reactBem from "@oly_op/react-bem"
 
@@ -34,14 +33,7 @@ const BrowseHome = () => (
           </div>
           <div className={bem("topTen")}>
             <h2 className={bem("heading")}>Top 10</h2>
-            {topTenSongs.map(
-              song => (
-                <div key={song.id} className={bem("topTen-song")}>
-                  <PlayButton doc={song} className={bem("topTen-song-play")} />
-                  <Song song={song} />
-                </div>
-              ),
-            )}
+            {topTenSongs.map(song => <ItemSong song={song} />)}
           </div>
         </div>
       )

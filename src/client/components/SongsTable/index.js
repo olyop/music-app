@@ -301,7 +301,6 @@ const SongsTable = ({ songs, orderByInit, columnsToIgnore }) => {
                   children={(
                     <span className={bem("body-row-col-span")}>
                       <DocLinks
-                        path="/artist"
                         ampersand={false}
                         docs={concat(artists, featuring)}
                       />
@@ -317,7 +316,6 @@ const SongsTable = ({ songs, orderByInit, columnsToIgnore }) => {
                     <span className={bem("body-row-col-span")}>
                       {isEmpty(remixers) ? null : (
                         <DocLinks
-                          path="/artist"
                           docs={remixers}
                           ampersand={false}
                         />
@@ -334,7 +332,6 @@ const SongsTable = ({ songs, orderByInit, columnsToIgnore }) => {
                     <span className={bem("body-row-col-span")}>
                       <DocLink
                         doc={album}
-                        path="/album"
                       />
                     </span>
                   )}
@@ -347,7 +344,6 @@ const SongsTable = ({ songs, orderByInit, columnsToIgnore }) => {
                   children={(
                     <span className={bem("body-row-col-span")}>
                       <DocLinks
-                        path="/genre"
                         docs={genres}
                         ampersand={false}
                       />

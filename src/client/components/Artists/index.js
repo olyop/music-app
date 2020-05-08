@@ -1,31 +1,31 @@
 import React, { useContext } from "react"
 
-import Album from "../Album"
-import { ItemAlbum } from "../Item"
+import Artist from "../Artist"
+import { ItemArtist } from "../Item"
 import ListStyleContext from "../../contexts/ListStyle"
 
 import { arrayOf, object } from "prop-types"
 
-const Albums = ({ albums }) => {
+const Artists = ({ artists }) => {
   const { listStyle } = useContext(ListStyleContext)
   return listStyle === "grid" ? (
     <div className="Grid">
-      {albums.map(
-        album => (
-          <Album
-            album={album}
-            key={album.albumId}
+      {artists.map(
+        artist => (
+          <Artist
+            artist={artist}
+            key={artist.artistId}
           />
         ),
       )}
     </div>
   ) : (
     <div className="Elevated">
-      {albums.map(
-        album => (
-          <ItemAlbum
-            album={album}
-            key={album.albumId}
+      {artists.map(
+        artist => (
+          <ItemArtist
+            artist={artist}
+            key={artist.artistId}
             className="PaddingHalf Hover ItemBorder"
           />
         ),
@@ -34,8 +34,8 @@ const Albums = ({ albums }) => {
   )
 }
 
-Albums.propTypes = {
-  albums: arrayOf(object).isRequired,
+Artists.propTypes = {
+  artists: arrayOf(object).isRequired,
 }
 
-export default Albums
+export default Artists

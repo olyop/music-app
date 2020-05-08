@@ -1,20 +1,16 @@
 import React from "react"
 
-import Info from "../Info"
+import Item from "../Item"
 import DocLink from "../DocLink"
 
 import { propTypes } from "./props"
 
-import "./index.scss"
-
 const Genre = ({ genre }) => (
-  <Info
+  <Item
     doc={genre}
-    addClassName="Genre__add"
-    textClassName="Genre__text"
-    className="Genre Card Elevated"
-    lower={`${genre.numOfSongs} songs`}
     upper={<DocLink doc={genre} />}
+    lower={`${genre.numOfSongs} songs`}
+    className="PaddingHalf Card Elevated"
   />
 )
 

@@ -8,6 +8,7 @@
   height: var(--player-height);
   background-color: var(--elevated-color);
   &__icon {
+    display: block;
     color: var(--text-color); }
   &__main,
   &__controls {
@@ -22,11 +23,19 @@
     &-info {
       display: flex;
       flex-direction: row-reverse;
+      min-height: var(--info-height);
       justify-content: space-between;
       &-controls {
         display: flex;
         align-items: center;
         &-control {
           margin-right: calc(var(--space) * .25);
-          &:last-child {
-            margin-right: 0; } } } } } }
+          &-volume {
+            --height: calc(var(--button-size) - 2px);
+            margin-right: -2px;
+            width: var(--height);
+            height: var(--height);
+            font-size: var(--height); } } }
+      &-current {
+        width: 100%;
+        margin-right: calc(var(--space) * .25); } } } }

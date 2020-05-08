@@ -4,26 +4,27 @@
   grid-template-columns: 1fr 3fr;
   @media (max-width: 1200px) {
     grid-template-columns: 1fr 2fr; }
+  @media (max-width: 800px) {
+    display: block; }
+  &__shuffle {
+    @media (max-width: 800px) {
+      display: none; } }
   &__title {
     display: flex;
-    font-size: 20rem;
+    font-size: 33rem;
     align-items: center;
-    margin-bottom: calc(var(--space) * .25);
-    &-text {
-      font-size: 26rem;
-      @media (min-width: 700px) {
-        font-size: 34rem; } }
+    margin-bottom: calc(var(--space) * .25 + 3px);
     &-add {
-      font-size: 25rem;
-      border-radius: 100%;
+      display: inline-block;
+      color: var(--text-color);
       margin-left: calc(var(--space) * .25); } }
   &__artists {
-    font-size: 18rem;
-    font-weight: 500;
-    margin-bottom: calc(var(--space) * .5); }
-  &__info {
-    font-size: 16rem;
-    font-weight: 400; }
+    font-size: 19rem;
+    font-weight: 500; }
+  &__genres {
+    font-size: 17rem;
+    font-weight: 400;
+    margin-bottom: calc(var(--space) * .5 - 1px); }
   &__disc {
     margin-bottom: calc(var(--space) * .75);
     &:last-child {
@@ -32,4 +33,8 @@
       font-size: 15rem;
       font-weight: 700;
       text-transform: uppercase;
-      margin-bottom: calc(var(--space) * .5); } } }
+      margin-bottom: calc(var(--space) * .5); } }
+  &__footer-text {
+    font-size: 14rem;
+    text-transform: uppercase;
+    color: var(--text-color-light); } }

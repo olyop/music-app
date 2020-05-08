@@ -43,4 +43,8 @@
         ellipse farthest-corner at center center,
         rgba(#000, .2) 20%,
         rgba(#000, .7) 100%
-      ) repeat scroll 0% 0%; } } }
+      ) repeat scroll 0% 0%; } }
+  &__heading {
+    font-size: 25rem;
+    margin-top: -3px;
+    margin-bottom: calc(var(--space) * .5); } }

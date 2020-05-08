@@ -18,6 +18,7 @@ const QueryApi = ({
   variables,
   checkEmpty,
   resultPath,
+  spinnerClassName,
 }) => {
 
   const userId = useContext(UserContext)
@@ -28,7 +29,7 @@ const QueryApi = ({
   )
 
   if (spinner && loading) {
-    return <Spinner />
+    return <Spinner className={spinnerClassName} />
   }
 
   if (!isUndefined(error)) {

@@ -23,7 +23,7 @@ const SongTitle = ({ song, showRemixers }) => {
           <Fragment>
             {isEmpty(mix) ? null : (
               <span className={bem("mix")}>
-                <Fragment> </Fragment>
+                <Fragment> - </Fragment>
                 {mix}
                 <Fragment> Mix</Fragment>
               </span>
@@ -31,7 +31,7 @@ const SongTitle = ({ song, showRemixers }) => {
           </Fragment>
         ) : (
           <span className={bem("mix")}>
-            <Fragment> </Fragment>
+            <Fragment> - </Fragment>
             <DocLinks
               ampersand
               docs={remixers}

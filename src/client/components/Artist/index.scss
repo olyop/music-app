@@ -1,9 +1,0 @@
-.Artist {
-  &__cover:before {
-    padding-top: 56.25%; }
-  &:hover &__text {
-    width: calc(100% - calc(var(--space) * .25) - var(--button-size)); }
-  &:hover &__add {
-    display: block; }
-  &__info {
-    padding: calc(var(--space) * .5); } }

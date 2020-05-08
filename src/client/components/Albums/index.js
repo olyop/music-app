@@ -4,38 +4,40 @@ import Album from "../Album"
 import { ItemAlbum } from "../Item"
 import ListStyleContext from "../../contexts/ListStyle"
 
-import { arrayOf, object } from "prop-types"
+import reactBem from "@oly_op/react-bem"
+import { arrayOf, object, string } from "prop-types"
 
-const Albums = ({ albums }) => {
+const bem = reactBem("Albums")
+
+const Albums = ({ albums, className }) => {
   const { listStyle } = useContext(ListStyleContext)
-  return listStyle === "grid" ? (
-    <div className="Grid">
+  return (
+    <div className={bem(className, listStyle === "grid" ? "Grid" : "Elevated")}>
       {albums.map(
-        album => (
+        album => (listStyle === "grid" ? (
           <Album
             album={album}
             key={album.albumId}
           />
-        ),
-      )}
-    </div>
-  ) : (
-    <div className="Elevated">
-      {albums.map(
-        album => (
+        ) : (
           <ItemAlbum
             album={album}
             key={album.albumId}
             className="PaddingHalf Hover ItemBorder"
           />
-        ),
+        )),
       )}
     </div>
   )
 }
 
 Albums.propTypes = {
+  className: string,
   albums: arrayOf(object).isRequired,
+}
+
+Albums.defaultProps = {
+  className: null,
 }
 
 export default Albums

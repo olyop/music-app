@@ -14,6 +14,7 @@ import toDataUrl from "../../helpers/resolver/toDataUrl.js"
 import sqlParseTable from "../../helpers/sql/sqlParseTable.js"
 import mapResolver from "../../helpers/utilities/mapResolver.js"
 import s3CatalogObjectKey from "../../helpers/s3/s3CatalogObjectKey.js"
+import sqlTransaction from "../../helpers/sql/sqlTransaction.js"
 
 const cover =
   async ({ parent, args }) =>
@@ -26,20 +27,30 @@ const cover =
       }),
     })
 
+const getAlbumSongs = (parent, parse) =>
+  sqlQuery({
+    query: SELECT_ALBUM_SONGS,
+    parse,
+    variables: [{
+      key: "albumId",
+      value: parent.albumId,
+    },{
+      string: false,
+      key: "columnNames",
+      value: sqlJoin(columnNames.song),
+    }],
+  })
+
 const songs =
   async ({ parent }) =>
-    sqlQuery({
-      query: SELECT_ALBUM_SONGS,
-      parse: sqlParseTable,
-      variables: [{
-        key: "albumId",
-        value: parent.albumId,
-      },{
-        string: false,
-        key: "columnNames",
-        value: sqlJoin(columnNames.song),
-      }],
-    })
+    getAlbumSongs(parent, sqlParseTable)
+
+const totalDuration =
+  async ({ parent }) =>
+    getAlbumSongs(parent, ({ rows }) =>
+      rows
+        .map(({ duration }) => duration)
+        .reduce((total, duration) => total + duration, 0))
 
 const artists =
   async ({ parent }) =>
@@ -96,6 +107,7 @@ const albumResolver =
     artists,
     dateAdded,
     inLibrary,
+    totalDuration,
   })
 
 export default albumResolver

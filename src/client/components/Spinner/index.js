@@ -8,7 +8,7 @@ import "./index.scss"
 const bem = reactBem("Spinner")
 
 const Spinner = ({ className }) => (
-  <div className={bem({ ignore: true, className }, "")}>
+  <div className={bem(className, "")}>
     <div className={bem("spin")}/>
     <div className={bem("spin")}/>
     <div className={bem("spin")}/>

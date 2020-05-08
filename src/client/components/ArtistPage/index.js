@@ -1,7 +1,7 @@
 import React, { Fragment } from "react"
 
 import Img from "../Img"
-import Album from "../Album"
+import Albums from "../Albums"
 import QueryApi from "../QueryApi"
 import { ItemSong } from "../Item"
 import InLibraryButton from "../InLibraryButton"
@@ -9,7 +9,7 @@ import InLibraryButton from "../InLibraryButton"
 import { isEmpty } from "lodash"
 import reactBem from "@oly_op/react-bem"
 import { useParams } from "react-router-dom"
-import { determinePlural, determineDocIdKey } from "../../helpers"
+import { determinePlural } from "../../helpers"
 
 import GET_ARTIST_PAGE from "../../graphql/queries/getArtistPage.gql"
 
@@ -61,28 +61,29 @@ const ArtistPage = () => (
               />
               <div className="Padding">
                 {isEmpty(albums) ? null : (
-                  <div className={bem("albums", "Grid", "MarginBottom")}>
-                    {albums.map(
-                      album => (
-                        <Album
-                          album={album}
-                          key={album[determineDocIdKey(album)]}
-                        />
-                      ),
-                    )}
-                  </div>
+                  <Fragment>
+                    <h2 className={bem("heading")}>Albums</h2>
+                    <Albums
+                      albums={albums}
+                      className="MarginBottom"
+                    />
+                  </Fragment>
                 )}
                 {isEmpty(songs) ? null : (
-                  <div className="Elevated">
-                    {songs.map(
-                      song => (
-                        <ItemSong
-                          song={song}
-                          key={song.songId}
-                        />
-                      ),
-                    )}
-                  </div>
+                  <Fragment>
+                    <h2 className={bem("heading")}>Songs</h2>
+                    <div className="Elevated">
+                      {songs.map(
+                        song => (
+                          <ItemSong
+                            song={song}
+                            key={song.songId}
+                            className="PaddingHalf Hover ItemBorder"
+                          />
+                        ),
+                      )}
+                    </div>
+                  </Fragment>
                 )}
               </div>
             </Fragment>

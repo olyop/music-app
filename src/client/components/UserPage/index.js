@@ -20,7 +20,7 @@ const UserPage = () => {
         children={
           ({ user }) => (
             <Fragment>
-              <h1 className={bem("name")}>{user.name}</h1>
+              <h1 className={bem("name", "MarginBottom")}>{user.name}</h1>
               <h3 className={bem("option-text")}>List Style</h3>
               <select
                 value={listStyle}

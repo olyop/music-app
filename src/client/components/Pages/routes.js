@@ -25,14 +25,12 @@ export default [
   //   component: Library,
   // },
   {
-    ignore: true,
     id: uniqueId(),
     name: "Player",
     path: "/player",
     component: Player,
   },
   {
-    ignore: true,
     id: uniqueId(),
     name: "Search",
     path: "/search",
@@ -46,13 +44,11 @@ export default [
   //   component: Queues,
   // },
   {
-    ignore: true,
     path: "/user",
     id: uniqueId(),
     component: UserPage,
   },
   {
-    ignore: true,
     id: uniqueId(),
     component: PlaysPage,
     path: "/plays/:songId",

@@ -2,7 +2,6 @@ import React, { useContext } from "react"
 
 import Icon from "../Icon"
 import { NavLink } from "react-router-dom"
-import UserContext from "../../contexts/User"
 import SidebarContext from "../../contexts/Sidebar"
 
 import reactBem from "@oly_op/react-bem"
@@ -12,7 +11,6 @@ import "./index.scss"
 const bem = reactBem("Header")
 
 const Header = () => {
-  const userId = useContext(UserContext)
   const { sidebar, toggleSidebar } = useContext(SidebarContext)
   return (
     <header className={bem("", "Elevated")}>
@@ -35,7 +33,7 @@ const Header = () => {
           )}
         />
         <NavLink
-          to={`/user/${userId}`}
+          to="/user"
           className={bem("link")}
           children={(
             <Icon

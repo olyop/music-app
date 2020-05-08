@@ -25,7 +25,13 @@ const GenrePage = () => (
               <h1 className={bem("name", "Elevated")}>{name}</h1>
               <div className="Padding">
                 <div className="Elevated">
-                  {songs.map(song => <ItemSong song={song} />)}
+                  {songs.map(song => (
+                    <ItemSong
+                      song={song}
+                      key={song.songId}
+                      className="PaddingHalf Hover ItemBorder"
+                    />
+                  ))}
                 </div>
               </div>
             </Fragment>

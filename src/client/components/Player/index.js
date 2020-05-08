@@ -1,17 +1,17 @@
-import React, { useContext } from "react"
+import React, { Fragment } from "react"
 
 import Img from "../Img"
 import Icon from "../Icon"
+import Empty from "../Empty"
 import DocLink from "../DocLink"
-import Spinner from "../Spinner"
+import QueryApi from "../QueryApi"
+import Progress from "../Progress"
 import SongTitle from "../SongTitle"
-import UserContext from "../../contexts/User"
 import FeaturingArtists from "../FeaturingArtists"
 
+import { isNull } from "lodash"
 import { propTypes } from "./props"
 import reactBem from "@oly_op/react-bem"
-import { isUndefined, isNull } from "lodash"
-import { useQuery } from "@apollo/react-hooks"
 
 import GET_USER_CURRENT from "../../graphql/queries/getUserCurrent.gql"
 
@@ -19,60 +19,57 @@ import "./index.scss"
 
 const bem = reactBem("Player")
 
-const Player = ({ history }) => {
-  const userId = useContext(UserContext)
+const Player = ({ history }) => (
+  <div className={bem("", "Elevated")}>
+    <QueryApi
+      query={GET_USER_CURRENT}
+      spinnerClassName={bem("spinner")}
+      children={
+        ({ user }) => {
+          const { current } = user
 
-  const { loading, error, data } = useQuery(
-    GET_USER_CURRENT,
-    { variables: { userId } },
-  )
+          if (isNull(current)) {
+            return <Empty title="No Current Song" />
+          }
 
-  if (loading) {
-    return <Spinner/>
-  }
+          const { artists, featuring, album } = current
 
-  if (!isUndefined(error)) {
-    return null
-  }
-
-  if (isNull(data.user.current)) {
-    return null
-  }
-
-  const { current } = data.user
-  const { album, artists, featuring } = current
-
-  return (
-    <div className={bem("")}>
-      <Icon
-        icon="close"
-        onClick={history.goBack}
-        className={bem("close")}
-      />
-      <div className={bem("main")}>
-        <Img
-          url={album.cover}
-          className={bem("main-cover")}
-        />
-        <h1 className={bem("main-title")}>
-          <SongTitle
-            showRemixers
-            song={current}
-          />
-        </h1>
-        <h1 className={bem("main-album")}>
-          <DocLink doc={album} />
-        </h1>
-        <h2 className={bem("main-artists")}>
-          <FeaturingArtists
-            artists={artists}
-            featuring={featuring}
-          />
-        </h2>
-      </div>
-    </div>
-  )
-}
+          return (
+            <Fragment>
+              <Icon
+                icon="close"
+                onClick={history.goBack}
+                className={bem("close")}
+              />
+              <div className={bem("main")}>
+                <Img
+                  url={album.cover}
+                  title={album.title}
+                  className={bem("main-cover", "Card", "Elevated")}
+                />
+                <h1 className={bem("main-title")}>
+                  <SongTitle
+                    showRemixers
+                    song={current}
+                  />
+                </h1>
+                <h1 className={bem("main-info")}>
+                  <DocLink doc={album} />
+                  <Fragment> - </Fragment>
+                  <FeaturingArtists
+                    artists={artists}
+                    featuring={featuring}
+                  />
+                </h1>
+                <Progress/>
+              </div>
+            </Fragment>
+          )
+        }
+      }
+    />
+  </div>
+)
 
 Player.propTypes = propTypes
 

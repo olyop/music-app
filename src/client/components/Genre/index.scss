@@ -1,6 +1,0 @@
-.Genre {
-    padding: calc(var(--space) * .5);
-  &:hover &__text {
-    width: calc(100% - calc(var(--space) * .25) - var(--button-size)); }
-  &:hover &__add {
-    display: block; } }

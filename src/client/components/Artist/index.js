@@ -1,24 +1,17 @@
 import React from "react"
 
-import Info from "../Info"
+import Item from "../Item"
 import Cover from "../Cover"
 import DocLink from "../DocLink"
 
 import { propTypes } from "./props"
 
-import "./index.scss"
-
 const Artist = ({ artist }) => (
-  <div className="Artist Card Elevated">
-    <Cover
-      url={artist.photo}
-      className="Artist__cover"
-    />
-    <Info
+  <div className="Card Elevated">
+    <Cover landscape url={artist.photo} />
+    <Item
       doc={artist}
-      className="Artist__info"
-      addClassName="Artist__add"
-      textClassName="Artist__text"
+      className="PaddingHalf"
       upper={<DocLink doc={artist} />}
       lower={`${artist.numOfAlbums} albums, ${artist.numOfSongs} of songs`}
     />

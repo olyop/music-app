@@ -17,49 +17,59 @@ import "./index.scss"
 const bem = reactBem("PlayerBar")
 
 const PlayerBar = () => (
-  <div className={bem("", "Elevated")}>
+  <footer className={bem("", "Elevated")}>
     <UserControls
       className={bem("controls")}
       iconClassName={bem("icon")}
     />
     <div className={bem("main")}>
-      <div className={bem("main-info")}>
-        <div className={bem("main-info-controls")}>
-          <NavLink className={bem("main-info-controls-control")} to="/player">
-            <Icon
-              icon="fullscreen"
-              className={bem("icon", "IconHover")}
-            />
-          </NavLink>
-          <NavLink className={bem("main-info-controls-control")} to="/queues">
-            <Icon
-              icon="queue_music"
-              className={bem("icon", "IconHover")}
-            />
-          </NavLink>
-          <Icon
-            icon="volume_up"
-            className={bem("main-info-controls-control", "icon", "IconHover")}
-          />
-        </div>
-        <QueryApi
-          query={GET_USER_CURRENT}
-          children={
-            ({ user }) => (
-              isNull(user.current) ? null : (
+      <QueryApi
+        query={GET_USER_CURRENT}
+        children={
+          ({ user }) => (
+            <div className={bem("main-info")}>
+              <div className={bem("main-info-controls")}>
+                <NavLink className={bem("main-info-controls-control")} to="/player">
+                  <Icon
+                    icon="fullscreen"
+                    title="Fullscreen"
+                    className={bem("icon", "IconHover")}
+                  />
+                </NavLink>
+                <NavLink className={bem("main-info-controls-control")} to="/queues">
+                  <Icon
+                    title="Queue"
+                    icon="queue_music"
+                    className={bem("icon", "IconHover")}
+                  />
+                </NavLink>
+                <Icon
+                  title="Volume"
+                  icon="volume_up"
+                  className={bem(
+                    "main-info-controls-control-volume",
+                    "main-info-controls-control",
+                    "icon",
+                    "IconHover",
+                  )}
+                />
+              </div>
+              {isNull(user.current) ? null : (
                 <ItemSong
                   showPlay={false}
                   showRight={false}
                   song={user.current}
+                  addClassName={bem("icon")}
+                  className={bem("main-info-current")}
                 />
-              )
-            )
-          }
-        />
-      </div>
+              )}
+            </div>
+          )
+        }
+      />
       <Progress/>
     </div>
-  </div>
+  </footer>
 )
 
 export default PlayerBar

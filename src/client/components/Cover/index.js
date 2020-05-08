@@ -10,11 +10,11 @@ import "./index.scss"
 
 const bem = reactBem("Cover")
 
-const Cover = ({ url, children, className, imgClassName }) => (
+const Cover = ({ url, landscape, children, className, imgClassName }) => (
   <Img
     url={url}
-    className={bem(className, "")}
     imgClassName={bem(imgClassName, "img")}
+    className={bem(landscape ? "landscape" : null, className, "")}
     children={(
       <Fragment>
         <IconText

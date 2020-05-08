@@ -4,7 +4,7 @@ import _ItemAlbum from "./ItemAlbum"
 import _ItemGenre from "./ItemGenre"
 import _ItemArtist from "./ItemArtist"
 
-export const Item = _Item
+export default _Item
 export const ItemSong = _ItemSong
 export const ItemAlbum = _ItemAlbum
 export const ItemGenre = _ItemGenre

@@ -4,6 +4,7 @@ type Album {
   released: Int!
   songs: [Song!]!
   artists: [Artist!]!
+  totalDuration: Int!
   plays(userId: Uuid!): [Play!]
   dateAdded(userId: Uuid!): Int
   inLibrary(userId: Uuid!): Boolean!

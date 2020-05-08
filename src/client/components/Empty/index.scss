@@ -6,10 +6,15 @@
   flex-direction: column;
   justify-content: center;
   &__icon {
-    font-size: 50rem;
+    --height: 50rem;
+    width: var(--height);
+    height: var(--height);
+    font-size: var(--height);
     user-select: none;
     color: var(--text-color);
-    margin-bottom: calc(var(--space) * .75); }
+    margin-bottom: calc(var(--space) * .5);
+    &:hover {
+      background-color: transparent !important; } }
   &__title {
     font-size: 25rem;
     margin-bottom: calc(var(--space) * .75); }

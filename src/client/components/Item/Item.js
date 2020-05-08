@@ -20,14 +20,17 @@ const bem = reactBem("Item")
 
 const Item = ({
   doc,
+  left,
   upper,
   lower,
   right,
   imgDoc,
   showPlay,
   className,
+  addClassName,
 }) => (
   <div className={bem(className, "")}>
+    {left ? <p className={bem("left")}>{left}</p> : null}
     {showPlay ? (
       <PlayButton
         doc={doc}
@@ -36,9 +39,9 @@ const Item = ({
     ) : null}
     {imgDoc ? (
       <Link
-        to={determineDocPath(doc)}
         className={bem("img-link")}
-        title={doc[determineDocNameKey(doc)]}
+        to={determineDocPath(imgDoc)}
+        title={doc[determineDocNameKey(imgDoc)]}
         children={(
           <Img
             className={bem("img", "Card", "Elevated")}
@@ -54,28 +57,32 @@ const Item = ({
       </div>
       <InLibraryButton
         doc={doc}
-        className={bem("info-add")}
+        className={bem(addClassName, "info-add")}
       />
     </div>
-    {right && <div className={bem("right")}>{right}</div>}
+    {right ? <p className={bem("right")}>{right}</p> : null}
   </div>
 )
 
 Item.propTypes = {
+  left: node,
   right: node,
   imgDoc: object,
-  className: string,
   showPlay: bool,
+  className: string,
+  addClassName: string,
   doc: object.isRequired,
   upper: node.isRequired,
   lower: node.isRequired,
 }
 
 Item.defaultProps = {
+  left: null,
   right: null,
   imgDoc: null,
   showPlay: true,
   className: null,
+  addClassName: null,
 }
 
 export default Item

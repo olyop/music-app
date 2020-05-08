@@ -6,6 +6,7 @@ query getAlbumPage(
     albumId
     title
     released
+    totalDuration
     cover(size: FULL)
     inLibrary(userId: $userId)
     artists {

@@ -9,7 +9,7 @@
   &:hover &__info-add {
     display: block; }
   &__play {
-    --fix: -2px; 
+    --fix: -2rem; 
     margin-left: var(--fix);
     margin-right: calc(var(--gap) + var(--fix)); }
   &__img-link {
@@ -39,9 +39,17 @@
         max-height: 15rem;} } 
     &-add {
       display: none;
+      margin-top: 1px;
       margin-left: var(--gap);
       background-color: var(--color-elevated); } }
+  &__left,
   &__right {
-    font-size: 16rem;
+    font-size: 16rem; }
+  &__left {
+    min-width: 18rem;
+    text-align: center;
+    margin: 0 var(--gap) 0 calc(var(--gap) - 4rem); }
+  &__right {
     margin: 0 var(--gap);
+    margin-top: 2px;
     color: var(--text-color-light); } }

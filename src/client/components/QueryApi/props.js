@@ -17,4 +17,5 @@ export const defaultProps = {
   resultPath: "",
   library: false,
   checkEmpty: false,
+  spinnerClassName: null,
 }

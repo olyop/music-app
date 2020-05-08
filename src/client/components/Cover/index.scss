@@ -5,6 +5,9 @@
     background-color: rgba(#000000, .8); }
   &:hover &__button {
     opacity: 1; }
+  &__landscape {
+    &::before {
+      padding-top: 56.25%; } }
   &__black-box {
     top: 0;
     left: 0;

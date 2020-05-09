@@ -11,7 +11,14 @@ import ArtistPage from "../ArtistPage"
 
 import { uniqueId } from "lodash"
 
+import Record from "../Record"
+
 export default [
+  {
+    id: uniqueId(),
+    path: "/record",
+    component: Record,
+  },
   {
     id: uniqueId(),
     name: "Catalog",

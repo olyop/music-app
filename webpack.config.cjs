@@ -71,8 +71,8 @@ module.exports = {
           loader: "babel-loader",
           options: {
             presets: [
-              ["@babel/react", { development: !isProduction }],
-              ["@babel/env", { targets: "last 2 versions" }],
+              "@babel/react",
+              "@babel/env",
             ],
             plugins: [
               "@babel/plugin-proposal-optional-chaining",

@@ -16,13 +16,11 @@ const SongTitle = ({ song, showRemixers }) => {
   if (showRemixers) {
     return (
       <Fragment>
-        <DocLink
-          doc={song}
-        />
+        <DocLink doc={song} />
         {isEmpty(remixers) ? (
           <Fragment>
             {isEmpty(mix) ? null : (
-              <span className={bem("mix")}>
+              <span className={bem("")}>
                 <Fragment> - </Fragment>
                 {mix}
                 <Fragment> Mix</Fragment>
@@ -30,7 +28,7 @@ const SongTitle = ({ song, showRemixers }) => {
             )}
           </Fragment>
         ) : (
-          <span className={bem("mix")}>
+          <span className={bem("")}>
             <Fragment> - </Fragment>
             <DocLinks
               ampersand
@@ -48,7 +46,7 @@ const SongTitle = ({ song, showRemixers }) => {
       <Fragment>
         <DocLink doc={song} />
         {isEmpty(mix) ? null : (
-          <span className={bem("mix")}>
+          <span className={bem("")}>
             <Fragment> - </Fragment>
             {mix}
             <Fragment> Mix</Fragment>

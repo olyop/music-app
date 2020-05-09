@@ -100,6 +100,7 @@
     "graphql-upload": "^10.0.0",
     "helmet": "^3.22.0",
     "html-webpack-plugin": "^4.3.0",
+    "id3js": "^2.1.1",
     "lodash": "^4.17.15",
     "morgan": "^1.10.0",
     "mp3-duration": "^1.1.0",

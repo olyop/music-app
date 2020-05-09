@@ -29,7 +29,7 @@ const fieldsConifg = ({ artists, albums, genres }) => [
     init: "",
     req: true,
     min: 1,
-    max: 52428800,
+    max: 5e7,
     parse: {
       in: identity,
       out: identity,

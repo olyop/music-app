@@ -13,6 +13,9 @@
 .PaddingHalf {
   padding: calc(var(--space) * .5); }
 
+.PaddingDouble {
+  padding: calc(var(--space) * 2); }
+
 .MarginBottom {
   margin-bottom: var(--space); }
 

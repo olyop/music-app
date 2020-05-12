@@ -20,7 +20,7 @@ const IconText = ({ icon, text, onClick, className, iconClassName, textClassName
           icon={icon}
           className={bem(iconClassName, "icon")}
         />
-        <p
+        <span
           children={text}
           className={bem(textClassName, "text")}
         />

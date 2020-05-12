@@ -2,8 +2,10 @@ import React, { useState, Fragment } from "react"
 
 import Img from "../Img"
 import List from "../List"
+import Icon from "../Icon"
 import Artist from "../Artist"
 import Spinner from "../Spinner"
+import IconText from "../IconText"
 
 import { pipe } from "../../helpers"
 import createSong from "./createSong"
@@ -81,12 +83,30 @@ const Record = () => {
         </pre>
       ) : <Fragment>
         {loading ? <Spinner/> : (isNull(songs) ? (
-          <input
-            multiple
-            type="file"
-            onChange={handleNewFiles}
-            className={bem("add", "Padding", "Hover")}
-          />
+          <div className={bem("add", "PaddingDouble")}>
+            <Icon
+              icon="album"
+              className={bem("add-cover")}
+            />
+            <h1
+              children="Add Album"
+              className={bem("add-text")}
+            />
+            <label className={bem("add-label")}>
+              <IconText
+                icon="add"
+                text="Select files"
+                className={bem("add-button", "Card", "Elevated")}
+              />
+              <input
+                multiple
+                type="file"
+                title="Select files"
+                onChange={handleNewFiles}
+                className={bem("add-input")}
+              />
+            </label>
+          </div>
         ) : (
           <div>
             <div className="MarginBottom">

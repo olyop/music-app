@@ -70,7 +70,7 @@ const sqlImport = path => {
         sql: replaceSqlWithValues(sql, variables, params),
         params,
       }
-      console.log(temp.sql, params)
+      // console.log(temp.sql, params)
       return temp
     }
   }

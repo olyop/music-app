@@ -44,6 +44,7 @@
     background-color: var(--hover-color); } }
 
 .ButtonHover {
+  transition: var(--transition-duration) background-color;
   &:hover {
     background-color: var(--button-hover-color); } }
 

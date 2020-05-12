@@ -8,115 +8,115 @@ mutation userPlay(
   ) {
     userId
     prev {
-      id
-      mix
+      songId
       title
+      mix
       duration
       inLibrary(userId: $userId)
       featuring {
-        id
+        artistId
         name
       }
       remixers {
-        id
+        artistId
         name
       }
       artists {
-        id
+        artistId
         name
       }
       genres {
-        id
+        genreId
         name
       }
       album {
-        id
+        albumId
         title
-        cover
+        cover(size: HALF)
       }
     }
     current {
-      id
+      songId
       mix
       title
       duration
       inLibrary(userId: $userId)
       featuring {
-        id
+        artistId
         name
       }
       remixers {
-        id
+        artistId
         name
       }
       artists {
-        id
+        artistId
         name
       }
       genres {
-        id
+        genreId
         name
       }
       album {
-        id
+        albumId
         title
-        cover
+        cover(size: HALF)
       }
     }
     next {
-      id
+      songId
       mix
       title
       duration
       inLibrary(userId: $userId)
       featuring {
-        id
+        artistId
         name
       }
       remixers {
-        id
+        artistId
         name
       }
       artists {
-        id
+        artistId
         name
       }
       genres {
-        id
+        genreId
         name
       }
       album {
-        id
+        albumId
         title
-        cover
+        cover(size: HALF)
       }
     }
     queue {
-      id
+      songId
       mix
       title
       duration
       inLibrary(userId: $userId)
       featuring {
-        id
+        artistId
         name
       }
       remixers {
-        id
+        artistId
         name
       }
       artists {
-        id
+        artistId
         name
       }
       genres {
-        id
+        genreId
         name
       }
       album {
-        id
+        albumId
         title
-        cover
+        cover(size: HALF)
       }
     }
   }

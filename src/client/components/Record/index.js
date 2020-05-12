@@ -1,71 +1,131 @@
 import React, { useState, Fragment } from "react"
 
+import Img from "../Img"
+import List from "../List"
+import Artist from "../Artist"
 import Spinner from "../Spinner"
 
-import { isEmpty } from "lodash"
-import createSongs from "./createSongs"
-import { deserializeDuration } from "../../helpers"
+import { pipe } from "../../helpers"
+import createSong from "./createSong"
+import createAlbum from "./createAlbum"
+import createFiles from "./createFiles"
+import reactBem from "@oly_op/react-bem"
+import { isNull, orderBy } from "lodash"
+import createArtists from "./createArtists"
+import { map, flatten, uniq } from "lodash/fp"
+import { useApolloClient } from "react-apollo"
+
+import GET_ARTIST_SEARCH from "../../graphql/queries/getArtistSearch.gql"
+
+import "./index.scss"
+
+const bem = reactBem("Record")
 
 const Record = () => {
-
-  const [ songs, setSongs ] = useState([])
+  const client = useApolloClient()
+  const [ songs, setSongs ] = useState(null)
+  const [ album, setAlbum ] = useState(null)
   const [ error, setError ] = useState(null)
+  const [ artists, setArtists ] = useState(null)
   const [ loading, setLoading ] = useState(false)
 
-  const toggleLoading = () => !setLoading(loading)
+  const toggleLoading = () =>
+    setLoading(currentLoading => !currentLoading)
 
-  const handleChange = event => {
-    setLoading(true)
-    createSongs(event.target.files)
-      .then(setSongs)
-      .catch(setError)
-      .finally(toggleLoading)
+  const handleError = err => {
+    console.error(err)
+    setError(err)
   }
 
+  const handleNewArtists = files =>
+    new Promise(
+      (resolve, reject) => {
+        Promise
+          .all(pipe(files)(createArtists, map(
+            artist => client.query({
+              query: GET_ARTIST_SEARCH,
+              variables: { query: artist },
+            }),
+          )))
+          .then(map(({ data }) => data.artistSearch))
+          .then(flatten)
+          .then(uniq)
+          .then(setArtists)
+          .then(resolve)
+          .catch(reject)
+      },
+    )
+
+  const handleNewFiles = async event => {
+    try {
+      toggleLoading()
+      const files = await createFiles(event.target.files)
+      setAlbum(createAlbum(files))
+      setSongs(files.map(createSong))
+      await handleNewArtists(files)
+    } catch (err) {
+      handleError(err)
+    } finally {
+      toggleLoading()
+    }
+  }
+
+  const clearSongs = () =>
+    setSongs(null)
+
   return (
-    <div className="Padding">
+    <div className={bem("", "Padding")}>
       {error ? (
         <pre className="Text">
-          {(() => {
-            console.error(error)
-            return error.stack
-          })()}
+          {error.stack}
         </pre>
       ) : <Fragment>
-        {loading ? <Spinner/> : (isEmpty(songs) ? (
+        {loading ? <Spinner/> : (isNull(songs) ? (
           <input
             multiple
-            id="record"
             type="file"
-            onChange={handleChange}
-            className="Text MarginBottom"
+            onChange={handleNewFiles}
+            className={bem("add", "Padding", "Hover")}
           />
         ) : (
-          <Fragment>
+          <div>
+            <div className="MarginBottom">
+              <Img className={bem("cover", "MarginBottom")} url={album.cover} />
+              <h1 className="Text">{album.title}</h1>
+              <p className="Text">{JSON.stringify(album.artists)}</p>
+            </div>
             <div className="Elevated MarginBottom">
-              {songs.map(song => (
-                <div className="Text PaddingHalf ItemBorder " key={song.id}>
-                  <p>
-                    {song.audio.name}
-                    <Fragment> - </Fragment>
-                    {deserializeDuration(song.duration)}
-                  </p>
-                  <p>
-                    {song.title}
-                  </p>
-                  <p>
-                    {song.header}
-                  </p>
-                </div>
-              ))}
+              {orderBy(songs, ["discNumber", "trackNumber"], ["asc", "asc"]).map(
+                song => (
+                  <div className="PaddingHalf ItemBorder Hover" key={song.songId}>
+                    <p className="Text">{song.title}</p>
+                    <p className="Text">{JSON.stringify(song.genres)}</p>
+                    <p className="Text">{JSON.stringify(song.artists)}</p>
+                    <p className="Text">{JSON.stringify(song.remixers)}</p>
+                    <p className="Text">{JSON.stringify(song.featuring)}</p>
+                  </div>
+                ),
+              )}
+            </div>
+            <div className={bem("MarginBottom")}>
+              <List>
+                {artists.map(
+                  artist => (
+                    <Artist
+                      artist={artist}
+                      key={artist.artistId}
+                    />
+                  ),
+                )}
+              </List>
             </div>
             <button
               type="button"
               children="Clear"
-              onClick={() => setSongs([])}
+              onClick={clearSongs}
               className="Text PaddingHalf Button Hover"
             />
-          </Fragment>
+          </div>
         ))}
       </Fragment>}
     </div>

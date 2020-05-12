@@ -39,29 +39,30 @@ const Player = ({ history }) => (
               <Icon
                 icon="close"
                 onClick={history.goBack}
-                className={bem("close")}
+                className={bem("close", "PaddingHalf")}
               />
-              <div className={bem("main")}>
+              <div className={bem("main", "Padding")}>
                 <Img
                   url={album.cover}
                   title={album.title}
                   className={bem("main-cover", "Card", "Elevated")}
                 />
-                <h1 className={bem("main-title")}>
+                <h1 className={bem("main-title", "main-text")}>
                   <SongTitle
                     showRemixers
                     song={current}
                   />
                 </h1>
-                <h1 className={bem("main-info")}>
+                <h2 className={bem("main-album", "main-text")}>
                   <DocLink doc={album} />
-                  <Fragment> - </Fragment>
+                </h2>
+                <h3 className={bem("main-artists", "main-text")}>
                   <FeaturingArtists
                     artists={artists}
                     featuring={featuring}
                   />
-                </h1>
-                <Progress/>
+                </h3>
+                <Progress className={bem("main-progreess")} />
               </div>
             </Fragment>
           )

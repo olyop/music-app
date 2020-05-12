@@ -1,11 +1,17 @@
-import { string, shape, number } from "prop-types"
+import { string, shape, number, bool } from "prop-types"
 
 export const propTypes = {
+  className: string,
   artist: shape({
-    artistId: string.isRequired,
+    inLibrary: bool,
+    numOfSongs: number,
+    numOfAlbums: number,
     name: string.isRequired,
     photo: string.isRequired,
-    numOfSongs: number.isRequired,
-    numOfAlbums: number.isRequired,
+    artistId: string.isRequired,
   }).isRequired,
+}
+
+export const defaultProps = {
+  className: null,
 }

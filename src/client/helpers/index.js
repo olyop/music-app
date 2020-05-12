@@ -1,4 +1,3 @@
-import _id3 from "./id3"
 import _pipe from "./pipe"
 import _show from "./show"
 import _isHex from "./isHex"
@@ -17,7 +16,6 @@ import _deserializeDuration from "./deserializeDuration"
 import _determineDocPhotoKey from "./determineDocPhotoKey"
 import _determineReturnFromDoc from "./determineReturnFromDoc"
 
-export const id3 = _id3
 export const pipe = _pipe
 export const show = _show
 export const isHex = _isHex

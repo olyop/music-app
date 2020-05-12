@@ -3,6 +3,7 @@ import React, { useState } from "react"
 import QueryApi from "../QueryApi"
 import Slider from "@material-ui/core/Slider"
 
+import { string } from "prop-types"
 import reactBem from "@oly_op/react-bem"
 import { isUndefined, isNull } from "lodash"
 import { deserializeDuration } from "../../helpers"
@@ -23,7 +24,7 @@ const determineDuration = data => {
   }
 }
 
-const Progress = () => {
+const Progress = ({ className }) => {
   const [ current, setCurrent ] = useState(0)
   const handleChange = (_, value) => setCurrent(value)
   return (
@@ -34,11 +35,8 @@ const Progress = () => {
         data => {
           const duration = determineDuration(data)
           return (
-            <div className={bem("")}>
-              <p
-                className={bem("start")}
-                children={deserializeDuration(current)}
-              />
+            <div className={bem(className, "")}>
+              <p className="Text">{deserializeDuration(current)}</p>
               <div className={bem("slider")}>
                 <Slider
                   min={0}
@@ -48,16 +46,21 @@ const Progress = () => {
                   onChange={handleChange}
                 />
               </div>
-              <p
-                className={bem("end")}
-                children={deserializeDuration(duration)}
-              />
+              <p className="Text">{deserializeDuration(duration)}</p>
             </div>
           )
         }
       }
     />
   )
+}
+
+Progress.propTypes = {
+  className: string,
+}
+
+Progress.defaultProps = {
+  className: null,
 }
 
 export default Progress

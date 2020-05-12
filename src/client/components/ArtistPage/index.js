@@ -1,9 +1,10 @@
 import React, { Fragment } from "react"
 
 import Img from "../Img"
-import Albums from "../Albums"
+import List from "../List"
+import Song from "../Song"
+import Album from "../Album"
 import QueryApi from "../QueryApi"
-import { ItemSong } from "../Item"
 import InLibraryButton from "../InLibraryButton"
 
 import { isEmpty } from "lodash"
@@ -63,10 +64,16 @@ const ArtistPage = () => (
                 {isEmpty(albums) ? null : (
                   <Fragment>
                     <h2 className={bem("heading")}>Albums</h2>
-                    <Albums
-                      albums={albums}
-                      className="MarginBottom"
-                    />
+                    <List className="MarginBottom">
+                      {albums.map(
+                        album => (
+                          <Album
+                            album={album}
+                            key={album.albumId}
+                          />
+                        ),
+                      )}
+                    </List>
                   </Fragment>
                 )}
                 {isEmpty(songs) ? null : (
@@ -75,7 +82,7 @@ const ArtistPage = () => (
                     <div className="Elevated">
                       {songs.map(
                         song => (
-                          <ItemSong
+                          <Song
                             song={song}
                             key={song.songId}
                             className="PaddingHalf Hover ItemBorder"

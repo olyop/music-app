@@ -35,8 +35,12 @@ const prev =
       query: SELECT_SONGS_IN,
       parse: sqlParseTable,
       variables: [{
-        key: "songsId",
-        value: parent.prev,
+        key: "userId",
+        value: parent.userId,
+      },{
+        string: false,
+        key: "tableName",
+        value: "users_prevs",
       },{
         string: false,
         key: "columnNames",
@@ -50,8 +54,12 @@ const next =
       query: SELECT_SONGS_IN,
       parse: sqlParseTable,
       variables: [{
-        key: "songsId",
-        value: parent.next,
+        key: "userId",
+        value: parent.userId,
+      },{
+        string: false,
+        key: "tableName",
+        value: "users_nexts",
       },{
         string: false,
         key: "columnNames",
@@ -65,8 +73,12 @@ const queue =
       query: SELECT_SONGS_IN,
       parse: sqlParseTable,
       variables: [{
-        key: "songsId",
-        value: parent.queue,
+        key: "userId",
+        value: parent.userId,
+      },{
+        string: false,
+        key: "tableName",
+        value: "users_queues",
       },{
         string: false,
         key: "columnNames",

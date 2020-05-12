@@ -24,7 +24,7 @@ const InLibraryButton = ({ doc, className }) => {
   const variablesKey = determineReturn("songId", "albumId", "genreId", "artistId")
   const refetchQuery = `getUser${determineReturn("Song", "Album", "Genre", "Artist")}s`
 
-  const { inLibrary } = doc
+  const inLibrary = doc.inLibrary && false
   const userId = useContext(UserContext)
   const docId = doc[determineDocIdKey(doc)]
 

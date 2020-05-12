@@ -1,11 +1,16 @@
 import { shape, string, arrayOf, object, bool } from "prop-types"
 
 export const propTypes = {
+  className: string,
   album: shape({
-    albumId: string.isRequired,
+    cover: string,
+    inLibrary: bool,
     title: string.isRequired,
-    cover: string.isRequired,
-    inLibrary: bool.isRequired,
+    albumId: string.isRequired,
     artists: arrayOf(object).isRequired,
   }).isRequired,
+}
+
+export const defaultProps = {
+  className: null,
 }

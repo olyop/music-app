@@ -22,25 +22,26 @@
     width: var(--height);
     height: var(--height);
     margin: var(--padding);
-    padding: var(--padding);
     color: var(--text-color);
     font-size: var(--font-size); }
   &__main {
+    width: 50vw;
     display: flex;
     align-items: center;
     flex-direction: column;
     &-cover {
-      width: 25vw;
-      height: auto;
+      width: 100%;
       margin-bottom: calc(var(--space) * 2); }
-    &-info,
-    &-title{
-      text-align: center; }
+    &-text {
+      text-align: center;
+      margin-bottom: calc(var(--space) * .5); }
     &-title {
-      font-size: 30rem;
-      font-weight: 700;
-      margin-bottom: calc(var(--space) * .75); }
-    &-info {
+      font-size: 25rem;
+      font-weight: 700; }
+    &-album {
+      font-size: 20rem;
+      font-weight: 500; }
+    &-artists {
       font-size: 20rem;
       font-weight: 400;
-      margin-bottom: calc(var(--space) * 2.25);} } }
+      margin-bottom: calc(var(--space) * 2.25); } } }

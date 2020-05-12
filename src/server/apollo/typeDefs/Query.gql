@@ -1,5 +1,5 @@
 type Query {
-  # database queries
+  # database
   songs: [Song!]!
   albums: [Album!]!
   genres: [Genre!]!
@@ -12,6 +12,12 @@ type Query {
   genre(genreId: Uuid!): Genre!
   artist(artistId: Uuid!): Artist!
   playlist(playlistId: Uuid!): Playlist!
+  
+  #search
+  songSearch(query: String!): [Song!]!
+  albumSearch(query: String!): [Album!]!
+  genreSearch(query: String!): [Genre!]!
+  artistSearch(query: String!): [Artist!]!
 
   # complex queries
   newAlbums: [Album!]!

@@ -1,8 +1,9 @@
 import React from "react"
 
+import List from "../../List"
+import Song from "../../Song"
 import Album from "../../Album"
 import QueryApi from "../../QueryApi"
-import { ItemSong } from "../../Item"
 
 import reactBem from "@oly_op/react-bem"
 
@@ -20,20 +21,27 @@ const BrowseHome = () => (
         <div className={bem("")}>
           <div className={bem("newAlbums")}>
             <h2 className={bem("heading")}>New Albums</h2>
-            <div className={bem("newAlbums-albums", "Grid")}>
+            <List>
               {newAlbums.map(
                 album => (
                   <Album
-                    key={album.id}
                     album={album}
+                    key={album.albumId}
                   />
                 ),
               )}
-            </div>
+            </List>
           </div>
           <div className={bem("topTen")}>
             <h2 className={bem("heading")}>Top 10</h2>
-            {topTenSongs.map(song => <ItemSong song={song} />)}
+            {topTenSongs.map(
+              song => (
+                <Song
+                  song={song}
+                  key={song.songId}
+                />
+              ),
+            )}
           </div>
         </div>
       )

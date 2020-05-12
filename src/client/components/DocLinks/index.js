@@ -19,8 +19,12 @@ const DocLinks = ({ docs, ampersand }) => (
 )
 
 DocLinks.propTypes = {
-  ampersand: bool.isRequired,
+  ampersand: bool,
   docs: arrayOf(object).isRequired,
+}
+
+DocLinks.defaultProps = {
+  ampersand: true,
 }
 
 export default DocLinks

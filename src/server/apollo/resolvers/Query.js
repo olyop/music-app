@@ -8,6 +8,7 @@ import {
   SELECT_ALBUMS,
   SELECT_ARTIST,
   SELECT_GENRES,
+  SELECT_SEARCH,
   SELECT_ARTISTS,
   SELECT_PLAYLIST,
   SELECT_PLAYLISTS,
@@ -30,7 +31,7 @@ const songs =
       variables: [{
         string: false,
         key: "columnNames",
-        value: sqlJoin(columnNames.song),
+        value: sqlJoin(columnNames.song, "songs"),
       }],
     })
 
@@ -201,6 +202,45 @@ const topTenSongs =
       parse: sqlParseTable,
     })
 
+const docSearch = args => (tableName, docName, columnName) =>
+  sqlQuery({
+    query: SELECT_SEARCH,
+    parse: sqlParseTable,
+    variables: [{
+      string: false,
+      key: "tableName",
+      value: tableName,
+    },{
+      string: false,
+      key: "columnName",
+      value: columnName,
+    },{
+      string: false,
+      key: "columnNames",
+      value: sqlJoin(columnNames[docName]),
+    },{
+      key: "query",
+      parameterized: true,
+      value: `%${args.query.toLowerCase()}%`,
+    }],
+  })
+
+const songSearch =
+  async ({ args }) =>
+    docSearch(args)("songs", "song", "title")
+
+const albumSearch =
+  async ({ args }) =>
+    docSearch(args)("albums", "album", "title")
+
+const genreSearch =
+  async ({ args }) =>
+    docSearch(args)("genres", "genre", "name")
+
+const artistSearch =
+  async ({ args }) =>
+    docSearch(args)("artists", "artist", "name")
+
 const queryResolver =
   mapResolver({
     user,
@@ -216,7 +256,11 @@ const queryResolver =
     playlist,
     playlists,
     newAlbums,
+    songSearch,
+    albumSearch,
+    genreSearch,
     topTenSongs,
+    artistSearch,
   })
 
 export default queryResolver

@@ -31,7 +31,7 @@ export const APOLLO_MIDDLEWARE_CONFIG = {
 }
 
 export const APOLLO_SERVER_CONFIG = {
-  playground: false,
+  playground: true,
   introspection: true,
   engine: { apiKey: APOLLO_ENGINE_KEY },
 }

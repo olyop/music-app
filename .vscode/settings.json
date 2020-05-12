@@ -38,5 +38,6 @@
   "editor.formatOnPaste": false,
   "window.menuBarVisibility": "default",
   "editor.renderIndentGuides": false,
-  "eslint.workingDirectories": ["./src/client", "./src/server"]
+  "eslint.workingDirectories": ["./src/client", "./src/server"],
+  "workbench.sideBar.location": "left"
 }

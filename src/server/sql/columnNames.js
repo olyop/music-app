@@ -24,6 +24,7 @@ const album = [
 const user = [
   "user_id",
   "name",
+  "email",
   "current",
   "date_created",
 ]

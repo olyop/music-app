@@ -1,9 +1,10 @@
 import React, { Fragment } from "react"
+
+import Song from "../Song"
 import Cover from "../Cover"
 import QueryApi from "../QueryApi"
 import IconText from "../IconText"
 import DocLinks from "../DocLinks"
-import { ItemSong } from "../Item"
 import InLibraryButton from "../InLibraryButton"
 
 import { map } from "lodash/fp"
@@ -66,7 +67,7 @@ const AlbumPage = () => (
                         <div className="Elevated">
                           {songs.map(
                             song => (
-                              <ItemSong
+                              <Song
                                 song={song}
                                 showTrackNumber
                                 key={song.songId}

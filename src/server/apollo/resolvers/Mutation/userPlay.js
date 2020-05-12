@@ -1,31 +1,26 @@
 import { UPDATE_USER_PLAY } from "../../../sql/index.js"
 
+import columnNames from "../../../sql/columnNames.js"
+import sqlJoin from "../../../helpers/sql/sqlJoin.js"
 import sqlQuery from "../../../helpers/sql/sqlQuery.js"
 import sqlParseRow from "../../../helpers/sql/sqlParseRow.js"
 
 const userPlay =
-  async () =>
+  async ({ args }) =>
     sqlQuery({
       query: UPDATE_USER_PLAY,
       parse: sqlParseRow,
+      variables: [{
+        key: "userId",
+        value: args.userId,
+      },{
+        key: "songId",
+        value: args.songId,
+      },{
+        string: false,
+        key: "columnNames",
+        value: sqlJoin(columnNames.user),
+      }],
     })
-
-// const userPlay = async ({ info, args }) => {
-//   const { userId, songId } = args
-
-//   await Play.create({
-//     user: userId,
-//     song: songId,
-//   })
-
-//   const query =
-//     User.findByIdAndUpdate(userId, { ...USER_EMPTY_QUEUE, current: songId })
-//       .setOptions({ new: true })
-//       .select(userSelect(info))
-//       .lean()
-//       .exec()
-
-//   return deserializeDocument(await query)
-// }
 
 export default userPlay

@@ -46,6 +46,7 @@ module.exports = {
     rules: [
       {
         test: /\.css$/,
+        exclude: /node_modules/,
         loader: [
           isProduction ? MiniCssExtractPlugin.loader : "style-loader",
           "css-loader",
@@ -53,6 +54,7 @@ module.exports = {
       },
       {
         test: /\.scss$/,
+        exclude: /node_modules/,
         loader: [
           isProduction ? MiniCssExtractPlugin.loader : "style-loader",
           "css-loader",
@@ -60,14 +62,14 @@ module.exports = {
         ],
       },
       {
-        test: /\.(graphql|gql)$/,
         exclude: /node_modules/,
+        test: /\.(graphql|gql)$/,
         loader: "graphql-tag/loader",
       },
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        use: {
+        use: [{
           loader: "babel-loader",
           options: {
             presets: [
@@ -80,7 +82,9 @@ module.exports = {
               "lodash",
             ],
           },
-        },
+        },{
+          loader: "eslint-loader",
+        }],
       },
     ],
   },

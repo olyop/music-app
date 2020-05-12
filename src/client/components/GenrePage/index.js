@@ -1,7 +1,7 @@
 import React, { Fragment } from "react"
 
+import Song from "../Song"
 import QueryApi from "../QueryApi"
-import { ItemSong } from "../Item"
 
 import reactBem from "@oly_op/react-bem"
 import { useParams } from "react-router-dom"
@@ -25,13 +25,15 @@ const GenrePage = () => (
               <h1 className={bem("name", "Elevated")}>{name}</h1>
               <div className="Padding">
                 <div className="Elevated">
-                  {songs.map(song => (
-                    <ItemSong
-                      song={song}
-                      key={song.songId}
-                      className="PaddingHalf Hover ItemBorder"
-                    />
-                  ))}
+                  {songs.map(
+                    song => (
+                      <Song
+                        song={song}
+                        key={song.songId}
+                        className="PaddingHalf Hover ItemBorder"
+                      />
+                    ),
+                  )}
                 </div>
               </div>
             </Fragment>

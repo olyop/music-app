@@ -1,13 +1,13 @@
 import React from "react"
 
-import Item from "./Item"
+import Item from "../Item"
 import DocLinks from "../DocLinks"
 import SongTitle from "../SongTitle"
 
 import { object, bool, string } from "prop-types"
 import { deserializeDuration } from "../../helpers"
 
-const ItemSong = ({
+const Song = ({
   song,
   showPlay,
   showCover,
@@ -30,7 +30,7 @@ const ItemSong = ({
   />
 )
 
-ItemSong.propTypes = {
+Song.propTypes = {
   showPlay: bool,
   showCover: bool,
   showRight: bool,
@@ -40,7 +40,7 @@ ItemSong.propTypes = {
   song: object.isRequired,
 }
 
-ItemSong.defaultProps = {
+Song.defaultProps = {
   showPlay: true,
   showCover: true,
   showRight: true,
@@ -49,4 +49,4 @@ ItemSong.defaultProps = {
   showTrackNumber: false,
 }
 
-export default ItemSong
+export default Song

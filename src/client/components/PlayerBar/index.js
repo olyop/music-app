@@ -1,9 +1,9 @@
 import React from "react"
 
 import Icon from "../Icon"
+import Song from "../Song"
 import QueryApi from "../QueryApi"
 import Progress from "../Progress"
-import { ItemSong } from "../Item"
 import { NavLink } from "react-router-dom"
 import UserControls from "../UserControls"
 
@@ -55,7 +55,7 @@ const PlayerBar = () => (
                 />
               </div>
               {isNull(user.current) ? null : (
-                <ItemSong
+                <Song
                   showPlay={false}
                   showRight={false}
                   song={user.current}
@@ -67,7 +67,7 @@ const PlayerBar = () => (
           )
         }
       />
-      <Progress/>
+      <Progress />
     </div>
   </footer>
 )

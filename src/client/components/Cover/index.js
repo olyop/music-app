@@ -18,8 +18,8 @@ const Cover = ({ url, landscape, children, className, imgClassName }) => (
     children={(
       <Fragment>
         <IconText
-          text="Play"
-          icon="play_arrow"
+          text="Shuffle"
+          icon="shuffle"
           className={bem("button")}
           iconClassName={bem("button-icon")}
           textClassName={bem("button-text")}

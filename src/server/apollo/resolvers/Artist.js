@@ -9,11 +9,11 @@ import columnNames from "../../sql/columnNames.js"
 import userDocInLib from "./common/userDocInLib.js"
 import sqlQuery from "../../helpers/sql/sqlQuery.js"
 import s3GetObject from "../../helpers/s3/s3GetObject.js"
+import sqlRowCount from "../../helpers/sql/sqlRowCount.js"
 import userDocDateAdded from "./common/userDocDateAdded.js"
 import toDataUrl from "../../helpers/resolver/toDataUrl.js"
-import sqlNumOfRows from "../../helpers/sql/sqlNumOfRows.js"
 import sqlParseTable from "../../helpers/sql/sqlParseTable.js"
-import mapResolver from "../../helpers/utilities/mapResolver.js"
+import mapResolver from "../../helpers/utils/mapResolver.js"
 import s3CatalogObjectKey from "../../helpers/s3/s3CatalogObjectKey.js"
 
 const photo =
@@ -47,7 +47,7 @@ const songs =
 
 const numOfSongs =
   async ({ parent }) =>
-    getArtistSongs(parent, sqlNumOfRows)
+    getArtistSongs(parent, sqlRowCount)
 
 const getArtistAlbums = (parent, parse) =>
   sqlQuery({
@@ -69,7 +69,7 @@ const albums =
 
 const numOfAlbums =
   async ({ parent }) =>
-    getArtistAlbums(parent, sqlNumOfRows)
+    getArtistAlbums(parent, sqlRowCount)
 
 const plays =
   async ({ parent, args }) =>

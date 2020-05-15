@@ -1,16 +1,9 @@
-@import "../../css/variables.scss";
-
 .Sidebar {
-  --margin: calc(var(--space) * .75);
+  --margin: calc(var(--space) * 0.75);
   width: 300px;
-  border-right: $border;
   margin: var(--margin) 0;
-  height:
-    calc(
-      100vh -
-      var(--header-height) -
-      var(--player-height) -
-      var(--margin) * 2);
+  border-right: 1px solid var(--border-color);
+  height: calc(100vh - var(--header-height) - var(--player-height) - var(--margin) * 2);
   &__routes {
     display: flex;
     flex-direction: column; }
@@ -18,13 +11,13 @@
     display: flex;
     align-items: center;
     text-decoration: none !important;
-    padding: calc(var(--space) * .5) var(--space);
+    padding: calc(var(--space) * 0.5) var(--space);
     &:hover {
       background-color: var(--hover-color); }
     &-icon {
       font-size: 27rem;
       color: var(--text-color);
-      margin-right: calc(var(--space) * .5); }
+      margin-right: calc(var(--space) * 0.5); }
     &-text {
       font-size: 18rem;
       font-weight: 600;

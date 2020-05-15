@@ -1,5 +1,5 @@
 import s3 from "../../services/s3.js"
-import pipe from "../utilities/pipe.js"
+import pipe from "../utils/pipe.js"
 import identity from "lodash/identity.js"
 import s3BodyFromRes from "./s3BodyFromRes.js"
 import isUndefined from "lodash/isUndefined.js"

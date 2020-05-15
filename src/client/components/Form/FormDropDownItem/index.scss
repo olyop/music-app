@@ -1,6 +1,6 @@
 .FormDropDownItem {
+  border: 0;
   width: 100%;
-  border: none;
   display: flex;
   padding: 13px;
   outline: none;
@@ -8,8 +8,8 @@
   font-size: 18rem;
   text-align: left;
   user-select: none;
-  transition: .2s all;
   align-items: center;
+  transition: 0.2s all;
   color: var(--text-color);
   background-color: transparent;
   &:hover,
@@ -19,5 +19,5 @@
   &__img {
     width: 24px;
     height: 24px;
-    margin-right: calc(var(--space) * .5);
+    margin-right: calc(var(--space) * 0.5);
     border-radius: var(--border-radius); } }

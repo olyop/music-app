@@ -1,7 +1,7 @@
 .Img {
   overflow: hidden;
   position: relative;
-  &:before {
+  &::before {
     content: "";
     display: block;
     padding-top: 100%; }

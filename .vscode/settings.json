@@ -39,5 +39,6 @@
   "window.menuBarVisibility": "default",
   "editor.renderIndentGuides": false,
   "eslint.workingDirectories": ["./src/client", "./src/server"],
-  "workbench.sideBar.location": "left"
+  "workbench.sideBar.location": "left",
+  "search.exclude": { "**/node_modules": true }
 }

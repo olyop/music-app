@@ -5,6 +5,13 @@ import DocLink from "../DocLink"
 import ListStyleContext from "../../contexts/ListStyle"
 
 import { propTypes } from "./props"
+import { determinePlural } from "../../helpers"
+
+const genreLower = ({ numOfSongs }) => (
+  numOfSongs ? `
+    ${numOfSongs ? `${numOfSongs} song${determinePlural(numOfSongs)}` : ""}
+  ` : null
+)
 
 const Genre = ({ genre }) => {
   const { listStyle } = useContext(ListStyleContext)
@@ -13,9 +20,9 @@ const Genre = ({ genre }) => {
   return (
     <Item
       doc={genre}
+      lower={genreLower(genre)}
       upper={<DocLink doc={genre} />}
       className={classNames.concat("PaddingHalf").join(" ")}
-      lower={genre.numOfSongs ? `${genre.numOfSongs} songs` : null}
     />
   )
 }

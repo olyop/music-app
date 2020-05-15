@@ -87,4 +87,8 @@ type Mutation {
     name: String!
     songs: [Uuid!]!
   ): Playlist!
+
+  parseFileMetadata(
+    file: Upload!
+  ): Json!
 }

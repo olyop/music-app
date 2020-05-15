@@ -17,7 +17,7 @@ const Header = () => {
       <Icon
         title="Menu"
         onClick={toggleSidebar}
-        icon={sidebar ? "close" : "menu"}
+        icon={sidebar === "open" ? "close" : "menu"}
         className={bem("hamburger", "icon", "IconHover")}
       />
       <div className={bem("right")}>

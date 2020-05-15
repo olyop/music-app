@@ -1,4 +1,4 @@
-const determineConcat = (docs, index, ampersand) => {
+const determineConcat = (docs, index, ampersand = true) => {
   const numOfDocs = docs.length
   if (numOfDocs - 2 === index && ampersand) {
     return " & "

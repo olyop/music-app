@@ -1,4 +1,4 @@
-import pipe from "../utilities/pipe.js"
+import pipe from "../utils/pipe.js"
 
 const addNames = checks => results =>
   results.map((check, index) => ({

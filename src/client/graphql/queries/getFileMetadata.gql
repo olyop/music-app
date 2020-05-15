@@ -1,0 +1,3 @@
+mutation getFileMetadata($file: Upload!) {
+  parseFileMetadata(file: $file)
+}

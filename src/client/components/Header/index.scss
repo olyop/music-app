@@ -1,23 +1,22 @@
-@import "../../css/variables.scss";
-
 .Header {
   z-index: 2;
   display: flex;
   align-items: center;
   height: var(--header-height);
   justify-content: space-between;
-  padding: 0 calc(var(--space) * .5);
+  padding: 0 calc(var(--space) * 0.5);
   &__link {
     text-decoration: none;
-    &:hover, &:focus {
+    &:hover,
+    &:focus {
       text-decoration: none; } }
   &__icon {
     font-size: 36rem;
     text-decoration: none;
     color: var(--text-color);
-    padding: calc(var(--space) * .25);
-    width: calc((var(--space) * .25) * 2 + 36rem);
-    height: calc((var(--space) * .25) * 2 + 36rem); }
+    padding: calc(var(--space) * 0.25);
+    width: calc((var(--space) * 0.25) * 2 + 36rem);
+    height: calc((var(--space) * 0.25) * 2 + 36rem); }
   &__hamburger {
     margin-left: 3px; }
   &__right {
@@ -33,5 +32,5 @@
     font-size: 16rem;
     position: absolute;
     top: var(--header-height);
-    height: calc(100vh - var(--header-height));
-    background-color: rgba(#333, .3); } }
+    background-color: rgba(#333, 0.3);
+    height: calc(100vh - var(--header-height)); } }

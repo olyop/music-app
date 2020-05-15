@@ -38,5 +38,7 @@ export const IMAGE_SIZES = {
     MINI: [640, 360],
     HALF: [1280, 720],
     FULL: [1920, 1080],
-  }
+  },
 }
+
+export const NIL_UUID = "00000000-0000-0000-0000-000000000000"

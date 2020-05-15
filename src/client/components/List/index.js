@@ -9,8 +9,9 @@ const bem = reactBem("Albums")
 
 const List = ({ children, className }) => {
   const { listStyle } = useContext(ListStyleContext)
+  const listClassName = listStyle === "grid" ? "Grid" : "Elevated"
   return (
-    <div className={bem(className, listStyle === "grid" ? "Grid" : "Elevated")}>
+    <div className={bem(className, listClassName)}>
       {children}
     </div>
   )

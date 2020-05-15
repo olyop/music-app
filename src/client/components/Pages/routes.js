@@ -11,13 +11,13 @@ import ArtistPage from "../ArtistPage"
 
 import { uniqueId } from "lodash"
 
-import Record from "../Record"
+import AddAlbum from "../AddAlbum"
 
 export default [
   {
     id: uniqueId(),
-    path: "/record",
-    component: Record,
+    path: "/addAlbum",
+    component: AddAlbum,
   },
   {
     id: uniqueId(),

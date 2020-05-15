@@ -13,7 +13,7 @@ const IconText = ({ icon, text, onClick, className, iconClassName, textClassName
   <button
     type="button"
     onClick={onClick}
-    className={bem(className, "", "Hover")}
+    className={bem(className, "", "Hover", "PaddingHalf")}
     children={(
       <Fragment>
         <Icon

@@ -1,4 +1,4 @@
-import pipe from "../utilities/pipe.js"
+import pipe from "../utils/pipe.js"
 import isEmpty from "lodash/isEmpty.js"
 import sqlGetRowsFromRes from "./sqlGetRowsFromRes.js"
 

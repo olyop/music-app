@@ -8,8 +8,8 @@ html {
   -webkit-font-smoothing: antialiased; }
 
 *,
-*:after,
-*:before {
+*::after,
+*::before {
   margin: 0;
   padding: 0;
   color: inherit;

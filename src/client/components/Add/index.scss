@@ -1,11 +1,6 @@
-@import "../../css/variables.scss";
-
 .Add {
   margin: var(--space);
-  box-shadow: $box-shadow-2;
   grid-template-columns: 1fr 4fr;
-  border-radius: var(--border-radius); 
-  background-color: var(--elevated-color);
   @media (min-width: 840px) {
     margin: var(--space) auto;
     width: 800px; }
@@ -23,7 +18,7 @@
         justify-content: center;
         text-transform: uppercase;
         background-color: transparent;
-        padding: calc(var(--space) * .5);
+        padding: calc(var(--space) * 0.5);
         &:hover {
           background-color: var(--hover-color); } } } }
   &__form {

@@ -1,4 +1,4 @@
-import concatStream from "../utilities/concatStream.js"
+import concatStream from "../utils/concatStream.js"
 
 const createReadableStream = upload => new Promise(
   (resolve, reject) => {

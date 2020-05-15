@@ -1,7 +1,5 @@
-@import "../../css/variables.scss";
-
 .Item {
-  --gap: calc(var(--space) * .4);
+  --gap: calc(var(--space) * 0.4);
   display: flex;
   align-items: center;
   &:hover &__info-text {
@@ -9,7 +7,7 @@
   &:hover &__info-add {
     display: block; }
   &__play {
-    --fix: -2rem; 
+    --fix: -2rem;
     margin-left: var(--fix);
     margin-right: calc(var(--gap) + var(--fix)); }
   &__img-link {
@@ -27,16 +25,17 @@
       width: 100%;
       &-upper,
       &-lower {
+        margin: 0;
         overflow: hidden;
         white-space: nowrap;
         text-overflow: ellipsis; }
       &-upper {
         font-weight: 700;
-        font-size: 16rem;
-        margin-bottom: 4rem; }
+        font-size: 16rem; }
       &-lower {
-        font-size: 15rem; } } 
-    &-add {
+        font-size: 15rem;
+        margin-top: 4rem;  } } 
+    &-in-lib {
       display: none;
       margin-top: 1px;
       margin-left: var(--gap);

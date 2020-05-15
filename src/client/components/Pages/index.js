@@ -15,7 +15,7 @@ const Pages = () => {
   const { sidebar } = useContext(SidebarContext)
   return (
     <main className={bem("")}>
-      {sidebar ? <Sidebar /> : null}
+      {sidebar === "open" ? <Sidebar /> : null}
       <div className={bem("content")}>
         <Switch>
           {routes.map(

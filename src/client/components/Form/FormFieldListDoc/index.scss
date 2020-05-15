@@ -2,8 +2,8 @@
   display: flex;
   margin-right: 8px;
   border-radius: 3px;
-  background-color: #EEEEEE;
-  border: 1px solid #BDBDBD;
+  background-color: #eee;
+  border: 1px solid #bdbdbd;
   &:last-child {
     margin-right: 0; }
   &__img {
@@ -20,7 +20,7 @@
     outline: none;
     margin-left: 0;
     font-size: 18rem;
-    transition: .2s all;
+    transition: 0.2s all;
     border-radius: 100%;
     &:hover {
-      background-color: #BDBDBD; } } }
+      background-color: #bdbdbd; } } }

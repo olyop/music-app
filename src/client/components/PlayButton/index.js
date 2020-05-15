@@ -1,7 +1,6 @@
 import React, { useContext } from "react"
 
 import Icon from "../Icon"
-import ApiError from "../ApiError"
 import UserContext from "../../contexts/User"
 import PlayContext from "../../contexts/Play"
 
@@ -24,15 +23,18 @@ const PlayButton = ({ doc, className }) => {
   const handleClick = () => (isCurrent ? setPlay(!play) : userPlay())
 
   if (error) {
-    return <ApiError error={error} />
+    console.error(error)
   }
+
+  const icon = error ? "error" :
+    (isCurrent && play ? "pause" : "play_arrow")
 
   return (
     <Icon
+      icon={icon}
       title="Play"
       onClick={handleClick}
-      className={`${className} IconHover`}
-      icon={isCurrent && play ? "pause" : "play_arrow"}
+      className={[className, "IconHover"].join(" ")}
     />
   )
 }

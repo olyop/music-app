@@ -27,10 +27,17 @@ const Item = ({
   imgDoc,
   showPlay,
   className,
-  addClassName,
+  showInLibrary,
+  infoClassName,
+  inLibClassName,
 }) => (
   <div className={bem(className, "")}>
-    {left ? <p className={bem("left")}>{left}</p> : null}
+    {left ? (
+      <p
+        children={left}
+        className={bem("left")}
+      />
+    ) : null}
     {showPlay ? (
       <PlayButton
         doc={doc}
@@ -50,12 +57,11 @@ const Item = ({
         )}
       />
     ) : null}
-    <div className={bem("info")}>
+    <div className={bem(infoClassName, "info")}>
       <div className={bem("info-text")}>
         <p
           children={upper}
           className={bem("info-text-upper")}
-          style={{ marginBottom: lower ? null : 0 }}
         />
         {lower ? (
           <p
@@ -64,24 +70,33 @@ const Item = ({
           />
         ) : null}
       </div>
-      <InLibraryButton
-        doc={doc}
-        className={bem(addClassName, "info-add")}
-      />
+      {showInLibrary ? (
+        <InLibraryButton
+          doc={doc}
+          className={bem(inLibClassName, "info-in-lib")}
+        />
+      ) : null}
     </div>
-    {right ? <p className={bem("right")}>{right}</p> : null}
+    {right ? (
+      <p
+        children={right}
+        className={bem("right")}
+      />
+    ) : null}
   </div>
 )
 
 Item.propTypes = {
   left: node,
   right: node,
+  doc: object,
   lower: node,
   imgDoc: object,
   showPlay: bool,
   className: string,
-  addClassName: string,
-  doc: object.isRequired,
+  showInLibrary: bool,
+  infoClassName: string,
+  inLibClassName: string,
   upper: node.isRequired,
 }
 
@@ -92,7 +107,9 @@ Item.defaultProps = {
   imgDoc: null,
   showPlay: true,
   className: null,
-  addClassName: null,
+  infoClassName: null,
+  showInLibrary: true,
+  inLibClassName: null,
 }
 
 export default Item

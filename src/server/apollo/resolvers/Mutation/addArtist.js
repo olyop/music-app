@@ -20,6 +20,8 @@ const { UserInputError } = ApolloServer
 
 const addArtist = async ({ args }) => {
 
+  console.log(args)
+
   const photo = await uploadFileFromClient(args.photo)
 
   if (!isArtist({ ...args, photo })) {

@@ -10,7 +10,7 @@ import userDocInLib from "./common/userDocInLib.js"
 import sqlQuery from "../../helpers/sql/sqlQuery.js"
 import sqlParseRow from "../../helpers/sql/sqlParseRow.js"
 import userDocDateAdded from "./common/userDocDateAdded.js"
-import mapResolver from "../../helpers/utilities/mapResolver.js"
+import mapResolver from "../../helpers/utils/mapResolver.js"
 
 const user = async ({ parent }) =>
   sqlQuery({

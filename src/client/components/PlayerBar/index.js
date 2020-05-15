@@ -59,7 +59,7 @@ const PlayerBar = () => (
                   showPlay={false}
                   showRight={false}
                   song={user.current}
-                  addClassName={bem("icon")}
+                  inLibClassName={bem("icon")}
                   className={bem("main-info-current")}
                 />
               )}

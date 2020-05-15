@@ -2,16 +2,22 @@ import React, { Fragment } from "react"
 
 import Song from "../Song"
 import Cover from "../Cover"
+import Button from "../Button"
 import QueryApi from "../QueryApi"
-import IconText from "../IconText"
 import DocLinks from "../DocLinks"
 import InLibraryButton from "../InLibraryButton"
+
+import {
+  pipe,
+  determineDiscs,
+  deserializeDate,
+  deserializeDuration,
+} from "../../helpers"
 
 import { map } from "lodash/fp"
 import reactBem from "@oly_op/react-bem"
 import { useParams } from "react-router-dom"
-import { pipe, deserializeDate, deserializeDuration } from "../../helpers"
-import { songsWithAlbum, determineDiscs, genresFromAlbum } from "./helpers"
+import { songsWithAlbum, genresFromAlbum } from "./helpers"
 
 import GET_ALBUM_PAGE from "../../graphql/queries/getAlbumPage.gql"
 
@@ -34,11 +40,7 @@ const AlbumPage = () => (
                   url={album.cover}
                   className="Card MarginBottom Elevated"
                 />
-                <IconText
-                  text="Shuffle"
-                  icon="shuffle"
-                  className={bem("shuffle", "Button")}
-                />
+                <Button text="Shuffle"/>
               </div>
               <div>
                 <h1 className={bem("title")}>
@@ -82,10 +84,8 @@ const AlbumPage = () => (
                   )}
                 </div>
                 <p className={bem("footer-text")}>
-                  <Fragment>Duration: </Fragment>
-                  {deserializeDuration(totalDuration)}
-                  <Fragment> &#8211; </Fragment>
-                  <Fragment>Released: </Fragment>
+                  {deserializeDuration(totalDuration, true)}
+                  <Fragment> - </Fragment>
                   {deserializeDate(released)}
                 </p>
               </div>

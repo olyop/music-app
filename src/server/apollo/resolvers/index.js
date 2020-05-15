@@ -1,5 +1,6 @@
 import Uuid from "./Uuid.js"
 import Email from "./Email.js"
+import Json from "graphql-type-json"
 
 import Play from "./Play.js"
 import Song from "./Song.js"
@@ -14,6 +15,7 @@ import Mutation from "./Mutation/index.js"
 
 const customScalars = {
   Uuid,
+  Json,
   Email,
 }
 

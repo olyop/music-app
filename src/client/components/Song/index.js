@@ -13,7 +13,7 @@ const Song = ({
   showCover,
   showRight,
   className,
-  addClassName,
+  inLibClassName,
   showTrackNumber,
 }) => (
   <Item
@@ -21,7 +21,7 @@ const Song = ({
     key={song.albumId}
     showPlay={showPlay}
     className={className}
-    addClassName={addClassName}
+    inLibClassName={inLibClassName}
     upper={<SongTitle song={song} />}
     imgDoc={showCover ? song.album : null}
     lower={<DocLinks docs={song.artists} ampersand />}
@@ -35,7 +35,7 @@ Song.propTypes = {
   showCover: bool,
   showRight: bool,
   className: string,
-  addClassName: string,
+  inLibClassName: string,
   showTrackNumber: bool,
   song: object.isRequired,
 }
@@ -45,7 +45,7 @@ Song.defaultProps = {
   showCover: true,
   showRight: true,
   className: null,
-  addClassName: null,
+  inLibClassName: null,
   showTrackNumber: false,
 }
 

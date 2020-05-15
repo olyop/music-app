@@ -1,16 +1,10 @@
-import { isEmpty } from "lodash"
+import isEmpty from "lodash/isEmpty.js"
 
 const trimByChar = (str, char) => {
   const first = [...str].findIndex(character => character !== char)
   const last = [...str].reverse().findIndex(character => character !== char)
   return str.substr(first, str.length - last)
 }
-
-export const isFileValidType = ({ type }) =>
-  type === "audio/mpeg"
-
-export const isFileValidSize = ({ size }) =>
-  size <= 5e7
 
 export const strHasBrackets = str =>
   str.includes("(") && str.includes(")")

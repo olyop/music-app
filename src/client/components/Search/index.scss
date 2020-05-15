@@ -11,14 +11,14 @@
     margin: 0 auto;
     margin-top: calc(var(--space) * 2);
     &-input {
+      border: 0;
       width: 100%;
-      border: none;
       outline: none;
       font-size: 20rem;
       text-align: center;
+      border-bottom: 2px solid #333;
       background-color: transparent;
-      padding: calc(var(--space) * .5);
-      border-bottom: 2px solid #333333; } }
+      padding: calc(var(--space) * 0.5); } }
   &__content {
     box-shadow: var(--box-shadow);
     background-color: var(--text-color-white); } }

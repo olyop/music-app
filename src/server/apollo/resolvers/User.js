@@ -10,7 +10,7 @@ import columnNames from "../../sql/columnNames.js"
 import sqlJoin from "../../helpers/sql/sqlJoin.js"
 import sqlQuery from "../../helpers/sql/sqlQuery.js"
 import sqlParseRow from "../../helpers/sql/sqlParseRow.js"
-import mapResolver from "../../helpers/utilities/mapResolver.js"
+import mapResolver from "../../helpers/utils/mapResolver.js"
 import sqlParseTable from "../../helpers/sql/sqlParseTable.js"
 
 const current =

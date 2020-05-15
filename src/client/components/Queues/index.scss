@@ -12,18 +12,18 @@
     &-text {
       color: #757575;
       font-size: 18rem;
-      margin-bottom: calc(var(--space) * .5); }
+      margin-bottom: calc(var(--space) * 0.5); }
     &-song {
       display: flex;
       align-items: center;
-      margin-bottom: calc(var(--space) * .5);
+      margin-bottom: calc(var(--space) * 0.5);
       &:last-child {
         margin-bottom: 0; }
       &-playButton {
         font-size: 32rem;
         margin-left: -9px;
         border-radius: 100%;
-        transition: .2s background-color;
-        margin-right: calc(var(--space) * .5);
+        margin-right: calc(var(--space) * 0.5);
+        transition: var(--transition-duration) background-color;
         &:hover {
           background-color: var(--hover-color); } } } } }

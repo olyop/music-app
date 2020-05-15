@@ -5,7 +5,7 @@ import ApolloClient from "./components/ApolloClient"
 import Authenticate from "./components/Authenticate"
 import { BrowserRouter as ReactRouter } from "react-router-dom"
 
-import "./css/customProperties.scss"
+import "./css/variables.scss"
 import "./css/classes.scss"
 import "./css/base.scss"
 

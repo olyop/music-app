@@ -1,6 +1,6 @@
 import pg from "../../services/pg.js"
 import sqlBaseQuery from "./sqlBaseQuery.js"
-import promiseSequence from "../utilities/promiseSequence.js"
+import promiseSequence from "../utils/promiseSequence.js"
 
 const sqlTransaction = configs => new Promise(
   (resolve, reject) => {

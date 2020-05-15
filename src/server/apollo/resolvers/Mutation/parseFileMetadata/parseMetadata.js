@@ -1,6 +1,22 @@
-import { pipe } from "../../helpers"
-import { isEmpty, uniqueId } from "lodash"
-import { strHasBrackets, strFindBrackets, splitList } from "./common"
+import {
+  splitList,
+  strHasBrackets,
+  strFindBrackets,
+} from "./common.js"
+
+import isEmpty from "lodash/isEmpty.js"
+import pipe from "../../../../helpers/utils/pipe.js"
+import toDataUrl from "../../../../helpers/resolver/toDataUrl.js"
+
+const removeMix = str =>
+  (str.includes("Extended") ?
+    str.slice(0, str.indexOf("Extended") - 1) :
+    str)
+
+const removeFeat = artist =>
+  (artist.includes(" feat") ?
+    artist.slice(0, artist.indexOf(" feat")) :
+    artist)
 
 const determineTitle = ({ title }) => {
   if (strHasBrackets(title)) {
@@ -21,12 +37,7 @@ const determineMix = ({ title }) => {
   }
 }
 
-const removeFeat = artist =>
-  (artist.includes(" feat") ?
-    artist.slice(0, artist.indexOf(" feat")) :
-    artist)
-
-export const determineArtists = ({ artist }) =>
+const determineArtists = ({ artist }) =>
   pipe(artist)(removeFeat, splitList)
 
 const determineFeaturing = ({ artist }) => {
@@ -37,11 +48,6 @@ const determineFeaturing = ({ artist }) => {
     return []
   }
 }
-
-const removeMix = str =>
-  (str.includes("Extended") ?
-    str.slice(0, str.indexOf("Extended") - 1) :
-    str)
 
 const determineRemixers = ({ title }) => {
   if (strHasBrackets(title)) {
@@ -60,20 +66,25 @@ const determineRemixers = ({ title }) => {
 const determineGenres = ({ genre }) =>
   (isEmpty(genre) ? [] : genre)
 
-export const determineDiscNumber = ({ disk }) =>
+const determineDiscNumber = ({ disk }) =>
   disk?.no || 1
 
-export const determineTrackNumber = ({ track }) =>
+const determineTrackNumber = ({ track }) =>
   track?.no || 1
 
-export const determineDuration = ({ duration }) =>
+const determineDuration = ({ duration }) =>
   Math.floor(duration)
 
-const createSong = ({ audio, id3: { common, format } }) => ({
-  audio,
-  songId: uniqueId(),
-  album: common.album,
+const determineAlbum = ({ album, albumartist, year, picture }) => ({
+  title: album,
+  released: year,
+  artists: splitList(albumartist),
+  cover: toDataUrl(picture[0].data),
+})
+
+const parseMetadata = ({ common, format }) => ({
   mix: determineMix(common),
+  album: determineAlbum(common),
   title: determineTitle(common),
   genres: determineGenres(common),
   artists: determineArtists(common),
@@ -84,4 +95,4 @@ const createSong = ({ audio, id3: { common, format } }) => ({
   trackNumber: determineTrackNumber(common),
 })
 
-export default createSong
+export default parseMetadata

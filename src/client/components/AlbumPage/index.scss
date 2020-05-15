@@ -6,34 +6,31 @@
     grid-template-columns: 1fr 2fr; }
   @media (max-width: 800px) {
     display: block; }
-  &__shuffle {
-    @media (max-width: 800px) {
-      display: none; } }
   &__title {
     display: flex;
     font-size: 33rem;
     align-items: center;
-    margin-bottom: calc(var(--space) * .25 + 3px);
+    margin-bottom: calc(var(--space) * 0.25 + 3px);
     &-add {
       display: inline-block;
       color: var(--text-color);
-      margin-left: calc(var(--space) * .25); } }
+      margin-left: calc(var(--space) * 0.25); } }
   &__artists {
     font-size: 19rem;
     font-weight: 500; }
   &__genres {
     font-size: 17rem;
     font-weight: 400;
-    margin-bottom: calc(var(--space) * .5 - 1px); }
+    margin-bottom: calc(var(--space) * 0.5 - 1px); }
   &__disc {
-    margin-bottom: calc(var(--space) * .75);
+    margin-bottom: calc(var(--space) * 0.75);
     &:last-child {
       margin-bottom: 0; }
     &-number {
       font-size: 15rem;
       font-weight: 700;
       text-transform: uppercase;
-      margin-bottom: calc(var(--space) * .5); } }
+      margin-bottom: calc(var(--space) * 0.5); } }
   &__footer-text {
     font-size: 14rem;
     text-transform: uppercase;

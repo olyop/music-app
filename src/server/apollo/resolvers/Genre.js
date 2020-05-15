@@ -7,10 +7,10 @@ import sqlJoin from "../../helpers/sql/sqlJoin.js"
 import columnNames from "../../sql/columnNames.js"
 import userDocInLib from "./common/userDocInLib.js"
 import sqlQuery from "../../helpers/sql/sqlQuery.js"
+import sqlRowCount from "../../helpers/sql/sqlRowCount.js"
 import userDocDateAdded from "./common/userDocDateAdded.js"
-import sqlNumOfRows from "../../helpers/sql/sqlNumOfRows.js"
 import sqlParseTable from "../../helpers/sql/sqlParseTable.js"
-import mapResolver from "../../helpers/utilities/mapResolver.js"
+import mapResolver from "../../helpers/utils/mapResolver.js"
 
 const selectGenreSongs = (parent, parse) =>
   sqlQuery({
@@ -30,7 +30,7 @@ const songs = async ({ parent }) =>
   selectGenreSongs(parent, sqlParseTable)
 
 const numOfSongs = async ({ parent }) =>
-  selectGenreSongs(parent, sqlNumOfRows)
+  selectGenreSongs(parent, sqlRowCount)
 
 const plays = async ({ parent, args }) =>
   sqlQuery({

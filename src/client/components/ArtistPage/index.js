@@ -45,13 +45,13 @@ const ArtistPage = () => (
                       <p className={bem("cover-content-stats")}>
                         {songs.length}
                         <Fragment> song</Fragment>
-                        <Fragment>{determinePlural(songs)}</Fragment>
+                        <Fragment>{determinePlural(songs.length)}</Fragment>
                         {isEmpty(albums) ? null : (
                           <Fragment>
                             <Fragment>, </Fragment>
                             {albums.length}
                             <Fragment> album</Fragment>
-                            {determinePlural(albums)}
+                            {determinePlural(albums.length)}
                           </Fragment>
                         )}
                       </p>

@@ -8,7 +8,6 @@ import {
   SELECT_ALBUMS,
   SELECT_ARTIST,
   SELECT_GENRES,
-  SELECT_SEARCH,
   SELECT_ARTISTS,
   SELECT_PLAYLIST,
   SELECT_PLAYLISTS,
@@ -16,12 +15,13 @@ import {
   SELECT_TOP_TEN_SONGS,
 } from "../../sql/index.js"
 
+import docSearch from "./common/docSearch.js"
 import sqlJoin from "../../helpers/sql/sqlJoin.js"
 import columnNames from "../../sql/columnNames.js"
 import sqlQuery from "../../helpers/sql/sqlQuery.js"
 import sqlParseRow from "../../helpers/sql/sqlParseRow.js"
 import sqlParseTable from "../../helpers/sql/sqlParseTable.js"
-import mapResolver from "../../helpers/utilities/mapResolver.js"
+import mapResolver from "../../helpers/utils/mapResolver.js"
 
 const songs =
   async () =>
@@ -202,44 +202,21 @@ const topTenSongs =
       parse: sqlParseTable,
     })
 
-const docSearch = args => (tableName, docName, columnName) =>
-  sqlQuery({
-    query: SELECT_SEARCH,
-    parse: sqlParseTable,
-    variables: [{
-      string: false,
-      key: "tableName",
-      value: tableName,
-    },{
-      string: false,
-      key: "columnName",
-      value: columnName,
-    },{
-      string: false,
-      key: "columnNames",
-      value: sqlJoin(columnNames[docName]),
-    },{
-      key: "query",
-      parameterized: true,
-      value: `%${args.query.toLowerCase()}%`,
-    }],
-  })
-
 const songSearch =
   async ({ args }) =>
-    docSearch(args)("songs", "song", "title")
+    docSearch("songs", "song", "title")(args.query)
 
 const albumSearch =
   async ({ args }) =>
-    docSearch(args)("albums", "album", "title")
+    docSearch("albums", "album", "title")(args.query)
 
 const genreSearch =
   async ({ args }) =>
-    docSearch(args)("genres", "genre", "name")
+    docSearch("genres", "genre", "name")(args.query)
 
 const artistSearch =
   async ({ args }) =>
-    docSearch(args)("artists", "artist", "name")
+    docSearch("artists", "artist", "name")(args.query)
 
 const queryResolver =
   mapResolver({

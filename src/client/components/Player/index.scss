@@ -13,7 +13,7 @@
     transform: translate(-50%, -54%); }
   &__close {
     --font-size: 40rem;
-    --padding: calc(var(--space) * .5);
+    --padding: calc(var(--space) * 0.5);
     --height: calc(var(--font-size) + var(--padding) * 2);
     top: 0;
     left: 0;
@@ -34,7 +34,7 @@
       margin-bottom: calc(var(--space) * 2); }
     &-text {
       text-align: center;
-      margin-bottom: calc(var(--space) * .5); }
+      margin-bottom: calc(var(--space) * 0.5); }
     &-title {
       font-size: 25rem;
       font-weight: 700; }

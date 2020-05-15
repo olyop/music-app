@@ -1,10 +1,9 @@
 const path = require("path")
-const stylelint = require("stylelint")
 const Dotenv = require("dotenv-webpack")
 const CopyPlugin = require("copy-webpack-plugin")
 const TerserPlugin = require("terser-webpack-plugin")
 const HtmlWebpackPlugin = require("html-webpack-plugin")
-const StyleLintPlugin = require("stylelint-webpack-plugin")
+const StylelintPlugin = require("stylelint-webpack-plugin")
 const WriteFilePlugin = require("write-file-webpack-plugin")
 const MiniCssExtractPlugin = require("mini-css-extract-plugin")
 const CompressionPlugin = require("compression-webpack-plugin")
@@ -47,14 +46,6 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.css$/,
-        exclude: /node_modules/,
-        loader: [
-          isProduction ? MiniCssExtractPlugin.loader : "style-loader",
-          "css-loader",
-        ],
-      },
-      {
         test: /\.scss$/,
         exclude: /node_modules/,
         loader: [
@@ -83,9 +74,7 @@ module.exports = {
     ...(isProduction ? [new LodashModuleReplacementPlugin()] : []),
     ...(isProduction ? [new OptimizeCssAssetsPlugin()] : []),
     ...(isProduction ? [new MiniCssExtractPlugin({ filename: "[hash].css" })] : []),
-    new StyleLintPlugin({
-      configFile: "./.stylelint.json",
-    }),
+    ...(isProduction ? [] : [new StylelintPlugin({ configFile: ".stylelint.json" })]),
     new Dotenv(),
     new HtmlWebpackPlugin({
       template: path.join(publicPath, "index.html"),

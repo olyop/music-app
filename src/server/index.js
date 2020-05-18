@@ -28,11 +28,10 @@ app.use(
   bodyParser.urlencoded({ extended: false }),
   cookieParser(),
   globalHeaders(),
+  apolloServer.getMiddleware(APOLLO_MIDDLEWARE_CONFIG),
+  sendStatic,
 )
 
-app.use(apolloServer.getMiddleware(APOLLO_MIDDLEWARE_CONFIG))
-
-app.use(sendStatic)
 app.use("*", sendIndex)
 
 app.listen(PORT, HOST)

@@ -40,5 +40,10 @@
   "editor.renderIndentGuides": false,
   "eslint.workingDirectories": ["./src/client", "./src/server"],
   "workbench.sideBar.location": "left",
-  "search.exclude": { "**/node_modules": true }
+  // "search.exclude": { "**/node_modules": true },
+  "editor.lineNumbers": "off",
+  "editor.folding": false,
+  "search.exclude": {
+    "**/node_modules": false
+  }
 }

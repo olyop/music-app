@@ -17,11 +17,14 @@
 .Margin {
   margin: var(--space); }
 
+.MarginTopHalf {
+  margin-top: calc(var(--space) * 0.5); }
+
 .MarginBottom {
   margin-bottom: var(--space); }
 
-.MarginTopHalf {
-  margin-top: calc(var(--space) * 0.5); }
+.MarginBottomHalf {
+  margin-bottom: calc(var(--space) * 0.5); }
 
 .Grid {
   display: grid;

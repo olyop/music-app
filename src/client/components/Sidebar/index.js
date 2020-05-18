@@ -1,4 +1,4 @@
-import React, { useContext, Fragment } from "react"
+import React, { useContext } from "react"
 
 import Icon from "../Icon"
 import { NavLink } from "react-router-dom"
@@ -13,43 +13,35 @@ const bem = reactBem("Sidebar")
 const Sidebar = () => {
   const { toggleSidebar } = useContext(SidebarContext)
   return (
-    <aside className={bem("")}>
-      <nav className={bem("routes")}>
-        <NavLink
-          to="/catalog/browse"
-          onClick={toggleSidebar}
-          className={bem("route")}
-          children={(
-            <Fragment>
-              <Icon className={bem("route-icon")} icon="view_list" />
-              <p className={bem("route-text")}>Browse</p>
-            </Fragment>
-          )}
-        />
-        <NavLink
-          to="/library/songs"
-          onClick={toggleSidebar}
-          className={bem("route")}
-          children={(
-            <Fragment>
-              <Icon className={bem("route-icon")} icon="library_music" />
-              <p className={bem("route-text")}>Library</p>
-            </Fragment>
-          )}
-        />
-        <NavLink
-          to="/addAlbum"
-          onClick={toggleSidebar}
-          className={bem("route")}
-          children={(
-            <Fragment>
-              <Icon className={bem("route-icon")} icon="add_circle" />
-              <p className={bem("route-text")}>Add Music</p>
-            </Fragment>
-          )}
-        />
-      </nav>
-    </aside>
+    <nav className={bem("")}>
+      <NavLink
+        title="Browse"
+        to="/catalog/browse"
+        onClick={toggleSidebar}
+        className={bem("route")}
+      >
+        <Icon className={bem("route-icon")} icon="view_list" />
+        <p className={bem("route-text")}>Browse</p>
+      </NavLink>
+      <NavLink
+        title="Library"
+        to="/library/songs"
+        onClick={toggleSidebar}
+        className={bem("route")}
+      >
+        <Icon className={bem("route-icon")} icon="library_music" />
+        <p className={bem("route-text")}>Library</p>
+      </NavLink>
+      <NavLink
+        to="/addAlbum"
+        title="Add Music"
+        onClick={toggleSidebar}
+        className={bem("route")}
+      >
+        <Icon className={bem("route-icon")} icon="add_circle" />
+        <p className={bem("route-text")}>Add Music</p>
+      </NavLink>
+    </nav>
   )
 }
 

@@ -2,9 +2,14 @@
   display: grid;
   gap: var(--space);
   grid-template-columns: 1fr 3fr;
-  &__cover {
-    width: 300rem;
-    height: 300rem; }
+  &__list {
+    display: flex; }
+  &__album {
+    &-cover {
+      width: 300rem;
+      height: 300rem; }
+    &-title {
+      font-size: 25rem; } }
   &__input {
     border: 0;
     margin: 0;
@@ -26,21 +31,18 @@
       display: block; } }
   &__item {
     width: 100%;
-    height: 77rem;
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
-    &-left {
-      width: 100%;
-      &-upper {
-        font-weight: 700;
-        &-num {
-          margin-right: 4rem; }
-        &-input {
-          font-weight: 700; } }
-      &-lower {
-        font-size: 15rem;
-        margin-top: 4rem; } }
+    &-upper {
+      font-weight: 700;
+      &-num {
+        margin-right: 4rem; }
+      &-input {
+        font-weight: 700; } }
+    &-lower {
+      font-size: 15rem;
+      margin-top: 4rem; }
     &-right {
       color: var(--text-color-light); } }
   &__add {

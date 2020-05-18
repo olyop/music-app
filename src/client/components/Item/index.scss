@@ -4,7 +4,7 @@
   align-items: center;
   &:hover &__info-text {
     width: calc(100% - var(--gap) - var(--button-size)); }
-  &:hover &__info-add {
+  &:hover &__info-in-lib {
     display: block; }
   &__play {
     --fix: -2rem;

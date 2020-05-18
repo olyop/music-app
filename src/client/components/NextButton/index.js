@@ -4,8 +4,8 @@ import Icon from "../Icon"
 import UserContext from "../../contexts/User"
 
 import reactBem from "@oly_op/react-bem"
-import { useMutation } from "react-apollo"
 import { propTypes, defaultProps } from "./props"
+import { useMutation } from "@apollo/react-hooks"
 
 import USER_ADD_SONG_NEXT from "../../graphql/mutations/userAddSongNext.gql"
 

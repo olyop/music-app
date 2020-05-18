@@ -25,7 +25,7 @@ const Album = ({ album, className }) => {
       doc={album}
       imgDoc={album}
       upper={<DocLink doc={album} />}
-      lower={<DocLinks docs={album.artists} ampersand />}
+      lower={<DocLinks docs={album.artists} />}
       className={[className, "PaddingHalf", "ItemBorder", "Hover"].join(" ")}
     />
   )

@@ -23,8 +23,6 @@ import userAddSongNext from "./userAddSongNext.js"
 import userAddSongLater from "./userAddSongLater.js"
 import userAddSongQueue from "./userAddSongQueue.js"
 
-import parseFileMetadata from "./parseFileMetadata/index.js"
-
 import mapResolver from "../../../helpers/utils/mapResolver.js"
 
 const mutationResolver =
@@ -48,7 +46,6 @@ const mutationResolver =
     userAddSongNext,
     userAddSongLater,
     userAddSongQueue,
-    parseFileMetadata,
   })
 
 export default mutationResolver

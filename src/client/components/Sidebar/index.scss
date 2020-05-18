@@ -1,12 +1,11 @@
 .Sidebar {
   --margin: calc(var(--space) * 0.75);
   width: 300px;
+  display: flex;
+  flex-direction: column;
   margin: var(--margin) 0;
   border-right: 1px solid var(--border-color);
   height: calc(100vh - var(--header-height) - var(--player-height) - var(--margin) * 2);
-  &__routes {
-    display: flex;
-    flex-direction: column; }
   &__route {
     display: flex;
     align-items: center;

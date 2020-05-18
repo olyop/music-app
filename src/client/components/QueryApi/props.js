@@ -5,6 +5,7 @@ export const propTypes = {
   library: bool,
   variables: any,
   checkEmpty: bool,
+  className: string,
   resultPath: string,
   query: any.isRequired,
   spinnerClassName: string,
@@ -16,6 +17,7 @@ export const defaultProps = {
   variables: {},
   resultPath: "",
   library: false,
+  className: null,
   checkEmpty: false,
   spinnerClassName: null,
 }

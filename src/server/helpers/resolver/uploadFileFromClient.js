@@ -1,16 +1,9 @@
 import concatStream from "../utils/concatStream.js"
-
-const createReadableStream = upload => new Promise(
-  (resolve, reject) => {
-    upload
-      .then(file => resolve(file.createReadStream()))
-      .catch(reject)
-  },
-)
+import createStreamFromUpload from "./createStreamFromUpload.js"
 
 const uploadFileFromClient = upload => new Promise(
   (resolve, reject) => {
-    createReadableStream(upload)
+    createStreamFromUpload(upload)
       .then(concatStream)
       .then(resolve)
       .catch(reject)

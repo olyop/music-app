@@ -5,7 +5,6 @@ import _compose from "./compose"
 import _isLength from "./isLength"
 import _findMatches from "./findMatches"
 import _bytesToSize from "./bytesToSize"
-import _pipePromises from "./pipePromises"
 import _determineDiscs from "./determineDiscs"
 import _filterInLibrary from "./filterInLibrary"
 import _deserializeDate from "./deserializeDate"
@@ -26,7 +25,6 @@ export const compose = _compose
 export const isLength = _isLength
 export const findMatches = _findMatches
 export const bytesToSize = _bytesToSize
-export const pipePromises = _pipePromises
 export const determineDiscs = _determineDiscs
 export const filterInLibrary = _filterInLibrary
 export const deserializeDate = _deserializeDate

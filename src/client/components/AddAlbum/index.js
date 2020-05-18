@@ -1,70 +1,54 @@
-import React, { useState, Fragment } from "react"
+import React, { useState } from "react"
 
-import {
-  pipe,
-  determineDiscs,
-  determineConcat,
-  deserializeDuration,
-} from "../../helpers"
+// import {
+//   pipe,
+//   determineDiscs,
+//   determineConcat,
+//   deserializeDuration,
+// } from "../../helpers"
 
 import Img from "../Img"
-import Icon from "../Icon"
-import Button from "../Button"
+// import Icon from "../Icon"
+// import Button from "../Button"
 import Spinner from "../Spinner"
 import ApiError from "../ApiError"
+import AddAlbumItem from "./AddAlbumItem"
+import AddAlbumReleased from "./AddAlbumReleased"
 
 import { isNull } from "lodash"
-import { orderBy, map } from "lodash/fp"
+import getMetadata from "./getMetadata"
 import reactBem from "@oly_op/react-bem"
+// import { orderBy, map } from "lodash/fp"
 import determineAlbum from "./determineAlbum"
-import { useApolloClient } from "react-apollo"
-
-import GET_FILE_METADATA from "../../graphql/queries/getFileMetadata.gql"
 
 import "./index.scss"
 
 const bem = reactBem("AddAlbum")
 
 const AddAlbum = () => {
-  const client = useApolloClient()
   const [ songs, setSongs ] = useState(null)
   const [ error, setError ] = useState(null)
   const [ loading, setLoading ] = useState(false)
 
   const toggleLoading = () =>
-    setLoading(currentLoading => !currentLoading)
+    setLoading(prevState => !prevState)
 
-  const handleNewFiles = async event => {
+  // const clear = () =>
+  //   setSongs(null)
+
+  const handleNewFiles = event => {
     toggleLoading()
-    const files = Array.from(event.target.files)
-    Promise
-      .all(files.map(
-        file => client.mutate({
-          mutation: GET_FILE_METADATA,
-          variables: { file },
-        }),
-      ))
-      .then(map.convert({ cap: false })(({ data }, index) => ({
-        ...data.parseFileMetadata,
-        audio: files[index],
-      })))
+    getMetadata(event.target.files)
       .then(setSongs)
       .catch(setError)
       .finally(toggleLoading)
   }
 
-  const clear = () =>
-    setSongs(null)
-
   if (error) {
     return <ApiError error={error} />
-  }
-
-  if (loading) {
+  } else if (loading) {
     return <Spinner/>
-  }
-
-  if (isNull(songs)) {
+  } else if (isNull(songs)) {
     return (
       <input
         multiple
@@ -79,31 +63,34 @@ const AddAlbum = () => {
   const album = determineAlbum(songs)
 
   return (
-    <div className={bem("", "MarginBottom Padding")}>
-      <div className="MarginBottom">
+    <div className={bem("", "Padding")}>
+      <div>
         <Img
           url={album.cover}
-          className={bem("cover", "MarginBottom Card Elevated")}
+          className={bem("album-cover", "MarginBottom Card Elevated")}
         />
         <h1
-          className="Text"
           children={album.title}
+          className={bem("album-title", "MarginBottomHalf")}
         />
-        <h2
-          className="Text"
-          children={album.released}
-        />
-        <p
-          className="Text"
-          children={album.artists.toString()}
-        />
+        <div className={bem("list", "MarginBottomHalf")}>
+          {album.artists.map(
+            artist => (
+              <AddAlbumItem
+                key={artist}
+                query={artist}
+                docType="artist"
+              />
+            ),
+          )}
+        </div>
+        <AddAlbumReleased album={album.title} artist={album.artists.join(", ")}>
+          {released => <p className="Text">{released}</p>}
+        </AddAlbumReleased>
       </div>
-      <div>
+      {/* <div>
         {pipe(songs)(
-          orderBy(
-            ["discNumber","trackNumber"],
-            ["asc","asc"],
-          ),
+          orderBy(["discNumber","trackNumber"], ["asc","asc"]),
           determineDiscs,
           map(disc => (
             <div className="Elevated MarginBottom" key={disc.number}>
@@ -112,23 +99,23 @@ const AddAlbum = () => {
                   key={song.trackNumber}
                   className={bem("item", "PaddingHalf ItemBorder Hover")}
                 >
-                  <div className={bem("item-left")}>
-                    <div className={bem("item-left-upper", "text", "Text")}>
-                      <p className={bem("item-left-upper-num")}>
+                  <div>
+                    <div className={bem("item-upper", "text", "Text")}>
+                      <p className={bem("item-upper-num")}>
                         {song.trackNumber}
                         <Fragment>.</Fragment>
                       </p>
                       <div
                         contentEditable
                         children={song.title}
-                        className={bem("item-left-upper-input", "text", "input")}
+                        className={bem("item-upper-input", "text", "input")}
                       />
                       <Icon
                         icon="add"
                         className={bem("plus")}
                       />
                     </div>
-                    <p className={bem("item-left-lower", "text")}>
+                    <p className={bem("item-lower", "text")}>
                       {song.artists.map(
                         (artist, index) => (
                           <Fragment>
@@ -147,7 +134,7 @@ const AddAlbum = () => {
                         className={bem("plus")}
                       />
                     </p>
-                    <div className={bem("item-left-lower", "text")}>
+                    <div className={bem("item-lower", "text")}>
                       <div
                         contentEditable
                         className={bem("input", "Text")}
@@ -171,7 +158,7 @@ const AddAlbum = () => {
           text="Clear"
           onClick={clear}
         />
-      </div>
+      </div> */}
     </div>
   )
 }

@@ -5,8 +5,8 @@ import {
 } from "./common.js"
 
 import isEmpty from "lodash/isEmpty.js"
-import pipe from "../../../../helpers/utils/pipe.js"
-import toDataUrl from "../../../../helpers/resolver/toDataUrl.js"
+import pipe from "../../../helpers/utils/pipe.js"
+import toDataUrl from "../../../helpers/resolver/toDataUrl.js"
 
 const removeMix = str =>
   (str.includes("Extended") ?
@@ -75,9 +75,8 @@ const determineTrackNumber = ({ track }) =>
 const determineDuration = ({ duration }) =>
   Math.floor(duration)
 
-const determineAlbum = ({ album, albumartist, year, picture }) => ({
+const determineAlbum = ({ album, albumartist, picture }) => ({
   title: album,
-  released: year,
   artists: splitList(albumartist),
   cover: toDataUrl(picture[0].data),
 })

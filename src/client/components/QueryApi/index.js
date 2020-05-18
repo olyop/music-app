@@ -8,7 +8,7 @@ import UserContext from "../../contexts/User"
 import { useQuery } from "@apollo/react-hooks"
 import { filterInLibrary } from "../../helpers"
 import { propTypes, defaultProps } from "./props"
-import { isUndefined, isEmpty, get } from "lodash"
+import { isUndefined, isEmpty, isNull, get } from "lodash"
 
 const QueryApi = ({
   query,
@@ -16,6 +16,7 @@ const QueryApi = ({
   spinner,
   children,
   variables,
+  className,
   checkEmpty,
   resultPath,
   spinnerClassName,
@@ -43,7 +44,11 @@ const QueryApi = ({
     return <Empty title="This collection is empty." />
   }
 
-  return children(filteredCollection)
+  if (!isNull(className)) {
+    return <div className={className}>{children(filteredCollection)}</div>
+  } else {
+    return children(filteredCollection)
+  }
 }
 
 QueryApi.propTypes = propTypes

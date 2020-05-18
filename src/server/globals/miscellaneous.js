@@ -1,10 +1,14 @@
 /* eslint-disable quote-props */
 
+// increase
+process.setMaxListeners(20)
+
 export const LOG_FORMAT =
   ":status :url :total-time[0] ms"
 
 export const GLOBAL_HTTP_HEADERS = {
   "Server": "Node.js",
+  "Accept-Encoding": "gzip",
   "X-Powered-By": "Express",
   "X-Frame-Options": "deny",
 }

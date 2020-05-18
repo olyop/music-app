@@ -13,31 +13,34 @@ const bem = reactBem("UserPage")
 
 const UserPage = () => {
   const { listStyle, setListStyle } = useContext(ListStyleContext)
+  const handleSelectChange = event => setListStyle(event.target.value)
   return (
-    <div className={bem("", "Padding")}>
-      <QueryApi
-        query={GET_USER}
-        children={
-          ({ user }) => (
-            <Fragment>
-              <h1 className={bem("name", "MarginBottom")}>{user.name}</h1>
-              <h3 className={bem("option-text")}>List Style</h3>
-              <select
-                value={listStyle}
-                className={bem("select")}
-                onChange={event => setListStyle(event.target.value)}
-                children={(
-                  <Fragment>
-                    <option className={bem("select-option")} value="grid">Grid</option>
-                    <option className={bem("select-option")} value="list">List</option>
-                  </Fragment>
-                )}
-              />
-            </Fragment>
-          )
-        }
-      />
-    </div>
+    <QueryApi
+      query={GET_USER}
+      className={bem("", "Padding")}
+      children={({ user }) => (
+        <Fragment>
+          <h1 className={bem("name", "MarginBottom")}>{user.name}</h1>
+          <h3 className={bem("option-text")}>List Style</h3>
+          <select
+            value={listStyle}
+            className={bem("select")}
+            onChange={handleSelectChange}
+          >
+            <option
+              value="grid"
+              children="Grid"
+              className={bem("select-option")}
+            />
+            <option
+              value="list"
+              children="List"
+              className={bem("select-option")}
+            />
+          </select>
+        </Fragment>
+      )}
+    />
   )
 }
 

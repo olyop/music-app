@@ -19,7 +19,9 @@ type Query {
   genreSearch(query: String!): [Genre!]!
   artistSearch(query: String!): [Artist!]!
 
-  # complex queries
+  # miscellaneous queries
   newAlbums: [Album!]!
   topTenSongs: [Song!]!
+  parseSongs(files: [Upload!]!): Json!
+  getAlbumReleased(album: String!, artist: String!): Int
 }

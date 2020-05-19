@@ -75,8 +75,9 @@ const determineTrackNumber = ({ track }) =>
 const determineDuration = ({ duration }) =>
   Math.floor(duration)
 
-const determineAlbum = ({ album, albumartist, picture }) => ({
+const determineAlbum = ({ album, albumartist, year, picture }) => ({
   title: album,
+  released: `01/01/${year}`,
   artists: splitList(albumartist),
   cover: toDataUrl(picture[0].data),
 })

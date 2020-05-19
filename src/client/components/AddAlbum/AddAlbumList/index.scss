@@ -1,0 +1,23 @@
+.AddAlbumList {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  &__item {
+    display: flex;
+    align-items: center;
+    border-radius: var(--border-radius);
+    &-input {
+      border: 0;
+      width: 100%;
+      outline: none;
+      padding: 3rem;
+      display: block;
+      font-size: 15rem;
+      background-color: transparent; } }
+  &__icon {
+    width: 15rem;
+    height: 15rem;
+    font-size: 15rem;
+    margin-right: 3rem;
+    cursor: pointer !important;
+    background-color: transparent !important; } }

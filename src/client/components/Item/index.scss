@@ -5,7 +5,9 @@
   &:hover &__info-text {
     width: calc(100% - var(--gap) - var(--button-size)); }
   &:hover &__info-in-lib {
-    display: block; }
+    opacity: 1;
+    height: auto;
+    margin-top: 1px; }
   &__play {
     --fix: -2rem;
     margin-left: var(--fix);
@@ -36,10 +38,14 @@
         font-size: 15rem;
         margin-top: 4rem;  } } 
     &-in-lib {
-      display: none;
-      margin-top: 1px;
+      height: 0;
+      margin: 0;
+      opacity: 0;
+      overflow: hidden;
       margin-left: var(--gap);
-      background-color: var(--color-elevated); } }
+      background-color: var(--color-elevated);
+      transition-duration: var(--transition-duration);
+      transition-property: opacity, background-color !important; } }
   &__left,
   &__right {
     font-size: 16rem; }

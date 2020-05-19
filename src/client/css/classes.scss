@@ -26,6 +26,9 @@
 .MarginBottomHalf {
   margin-bottom: calc(var(--space) * 0.5); }
 
+.MarginBottomQuart {
+  margin-bottom: calc(var(--space) * 0.25); }
+
 .Grid {
   display: grid;
   gap: var(--space);

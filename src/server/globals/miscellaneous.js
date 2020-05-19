@@ -1,6 +1,5 @@
 /* eslint-disable quote-props */
 
-// increase
 process.setMaxListeners(20)
 
 export const LOG_FORMAT =

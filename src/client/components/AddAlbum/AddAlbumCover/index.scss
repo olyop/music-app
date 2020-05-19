@@ -1,0 +1,39 @@
+.AddAlbumCover {
+  &:hover &__img {
+    filter: blur(2px); }
+  &:hover &__black {
+    opacity: 0.7; }
+  &:hover &__text {
+    opacity: 1; }
+  &__img,
+  &__text,
+  &__black {
+    transition-duration: var(--transition-duration); }
+  &__img {
+    transition-property: filter; }
+  &__black {
+    top: 0;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background-color: #000;
+    transition-property: opacity; }
+  &__text {
+    top: 50%;
+    opacity: 0;
+    width: 100%;
+    display: block;
+    font-size: 23rem;
+    position: absolute;
+    text-align: center;
+    transform: translateY(-50%);
+    transition-property: opacity;
+    color: var(--text-color-white); }
+  &__button {
+    top: 0;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    position: absolute; } }

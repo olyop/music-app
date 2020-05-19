@@ -8,10 +8,9 @@ import "./index.scss"
 
 const bem = reactBem("Icon")
 
-const Icon = ({ icon, title, disabled, className, onClick }) => (
+const Icon = ({ icon, style, title, disabled, className, onClick }) => (
   <i
-    tabIndex={0}
-    role="button"
+    style={style}
     title={title}
     children={icon}
     onClick={disabled ? noop : onClick}

@@ -15,11 +15,6 @@ import {
   SELECT_TOP_TEN_SONGS,
 } from "../../sql/index.js"
 
-import {
-  LASTFM_API_KEY,
-} from "../../globals/environment.js"
-
-import fetch from "node-fetch"
 import docSearch from "./common/docSearch.js"
 import parseSongs from "./parseSongs/index.js"
 import sqlJoin from "../../helpers/sql/sqlJoin.js"
@@ -224,29 +219,6 @@ const artistSearch =
   async ({ args }) =>
     docSearch("artists", "artist", "name")(args.query)
 
-const getAlbumReleased = async ({ args }) => {
-  const params = new URLSearchParams({
-    limit: 1,
-    format: "json",
-    method: "album.getinfo",
-    api_key: LASTFM_API_KEY,
-    album: args.album.toLowerCase(),
-    artist: args.artist.toLowerCase(),
-  })
-  const base = "http://ws.audioscrobbler.com/2.0/?"
-  return fetch(base + params.toString())
-    .then(res => res.json())
-    .then(data => {
-      const published = data.album?.wiki?.published
-      if (published) {
-        const date = new Date(published.slice(0, -7))
-        return Math.floor((date.valueOf() / 1000) / 86400)
-      } else {
-        return null
-      }
-    })
-}
-
 const queryResolver =
   mapResolver({
     user,
@@ -268,7 +240,6 @@ const queryResolver =
     genreSearch,
     topTenSongs,
     artistSearch,
-    getAlbumReleased,
   })
 
 export default queryResolver

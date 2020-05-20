@@ -1,9 +1,11 @@
 import React from "react"
 
-import Icon from "../../Icon"
+import AddAlbumItem from "../AddAlbumItem"
+import AddAlbumLabel from "../AddAlbumLabel"
+import AddAlbumValid from "../AddAlbumValid"
 
 import reactBem from "@oly_op/react-bem"
-import { arrayOf, object, string, func } from "prop-types"
+import { arrayOf, string, object, func } from "prop-types"
 
 import "./index.scss"
 
@@ -11,52 +13,48 @@ const bem = reactBem("AddAlbumList")
 
 const AddAlbumList = ({
   val,
-  objKey,
-  setState,
+  name,
   validator,
   className,
+  handleChange,
 }) => {
-  const handleChange = index => event => {
-    const { value } = event.target
-    setState(prevState => ({
-      ...prevState,
-      [objKey]: prevState[objKey].splice(index, 1, value),
-    }))
-  }
   const isValid = validator(val)
+  const onChange = item => event => {
+    const { value } = event.target
+    handleChange(item)(value)
+  }
   return (
     <div className={bem(className, "")}>
-      {val.map(
-        (item, index) => (
-          <div className={bem("item", "Card", "Elevated")}>
-            <input
-              size="auto"
-              type="text"
-              value={item}
-              className={bem("item-input")}
-              onChange={handleChange(index)}
-            />
-            <Icon
-              icon="close"
-              className={bem("icon")}
-            />
-          </div>
-        ),
-      )}
-      <Icon
-        className={bem("icon")}
-        icon={isValid ? "done" : "close"}
-        style={{ color: isValid ? "green" : "red" }}
-      />
+      <AddAlbumLabel className={bem("label")}>
+        {name}
+      </AddAlbumLabel>
+      <div className={bem("main")}>
+        <div className={bem("items")}>
+          {val.map(
+            item => (
+              <AddAlbumItem
+                key={item.id}
+                val={item.val}
+                className={bem("item")}
+                handleInput={onChange(item)}
+              />
+            ),
+          )}
+        </div>
+        <AddAlbumValid
+          isValid={isValid}
+          className={bem("icon")}
+        />
+      </div>
     </div>
   )
 }
 
 AddAlbumList.propTypes = {
   className: string,
-  objKey: string.isRequired,
-  setState: func.isRequired,
+  name: string.isRequired,
   validator: func.isRequired,
+  handleChange: func.isRequired,
   val: arrayOf(object).isRequired,
 }
 

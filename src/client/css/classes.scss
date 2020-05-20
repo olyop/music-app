@@ -23,6 +23,9 @@
 .MarginBottom {
   margin-bottom: var(--space); }
 
+.MarginBottomThreeQuart {
+  margin-bottom: calc(var(--space) * 0.75); }
+
 .MarginBottomHalf {
   margin-bottom: calc(var(--space) * 0.5); }
 

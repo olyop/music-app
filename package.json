@@ -7,9 +7,9 @@
   "type": "module",
   "main": "src/server/index.js",
   "scripts": {
-    "sync": "git checkout . && git remote update && git pull",
     "server": "node -r dotenv/config",
     "delete-build": "rm -r -f src/server/build",
+    "sync": "git checkout . && git remote update && git pull",
     "dev-server": "node_modules/.bin/nodemon --trace-warnings -r dotenv/config",
     "push": "clear && git status && git add -A && git commit -m \"Update\" && git push -u origin master",
     "dev-client": "node_modules/.bin/webpack-dev-server --env.NODE_ENV=local --config webpack.config.cjs -r dotenv/config",
@@ -109,6 +109,7 @@
     "morgan": "^1.10.0",
     "mp3-duration": "^1.1.0",
     "music-metadata": "^6.4.0",
+    "node-fetch": "^2.6.0",
     "nodemon": "^2.0.4",
     "pg": "^8.2.0",
     "prop-types": "^15.7.2",

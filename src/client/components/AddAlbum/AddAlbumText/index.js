@@ -1,6 +1,8 @@
 import React from "react"
 
-import Icon from "../../Icon"
+import AddAlbumLabel from "../AddAlbumLabel"
+import AddAlbumValid from "../AddAlbumValid"
+import AddAlbumInput from "../AddAlbumInput"
 
 import reactBem from "@oly_op/react-bem"
 import { func, string } from "prop-types"
@@ -11,35 +13,34 @@ const bem = reactBem("AddAlbumText")
 
 const AddAlbumText = ({
   val,
-  objKey,
-  setState,
+  name,
   validator,
   className,
+  handleChange,
   textClassName,
 }) => {
-  const handleChange = event => {
-    const { value } = event.target
-    setState(prevState => ({
-      ...prevState,
-      [objKey]: value,
-    }))
-  }
   const isValid = validator(val)
+  const onChange = event => {
+    const { value } = event.target
+    handleChange(value)
+  }
   return (
-    <div className={bem(className, "")}>
-      <input
-        size="auto"
-        type="text"
-        value={val}
-        onChange={handleChange}
-        className={bem(textClassName, "input")}
-      />
-      <Icon
-        className={bem("icon")}
-        icon={isValid ? "done" : "close"}
-        style={{ color: isValid ? "green" : "red" }}
-      />
-    </div>
+    <label className={bem(className, "")}>
+      <AddAlbumLabel className={bem("text")}>
+        {name}
+      </AddAlbumLabel>
+      <div className={bem("main")}>
+        <AddAlbumInput
+          val={val}
+          handleChange={onChange}
+          className={textClassName}
+        />
+        <AddAlbumValid
+          isValid={isValid}
+          className={bem("main-icon")}
+        />
+      </div>
+    </label>
   )
 }
 
@@ -47,9 +48,9 @@ AddAlbumText.propTypes = {
   className: string,
   textClassName: string,
   val: string.isRequired,
-  objKey: string.isRequired,
-  setState: func.isRequired,
+  name: string.isRequired,
   validator: func.isRequired,
+  handleChange: func.isRequired,
 }
 
 AddAlbumText.defaultProps = {

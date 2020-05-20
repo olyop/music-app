@@ -23,5 +23,5 @@ type Query {
   newAlbums: [Album!]!
   topTenSongs: [Song!]!
   parseSongs(files: [Upload!]!): Json!
-  getAlbumReleased(album: String!, artist: String!): Int
+  albumReleased(title: String!): Int
 }

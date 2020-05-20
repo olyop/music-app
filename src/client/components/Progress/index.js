@@ -29,8 +29,8 @@ const Progress = ({ className }) => {
   const handleChange = (_, value) => setCurrent(value)
   return (
     <QueryApi
-      spinner={false}
       query={GET_USER_CURRENT}
+      spinner={false}
       children={
         data => {
           const duration = determineDuration(data)

@@ -1,8 +1,13 @@
 import parseSong from "./parseSong.js"
 import asyncPool from "tiny-async-pool"
-import splitMetadata from "./splitMetadata.js"
+import { songsFromMetadata, albumFromMetadata } from "./fromMetadata.js"
 
-const parseSongs = async ({ args }) =>
-  splitMetadata(await asyncPool(10, args.files, parseSong))
+const parseSongs = async ({ args }) => {
+  const metadata = await asyncPool(3, args.files, parseSong)
+  return {
+    songs: songsFromMetadata(metadata),
+    album: await albumFromMetadata(metadata),
+  }
+}
 
 export default parseSongs

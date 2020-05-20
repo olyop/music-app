@@ -2,15 +2,23 @@
   &:hover &__img {
     filter: blur(2px); }
   &:hover &__black {
-    opacity: 0.7; }
-  &:hover &__text {
+    opacity: 0.8; }
+  &:hover &__buttons {
     opacity: 1; }
   &__img,
-  &__text,
-  &__black {
+  &__black,
+  &__button,
+  &__buttons {
     transition-duration: var(--transition-duration); }
   &__img {
     transition-property: filter; }
+  &__spinner {
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    &-spin {
+      border-color: var(--text-color-white) transparent transparent; } }
   &__black {
     top: 0;
     opacity: 0;
@@ -19,21 +27,91 @@
     position: absolute;
     background-color: #000;
     transition-property: opacity; }
-  &__text {
-    top: 50%;
+  &__buttons {
+    top: 0;
     opacity: 0;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    transition-property: opacity; }
+  &__form {
+    top: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    position: absolute;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    &-item {
+      border: 0;
+      width: 100%;
+      outline: none;
+      display: block;
+      cursor: pointer;
+      font-size: 15rem;
+      text-align: center;
+      background-color: transparent;
+      color: var(--text-color-white);
+      padding: calc(var(--space) * 0.5);
+      transition-property: background-color;
+      &:hover {
+        background-color: rgba(#fff, 0.2); } } }
+  &__button {
+    height: 50%;
+    width: 100%;
+    position: relative;
+    transition-property: background-color;
+    &:hover {
+      background-color: rgba(#fff, 0.2); }
+    &:active {
+      background-color: rgba(#fff, 0.3); }
+    &-top {
+      top: 0; }
+    &-bottom {
+      bottom: 0; }
+    &-input {
+      top: 0;
+      opacity: 0;
+      width: 100%;
+      height: 100%;
+      cursor: pointer;
+      position: absolute; }
+    &-text {
+      top: 50%;
+      left: 50%;
+      position: absolute;
+      color: var(--text-color-white);
+      transform: translate(-50%, -50%);
+      background-color: transparent !important;
+      &-span,
+      &-icon {
+        color: var(--text-color-white); }
+      &-span {
+        font-size: 23rem; }
+      &-icon {
+        width: 23rem;
+        height: 23rem;
+        font-size: 23rem; } } }
+  &__text {
     width: 100%;
     display: block;
     font-size: 23rem;
     position: absolute;
     text-align: center;
-    transform: translateY(-50%);
+    transform: translateY(50%);
     transition-property: opacity;
-    color: var(--text-color-white); }
+    color: var(--text-color-white);
+    &-top {
+      top: 25%; }
+    &-bottom {
+      bottom: 25%; } }
   &__button {
-    top: 0;
-    opacity: 0;
     width: 100%;
-    height: 100%;
+    height: 50%;
     cursor: pointer;
-    position: absolute; } }
+    position: absolute;
+    &-top {
+      top: 0; }
+    &-bottom {
+      bottom: 0; } } }

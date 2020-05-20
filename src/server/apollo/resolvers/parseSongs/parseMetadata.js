@@ -77,15 +77,15 @@ const determineDuration = ({ duration }) =>
 
 const determineAlbum = ({ album, albumartist, year, picture }) => ({
   title: album,
-  released: `01/01/${year}`,
+  released: year.toString(),
   artists: splitList(albumartist),
   cover: toDataUrl(picture[0].data),
 })
 
 const parseMetadata = ({ common, format }) => ({
   mix: determineMix(common),
-  album: determineAlbum(common),
   title: determineTitle(common),
+  album: determineAlbum(common),
   genres: determineGenres(common),
   artists: determineArtists(common),
   remixers: determineRemixers(common),

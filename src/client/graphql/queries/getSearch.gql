@@ -1,0 +1,11 @@
+query getSearch($query: String!) {
+  genreSearch(query: $query) {
+    genreId
+    name
+  }
+  artistSearch(query: $query) {
+    artistId
+    name
+    photo(size: MINI)
+  }
+}

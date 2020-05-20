@@ -2,9 +2,9 @@ import React, { useState } from "react"
 
 import Spinner from "../Spinner"
 import ApiError from "../ApiError"
-import Text from "./AddAlbumText"
-import List from "./AddAlbumList"
-import Cover from "./AddAlbumCover"
+import AddAlbumText from "./AddAlbumText"
+import AddAlbumList from "./AddAlbumList"
+import AddAlbumCover from "./AddAlbumCover"
 
 import { isNull } from "lodash"
 import reactBem from "@oly_op/react-bem"
@@ -50,41 +50,53 @@ const AddAlbum = () => {
     )
   }
 
-  const handleAlbumCover = event => {
-    const { files } = event.target
+  const handleCoverChange = cover =>
     setAlbum(prevState => ({
       ...prevState,
-      cover: files[0],
+      cover,
     }))
-  }
+
+  const handleTextChange = (setState, objKey) => value =>
+    setState(prevState => ({
+      ...prevState,
+      [objKey]: value,
+    }))
+
+  const handleListChange = (setState, objKey) => ({ id }) => value =>
+    setState(prevState => ({
+      ...prevState,
+      [objKey]: prevState[objKey].map(
+        item => (item.id === id ? { id, val: value } : item),
+      ),
+    }))
 
   return (
     <div className={bem("", "Padding")}>
       <div className={bem("left")}>
-        <Cover
+        <AddAlbumCover
           album={album}
-          handleChange={handleAlbumCover}
+          handleChange={handleCoverChange}
         />
-        <Text
-          objKey="title"
+        <AddAlbumText
+          name="title"
           val={album.title}
-          setState={setAlbum}
           textClassName={bem("title")}
-          className="MarginBottomQuart"
+          className="MarginBottomThreeQuart"
           validator={val => isNotEmpty(val)}
+          handleChange={handleTextChange(setAlbum, "title")}
         />
-        <List
-          objKey="artists"
-          val={album.artists}
-          setState={setAlbum}
-          validator={Array.isArray}
-          className="MarginBottomQuart"
-        />
-        <Text
-          objKey="released"
-          setState={setAlbum}
+        <AddAlbumText
+          name="released"
           val={album.released}
+          className="MarginBottomThreeQuart"
+          handleChange={handleTextChange(setAlbum, "released")}
           validator={val => !isNaN(Date.parse(val)) && Date.parse(val) <= Date.now()}
+        />
+        <AddAlbumList
+          name="artists"
+          val={album.artists}
+          validator={Array.isArray}
+          handleChange={handleListChange(setAlbum, "artists")}
         />
       </div>
     </div>

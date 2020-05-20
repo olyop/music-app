@@ -7,11 +7,11 @@ import "./index.scss"
 
 const bem = reactBem("Spinner")
 
-const Spinner = ({ className }) => (
+const Spinner = ({ className, spinClassName }) => (
   <div className={bem(className, "")}>
-    <div className={bem("spin")}/>
-    <div className={bem("spin")}/>
-    <div className={bem("spin")}/>
+    <div className={bem(spinClassName, "spin")}/>
+    <div className={bem(spinClassName, "spin")}/>
+    <div className={bem(spinClassName, "spin")}/>
   </div>
 )
 

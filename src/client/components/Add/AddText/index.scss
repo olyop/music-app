@@ -1,4 +1,4 @@
-.AddAlbumText {
+.AddText {
   outline: none;
   display: block;
   &__text {
@@ -8,4 +8,4 @@
     position: relative;
     align-items: center;
     &-icon {
-      margin-left: calc(var(--space) * 0.25); } } }
+      margin-left: calc(var(--space) * 0.5); } } }

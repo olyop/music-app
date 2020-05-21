@@ -1,9 +1,9 @@
 import React, { useState, useEffect, Fragment } from "react"
 
 import Img from "../../Img"
+import AddInput from "../AddInput"
 import Spinner from "../../Spinner"
 import IconText from "../../IconText"
-import AddAlbumInput from "../AddAlbumInput"
 
 import { isEmpty } from "lodash"
 import reactBem from "@oly_op/react-bem"
@@ -12,9 +12,9 @@ import { blobToDataUrl } from "../helpers/dataUrlBlobConvert"
 
 import "./index.scss"
 
-const bem = reactBem("AddAlbumCover")
+const bem = reactBem("AddCover")
 
-const AddAlbumCover = ({ album, handleChange }) => {
+const AddCover = ({ album, handleChange }) => {
   const [ url, setUrl ] = useState("")
   const [ cover, setCover ] = useState("")
   const [ loading, setLoading ] = useState(false)
@@ -72,7 +72,7 @@ const AddAlbumCover = ({ album, handleChange }) => {
         <div className={bem("buttons")}>
           {showForm ? (
             <div className={bem("form")}>
-              <AddAlbumInput
+              <AddInput
                 val={url}
                 handleChange={handleUrlChange}
                 className={bem("form-item")}
@@ -126,11 +126,11 @@ const AddAlbumCover = ({ album, handleChange }) => {
   )
 }
 
-AddAlbumCover.propTypes = {
+AddCover.propTypes = {
   handleChange: func.isRequired,
   album: shape({
     cover: instanceOf(Blob).isRequired,
   }).isRequired,
 }
 
-export default AddAlbumCover
+export default AddCover

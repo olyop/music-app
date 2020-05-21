@@ -7,9 +7,9 @@ import { string, bool } from "prop-types"
 
 import "./index.scss"
 
-const bem = reactBem("AddAlbumValid")
+const bem = reactBem("AddValid")
 
-const AddAlbumValid = ({ isValid, className }) => (
+const AddValid = ({ isValid, className }) => (
   <Icon
     className={bem(className, "")}
     icon={isValid ? "done" : "close"}
@@ -17,13 +17,13 @@ const AddAlbumValid = ({ isValid, className }) => (
   />
 )
 
-AddAlbumValid.propTypes = {
+AddValid.propTypes = {
   className: string,
   isValid: bool.isRequired,
 }
 
-AddAlbumValid.defaultProps = {
+AddValid.defaultProps = {
   className: null,
 }
 
-export default AddAlbumValid
+export default AddValid

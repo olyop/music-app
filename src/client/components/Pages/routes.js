@@ -1,4 +1,5 @@
 // import Queues from "../Queues"
+import Add from "../Add"
 import Search from "../Search"
 import Player from "../Player"
 import Catalog from "../Catalog"
@@ -11,13 +12,11 @@ import ArtistPage from "../ArtistPage"
 
 import { uniqueId } from "lodash"
 
-import AddAlbum from "../AddAlbum"
-
 export default [
   {
     id: uniqueId(),
-    path: "/addAlbum",
-    component: AddAlbum,
+    path: "/add",
+    component: Add,
   },
   {
     id: uniqueId(),

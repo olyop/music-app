@@ -5,21 +5,21 @@ import { string, node } from "prop-types"
 
 import "./index.scss"
 
-const bem = reactBem("AddAlbumLabel")
+const bem = reactBem("AddLabel")
 
-const AddAlbumLabel = ({ children, className }) => (
+const AddLabel = ({ children, className }) => (
   <p className={bem(className, "")}>
     {children}
   </p>
 )
 
-AddAlbumLabel.propTypes = {
+AddLabel.propTypes = {
   className: string,
   children: node.isRequired,
 }
 
-AddAlbumLabel.defaultProps = {
+AddLabel.defaultProps = {
   className: null,
 }
 
-export default AddAlbumLabel
+export default AddLabel

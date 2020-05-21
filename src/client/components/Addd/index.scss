@@ -1,0 +1,25 @@
+.Add {
+  margin: var(--space);
+  grid-template-columns: 1fr 4fr;
+  @media (min-width: 840px) {
+    margin: var(--space) auto;
+    width: 800px; }
+  &__nav {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    &-link {
+      text-decoration: none !important;
+      &-text {
+        width: 100%;
+        display: flex;
+        font-weight: 600;
+        font-size: 18rem;
+        align-items: center;
+        justify-content: center;
+        text-transform: uppercase;
+        background-color: transparent;
+        padding: calc(var(--space) * 0.5);
+        &:hover {
+          background-color: var(--hover-color); } } } }
+  &__form {
+    padding: var(--space); } }

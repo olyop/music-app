@@ -1,31 +1,73 @@
 import React from "react"
 
-import Form from "../../Form"
-import QueryApi from "../../QueryApi"
+import AddAlbumText from "../AddText"
+import AddAlbumList from "../AddList"
+import AddAlbumCover from "../AddCover"
 
-import fieldsConfig from "./fieldsConfig"
-import { useMutation } from "@apollo/react-hooks"
+import reactBem from "@oly_op/react-bem"
+import { object, func } from "prop-types"
+import { isNotEmpty } from "../helpers/validators"
 
-import ADD_ALBUM from "../../../graphql/mutations/addAlbum.gql"
-import GET_ADD_ALBUM from "../../../graphql/queries/getAddAlbum.gql"
+import "./index.scss"
 
-const AddAlbum = () => {
-  const [ addAlbum, addAlbumResult ] = useMutation(ADD_ALBUM)
+const bem = reactBem("AddAlbum")
+
+const AddAlbum = ({ album, setAlbum }) => {
+
+  const handleCoverChange = cover =>
+    setAlbum(prevState => ({
+      ...prevState,
+      cover,
+    }))
+
+  const handleTextChange = (setState, objKey) => value =>
+    setState(prevState => ({
+      ...prevState,
+      [objKey]: value,
+    }))
+
+  const handleListChange = (setState, objKey) => ({ id }) => value =>
+    setState(prevState => ({
+      ...prevState,
+      [objKey]: prevState[objKey].map(item => (
+        item.id === id ? { id, val: value } : item
+      )),
+    }))
+
   return (
-    <QueryApi
-      query={GET_ADD_ALBUM}
-      children={
-        data => (
-          <Form
-            title="Album"
-            result={addAlbumResult}
-            fields={fieldsConfig(data)}
-            submit={variables => addAlbum({ variables })}
-          />
-        )
-      }
-    />
+    <div>
+      <AddAlbumCover
+        album={album}
+        handleChange={handleCoverChange}
+      />
+      <AddAlbumText
+        name="title"
+        val={album.title}
+        textClassName={bem("title")}
+        className="MarginBottomThreeQuart"
+        validator={val => isNotEmpty(val)}
+        handleChange={handleTextChange(setAlbum, "title")}
+      />
+      <AddAlbumText
+        name="released"
+        val={album.released}
+        className="MarginBottomThreeQuart"
+        handleChange={handleTextChange(setAlbum, "released")}
+        validator={val => !isNaN(Date.parse(val)) && Date.parse(val) <= Date.now()}
+      />
+      <AddAlbumList
+        name="artists"
+        val={album.artists}
+        validator={Array.isArray}
+        handleChange={handleListChange(setAlbum, "artists")}
+      />
+    </div>
   )
+}
+
+AddAlbum.propTypes = {
+  album: object.isRequired,
+  setAlbum: func.isRequired,
 }
 
 export default AddAlbum

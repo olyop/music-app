@@ -1,0 +1,21 @@
+.AddItem {
+  --font-size: 18rem;
+  --padding: calc(var(--space) * 0.25);
+  display: flex;
+  &__left {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;}
+  &__img {
+    width: 28rem;
+    height: 28rem;
+    min-width: 28rem;
+    min-height: 28rem; }
+  &__input {
+    padding: calc(var(--space) * 0.25); }
+  &__delete {
+    margin: 0 3rem;
+    height: var(--font-size);
+    font-size: var(--font-size);
+    width: var(--font-size); } }

@@ -5,9 +5,9 @@ import { string, func } from "prop-types"
 
 import "./index.scss"
 
-const bem = reactBem("AddAlbumInput")
+const bem = reactBem("AddInput")
 
-const AddAlbumInput = ({ val, placeholder, handleChange, className }) => (
+const AddInput = ({ val, placeholder, handleChange, className }) => (
   <input
     type="text"
     value={val}
@@ -20,16 +20,16 @@ const AddAlbumInput = ({ val, placeholder, handleChange, className }) => (
   />
 )
 
-AddAlbumInput.propTypes = {
+AddInput.propTypes = {
   className: string,
   placeholder: string,
   val: string.isRequired,
   handleChange: func.isRequired,
 }
 
-AddAlbumInput.defaultProps = {
+AddInput.defaultProps = {
   className: null,
   placeholder: null,
 }
 
-export default AddAlbumInput
+export default AddInput

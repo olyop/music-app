@@ -33,8 +33,8 @@ const Sidebar = () => {
         <p className={bem("route-text")}>Library</p>
       </NavLink>
       <NavLink
-        to="/addAlbum"
-        title="Add Music"
+        to="/add"
+        title="Add"
         onClick={toggleSidebar}
         className={bem("route")}
       >

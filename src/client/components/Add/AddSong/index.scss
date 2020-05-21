@@ -1,0 +1,18 @@
+.AddSong {
+  &__main {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    &-left {
+      width: 100%;
+      display: flex;
+      align-items: center; }
+    &-text {
+      width: 100%; }
+    &-trackNumber {
+      margin-top: 1rem;
+      font-weight: 700;
+      margin-right: calc(var(--space) * 0.25);; }
+    &-duration {
+      color: var(--text-color-light);
+      margin-left: calc(var(--space) * 0.5); } } }

@@ -19,3 +19,5 @@ export const AWS_ACCESS_KEY_ID = process.env.AWS_ACCESS_KEY_ID
 export const AWS_SECRET_ACCESS_KEY = process.env.AWS_SECRET_ACCESS_KEY
 
 export const APOLLO_ENGINE_KEY = process.env.APOLLO_ENGINE_KEY
+
+export const LAST_FM_API_KEY = process.env.LAST_FM_API_KEY

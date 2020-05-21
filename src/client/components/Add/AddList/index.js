@@ -1,17 +1,17 @@
 import React from "react"
 
-import AddAlbumItem from "../AddAlbumItem"
-import AddAlbumLabel from "../AddAlbumLabel"
-import AddAlbumValid from "../AddAlbumValid"
+import AddItem from "../AddItem"
+import AddLabel from "../AddLabel"
+import AddValid from "../AddValid"
 
 import reactBem from "@oly_op/react-bem"
 import { arrayOf, string, object, func } from "prop-types"
 
 import "./index.scss"
 
-const bem = reactBem("AddAlbumList")
+const bem = reactBem("AddList")
 
-const AddAlbumList = ({
+const AddList = ({
   val,
   name,
   validator,
@@ -25,32 +25,30 @@ const AddAlbumList = ({
   }
   return (
     <div className={bem(className, "")}>
-      <AddAlbumLabel className={bem("label")}>
+      <AddLabel className={bem("label")}>
         {name}
-      </AddAlbumLabel>
-      <div className={bem("main")}>
-        <div className={bem("items")}>
-          {val.map(
-            item => (
-              <AddAlbumItem
-                key={item.id}
+      </AddLabel>
+      <div className={bem("items")}>
+        {val.map(
+          item => (
+            <div key={item.id} className={bem("item")}>
+              <AddItem
                 val={item.val}
-                className={bem("item")}
+                className={bem("item-content")}
                 handleInput={onChange(item)}
               />
-            ),
-          )}
-        </div>
-        <AddAlbumValid
-          isValid={isValid}
-          className={bem("icon")}
-        />
+              <AddValid
+                isValid={isValid}
+              />
+            </div>
+          ),
+        )}
       </div>
     </div>
   )
 }
 
-AddAlbumList.propTypes = {
+AddList.propTypes = {
   className: string,
   name: string.isRequired,
   validator: func.isRequired,
@@ -58,8 +56,8 @@ AddAlbumList.propTypes = {
   val: arrayOf(object).isRequired,
 }
 
-AddAlbumList.defaultProps = {
+AddList.defaultProps = {
   className: null,
 }
 
-export default AddAlbumList
+export default AddList

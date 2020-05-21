@@ -1,20 +1,21 @@
 import React from "react"
 
-import AddAlbumLabel from "../AddAlbumLabel"
-import AddAlbumValid from "../AddAlbumValid"
-import AddAlbumInput from "../AddAlbumInput"
+import AddLabel from "../AddLabel"
+import AddValid from "../AddValid"
+import AddInput from "../AddInput"
 
 import reactBem from "@oly_op/react-bem"
-import { func, string } from "prop-types"
+import { func, string, bool } from "prop-types"
 
 import "./index.scss"
 
-const bem = reactBem("AddAlbumText")
+const bem = reactBem("AddText")
 
-const AddAlbumText = ({
+const AddText = ({
   val,
   name,
   validator,
+  hideLabel,
   className,
   handleChange,
   textClassName,
@@ -26,16 +27,18 @@ const AddAlbumText = ({
   }
   return (
     <label className={bem(className, "")}>
-      <AddAlbumLabel className={bem("text")}>
-        {name}
-      </AddAlbumLabel>
+      {hideLabel ? null : (
+        <AddLabel className={bem("text")}>
+          {name}
+        </AddLabel>
+      )}
       <div className={bem("main")}>
-        <AddAlbumInput
+        <AddInput
           val={val}
           handleChange={onChange}
           className={textClassName}
         />
-        <AddAlbumValid
+        <AddValid
           isValid={isValid}
           className={bem("main-icon")}
         />
@@ -44,18 +47,21 @@ const AddAlbumText = ({
   )
 }
 
-AddAlbumText.propTypes = {
+AddText.propTypes = {
+  name: string,
+  hideLabel: bool,
   className: string,
   textClassName: string,
   val: string.isRequired,
-  name: string.isRequired,
   validator: func.isRequired,
   handleChange: func.isRequired,
 }
 
-AddAlbumText.defaultProps = {
+AddText.defaultProps = {
+  name: null,
   className: null,
+  hideLabel: false,
   textClassName: null,
 }
 
-export default AddAlbumText
+export default AddText

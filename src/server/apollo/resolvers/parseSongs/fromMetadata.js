@@ -1,19 +1,24 @@
+import sum from "lodash/sum.js"
 import uniq from "lodash/uniq.js"
 import albumReleased from "./albumReleased.js"
+import calculateMode from "../../../helpers/utils/calculateMode.js"
 
 export const songsFromMetadata = metadata =>
   metadata.map(({ album, ...song }) => song)
 
-const uniqAlbumVal = songs => key =>
-  uniq(songs.map(({ album }) => album[key]))[0]
+const albumKeyMode = songs => key => {
+  const arr = songs.map(({ album }) => album[key])
+  return Array.isArray(arr[0]) ? uniq(arr)[0] : calculateMode(arr)
+}
 
 export const albumFromMetadata = metadata => new Promise(
   (resolve, reject) => {
     const album = {
-      title: uniqAlbumVal(metadata)("title"),
-      cover: uniqAlbumVal(metadata)("cover"),
-      artists: uniqAlbumVal(metadata)("artists"),
-      released: uniqAlbumVal(metadata)("released"),
+      title: albumKeyMode(metadata)("title"),
+      cover: albumKeyMode(metadata)("cover"),
+      artists: albumKeyMode(metadata)("artists"),
+      released: albumKeyMode(metadata)("released"),
+      duration: sum(metadata.map(({ duration }) => duration)),
     }
     albumReleased(album)
       .then(released => resolve({

@@ -1,53 +1,52 @@
-import React from "react"
+import React, { useState } from "react"
 
-import IconText from "../IconText"
-import { NavLink, Switch, Route } from "react-router-dom"
+import Spinner from "../Spinner"
+import AddSongs from "./AddSongs"
+import AddAlbum from "./AddAlbum"
+import ApiError from "../ApiError"
+import AddButton from "./AddButton"
 
-import routes from "./routes"
-import { propTypes } from "./props"
+import { isNull } from "lodash"
 import reactBem from "@oly_op/react-bem"
 
 import "./index.scss"
 
 const bem = reactBem("Add")
 
-const Add = ({ match }) => (
-  <div className={bem("")}>
-    <div className={bem("nav")}>
-      {routes.map(
-        route => (
-          <NavLink
-            key={route.id}
-            className={bem("nav-link")}
-            to={match.path + route.path}
-            activeClassName={bem("nav-active")}
-            children={(
-              <IconText
-                text={route.name}
-                icon={route.icon}
-                className={bem("nav-link-text")}
-              />
-            )}
-          />
-        ),
-      )}
-    </div>
-    <div className={bem("form")}>
-      <Switch>
-        {routes.map(
-          route => (
-            <Route
-              key={route.id}
-              component={route.component}
-              path={match.path + route.path}
-            />
-          ),
-        )}
-      </Switch>
-    </div>
-  </div>
-)
+const Add = () => {
+  const [ album, setAlbum ] = useState(null)
+  const [ songs, setSongs ] = useState(null)
+  const [ error, setError ] = useState(null)
+  const [ loading, setLoading ] = useState(false)
 
-Add.propTypes = propTypes
+  if (error) {
+    return <ApiError error={error} />
+  } else if (loading) {
+    return <Spinner className="Padding" />
+  } else if (isNull(songs) && isNull(album)) {
+    return (
+      <AddButton
+        setAlbum={setAlbum}
+        setSongs={setSongs}
+        setError={setError}
+        setLoading={setLoading}
+      />
+    )
+  } else {
+    return (
+      <div className={bem("", "Padding")}>
+        <AddAlbum
+          album={album}
+          setAlbum={setAlbum}
+        />
+        <AddSongs
+          album={album}
+          songs={songs}
+          setSongs={setSongs}
+        />
+      </div>
+    )
+  }
+}
 
 export default Add

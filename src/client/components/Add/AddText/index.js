@@ -17,14 +17,11 @@ const AddText = ({
   validator,
   hideLabel,
   className,
+  placeholder,
   handleChange,
-  textClassName,
+  inputClassName,
 }) => {
   const isValid = validator(val)
-  const onChange = event => {
-    const { value } = event.target
-    handleChange(value)
-  }
   return (
     <label className={bem(className, "")}>
       {hideLabel ? null : (
@@ -35,8 +32,9 @@ const AddText = ({
       <div className={bem("main")}>
         <AddInput
           val={val}
-          handleChange={onChange}
-          className={textClassName}
+          placeholder={placeholder}
+          className={inputClassName}
+          handleChange={handleChange}
         />
         <AddValid
           isValid={isValid}
@@ -51,8 +49,9 @@ AddText.propTypes = {
   name: string,
   hideLabel: bool,
   className: string,
-  textClassName: string,
+  placeholder: string,
   val: string.isRequired,
+  inputClassName: string,
   validator: func.isRequired,
   handleChange: func.isRequired,
 }
@@ -61,7 +60,8 @@ AddText.defaultProps = {
   name: null,
   className: null,
   hideLabel: false,
-  textClassName: null,
+  placeholder: null,
+  inputClassName: null,
 }
 
 export default AddText

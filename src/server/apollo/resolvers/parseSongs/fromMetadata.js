@@ -1,4 +1,3 @@
-import sum from "lodash/sum.js"
 import uniq from "lodash/uniq.js"
 import albumReleased from "./albumReleased.js"
 import calculateMode from "../../../helpers/utils/calculateMode.js"
@@ -18,7 +17,6 @@ export const albumFromMetadata = metadata => new Promise(
       cover: albumKeyMode(metadata)("cover"),
       artists: albumKeyMode(metadata)("artists"),
       released: albumKeyMode(metadata)("released"),
-      duration: sum(metadata.map(({ duration }) => duration)),
     }
     albumReleased(album)
       .then(released => resolve({

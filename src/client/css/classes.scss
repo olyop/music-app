@@ -5,11 +5,11 @@
     0 0 8px rgba(#000, 0.2);
   background-color: var(--elevated-color); }
 
-.Padding {
-  padding: var(--space); }
-
 .PaddingHalf {
   padding: calc(var(--space) * 0.5); }
+
+.Padding {
+  padding: var(--space); }
 
 .PaddingDouble {
   padding: calc(var(--space) * 2); }

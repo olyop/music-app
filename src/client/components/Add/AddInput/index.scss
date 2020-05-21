@@ -3,4 +3,6 @@
   width: 100%;
   display: block;
   font-size: 15rem;
-  background-color: transparent; }
+  background-color: transparent;
+  &::-webkit-inner-spin-button {
+    display: none; } }

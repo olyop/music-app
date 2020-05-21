@@ -1,13 +1,18 @@
 import React from "react"
 
 import AddSong from "../AddSong"
+import Button from "../../Button"
 
-import map from "lodash/fp/map.js"
-import orderBy from "lodash/fp/orderBy.js"
+import reactBem from "@oly_op/react-bem"
+import { orderBy, map, sumBy } from "lodash/fp"
 import { object, arrayOf, func } from "prop-types"
 import { pipe, deserializeDuration } from "../../../helpers"
 
-const AddSongs = ({ album, songs, setSongs }) => {
+import "./index.scss"
+
+const bem = reactBem("AddSongs")
+
+const AddSongs = ({ songs, setSongs }) => {
 
   const handleTextChange = ({ id }) => key => value =>
     setSongs(map(
@@ -31,15 +36,21 @@ const AddSongs = ({ album, songs, setSongs }) => {
           )),
         )}
       </div>
-      <p className="Text">
-        {deserializeDuration(album.duration)}
+      <Button
+        text="Add"
+        className={bem("add", "MarginBottomThreeQuart")}
+      />
+      <p className={bem("total", "Text")}>
+        {pipe(songs)(
+          sumBy("duration"),
+          deserializeDuration,
+        )}
       </p>
     </div>
   )
 }
 
 AddSongs.propTypes = {
-  album: object.isRequired,
   setSongs: func.isRequired,
   songs: arrayOf(object).isRequired,
 }

@@ -1,11 +1,13 @@
-import React, { Fragment } from "react"
+import React from "react"
 
 import AddText from "../AddText"
+import AddInput from "../AddInput"
 
+import { isString } from "lodash"
 import reactBem from "@oly_op/react-bem"
 import { isNotEmpty } from "../helpers/validators"
 import { deserializeDuration } from "../../../helpers"
-import { shape, string, number, func } from "prop-types"
+import { shape, string, func, number } from "prop-types"
 
 import "./index.scss"
 
@@ -16,10 +18,15 @@ const AddSong = ({ song, handleText }) => {
     <div className={bem("", "Hover", "PaddingHalf")}>
       <div className={bem("main")}>
         <div className={bem("main-left")}>
-          <p className={bem("main-trackNumber", "Text")}>
-            {song.trackNumber}
-            <Fragment>.</Fragment>
-          </p>
+          <div className={bem("main-trackNumber")}>
+            <AddInput
+              type="number"
+              val={song.trackNumber}
+              handleChange={handleText("trackNumber")}
+              className={bem("main-trackNumber-input")}
+            />
+            <p className={bem("main-trackNumber-dot")}>.</p>
+          </div>
           <AddText
             hideLabel
             val={song.title}
@@ -28,9 +35,20 @@ const AddSong = ({ song, handleText }) => {
             handleChange={handleText("title")}
           />
         </div>
-        <p className={bem("main-duration", "Text")}>
-          {deserializeDuration(song.duration)}
-        </p>
+        <div className={bem("main-right")}>
+          <AddText
+            hideLabel
+            val={song.mix}
+            placeholder="Mix"
+            validator={isString}
+            className={bem("main-mix")}
+            handleChange={handleText("mix")}
+            inputClassName={bem("main-mix-input")}
+          />
+          <p className={bem("main-duration", "Text")}>
+            {deserializeDuration(song.duration)}
+          </p>
+        </div>
       </div>
     </div>
   )

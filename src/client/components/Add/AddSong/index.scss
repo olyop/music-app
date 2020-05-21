@@ -10,9 +10,25 @@
     &-text {
       width: 100%; }
     &-trackNumber {
-      margin-top: 1rem;
+      display: flex;
       font-weight: 700;
-      margin-right: calc(var(--space) * 0.25);; }
+      align-items: flex-end;
+      margin-right: calc(var(--space) * 0.5);
+      &-input {
+        width: 2ch;
+        text-align: right; }
+      &-dot {
+        font-size: 15rem;
+        margin-bottom: 1rem; } }
+    &-right {
+      display: flex; }
+    &-mix,
     &-duration {
-      color: var(--text-color-light);
-      margin-left: calc(var(--space) * 0.5); } } }
+      margin-left: calc(var(--space) * 0.5); }
+    &-mix {
+      width: 50rem;
+      &-input {
+        font-weight: 700;
+        &::placeholder {
+          font-weight: 400;
+          color: var(--text-color-light);} } } } }

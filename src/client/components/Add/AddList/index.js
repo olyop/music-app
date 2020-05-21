@@ -19,10 +19,6 @@ const AddList = ({
   handleChange,
 }) => {
   const isValid = validator(val)
-  const onChange = item => event => {
-    const { value } = event.target
-    handleChange(item)(value)
-  }
   return (
     <div className={bem(className, "")}>
       <AddLabel className={bem("label")}>
@@ -35,7 +31,7 @@ const AddList = ({
               <AddItem
                 val={item.val}
                 className={bem("item-content")}
-                handleInput={onChange(item)}
+                handleInput={handleChange(item)}
               />
               <AddValid
                 isValid={isValid}

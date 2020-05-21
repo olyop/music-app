@@ -40,7 +40,6 @@ const Add = () => {
           setAlbum={setAlbum}
         />
         <AddSongs
-          album={album}
           songs={songs}
           setSongs={setSongs}
         />

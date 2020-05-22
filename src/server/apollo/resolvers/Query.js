@@ -15,6 +15,7 @@ import {
   SELECT_TOP_TEN_SONGS,
 } from "../../sql/index.js"
 
+import parseUrl from "./parseUrl.js"
 import docSearch from "./common/docSearch.js"
 import parseSongs from "./parseSongs/index.js"
 import sqlJoin from "../../helpers/sql/sqlJoin.js"
@@ -232,6 +233,7 @@ const queryResolver =
     artist,
     artists,
     playlist,
+    parseUrl,
     playlists,
     newAlbums,
     parseSongs,

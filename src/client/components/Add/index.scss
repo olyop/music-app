@@ -1,4 +1,5 @@
 .Add {
   display: grid;
   gap: var(--space);
-  grid-template-columns: 1fr 2fr; }
+  font-family: monospace;
+  grid-template-columns: 300px auto; }

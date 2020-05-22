@@ -1,8 +1,8 @@
 .AddCover {
   &:hover &__img {
-    filter: blur(2px); }
+    filter: blur(4px); }
   &:hover &__black {
-    opacity: 0.8; }
+    opacity: 0.9; }
   &:hover &__buttons {
     opacity: 1; }
   &__img,
@@ -45,12 +45,12 @@
     justify-content: center;
     &-item {
       border: 0;
-      width: 100%;
       outline: none;
       display: block;
       cursor: pointer;
       font-size: 15rem;
       text-align: center;
+      width: 100% !important;
       background-color: transparent;
       color: var(--text-color-white);
       padding: calc(var(--space) * 0.5);

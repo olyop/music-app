@@ -1,21 +1,29 @@
 .AddItem {
+  --height: 25rem;
   --font-size: 18rem;
   --padding: calc(var(--space) * 0.25);
   display: flex;
-  &__left {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;}
+  position: relative;
+  align-items: center;
+  height: var(--height);
+  &:hover
+  &__remove {
+    opacity: 1; }
   &__img {
-    width: 28rem;
-    height: 28rem;
-    min-width: 28rem;
-    min-height: 28rem; }
+    width: var(--height);
+    height: var(--height); }
   &__input {
-    padding: calc(var(--space) * 0.25); }
-  &__delete {
-    margin: 0 3rem;
-    height: var(--font-size);
-    font-size: var(--font-size);
-    width: var(--font-size); } }
+    margin: 5rem 6rem 4rem; }
+  &__remove {
+    opacity: 0;
+    top: -6rem;
+    right: -6rem;
+    width: 13rem;
+    height: 13rem;
+    font-size: 13rem;
+    position: absolute;
+    border-radius: 100%;
+    color: var(--text-color-white);
+    background-color: #ef5350 !important;
+    transition-property: opacity !important;
+    transition-duration: var(--transition-duration) !important; } }

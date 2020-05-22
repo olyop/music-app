@@ -1,4 +1,6 @@
-import React from "react"
+import React, { Fragment } from "react"
+
+import Icon from "../Icon"
 
 import reactBem from "@oly_op/react-bem"
 import { string, func } from "prop-types"
@@ -7,23 +9,31 @@ import "./index.scss"
 
 const bem = reactBem("Button")
 
-const Button = ({ text, onClick, className }) => (
+const Button = ({ text, icon, onClick, className }) => (
   <button
     title={text}
     type="button"
-    children={text}
     onClick={onClick}
     className={bem(className, "", "Hover")}
+    children={(
+      <Fragment>
+        {icon ? <Icon className={bem("icon")} icon={icon} /> : null}
+        {text ? <span className={bem("text")}>{text}</span> : null}
+      </Fragment>
+    )}
   />
 )
 
 Button.propTypes = {
+  icon: string,
+  text: string,
   onClick: func,
   className: string,
-  text: string.isRequired,
 }
 
 Button.defaultProps = {
+  icon: null,
+  text: null,
   onClick: null,
   className: null,
 }

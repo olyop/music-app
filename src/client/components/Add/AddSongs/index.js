@@ -1,8 +1,9 @@
 import React from "react"
 
 import AddSong from "../AddSong"
-import Button from "../../Button"
+import AddFile from "../AddFile"
 
+import { noop } from "lodash"
 import reactBem from "@oly_op/react-bem"
 import { orderBy, map, sumBy } from "lodash/fp"
 import { object, arrayOf, func } from "prop-types"
@@ -13,15 +14,8 @@ import "./index.scss"
 const bem = reactBem("AddSongs")
 
 const AddSongs = ({ songs, setSongs }) => {
-
-  const handleTextChange = ({ id }) => key => value =>
-    setSongs(map(
-      song => (song.id === id ? ({
-        ...song,
-        [key]: value,
-      }) : song),
-    ))
-
+  const handleChange = ({ id }) => value =>
+    setSongs(map(song => (song.id === id ? value : song)))
   return (
     <div>
       <div className="Elevated MarginBottomThreeQuart">
@@ -31,13 +25,16 @@ const AddSongs = ({ songs, setSongs }) => {
             <AddSong
               song={song}
               key={song.id}
-              handleText={handleTextChange(song)}
+              className="ItemBorder"
+              handleChange={handleChange(song)}
             />
           )),
         )}
       </div>
-      <Button
+      <AddFile
         text="Add"
+        icon="add"
+        handleChange={noop}
         className={bem("add", "MarginBottomThreeQuart")}
       />
       <p className={bem("total", "Text")}>

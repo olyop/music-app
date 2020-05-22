@@ -1,44 +1,43 @@
 import React from "react"
 
+import Icon from "../../Icon"
 import AddItem from "../AddItem"
-import AddLabel from "../AddLabel"
-import AddValid from "../AddValid"
 
 import reactBem from "@oly_op/react-bem"
+import { uniqueId, isEmpty } from "lodash"
 import { arrayOf, string, object, func } from "prop-types"
 
 import "./index.scss"
 
 const bem = reactBem("AddList")
 
-const AddList = ({
-  val,
-  name,
-  validator,
-  className,
-  handleChange,
-}) => {
-  const isValid = validator(val)
+const AddList = ({ val, className, handleChange }) => {
+  const handleAdd = () =>
+    handleChange(val.concat({ id: uniqueId(), val: "" }))
+  const handleRemove = ({ id }) => () =>
+    handleChange(val.filter(item => item.id !== id))
+  const handleInput = ({ id }) => value =>
+    handleChange(val.map(item => (item.id === id ? { id, val: value } : item)))
   return (
     <div className={bem(className, "")}>
-      <AddLabel className={bem("label")}>
-        {name}
-      </AddLabel>
-      <div className={bem("items")}>
+      <div className={bem("inner")}>
         {val.map(
           item => (
-            <div key={item.id} className={bem("item")}>
-              <AddItem
-                val={item.val}
-                className={bem("item-content")}
-                handleInput={handleChange(item)}
-              />
-              <AddValid
-                isValid={isValid}
-              />
-            </div>
+            <AddItem
+              key={item.id}
+              val={item.val}
+              className={bem("item")}
+              handleInput={handleInput(item)}
+              handleRemove={handleRemove(item)}
+            />
           ),
         )}
+        <Icon
+          icon="add"
+          onClick={handleAdd}
+          className={bem("add")}
+          style={{ display: isEmpty(val.val) ? "block" : null }}
+        />
       </div>
     </div>
   )
@@ -46,8 +45,6 @@ const AddList = ({
 
 AddList.propTypes = {
   className: string,
-  name: string.isRequired,
-  validator: func.isRequired,
   handleChange: func.isRequired,
   val: arrayOf(object).isRequired,
 }

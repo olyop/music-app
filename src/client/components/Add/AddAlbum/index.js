@@ -1,12 +1,12 @@
 import React from "react"
 
-import AddAlbumText from "../AddText"
-import AddAlbumList from "../AddList"
-import AddAlbumCover from "../AddCover"
+import AddList from "../AddList"
+import AddCover from "../AddCover"
+import AddLabel from "../AddLabel"
+import AddInput from "../AddInput"
 
 import reactBem from "@oly_op/react-bem"
 import { object, func } from "prop-types"
-import { isNotEmpty } from "../helpers/validators"
 
 import "./index.scss"
 
@@ -14,52 +14,44 @@ const bem = reactBem("AddAlbum")
 
 const AddAlbum = ({ album, setAlbum }) => {
 
-  const handleCoverChange = cover =>
+  const handleChange = objKey => val =>
     setAlbum(prevState => ({
       ...prevState,
-      cover,
-    }))
-
-  const handleTextChange = (setState, objKey) => value =>
-    setState(prevState => ({
-      ...prevState,
-      [objKey]: value,
-    }))
-
-  const handleListChange = (setState, objKey) => ({ id }) => value =>
-    setState(prevState => ({
-      ...prevState,
-      [objKey]: prevState[objKey].map(item => (
-        item.id === id ? { id, val: value } : item
-      )),
+      [objKey]: val,
     }))
 
   return (
     <div>
-      <AddAlbumCover
+      <AddCover
         album={album}
-        handleChange={handleCoverChange}
+        handleChange={handleChange("cover")}
+        className="MarginBottom Card Elevated"
       />
-      <AddAlbumText
-        name="title"
+      <AddLabel
+        children="title"
+        className="MarginBottomQuart"
+      />
+      <AddInput
         val={album.title}
-        textClassName={bem("title")}
-        className="MarginBottomThreeQuart"
-        validator={val => isNotEmpty(val)}
-        handleChange={handleTextChange(setAlbum, "title")}
+        handleChange={handleChange("title")}
+        className={bem("title", "MarginBottomThreeQuart")}
       />
-      <AddAlbumText
-        name="released"
-        val={album.released}
-        className="MarginBottomThreeQuart"
-        handleChange={handleTextChange(setAlbum, "released")}
-        validator={val => !isNaN(Date.parse(val)) && Date.parse(val) <= Date.now()}
+      <AddLabel
+        children="artists"
+        className="MarginBottomQuart"
       />
-      <AddAlbumList
-        name="artists"
+      <AddList
         val={album.artists}
-        validator={Array.isArray}
-        handleChange={handleListChange(setAlbum, "artists")}
+        className="MarginBottomThreeQuart"
+        handleChange={handleChange("artists")}
+      />
+      <AddLabel
+        children="released"
+        className="MarginBottomQuart"
+      />
+      <AddInput
+        val={album.released}
+        handleChange={handleChange("released")}
       />
     </div>
   )

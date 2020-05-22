@@ -1,11 +1,10 @@
 import React from "react"
 
-import AddText from "../AddText"
+import AddList from "../AddList"
 import AddInput from "../AddInput"
 
-import { isString } from "lodash"
+import { isEmpty } from "lodash"
 import reactBem from "@oly_op/react-bem"
-import { isNotEmpty } from "../helpers/validators"
 import { deserializeDuration } from "../../../helpers"
 import { shape, string, func, number } from "prop-types"
 
@@ -13,54 +12,84 @@ import "./index.scss"
 
 const bem = reactBem("AddSong")
 
-const AddSong = ({ song, handleText }) => {
+const AddSong = ({ song, handleChange, className }) => {
+  const onChange = key => val =>
+    handleChange({ ...song, [key]: val })
   return (
-    <div className={bem("", "Hover", "PaddingHalf")}>
-      <div className={bem("main")}>
+    <div className={bem(className, "", "PaddingHalf")}>
+      <div className={bem("main", "MarginBottomQuart")}>
         <div className={bem("main-left")}>
           <div className={bem("main-trackNumber")}>
             <AddInput
               type="number"
               val={song.trackNumber}
-              handleChange={handleText("trackNumber")}
+              handleChange={onChange("trackNumber")}
               className={bem("main-trackNumber-input")}
             />
-            <p className={bem("main-trackNumber-dot")}>.</p>
+            <p
+              children="."
+              className={bem("main-trackNumber-dot")}
+            />
           </div>
-          <AddText
-            hideLabel
+          <AddInput
             val={song.title}
-            validator={isNotEmpty}
             className={bem("main-text")}
-            handleChange={handleText("title")}
+            handleChange={onChange("title")}
           />
-        </div>
-        <div className={bem("main-right")}>
-          <AddText
-            hideLabel
+          <AddInput
             val={song.mix}
             placeholder="Mix"
-            validator={isString}
             className={bem("main-mix")}
-            handleChange={handleText("mix")}
+            handleChange={onChange("mix")}
             inputClassName={bem("main-mix-input")}
+            style={{ display: !isEmpty(song.mix) ? "block" : null }}
           />
-          <p className={bem("main-duration", "Text")}>
-            {deserializeDuration(song.duration)}
-          </p>
         </div>
+        <p className={bem("main-duration")}>
+          {deserializeDuration(song.duration)}
+        </p>
+      </div>
+      <div className={bem("lists")}>
+        <AddList
+          val={song.artists}
+          handleChange={onChange("artists")}
+        />
+        {isEmpty(song.featuring) ? null : (
+          <p className={bem("lists-feat")}>feat.</p>
+        )}
+        <AddList
+          val={song.featuring}
+          className={bem("lists-feat-list")}
+          handleChange={onChange("featuring")}
+        />
+        {isEmpty(song.remixers) ? null : (
+          <p className={bem("lists-feat")}>&#40;</p>
+        )}
+        <AddList
+          val={song.remixers}
+          className={bem("lists-feat-list")}
+          handleChange={onChange("remixers")}
+        />
+        {isEmpty(song.remixers) ? null : (
+          <p className={bem("lists-feat")}>Remix)</p>
+        )}
       </div>
     </div>
   )
 }
 
 AddSong.propTypes = {
+  className: string,
+  handleChange: func.isRequired,
   song: shape({
     title: string.isRequired,
     duration: number.isRequired,
     trackNumber: number.isRequired,
   }).isRequired,
-  handleText: func.isRequired,
+}
+
+AddSong.defaultProps = {
+  className: null,
 }
 
 export default AddSong

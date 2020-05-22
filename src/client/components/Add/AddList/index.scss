@@ -1,20 +1,20 @@
 .AddList {
-  &__label {
-    margin-bottom: calc(var(--space) * 0.25); }
-  &__items {
+  --margin: calc(var(--space) * 0.125);
+  display: flex;
+  &__inner {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
-    flex-direction: column; }
+    margin: calc(var(--margin) * -1); }
   &__item {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    margin-bottom: calc(var(--space) * 0.25);
-    &:last-child {
-      margin-bottom: 0; }
-    &-content {
-      width: 100%;
-      border-radius: var(--border-radius);
-      border: 1px solid var(--border-color);
-      margin-right: calc(var(--space) * 0.5);
-      background-color: var(--elevated-color); } } }
+    margin: var(--margin);
+    box-sizing: content-box;
+    border-radius: var(--border-radius);
+    border: 1px solid var(--border-color);
+    background-color: var(--elevated-color); }
+  &__add {
+    width: 18rem;
+    height: 18rem;
+    font-size: 18rem;
+    margin-left: 3rem;
+    margin-bottom: 1rem; } }

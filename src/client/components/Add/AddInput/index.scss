@@ -3,6 +3,12 @@
   width: 100%;
   display: block;
   font-size: 15rem;
+  font-family: monospace;
   background-color: transparent;
+  &:hover,
+  &:focus {
+    border: 0;
+    outline-offset: 10rem;
+    outline-color: rgba(#4d90fe, 0.7); }
   &::-webkit-inner-spin-button {
     display: none; } }

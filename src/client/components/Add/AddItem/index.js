@@ -21,7 +21,7 @@ const hideCover = (data, val) => (
   data.artistSearch[0].name !== val
 )
 
-const AddItem = ({ val, handleInput, className }) => (
+const AddItem = ({ val, handleInput, handleRemove, className }) => (
   <div className={bem(className, "")}>
     <QueryApi
       query={GET_ARTIST_SEARCH}
@@ -36,17 +36,17 @@ const AddItem = ({ val, handleInput, className }) => (
         ))
       }
     />
-    <div className={bem("left")}>
-      <AddAlbumInput
-        val={val}
-        className={bem("input")}
-        handleChange={handleInput}
-      />
-      <Icon
-        icon="close"
-        className={bem("delete")}
-      />
-    </div>
+    <AddAlbumInput
+      val={val}
+      className={bem("input")}
+      handleChange={handleInput}
+    />
+    <Icon
+      icon="close"
+      title="Delete"
+      onClick={handleRemove}
+      className={bem("remove")}
+    />
   </div>
 )
 
@@ -54,6 +54,7 @@ AddItem.propTypes = {
   className: string,
   val: string.isRequired,
   handleInput: func.isRequired,
+  handleRemove: func.isRequired,
 }
 
 AddItem.defaultProps = {

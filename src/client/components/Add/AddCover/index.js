@@ -6,15 +6,18 @@ import Spinner from "../../Spinner"
 import IconText from "../../IconText"
 
 import { isEmpty } from "lodash"
+import client from "../../../apollo"
 import reactBem from "@oly_op/react-bem"
-import { func, instanceOf, shape } from "prop-types"
-import { blobToDataUrl } from "../helpers/dataUrlBlobConvert"
+import { func, instanceOf, shape, string } from "prop-types"
+import { dataUrlToBlob, blobToDataUrl } from "../helpers/dataUrlBlobConvert"
+
+import GET_PARSE_URL from "../../../graphql/queries/getParseUrl.gql"
 
 import "./index.scss"
 
 const bem = reactBem("AddCover")
 
-const AddCover = ({ album, handleChange }) => {
+const AddCover = ({ album, className, handleChange }) => {
   const [ url, setUrl ] = useState("")
   const [ cover, setCover ] = useState("")
   const [ loading, setLoading ] = useState(false)
@@ -26,16 +29,12 @@ const AddCover = ({ album, handleChange }) => {
   const toggleLoading = () =>
     setLoading(prevState => !prevState)
 
-  const handleUrlChange = event => {
-    const { value } = event.target
-    setUrl(value)
-  }
-
   const handleUrlSubmit = () => {
     if (!isEmpty(url)) {
       toggleLoading()
-      fetch(url)
-        .then(res => res.blob())
+      client.query({ query: GET_PARSE_URL, variables: { url } })
+        .then(({ data: { parseUrl } }) => parseUrl)
+        .then(dataUrlToBlob)
         .then(handleChange)
         .finally(() => {
           setUrl("")
@@ -58,7 +57,7 @@ const AddCover = ({ album, handleChange }) => {
     <Img
       url={cover}
       imgClassName={bem("img")}
-      className={bem("", "MarginBottom Card Elevated")}
+      className={bem(className, "")}
     >
       <div
         className={bem("black")}
@@ -74,7 +73,7 @@ const AddCover = ({ album, handleChange }) => {
             <div className={bem("form")}>
               <AddInput
                 val={url}
-                handleChange={handleUrlChange}
+                handleChange={setUrl}
                 className={bem("form-item")}
                 placeholder="paste url here..."
               />
@@ -127,10 +126,15 @@ const AddCover = ({ album, handleChange }) => {
 }
 
 AddCover.propTypes = {
+  className: string,
   handleChange: func.isRequired,
   album: shape({
     cover: instanceOf(Blob).isRequired,
   }).isRequired,
+}
+
+AddCover.defaultProps = {
+  className: null,
 }
 
 export default AddCover

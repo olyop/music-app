@@ -22,6 +22,7 @@ type Query {
   # miscellaneous queries
   newAlbums: [Album!]!
   topTenSongs: [Song!]!
-  parseSongs(files: [Upload!]!): Json!
+  parseUrl(url: String!): String!
   albumReleased(title: String!): Int
+  parseSongs(files: [Upload!]!): Json!
 }

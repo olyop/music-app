@@ -1,7 +1,5 @@
 .AddSongs {
   &__add {
-    padding: calc(var(--space) * 0.25) !important;
-    &-text {
-      font-size: 15rem; } }
+    width: 78rem; }
   &__total {
     color: var(--text-color-light); } }

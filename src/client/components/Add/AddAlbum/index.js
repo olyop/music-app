@@ -13,13 +13,11 @@ import "./index.scss"
 const bem = reactBem("AddAlbum")
 
 const AddAlbum = ({ album, handleChange, className }) => {
-
   const onChange = objKey => val =>
     handleChange(prevState => ({
       ...prevState,
       [objKey]: val,
     }))
-
   return (
     <div className={className}>
       <AddCover
@@ -43,8 +41,9 @@ const AddAlbum = ({ album, handleChange, className }) => {
       <AddList
         addText="Artist"
         val={album.artists}
-        className="MarginBottomThreeQuart"
+        addClassName={bem("artists-add")}
         handleChange={onChange("artists")}
+        className={bem("artists", "MarginBottomThreeQuart")}
       />
       <AddLabel
         children="released"

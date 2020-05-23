@@ -8,17 +8,20 @@ import ApiError from "../ApiError"
 import AddButton from "./AddButton"
 
 import reactBem from "@oly_op/react-bem"
-import { isNull, orderBy } from "lodash"
+import { isNull, orderBy, isEmpty } from "lodash"
+import determineGenres from "./helpers/determineGenres"
+import determineArtists from "./helpers/determineArtists"
 
 import "./index.scss"
 
 const bem = reactBem("Add")
 
 const Add = () => {
-  const [ album, setAlbum ] = useState(null)
-  const [ songs, setSongs ] = useState(null)
   const [ error, setError ] = useState(null)
   const [ loading, setLoading ] = useState(false)
+
+  const [ album, setAlbum ] = useState(null)
+  const [ songs, setSongs ] = useState(null)
 
   if (error) {
     return <ApiError error={error} />
@@ -38,6 +41,12 @@ const Add = () => {
   const songsOrdered =
     orderBy(songs, ["discNumber", "trackNumber"], ["asc", "asc"])
 
+  const genres =
+    determineGenres(songs)
+
+  const artists =
+    determineArtists(album, songs)
+
   return (
     <div className={bem("", "Padding")}>
       <AddAlbum
@@ -49,10 +58,22 @@ const Add = () => {
         songs={songsOrdered}
         handleChange={setSongs}
       />
-      <AddDocs
-        album={album}
-        songs={songsOrdered}
-      />
+      <div>
+        {isEmpty(artists) ? null : (
+          <AddDocs
+            docs={artists}
+            label="Artists"
+            className={bem("docs")}
+          />
+        )}
+        {isEmpty(genres) ? null : (
+          <AddDocs
+            docs={genres}
+            label="Genres"
+            className={bem("docs")}
+          />
+        )}
+      </div>
     </div>
   )
 }

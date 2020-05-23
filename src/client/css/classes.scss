@@ -17,6 +17,12 @@
 .Margin {
   margin: var(--space); }
 
+.MarginTopOneAndHalf {
+  margin-top: calc(var(--space) * 1.5); }
+
+.MarginQuart {
+  margin: calc(var(--space) * 0.25); }
+
 .MarginTopHalf {
   margin-top: calc(var(--space) * 0.5); }
 

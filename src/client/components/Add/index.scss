@@ -7,4 +7,8 @@
     display: block; }
   &__album {
     @media (max-width: 1000px) {
-      margin-bottom: var(--space); } } }
+      margin-bottom: var(--space); } }
+  &__docs {
+    margin-bottom: var(--space);
+    &:last-child {
+      margin-bottom: 0; } } }

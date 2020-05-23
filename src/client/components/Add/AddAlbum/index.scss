@@ -2,4 +2,9 @@
   &__title {
     max-width: 100%;
     font-size: 22rem;
-    font-weight: 700; } }
+    font-weight: 700; }
+  &__artists {
+    &-add {
+      display: none; }
+    &:hover &-add {
+      display: flex; } } }

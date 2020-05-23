@@ -1,34 +1,41 @@
 import React from "react"
 
-import AddCover from "../AddCover"
+import AddDoc from "../AddDoc"
+import AddLabel from "../AddLabel"
 
-import { noop } from "lodash"
-import { object, arrayOf } from "prop-types"
-import determineArtists from "./determineArtists"
+import reactBem from "@oly_op/react-bem"
+import { arrayOf, string } from "prop-types"
 
-const AddDocs = ({ album, songs }) => {
-  const artists = determineArtists(album, songs)
-  return (
-    <div>
-      {artists.map(
-        artist => (
-          <div key={artist} className="Elevated Card MarginBottomHalf">
-            <AddCover
-              landscape
-              handleChange={noop}
-              img={new Blob([""], { type: "image.jpeg" })}
-            />
-            <p className="Text PaddingHalf">{artist}</p>
-          </div>
-        ),
-      )}
-    </div>
-  )
-}
+import "./index.scss"
+
+const bem = reactBem("AddDocs")
+
+const AddDocs = ({ docs, label, className }) => (
+  <div className={bem(className)}>
+    <AddLabel
+      children={label}
+      className={bem("label", "MarginBottomHalf")}
+    />
+    {docs.map(
+      doc => (
+        <AddDoc
+          key={doc}
+          doc={doc}
+          className={bem("item")}
+        />
+      ),
+    )}
+  </div>
+)
 
 AddDocs.propTypes = {
-  album: object.isRequired,
-  songs: arrayOf(object).isRequired,
+  className: string,
+  label: string.isRequired,
+  docs: arrayOf(string).isRequired,
+}
+
+AddDoc.defaultProps = {
+  className: null,
 }
 
 export default AddDocs

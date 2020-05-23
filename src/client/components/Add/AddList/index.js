@@ -1,17 +1,17 @@
 import React from "react"
 
-import Icon from "../../Icon"
 import AddItem from "../AddItem"
+import IconText from "../../IconText"
 
+import { uniqueId } from "lodash"
 import reactBem from "@oly_op/react-bem"
-import { uniqueId, isEmpty } from "lodash"
 import { arrayOf, string, object, func } from "prop-types"
 
 import "./index.scss"
 
 const bem = reactBem("AddList")
 
-const AddList = ({ val, className, handleChange }) => {
+const AddList = ({ val, addText, className, addClassName, handleChange }) => {
   const handleAdd = () =>
     handleChange(val.concat({ id: uniqueId(), val: "" }))
   const handleRemove = ({ id }) => () =>
@@ -32,11 +32,13 @@ const AddList = ({ val, className, handleChange }) => {
             />
           ),
         )}
-        <Icon
+        <IconText
           icon="add"
+          text={addText}
           onClick={handleAdd}
-          className={bem("add")}
-          style={{ display: isEmpty(val.val) ? "block" : null }}
+          iconClassName={bem("add-icon")}
+          textClassName={bem("add-text")}
+          className={bem(addClassName, "add")}
         />
       </div>
     </div>
@@ -45,12 +47,15 @@ const AddList = ({ val, className, handleChange }) => {
 
 AddList.propTypes = {
   className: string,
+  addClassName: string,
+  addText: string.isRequired,
   handleChange: func.isRequired,
   val: arrayOf(object).isRequired,
 }
 
 AddList.defaultProps = {
   className: null,
+  addClassName: null,
 }
 
 export default AddList

@@ -1,6 +1,8 @@
 .AddSong {
   &:hover &__main-mix {
     opacity: 1; }
+  &:hover &__lists-add {
+    display: flex; }
   &__main {
     display: flex;
     align-items: center;
@@ -36,9 +38,11 @@
   &__lists {
     display: flex;
     align-items: center;
+    &-add {
+      display: none; }
     &-feat {
       font-size: 15rem;
-      margin-top: 3rem;
+      margin-top: 1rem;
       margin-left: 10rem;
       margin-right: -5rem;
       color: var(--text-color-light);

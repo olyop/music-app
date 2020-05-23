@@ -1,13 +1,14 @@
 import React, { useState } from "react"
 
+import AddDocs from "./AddDocs"
 import Spinner from "../Spinner"
 import AddSongs from "./AddSongs"
 import AddAlbum from "./AddAlbum"
 import ApiError from "../ApiError"
 import AddButton from "./AddButton"
 
-import { isNull } from "lodash"
 import reactBem from "@oly_op/react-bem"
+import { isNull, orderBy } from "lodash"
 
 import "./index.scss"
 
@@ -32,20 +33,28 @@ const Add = () => {
         setLoading={setLoading}
       />
     )
-  } else {
-    return (
-      <div className={bem("", "Padding")}>
-        <AddAlbum
-          album={album}
-          setAlbum={setAlbum}
-        />
-        <AddSongs
-          songs={songs}
-          setSongs={setSongs}
-        />
-      </div>
-    )
   }
+
+  const songsOrdered =
+    orderBy(songs, ["discNumber", "trackNumber"], ["asc", "asc"])
+
+  return (
+    <div className={bem("", "Padding")}>
+      <AddAlbum
+        album={album}
+        handleChange={setAlbum}
+        className={bem("album")}
+      />
+      <AddSongs
+        songs={songsOrdered}
+        handleChange={setSongs}
+      />
+      <AddDocs
+        album={album}
+        songs={songsOrdered}
+      />
+    </div>
+  )
 }
 
 export default Add

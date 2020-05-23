@@ -13,8 +13,18 @@
     border: 1px solid var(--border-color);
     background-color: var(--elevated-color); }
   &__add {
-    width: 18rem;
-    height: 18rem;
-    font-size: 18rem;
     margin-left: 3rem;
-    margin-bottom: 1rem; } }
+    margin-bottom: 1rem;
+    padding: 2rem !important;
+    background-color: transparent;
+    border-radius: var(--border-radius);
+    &-icon {
+      width: 15rem;
+      height: 15rem;
+      font-size: 15rem;
+      margin-right: 1rem; }
+    &-text {
+      font-size: 12rem;
+      margin-top: 3rem;
+      margin-right: 2rem;
+      text-transform: uppercase; } } }

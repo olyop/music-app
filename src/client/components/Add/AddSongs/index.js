@@ -1,11 +1,9 @@
 import React from "react"
 
 import AddSong from "../AddSong"
-import AddFile from "../AddFile"
 
-import { noop } from "lodash"
+import { map, sumBy } from "lodash/fp"
 import reactBem from "@oly_op/react-bem"
-import { orderBy, map, sumBy } from "lodash/fp"
 import { object, arrayOf, func } from "prop-types"
 import { pipe, deserializeDuration } from "../../../helpers"
 
@@ -13,30 +11,23 @@ import "./index.scss"
 
 const bem = reactBem("AddSongs")
 
-const AddSongs = ({ songs, setSongs }) => {
-  const handleChange = ({ id }) => value =>
-    setSongs(map(song => (song.id === id ? value : song)))
+const AddSongs = ({ songs, handleChange }) => {
+  const onChange = ({ id }) => value =>
+    handleChange(map(song => (song.id === id ? value : song)))
   return (
     <div>
       <div className="Elevated MarginBottomThreeQuart">
-        {pipe(songs)(
-          orderBy(["discNumber", "trackNumber"], ["asc", "asc"]),
-          map(song => (
+        {songs.map(
+          song => (
             <AddSong
               song={song}
               key={song.id}
               className="ItemBorder"
-              handleChange={handleChange(song)}
+              handleChange={onChange(song)}
             />
-          )),
+          ),
         )}
       </div>
-      <AddFile
-        text="Add"
-        icon="add"
-        handleChange={noop}
-        className={bem("add", "MarginBottomThreeQuart")}
-      />
       <p className={bem("total", "Text")}>
         {pipe(songs)(
           sumBy("duration"),
@@ -48,7 +39,7 @@ const AddSongs = ({ songs, setSongs }) => {
 }
 
 AddSongs.propTypes = {
-  setSongs: func.isRequired,
+  handleChange: func.isRequired,
   songs: arrayOf(object).isRequired,
 }
 

@@ -2,3 +2,4 @@ node_modules/
 src/server/build/
 dist/
 .env
+.vscode

@@ -8,7 +8,7 @@ import IconText from "../../IconText"
 import { isEmpty } from "lodash"
 import client from "../../../apollo"
 import reactBem from "@oly_op/react-bem"
-import { func, instanceOf, shape, string } from "prop-types"
+import { func, instanceOf, string, bool } from "prop-types"
 import { dataUrlToBlob, blobToDataUrl } from "../helpers/dataUrlBlobConvert"
 
 import GET_PARSE_URL from "../../../graphql/queries/getParseUrl.gql"
@@ -17,7 +17,7 @@ import "./index.scss"
 
 const bem = reactBem("AddCover")
 
-const AddCover = ({ album, className, handleChange }) => {
+const AddCover = ({ img, landscape, className, handleChange }) => {
   const [ url, setUrl ] = useState("")
   const [ cover, setCover ] = useState("")
   const [ loading, setLoading ] = useState(false)
@@ -50,14 +50,14 @@ const AddCover = ({ album, className, handleChange }) => {
   }
 
   useEffect(() => {
-    blobToDataUrl(album.cover).then(setCover)
-  }, [album.cover])
+    blobToDataUrl(img).then(setCover)
+  }, [img])
 
   return (
     <Img
       url={cover}
       imgClassName={bem("img")}
-      className={bem(className, "")}
+      className={bem(landscape ? "landscape" : null, className, "")}
     >
       <div
         className={bem("black")}
@@ -126,15 +126,15 @@ const AddCover = ({ album, className, handleChange }) => {
 }
 
 AddCover.propTypes = {
+  landscape: bool,
   className: string,
   handleChange: func.isRequired,
-  album: shape({
-    cover: instanceOf(Blob).isRequired,
-  }).isRequired,
+  img: instanceOf(Blob).isRequired,
 }
 
 AddCover.defaultProps = {
   className: null,
+  landscape: false,
 }
 
 export default AddCover

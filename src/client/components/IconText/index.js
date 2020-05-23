@@ -9,7 +9,9 @@ import "./index.scss"
 
 const bem = reactBem("IconText")
 
-const IconText = ({ icon, text, onClick, className, iconClassName, textClassName }) => (
+const IconText = ({
+  icon, text, onClick, className, iconClassName, textClassName,
+}) => (
   <button
     type="button"
     onClick={onClick}

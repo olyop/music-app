@@ -5,6 +5,9 @@
     opacity: 0.9; }
   &:hover &__buttons {
     opacity: 1; }
+  &__landscape {
+    &::before {
+      padding-top: 56.25%; } }
   &__img,
   &__black,
   &__button,

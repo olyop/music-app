@@ -51,14 +51,18 @@ const AddSong = ({ song, handleChange, className }) => {
       </div>
       <div className={bem("lists")}>
         <AddList
+          addText="artist"
           val={song.artists}
+          addClassName={bem("lists-add")}
           handleChange={onChange("artists")}
         />
         {isEmpty(song.featuring) ? null : (
           <p className={bem("lists-feat")}>feat.</p>
         )}
         <AddList
+          addText="feat"
           val={song.featuring}
+          addClassName={bem("lists-add")}
           className={bem("lists-feat-list")}
           handleChange={onChange("featuring")}
         />
@@ -66,7 +70,9 @@ const AddSong = ({ song, handleChange, className }) => {
           <p className={bem("lists-feat")}>&#40;</p>
         )}
         <AddList
+          addText="remix"
           val={song.remixers}
+          addClassName={bem("lists-add")}
           className={bem("lists-feat-list")}
           handleChange={onChange("remixers")}
         />

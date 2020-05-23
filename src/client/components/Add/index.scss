@@ -2,4 +2,9 @@
   display: grid;
   gap: var(--space);
   font-family: monospace;
-  grid-template-columns: 300px auto; }
+  grid-template-columns: 300px auto 250px;
+  @media (max-width: 1000px) {
+    display: block; }
+  &__album {
+    @media (max-width: 1000px) {
+      margin-bottom: var(--space); } } }

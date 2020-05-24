@@ -24,5 +24,6 @@ type Query {
   topTenSongs: [Song!]!
   parseUrl(url: String!): String!
   albumReleased(title: String!): Int
+  imageSearch(query: String!): String!
   parseSongs(files: [Upload!]!): Json!
 }

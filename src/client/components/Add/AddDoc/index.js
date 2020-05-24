@@ -12,8 +12,7 @@ const hideDoc = data =>
   (isUndefined(data) || !isEmpty(data.artistSearch))
 
 const AddDoc = ({ doc, className }) => {
-  const init = new Blob([""], { type: "image/jpeg" })
-  const [ cover, setCover ] = useState(init)
+  const [ cover, setCover ] = useState(null)
   return (
     <QueryApi
       spinner={false}
@@ -25,6 +24,7 @@ const AddDoc = ({ doc, className }) => {
             <div key={doc} className={`${className} Elevated Card`}>
               <AddCover
                 landscape
+                name={doc}
                 img={cover}
                 handleChange={setCover}
               />

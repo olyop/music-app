@@ -16,6 +16,7 @@ import {
 } from "../../sql/index.js"
 
 import parseUrl from "./parseUrl.js"
+import imageSearch from "./imageSearch.js"
 import docSearch from "./common/docSearch.js"
 import parseSongs from "./parseSongs/index.js"
 import sqlJoin from "../../helpers/sql/sqlJoin.js"
@@ -241,6 +242,7 @@ const queryResolver =
     albumSearch,
     genreSearch,
     topTenSongs,
+    imageSearch,
     artistSearch,
   })
 

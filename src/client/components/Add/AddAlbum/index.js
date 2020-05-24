@@ -22,6 +22,7 @@ const AddAlbum = ({ album, handleChange, className }) => {
     <div className={className}>
       <AddCover
         img={album.cover}
+        name={album.title}
         handleChange={onChange("cover")}
         className="MarginBottom Card Elevated"
       />

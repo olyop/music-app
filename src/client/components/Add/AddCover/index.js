@@ -5,19 +5,21 @@ import AddInput from "../AddInput"
 import Spinner from "../../Spinner"
 import IconText from "../../IconText"
 
-import { isEmpty } from "lodash"
 import client from "../../../apollo"
+import { isEmpty, isNull } from "lodash"
 import reactBem from "@oly_op/react-bem"
+import defaultDataUrl from "./defaultDataUrl"
 import { func, instanceOf, string, bool } from "prop-types"
 import { dataUrlToBlob, blobToDataUrl } from "../helpers/dataUrlBlobConvert"
 
 import GET_PARSE_URL from "../../../graphql/queries/getParseUrl.gql"
+import GET_IMAGE_SEARCH from "../../../graphql/queries/getImageSearch.gql"
 
 import "./index.scss"
 
 const bem = reactBem("AddCover")
 
-const AddCover = ({ img, landscape, className, handleChange }) => {
+const AddCover = ({ img, name, landscape, className, handleChange }) => {
   const [ url, setUrl ] = useState("")
   const [ cover, setCover ] = useState("")
   const [ loading, setLoading ] = useState(false)
@@ -32,7 +34,8 @@ const AddCover = ({ img, landscape, className, handleChange }) => {
   const handleUrlSubmit = () => {
     if (!isEmpty(url)) {
       toggleLoading()
-      client.query({ query: GET_PARSE_URL, variables: { url } })
+      client
+        .query({ query: GET_PARSE_URL, variables: { url } })
         .then(({ data: { parseUrl } }) => parseUrl)
         .then(dataUrlToBlob)
         .then(handleChange)
@@ -44,13 +47,27 @@ const AddCover = ({ img, landscape, className, handleChange }) => {
     }
   }
 
+  const handleGoogleSearch = () => {
+    toggleLoading()
+    client
+      .query({ query: GET_IMAGE_SEARCH, variables: { query: name } })
+      .then(({ data: { imageSearch } }) => imageSearch)
+      .then(dataUrlToBlob)
+      .then(handleChange)
+      .finally(toggleLoading)
+  }
+
   const handleUploadSubmit = event => {
     const { files } = event.target
     handleChange(files[0])
   }
 
   useEffect(() => {
-    blobToDataUrl(img).then(setCover)
+    if (isNull(img)) {
+      setCover(defaultDataUrl)
+    } else {
+      blobToDataUrl(img).then(setCover)
+    }
   }, [img])
 
   return (
@@ -92,7 +109,7 @@ const AddCover = ({ img, landscape, className, handleChange }) => {
             </div>
           ) : (
             <Fragment>
-              <div className={bem("button-top", "button")}>
+              <div className={bem("button")}>
                 <IconText
                   text="Upload"
                   icon="cloud_upload"
@@ -108,7 +125,16 @@ const AddCover = ({ img, landscape, className, handleChange }) => {
                   className={bem("button-input")}
                 />
               </div>
-              <div className={bem("button-bottom", "button")} onClick={toggleForm}>
+              <div onClick={handleGoogleSearch} className={bem("button")}>
+                <IconText
+                  text="Google"
+                  icon="search"
+                  className={bem("button-text")}
+                  iconClassName={bem("button-text-icon")}
+                  textClassName={bem("button-text-span")}
+                />
+              </div>
+              <div onClick={toggleForm} className={bem("button")}>
                 <IconText
                   text="URL"
                   icon="link"
@@ -128,11 +154,13 @@ const AddCover = ({ img, landscape, className, handleChange }) => {
 AddCover.propTypes = {
   landscape: bool,
   className: string,
+  img: instanceOf(Blob),
+  name: string.isRequired,
   handleChange: func.isRequired,
-  img: instanceOf(Blob).isRequired,
 }
 
 AddCover.defaultProps = {
+  img: null,
   className: null,
   landscape: false,
 }

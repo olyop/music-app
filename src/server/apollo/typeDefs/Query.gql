@@ -12,18 +12,20 @@ type Query {
   genre(genreId: Uuid!): Genre!
   artist(artistId: Uuid!): Artist!
   playlist(playlistId: Uuid!): Playlist!
-  
-  #search
-  songSearch(query: String!): [Song!]!
-  albumSearch(query: String!): [Album!]!
-  genreSearch(query: String!): [Genre!]!
-  artistSearch(query: String!): [Artist!]!
 
-  # miscellaneous queries
+  # misc queries
   newAlbums: [Album!]!
   topTenSongs: [Song!]!
   parseUrl(url: String!): String!
   albumReleased(title: String!): Int
   imageSearch(query: String!): String!
   parseSongs(files: [Upload!]!): Json!
+  
+  # search
+  songSearch(query: String!): [Song!]!
+  albumSearch(query: String!): [Album!]!
+  genreSearch(query: String!): [Genre!]!
+  artistSearch(query: String!): [Artist!]!
+  genreSearchExact(query: String!): Genre
+  artistSearchExact(query: String!): Artist
 }

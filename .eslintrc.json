@@ -18,6 +18,16 @@
     "es6": true,
     "browser": true
   },
+  "overrides": [
+    {
+      "files": [
+        "**/*.tsx"
+      ],
+      "rules": {
+        "react/prop-types": "off"
+      }
+    }
+  ],
   "rules": {
     "no-tabs": ["off"],
     "one-var": ["off"],

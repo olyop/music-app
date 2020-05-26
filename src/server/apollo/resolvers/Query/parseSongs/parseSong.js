@@ -1,6 +1,6 @@
 import mm from "music-metadata"
 import parseMetadata from "./parseMetadata.js"
-import createStreamFromUpload from "../../../helpers/resolver/createStreamFromUpload.js"
+import createStreamFromUpload from "../../../../helpers/resolver/createStreamFromUpload.js"
 
 const parseSong = upload => new Promise(
   (resolve, reject) => {

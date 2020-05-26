@@ -10,7 +10,7 @@ import "./index.scss"
 
 const bem = reactBem("AddDocs")
 
-const AddDocs = ({ docs, label, className }) => (
+const AddDocs = ({ type, docs, label, className }) => (
   <div className={bem(className)}>
     <AddLabel
       children={label}
@@ -21,20 +21,29 @@ const AddDocs = ({ docs, label, className }) => (
         <AddDoc
           key={doc}
           doc={doc}
+          type={type}
           className={bem("item")}
         />
       ),
     )}
+    {/* {(() => {
+      if (type === "genre") {
+        console.log(type, docs)
+      }
+      return null
+    })()} */}
   </div>
 )
 
 AddDocs.propTypes = {
+  type: string,
   className: string,
   label: string.isRequired,
   docs: arrayOf(string).isRequired,
 }
 
 AddDoc.defaultProps = {
+  type: "artist",
   className: null,
 }
 

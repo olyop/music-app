@@ -61,6 +61,15 @@ module.exports = ({ NODE_ENV }) => {
             "eslint-loader",
           ],
         },
+        {
+          test: /\.tsx?$/,
+          exclude: /node_modules/,
+          use: [
+            "babel-loader",
+            "awesome-typescript-loader",
+            "eslint-loader",
+          ],
+        },
       ],
     },
     plugins: [

@@ -13,18 +13,18 @@ import {
   SELECT_PLAYLISTS,
   SELECT_NEW_ALBUMS,
   SELECT_TOP_TEN_SONGS,
-} from "../../sql/index.js"
+} from "../../../sql/index.js"
 
+import searches from "./searches.js"
 import parseUrl from "./parseUrl.js"
 import imageSearch from "./imageSearch.js"
-import docSearch from "./common/docSearch.js"
 import parseSongs from "./parseSongs/index.js"
-import sqlJoin from "../../helpers/sql/sqlJoin.js"
-import columnNames from "../../sql/columnNames.js"
-import sqlQuery from "../../helpers/sql/sqlQuery.js"
-import sqlParseRow from "../../helpers/sql/sqlParseRow.js"
-import mapResolver from "../../helpers/utils/mapResolver.js"
-import sqlParseTable from "../../helpers/sql/sqlParseTable.js"
+import sqlJoin from "../../../helpers/sql/sqlJoin.js"
+import columnNames from "../../../sql/columnNames.js"
+import sqlQuery from "../../../helpers/sql/sqlQuery.js"
+import sqlParseRow from "../../../helpers/sql/sqlParseRow.js"
+import mapResolver from "../../../helpers/utils/mapResolver.js"
+import sqlParseTable from "../../../helpers/sql/sqlParseTable.js"
 
 const songs =
   async () =>
@@ -182,12 +182,12 @@ const playlist =
       query: SELECT_PLAYLIST,
       parse: sqlParseRow,
       variables: [{
+        key: "playlistId",
+        value: args.playlistId,
+      },{
         string: false,
         key: "columnNames",
         value: sqlJoin(columnNames.playlist),
-      },{
-        key: "playlistId",
-        value: args.playlistId,
       }],
     })
 
@@ -204,22 +204,6 @@ const topTenSongs =
       query: SELECT_TOP_TEN_SONGS,
       parse: sqlParseTable,
     })
-
-const songSearch =
-  async ({ args }) =>
-    docSearch("songs", "song", "title")(args.query)
-
-const albumSearch =
-  async ({ args }) =>
-    docSearch("albums", "album", "title")(args.query)
-
-const genreSearch =
-  async ({ args }) =>
-    docSearch("genres", "genre", "name")(args.query)
-
-const artistSearch =
-  async ({ args }) =>
-    docSearch("artists", "artist", "name")(args.query)
 
 const queryResolver =
   mapResolver({
@@ -238,12 +222,9 @@ const queryResolver =
     playlists,
     newAlbums,
     parseSongs,
-    songSearch,
-    albumSearch,
-    genreSearch,
     topTenSongs,
     imageSearch,
-    artistSearch,
+    ...searches,
   })
 
 export default queryResolver

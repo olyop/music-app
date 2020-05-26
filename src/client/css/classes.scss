@@ -41,6 +41,10 @@
 .MarginBottomQuart {
   margin-bottom: calc(var(--space) * 0.25); }
 
+.FlexList {
+  display: flex;
+  align-items: center; }
+
 .Grid {
   display: grid;
   gap: var(--space);

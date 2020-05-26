@@ -1,27 +1,21 @@
 .AddSong {
   &:hover &__main-mix {
     opacity: 1; }
-  &:hover &__lists-add {
+  &:hover &__add {
     display: flex; }
   &__main {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    &-left {
+    &-trackNumber {
       display: flex;
-      align-items: center; }
+      align-items: center;
+      &-text {
+        font-size: 15rem;
+        font-weight: 700; } }
     &-text {
       width: 100%;
       margin-left: calc(var(--space) * 0.25); }
-    &-trackNumber {
-      display: flex;
-      align-items: flex-end;
-      &-input {
-        font-weight: 700;
-        text-align: right; }
-      &-dot {
-        font-weight: 700;
-        font-size: 15rem; } }
     &-mix {
       opacity: 0;
       min-width: 3ch;
@@ -29,24 +23,27 @@
       margin-left: calc(var(--space) * 0.5);
       &:focus {
         opacity: 1; } }
-    &-right {
-      display: flex; }
     &-duration {
       font-size: 15rem;
       color: var(--text-color-light);
       margin-left: calc(var(--space) * 0.5); } }
-  &__lists {
-    display: flex;
-    align-items: center;
-    &-add {
-      display: none; }
-    &-feat {
+  &__icon {
+    width: 20rem;
+    height: 20rem;
+    font-size: 20rem;
+    margin-left: -2rem;
+    cursor: auto !important;
+    color: var(--text-color);
+    margin-right: calc(var(--space) * 0.25);
+    background-color: transparent !important; }
+  &__add {
+    display: none; }
+  &__list {
+    &-list {
+      margin-right: 5rem; }
+    &-text {
       font-size: 15rem;
-      margin-top: 1rem;
-      margin-left: 10rem;
-      margin-right: -5rem;
-      color: var(--text-color-light);
-      &-list {
-        margin-left: calc(var(--space) * 0.5); } } }
-  &__remixers {
-    display: block; } }
+      margin: 1rem 5rem 0;
+      color: var(--text-color-light); } }
+  &__final-list {
+    margin-top: calc(var(--space) * 0.375); } }

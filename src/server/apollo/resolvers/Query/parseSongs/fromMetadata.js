@@ -1,6 +1,6 @@
 import uniq from "lodash/uniq.js"
 import albumReleased from "./albumReleased.js"
-import calculateMode from "../../../helpers/utils/calculateMode.js"
+import calculateMode from "../../../../helpers/utils/calculateMode.js"
 
 export const songsFromMetadata = metadata =>
   metadata.map(({ album, ...song }) => song)

@@ -10,7 +10,7 @@ import Genre from "./Genre.js"
 import Artist from "./Artist.js"
 import Playlist from "./Playlist.js"
 
-import Query from "./Query.js"
+import Query from "./Query/index.js"
 import Mutation from "./Mutation/index.js"
 
 const customScalars = {

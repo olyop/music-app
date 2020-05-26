@@ -5,7 +5,7 @@ const determineGenres = songs =>
   pipe(songs)(
     map(({ genres }) => genres),
     flatten,
-    ({ val }) => val,
+    map(({ val }) => val),
     uniq,
   )
 

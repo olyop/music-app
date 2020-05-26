@@ -5,8 +5,8 @@ import {
 } from "./common.js"
 
 import isEmpty from "lodash/isEmpty.js"
-import pipe from "../../../helpers/utils/pipe.js"
-import toDataUrl from "../../../helpers/resolver/toDataUrl.js"
+import pipe from "../../../../helpers/utils/pipe.js"
+import toDataUrl from "../../../../helpers/resolver/toDataUrl.js"
 
 const removeMix = str =>
   (str.includes("Extended") ?
@@ -21,7 +21,13 @@ const removeFeat = artist =>
 const determineTitle = ({ title }) => {
   if (strHasBrackets(title)) {
     const brackets = strFindBrackets(title)
-    return title.slice(0, title.indexOf(brackets) - 2)
+    if (brackets.includes("Extended") ||
+        brackets.includes("Remix") ||
+        brackets.includes("Original")) {
+      return title.slice(0, title.indexOf(brackets) - 2)
+    } else {
+      return title
+    }
   } else {
     return title
   }

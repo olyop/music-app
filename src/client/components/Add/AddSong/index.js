@@ -1,5 +1,6 @@
 import React from "react"
 
+import Icon from "../../Icon"
 import AddList from "../AddList"
 import AddInput from "../AddInput"
 
@@ -18,17 +19,17 @@ const AddSong = ({ song, handleChange, className }) => {
   return (
     <div className={bem(className, "", "PaddingHalf")}>
       <div className={bem("main", "MarginBottomQuart")}>
-        <div className={bem("main-left")}>
+        <div className="FlexList">
           <div className={bem("main-trackNumber")}>
             <AddInput
               type="number"
               val={song.trackNumber}
               handleChange={onChange("trackNumber")}
-              className={bem("main-trackNumber-input")}
+              className={bem("main-trackNumber-text")}
             />
             <p
               children="."
-              className={bem("main-trackNumber-dot")}
+              className={bem("main-trackNumber-text")}
             />
           </div>
           <AddInput
@@ -49,36 +50,53 @@ const AddSong = ({ song, handleChange, className }) => {
           {deserializeDuration(song.duration)}
         </p>
       </div>
-      <div className={bem("lists")}>
+      <div className="FlexList MarginBottomQuart">
+        <Icon
+          icon="person"
+          className={bem("icon")}
+        />
         <AddList
           addText="artist"
           val={song.artists}
-          addClassName={bem("lists-add")}
+          addClassName={bem("add")}
+          className={bem("list-list")}
           handleChange={onChange("artists")}
         />
         {isEmpty(song.featuring) ? null : (
-          <p className={bem("lists-feat")}>feat.</p>
+          <p className={bem("list-text")}>feat.</p>
         )}
         <AddList
           addText="feat"
           val={song.featuring}
-          addClassName={bem("lists-add")}
-          className={bem("lists-feat-list")}
+          addClassName={bem("add")}
+          className={bem("list-list")}
           handleChange={onChange("featuring")}
         />
         {isEmpty(song.remixers) ? null : (
-          <p className={bem("lists-feat")}>&#40;</p>
+          <p className={bem("list-text")}>&#40;</p>
         )}
         <AddList
           addText="remix"
           val={song.remixers}
-          addClassName={bem("lists-add")}
-          className={bem("lists-feat-list")}
+          addClassName={bem("add")}
+          className={bem("list-list")}
           handleChange={onChange("remixers")}
         />
         {isEmpty(song.remixers) ? null : (
-          <p className={bem("lists-feat")}>Remix)</p>
+          <p className={bem("list-text")}>Remix)</p>
         )}
+      </div>
+      <div className={bem("FlexList", "final-list")}>
+        <Icon
+          icon="palette"
+          className={bem("icon")}
+        />
+        <AddList
+          addText="genre"
+          val={song.genres}
+          addClassName={bem("add")}
+          handleChange={onChange("genres")}
+        />
       </div>
     </div>
   )

@@ -12,7 +12,13 @@ import { useLocalStorage } from "../../hooks"
 
 import "./index.scss"
 
+function useBem() {
+  console.log(this)
+}
+
 const Application = () => {
+
+  useBem()
 
   const [ play, setPlay ] = useState(false)
   const [ sidebar, setSidebar ] = useLocalStorage("sidebar", "closed")

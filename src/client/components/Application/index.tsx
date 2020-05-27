@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { FunctionComponent, useState } from "react"
 
 import Pages from "../Pages"
 import Header from "../Header"
@@ -12,17 +12,10 @@ import { useLocalStorage } from "../../hooks"
 
 import "./index.scss"
 
-function useBem() {
-  console.log(this)
-}
-
-const Application = () => {
-
-  useBem()
-
-  const [ play, setPlay ] = useState(false)
-  const [ sidebar, setSidebar ] = useLocalStorage("sidebar", "closed")
-  const [ listStyle, setListStyle ] = useLocalStorage("listStyle", "grid")
+const Application: FunctionComponent = () => {
+  const [play, setPlay] = useState(false)
+  const [sidebar, setSidebar] = useLocalStorage("sidebar", "closed")
+  const [listStyle, setListStyle] = useLocalStorage("listStyle", "grid")
 
   const toggleSidebar = () => {
     document.documentElement.style.setProperty(

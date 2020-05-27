@@ -1,5 +1,6 @@
-import React from "react"
+import React, { FunctionComponent } from "react"
 import ReactDOM from "react-dom"
+
 import Application from "./components/Application"
 import ApolloClient from "./components/ApolloClient"
 import Authenticate from "./components/Authenticate"
@@ -9,11 +10,11 @@ import "./css/variables.scss"
 import "./css/classes.scss"
 import "./css/base.scss"
 
-const Index = () => (
+const Index: FunctionComponent = () => (
   <ReactRouter>
     <Authenticate>
       <ApolloClient>
-        <Application />
+        <Application/>
       </ApolloClient>
     </Authenticate>
   </ReactRouter>

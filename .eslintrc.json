@@ -1,33 +1,7 @@
 {
-  "extends": [
-    "airbnb",
-    "airbnb/hooks",
-    "eslint:recommended",
-    "plugin:css-modules/recommended"
-  ],
-  "parser": "babel-eslint",
-  "plugins": [
-    "react",
-    "import",
-    "promise",
-    "jsx-a11y",
-    "react-hooks",
-    "css-modules"
-  ],
-  "env": {
-    "es6": true,
-    "browser": true
-  },
-  "overrides": [
-    {
-      "files": [
-        "**/*.tsx"
-      ],
-      "rules": {
-        "react/prop-types": "off"
-      }
-    }
-  ],
+  "extends": ["react-app"],
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint"],
   "rules": {
     "no-tabs": ["off"],
     "one-var": ["off"],

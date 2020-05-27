@@ -1,18 +1,24 @@
-import React, { useContext } from "react"
+import React, { FunctionComponent, useContext } from "react"
 
 import Item from "../Item"
 import Cover from "../Cover"
 import DocLink from "../DocLink"
 import DocLinks from "../DocLinks"
+import { Album as AlbumType } from "../../types"
 import ListStyleContext from "../../contexts/ListStyle"
 
-import { propTypes, defaultProps } from "./props"
+interface PropTypes {
+  album: AlbumType
+  className?: string
+}
 
-const Album = ({ album, className }) => {
+const Album: FunctionComponent<PropTypes> = ({ album, className = null }) => {
   const { listStyle } = useContext(ListStyleContext)
   return listStyle === "grid" ? (
     <div className={["Card", "Elevated", className].join(" ")}>
-      <Cover url={album.cover} />
+      <Cover
+        url={album.cover}
+      />
       <Item
         doc={album}
         className="PaddingHalf"
@@ -30,8 +36,5 @@ const Album = ({ album, className }) => {
     />
   )
 }
-
-Album.propTypes = propTypes
-Album.defaultProps = defaultProps
 
 export default Album

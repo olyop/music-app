@@ -20,11 +20,14 @@ const publicPath = path.join(clientPath, "public")
 module.exports = ({ NODE_ENV }) => {
   const isProd = NODE_ENV === "isProduction"
   return {
-    entry: path.join(clientPath, "index.js"),
+    entry: path.join(clientPath, "index.tsx"),
     output: {
       publicPath: "/",
       filename: "[hash].js",
       path: path.join(serverPath, "build"),
+    },
+    resolve: {
+      extensions: [".ts", ".tsx", ".js"],
     },
     devServer: {
       hot: true,
@@ -54,21 +57,15 @@ module.exports = ({ NODE_ENV }) => {
           loader: "graphql-tag/loader",
         },
         {
-          test: /\.js$/,
+          test: /\.(t|j)sx?$/,
           exclude: /node_modules/,
-          use: [
-            "babel-loader",
-            "eslint-loader",
-          ],
+          use: "ts-loader",
         },
         {
-          test: /\.tsx?$/,
+          test: /\.js$/,
+          enforce: "pre",
           exclude: /node_modules/,
-          use: [
-            "babel-loader",
-            "awesome-typescript-loader",
-            "eslint-loader",
-          ],
+          loader: "source-map-loader",
         },
       ],
     },

@@ -1,5 +1,5 @@
 import { v4 as uuid } from "uuid"
-import mp3Duration from "mp3-duration"
+import musicMetadata from "music-metadata"
 import ApolloServer from "apollo-server-express"
 import sqlJoin from "../../../helpers/sql/sqlJoin.js"
 import columnNames from "../../../sql/columnNames.js"
@@ -97,7 +97,7 @@ const addSong = async ({ args }) => {
   }
 
   const songId = uuid()
-  const duration = Math.floor(await mp3Duration(audio))
+  const duration = Math.floor((await musicMetadata.parseBuffer(audio)).common.format.duration)
 
   const songInsert = {
     query: INSERT_SONG,

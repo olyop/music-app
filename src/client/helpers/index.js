@@ -1,11 +1,10 @@
 import _pipe from "./pipe"
 import _show from "./show"
 import _isHex from "./isHex"
-import _ternary from "./ternary"
 import _compose from "./compose"
 import _isLength from "./isLength"
 import _findMatches from "./findMatches"
-import _bytesToSize from "./bytesToSize"
+import _formatSize from "./formatSize"
 import _determineDiscs from "./determineDiscs"
 import _filterInLibrary from "./filterInLibrary"
 import _deserializeDate from "./deserializeDate"
@@ -22,11 +21,10 @@ import _determineReturnFromDoc from "./determineReturnFromDoc"
 export const pipe = _pipe
 export const show = _show
 export const isHex = _isHex
-export const ternary = _ternary
 export const compose = _compose
 export const isLength = _isLength
 export const findMatches = _findMatches
-export const bytesToSize = _bytesToSize
+export const formatSize = _formatSize
 export const determineDiscs = _determineDiscs
 export const filterInLibrary = _filterInLibrary
 export const deserializeDate = _deserializeDate

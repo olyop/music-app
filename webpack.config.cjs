@@ -20,12 +20,13 @@ const publicPath = path.join(clientPath, "public")
 module.exports = ({ NODE_ENV }) => {
   const isProd = NODE_ENV === "isProduction"
   return {
+    mode: isProd ? "production" : "development",
     entry: path.join(clientPath, "index.tsx"),
     output: {
-      publicPath: "/",
       filename: "[hash].js",
       path: path.join(serverPath, "build"),
     },
+    devtool: "inline-source-map",
     resolve: {
       extensions: [".ts", ".tsx", ".js"],
     },
@@ -40,6 +41,13 @@ module.exports = ({ NODE_ENV }) => {
       historyApiFallback: true,
       port: process.env.DEV_PORT,
     },
+    optimization: {
+      minimizer: [
+        new TerserPlugin({
+          sourceMap: true,
+        }),
+      ],
+    },
     module: {
       rules: [
         {
@@ -52,21 +60,20 @@ module.exports = ({ NODE_ENV }) => {
           ],
         },
         {
-          exclude: /node_modules/,
           test: /\.(graphql|gql)$/,
           loader: "graphql-tag/loader",
+          exclude: /node_modules/,
         },
         {
           test: /\.(t|j)sx?$/,
+          loader: "ts-loader",
           exclude: /node_modules/,
-          use: "ts-loader",
-        },
+        }, ,
         {
           test: /\.js$/,
           enforce: "pre",
-          exclude: /node_modules/,
           loader: "source-map-loader",
-        },
+        }
       ],
     },
     plugins: [
@@ -74,7 +81,6 @@ module.exports = ({ NODE_ENV }) => {
       ...(isProd ? [new LodashModuleReplacementPlugin()] : []),
       ...(isProd ? [new OptimizeCssAssetsPlugin()] : []),
       ...(isProd ? [new MiniCssExtractPlugin({ filename: "[hash].css" })] : []),
-      ...(isProd ? [new TerserPlugin()] : []),
       ...(isProd ? [] : [new StylelintPlugin({ configFile: ".stylelint.json" })]),
       new Dotenv(),
       ...(isProd ? [new BundleAnalyzerPlugin()] : []),

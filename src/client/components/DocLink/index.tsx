@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from "react"
 
+import { Doc } from "../../types"
 import { Link } from "react-router-dom"
-import { Album, Artist } from "../../types"
 
 import reactBem from "@oly_op/react-bem"
 import { determineDocPath, determineDocNameKey } from "../../helpers"
@@ -11,7 +11,7 @@ import "./index.scss"
 const bem = reactBem("DocLink")
 
 interface PropTypes {
-  doc: Album | Artist
+  doc: Doc
 }
 
 const DocLink: FunctionComponent<PropTypes> = ({ doc }) => {

@@ -1,9 +1,9 @@
-import React, { FunctionComponent, useState } from "react"
+import React, { FC, useState } from "react"
 
 import Pages from "../Pages"
 import Header from "../Header"
 import PlayerBar from "../PlayerBar"
-
+import { ListStyleEnum } from "../../types"
 import PlayContext from "../../contexts/Play"
 import SidebarContext from "../../contexts/Sidebar"
 import ListStyleContent from "../../contexts/ListStyle"
@@ -12,18 +12,18 @@ import { useLocalStorage } from "../../hooks"
 
 import "./index.scss"
 
-const Application: FunctionComponent = () => {
-  const [play, setPlay] = useState(false)
-  const [sidebar, setSidebar] = useLocalStorage("sidebar", "closed")
-  const [listStyle, setListStyle] = useLocalStorage("listStyle", "grid")
+const Application: FC = () => {
+  const [ play, setPlay ] = useState(false)
+  const [ sidebar, setSidebar ] = useLocalStorage("sidebar", false)
+  const [ listStyle, setListStyle ] = useLocalStorage("listStyle", ListStyleEnum.grid)
 
-  const toggleSidebar = () => {
+  function toggleSidebar() {
     document.documentElement.style.setProperty(
       "--content-width",
       sidebar ? "100vw" : "calc(100vw - var(--sidebar-width))",
       "important",
     )
-    setSidebar(prevState => (prevState === "open" ? "closed" : "open"))
+    setSidebar(prevState => !prevState)
   }
 
   return (

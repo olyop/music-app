@@ -1,5 +1,8 @@
+# folders
+dist/
+.vscode/
 node_modules/
 src/server/build/
-dist/
+
+# files
 .env
-.vscode

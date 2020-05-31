@@ -23,6 +23,13 @@
 
   --space: 20rem;
 
+  --space-double: calc(var(--space) * 2);
+  --space-one-half: calc(var(--space) * 1.5);
+  --space-one-quart: calc(var(--space) * 1.25);
+  --space-three-quart: calc(var(--space) * 0.75);
+  --space-half: calc(var(--space) * 0.5);
+  --space-quart: calc(var(--space) * 0.25);
+
   --button-size: 27rem;
 
   --content-width: 100vw;

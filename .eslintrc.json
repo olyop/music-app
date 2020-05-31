@@ -39,6 +39,7 @@
     "react/prop-types": "off",
     "import/extensions": "off",
     "no-nested-ternary": "off",
+    "object-curly-newline": "off",
     "eol-last": ["error", "never"],
     "react/no-children-prop": "off",
     "implicit-arrow-linebreak": "off",
@@ -46,7 +47,7 @@
     "react/jsx-wrap-multilines": ["off"],
     "react/require-default-props": "off",
     "lines-between-class-members": "off",
-    "max-len": ["error", { "code": 120 }],
+    "import/prefer-default-export": "off",
     "linebreak-style": ["error", "windows"],
     "react/jsx-filename-extension": ["off"],
     "@typescript-eslint/camelcase": ["off"],
@@ -62,11 +63,33 @@
     "jsx-a11y/click-events-have-key-events": ["off"],
     "jsx-a11y/label-has-associated-control": ["off"],
     "jsx-a11y/control-has-associated-label": ["off"],
+    "@typescript-eslint/no-non-null-assertion": "off",
     "jsx-a11y/no-static-element-interactions": ["off"],
-    "react/jsx-tag-spacing": ["error", { "beforeSelfClosing": "never" }],
-    "array-bracket-spacing": ["error", "always", { "singleValue": false }],
-    "@typescript-eslint/indent": ["error", "tab", { "MemberExpression": "off" }],
-    "no-multiple-empty-lines": ["error", { "max": 1, "maxEOF": 1, "maxBOF": 0 }],
-    "import/no-extraneous-dependencies": ["error", { "devDependencies": true, "optionalDependencies": false }]
+    "max-len": [
+      "error",
+      { "code": 120 }
+    ],
+    "react/jsx-tag-spacing": [
+      "error",
+      { "beforeSelfClosing": "never" }
+    ],
+    "array-bracket-spacing": [
+      "error",
+      "always",
+      { "singleValue": false }
+    ],
+    "@typescript-eslint/indent": [
+      "error",
+      "tab",
+      { "MemberExpression": "off" }
+    ],
+    "no-multiple-empty-lines": [
+      "error",
+      { "max": 1, "maxEOF": 1, "maxBOF": 0 }
+    ],
+    "import/no-extraneous-dependencies": [
+      "error",
+      { "devDependencies": true, "optionalDependencies": false }
+    ]
   }
 }

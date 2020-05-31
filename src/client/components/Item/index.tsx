@@ -1,15 +1,13 @@
 import { Link } from "react-router-dom"
-import { createElement, FC, ReactChild } from "react"
+import { createElement, FC, ReactNode } from "react"
 
 import Img from "../Img"
 import { Doc } from "../../types"
 import PlayButton from "../PlayButton"
-import reactBem from "../../helpers/bem"
 import InLibraryButton from "../InLibraryButton"
 
-import { node, object, bool, string } from "prop-types"
-
 import {
+	reactBem,
 	determineDocPath,
 	determineDocNameKey,
 	determineDocPhotoKey,
@@ -22,10 +20,10 @@ const bem = reactBem("Item")
 type PropTypes = {
 	doc: Doc,
 	imgDoc: Doc,
-	left: ReactChild,
-	upper: ReactChild,
-	lower: ReactChild,
-	right: ReactChild,
+	left: ReactNode,
+	upper: ReactNode,
+	lower: ReactNode,
+	right: ReactNode,
 	showPlay: boolean,
 }
 

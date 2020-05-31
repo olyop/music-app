@@ -22,6 +22,20 @@ export type Album = {
 	artists: Artist[],
 }
 
-export type Doc = Artist | Album
+export type Song = {
+	mix: string,
+	title: string,
+	songId: string,
+	duration: number,
+	discNumber: number,
+	trackNumber: number,
+}
+
+export type Disc = {
+	songs: Song[],
+	number: number,
+}
+
+export type Doc = Artist | Album | Song
 
 export type BemInputType = string | null

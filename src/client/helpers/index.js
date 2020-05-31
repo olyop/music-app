@@ -2,8 +2,8 @@ import _pipe from "./pipe"
 import _show from "./show"
 import _isHex from "./isHex"
 import _compose from "./compose"
+import _reactBem from "./reactBem"
 import _isLength from "./isLength"
-import _findMatches from "./findMatches"
 import _formatSize from "./formatSize"
 import _determineDiscs from "./determineDiscs"
 import _filterInLibrary from "./filterInLibrary"
@@ -12,7 +12,7 @@ import _determineConcat from "./determineConcat"
 import _determinePlural from "./determinePlural"
 import _determineDocPath from "./determineDocPath"
 import _createQueuesArray from "./createQueuesArray"
-import _determineDocIdKey from "./determineDocIdKey.js"
+import _determineDocIdKey from "./determineDocIdKey"
 import _determineDocNameKey from "./determineDocNameKey"
 import _deserializeDuration from "./deserializeDuration"
 import _determineDocPhotoKey from "./determineDocPhotoKey"
@@ -22,8 +22,8 @@ export const pipe = _pipe
 export const show = _show
 export const isHex = _isHex
 export const compose = _compose
+export const reactBem = _reactBem
 export const isLength = _isLength
-export const findMatches = _findMatches
 export const formatSize = _formatSize
 export const determineDiscs = _determineDiscs
 export const filterInLibrary = _filterInLibrary

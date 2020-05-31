@@ -1,7 +1,7 @@
 import { createUploadLink } from "apollo-upload-client"
 
 const SERVER_URL = process.env.NODE_ENV === "production" ?
-  "" : `http://${process.env.HOST}:${process.env.PORT}`
+	"" : `http://${process.env.HOST!}:${process.env.PORT!}`
 
 const API_URL = `${SERVER_URL}/graphql`
 

@@ -2,8 +2,8 @@ import { Link } from "react-router-dom"
 import { createElement, FC, ReactNode } from "react"
 
 import Img from "../Img"
-import { Doc } from "../../types"
 import PlayButton from "../PlayButton"
+import { Doc, BemInputType } from "../../types"
 import InLibraryButton from "../InLibraryButton"
 
 import {
@@ -19,26 +19,30 @@ const bem = reactBem("Item")
 
 type PropTypes = {
 	doc: Doc,
-	imgDoc: Doc,
-	left: ReactNode,
+	imgDoc?: Doc,
+	left?: ReactNode,
 	upper: ReactNode,
-	lower: ReactNode,
-	right: ReactNode,
-	showPlay: boolean,
+	lower?: ReactNode,
+	right?: ReactNode,
+	showPlay?: boolean,
+	showInLibrary?: boolean,
+	className?: BemInputType,
+	infoClassName?: BemInputType,
+	inLibClassName?: BemInputType,
 }
 
 const Item: FC<PropTypes> = ({
 	doc,
-	left,
 	upper,
-	lower,
-	right,
-	imgDoc,
-	showPlay,
-	className,
-	showInLibrary,
-	infoClassName,
-	inLibClassName,
+	left = null,
+	lower = null,
+	right = null,
+	imgDoc = null,
+	showPlay = true,
+	className = null,
+	showInLibrary = true,
+	infoClassName = null,
+	inLibClassName = null,
 }) => (
 	<div className={bem(className, "")}>
 		{left ? (
@@ -94,31 +98,5 @@ const Item: FC<PropTypes> = ({
 		) : null}
 	</div>
 )
-
-Item.propTypes = {
-	left: node,
-	right: node,
-	doc: object,
-	lower: node,
-	imgDoc: object,
-	showPlay: bool,
-	className: string,
-	showInLibrary: bool,
-	infoClassName: string,
-	inLibClassName: string,
-	upper: node.isRequired,
-}
-
-Item.defaultProps = {
-	left: null,
-	lower: null,
-	right: null,
-	imgDoc: null,
-	showPlay: true,
-	className: null,
-	infoClassName: null,
-	showInLibrary: true,
-	inLibClassName: null,
-}
 
 export default Item

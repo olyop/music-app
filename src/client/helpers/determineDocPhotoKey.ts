@@ -1,8 +1,4 @@
-type IType = { __typename: string }
+import { Doc } from "../types"
 
-type RType = "cover" | "photo"
-
-const determineDocPhotoKey = ({ __typename }: IType): RType =>
+export const determineDocPhotoKey = ({ __typename }: Doc): "cover" | "photo" =>
 	(__typename === "Album" ? "cover" : "photo")
-
-export default determineDocPhotoKey

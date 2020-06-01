@@ -35,6 +35,7 @@
   "rules": {
     "no-tabs": "off",
     "no-console": "off",
+    "arrow-parens": "off",
     "no-else-return": "off",
     "react/prop-types": "off",
     "import/extensions": "off",

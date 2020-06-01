@@ -3,18 +3,17 @@ export enum ListStyleEnum {
 	list,
 }
 
-export type ListStyleType = {
-	listStyle: ListStyleEnum,
-	setListStyle?: (val: ListStyleEnum) => void,
+export interface ApolloDoc {
+	__typename: string,
 }
 
-export type Artist = {
+export interface Artist extends ApolloDoc {
 	name: string,
 	photo: string,
 	artistId: string,
 }
 
-export type Album = {
+export interface Album extends ApolloDoc {
 	title: string,
 	cover: string,
 	albumId: string,
@@ -22,13 +21,19 @@ export type Album = {
 	artists: Artist[],
 }
 
-export type Song = {
+export interface Song extends ApolloDoc {
 	mix: string,
 	title: string,
 	songId: string,
 	duration: number,
 	discNumber: number,
 	trackNumber: number,
+}
+
+export interface User extends ApolloDoc {
+	name: string,
+	email: string,
+	userId: string,
 }
 
 export type Disc = {

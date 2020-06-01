@@ -43,7 +43,5 @@ const mapBemValues = (componentName: string) => (classNames: ClassType[]) =>
 const joinToString = (classNames: string[]) =>
 	classNames.join(" ")
 
-const bem = (componentName: string) => (...classNames: BemInputType[]): string =>
+export const reactBem = (componentName: string) => (...classNames: BemInputType[]): string =>
 	pipe(normalizeInput, mapBemValues(componentName), joinToString)(classNames)
-
-export default bem

@@ -1,9 +1,4 @@
-import { isUndefined } from "lodash"
+import { Doc } from "../types"
 
-type IType = { name: string }
-type RType = "title" | "name"
-
-const determineDocNameKey = <T extends IType>(doc: T): RType =>
-	(isUndefined(doc.name) ? "title" : "name")
-
-export default determineDocNameKey
+export const determineDocNameKey = (doc: Doc): "title" | "name" =>
+	("name" in doc ? "title" : "name")

@@ -68,7 +68,7 @@ module.exports = ({ NODE_ENV }) => {
           test: /\.(t|j)sx?$/,
           loader: "ts-loader",
           exclude: /node_modules/,
-        }, ,
+        },
         {
           test: /\.js$/,
           enforce: "pre",

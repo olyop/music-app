@@ -1,6 +1,11 @@
-import { createContext } from "react"
+import { createContext } from "../helpers"
 
-const SidebarContext =
-	createContext()
+type SidebarContext = {
+	sidebar: boolean,
+	toggleSidebar: () => void,
+}
 
-export default SidebarContext
+const [ useSidebarContext, SidebarProvider ] =
+	createContext<SidebarContext>()
+
+export { useSidebarContext, SidebarProvider, SidebarContext }

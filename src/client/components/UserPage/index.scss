@@ -6,4 +6,7 @@
     margin-bottom: calc(var(--space) * 0.25); }
   &__select,
   &__select-option {
-    font-size: 16rem; } }
+    font-size: 16rem; }
+  &__select-option {
+    &:first-letter {
+      text-transform: uppercase; } } }

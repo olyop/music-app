@@ -2,7 +2,7 @@ type IType = {
 	__typename: string,
 }
 
-const determineReturnFromDoc =
+export const determineReturnFromDoc =
 	({ __typename }: IType) =>
 		<T>(song: T, album: T, genre: T, artist: T) => {
 			if (__typename === "Song") return song
@@ -10,5 +10,3 @@ const determineReturnFromDoc =
 			else if (__typename === "Genre") return genre
 			else return artist
 		}
-
-export default determineReturnFromDoc

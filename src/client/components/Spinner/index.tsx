@@ -7,7 +7,7 @@ import "./index.scss"
 
 const bem = reactBem("Spinner")
 
-const Spinner: FC<PropTypes> = ({ className, spinClassName }) => (
+const Spinner: FC<PropTypes> = ({ className = null, spinClassName = null }) => (
 	<div className={bem(className, "")}>
 		<div className={bem(spinClassName, "spin")}/>
 		<div className={bem(spinClassName, "spin")}/>
@@ -16,8 +16,8 @@ const Spinner: FC<PropTypes> = ({ className, spinClassName }) => (
 )
 
 type PropTypes = {
-	className: BemInputType,
-	spinClassName: BemInputType,
+	className?: BemInputType,
+	spinClassName?: BemInputType,
 }
 
 export default Spinner

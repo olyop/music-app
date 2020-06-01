@@ -1,7 +1,12 @@
-import { createContext } from "react"
-import { ListStyleType, ListStyleEnum } from "../types"
+import { ListStyleEnum } from "../types"
+import { createContext } from "../helpers"
 
-const ListStyleContext =
-  createContext<ListStyleType>({ listStyle: ListStyleEnum.grid })
+type ListStyleContext = {
+	listStyle: ListStyleEnum,
+	setListStyle: (val: ListStyleEnum) => void,
+}
 
-export default ListStyleContext
+const [ useListStyleContext, ListStyleProvider ] =
+	createContext<ListStyleContext>()
+
+export { useListStyleContext, ListStyleProvider, ListStyleContext }

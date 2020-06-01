@@ -1,10 +1,10 @@
-import { createElement, FC, useContext } from "react"
+import { createElement, FC } from "react"
 
 import Item from "../Item"
 import Cover from "../Cover"
 import DocLink from "../DocLink"
 import DocLinks from "../DocLinks"
-import ListStyleContext from "../../contexts/ListStyle"
+import { useListStyleContext } from "../../contexts/ListStyle"
 import { Album as AlbumType, ListStyleEnum } from "../../types"
 
 type PropTypes = {
@@ -13,7 +13,7 @@ type PropTypes = {
 }
 
 const Album: FC<PropTypes> = ({ album, className = null }) => {
-	const { listStyle } = useContext(ListStyleContext)
+	const { listStyle } = useListStyleContext()
 	return listStyle === ListStyleEnum.grid ? (
 		<div className={[ "Card", "Elevated", className ].join(" ")}>
 			<Cover

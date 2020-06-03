@@ -1,25 +1,25 @@
 import { Link } from "react-router-dom"
-import { createElement, FC, ReactNode } from "react"
+import { createElement, ReactNode, ReactElement } from "react"
 
 import Img from "../Img"
 import PlayButton from "../PlayButton"
-import { Doc, BemInputType } from "../../types"
+import { BemInputType } from "../../types"
 import InLibraryButton from "../InLibraryButton"
 
 import {
 	reactBem,
 	determineDocPath,
-	determineDocNameKey,
-	determineDocPhotoKey,
+	determineDocName,
+	determineDocPhoto,
 } from "../../helpers"
 
 import "./index.scss"
 
 const bem = reactBem("Item")
 
-type PropTypes = {
-	doc: Doc,
-	imgDoc?: Doc,
+type PropTypes<IDoc, IImgDoc> = {
+	doc: IDoc,
+	imgDoc?: IImgDoc,
 	left?: ReactNode,
 	upper: ReactNode,
 	lower?: ReactNode,
@@ -31,45 +31,45 @@ type PropTypes = {
 	inLibClassName?: BemInputType,
 }
 
-const Item: FC<PropTypes> = ({
+const Item = <IDoc, IImgDoc = Record<string, unknown>>({
 	doc,
+	left,
+	lower,
+	right,
 	upper,
-	left = null,
-	lower = null,
-	right = null,
-	imgDoc = null,
+	imgDoc,
+	className,
+	infoClassName,
+	inLibClassName,
 	showPlay = true,
-	className = null,
 	showInLibrary = true,
-	infoClassName = null,
-	inLibClassName = null,
-}) => (
+}: PropTypes<IDoc, IImgDoc>): ReactElement => (
 	<div className={bem(className, "")}>
-		{left ? (
+		{left && (
 			<p
 				children={left}
 				className={bem("left")}
 			/>
-		) : null}
-		{showPlay ? (
+		)}
+		{showPlay && (
 			<PlayButton
 				doc={doc}
 				className={bem("play")}
 			/>
-		) : null}
-		{imgDoc ? (
+		)}
+		{imgDoc && (
 			<Link
 				className={bem("img-link")}
 				to={determineDocPath(imgDoc)}
-				title={doc[determineDocNameKey(imgDoc)]}
+				title={determineDocName(imgDoc)}
 				children={(
 					<Img
+						url={determineDocPhoto(imgDoc)}
 						className={bem("img", "Card", "Elevated")}
-						url={imgDoc[determineDocPhotoKey(imgDoc)]}
 					/>
 				)}
 			/>
-		) : null}
+		)}
 		<div className={bem(infoClassName, "info")}>
 			<div className={bem("info-text")}>
 				<p
@@ -83,19 +83,19 @@ const Item: FC<PropTypes> = ({
 					/>
 				) : null}
 			</div>
-			{showInLibrary ? (
+			{showInLibrary && (
 				<InLibraryButton
 					doc={doc}
 					className={bem(inLibClassName, "info-in-lib")}
 				/>
-			) : null}
+			)}
 		</div>
-		{right ? (
+		{right && (
 			<p
 				children={right}
 				className={bem("right")}
 			/>
-		) : null}
+		)}
 	</div>
 )
 

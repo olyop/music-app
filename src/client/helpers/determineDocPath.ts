@@ -1,9 +1,5 @@
-/* eslint-disable prefer-template */
-import { Doc } from "../types"
-import determineDocIdKey from "./determineDocIdKey"
+import { determineDocId } from "./determineDocId"
+import { determineDocType } from "./determineDocType"
 
-export const determineDocPath = (doc: Doc): string =>
-	("/" + determineDocIdKey(doc))
-		.slice(0, -2)
-		.concat("/")
-		.concat(doc[determineDocIdKey(doc)])
+export const determineDocPath = <T>(doc: T): string =>
+	`/${(determineDocType(doc)).slice(0, -2)}/${determineDocId(doc)}`

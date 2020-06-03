@@ -1,45 +1,52 @@
 import { DocumentNode } from "graphql"
 import { isUndefined, isNull } from "lodash"
 import { useQuery } from "@apollo/react-hooks"
-import { createElement, FC, ReactChild } from "react"
+import { createElement, ReactElement, ReactNode, Fragment } from "react"
 
 import Spinner from "../Spinner"
 import ApiError from "../ApiError"
 import { BemInputType } from "../../types"
 import { useUserContext } from "../../contexts/User"
 
-const QueryApi: FC<PropTypes> = ({
+const QueryApi = <TData, TVars = Record<string, unknown>>({
 	query,
 	children,
+	className,
 	spinner = true,
-	variables = {},
-	className = null,
-	spinnerClassName = null,
-}) => {
+	spinnerClassName,
+	variables = {} as TVars,
+}: PropTypes<TData, TVars>): ReactElement | null => {
 	const userId =
 		useUserContext()
 	const { loading, error, data } =
-		useQuery(query, { variables: { userId, ...variables } })
+		useQuery<TData, BVars & TVars>(query, { variables: { userId, ...variables } })
 	if (spinner && loading) {
 		return <Spinner className={spinnerClassName}/>
 	} else if (!isUndefined(error)) {
 		return <ApiError error={error}/>
-	} else if (!isNull(className)) {
-		return <div className={className}>{children(data)}</div>
+	} else if (!isUndefined(data)) {
+		const render = children(data)
+		if (!isNull(className)) {
+			return <div className={className}>{render}</div>
+		} else {
+			return <Fragment>{render}</Fragment>
+		}
 	} else {
-		return children(data)
+		return null
 	}
 }
 
-type PropTypes = {
+type BVars = {
+	userId: string,
+}
+
+type PropTypes<TData, TVars> = {
 	spinner?: boolean,
-	library?: boolean,
-	resultPath?: string,
+	variables?: TVars,
+	className?: string,
 	query: DocumentNode,
-	className: BemInputType,
 	spinnerClassName?: BemInputType,
-	variables?: Record<string, unknown>,
-	children(data: Record<string, unknown>): ReactChild,
+	children(data: TData): ReactNode,
 }
 
 export default QueryApi

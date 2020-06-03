@@ -1,24 +1,18 @@
 import { Link } from "react-router-dom"
-import { createElement, FC } from "react"
-
-import { Doc } from "../../types"
+import { createElement, ReactElement } from "react"
 
 import {
 	reactBem,
 	determineDocPath,
-	determineDocNameKey,
+	determineDocName,
 } from "../../helpers"
 
 import "./index.scss"
 
 const bem = reactBem("DocLink")
 
-type PropTypes = {
-	doc: Doc,
-}
-
-const DocLink: FC<PropTypes> = ({ doc }) => {
-	const text = doc[determineDocNameKey(doc)]
+const DocLink = <T,>({ doc }: PropTypes<T>): ReactElement => {
+	const text = determineDocName(doc)
 	return (
 		<Link
 			title={text}
@@ -27,6 +21,10 @@ const DocLink: FC<PropTypes> = ({ doc }) => {
 			to={determineDocPath(doc)}
 		/>
 	)
+}
+
+type PropTypes<T> = {
+	doc: T,
 }
 
 export default DocLink

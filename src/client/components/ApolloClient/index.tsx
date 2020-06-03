@@ -1,13 +1,9 @@
-import { createElement, FC, ReactNode } from "react"
+import { createElement, FC } from "react"
 import { ApolloProvider } from "@apollo/react-hooks"
 
 import client from "../../apollo"
 
-type PropTypes = {
-	children: ReactNode,
-}
-
-const ApolloClient: FC<PropTypes> = ({ children }) => (
+const ApolloClient: FC = ({ children }) => (
 	<ApolloProvider
 		client={client}
 		children={children}

@@ -1,23 +1,22 @@
+import { createElement, FC } from "react"
 import { NavLink } from "react-router-dom"
-import { createElement, useContext } from "react"
 
 import Icon from "../Icon"
-import SidebarContext from "../../contexts/Sidebar"
-
 import { reactBem } from "../../helpers"
+import { useSidebarContext } from "../../contexts/Sidebar"
 
 import "./index.scss"
 
 const bem = reactBem("Header")
 
-const Header = () => {
-	const { sidebar, toggleSidebar } = useContext(SidebarContext)
+const Header: FC = () => {
+	const { sidebar, toggleSidebar } = useSidebarContext()
 	return (
 		<header className={bem("", "Elevated")}>
 			<Icon
 				title="Menu"
 				onClick={toggleSidebar}
-				icon={sidebar === "open" ? "close" : "menu"}
+				icon={sidebar ? "close" : "menu"}
 				className={bem("hamburger", "icon", "IconHover")}
 			/>
 			<div className={bem("right")}>

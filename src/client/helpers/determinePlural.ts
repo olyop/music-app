@@ -1,4 +1,2 @@
-type RType = "" | "s"
-
-export const determinePlural = (length: number): RType =>
+export const determinePlural = (length: number): "" | "s" =>
 	(length === 1 ? "" : "s")

@@ -8,10 +8,6 @@ import "./index.scss"
 
 const bem = reactBem("Empty")
 
-type PropTypes = {
-	title: ReactNode,
-}
-
 const Empty: FC<PropTypes> = ({ title }) => (
 	<div className={bem("")}>
 		<Icon
@@ -24,5 +20,9 @@ const Empty: FC<PropTypes> = ({ title }) => (
 		/>
 	</div>
 )
+
+type PropTypes = {
+	title: ReactNode,
+}
 
 export default Empty

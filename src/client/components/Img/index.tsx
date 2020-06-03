@@ -1,24 +1,12 @@
-import { createElement, ReactNode, FC } from "react"
+import { createElement, FC } from "react"
 
-import reactBem from "../../helpers/reactBem"
+import { reactBem } from "../../helpers"
 
 import "./index.scss"
 
 const bem = reactBem("Img")
 
-type PropTypes = {
-	url: string,
-	className?: string,
-	children?: ReactNode,
-	imgClassName?: string,
-}
-
-const Img: FC<PropTypes> = ({
-	url,
-	children = null,
-	className = null,
-	imgClassName = null,
-}) => (
+const Img: FC<PropTypes> = ({ url, children, className, imgClassName }) => (
 	<div className={bem(className, "")}>
 		<div
 			className={bem(imgClassName, "img")}
@@ -27,5 +15,11 @@ const Img: FC<PropTypes> = ({
 		{children}
 	</div>
 )
+
+type PropTypes = {
+	url: string,
+	className?: string,
+	imgClassName?: string,
+}
 
 export default Img

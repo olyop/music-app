@@ -2,10 +2,9 @@ import { createElement, FC, Fragment, ChangeEventHandler } from "react"
 
 import QueryApi from "../QueryApi"
 import { reactBem } from "../../helpers"
-import { ListStyleEnum } from "../../types"
-import { useListStyleContext } from "../../contexts/ListStyle"
-
+import { ListStyleEnum, User } from "../../types"
 import GET_USER from "../../graphql/queries/getUser.gql"
+import { useListStyleContext } from "../../contexts/ListStyle"
 
 import "./index.scss"
 
@@ -17,7 +16,7 @@ const UserPage: FC = () => {
 	const handleSelectChange: ChangeEventHandler<HTMLSelectElement> = event =>
 		setListStyle(+event.target.value)
 	return (
-		<QueryApi
+		<QueryApi<TData>
 			query={GET_USER}
 			className={bem("", "Padding")}
 			children={
@@ -44,6 +43,10 @@ const UserPage: FC = () => {
 			}
 		/>
 	)
+}
+
+type TData = {
+	user: User,
 }
 
 export default UserPage

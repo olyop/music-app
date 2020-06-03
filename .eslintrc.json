@@ -16,7 +16,6 @@
     "import"
   ],
   "ignorePatterns": [
-    "dist",
     "node_modules",
     "src/server/build"
   ],
@@ -41,11 +40,11 @@
     "import/extensions": "off",
     "no-nested-ternary": "off",
     "object-curly-newline": "off",
+    "array-bracket-spacing": "off",
     "eol-last": ["error", "never"],
     "react/no-children-prop": "off",
     "implicit-arrow-linebreak": "off",
     "react/jsx-indent": ["error", "tab"],
-    "react/jsx-wrap-multilines": ["off"],
     "react/require-default-props": "off",
     "lines-between-class-members": "off",
     "import/prefer-default-export": "off",
@@ -53,8 +52,6 @@
     "react/jsx-filename-extension": ["off"],
     "@typescript-eslint/camelcase": ["off"],
     "operator-linebreak": ["error", "after"],
-    "react/jsx-closing-tag-location": ["off"],
-    "react/jsx-curly-brace-presence": ["off"],
     "react/jsx-indent-props": ["error", "tab"],
     "object-curly-spacing": ["error", "always"],
     "react/jsx-fragments": ["error", "element"],
@@ -66,6 +63,30 @@
     "jsx-a11y/control-has-associated-label": ["off"],
     "@typescript-eslint/no-non-null-assertion": "off",
     "jsx-a11y/no-static-element-interactions": ["off"],
+    "@typescript-eslint/naming-convention": [
+      "error",
+      {
+        "selector": "variableLike",
+        "format": ["StrictPascalCase", "strictCamelCase", "UPPER_CASE"]
+      }
+    ],
+    "@typescript-eslint/member-delimiter-style": [
+      "error",
+      {
+        "multiline": {
+          "delimiter": "comma",
+          "requireLast": true
+        },
+        "singleline": {
+          "delimiter": "comma",
+          "requireLast": false
+        }
+      }
+    ],
+    "no-underscore-dangle": [
+      "error",
+      { "allow": ["__typename"] }
+    ],
     "max-len": [
       "error",
       { "code": 120 }
@@ -73,11 +94,6 @@
     "react/jsx-tag-spacing": [
       "error",
       { "beforeSelfClosing": "never" }
-    ],
-    "array-bracket-spacing": [
-      "error",
-      "always",
-      { "singleValue": false }
     ],
     "@typescript-eslint/indent": [
       "error",

@@ -1,9 +1,9 @@
-import { createElement, ReactNode, FC } from "react"
+import { createElement, FC } from "react"
 
 import Img from "../Img"
 import IconText from "../IconText"
-
 import { reactBem } from "../../helpers"
+import { BemInputType } from "../../types"
 
 import "./index.scss"
 
@@ -11,15 +11,14 @@ const bem = reactBem("Cover")
 
 type PropTypes = {
 	url: string,
-	className?: string,
 	landscape?: boolean,
-	children?: ReactNode,
-	imgClassName?: string,
+	className?: BemInputType,
+	imgClassName?: BemInputType,
 }
 
 const Cover: FC<PropTypes> = ({
 	url,
-	children = null,
+	children,
 	className = null,
 	landscape = false,
 	imgClassName = null,

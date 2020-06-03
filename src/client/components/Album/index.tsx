@@ -5,11 +5,11 @@ import Cover from "../Cover"
 import DocLink from "../DocLink"
 import DocLinks from "../DocLinks"
 import { useListStyleContext } from "../../contexts/ListStyle"
-import { Album as AlbumType, ListStyleEnum } from "../../types"
+import { Album as TAlbum, ListStyleEnum } from "../../types"
 
 type PropTypes = {
-	album: AlbumType
-	className?: string
+	album: TAlbum,
+	className?: string,
 }
 
 const Album: FC<PropTypes> = ({ album, className = null }) => {

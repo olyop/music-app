@@ -7,6 +7,5 @@
   &__select,
   &__select-option {
     font-size: 16rem; }
-  &__select-option {
-    &:first-letter {
-      text-transform: uppercase; } } }
+  &__select-option::first-letter {
+    text-transform: uppercase; } }

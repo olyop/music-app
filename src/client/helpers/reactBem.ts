@@ -1,10 +1,7 @@
-import { pipe } from "./pipe"
-import { BemInputType } from "../types"
+import { isNull, isEmpty, isString, isUndefined } from "lodash"
 
-type ClassType = {
-	ignore: boolean,
-	className: string,
-}
+import { pipe } from "./pipe"
+import { BemInputType, ClassType } from "../types"
 
 const isUpperCase = (x: string): boolean =>
 	x === x.toUpperCase()
@@ -15,12 +12,16 @@ const createClassType = (className: string, ignore = false): ClassType =>
 const normalizeInput = (classNames: BemInputType[]): ClassType[] =>
 	classNames
 		.map((className) => {
-			if (className === null) {
+			if (isNull(className) || isUndefined(className)) {
 				return createClassType("", true)
-			} else if (isUpperCase(className.charAt(0))) {
-				return createClassType(className, true)
+			} else if (isString(className)) {
+				if (isUpperCase(className.charAt(0))) {
+					return createClassType(className, true)
+				} else {
+					return createClassType(className)
+				}
 			} else {
-				return createClassType(className)
+				return className
 			}
 		})
 		.filter((className) => className !== null)
@@ -30,7 +31,7 @@ const mapBemValues = (componentName: string) => (classNames: ClassType[]) =>
 		({ ignore, className }) => {
 			if (ignore) {
 				return className
-			} else if (className === "") {
+			} else if (isEmpty(className)) {
 				return componentName
 			} else if (isUpperCase(className.charAt(0))) {
 				return className

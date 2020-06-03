@@ -22,15 +22,6 @@
     font-size: 17rem;
     font-weight: 400;
     margin-bottom: calc(var(--space) * 0.5 - 1px); }
-  &__disc {
-    margin-bottom: calc(var(--space) * 0.75);
-    &:last-child {
-      margin-bottom: 0; }
-    &-number {
-      font-size: 15rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      margin-bottom: calc(var(--space) * 0.5); } }
   &__footer-text {
     font-size: 14rem;
     text-transform: uppercase;

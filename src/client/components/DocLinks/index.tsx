@@ -1,30 +1,25 @@
-import React, { Fragment } from "react"
+import { createElement, Fragment, ReactElement } from "react"
 
 import DocLink from "../DocLink"
 
-import { bool, arrayOf, object } from "prop-types"
-import { determineConcat, determineDocIdKey } from "../../helpers"
+import { determineConcat, determineDocId } from "../../helpers"
 
-const DocLinks = ({ docs, ampersand }) => (
-  <Fragment>
-    {docs.map(
-      (doc, index) => (
-        <Fragment key={doc[determineDocIdKey(doc)]}>
-          <DocLink doc={doc} />
-          {determineConcat(docs, index, ampersand)}
-        </Fragment>
-      ),
-    )}
-  </Fragment>
+const DocLinks = <T,>({ docs, ampersand = true }: PropTypes<T>): ReactElement => (
+	<Fragment>
+		{docs.map(
+			(doc, index) => (
+				<Fragment key={determineDocId(doc)}>
+					<DocLink doc={doc}/>
+					{determineConcat(docs, index, ampersand)}
+				</Fragment>
+			),
+		)}
+	</Fragment>
 )
 
-DocLinks.propTypes = {
-  ampersand: bool,
-  docs: arrayOf(object).isRequired,
-}
-
-DocLinks.defaultProps = {
-  ampersand: true,
+type PropTypes<T> = {
+	docs: T[],
+	ampersand?: boolean,
 }
 
 export default DocLinks

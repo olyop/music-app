@@ -18,7 +18,7 @@ const List: FC<PropTypes> = ({ children, className }) => {
 
 type PropTypes = {
 	children: ReactNode,
-	className: BemInputType,
+	className?: BemInputType,
 }
 
 export default List

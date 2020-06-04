@@ -11,6 +11,7 @@ export type Doc = {
 
 export interface LibDoc extends Doc {
 	inLibrary: boolean,
+	isCurrent: boolean,
 }
 
 export interface Artist extends LibDoc {
@@ -43,6 +44,7 @@ export interface Song extends LibDoc {
 	artists: Artist[],
 	remixers: Artist[],
 	discNumber: number,
+	isCurrent: boolean,
 	trackNumber: number,
 }
 
@@ -81,6 +83,13 @@ export type ClassType = {
 
 export type Match = {
 	path: string,
+}
+
+export type TDataUserPlay = {
+	prev: Song[],
+	next: Song[],
+	current: Song,
+	queue: Song[],
 }
 
 export type BemInputType = ClassType | string | null | undefined

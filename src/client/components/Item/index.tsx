@@ -17,20 +17,6 @@ import "./index.scss"
 
 const bem = reactBem("Item")
 
-type PropTypes<IDoc, IImgDoc> = {
-	doc: IDoc,
-	imgDoc?: IImgDoc,
-	left?: ReactNode,
-	upper: ReactNode,
-	lower?: ReactNode,
-	right?: ReactNode,
-	showPlay?: boolean,
-	showInLibrary?: boolean,
-	className?: BemInputType,
-	infoClassName?: BemInputType,
-	inLibClassName?: BemInputType,
-}
-
 const Item = <IDoc, IImgDoc = Record<string, unknown>>({
 	doc,
 	left,
@@ -43,7 +29,7 @@ const Item = <IDoc, IImgDoc = Record<string, unknown>>({
 	inLibClassName,
 	showPlay = true,
 	showInLibrary = true,
-}: PropTypes<IDoc, IImgDoc>): ReactElement => (
+}: TProps<IDoc, IImgDoc>): ReactElement => (
 	<div className={bem(className, "")}>
 		{left && (
 			<p
@@ -98,5 +84,19 @@ const Item = <IDoc, IImgDoc = Record<string, unknown>>({
 		)}
 	</div>
 )
+
+type TProps<IDoc, IImgDoc> = {
+	doc: IDoc,
+	imgDoc?: IImgDoc,
+	left?: ReactNode,
+	upper: ReactNode,
+	lower?: ReactNode,
+	right?: ReactNode,
+	showPlay?: boolean,
+	showInLibrary?: boolean,
+	className?: BemInputType,
+	infoClassName?: BemInputType,
+	inLibClassName?: BemInputType,
+}
 
 export default Item

@@ -1,3 +1,4 @@
 {
-  "ext": "js,mjs,json,gql,sql,ts,tsx,env,cjs,ts,tsx,html"
+  "ext": "js,mjs,json,gql,sql,ts,tsx,env,cjs,ts,tsx,html",
+  "ignore": "src/client/"
 }

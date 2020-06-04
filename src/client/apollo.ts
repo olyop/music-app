@@ -4,14 +4,15 @@ import { createUploadLink } from "apollo-upload-client"
 
 import { determineDocId } from "./helpers"
 
-const SERVER_URL = process.env.NODE_ENV === "production" ?
-	"" : `http://${process.env.HOST!}:${process.env.PORT!}`
+const SERVER_URL = process.env.NODE_ENV === "development" ?
+	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+	`http://${process.env.HOST!}:${process.env.PORT!}` : ""
 
-const API_URL = `${SERVER_URL}/graphql`
+const uri = `${SERVER_URL}/graphql`
 
 const dataIdFromObject = <T>(doc: T) => determineDocId(doc)
 
-const link = createUploadLink({ uri: API_URL })
+const link = createUploadLink({ uri })
 const cache = new InMemoryCache({ dataIdFromObject })
 const client = new ApolloClient({ link, cache })
 

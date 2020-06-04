@@ -41,31 +41,63 @@
     "no-nested-ternary": "off",
     "object-curly-newline": "off",
     "array-bracket-spacing": "off",
-    "eol-last": ["error", "never"],
     "react/no-children-prop": "off",
     "implicit-arrow-linebreak": "off",
-    "react/jsx-indent": ["error", "tab"],
     "react/require-default-props": "off",
     "lines-between-class-members": "off",
     "import/prefer-default-export": "off",
-    "linebreak-style": ["error", "windows"],
-    "react/jsx-filename-extension": ["off"],
-    "@typescript-eslint/camelcase": ["off"],
-    "operator-linebreak": ["error", "after"],
-    "react/jsx-indent-props": ["error", "tab"],
-    "object-curly-spacing": ["error", "always"],
-    "react/jsx-fragments": ["error", "element"],
-    "@typescript-eslint/semi": ["error", "never"],
-    "comma-dangle": ["error", "always-multiline"],
-    "@typescript-eslint/quotes": ["error", "double"],
-    "jsx-a11y/click-events-have-key-events": ["off"],
-    "jsx-a11y/label-has-associated-control": ["off"],
-    "jsx-a11y/control-has-associated-label": ["off"],
-    "@typescript-eslint/no-non-null-assertion": "off",
-    "jsx-a11y/no-static-element-interactions": ["off"],
+    "react/jsx-filename-extension": "off",
+    "jsx-a11y/click-events-have-key-events": "off",
+    "jsx-a11y/label-has-associated-control": "off",
+    "jsx-a11y/control-has-associated-label": "off",
+    "jsx-a11y/no-static-element-interactions": "off",
+    "eol-last": [
+      "error",
+      "never"
+    ],
+    "react/jsx-indent": [
+      "error",
+      "tab"
+    ],
+    "linebreak-style": [
+      "error",
+      "windows"
+    ],
+    "operator-linebreak": [
+      "error",
+      "after"
+    ],
+    "react/jsx-indent-props": [
+      "error",
+      "tab"
+    ],
+    "object-curly-spacing": [
+      "error",
+      "always"
+    ],
+    "react/jsx-fragments": [
+      "error",
+      "element"
+    ],
+    "@typescript-eslint/semi": [
+      "error",
+      "never"
+    ],
+    "comma-dangle": [
+      "error",
+      "always-multiline"
+    ],
+    "@typescript-eslint/quotes": [
+      "error",
+      "double"
+    ],
     "@typescript-eslint/naming-convention": [
       "error",
       {
+        "filter": {
+          "match": false,
+          "regex": "__typename"
+        },
         "selector": "variableLike",
         "format": ["StrictPascalCase", "strictCamelCase", "UPPER_CASE"]
       }
@@ -106,7 +138,10 @@
     ],
     "import/no-extraneous-dependencies": [
       "error",
-      { "devDependencies": true, "optionalDependencies": false }
+      {
+        "devDependencies": true,
+        "optionalDependencies": false
+      }
     ]
   }
 }

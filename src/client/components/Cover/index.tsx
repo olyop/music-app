@@ -19,9 +19,9 @@ type PropTypes = {
 const Cover: FC<PropTypes> = ({
 	url,
 	children,
-	className = null,
+	className,
+	imgClassName,
 	landscape = false,
-	imgClassName = null,
 }) => (
 	<Img
 		url={url}

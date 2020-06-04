@@ -3,10 +3,9 @@ import { createElement, FC } from "react"
 import { UserProvider } from "../../contexts/User"
 
 const Authenticate: FC = ({ children }) => (
-	<UserProvider
-		children={children}
-		value={process.env.USER_ID}
-	/>
+	<UserProvider value={process.env.USER_ID}>
+		{children}
+	</UserProvider>
 )
 
 export default Authenticate

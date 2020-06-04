@@ -1,4 +1,4 @@
-import { createElement, Fragment, FC } from "react"
+import { createElement, FC } from "react"
 
 import Icon from "../Icon"
 import { reactBem } from "../../helpers"
@@ -14,13 +14,10 @@ const Button: FC<PropTypes> = ({ text, icon, onClick, className }) => (
 		type="button"
 		onClick={onClick}
 		className={bem(className, "", "Hover")}
-		children={(
-			<Fragment>
-				{icon && <Icon className={bem("icon")} icon={icon}/>}
-				{text && <span className={bem("text")} children={text}/>}
-			</Fragment>
-		)}
-	/>
+	>
+		{icon && <Icon className={bem("icon")} icon={icon}/>}
+		{text && <span className={bem("text")} children={text}/>}
+	</button>
 )
 
 type PropTypes = {

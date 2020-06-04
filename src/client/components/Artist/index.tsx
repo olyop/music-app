@@ -42,7 +42,7 @@ const Artist: FC<PropTypes> = ({ artist, className = null }) => {
 
 type PropTypes = {
 	artist: TArtist,
-	className: string,
+	className?: string,
 }
 
 export default Artist

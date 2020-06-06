@@ -1,8 +1,0 @@
-query getGenres($userId: Uuid!) {
-  genres {
-    genreId
-    name
-    numOfSongs
-    inLibrary(userId: $userId)
-  }
-}

@@ -1,7 +1,0 @@
-query getAddAlbum {
-  artists {
-    artistId
-    name
-    photo(size: HALF)
-  }
-}

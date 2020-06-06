@@ -1,4 +1,5 @@
 {
-  "ext": "js,mjs,json,gql,sql,ts,tsx,env,cjs,ts,tsx,html",
-  "ignore": "src/client/"
+  "ignore": "src/client/",
+  "exec": "ts-node ./src/server/index.ts",
+  "ext": "js,mjs,json,gql,sql,ts,tsx,env,cjs,ts,tsx,html"
 }

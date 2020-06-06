@@ -1,6 +1,9 @@
 import { useEffect, useState, Dispatch, SetStateAction } from "react"
 
-type ReturnType<T> = [ T, Dispatch<SetStateAction<T>> ]
+type ReturnType<T> = [
+	T,
+	Dispatch<SetStateAction<T>>,
+]
 
 export const useLocalStorage = <T>(key: string, init: T): ReturnType<T> => {
 	const [ state, setState ] = useState(() => {

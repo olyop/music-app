@@ -17,9 +17,8 @@ import ADD_USER_ALBUM from "../../graphql/mutations/addUserAlbum.gql"
 import ADD_USER_GENRE from "../../graphql/mutations/addUserGenre.gql"
 import ADD_USER_ARTIST from "../../graphql/mutations/addUserArtist.gql"
 
-const InLibraryButton = <TDoc extends LibDoc,>({
-	doc,
-	className,
+const InLibraryButton = <TDoc extends LibDoc>({
+	doc, className,
 }: TProps<TDoc>): ReactElement => {
 	const determineReturn = determineDocReturn(doc)
 	const variablesKey = determineReturn("songId", "albumId", "genreId", "artistId")

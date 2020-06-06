@@ -5,8 +5,8 @@ import { createUploadLink } from "apollo-upload-client"
 import { determineDocId } from "./helpers"
 
 const SERVER_URL = process.env.NODE_ENV === "development" ?
-	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-	`http://${process.env.HOST!}:${process.env.PORT!}` : ""
+	// eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+	`http://${process.env.HOST}:${process.env.PORT}` : ""
 
 const uri = `${SERVER_URL}/graphql`
 

@@ -1,0 +1,6 @@
+query genreSearchExact($query: String!) {
+  genreSearch(query: $query) {
+    genreId
+    name
+  }
+}

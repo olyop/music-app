@@ -1,9 +1,9 @@
 import { uniqueId } from "lodash"
 
 // import Queues from "../Queues"
-import Add from "../Add"
+// import Add from "../Add"
 import Search from "../Search"
-import Player from "../Player"
+// import Player from "../Player"
 import Catalog from "../Catalog"
 // import Library from "../Library"
 import UserPage from "../UserPage"
@@ -15,11 +15,11 @@ import ArtistPage from "../ArtistPage"
 import { Route } from "../../types"
 
 const routes: Route[] = [
-	{
-		path: "/add",
-		id: uniqueId(),
-		component: Add,
-	},
+	// {
+	// 	path: "/add",
+	// 	id: uniqueId(),
+	// 	component: Add,
+	// },
 	{
 		id: uniqueId(),
 		path: "/catalog",
@@ -30,12 +30,12 @@ const routes: Route[] = [
 	//   path: "/library",
 	//   component: Library,
 	// },
-	{
-		id: uniqueId(),
-		name: "Player",
-		path: "/player",
-		component: Player,
-	},
+	// {
+	// 	id: uniqueId(),
+	// 	name: "Player",
+	// 	path: "/player",
+	// 	component: Player,
+	// },
 	{
 		id: uniqueId(),
 		name: "Search",

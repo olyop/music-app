@@ -1,6 +1,6 @@
 import { isEmpty } from "lodash"
-import { useParams } from "react-router-dom"
 import { createElement, Fragment, FC } from "react"
+import { RouteComponentProps } from "react-router-dom"
 
 import Img from "../Img"
 import List from "../List"
@@ -16,11 +16,11 @@ import "./index.scss"
 
 const bem = reactBem("ArtistPage")
 
-const ArtistPage: FC = () => (
+const ArtistPage: FC<RouteComponentProps> = ({ match }) => (
 	<QueryApi<TData>
 		className={bem("")}
 		query={GET_ARTIST_PAGE}
-		variables={useParams()}
+		variables={match.params}
 		children={
 			({ artist }) => {
 				const { name, photo, songs, albums } = artist

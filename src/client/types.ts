@@ -1,15 +1,24 @@
-import { ComponentType } from "react"
+import { FC } from "react"
+import { RouteComponentProps } from "react-router-dom"
 
 export enum ListStyleEnum {
-	grid,
-	list,
+	grid = "grid",
+	list = "list",
 }
 
 export type Doc = {
 	__typename: string,
 }
 
+export type Play = {
+	user: User,
+	song: Song,
+	playId: string,
+	dateCreated: number,
+}
+
 export interface LibDoc extends Doc {
+	plays: Play[],
 	inLibrary: boolean,
 	isCurrent: boolean,
 }
@@ -73,7 +82,7 @@ export type Route = {
 	icon?: string,
 	name?: string,
 	ignore?: boolean,
-	component: ComponentType,
+	component: FC<RouteComponentProps>,
 }
 
 export type ClassType = {
@@ -81,15 +90,16 @@ export type ClassType = {
 	className: string,
 }
 
-export type Match = {
-	path: string,
-}
-
 export type TDataUserPlay = {
 	prev: Song[],
 	next: Song[],
 	current: Song,
 	queue: Song[],
+}
+
+export type ParseSongs = {
+	album: Album,
+	songs: Song[],
 }
 
 export type BemInputType = ClassType | string | null | undefined

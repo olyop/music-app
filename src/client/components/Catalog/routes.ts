@@ -1,15 +1,15 @@
 import { uniqueId } from "lodash"
 
-import Add from "../Add"
+// import Add from "../Add"
 import Browse from "../Browse"
 import { Route } from "../../types"
 
 const routes: Route[] = [
-	{
-		path: "/add",
-		id: uniqueId(),
-		component: Add,
-	},
+	// {
+	// 	path: "/add",
+	// 	id: uniqueId(),
+	// 	component: Add,
+	// },
 	{
 		id: uniqueId(),
 		path: "/browse",

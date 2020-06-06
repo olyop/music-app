@@ -3,8 +3,8 @@ import { createElement, ReactNode, ReactElement } from "react"
 
 import Img from "../Img"
 import PlayButton from "../PlayButton"
-import { BemInputType } from "../../types"
 import InLibraryButton from "../InLibraryButton"
+import { BemInputType, LibDoc } from "../../types"
 
 import {
 	reactBem,
@@ -17,7 +17,7 @@ import "./index.scss"
 
 const bem = reactBem("Item")
 
-const Item = <IDoc, IImgDoc = Record<string, unknown>>({
+const Item = <IDoc extends LibDoc, IImgDoc = Record<string, unknown>>({
 	doc,
 	left,
 	lower,

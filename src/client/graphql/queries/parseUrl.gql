@@ -1,0 +1,3 @@
+query parseUrl($url: String!) {
+  parseUrl(url: $url)
+}

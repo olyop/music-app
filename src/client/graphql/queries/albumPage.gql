@@ -1,0 +1,46 @@
+query albumPage(
+  $userId: Uuid!
+  $albumId: Uuid!
+) {
+  album(albumId: $albumId) {
+    albumId
+    title
+    released
+    totalDuration
+    cover(size: FULL)
+    inLibrary(userId: $userId)
+    artists {
+      artistId
+      name
+    }
+    songs {
+      songId
+      mix
+      title
+      duration
+      discNumber
+      trackNumber
+      inLibrary(userId: $userId)
+      featuring {
+        artistId
+        name
+      }
+      remixers {
+        artistId
+        name
+      }
+      artists {
+        artistId
+        name
+      }
+      genres {
+        genreId
+        name
+      }
+      album {
+        albumId
+        title
+      }
+    }
+  }
+}

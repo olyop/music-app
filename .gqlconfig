@@ -1,0 +1,13 @@
+{
+  schema: {
+    files: 'src/server/apollo/typeDefs/*.gql',
+  },
+  query: {
+    files: [
+      {
+        match: 'src/client/graphql/**/*.gql',
+        parser: 'QueryParser',
+      }
+    ]
+  }
+}

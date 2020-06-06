@@ -1,0 +1,8 @@
+query genres($userId: Uuid!) {
+  genres {
+    genreId
+    name
+    numOfSongs
+    inLibrary(userId: $userId)
+  }
+}

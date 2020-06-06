@@ -1,11 +1,10 @@
 import { createElement, FC } from "react"
-import { Switch, Route } from "react-router-dom"
+import { Switch, Route, RouteComponentProps } from "react-router-dom"
 
 import routes from "./routes"
-import { Match } from "../../types"
 import Navigation from "../Navigation"
 
-const Browse: FC<PropTypes> = ({ match }) => (
+const Browse: FC<RouteComponentProps> = ({ match }) => (
 	<div className="Padding">
 		<Navigation
 			match={match}
@@ -26,9 +25,5 @@ const Browse: FC<PropTypes> = ({ match }) => (
 		</Switch>
 	</div>
 )
-
-type PropTypes = {
-	match: Match,
-}
 
 export default Browse

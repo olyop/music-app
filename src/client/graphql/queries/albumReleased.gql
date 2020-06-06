@@ -1,0 +1,9 @@
+query albumReleased(
+  $album: String!
+  $artist: String!
+) {
+  albumReleased(
+    album: $album
+    artist: $artist
+  )
+}

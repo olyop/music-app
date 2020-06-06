@@ -6,7 +6,7 @@ import { useListStyleContext } from "../../contexts/ListStyle"
 
 const bem = reactBem("Albums")
 
-const List: FC<PropTypes> = ({ children, className }) => {
+const List: FC<TProps> = ({ children, className }) => {
 	const { listStyle } = useListStyleContext()
 	const listClassName = listStyle === ListStyleEnum.grid ? "Grid" : "Elevated"
 	return (
@@ -16,7 +16,7 @@ const List: FC<PropTypes> = ({ children, className }) => {
 	)
 }
 
-type PropTypes = {
+type TProps = {
 	children: ReactNode,
 	className?: BemInputType,
 }

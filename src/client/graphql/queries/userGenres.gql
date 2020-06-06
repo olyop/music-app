@@ -1,0 +1,11 @@
+query userGenres($userId: Uuid!) {
+  user(userId: $userId) {
+    userId
+    genres {
+      genreId
+      name
+      inLibrary(userId: $userId)
+      dateAdded(userId: $userId)
+    }
+  }
+}

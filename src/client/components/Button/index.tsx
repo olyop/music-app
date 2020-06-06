@@ -24,7 +24,7 @@ type PropTypes = {
 	icon?: string,
 	text?: string,
 	onClick?: () => void,
-	className: BemInputType,
+	className?: BemInputType,
 }
 
 export default Button

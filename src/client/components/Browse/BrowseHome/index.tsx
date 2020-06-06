@@ -1,23 +1,25 @@
-import { createElement, FC } from "react"
+import { createElement, FC, Fragment } from "react"
+import { RouteComponentProps } from "react-router-dom"
 
 import List from "../../List"
 import Song from "../../Song"
 import Album from "../../Album"
 import QueryApi from "../../QueryApi"
 import { reactBem } from "../../../helpers"
+import QUERY_BROWSE from "../../../graphql/queries/browse.gql"
 import { Album as TAlbum, Song as TSong } from "../../../types"
-import GET_BROWSE from "../../../graphql/queries/getBrowse.gql"
 
 import "./index.scss"
 
 const bem = reactBem("BrowseHome")
 
-const BrowseHome: FC = () => (
+const BrowseHome: FC<RouteComponentProps> = () => (
 	<QueryApi<TData>
-		query={GET_BROWSE}
+		query={QUERY_BROWSE}
+		className={bem("")}
 		children={
 			({ newAlbums, topTenSongs }) => (
-				<div className={bem("")}>
+				<Fragment>
 					<div className={bem("newAlbums")}>
 						<h2 className={bem("heading")}>New Albums</h2>
 						<List>
@@ -42,7 +44,7 @@ const BrowseHome: FC = () => (
 							),
 						)}
 					</div>
-				</div>
+				</Fragment>
 			)
 		}
 	/>

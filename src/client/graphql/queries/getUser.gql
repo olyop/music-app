@@ -1,6 +1,0 @@
-query getUser($userId: Uuid!) {
-  user(userId: $userId) {
-    userId
-    name
-  }
-}

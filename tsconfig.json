@@ -1,21 +1,23 @@
 {
   "compilerOptions": {
-    "jsx": "react",
     "strict": true,
     "noEmit": true,
+    "target": "es6",
     "allowJs": true,
+    "rootDir": "src/server",
     "sourceMap": true,
     "module": "esnext",
-    "target": "esnext",
     "noImplicitAny": true,
     "noUnusedLocals": true,
     "esModuleInterop": true,
     "strictNullChecks": true,
     "moduleResolution": "node",
     "noUnusedParameters": true,
-    "jsxFactory": "createElement",
     "noFallthroughCasesInSwitch": true,
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true
-  }
+  },
+  "exclude": [
+    "node_modules"
+  ]
 }

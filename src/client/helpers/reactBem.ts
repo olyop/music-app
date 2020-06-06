@@ -15,7 +15,9 @@ const normalizeInput = (classNames: BemInputType[]): ClassType[] =>
 			if (isNull(className) || isUndefined(className)) {
 				return createClassType("", true)
 			} else if (isString(className)) {
-				if (isUpperCase(className.charAt(0))) {
+				if (isEmpty(className)) {
+					return createClassType(className)
+				} else if (isUpperCase(className.charAt(0))) {
 					return createClassType(className, true)
 				} else {
 					return createClassType(className)
@@ -33,8 +35,6 @@ const mapBemValues = (componentName: string) => (classNames: ClassType[]) =>
 				return className
 			} else if (isEmpty(className)) {
 				return componentName
-			} else if (isUpperCase(className.charAt(0))) {
-				return className
 			} else {
 				return `${componentName}__${className}`
 			}

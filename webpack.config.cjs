@@ -17,16 +17,19 @@ const serverPath = path.join(srcPath, "server")
 const buildPath = path.join(serverPath, "build")
 const publicPath = path.join(clientPath, "public")
 
+const distPath = path.resolve("dist")
+
 module.exports = ({ NODE_ENV }) => {
-  const isProd = NODE_ENV === "isProduction"
+  const isProd = NODE_ENV === "production"
   return {
     mode: isProd ? "production" : "development",
     entry: path.join(clientPath, "index.tsx"),
     output: {
+      publicPath: "/",
       filename: "[hash].js",
-      path: path.join(serverPath, "build"),
+      path: path.join(isProd ? distPath : serverPath, "build"),
     },
-    devtool: "inline-source-map",
+    devtool: isProd ? "" : "inline-source-map",
     resolve: {
       extensions: [".ts", ".tsx", ".js"],
     },
@@ -70,7 +73,9 @@ module.exports = ({ NODE_ENV }) => {
           use: {
             loader: "ts-loader",
             options: {
-              transpileOnly: true,
+              jsx: "react",
+              transpileOnly: !isProd,
+              jsxFactory: "createElement",
             },
           },
         },
@@ -86,7 +91,7 @@ module.exports = ({ NODE_ENV }) => {
       ...(isProd ? [new LodashModuleReplacementPlugin()] : []),
       ...(isProd ? [new OptimizeCssAssetsPlugin()] : []),
       ...(isProd ? [new MiniCssExtractPlugin({ filename: "[hash].css" })] : []),
-      ...(isProd ? [] : [new StylelintPlugin({ configFile: ".stylelint.json" })]),
+      ...(isProd ? [] : [new StylelintPlugin({ configFile: ".stylelintrc.json" })]),
       new Dotenv(),
       ...(isProd ? [new BundleAnalyzerPlugin()] : []),
       new HtmlWebpackPlugin({

@@ -1,6 +1,0 @@
-query getGenreSearchExact($query: String!) {
-  genreSearch(query: $query) {
-    genreId
-    name
-  }
-}

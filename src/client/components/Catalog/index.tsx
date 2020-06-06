@@ -1,10 +1,9 @@
 import { createElement, FC } from "react"
-import { Switch, Route } from "react-router-dom"
+import { Switch, Route, RouteComponentProps } from "react-router-dom"
 
 import routes from "./routes"
-import { Match } from "../../types"
 
-const Catalog: FC<PropTypes> = ({ match }) => (
+const Catalog: FC<RouteComponentProps> = ({ match }) => (
 	<Switch>
 		{routes.map(
 			route => (
@@ -17,9 +16,5 @@ const Catalog: FC<PropTypes> = ({ match }) => (
 		)}
 	</Switch>
 )
-
-type PropTypes = {
-	match: Match,
-}
 
 export default Catalog

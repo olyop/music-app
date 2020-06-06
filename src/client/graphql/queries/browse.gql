@@ -1,0 +1,45 @@
+query browse($userId: Uuid!) {
+  topTenSongs {
+    songId
+    mix
+    title
+    duration
+    inLibrary(userId: $userId)
+    isCurrent(userId: $userId)
+    featuring {
+      artistId
+      name
+    }
+    remixers {
+      artistId
+      name
+    }
+    artists {
+      artistId
+      name
+    }
+    genres {
+      genreId
+      name
+    }
+    album {
+      albumId
+      title
+      cover(size: HALF)
+    }
+    plays(userId: $userId) {
+      playId
+      dateCreated
+    }
+  }
+  newAlbums {
+    albumId
+    title
+    cover(size: HALF)
+    inLibrary(userId: $userId)
+    artists {
+      artistId
+      name
+    }
+  }
+}

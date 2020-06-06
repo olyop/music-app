@@ -1,0 +1,16 @@
+query userAlbums($userId: Uuid!) {
+  user(userId: $userId) {
+    userId
+    albums {
+      albumId
+      title
+      cover(size: HALF)
+      inLibrary(userId: $userId)
+      dateAdded(userId: $userId)
+      artists {
+        artistId
+        name
+      }
+    }
+  }
+}

@@ -1,3 +1,4 @@
 scalar Uuid
 scalar Json
 scalar Email
+scalar Upload

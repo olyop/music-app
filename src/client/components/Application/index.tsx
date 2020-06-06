@@ -22,7 +22,7 @@ const Application: FC = () => {
 	useEffect(() => {
 		document.documentElement.style.setProperty(
 			"--content-width",
-			sidebar ? "100vw" : "calc(100vw - var(--sidebar-width))",
+			sidebar ? "calc(100vw - var(--sidebar-width))" : "100vw",
 			"important",
 		)
 	}, [sidebar])

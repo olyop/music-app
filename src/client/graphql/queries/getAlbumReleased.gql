@@ -1,3 +1,0 @@
-query getAlbumReleased($album: String!, $artist: String!) {
-  getAlbumReleased(album: $album, artist: $artist)
-}

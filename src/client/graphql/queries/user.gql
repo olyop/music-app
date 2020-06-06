@@ -1,0 +1,6 @@
+query user($userId: Uuid!) {
+  user(userId: $userId) {
+    userId
+    name
+  }
+}

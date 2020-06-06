@@ -1,0 +1,117 @@
+query userQueues($userId: Uuid!) {
+  user(userId: $userId) {
+    userId
+    prev {
+      songId
+      title
+      mix
+      duration
+      inLibrary(userId: $userId)
+      featuring {
+        artistId
+        name
+      }
+      remixers {
+        artistId
+        name
+      }
+      artists {
+        artistId
+        name
+      }
+      genres {
+        genreId
+        name
+      }
+      album {
+        albumId
+        title
+        cover(size: HALF)
+      }
+    }
+    current {
+      songId
+      title
+      mix
+      duration
+      inLibrary(userId: $userId)
+      featuring {
+        artistId
+        name
+      }
+      remixers {
+        artistId
+        name
+      }
+      artists {
+        artistId
+        name
+      }
+      genres {
+        genreId
+        name
+      }
+      album {
+        albumId
+        title
+        cover(size: HALF)
+      }
+    }
+    next {
+      songId
+      title
+      mix
+      duration
+      inLibrary(userId: $userId)
+      featuring {
+        artistId
+        name
+      }
+      remixers {
+        artistId
+        name
+      }
+      artists {
+        artistId
+        name
+      }
+      genres {
+        genreId
+        name
+      }
+      album {
+        albumId
+        title
+        cover(size: HALF)
+      }
+    }
+    queue {
+      songId
+      title
+      mix
+      duration
+      inLibrary(userId: $userId)
+      featuring {
+        artistId
+        name
+      }
+      remixers {
+        artistId
+        name
+      }
+      artists {
+        artistId
+        name
+      }
+      genres {
+        genreId
+        name
+      }
+      album {
+        albumId
+        title
+        cover(size: HALF)
+      }
+    }
+  }
+}

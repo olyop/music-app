@@ -1,4 +1,5 @@
 import { isEmpty } from "lodash"
+import { RouteComponentProps } from "react-router-dom"
 import { createElement, useState, FC, ChangeEventHandler } from "react"
 
 import { reactBem } from "../../helpers"
@@ -7,7 +8,7 @@ import "./index.scss"
 
 const bem = reactBem("Search")
 
-const Search: FC = () => {
+const Search: FC<RouteComponentProps> = () => {
 	const [ input, setInput ] =
 		useState("")
 	const handleChange: ChangeEventHandler<HTMLInputElement> = event =>

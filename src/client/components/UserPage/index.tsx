@@ -1,3 +1,5 @@
+import { upperFirst } from "lodash"
+import { RouteComponentProps } from "react-router-dom"
 import { createElement, FC, Fragment, ChangeEventHandler } from "react"
 
 import QueryApi from "../QueryApi"
@@ -10,11 +12,12 @@ import "./index.scss"
 
 const bem = reactBem("UserPage")
 
-const UserPage: FC = () => {
+const UserPage: FC<RouteComponentProps> = () => {
 	const { listStyle, setListStyle } =
 		useListStyleContext()
 	const handleSelectChange: ChangeEventHandler<HTMLSelectElement> = event =>
-		setListStyle(+event.target.value)
+		// @ts-ignore
+		setListStyle(ListStyleEnum[event.target.value])
 	return (
 		<QueryApi<TData>
 			query={GET_USER}
@@ -25,19 +28,19 @@ const UserPage: FC = () => {
 						<h1 className={bem("name", "MarginBottom")}>{user.name}</h1>
 						<h3 className={bem("option-text")}>List Style</h3>
 						<select
-							value={listStyle}
 							className={bem("select")}
+							value={listStyle || "grid"}
 							onChange={handleSelectChange}
 						>
 							<option
 								value={ListStyleEnum.grid}
-								children={ListStyleEnum.grid}
 								className={bem("select-option")}
+								children={upperFirst(ListStyleEnum.grid)}
 							/>
 							<option
 								value={ListStyleEnum.list}
-								children={ListStyleEnum.list}
 								className={bem("select-option")}
+								children={upperFirst(ListStyleEnum.list)}
 							/>
 						</select>
 					</Fragment>

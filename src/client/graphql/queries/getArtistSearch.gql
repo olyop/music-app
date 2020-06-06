@@ -1,7 +1,0 @@
-query getArtistSearch($query: String!) {
-  artistSearch(query: $query) {
-    artistId
-    name
-    photo(size: MINI)
-  }
-}

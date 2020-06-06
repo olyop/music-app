@@ -1,0 +1,3 @@
+query imageSearch($query: String!) {
+  imageSearch(query: $query)
+}

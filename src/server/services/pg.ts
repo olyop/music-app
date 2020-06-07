@@ -6,7 +6,7 @@ import {
 	AWS_RDS_USER,
 	AWS_RDS_ENDPOINT,
 	AWS_RDS_PASSWORD,
-} from "../globals/environment.js"
+} from "../globals"
 
 const pool = new pg.Pool({
 	port: AWS_RDS_PORT,

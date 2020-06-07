@@ -8,30 +8,30 @@ mutation userAddSongQueue(
   ) {
     userId
     queue {
-      id
+      songId
       mix
       title
       duration
       featuring {
-        id
+        artistId
         name
       }
       remixers {
-        id
+        artistId
         name
       }
       artists {
-        id
+        artistId
         name
       }
       genres {
-        id
+        genreId
         name
       }
       album {
-        id
+        albumId
         title
-        cover
+        cover(size: HALF)
       }
     }
   }

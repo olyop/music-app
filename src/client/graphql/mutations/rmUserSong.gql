@@ -13,23 +13,23 @@ mutation rmUserSong(
     inLibrary(userId: $userId)
     dateAdded(userId: $userId)
     featuring {
-      id
+      artistId
       name
     }
     remixers {
-      id
+      artistId
       name
     }
     artists {
-      id
+      artistId
       name
     }
     genres {
-      id
+      genreId
       name
     }
     album {
-      id
+      albumId
       title
     }
   }

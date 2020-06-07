@@ -1,7 +1,9 @@
-import concatStream from "../utils/concatStream.js"
-import createStreamFromUpload from "./createStreamFromUpload.js"
+import { GraphQLUpload } from "graphql-upload"
 
-const uploadFileFromClient = upload => new Promise(
+import { concatStream } from "../utils/concatStream"
+import { createStreamFromUpload } from "./createStreamFromUpload"
+
+export const uploadFileFromClient = (upload: typeof GraphQLUpload) => new Promise(
 	(resolve, reject) => {
 		createStreamFromUpload(upload)
 			.then(concatStream)
@@ -9,5 +11,3 @@ const uploadFileFromClient = upload => new Promise(
 			.catch(reject)
 	},
 )
-
-export default uploadFileFromClient

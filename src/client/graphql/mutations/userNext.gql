@@ -2,115 +2,115 @@ mutation userNext($userId: Uuid!) {
   userNext(userId: $userId) {
     userId
     prev {
-      id
+      songId
       mix
       title
       duration
       inLibrary(userId: $userId)
       featuring {
-        id
+        artistId
         name
       }
       remixers {
-        id
+        artistId
         name
       }
       artists {
-        id
+        artistId
         name
       }
       genres {
-        id
+        genreId
         name
       }
       album {
-        id
+        albumId
         title
-        cover
+        cover(size: HALF)
       }
     }
     current {
-      id
+      songId
       title
       mix
       duration
       inLibrary(userId: $userId)
       featuring {
-        id
+        artistId
         name
       }
       remixers {
-        id
+        artistId
         name
       }
       artists {
-        id
+        artistId
         name
       }
       genres {
-        id
+        genreId
         name
       }
       album {
-        id
+        albumId
         title
-        cover
+        cover(size: HALF)
       }
     }
     next {
-      id
+      songId
       title
       mix
       duration
       inLibrary(userId: $userId)
       featuring {
-        id
+        artistId
         name
       }
       remixers {
-        id
+        artistId
         name
       }
       artists {
-        id
+        artistId
         name
       }
       genres {
-        id
+        genreId
         name
       }
       album {
-        id
+        albumId
         title
-        cover
+        cover(size: HALF)
       }
     }
     queue {
-      id
+      songId
       title
       mix
       duration
       inLibrary(userId: $userId)
       featuring {
-        id
+        artistId
         name
       }
       remixers {
-        id
+        artistId
         name
       }
       artists {
-        id
+        artistId
         name
       }
       genres {
-        id
+        genreId
         name
       }
       album {
-        id
+        albumId
         title
-        cover
+        cover(size: HALF)
       }
     }
   }

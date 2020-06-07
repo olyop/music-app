@@ -1,8 +1,11 @@
-import sharp, { Sharp } from "sharp"
+import sharp from "sharp"
 
-const resize = ({ image, dim: [width, height] }): Sharp =>
+type TInput = {
+	image: Buffer,
+	dim: [number, number],
+}
+
+export const resize = ({ image, dim: [width, height] }: TInput) =>
 	sharp(image)
 		.resize(width, height)
 		.jpeg()
-
-export default resize

@@ -73,9 +73,7 @@ module.exports = ({ NODE_ENV }) => {
           use: {
             loader: "ts-loader",
             options: {
-              jsx: "react",
               transpileOnly: !isProd,
-              jsxFactory: "createElement",
             },
           },
         },

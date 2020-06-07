@@ -33,6 +33,7 @@ app.use(
 	sendStatic(),
 )
 
+// send index.html
 app.use("*", sendIndex())
 
 app.listen(PORT, HOST)

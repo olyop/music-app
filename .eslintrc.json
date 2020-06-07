@@ -53,6 +53,10 @@
     "jsx-a11y/control-has-associated-label": "off",
     "jsx-a11y/no-static-element-interactions": "off",
     "@typescript-eslint/explicit-module-boundary-types": "off",
+    "import/extensions": [
+      "error",
+      "never"
+    ],
     "eol-last": [
       "error",
       "never"

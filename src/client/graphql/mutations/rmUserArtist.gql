@@ -8,7 +8,7 @@ mutation rmUserArtist(
   ) {
     artistId
     name
-    photo
+    photo(size: FULL)
     inLibrary(userId: $userId)
     dateAdded(userId: $userId)
   }

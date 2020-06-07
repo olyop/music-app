@@ -8,7 +8,7 @@ mutation addUserAlbum(
   ) {
     albumId
     title
-    cover
+    cover(size: FULL)
     inLibrary(userId: $userId)
     dateAdded(userId: $userId)
     artists {

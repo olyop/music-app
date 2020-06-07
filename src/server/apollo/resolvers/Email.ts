@@ -6,19 +6,19 @@ import {
 	GraphQLScalarType,
 } from "graphql"
 
-import { isUuid } from "../../helpers"
+import { isEmail } from "../../helpers"
 
-const name = "Uuid"
+const name = "Email"
 
 const description =
-	`The Uuid scalar type represents UUID values
-	 as specified in RFC4122: https://tools.ietf.org/html/rfc4122/.`
+	`A field whose value conforms to the standard internet email address
+	 format as specified in RFC822: https://www.w3.org/Protocols/rfc822/.`
 
 const parse = (value: string) => {
-	if (isUuid(value)) {
+	if (isEmail(value)) {
 		return value
 	} else {
-		throw new GraphQLError(`Invalid uuid: ${value}`)
+		throw new GraphQLError(`Invalid email: ${value}`)
 	}
 }
 
@@ -29,11 +29,11 @@ const parseLiteral = (ast: ValueNode) => {
 	if (isValueString(ast)) {
 		return ast.value
 	} else {
-		throw new GraphQLError(`Can only validate strings as uuids but got: ${ast.kind}`)
+		throw new GraphQLError(`Can only validate strings as email addresses but got: ${ast.kind}`)
 	}
 }
 
-const Uuid = new GraphQLScalarType({
+const Email = new GraphQLScalarType({
 	name,
 	description,
 	parseLiteral,
@@ -41,4 +41,4 @@ const Uuid = new GraphQLScalarType({
 	parseValue: parse,
 })
 
-export default Uuid
+export default Email

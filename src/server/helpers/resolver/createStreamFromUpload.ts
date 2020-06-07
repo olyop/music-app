@@ -1,4 +1,4 @@
-import { GraphQLUpload } from "graphql-upload"
+import { GraphQLTypeResolver } from "graphql"
 
 export const createStreamFromUpload = (upload: typeof GraphQLUpload) =>
 	new Promise(

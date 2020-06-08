@@ -1,4 +1,4 @@
-import { IResolvers as Resolvers } from "apollo-server-express"
+// import { IFieldResolver as Resolver } from "apollo-server-express"
 
 import {
 	SELECT_USER,
@@ -17,16 +17,19 @@ import {
 	SELECT_TOP_TEN_SONGS,
 } from "../../../sql/index.js"
 
+import {
+	sqlJoin,
+	sqlQuery,
+	sqlParseRow,
+	mapResolver,
+	sqlParseTable,
+} from "../../../helpers"
+
 import searches from "./searches.js"
 import parseUrl from "./parseUrl.js"
 import imageSearch from "./imageSearch.js"
 import parseSongs from "./parseSongs/index.js"
-import sqlJoin from "../../../helpers/sql/sqlJoin.js"
-import columnNames from "../../../sql/columnNames.js"
-import sqlQuery from "../../../helpers/sql/sqlQuery.js"
-import sqlParseRow from "../../../helpers/sql/sqlParseRow.js"
-import mapResolver from "../../../helpers/utils/mapResolver.js"
-import sqlParseTable from "../../../helpers/sql/sqlParseTable.js"
+import { columnNames } from "../../../globals"
 
 const songs =
 	async () =>
@@ -207,7 +210,7 @@ const topTenSongs =
 			parse: sqlParseTable,
 		})
 
-const queryResolver: Resolvers =
+const queryResolver =
 	mapResolver({
 		user,
 		play,

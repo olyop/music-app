@@ -18,6 +18,7 @@ import Mutation from "./Mutation"
 
 const customScalars: Record<string, GraphQLScalarType> = {
 	Uuid,
+	// @ts-ignore
 	Json,
 	Email,
 }

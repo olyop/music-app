@@ -18,7 +18,7 @@ import s3CatalogObjectKey from "../../helpers/s3/s3CatalogObjectKey.js"
 
 const photo =
   async ({ parent, args }) =>
-    s3GetObject({
+    s3GetObject<stringList>({
       parse: toDataUrl,
       key: s3CatalogObjectKey({
         id: parent.artistId,

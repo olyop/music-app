@@ -8,3 +8,10 @@ export type Queue = {
 	next: Song[],
 	queue: Song[],
 }
+
+export type SqlVariable = {
+	key: string,
+	value: string,
+	string: boolean,
+	parameterized: boolean,
+}

@@ -9,3 +9,4 @@ export const resize = ({ image, dim: [width, height] }: TInput) =>
 	sharp(image)
 		.resize(width, height)
 		.jpeg()
+		.toBuffer()

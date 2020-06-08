@@ -1,4 +1,4 @@
-import pg from "pg"
+import { Pool } from "pg"
 
 import {
 	AWS_RDS_DB,
@@ -8,7 +8,7 @@ import {
 	AWS_RDS_PASSWORD,
 } from "../globals"
 
-const pool = new pg.Pool({
+const pool = new Pool({
 	port: AWS_RDS_PORT,
 	user: AWS_RDS_USER,
 	database: AWS_RDS_DB,

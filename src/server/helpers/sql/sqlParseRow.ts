@@ -1,5 +1,4 @@
-import head from "lodash/head.js"
-import isUndefined from "lodash/isUndefined.js"
+import { head, isUndefined } from "lodash"
 
 import pipe from "../utils/pipe.js"
 import sqlResRows from "./sqlResRows.js"
@@ -7,11 +6,9 @@ import convertToCamelCase from "../resolver/convertToCamelCase.js"
 
 const checkForNullResult = res => (isUndefined(res) ? [] : res)
 
-const parseSqlRow = sql => pipe(sql)(
+export const sqlParseRow = sql => pipe(
   sqlResRows,
   checkForNullResult,
   head,
   convertToCamelCase,
-)
-
-export default parseSqlRow
+)(sql)

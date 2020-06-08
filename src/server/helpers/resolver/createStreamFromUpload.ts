@@ -1,7 +1,8 @@
-import { GraphQLTypeResolver } from "graphql"
+import { ReadStream } from "fs"
+import { FileUpload } from "graphql-upload"
 
-export const createStreamFromUpload = (upload: typeof GraphQLUpload) =>
-	new Promise(
+export const createStreamFromUpload = (upload: Promise<FileUpload>) =>
+	new Promise<ReadStream>(
 		(resolve, reject) => {
 			upload
 				.then(file => file.createReadStream())

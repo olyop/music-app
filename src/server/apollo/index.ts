@@ -1,10 +1,10 @@
-import Apollo from "apollo-server-express"
+import { ApolloServer } from "apollo-server-express"
 
 import typeDefs from "./typeDefs"
 import resolvers from "./resolvers"
 import { APOLLO_SERVER_CONFIG } from "../globals"
 
-const apolloServer = new Apollo.ApolloServer({
+const apolloServer = new ApolloServer({
 	typeDefs,
 	resolvers,
 	...APOLLO_SERVER_CONFIG,

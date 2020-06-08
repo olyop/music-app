@@ -3,8 +3,10 @@
 		@typescript-eslint/no-explicit-any,
 		@typescript-eslint/no-unsafe-assignment
 */
-// import { IFieldResolver as Resolver } from "apollo-server-express"
+// import { GraphQLResolveInfo } from "graphql"
+import { IFieldResolver } from "apollo-server-express"
 
-export const resolver = (callback: (val: any) => void) =>
-	(parent: any, args: any, context: any, info: any) =>
-		callback({ parent, args, context, info })
+export const resolver =
+	<TParent, TContext>(callback: (val: any) => void): IFieldResolver<TParent, TContext> =>
+		(parent, args, context, info) =>
+			callback({ parent, args, context, info })

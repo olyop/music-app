@@ -6,9 +6,8 @@ import Application from "./components/Application"
 import ApolloClient from "./components/ApolloClient"
 import Authenticate from "./components/Authenticate"
 
-import "./css/variables.scss"
-import "./css/classes.scss"
-import "./css/base.scss"
+import "./index.scss"
+import "./classes.scss"
 
 const Index: FC = () => (
 	<StrictMode>

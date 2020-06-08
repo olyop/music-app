@@ -22,7 +22,7 @@ const sqlExistsQuery = ({ value, table, column }) =>
     }],
   })
 
-const sqlExists = input => new Promise(
+export const sqlExists = input => new Promise(
   (resolve, reject) => {
     if (Array.isArray(input.value)) {
       return Promise
@@ -36,5 +36,3 @@ const sqlExists = input => new Promise(
     }
   },
 )
-
-export default sqlExists

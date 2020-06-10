@@ -1,25 +1,25 @@
 {
-  "compilerOptions": {
-    "jsx": "react",
-    "strict": true,
-    "noEmit": true,
-    "target": "es6",
-    "allowJs": true,
-    "sourceMap": true,
-    "module": "esnext",
-    "noImplicitAny": true,
-    "noUnusedLocals": true,
-    "rootDir": "src/server",
-    "esModuleInterop": true,
-    "strictNullChecks": true,
-    "moduleResolution": "node",
-    "noUnusedParameters": true,
-    "jsxFactory": "createElement",
-    "noFallthroughCasesInSwitch": true,
-    "allowSyntheticDefaultImports": true,
-    "forceConsistentCasingInFileNames": true
-  },
-  "exclude": [
-    "node_modules"
-  ]
+	"compilerOptions": {
+		"jsx": "react",
+		"strict": true,
+		"noEmit": true,
+		"target": "es6",
+		"allowJs": true,
+		"sourceMap": true,
+		"module": "esnext",
+		"noImplicitAny": true,
+		"noUnusedLocals": true,
+		"rootDir": "src/server",
+		"esModuleInterop": true,
+		"strictNullChecks": true,
+		"moduleResolution": "node",
+		"noUnusedParameters": true,
+		"jsxFactory": "createElement",
+		"noFallthroughCasesInSwitch": true,
+		"allowSyntheticDefaultImports": true,
+		"forceConsistentCasingInFileNames": true
+	},
+	"exclude": [
+		"node_modules"
+	]
 }

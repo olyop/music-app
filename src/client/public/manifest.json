@@ -1,20 +1,20 @@
 {
 	"short_name":"music-app",
-  "name":"music-app",
-  "icons":[
-  	{
-  		"src":"/images/icons/192.png",
-      "type":"image/png",
-      "sizes":"192x192"
+	"name":"music-app",
+	"icons":[
+		{
+			"src":"/images/icons/192.png",
+			"type":"image/png",
+			"sizes":"192x192"
 		},
-    {
-    	"src":"/images/icons/512.png",
-    	"type":"image/png",
-    	"sizes":"512x512"
+		{
+			"src":"/images/icons/512.png",
+			"type":"image/png",
+			"sizes":"512x512"
 		}
 	],
-  "start_url":"/",
-  "display":"fullscreen",
-  "theme_color":"#000000",
-  "background_color":"#ffffff"
+	"start_url":"/",
+	"display":"fullscreen",
+	"theme_color":"#000000",
+	"background_color":"#ffffff"
 }

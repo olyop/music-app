@@ -1,5 +1,5 @@
-import sqlQuery from "./sqlQuery.js"
-import sqlResExists from "./sqlResExists.js"
+import { sqlQuery } from "./sqlQuery"
+import { sqlResExists } from "./sqlResExists"
 
 import { EXISTS_COLUMN } from "../../sql/index.js"
 

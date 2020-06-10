@@ -37,6 +37,9 @@
     "name": "Oliver Plummer",
     "email": "oliver.plummer@outlook.com"
   },
+  "engines": {
+    "node": ">=14.0.0"
+  },
   "license": "MIT",
   "bugs": "https://github.com/olyop/music-app/issues",
   "homepage": "https://github.com/olyop/music-app/blob/master/README.md",
@@ -67,7 +70,6 @@
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.2.0",
     "sharp": "^0.25.2",
-    "tiny-async-pool": "^1.1.0",
     "uuid": "^8.1.0"
   },
   "devDependencies": {
@@ -107,6 +109,7 @@
     "eslint-config-airbnb-typescript": "^8.0.2",
     "eslint-plugin-import": "^2.21.1",
     "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-react": "^7.20.0",
     "eslint-plugin-react-hooks": "^4.0.4",

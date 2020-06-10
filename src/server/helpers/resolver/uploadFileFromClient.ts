@@ -1,6 +1,6 @@
 import { FileUpload } from "graphql-upload"
 
-import { concatStream } from "../utils/concatStream"
+import { concatStream } from "../utils"
 import { createStreamFromUpload } from "./createStreamFromUpload"
 
 export const uploadFileFromClient = (upload: Promise<FileUpload>) =>

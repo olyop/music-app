@@ -1,4 +1,5 @@
 /* eslint-disable quote-props */
+import { ImgDim } from "../types"
 
 process.setMaxListeners(20)
 
@@ -34,13 +35,13 @@ export const USER_QUEUE_SELECT = {
 
 export const IMAGE_SIZES = {
 	ALBUM: {
-		HALF: [400, 400],
-		FULL: [800, 800],
+		HALF: [400, 400] as ImgDim,
+		FULL: [800, 800] as ImgDim,
 	},
 	ARTIST: {
-		MINI: [640, 360],
-		HALF: [1280, 720],
-		FULL: [1920, 1080],
+		MINI: [640, 360] as ImgDim,
+		HALF: [1280, 720] as ImgDim,
+		FULL: [1920, 1080] as ImgDim,
 	},
 }
 

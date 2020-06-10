@@ -1,25 +1,25 @@
-export const genre = [
+export const GENRE = [
 	"genre_id",
 	"name",
 ]
 
-export const artist = [
+export const ARTIST = [
 	"artist_id",
 	"name",
 ]
 
-export const play = [
+export const PLAY = [
 	"play_id",
 	"date_created",
 ]
 
-export const album = [
+export const ALBUM = [
 	"album_id",
 	"title",
 	"released",
 ]
 
-export const user = [
+export const USER = [
 	"user_id",
 	"name",
 	"email",
@@ -27,7 +27,7 @@ export const user = [
 	"date_created",
 ]
 
-export const song = [
+export const SONG = [
 	"song_id",
 	"title",
 	"mix",
@@ -37,28 +37,35 @@ export const song = [
 	"track_number",
 ]
 
-export const user_song = [
+export const PLAYLIST = [
+	"playlist_id",
+	"name",
+	"user_id",
+	"date_created",
+]
+
+export const USER_SONG = [
 	"user_id",
 	"song_id",
 	"in_library",
 	"date_created",
 ]
 
-export const user_album = [
+export const USER_ALBUM = [
 	"user_id",
 	"album_id",
 	"in_library",
 	"date_created",
 ]
 
-export const user_genre = [
+export const USER_GENRE = [
 	"user_id",
 	"genre_id",
 	"in_library",
 	"date_created",
 ]
 
-export const user_artist = [
+export const USER_ARTIST = [
 	"user_id",
 	"artist_id",
 	"in_library",

@@ -15,13 +15,13 @@ import {
 	SELECT_PLAYLISTS,
 	SELECT_NEW_ALBUMS,
 	SELECT_TOP_TEN_SONGS,
-} from "../../../sql/index.js"
+} from "../../../sql"
 
 import {
 	sqlJoin,
 	sqlQuery,
+	resolver,
 	sqlParseRow,
-	mapResolver,
 	sqlParseTable,
 } from "../../../helpers"
 
@@ -29,21 +29,23 @@ import searches from "./searches.js"
 import parseUrl from "./parseUrl.js"
 import imageSearch from "./imageSearch.js"
 import parseSongs from "./parseSongs/index.js"
-import { columnNames } from "../../../globals"
+import { COLUMN_NAMES } from "../../../globals"
 
-const songs =
-	async () =>
+export const songs = resolver(
+	async () => (
 		sqlQuery({
 			query: SELECT_SONGS,
 			parse: sqlParseTable,
 			variables: [{
 				string: false,
 				key: "columnNames",
-				value: sqlJoin(columnNames.song, "songs"),
+				value: sqlJoin(COLUMN_NAMES.SONG, "songs"),
 			}],
 		})
+	),
+)
 
-const albums =
+export const albums =
 	async () =>
 		sqlQuery({
 			query: SELECT_ALBUMS,
@@ -51,11 +53,11 @@ const albums =
 			variables: [{
 				string: false,
 				key: "columnNames",
-				value: sqlJoin(columnNames.album),
+				value: sqlJoin(COLUMN_NAMES.ALBUM),
 			}],
 		})
 
-const genres =
+export const genres =
 	async () =>
 		sqlQuery({
 			query: SELECT_GENRES,
@@ -63,11 +65,11 @@ const genres =
 			variables: [{
 				string: false,
 				key: "columnNames",
-				value: sqlJoin(columnNames.genre),
+				value: sqlJoin(COLUMN_NAMES.GENRE),
 			}],
 		})
 
-const artists =
+export const artists =
 	async () =>
 		sqlQuery({
 			query: SELECT_ARTISTS,
@@ -75,11 +77,11 @@ const artists =
 			variables: [{
 				string: false,
 				key: "columnNames",
-				value: sqlJoin(columnNames.artist),
+				value: sqlJoin(COLUMN_NAMES.ARTIST),
 			}],
 		})
 
-const playlists =
+export const playlists =
 	async () =>
 		sqlQuery({
 			query: SELECT_PLAYLISTS,
@@ -87,11 +89,11 @@ const playlists =
 			variables: [{
 				string: false,
 				key: "columnNames",
-				value: sqlJoin(columnNames.playlist),
+				value: sqlJoin(COLUMN_NAMES.PLAYLIST),
 			}],
 		})
 
-const user =
+export const user =
 	async ({ args }) =>
 		sqlQuery({
 			query: SELECT_USER,
@@ -99,14 +101,14 @@ const user =
 			variables: [{
 				string: false,
 				key: "columnNames",
-				value: sqlJoin(columnNames.user),
+				value: sqlJoin(COLUMN_NAMES.USER),
 			},{
 				key: "userId",
 				value: args.userId,
 			}],
 		})
 
-const play =
+export const play =
 	async ({ args }) =>
 		sqlQuery({
 			query: SELECT_PLAY,
@@ -114,14 +116,14 @@ const play =
 			variables: [{
 				string: false,
 				key: "columnNames",
-				value: sqlJoin(columnNames.play),
+				value: sqlJoin(COLUMN_NAMES.PLAY),
 			},{
 				key: "playId",
 				value: args.playId,
 			}],
 		})
 
-const song =
+export const song =
 	async ({ args }) =>
 		sqlQuery({
 			query: SELECT_SONG,
@@ -132,11 +134,11 @@ const song =
 			},{
 				string: false,
 				key: "columnNames",
-				value: sqlJoin(columnNames.song),
+				value: sqlJoin(COLUMN_NAMES.SONG),
 			}],
 		})
 
-const album =
+export const album =
 	async ({ args }) =>
 		sqlQuery({
 			query: SELECT_ALBUM,
@@ -144,14 +146,14 @@ const album =
 			variables: [{
 				string: false,
 				key: "columnNames",
-				value: sqlJoin(columnNames.album),
+				value: sqlJoin(COLUMN_NAMES.ALBUM),
 			},{
 				key: "albumId",
 				value: args.albumId,
 			}],
 		})
 
-const genre =
+export const genre =
 	async ({ args }) =>
 		sqlQuery({
 			query: SELECT_GENRE,
@@ -159,14 +161,14 @@ const genre =
 			variables: [{
 				string: false,
 				key: "columnNames",
-				value: sqlJoin(columnNames.genre),
+				value: sqlJoin(COLUMN_NAMES.GENRE),
 			},{
 				key: "genreId",
 				value: args.genreId,
 			}],
 		})
 
-const artist =
+export const artist =
 	async ({ args }) =>
 		sqlQuery({
 			query: SELECT_ARTIST,
@@ -174,14 +176,14 @@ const artist =
 			variables: [{
 				string: false,
 				key: "columnNames",
-				value: sqlJoin(columnNames.artist),
+				value: sqlJoin(COLUMN_NAMES.ARTIST),
 			},{
 				key: "artistId",
 				value: args.artistId,
 			}],
 		})
 
-const playlist =
+export const playlist =
 	async ({ args }) =>
 		sqlQuery({
 			query: SELECT_PLAYLIST,
@@ -192,44 +194,20 @@ const playlist =
 			},{
 				string: false,
 				key: "columnNames",
-				value: sqlJoin(columnNames.playlist),
+				value: sqlJoin(COLUMN_NAMES.PLAYLIST),
 			}],
 		})
 
-const newAlbums =
+export const newAlbums =
 	async () =>
 		sqlQuery({
 			query: SELECT_NEW_ALBUMS,
 			parse: sqlParseTable,
 		})
 
-const topTenSongs =
+export const topTenSongs =
 	async () =>
 		sqlQuery({
 			query: SELECT_TOP_TEN_SONGS,
 			parse: sqlParseTable,
 		})
-
-const queryResolver =
-	mapResolver({
-		user,
-		play,
-		song,
-		songs,
-		album,
-		genre,
-		albums,
-		genres,
-		artist,
-		artists,
-		playlist,
-		parseUrl,
-		playlists,
-		newAlbums,
-		parseSongs,
-		topTenSongs,
-		imageSearch,
-		...searches,
-	})
-
-export default queryResolver

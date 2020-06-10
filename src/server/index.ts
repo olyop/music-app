@@ -6,15 +6,18 @@ import bodyParser from "body-parser"
 import compression from "compression"
 import cookieParser from "cookie-parser"
 
-import apollo from "./apollo"
-import { sendIndex, sendStatic, globalHeaders } from "./middleware"
+import {
+	graphql,
+	sendIndex,
+	sendStatic,
+	globalHeaders,
+} from "./middleware"
 
 import {
 	HOST,
 	PORT,
 	LOG_FORMAT,
 	CORS_CONFIG,
-	APOLLO_MIDDLEWARE_CONFIG,
 } from "./globals"
 
 const app = express()
@@ -29,7 +32,7 @@ app.use(
 	bodyParser.urlencoded({ extended: false }),
 	cookieParser(),
 	globalHeaders(),
-	apollo.getMiddleware(APOLLO_MIDDLEWARE_CONFIG),
+	graphql(),
 	sendStatic(),
 )
 

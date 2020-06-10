@@ -8,12 +8,15 @@
     "plugin:@typescript-eslint/recommended",
     "plugin:@typescript-eslint/recommended-requiring-type-checking",
     "plugin:promise/recommended",
-    "plugin:import/typescript"
+    "plugin:import/typescript",
+    "plugin:promise/recommended",
+    "plugin:node/recommended"
   ],
   "plugins": [
     "@typescript-eslint",
     "promise",
-    "import"
+    "import",
+    "node"
   ],
   "ignorePatterns": [
     "node_modules",
@@ -42,7 +45,9 @@
     "object-curly-newline": "off",
     "array-bracket-spacing": "off",
     "react/no-children-prop": "off",
+    "node/no-missing-import": "off",
     "implicit-arrow-linebreak": "off",
+    "node/no-unpublished-import": "off",
     "react/require-default-props": "off",
     "lines-between-class-members": "off",
     "import/prefer-default-export": "off",

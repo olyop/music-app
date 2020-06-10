@@ -1,22 +1,24 @@
+import { head } from "lodash"
 import { v4 as uuid } from "uuid"
-import ApolloServer from "apollo-server-express"
-import sqlJoin from "../../../helpers/sql/sqlJoin.js"
-import columnNames from "../../../sql/columnNames.js"
-import s3Upload from "../../../helpers/s3/s3Upload.js"
-import sqlQuery from "../../../helpers/sql/sqlQuery.js"
-import resize from "../../../helpers/resolver/resize.js"
-import sqlUnique from "../../../helpers/sql/sqlUnique.js"
-import sqlParseRow from "../../../helpers/sql/sqlParseRow.js"
-import isArtist from "../../../helpers/validators/isArtist.js"
-import s3CatalogObjectKey from "../../../helpers/s3/s3CatalogObjectKey.js"
-import uploadFileFromClient from "../../../helpers/resolver/uploadFileFromClient.js"
-import determineFailedChecks from "../../../helpers/resolver/determineFailedChecks.js"
-import determineChecksResults from "../../../helpers/resolver/determineChecksResults.js"
+import { UserInputError } from "apollo-server-express"
+
+import {
+	resize,
+	sqlJoin,
+	s3Upload,
+	sqlQuery,
+	isArtist,
+	sqlUnique,
+	sqlParseRow,
+	s3CatalogObjectKey,
+	uploadFileFromClient,
+	determineFailedChecks,
+	determineChecksResults,
+} from "../../../helpers"
 
 import { INSERT_ARTIST } from "../../../sql/index.js"
-import { IMAGE_SIZES } from "../../../globals/miscellaneous.js"
-
-const { UserInputError } = ApolloServer
+import { ImgSizeEnum, ImgFormat } from "../../../types"
+import { IMAGE_SIZES, COLUMN_NAMES } from "../../../globals"
 
 const addArtist = async ({ args }) => {
 
@@ -59,37 +61,37 @@ const addArtist = async ({ args }) => {
 		},{
 			string: false,
 			key: "columnNames",
-			value: sqlJoin(columnNames.artist),
+			value: sqlJoin(COLUMN_NAMES.ARTIST),
 		}],
 	})
 
 	const photoUploads = [{
 		key: s3CatalogObjectKey({
 			id: artistId,
-			size: "MINI",
-			format: "jpg",
+			format: ImgFormat.JPG,
+			size: ImgSizeEnum.MINI,
 		}),
-		data: resize({
+		data: await resize({
 			image: photo,
 			dim: IMAGE_SIZES.ARTIST.MINI,
 		}),
 	},{
 		key: s3CatalogObjectKey({
 			id: artistId,
-			size: "HALF",
-			format: "jpg",
+			format: ImgFormat.JPG,
+			size: ImgSizeEnum.HALF,
 		}),
-		data: resize({
+		data: await resize({
 			image: photo,
 			dim: IMAGE_SIZES.ARTIST.HALF,
 		}),
 	},{
 		key: s3CatalogObjectKey({
 			id: artistId,
-			size: "FULL",
-			format: "jpg",
+			format: ImgFormat.JPG,
+			size: ImgSizeEnum.FULL,
 		}),
-		data: resize({
+		data: await resize({
 			image: photo,
 			dim: IMAGE_SIZES.ARTIST.FULL,
 		}),
@@ -100,8 +102,8 @@ const addArtist = async ({ args }) => {
 		...photoUploads.map(s3Upload),
 	])
 
-	const album = result[0]
-
+	const album = head(result)
+	
 	return album
 }
 

@@ -1,8 +1,9 @@
 import sharp from "sharp"
+import { ImgDim } from "../../types"
 
 type TInput = {
+	dim: ImgDim,
 	image: Buffer,
-	dim: [number, number],
 }
 
 export const resize = ({ image, dim: [width, height] }: TInput) =>

@@ -1,6 +1,7 @@
 import { v4 as uuid } from "uuid"
 import musicMetadata from "music-metadata"
-import ApolloServer from "apollo-server-express"
+import { UserInputError } from "apollo-server-express"
+
 import sqlJoin from "../../../helpers/sql/sqlJoin.js"
 import columnNames from "../../../sql/columnNames.js"
 import s3Upload from "../../../helpers/s3/s3Upload.js"
@@ -22,9 +23,7 @@ import {
   EXISTS_ALBUM_SONG,
   INSERT_SONG_ARTIST,
   INSERT_SONG_REMIXER,
-} from "../../../sql/index.js"
-
-const { UserInputError } = ApolloServer
+} from "../../../sql"
 
 const addSong = async ({ args }) => {
 

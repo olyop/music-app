@@ -1,6 +1,5 @@
 import Json from "graphql-type-json"
-import { GraphQLScalarType } from "graphql"
-import { IResolvers as Resolvers } from "apollo-server-express"
+import { IResolvers } from "apollo-server-express"
 
 import Uuid from "./Uuid"
 import Email from "./Email"
@@ -13,22 +12,20 @@ import Genre from "./Genre"
 import Artist from "./Artist"
 import Playlist from "./Playlist"
 
-import Query from "./Query"
-import Mutation from "./Mutation"
+import * as Query from "./Query"
+import * as Mutation from "./Mutation"
 
-const customScalars: Record<string, GraphQLScalarType> = {
+const resolvers: IResolvers = {
+	// scalars
 	Uuid,
-	// @ts-ignore
 	Json,
 	Email,
-}
 
-const rootInterfaces: Resolvers = {
+	// root
 	Query,
 	Mutation,
-}
 
-const appInterfaces: Resolvers = {
+	// app
 	Play,
 	User,
 	Song,
@@ -37,12 +34,6 @@ const appInterfaces: Resolvers = {
 	Album,
 	Artist,
 	Playlist,
-}
-
-const resolvers: Resolvers = {
-	...customScalars,
-	...appInterfaces,
-	...rootInterfaces,
 }
 
 export default resolvers

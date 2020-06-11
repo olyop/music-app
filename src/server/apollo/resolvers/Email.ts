@@ -8,7 +8,8 @@ import {
 
 import { isEmail } from "../../helpers"
 
-const name = "Email"
+const name =
+	"Email"
 
 const description =
 	`A field whose value conforms to the standard internet email address

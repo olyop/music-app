@@ -1,4 +1,4 @@
-/* eslint-disable prefer-destructuring, @typescript-eslint/no-non-null-assertion */
+/* eslint-disable prefer-destructuring */
 export const NODE_ENV = process.env.NODE_ENV!
 
 export const HOST = process.env.HOST!

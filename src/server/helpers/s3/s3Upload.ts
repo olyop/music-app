@@ -1,13 +1,9 @@
-import s3 from "../../services/s3.js"
+import s3 from "../../services/s3"
 
-import { AWS_S3_ACL, AWS_S3_BUCKET } from "../../globals/environment.js"
+import { S3Upload } from "../../types"
+import { AWS_S3_ACL, AWS_S3_BUCKET } from "../../globals"
 
-type TInput = {
-	key: string,
-	data: Buffer,
-}
-
-export const s3Upload = ({ key, data }: TInput) =>
+export const s3Upload = ({ key, data }: S3Upload) =>
 	s3.upload({
 		Key: key,
 		Body: data,

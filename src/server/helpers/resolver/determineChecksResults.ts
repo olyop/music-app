@@ -1,6 +1,4 @@
-type TInput<T> = {
-	check: Promise<T>,
-}
+import { Check } from "../../types"
 
-export const determineChecksResults = <T,>(checks: TInput<T>[]) =>
+export const determineChecksResults = (checks: Check[]) =>
 	Promise.all(checks.map(({ check }) => check))

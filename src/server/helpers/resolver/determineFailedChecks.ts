@@ -1,6 +1,8 @@
 import { pipe } from "../utils"
 
-type Check = {
+import { Check } from "../../types"
+
+type CheckRes = {
 	name: string,
 	check: boolean,
 }
@@ -11,10 +13,10 @@ const addNames = (checks: Check[]) => (results: boolean[]) =>
 		name: checks[index].name,
 	}))
 
-const filterPassed = (checks: Check[]) =>
+const filterPassed = (checks: CheckRes[]) =>
 	checks.filter(({ check }) => !check)
 
-const mapNames = (checks: Check[]) =>
+const mapNames = (checks: CheckRes[]) =>
 	checks.map(({ name }) => name)
 
 export const determineFailedChecks = (checks: Check[], results: boolean[]) =>

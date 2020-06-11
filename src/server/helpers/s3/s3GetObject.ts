@@ -1,3 +1,4 @@
+import { Body } from "aws-sdk/clients/s3"
 import { identity, isUndefined } from "lodash"
 
 import { pipe } from "../utils"
@@ -7,7 +8,7 @@ import { s3BodyFromRes } from "./s3BodyFromRes"
 
 type TInput<T> = {
 	key: string,
-	parse: (val: Buffer) => T,
+	parse: (val: Body) => T,
 }
 
 export const s3GetObject = <T>(args: TInput<T>) =>

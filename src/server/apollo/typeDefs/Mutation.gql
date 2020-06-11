@@ -53,38 +53,10 @@ type Mutation {
     userId: Uuid!
     artistId: Uuid!
   ): Artist!
-  addUser(
-    name: String!
-    email: Email!
-  ): User!
-  addArtist(
-    name: String!
-    photo: Upload!
-  ): Artist!
-  addGenre(
-    name: String!
-  ): Genre!
-  addAlbum(
-    title: String!
-    cover: Upload!
-    artistIds: [Uuid!]!
-    released: String!
-  ): Album!
-  addSong(
-    mix: String!
-    albumId: Uuid!
-    title: String!
-    audio: Upload!
-    discNumber: Int!
-    genreIds: [Uuid!]!
-    trackNumber: Int!
-    artistIds: [Uuid!]!
-    remixerIds: [Uuid!]!
-    featuringIds: [Uuid!]!
-  ): Song!
-  addPlaylist(
-    user: Uuid!
-    name: String!
-    songs: [Uuid!]!
-  ): Playlist!
+  addUser(user: UserInput!): User!
+  addSong(song: SongInput!): Song!
+  addGenre(genre: GenreInput!): Genre!
+  addAlbum(album: AlbumInput!): Album!
+  addArtist(artist: ArtistInput!): Artist!
+  addPlaylist(playlist: PlaylistInput!): Playlist!
 }

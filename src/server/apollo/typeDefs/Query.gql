@@ -22,10 +22,10 @@ type Query {
   parseSongs(files: [Upload!]!): Json!
   
   # search
-  songSearch(query: String!): [Song!]!
-  albumSearch(query: String!): [Album!]!
-  genreSearch(query: String!): [Genre!]!
-  artistSearch(query: String!): [Artist!]!
-  genreSearchExact(query: String!): Genre
-  artistSearchExact(query: String!): Artist
+  songSearch(query: String!, exact: Boolean = false): [Song!]!
+  albumSearch(query: String!, exact: Boolean = false): [Album!]!
+  genreSearch(query: String!, exact: Boolean = false): [Genre!]!
+  artistSearch(query: String!, exact: Boolean = false): [Artist!]!
+  genreSearchExact(query: String!, exact: Boolean = false): Genre
+  artistSearchExact(query: String!, exact: Boolean = false): Artist
 }

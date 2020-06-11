@@ -1,0 +1,39 @@
+input UserInput {
+	name: String!
+	email: Email!
+}
+
+input ArtistInput {
+	name: String!
+	photo: Upload!
+}
+
+input GenreInput {
+	name: String!
+}
+
+input AlbumInput {
+	title: String!
+	cover: Upload!
+	artistIds: [Uuid!]!
+	released: String!
+}
+
+input SongInput {
+	mix: String!
+	albumId: Uuid!
+	title: String!
+	audio: Upload!
+	discNumber: Int!
+	genreIds: [Uuid!]!
+	trackNumber: Int!
+	artistIds: [Uuid!]!
+	remixerIds: [Uuid!]!
+	featuringIds: [Uuid!]!
+}
+
+input PlaylistInput {
+	user: Uuid!
+  name: String!
+  songs: [Uuid!]!
+}

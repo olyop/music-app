@@ -6,8 +6,8 @@ type TInput = {
 	image: Buffer,
 }
 
-export const resize = ({ image, dim: [width, height] }: TInput) =>
+export const resize = ({ image, dim }: TInput) =>
 	sharp(image)
-		.resize(width, height)
+		.resize(...dim)
 		.jpeg()
 		.toBuffer()

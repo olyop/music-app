@@ -93,8 +93,8 @@ export type ClassType = {
 export type TDataUserPlay = {
 	prev: Song[],
 	next: Song[],
-	current: Song,
 	queue: Song[],
+	current: Song,
 }
 
 export type ParseSongs = {
@@ -102,4 +102,5 @@ export type ParseSongs = {
 	songs: Song[],
 }
 
-export type BemInputType = ClassType | string | null | undefined
+export type BemInputType =
+	ClassType | string | null | undefined

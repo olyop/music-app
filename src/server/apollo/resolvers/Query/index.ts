@@ -1,4 +1,24 @@
-// import { IFieldResolver as Resolver } from "apollo-server-express"
+import {
+	sqlJoin,
+	sqlQuery,
+	resolver,
+	sqlParseRow,
+	sqlParseTable,
+} from "../../../helpers"
+
+import {
+	User,
+	Song,
+	Play,
+	Album,
+	Genre,
+	Artist,
+	Playlist,
+} from "../../../types"
+
+import {
+	COLUMN_NAMES,
+} from "../../../globals"
 
 import {
 	SELECT_USER,
@@ -17,197 +37,228 @@ import {
 	SELECT_TOP_TEN_SONGS,
 } from "../../../sql"
 
-import {
-	sqlJoin,
-	sqlQuery,
-	resolver,
-	sqlParseRow,
-	sqlParseTable,
-} from "../../../helpers"
-
-import searches from "./searches.js"
-import parseUrl from "./parseUrl.js"
-import imageSearch from "./imageSearch.js"
-import parseSongs from "./parseSongs/index.js"
-import { COLUMN_NAMES } from "../../../globals"
-
-export const songs = resolver(
-	async () => (
-		sqlQuery({
-			query: SELECT_SONGS,
-			parse: sqlParseTable,
-			variables: [{
-				string: false,
-				key: "columnNames",
-				value: sqlJoin(COLUMN_NAMES.SONG, "songs"),
-			}],
-		})
-	),
-)
-
-export const albums =
-	async () =>
-		sqlQuery({
-			query: SELECT_ALBUMS,
-			parse: sqlParseTable,
-			variables: [{
-				string: false,
-				key: "columnNames",
-				value: sqlJoin(COLUMN_NAMES.ALBUM),
-			}],
-		})
-
-export const genres =
-	async () =>
-		sqlQuery({
-			query: SELECT_GENRES,
-			parse: sqlParseTable,
-			variables: [{
-				string: false,
-				key: "columnNames",
-				value: sqlJoin(COLUMN_NAMES.GENRE),
-			}],
-		})
-
-export const artists =
-	async () =>
-		sqlQuery({
-			query: SELECT_ARTISTS,
-			parse: sqlParseTable,
-			variables: [{
-				string: false,
-				key: "columnNames",
-				value: sqlJoin(COLUMN_NAMES.ARTIST),
-			}],
-		})
-
-export const playlists =
-	async () =>
-		sqlQuery({
-			query: SELECT_PLAYLISTS,
-			parse: sqlParseTable,
-			variables: [{
-				string: false,
-				key: "columnNames",
-				value: sqlJoin(COLUMN_NAMES.PLAYLIST),
-			}],
-		})
-
-export const user =
-	async ({ args }) =>
-		sqlQuery({
-			query: SELECT_USER,
-			parse: sqlParseRow,
-			variables: [{
-				string: false,
-				key: "columnNames",
-				value: sqlJoin(COLUMN_NAMES.USER),
-			},{
-				key: "userId",
-				value: args.userId,
-			}],
-		})
-
-export const play =
-	async ({ args }) =>
-		sqlQuery({
-			query: SELECT_PLAY,
-			parse: sqlParseRow,
-			variables: [{
-				string: false,
-				key: "columnNames",
-				value: sqlJoin(COLUMN_NAMES.PLAY),
-			},{
-				key: "playId",
-				value: args.playId,
-			}],
-		})
-
-export const song =
-	async ({ args }) =>
-		sqlQuery({
-			query: SELECT_SONG,
-			parse: sqlParseRow,
-			variables: [{
-				key: "songId",
-				value: args.songId,
-			},{
-				string: false,
-				key: "columnNames",
-				value: sqlJoin(COLUMN_NAMES.SONG),
-			}],
-		})
-
-export const album =
-	async ({ args }) =>
-		sqlQuery({
-			query: SELECT_ALBUM,
-			parse: sqlParseRow,
-			variables: [{
-				string: false,
-				key: "columnNames",
-				value: sqlJoin(COLUMN_NAMES.ALBUM),
-			},{
-				key: "albumId",
-				value: args.albumId,
-			}],
-		})
-
-export const genre =
-	async ({ args }) =>
-		sqlQuery({
-			query: SELECT_GENRE,
-			parse: sqlParseRow,
-			variables: [{
-				string: false,
-				key: "columnNames",
-				value: sqlJoin(COLUMN_NAMES.GENRE),
-			},{
-				key: "genreId",
-				value: args.genreId,
-			}],
-		})
-
-export const artist =
-	async ({ args }) =>
-		sqlQuery({
-			query: SELECT_ARTIST,
-			parse: sqlParseRow,
-			variables: [{
-				string: false,
-				key: "columnNames",
-				value: sqlJoin(COLUMN_NAMES.ARTIST),
-			},{
-				key: "artistId",
-				value: args.artistId,
-			}],
-		})
-
-export const playlist =
-	async ({ args }) =>
-		sqlQuery({
-			query: SELECT_PLAYLIST,
-			parse: sqlParseRow,
-			variables: [{
-				key: "playlistId",
-				value: args.playlistId,
-			},{
-				string: false,
-				key: "columnNames",
-				value: sqlJoin(COLUMN_NAMES.PLAYLIST),
-			}],
-		})
+export * from "./parseUrl"
+export * from "./searches"
+export * from "./parseSongs"
+export * from "./imageSearch"
 
 export const newAlbums =
-	async () =>
-		sqlQuery({
-			query: SELECT_NEW_ALBUMS,
-			parse: sqlParseTable,
-		})
+	resolver<Album[]>(
+		async () => (
+			sqlQuery({
+				sql: SELECT_NEW_ALBUMS,
+				parse: res => sqlParseTable(res),
+			})
+		),
+	)
 
 export const topTenSongs =
-	async () =>
-		sqlQuery({
-			query: SELECT_TOP_TEN_SONGS,
-			parse: sqlParseTable,
-		})
+	resolver<Song[]>(
+		async () => (
+			sqlQuery({
+				sql: SELECT_TOP_TEN_SONGS,
+				parse: res => sqlParseTable(res),
+			})
+		),
+	)
+
+export const songs =
+	resolver<Song[]>(
+		async () => (
+			sqlQuery({
+				sql: SELECT_SONGS,
+				parse: res => sqlParseTable(res),
+				variables: [{
+					string: false,
+					key: "columnNames",
+					value: sqlJoin(COLUMN_NAMES.SONG, "songs"),
+				}],
+			})
+		),
+	)
+
+export const albums =
+	resolver<Album[]>(
+		async () => (
+			sqlQuery({
+				sql: SELECT_ALBUMS,
+				parse: res => sqlParseTable(res),
+				variables: [{
+					string: false,
+					key: "columnNames",
+					value: sqlJoin(COLUMN_NAMES.ALBUM),
+				}],
+			})
+		),
+	)
+
+export const genres =
+	resolver<Genre[]>(
+		async () => (
+			sqlQuery({
+				sql: SELECT_GENRES,
+				parse: res => sqlParseTable(res),
+				variables: [{
+					string: false,
+					key: "columnNames",
+					value: sqlJoin(COLUMN_NAMES.GENRE),
+				}],
+			})
+		),
+	)
+
+export const artists =
+	resolver<Artist[]>(
+		async () => (
+			sqlQuery({
+				sql: SELECT_ARTISTS,
+				parse: res => sqlParseTable(res),
+				variables: [{
+					string: false,
+					key: "columnNames",
+					value: sqlJoin(COLUMN_NAMES.ARTIST),
+				}],
+			})
+		),
+	)
+
+export const playlists =
+	resolver<Playlist[]>(
+		async () => (
+			sqlQuery({
+				sql: SELECT_PLAYLISTS,
+				parse: res => sqlParseTable(res),
+				variables: [{
+					string: false,
+					key: "columnNames",
+					value: sqlJoin(COLUMN_NAMES.PLAYLIST),
+				}],
+			})
+		),
+	)
+
+export const user =
+	resolver<User, { userId: string }>(
+		async ({ args }) => (
+			sqlQuery({
+				sql: SELECT_USER,
+				parse: res => sqlParseRow(res),
+				variables: [{
+					key: "userId",
+					value: args.userId,
+				},{
+					string: false,
+					key: "columnNames",
+					value: sqlJoin(COLUMN_NAMES.USER),
+				}],
+			})
+		),
+	)
+
+export const play =
+	resolver<Play, { playId: string }>(
+		async ({ args }) => (
+			sqlQuery({
+				sql: SELECT_PLAY,
+				parse: res => sqlParseRow(res),
+				variables: [{
+					key: "playId",
+					value: args.playId,
+				},{
+					string: false,
+					key: "columnNames",
+					value: sqlJoin(COLUMN_NAMES.PLAY),
+				}],
+			})
+		),
+	)
+
+export const song =
+	resolver<Song, { songId: string }>(
+		async ({ args }) => (
+			sqlQuery({
+				sql: SELECT_SONG,
+				parse: res => sqlParseRow(res),
+				variables: [{
+					key: "songId",
+					value: args.songId,
+				},{
+					string: false,
+					key: "columnNames",
+					value: sqlJoin(COLUMN_NAMES.SONG),
+				}],
+			})
+		),
+	)
+
+export const album =
+	resolver<Album, { albumId: string }>(
+		async ({ args }) => (
+			sqlQuery({
+				sql: SELECT_ALBUM,
+				parse: res => sqlParseRow(res),
+				variables: [{
+					string: false,
+					key: "columnNames",
+					value: sqlJoin(COLUMN_NAMES.ALBUM),
+				},{
+					key: "albumId",
+					value: args.albumId,
+				}],
+			})
+		),
+	)
+
+export const genre =
+	resolver<Genre, { genreId: string }>(
+		async ({ args }) => (
+			sqlQuery({
+				sql: SELECT_GENRE,
+				parse: res => sqlParseRow(res),
+				variables: [{
+					string: false,
+					key: "columnNames",
+					value: sqlJoin(COLUMN_NAMES.GENRE),
+				},{
+					key: "genreId",
+					value: args.genreId,
+				}],
+			})
+		),
+	)
+
+export const artist =
+	resolver<Artist, { artistId: string }>(
+		async ({ args }) => (
+			sqlQuery({
+				sql: SELECT_ARTIST,
+				parse: res => sqlParseRow(res),
+				variables: [{
+					key: "artistId",
+					value: args.artistId,
+				},{
+					string: false,
+					key: "columnNames",
+					value: sqlJoin(COLUMN_NAMES.ARTIST),
+				}],
+			})
+		),
+	)
+
+export const playlist =
+	resolver<Playlist, { playlistId: string }>(
+		async ({ args }) => (
+			sqlQuery({
+				sql: SELECT_PLAYLIST,
+				parse: res => sqlParseRow(res),
+				variables: [{
+					key: "playlistId",
+					value: args.playlistId,
+				},{
+					string: false,
+					key: "columnNames",
+					value: sqlJoin(COLUMN_NAMES.PLAYLIST),
+				}],
+			})
+		),
+	)

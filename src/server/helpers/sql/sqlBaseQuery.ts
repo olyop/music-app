@@ -80,7 +80,7 @@ export const sqlBaseQuery =
 		(input: string | SQLConfig<TReturn>) =>
 			new Promise<TReturn>(
 				(resolve, reject) => {
-					const { sql, parse, variables = [] } = normalizeInput<TReturn>(input)
+					const { sql, parse, variables = [] } = normalizeInput(input)
 					const variableKeys = getVariableKeys(sql)
 					if (!areVariablesProvided(variableKeys, variables)) {
 						reject(new TypeError("Invalid query arguments."))

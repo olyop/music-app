@@ -1,10 +1,13 @@
-import path from "path"
+import fs from "fs"
+import { join } from "path"
 
-import { importFile } from "../helpers"
 import { SQL_FOLER_PATH } from "../globals"
 
+const importFile = (path: string) =>
+	fs.readFileSync(path).toString()
+
 const sqlPath = (folder: string, file: string) =>
-	path.join(SQL_FOLER_PATH, folder, `${file}.sql`)
+	join(SQL_FOLER_PATH, folder, `${file}.sql`)
 
 const importFileTable = (file: string) => importFile(sqlPath("tables", file))
 const importFileCheck = (file: string) => importFile(sqlPath("checks", file))

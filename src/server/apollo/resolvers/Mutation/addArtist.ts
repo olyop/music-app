@@ -23,8 +23,10 @@ import { INSERT_ARTIST } from "../../../sql/index.js"
 import { IMAGE_SIZES, COLUMN_NAMES } from "../../../globals"
 
 type Args = {
-	name: string,
-	photo: Promise<FileUpload>,
+	artist: {
+		name: string,
+		photo: Promise<FileUpload>,
+	},
 }
 
 const resolver =
@@ -33,9 +35,10 @@ const resolver =
 export const addArtist =
 	resolver<Artist, Args>(
 		async ({ args }) => {
-			const photo = await uploadFileFromClient(args.photo)
+			const { artist } = args
+			const photo = await uploadFileFromClient(artist.photo)
 
-			if (!isArtist({ ...args, photo })) {
+			if (!isArtist({ ...artist, photo })) {
 				throw new UserInputError("Invalid arguments.")
 			}
 
@@ -44,7 +47,7 @@ export const addArtist =
 				check: sql.unique({
 					column: "name",
 					table: "artists",
-					value: args.name,
+					value: artist.name,
 				}),
 			}]
 
@@ -67,7 +70,7 @@ export const addArtist =
 						value: artistId,
 					},{
 						key: "name",
-						value: args.name,
+						value: artist.name,
 						parameterized: true,
 					},{
 						string: false,

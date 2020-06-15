@@ -1,18 +1,7 @@
 import { QueryResult } from "pg"
 
-export * from "./args"
 export * from "./docs"
-
-export enum ImgSizeEnum {
-	MINI,
-	HALF,
-	FULL,
-}
-
-export enum ImgFormat {
-	JPG,
-	MP3,
-}
+export * from "./enums"
 
 export type SQLVariable = {
 	key: string,

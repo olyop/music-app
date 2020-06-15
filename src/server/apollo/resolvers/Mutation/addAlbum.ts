@@ -28,10 +28,12 @@ import { IMAGE_SIZES, COLUMN_NAMES } from "../../../globals"
 import { INSERT_ALBUM, INSERT_ALBUM_ARTIST } from "../../../sql"
 
 type TVar = {
-	title: string,
-	released: string,
-	artistIds: string[],
-	cover: Promise<FileUpload>,
+	album: {
+		title: string,
+		released: string,
+		artistIds: string[],
+		cover: Promise<FileUpload>,
+	},
 }
 
 const resolver =
@@ -40,9 +42,10 @@ const resolver =
 export const addAlbum =
 	resolver<Album, TVar>(
 		async ({ args }) => {
-			const cover = await uploadFileFromClient(args.cover)
+			const { album } = args
+			const cover = await uploadFileFromClient(album.cover)
 
-			if (!isAlbum({ ...args, cover })) {
+			if (!isAlbum({ ...album, cover })) {
 				throw new UserInputError("Invalid arguments.")
 			}
 
@@ -51,14 +54,14 @@ export const addAlbum =
 				check: sql.unique({
 					table: "albums",
 					column: "title",
-					value: args.title,
+					value: album.title,
 				}),
 			},{
 				name: "doArtistsExist",
 				check: sql.exists({
 					table: "artists",
 					column: "artist_id",
-					value: args.artistIds,
+					value: album.artistIds,
 				}),
 			}]
 
@@ -80,7 +83,7 @@ export const addAlbum =
 					value: albumId,
 				},{
 					key: "title",
-					value: args.title,
+					value: album.title,
 					parameterized: true,
 				},{
 					string: false,
@@ -89,7 +92,7 @@ export const addAlbum =
 				},{
 					string: false,
 					key: "released",
-					value: determineReleased(args.released).toString(),
+					value: determineReleased(album.released).toString(),
 				}],
 			}
 
@@ -111,7 +114,7 @@ export const addAlbum =
 			const transaction =
 				sql.transaction([
 					albumInsert,
-					...args.artistIds.map(artistInsert),
+					...album.artistIds.map(artistInsert),
 				])
 
 			const coverUploads: S3Upload[] = [{

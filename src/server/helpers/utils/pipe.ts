@@ -29,6 +29,7 @@ export function pipe<A extends unknown[], B, C, D, E, F>(
 	de: (this: void, d: D) => E,
 	ef: (this: void, e: E) => F,
 ): (...args: A) => F
+
 export function pipe<A extends unknown[], B, C, D, E, F, G>(
 	ab: (this: void, ...a: A) => B,
 	bc: (this: void, b: B) => C,

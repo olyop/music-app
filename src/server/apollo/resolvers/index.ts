@@ -5,13 +5,13 @@ import {
 	PositiveIntResolver as PositiveInt,
 } from "graphql-scalars"
 
-import Play from "./Play"
-import Song from "./Song"
-import User from "./User"
+import * as Play from "./Play"
+import * as User from "./User"
+import * as Song from "./Song"
 import * as Genre from "./Genre"
 import * as Album from "./Album"
 import * as Artist from "./Artist"
-import Playlist from "./Playlist"
+import * as Playlist from "./Playlist"
 
 import * as Query from "./Query"
 import * as Mutation from "./Mutation"

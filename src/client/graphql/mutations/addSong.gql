@@ -3,14 +3,14 @@ mutation addSong(
   $albumId: Uuid!
   $audio: Upload!
   $title: String!
-  $discNumber: Int!
-  $trackNumber: Int!
   $genreIds: [Uuid!]!
   $artistIds: [Uuid!]!
   $remixerIds: [Uuid!]!
   $featuringIds: [Uuid!]!
+  $discNumber: PositiveInt!
+  $trackNumber: PositiveInt!
 ) {
-  addSong(
+  addSong(song: {
     mix: $mix
     audio: $audio
     title: $title
@@ -21,7 +21,7 @@ mutation addSong(
     discNumber: $discNumber
     trackNumber: $trackNumber
     featuringIds: $featuringIds
-  ) {
+  }) {
     songId
   }
 }

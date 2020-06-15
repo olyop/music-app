@@ -4,12 +4,12 @@ mutation addAlbum(
   $released: String!,
   $artistIds: [Uuid!]!,
 ) {
-  addAlbum(
+  addAlbum(album: {
     cover: $cover,
     title: $title,
     released: $released,
     artistIds: $artistIds,
-  ) {
+  }) {
     albumId
   }
 }

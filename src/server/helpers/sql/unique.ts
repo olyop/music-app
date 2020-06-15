@@ -9,8 +9,8 @@ type TInput = {
 export const unique = ({ value, table, column }: TInput) =>
 	new Promise<boolean>(
 		(resolve, reject) => {
-			sqlExists({ table, value, column })
-				.then(exists => resolve(!exists))
+			exists({ table, value, column })
+				.then(res => resolve(!res))
 				.catch(reject)
 		},
 	)

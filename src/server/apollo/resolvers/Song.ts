@@ -134,14 +134,12 @@ export const plays =
 		),
 	)
 
-type isCurrentRes = { isCurrent: boolean }
-
 export const isCurrent =
 	resolver<boolean, UserArgs>(
 		({ parent, args }) => (
 			sql.query({
 				sql: CHECK_SONG_IS_CURRENT,
-				parse: ({ rows }: QueryResult<isCurrentRes>) => !isNull(rows[0].isCurrent),
+				parse: ({ rows }: QueryResult< { isCurrent: boolean }>) => !isNull(rows[0].isCurrent),
 				variables: [{
 					key: "userId",
 					value: args.userId,

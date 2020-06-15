@@ -1,9 +1,9 @@
 import { map } from "lodash/fp"
 import { QueryResult } from "pg"
 
+import { pipe } from "../utils"
 import { resRows } from "./resRows"
-import { pipe } from "../utils/pipe"
-import { convertToCamelCase } from "../resolver/convertToCamelCase"
+import { convertToCamelCase } from "../resolver"
 
 export const parseTable = <T>(res: QueryResult): T[] =>
-	pipe(resRows, map(convertToCamelCase))(res)
+	pipe(resRows, map(row => convertToCamelCase<T>(row)))(res)

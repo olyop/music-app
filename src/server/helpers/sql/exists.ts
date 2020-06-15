@@ -1,12 +1,19 @@
-import { sqlQuery } from "./sqlQuery"
-import { sqlResExists } from "./sqlResExists"
+import { query } from "./query"
+import { resExists } from "./resExists"
+import { EXISTS_COLUMN } from "../../sql"
 
-import { EXISTS_COLUMN } from "../../sql/index.js"
-
-const existsQuery = ({ value, table, column }) =>
-	sqlQuery({
+const existsQuery = ({
+	table,
+	value,
+	column,
+}: {
+	value: string,
+	table: string,
+	column: string,
+}) =>
+	query({
 		sql: EXISTS_COLUMN,
-		parse: sqlResExists,
+		parse: resExists,
 		variables: [{
 			value,
 			key: "value",
@@ -22,16 +29,24 @@ const existsQuery = ({ value, table, column }) =>
 		}],
 	})
 
-export const exists = input =>
+export const exists = ({
+	value,
+	...input
+}: {
+	table: string,
+	column: string,
+	value: string | string[],
+}) =>
 	new Promise<boolean>(
 		(resolve, reject) => {
-			if (Array.isArray(input.value)) {
-				return Promise
-					.all(input.value.map(value => existsQuery({ ...input, value })))
-					.then(res => resolve(res.every(Boolean)))
+			if (Array.isArray(value)) {
+				Promise
+					.all(value.map(val => existsQuery({ ...input, value: val })))
+					.then(res => res.every(Boolean))
+					.then(resolve)
 					.catch(reject)
 			} else {
-				return existsQuery(input)
+				existsQuery({ ...input, value })
 					.then(resolve)
 					.catch(reject)
 			}

@@ -1,12 +1,28 @@
 import { sql } from "../../../helpers"
-import { COLUMN_NAMES } from "../../../globals"
 import { SELECT_USER_DOCS } from "../../../sql"
 
-export const userDocs = ({ key, tableName, columnName, userTableName }) =>
-	sql.query({
+type Input = {
+	userId: string,
+	tableName: string,
+	columnName: string,
+	columnNames: string[],
+	userTableName: string,
+}
+
+export const userDocs = <T>({
+	userId,
+	tableName,
+	columnName,
+	columnNames,
+	userTableName,
+}: Input) =>
+	sql.query<T[]>({
 		sql: SELECT_USER_DOCS,
-		parse: sql.parseTable,
+		parse: res => sql.parseTable(res),
 		variables: [{
+			key: "userId",
+			value: userId,
+		},{
 			key: "tableName",
 			value: tableName,
 		},{
@@ -16,11 +32,8 @@ export const userDocs = ({ key, tableName, columnName, userTableName }) =>
 			key: "userTableName",
 			value: userTableName,
 		},{
-			key: "userId",
-			value: parent.userId,
-		},{
 			string: false,
 			key: "columnNames",
-			value: sqlJoin(COLUMN_NAMES[key]),
+			value: sql.join(columnNames),
 		}],
 	})

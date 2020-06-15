@@ -8,6 +8,7 @@ export type Song = {
 export type Play = {
 	userId: string,
 	playId: string,
+	songId: string,
 }
 
 export type Album = {
@@ -23,6 +24,7 @@ export type Genre = {
 export type User = {
 	name: string,
 	userId: string,
+	current: string | null,
 }
 
 export type UserDoc = {
@@ -43,5 +45,6 @@ export type Queue = {
 
 export type Playlist = {
 	title: string,
+	userId: string,
 	playlistId: string,
 }

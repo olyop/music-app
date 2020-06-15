@@ -1,13 +1,12 @@
 import { isImg } from "./isImg.js"
 import { isText } from "./isText.js"
 
-export const isArtist = ({
-	name,
-	photo,
-}: {
+type Input = {
 	name: string,
 	photo: Buffer,
-}) => (
+}
+
+export const isArtist = ({ name, photo }: Input) => (
 	isText(name) &&
 	isImg(photo)
 )

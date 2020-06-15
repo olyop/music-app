@@ -17,9 +17,9 @@ type Query {
   newAlbums: [Album!]!
   topTenSongs: [Song!]!
   parseUrl(url: String!): String!
-  albumReleased(title: String!): Int
   imageSearch(query: String!): String!
   parseSongs(files: [Upload!]!): Json!
+  albumReleased(title: String!): PositiveInt
   
   # search
   songSearch(query: String!, exact: Boolean = false): [Song!]!

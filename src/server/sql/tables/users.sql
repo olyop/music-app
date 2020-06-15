@@ -3,7 +3,7 @@ CREATE TABLE IF NOT EXISTS users (
 	name text NOT NULL,
 	current uuid,
 	email text NOT NULL,
-  date_created integer NOT NULL DEFAULT date_part('epoch', now()),
+  date_joined integer NOT NULL DEFAULT date_part('epoch', now()),
 	CONSTRAINT users_pk
 		PRIMARY KEY (user_id),
 	CONSTRAINT users_fk_current
@@ -11,6 +11,6 @@ CREATE TABLE IF NOT EXISTS users (
 		REFERENCES songs (song_id) MATCH FULL
 		ON UPDATE CASCADE
 		ON DELETE CASCADE,
-	CONSTRAINT users_check_date_created
-		CHECK (date_created >= 1)
+	CONSTRAINT users_check_date_joined
+		CHECK (date_joined >= 1)
 );

@@ -6,5 +6,5 @@ type TInput = {
 	format: ImgFormat,
 }
 
-export const s3CatalogObjectKey = ({ id, size, format }: TInput) =>
+export const catalogObjectKey = ({ id, size, format }: TInput) =>
 	`catalog/${id}/${ImgSizeEnum[size].toLowerCase()}.${ImgFormat[format].toLowerCase()}`

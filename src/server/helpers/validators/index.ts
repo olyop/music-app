@@ -1,3 +1,4 @@
+export * from "./isUser"
 export * from "./isUuid"
 export * from "./isSong"
 export * from "./isEmail"

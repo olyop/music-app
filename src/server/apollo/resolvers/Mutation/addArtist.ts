@@ -9,30 +9,29 @@ import {
 } from "../../../types"
 
 import {
+	s3,
+	sql,
 	resize,
-	sqlJoin,
-	s3Upload,
-	sqlQuery,
 	isArtist,
-	sqlUnique,
-	sqlParseRow,
-	s3CatalogObjectKey,
+	createResolver,
 	uploadFileFromClient,
 	determineFailedChecks,
 	determineChecksResults,
-	resolver,
 } from "../../../helpers"
 
 import { INSERT_ARTIST } from "../../../sql/index.js"
 import { IMAGE_SIZES, COLUMN_NAMES } from "../../../globals"
 
-type TArgs = {
+type Args = {
 	name: string,
 	photo: Promise<FileUpload>,
 }
 
+const resolver =
+	createResolver()
+
 export const addArtist =
-	resolver<Artist, TArgs>(
+	resolver<Artist, Args>(
 		async ({ args }) => {
 			const photo = await uploadFileFromClient(args.photo)
 
@@ -42,7 +41,7 @@ export const addArtist =
 
 			const checks = [{
 				name: "isArtistTaken",
-				check: sqlUnique({
+				check: sql.unique({
 					column: "name",
 					table: "artists",
 					value: args.name,
@@ -60,9 +59,9 @@ export const addArtist =
 			const artistId = uuid()
 
 			const artistInsert =
-				sqlQuery<Artist>({
+				sql.query<Artist>({
 					sql: INSERT_ARTIST,
-					parse: sqlParseRow,
+					parse: res => sql.parseRow(res),
 					variables: [{
 						key: "artistId",
 						value: artistId,
@@ -73,12 +72,12 @@ export const addArtist =
 					},{
 						string: false,
 						key: "columnNames",
-						value: sqlJoin(COLUMN_NAMES.ARTIST),
+						value: sql.join(COLUMN_NAMES.ARTIST),
 					}],
 				})
 
 			const photoUploads = [{
-				key: s3CatalogObjectKey({
+				key: s3.catalogObjectKey({
 					id: artistId,
 					format: ImgFormat.JPG,
 					size: ImgSizeEnum.MINI,
@@ -88,7 +87,7 @@ export const addArtist =
 					dim: IMAGE_SIZES.ARTIST.MINI,
 				}),
 			},{
-				key: s3CatalogObjectKey({
+				key: s3.catalogObjectKey({
 					id: artistId,
 					format: ImgFormat.JPG,
 					size: ImgSizeEnum.HALF,
@@ -98,7 +97,7 @@ export const addArtist =
 					dim: IMAGE_SIZES.ARTIST.HALF,
 				}),
 			},{
-				key: s3CatalogObjectKey({
+				key: s3.catalogObjectKey({
 					id: artistId,
 					format: ImgFormat.JPG,
 					size: ImgSizeEnum.FULL,
@@ -109,11 +108,9 @@ export const addArtist =
 				}),
 			}]
 
-			const result = await Promise.all([
-				artistInsert,
-				...photoUploads.map(s3Upload),
-			])
+			const result = await artistInsert
+			await Promise.all(photoUploads.map(s3.upload))
 
-			return result[0]
+			return result
 		},
 	)

@@ -11,9 +11,9 @@ export type Doc = {
 }
 
 export type Play = {
-	user: User,
-	song: Song,
 	playId: string,
+	userId: string,
+	songId: string,
 	dateCreated: number,
 }
 

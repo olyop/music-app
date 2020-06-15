@@ -3,7 +3,7 @@ import { sqlResExists } from "./sqlResExists"
 
 import { EXISTS_COLUMN } from "../../sql/index.js"
 
-const sqlExistsQuery = ({ value, table, column }) =>
+const existsQuery = ({ value, table, column }) =>
 	sqlQuery({
 		sql: EXISTS_COLUMN,
 		parse: sqlResExists,
@@ -22,16 +22,16 @@ const sqlExistsQuery = ({ value, table, column }) =>
 		}],
 	})
 
-export const sqlExists = input =>
+export const exists = input =>
 	new Promise<boolean>(
 		(resolve, reject) => {
 			if (Array.isArray(input.value)) {
 				return Promise
-					.all(input.value.map(value => sqlExistsQuery({ ...input, value })))
+					.all(input.value.map(value => existsQuery({ ...input, value })))
 					.then(res => resolve(res.every(Boolean)))
 					.catch(reject)
 			} else {
-				return sqlExistsQuery(input)
+				return existsQuery(input)
 					.then(resolve)
 					.catch(reject)
 			}

@@ -1,4 +1,8 @@
 import { isText } from "./isText"
 
-export const isGenre = ({ name }: { name: string }) =>
+type Input = {
+	name: string,
+}
+
+export const isGenre = ({ name }: Input) =>
 	isText(name)

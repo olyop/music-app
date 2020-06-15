@@ -1,9 +1,9 @@
 /* eslint-disable promise/no-nesting */
 import pg from "../../services/pg.js"
 import { SQLConfig } from "../../types"
-import { sqlBaseQuery } from "./sqlBaseQuery"
+import { baseQuery } from "./baseQuery"
 
-export const sqlTransaction = (configs: (string | SQLConfig)[]) =>
+export const transaction = (configs: (string | SQLConfig)[]) =>
 	new Promise<unknown[]>(
 		(resolve, reject) => {
 			pg.connect(
@@ -13,7 +13,7 @@ export const sqlTransaction = (configs: (string | SQLConfig)[]) =>
 					// eslint-disable-next-line promise/catch-or-return
 					client
 						.query("BEGIN")
-						.then(() => configs.map(sqlBaseQuery(client)))
+						.then(() => configs.map(baseQuery(client)))
 						.then(result => {
 							temp = result
 							return client.query("COMMIT")

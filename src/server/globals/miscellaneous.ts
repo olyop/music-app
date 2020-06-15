@@ -1,8 +1,6 @@
 /* eslint-disable quote-props */
 import { ImgDim } from "../types"
 
-process.setMaxListeners(20)
-
 export const LOG_FORMAT =
 	":status :url :total-time[0] ms"
 

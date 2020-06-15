@@ -1,5 +1,8 @@
 import { QueryResult } from "pg"
 
+export * from "./args"
+export * from "./docs"
+
 export enum ImgSizeEnum {
 	MINI,
 	HALF,
@@ -9,48 +12,6 @@ export enum ImgSizeEnum {
 export enum ImgFormat {
 	JPG,
 	MP3,
-}
-
-export type Song = {
-	title: string,
-	songId: string,
-}
-
-export type Play = {
-	userId: string,
-	playId: string,
-}
-
-export type Album = {
-	title: string,
-	albumId: string,
-}
-
-export type Genre = {
-	name: string,
-	genreId: string,
-}
-
-export type User = {
-	name: string,
-	userId: string,
-}
-
-export type Artist = {
-	name: string,
-	artistId: string,
-}
-
-export type Queue = {
-	prev: Song[],
-	next: Song[],
-	queue: Song[],
-	current: Song[],
-}
-
-export type Playlist = {
-	title: string,
-	playlistId: string,
 }
 
 export type SQLVariable = {
@@ -80,3 +41,7 @@ export type ImgDim = [
 	number,
 	number,
 ]
+
+export type UserArgs = {
+	userId: string,
+}

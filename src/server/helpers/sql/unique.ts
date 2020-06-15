@@ -1,4 +1,4 @@
-import { sqlExists } from "./sqlExists"
+import { exists } from "./exists"
 
 type TInput = {
 	value: string,
@@ -6,7 +6,7 @@ type TInput = {
 	column: string,
 }
 
-export const sqlUnique = ({ value, table, column }: TInput) =>
+export const unique = ({ value, table, column }: TInput) =>
 	new Promise<boolean>(
 		(resolve, reject) => {
 			sqlExists({ table, value, column })

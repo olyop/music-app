@@ -13,7 +13,4 @@ VALUES
     now()
   )
 RETURNING
-  user_id,
-  name,
-  email,
-  date_created;
+  {{ columnNames }};

@@ -13,17 +13,12 @@ import {
 } from "../../../types"
 
 import {
+	s3,
+	sql,
 	resize,
-	sqlJoin,
 	isAlbum,
-	s3Upload,
-	resolver,
-	sqlExists,
-	sqlUnique,
-	sqlParseRow,
-	sqlTransaction,
+	createResolver,
 	determineReleased,
-	s3CatalogObjectKey,
 	uploadFileFromClient,
 	determineFailedChecks,
 	determineChecksResults,
@@ -39,6 +34,9 @@ type TVar = {
 	cover: Promise<FileUpload>,
 }
 
+const resolver =
+	createResolver()
+
 export const addAlbum =
 	resolver<Album, TVar>(
 		async ({ args }) => {
@@ -50,14 +48,14 @@ export const addAlbum =
 
 			const checks: Check[] = [{
 				name: "isAlbumUnique",
-				check: sqlUnique({
+				check: sql.unique({
 					table: "albums",
 					column: "title",
 					value: args.title,
 				}),
 			},{
 				name: "doArtistsExist",
-				check: sqlExists({
+				check: sql.exists({
 					table: "artists",
 					column: "artist_id",
 					value: args.artistIds,
@@ -76,7 +74,7 @@ export const addAlbum =
 
 			const albumInsert: SQLConfig<Album> = {
 				sql: INSERT_ALBUM,
-				parse: res => sqlParseRow(res),
+				parse: res => sql.parseRow(res),
 				variables: [{
 					key: "albumId",
 					value: albumId,
@@ -87,7 +85,7 @@ export const addAlbum =
 				},{
 					string: false,
 					key: "columnNames",
-					value: sqlJoin(COLUMN_NAMES.ALBUM),
+					value: sql.join(COLUMN_NAMES.ALBUM),
 				},{
 					string: false,
 					key: "released",
@@ -111,13 +109,13 @@ export const addAlbum =
 			})
 
 			const transaction =
-				sqlTransaction([
+				sql.transaction([
 					albumInsert,
 					...args.artistIds.map(artistInsert),
 				])
 
 			const coverUploads: S3Upload[] = [{
-				key: s3CatalogObjectKey({
+				key: s3.catalogObjectKey({
 					id: albumId,
 					format: ImgFormat.JPG,
 					size: ImgSizeEnum.HALF,
@@ -127,7 +125,7 @@ export const addAlbum =
 					dim: IMAGE_SIZES.ALBUM.HALF,
 				}),
 			},{
-				key: s3CatalogObjectKey({
+				key: s3.catalogObjectKey({
 					id: albumId,
 					format: ImgFormat.JPG,
 					size: ImgSizeEnum.FULL,
@@ -138,11 +136,9 @@ export const addAlbum =
 				}),
 			}]
 
-			const result = await Promise.all([
-				transaction,
-				...coverUploads.map(s3Upload),
-			])
+			const result = await transaction
+			await Promise.all(coverUploads.map(s3.upload))
 
-			return result[0][0]
+			return result[0] as Album
 		},
 	)

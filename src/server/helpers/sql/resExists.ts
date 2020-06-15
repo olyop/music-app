@@ -1,0 +1,1 @@
+export const resExists = ({ rows }) => rows[0].exists

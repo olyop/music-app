@@ -1,5 +1,6 @@
 export * from "./resize"
 export * from "./toDataUrl"
+export * from "./createResolver"
 export * from "./determineReleased"
 export * from "./determineUserNext"
 export * from "./determineUserPrev"

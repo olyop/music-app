@@ -1,6 +1,4 @@
 export * from "./pipe"
-export * from "./resolver"
 export * from "./importFile"
-export * from "./mapResolver"
 export * from "./concatStream"
 export * from "./calculateMode"

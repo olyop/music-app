@@ -24,12 +24,12 @@ input SongInput {
 	albumId: Uuid!
 	title: String!
 	audio: Upload!
-	discNumber: Int!
 	genreIds: [Uuid!]!
-	trackNumber: Int!
 	artistIds: [Uuid!]!
 	remixerIds: [Uuid!]!
 	featuringIds: [Uuid!]!
+	discNumber: PositiveInt!
+	trackNumber: PositiveInt!
 }
 
 input PlaylistInput {

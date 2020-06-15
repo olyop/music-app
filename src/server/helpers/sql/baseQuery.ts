@@ -1,5 +1,5 @@
-import { Pool, PoolClient, QueryResult } from "pg"
 import { uniq, identity, isString } from "lodash"
+import { Pool, PoolClient, QueryResult } from "pg"
 
 import { SQLConfig, SQLVariable } from "../../types"
 
@@ -64,18 +64,13 @@ const replaceSqlWithValues = (sql: string, variables: SQLVariable[], params: str
 		sql,
 	)
 
-const normalizeInput = <TReturn>(input: string | SQLConfig<TReturn>) => {
-	if (isString(input)) {
-		return {
-			sql: input,
-			parse: identity as (x: QueryResult) => TReturn,
-		}
-	} else {
-		return input
-	}
-}
+const normalizeInput = <TReturn>(input: string | SQLConfig<TReturn>) =>
+	(isString(input) ? {
+		sql: input,
+		parse: identity as (x: QueryResult) => TReturn,
+	} : input)
 
-export const sqlBaseQuery =
+export const baseQuery =
 	<TReturn>(client: Pool | PoolClient) =>
 		(input: string | SQLConfig<TReturn>) =>
 			new Promise<TReturn>(
@@ -86,8 +81,9 @@ export const sqlBaseQuery =
 						reject(new TypeError("Invalid query arguments."))
 					} else {
 						const params: string[] = []
+						const sqlWithValues = replaceSqlWithValues(sql, variables, params)
 						client
-							.query(replaceSqlWithValues(sql, variables, params), params)
+							.query(sqlWithValues, params)
 							.then(parse)
 							.then(resolve)
 							.catch(reject)

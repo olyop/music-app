@@ -1,21 +1,24 @@
-import { head, concat, tail, isEmpty } from "lodash"
+import { concat, tail, isEmpty } from "lodash"
 
 import { Queue } from "../../types"
 
-export const determineUserNext = ({ prev, current, next, queue }: Queue) => {
+export const determineUserNext = (input: Queue): Queue => {
+	const { prev, current, next, queue } = input
 	if (isEmpty(next) && isEmpty(queue)) {
-		return {}
+		return input
 	} else if (isEmpty(next)) {
 		return {
 			prev: concat(prev, current),
-			current: head(queue),
+			current: queue[0],
 			queue: tail(queue),
+			next,
 		}
 	} else {
 		return {
 			prev: concat(prev, current),
-			current: head(next),
+			current: next[0],
 			next: tail(next),
+			queue,
 		}
 	}
 }

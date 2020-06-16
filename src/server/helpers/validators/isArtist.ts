@@ -1,8 +1,8 @@
-import { isImg } from "./isImg.js"
-import { isText } from "./isText.js"
+import { isImg } from "./isImg"
+import { isText } from "./isText"
+import { Artist } from "../../types"
 
-type Input = {
-	name: string,
+interface Input extends Artist {
 	photo: Buffer,
 }
 

@@ -27,20 +27,21 @@ import {
 import { IMAGE_SIZES, COLUMN_NAMES } from "../../../globals"
 import { INSERT_ALBUM, INSERT_ALBUM_ARTIST } from "../../../sql"
 
-type TVar = {
-	album: {
-		title: string,
-		released: string,
-		artistIds: string[],
-		cover: Promise<FileUpload>,
-	},
+interface Input extends Omit<Album, "released"> {
+	released: string,
+	artistIds: string[],
+	cover: Promise<FileUpload>,
+}
+
+type Args = {
+	album: Input,
 }
 
 const resolver =
 	createResolver()
 
 export const addAlbum =
-	resolver<Album, TVar>(
+	resolver<Album, Args>(
 		async ({ args }) => {
 			const { album } = args
 			const cover = await uploadFileFromClient(album.cover)

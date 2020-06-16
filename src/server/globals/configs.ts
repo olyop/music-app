@@ -8,7 +8,7 @@ import {
 	AWS_RDS_USER,
 	AWS_RDS_ENDPOINT,
 	AWS_RDS_PASSWORD,
-} from "./environment.js"
+} from "./environment"
 
 export const CORS_CONFIG = {
 	origin: NODE_ENV === "production" ? `http://${HOST}:${PORT}/` : "*",
@@ -33,7 +33,5 @@ export const APOLLO_MIDDLEWARE_CONFIG = {
 export const APOLLO_SERVER_CONFIG = {
 	playground: true,
 	introspection: true,
-	engine: {
-		apiKey: APOLLO_KEY,
-	},
+	engine: { apiKey: APOLLO_KEY },
 }

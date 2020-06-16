@@ -1,4 +1,4 @@
-import { Play } from "../../types"
+import { Play, User, Song } from "../../types"
 import { sql, createResolver } from "../../helpers"
 import { SELECT_USER, SELECT_SONG } from "../../sql"
 
@@ -6,7 +6,7 @@ const resolver =
 	createResolver<Play>()
 
 export const user =
-	resolver(
+	resolver<User>(
 		({ parent }) => (
 			sql.query({
 				sql: SELECT_USER,
@@ -20,7 +20,7 @@ export const user =
 	)
 
 export const song =
-	resolver(
+	resolver<Song>(
 		({ parent }) => (
 			sql.query({
 				sql: SELECT_SONG,

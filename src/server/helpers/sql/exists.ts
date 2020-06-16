@@ -29,10 +29,7 @@ const existsQuery = ({
 		}],
 	})
 
-export const exists = ({
-	value,
-	...input
-}: {
+export const exists = ({ value, ...input }: {
 	table: string,
 	column: string,
 	value: string | string[],

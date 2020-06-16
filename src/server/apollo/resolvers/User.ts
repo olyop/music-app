@@ -167,8 +167,8 @@ export const artists =
 		({ parent }) => (
 			userDocs({
 				tableName: "artists",
-				columnName: "artist_id",
 				userId: parent.userId,
+				columnName: "artist_id",
 				userTableName: "users_artists",
 				columnNames: COLUMN_NAMES.ARTIST,
 			})

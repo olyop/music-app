@@ -7,8 +7,7 @@ import { COLUMN_NAMES } from "../../../globals"
 import { sql, isUser, createResolver } from "../../../helpers"
 
 type Args = {
-	name: string,
-	email: string,
+	user: User,
 }
 
 const resolver =
@@ -17,7 +16,8 @@ const resolver =
 export const addUser =
 	resolver<User, Args>(
 		({ args }) => {
-			if (!isUser(args)) {
+			const { user } = args
+			if (!isUser(user)) {
 				throw new UserInputError("Invalid arguments.")
 			} else {
 				return sql.query({
@@ -28,11 +28,11 @@ export const addUser =
 						value: uuid(),
 					},{
 						key: "name",
-						value: args.name,
+						value: user.name,
 						parameterized: true,
 					},{
 						key: "email",
-						value: args.email,
+						value: user.email,
 						parameterized: true,
 					},{
 						key: "columnNames",

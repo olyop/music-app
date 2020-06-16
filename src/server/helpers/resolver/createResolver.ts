@@ -1,10 +1,3 @@
-/*
-	eslint-disable
-		max-len,
-		@typescript-eslint/no-explicit-any,
-		@typescript-eslint/no-unsafe-assignment
-*/
-
 type Callback<R, P, A> =
 	(val: { args: A, parent: P }) => R | Promise<R>
 

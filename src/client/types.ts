@@ -1,74 +1,82 @@
 import { FC } from "react"
 import { RouteComponentProps } from "react-router-dom"
 
-export enum ListStyleEnum {
-	grid = "grid",
-	list = "list",
+import {
+	UserBase,
+	PlayBase,
+	SongBase,
+	AlbumBase,
+	GenreBase,
+	ArtistBase,
+	UserDocBase,
+	PlaylistBase,
+} from "../types"
+
+interface Doc<T> {
+	__typename: T,
 }
 
-export type Doc = {
-	__typename: string,
+export interface Play extends PlayBase, Doc<"Play"> {
+	user: User,
+	song: Song,
 }
 
-export type Play = {
-	playId: string,
-	userId: string,
-	songId: string,
-	dateCreated: number,
-}
-
-export interface LibDoc extends Doc {
-	plays: Play[],
+interface UserDoc<T> extends UserDocBase, Doc<T> {
 	inLibrary: boolean,
-	isCurrent: boolean,
+	plays: Play[] | null,
+	dateAdded: number | null,
 }
 
-export interface Artist extends LibDoc {
-	name: string,
+export interface Artist extends ArtistBase, UserDoc<"Artist"> {
 	photo: string,
 	songs: Song[],
 	albums: Album[],
-	artistId: string,
 	numOfSongs: number,
 	numOfAlbums: number,
 }
 
-export interface Album extends LibDoc {
-	title: string,
+export interface Album extends AlbumBase, UserDoc<"Album"> {
 	cover: string,
 	songs: Song[],
-	albumId: string,
-	released: number,
 	artists: Artist[],
 	totalDuration: number,
 }
 
-export interface Song extends LibDoc {
-	mix: string,
-	album: Album,
-	title: string,
-	songId: string,
-	genres: Genre[],
-	duration: number,
-	artists: Artist[],
-	remixers: Artist[],
-	discNumber: number,
-	isCurrent: boolean,
-	trackNumber: number,
-}
-
-export interface Genre extends LibDoc {
-	name: string,
+export interface Genre extends GenreBase, UserDoc<"Genre"> {
 	songs: Song[],
-	genreId: string,
 	numOfSongs: number,
 }
 
-export interface User extends Doc {
-	name: string,
-	email: string,
-	current: Song,
-	userId: string,
+export interface Song extends SongBase, UserDoc<"Song"> {
+	album: Album,
+	genres: Genre[],
+	artists: Artist[],
+	isCurrent: boolean,
+	remixers: Artist[],
+	featuring: Artist[],
+	dateAddedToPlaylist: number | null,
+}
+
+export interface User extends UserBase, Doc<"User"> {
+	prev: Song[],
+	next: Song[],
+	queue: Song[],
+	songs: Song[],
+	genres: Genre[],
+	albums: Album[],
+	artists: Artist[],
+	current: Song | null,
+	playlists: Playlist[],
+}
+
+export interface Playlist extends PlaylistBase, UserDoc<"Playlist"> {
+	user: User,
+	songs: Song[],
+}
+
+export enum ListStyleEnum {
+	grid = "grid",
+	list = "list",
 }
 
 export type Disc = {
@@ -90,7 +98,7 @@ export type ClassType = {
 	className: string,
 }
 
-export type TDataUserPlay = {
+export type DataUserPlay = {
 	prev: Song[],
 	next: Song[],
 	queue: Song[],

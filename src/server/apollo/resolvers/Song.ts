@@ -139,7 +139,8 @@ export const isCurrent =
 		({ parent, args }) => (
 			sql.query({
 				sql: CHECK_SONG_IS_CURRENT,
-				parse: ({ rows }: QueryResult< { isCurrent: boolean }>) => !isNull(rows[0].isCurrent),
+				parse: ({ rows }: QueryResult<{ isCurrent: boolean }>) =>
+					!isNull(rows[0].isCurrent),
 				variables: [{
 					key: "userId",
 					value: args.userId,
@@ -152,15 +153,25 @@ export const isCurrent =
 	)
 
 export const dateAdded =
-	userDocDateAdded({
-		key: "songId",
-		columnName: "song_id",
-		userDocTable: "users_songs",
-	})
+	resolver<number, UserArgs>(
+		({ parent, args }) => (
+			userDocDateAdded({
+				userId: args.userId,
+				columnName: "song_id",
+				docId: parent.albumId,
+				userDocTable: "users_songs",
+			})
+		),
+	)
 
 export const inLibrary =
-	userDocInLib({
-		key: "songId",
-		columnName: "song_id",
-		userDocTable: "users_songs",
-	})
+	resolver<boolean, UserArgs>(
+		({ parent, args }) => (
+			userDocInLib({
+				userId: args.userId,
+				docId: parent.albumId,
+				columnName: "song_id",
+				userDocTable: "users_songs",
+			})
+		),
+	)

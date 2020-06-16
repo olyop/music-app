@@ -10,10 +10,10 @@ type TInput = {
 }
 
 export const userDocDateAdded =
-	({ docId, userId, columnName, userDocTable }: TInput) =>
+	<T extends UserDoc>({ docId, userId, columnName, userDocTable }: TInput) =>
 		sql.query<number>({
 			sql: SELECT_USER_DOC_ADDED,
-			parse: res => sql.parseRow<UserDoc>(res).dateCreated,
+			parse: res => sql.parseRow<T>(res).dateCreated,
 			variables: [{
 				key: "userId",
 				value: userId,

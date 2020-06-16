@@ -9,17 +9,23 @@ import {
 	determineChecksResults,
 } from "../../../helpers"
 
+import { Genre } from "../../../types"
 import { INSERT_GENRE } from "../../../sql"
 import { COLUMN_NAMES } from "../../../globals"
-import { Genre, GenreArgs } from "../../../types"
+
+type Args = {
+	genre: Genre,
+}
 
 const resolver =
 	createResolver()
 
 export const addGenre =
-	resolver<Genre, GenreArgs>(
+	resolver<Genre, Args>(
 		async ({ args }) => {
-			if (!isGenre(args)) {
+			const { genre } = args
+
+			if (!isGenre(genre)) {
 				throw new UserInputError("Invalid arguments.")
 			}
 
@@ -28,7 +34,7 @@ export const addGenre =
 				check: sql.unique({
 					column: "name",
 					table: "genres",
-					value: args.name,
+					value: genre.name,
 				}),
 			}]
 
@@ -47,7 +53,7 @@ export const addGenre =
 					value: uuid(),
 				},{
 					key: "name",
-					value: args.name,
+					value: genre.name,
 					parameterized: true,
 				},{
 					string: false,

@@ -26,9 +26,9 @@ export const USER_EMPTY_QUEUE = {
 
 export const USER_QUEUE_SELECT = {
 	prev: 1,
-	current: 1,
 	next: 1,
 	queue: 1,
+	current: 1,
 }
 
 export const IMAGE_SIZES = {

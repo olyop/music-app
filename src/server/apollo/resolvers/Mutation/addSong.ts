@@ -33,17 +33,16 @@ import {
 
 import { COLUMN_NAMES } from "../../../globals"
 
-type Args = {
-	mix: string,
-	title: string,
-	albumId: string,
+interface Input extends Song {
 	genreIds: string[],
-	discNumber: number,
 	artistIds: string[],
-	trackNumber: number,
 	remixerIds: string[],
 	featuringIds:string[],
 	audio: Promise<FileUpload>,
+}
+
+type Args = {
+	song: Input,
 }
 
 const resolver =
@@ -52,9 +51,10 @@ const resolver =
 export const addSong =
 	resolver<Song, Args>(
 		async ({ args }) => {
-			const audio = await uploadFileFromClient(args.audio)
+			const { song } = args
+			const audio = await uploadFileFromClient(song.audio)
 
-			if (!isSong({ ...args, audio })) {
+			if (!isSong({ ...song, audio })) {
 				throw new UserInputError("Invalid arguments.")
 			}
 
@@ -65,15 +65,15 @@ export const addSong =
 					parse: res => !sql.resExists(res),
 					variables: [{
 						key: "albumId",
-						value: args.albumId,
+						value: song.albumId,
 					},{
 						string: false,
 						key: "discNumber",
-						value: args.discNumber.toString(),
+						value: song.discNumber.toString(),
 					},{
 						string: false,
 						key: "trackNumber",
-						value: args.trackNumber.toString(),
+						value: song.trackNumber.toString(),
 					}],
 				}),
 			},{
@@ -81,35 +81,35 @@ export const addSong =
 				check: sql.exists({
 					table: "genres",
 					column: "genre_id",
-					value: args.genreIds,
+					value: song.genreIds,
 				}),
 			},{
 				name: "doesAlbumExist",
 				check: sql.exists({
 					table: "albums",
 					column: "album_id",
-					value: args.albumId,
+					value: song.albumId,
 				}),
 			},{
 				name: "doArtistsExist",
 				check: sql.exists({
 					table: "artists",
 					column: "artist_id",
-					value: args.artistIds,
+					value: song.artistIds,
 				}),
 			},{
 				name: "doRemixersExist",
 				check: sql.exists({
 					table: "artists",
 					column: "artist_id",
-					value: args.remixerIds,
+					value: song.remixerIds,
 				}),
 			},{
 				name: "doFeaturingExist",
 				check: sql.exists({
 					table: "artists",
 					column: "artist_id",
-					value: args.featuringIds,
+					value: song.featuringIds,
 				}),
 			}]
 
@@ -123,25 +123,25 @@ export const addSong =
 
 			const songId = uuid()
 			const metadata = await mm.parseBuffer(audio)
-			const duration = Math.floor(metadata.format.duration!)
+			const duration = Math.floor(metadata.format.duration || 0)
 
 			const songInsert: SQLConfig<Song> = {
 				sql: INSERT_SONG,
 				parse: res => sql.parseRow(res),
 				variables: [{
 					key: "mix",
-					value: args.mix,
+					value: song.mix,
 					parameterized: true,
 				},{
 					key: "title",
-					value: args.title,
+					value: song.title,
 					parameterized: true,
 				},{
 					key: "songId",
 					value: songId,
 				},{
 					key: "albumId",
-					value: args.albumId,
+					value: song.albumId,
 				},{
 					string: false,
 					key: "duration",
@@ -149,11 +149,11 @@ export const addSong =
 				},{
 					string: false,
 					key: "discNumber",
-					value: args.discNumber.toString(),
+					value: song.discNumber.toString(),
 				},{
 					string: false,
 					key: "trackNumber",
-					value: args.trackNumber.toString(),
+					value: song.trackNumber.toString(),
 				},{
 					string: false,
 					key: "columnNames",
@@ -161,7 +161,7 @@ export const addSong =
 				}],
 			}
 
-			const genresInsert = args.genreIds.map(
+			const genresInsert = song.genreIds.map(
 				(genreId, index): SQLConfig<Genre> => ({
 					sql: INSERT_SONG_GENRE,
 					variables: [{
@@ -178,7 +178,7 @@ export const addSong =
 				}),
 			)
 
-			const artistsInsert = args.artistIds.map(
+			const artistsInsert = song.artistIds.map(
 				(artistId, index): SQLConfig<Artist> => ({
 					sql: INSERT_SONG_ARTIST,
 					variables: [{
@@ -195,7 +195,7 @@ export const addSong =
 				}),
 			)
 
-			const remixersInsert = args.remixerIds.map(
+			const remixersInsert = song.remixerIds.map(
 				(artistId, index): SQLConfig<Artist> => ({
 					sql: INSERT_SONG_REMIXER,
 					variables: [{
@@ -212,7 +212,7 @@ export const addSong =
 				}),
 			)
 
-			const featuringsInsert = args.featuringIds.map(
+			const featuringsInsert = song.featuringIds.map(
 				(artistId, index): SQLConfig<Artist> => ({
 					sql: INSERT_SONG_FEAT,
 					variables: [{

@@ -1,6 +1,7 @@
 import {
 	User,
 	Song,
+	Play,
 	Playlist,
 	UserArgs,
 } from "../../types"
@@ -14,7 +15,6 @@ import {
 import { COLUMN_NAMES } from "../../globals"
 import { sql, createResolver } from "../../helpers"
 import { userDocInLib, userDocDateAdded } from "./common"
-import { Play } from "../../../client/types"
 
 const resolver =
 	createResolver<Playlist>()

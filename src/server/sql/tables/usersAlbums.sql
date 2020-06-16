@@ -2,7 +2,7 @@ CREATE TABLE IF NOT EXISTS users_albums (
   user_id uuid,
   album_id uuid,
   in_library boolean NOT NULL,
-  date_created integer NOT NULL DEFAULT date_part('epoch', now()),
+  date_added integer NOT NULL DEFAULT date_part('epoch', now()),
   CONSTRAINT users_albums_pk
     PRIMARY KEY (user_id, album_id),
   CONSTRAINT users_albums_fk_album_id
@@ -15,6 +15,6 @@ CREATE TABLE IF NOT EXISTS users_albums (
     REFERENCES users (user_id) MATCH FULL
     ON UPDATE CASCADE
     ON DELETE CASCADE,
-  CONSTRAINT users_albums_check_date_created
-    CHECK (date_created >= 1)
+  CONSTRAINT users_albums_check_date_added
+    CHECK (date_added >= 1)
 );

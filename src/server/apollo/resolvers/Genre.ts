@@ -9,7 +9,7 @@ import { SELECT_GENRE_SONGS, SELECT_USER_DOC_PLAYS } from "../../sql"
 const resolver =
 	createResolver<Genre>()
 
-const selectGenreSongs = <T>(genreId: string, parse: (res: QueryResult) => T) =>
+const genreSongs = <T>(genreId: string, parse: (res: QueryResult) => T) =>
 	sql.query({
 		sql: SELECT_GENRE_SONGS,
 		parse,
@@ -26,7 +26,7 @@ const selectGenreSongs = <T>(genreId: string, parse: (res: QueryResult) => T) =>
 export const songs =
 	resolver<Song[]>(
 		({ parent }) => (
-			selectGenreSongs(
+			genreSongs(
 				parent.genreId,
 				res => sql.parseTable(res),
 			)
@@ -36,7 +36,7 @@ export const songs =
 export const numOfSongs =
 	resolver<number>(
 		({ parent }) => (
-			selectGenreSongs(
+			genreSongs(
 				parent.genreId,
 				sql.rowCount,
 			)

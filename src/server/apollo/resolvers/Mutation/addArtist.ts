@@ -22,11 +22,12 @@ import {
 import { INSERT_ARTIST } from "../../../sql/index.js"
 import { IMAGE_SIZES, COLUMN_NAMES } from "../../../globals"
 
+interface Input extends Artist {
+	photo: Promise<FileUpload>,
+}
+
 type Args = {
-	artist: {
-		name: string,
-		photo: Promise<FileUpload>,
-	},
+	artist: Input,
 }
 
 const resolver =
@@ -51,8 +52,7 @@ export const addArtist =
 				}),
 			}]
 
-			const checksResults =
-				await determineChecksResults(checks)
+			const checksResults = await determineChecksResults(checks)
 
 			if (!checksResults.every(Boolean)) {
 				const failedChecks = determineFailedChecks(checks, checksResults)

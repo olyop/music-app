@@ -1,4 +1,4 @@
-import { isText } from "./isText.js"
+import { isText } from "./isText"
 
 type Input = {
 	name: string,

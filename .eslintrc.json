@@ -9,11 +9,9 @@
 		"plugin:@typescript-eslint/recommended-requiring-type-checking",
 		"plugin:promise/recommended",
 		"plugin:import/typescript",
-		"plugin:promise/recommended",
-		"plugin:node/recommended"
+		"plugin:promise/recommended"
 	],
 	"plugins": [
-		"node",
 		"import",
 		"promise",
 		"@typescript-eslint"

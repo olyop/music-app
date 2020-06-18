@@ -10,7 +10,7 @@ const importSchema = (filename: string) =>
 const typeDefs = gql`${`
 	${importSchema("Scalars")}
 	${importSchema("Enums")}
-	${importSchema("Input")}
+	${importSchema("Inputs")}
 	${importSchema("Query")}
 	${importSchema("Mutation")}
 	${importSchema("User")}

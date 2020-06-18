@@ -19,7 +19,7 @@ import {
 	determineChecksResults,
 } from "../../../helpers"
 
-import { INSERT_ARTIST } from "../../../sql/index.js"
+import { INSERT_ARTIST } from "../../../sql"
 import { IMAGE_SIZES, COLUMN_NAMES } from "../../../globals"
 
 interface Input extends Artist {

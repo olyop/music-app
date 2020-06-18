@@ -1,6 +1,5 @@
 # folders
 dist/
-.vscode/
 node_modules/
 src/server/build/
 

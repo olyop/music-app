@@ -9,7 +9,6 @@
 		"module": "esnext",
 		"noImplicitAny": true,
 		"noUnusedLocals": true,
-		"rootDir": "src/server",
 		"esModuleInterop": true,
 		"strictNullChecks": true,
 		"moduleResolution": "node",

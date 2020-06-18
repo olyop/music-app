@@ -55,7 +55,6 @@ export type UserArgs = {
 }
 
 export interface User extends UserBase {
-	userId: string,
 	current: string,
 }
 

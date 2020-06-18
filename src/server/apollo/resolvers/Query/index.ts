@@ -1,7 +1,4 @@
-import {
-	sql,
-	createResolver,
-} from "../../../helpers"
+import { FileUpload } from "graphql-upload"
 
 import {
 	User,
@@ -12,10 +9,6 @@ import {
 	Artist,
 	Playlist,
 } from "../../../types"
-
-import {
-	COLUMN_NAMES,
-} from "../../../globals"
 
 import {
 	SELECT_USER,
@@ -34,28 +27,14 @@ import {
 	SELECT_TOP_TEN_SONGS,
 } from "../../../sql"
 
+import { COLUMN_NAMES } from "../../../globals"
+import fetchAndParseUrl from "./fetchAndParseUrl"
+import fetchImageSearch from "./fetchImageSearch"
+import { sql, createResolver } from "../../../helpers"
+import { parseSong as parseSongFunc, MetadataResponse } from "./parseSong"
+
 const resolver =
 	createResolver()
-
-export const newAlbums =
-	resolver<Album[]>(
-		() => (
-			sql.query({
-				sql: SELECT_NEW_ALBUMS,
-				parse: res => sql.parseTable(res),
-			})
-		),
-	)
-
-export const topTenSongs =
-	resolver<Song[]>(
-		() => (
-			sql.query({
-				sql: SELECT_TOP_TEN_SONGS,
-				parse: res => sql.parseTable(res),
-			})
-		),
-	)
 
 export const songs =
 	resolver<Song[]>(
@@ -254,6 +233,41 @@ export const song =
 					key: "columnNames",
 					value: sql.join(COLUMN_NAMES.SONG),
 				}],
+			})
+		),
+	)
+
+export const parseUrl =
+	resolver<string, { url: string }>(
+		({ args }) => fetchAndParseUrl(args.url),
+	)
+
+export const imageSearch =
+	resolver<string, { query: string }>(
+		({ args }) => fetchImageSearch(args.query),
+	)
+
+export const parseSong =
+	resolver<MetadataResponse, { file: Promise<FileUpload> }>(
+		({ args }) => parseSongFunc(args.file),
+	)
+
+export const newAlbums =
+	resolver<Album[]>(
+		() => (
+			sql.query({
+				sql: SELECT_NEW_ALBUMS,
+				parse: res => sql.parseTable(res),
+			})
+		),
+	)
+
+export const topTenSongs =
+	resolver<Song[]>(
+		() => (
+			sql.query({
+				sql: SELECT_TOP_TEN_SONGS,
+				parse: res => sql.parseTable(res),
 			})
 		),
 	)

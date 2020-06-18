@@ -1,6 +1,7 @@
 import fs from "fs"
 import { join } from "path"
 
+// import { sql } from "../helpers"
 import { SQL_FOLER_PATH } from "../globals"
 
 const importFile = (path: string) =>

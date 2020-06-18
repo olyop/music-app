@@ -1,0 +1,3 @@
+query parseSong($file: Upload!) {
+  parseSong(file: $file)
+}

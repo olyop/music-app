@@ -1,10 +1,15 @@
 import { UPDATE_USER_SONG_LATER } from "../../../sql"
-import sqlQuery from "../../../helpers/sql/sqlQuery.js"
-import sqlParseRow from "../../../helpers/sql/sqlParseRow.js"
+import { sql, createResolver } from "../../../helpers"
+
+const resolver =
+	createResolver()
 
 export const userAddSongLater =
-  async () =>
-    sqlQuery({
-      sql: UPDATE_USER_SONG_LATER,
-      parse: sqlParseRow,
-    })
+	resolver(
+		() => (
+			sql.query({
+				sql: UPDATE_USER_SONG_LATER,
+				parse: sql.parseRow,
+			})
+		),
+	)

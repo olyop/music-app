@@ -5,49 +5,95 @@ import {
 	SELECT_ARTIST,
 } from "../../../sql"
 
-import rmUserDoc from "./rmUserDoc"
-import addUserDoc from "./addUserDoc"
+import { rmUserDoc } from "./rmUserDoc"
+import { addUserDoc } from "./addUserDoc"
+import { COLUMN_NAMES } from "../../../globals"
+import { Song, UserArgs } from "../../../types"
+import { createResolver } from "../../../helpers"
 
-const userSongConfig = {
-	argKey: "songId",
-	columnName: "song_id",
-	docTableName: "songs",
-	returnSql: SELECT_SONG,
-	userTableName: "users_songs",
-}
+interface SongArgs extends UserArgs { songId: string }
+interface AlbumArgs extends UserArgs { albumId: string }
+interface GenreArgs extends UserArgs { genreId: string }
+interface ArtistArgs extends UserArgs { artistId: string }
 
-const userAlbumConfig = {
-	argKey: "albumId",
-	columnName: "album_id",
-	docTableName: "albums",
-	returnSql: SELECT_ALBUM,
-	userTableName: "users_albums",
-}
+const resolver = createResolver()
 
-const userGenreConfig = {
-	argKey: "genreId",
-	columnName: "genre_id",
-	docTableName: "genres",
-	returnSql: SELECT_GENRE,
-	userTableName: "users_genres",
-}
+const userSongConfig =
+	(docId: string, userId: string) => ({
+		docId,
+		userId,
+		query: SELECT_SONG,
+		columnName: "song_id",
+		userTableName: "users_songs",
+		columnNames: COLUMN_NAMES.SONG,
+	})
 
-const userArtistConfig = {
-	argKey: "artistId",
-	columnName: "artist_id",
-	docTableName: "artists",
-	returnSql: SELECT_ARTIST,
-	userTableName: "users_artist",
-}
+const userAlbumConfig =
+	(docId: string, userId: string) => ({
+		docId,
+		userId,
+		query: SELECT_ALBUM,
+		columnName: "album_id",
+		userTableName: "users_albums",
+		columnNames: COLUMN_NAMES.ALBUM,
+	})
 
-export const rmUserSong = rmUserDoc(userSongConfig)
-export const addUserSong = addUserDoc(userSongConfig)
+const userGenreConfig =
+	(docId: string, userId: string) => ({
+		docId,
+		userId,
+		query: SELECT_GENRE,
+		columnName: "genre_id",
+		userTableName: "users_genres",
+		columnNames: COLUMN_NAMES.GENRE,
+	})
 
-export const rmUserAlbum = rmUserDoc(userAlbumConfig)
-export const addUserAlbum = addUserDoc(userAlbumConfig)
+const userArtistConfig =
+	(docId: string, userId: string) => ({
+		docId,
+		userId,
+		query: SELECT_ARTIST,
+		columnName: "artist_id",
+		userTableName: "users_artists",
+		columnNames: COLUMN_NAMES.ARTIST,
+	})
 
-export const rmUserGenre = rmUserDoc(userGenreConfig)
-export const addUserGenre = addUserDoc(userGenreConfig)
+export const rmUserSong =
+	resolver<Song, SongArgs>(
+		({ args }) => rmUserDoc(userSongConfig(args.songId, args.userId)),
+	)
 
-export const rmUserArtist = rmUserDoc(userArtistConfig)
-export const addUserArtist = addUserDoc(userArtistConfig)
+export const addUserSong =
+	resolver<Song, SongArgs>(
+		({ args }) => addUserDoc(userSongConfig(args.songId, args.userId)),
+	)
+
+export const rmUserAlbum =
+	resolver<Song, AlbumArgs>(
+		({ args }) => rmUserDoc(userAlbumConfig(args.albumId, args.userId)),
+	)
+
+export const addUserAlbum =
+	resolver<Song, AlbumArgs>(
+		({ args }) => addUserDoc(userAlbumConfig(args.albumId, args.userId)),
+	)
+
+export const rmUserGenre =
+	resolver<Song, GenreArgs>(
+		({ args }) => rmUserDoc(userGenreConfig(args.genreId, args.userId)),
+	)
+
+export const addUserGenre =
+	resolver<Song, GenreArgs>(
+		({ args }) => addUserDoc(userGenreConfig(args.genreId, args.userId)),
+	)
+
+export const rmUserArtist =
+	resolver<Song, ArtistArgs>(
+		({ args }) => rmUserDoc(userGenreConfig(args.artistId, args.userId)),
+	)
+
+export const addUserArtist =
+	resolver<Song, ArtistArgs>(
+		({ args }) => addUserDoc(userArtistConfig(args.artistId, args.userId)),
+	)

@@ -1,4 +1,5 @@
 {
+	"verbose": false,
 	"ignore": ["src/client/","node_modules"],
 	"ext": "js,mjs,json,gql,sql,ts,tsx,env,cjs,ts,tsx,html"
 }

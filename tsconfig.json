@@ -2,7 +2,6 @@
 	"compilerOptions": {
 		"jsx": "react",
 		"strict": true,
-		"sourceMap": true,
 		"target": "ESNEXT",
 		"noImplicitAny": true,
 		"noUnusedLocals": true,
@@ -17,7 +16,8 @@
 		"forceConsistentCasingInFileNames": true
 	},
 	"exclude": [
-		"node_modules"
+		"node_modules",
+		"webpack.config.ts"
 	],
 	"include": [
 		"src/server/**/*.ts"

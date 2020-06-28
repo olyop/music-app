@@ -20,11 +20,10 @@
 	],
 	"ignorePatterns": [
 		"node_modules",
-		"src/server/build"
+		"dist"
 	],
 	"parserOptions": {
 		"ecmaVersion": 2020,
-		"extraFileExtensions": [".cjs"],
 		"project": "./tsconfig.json"
 	},
 	"env": {

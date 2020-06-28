@@ -10,6 +10,8 @@ import { BundleAnalyzerPlugin } from "webpack-bundle-analyzer"
 import LodashModuleReplacementPlugin from "lodash-webpack-plugin"
 import OptimizeCssAssetsPlugin from "optimize-css-assets-webpack-plugin"
 
+interface Environment { isDev: boolean }
+
 // eslint-disable-next-line node/no-process-env
 const { HOST, DEV_PORT } = process.env
 
@@ -17,10 +19,10 @@ const srcPath = path.resolve("src")
 const distPath = path.resolve("dist")
 const clientPath = path.join(srcPath, "client")
 
-export default ({ isDev }: { isDev: boolean }): Configuration => ({
-	devtool: isDev && "inline-source-map",
-	mode: isDev ? "development" : "production",
+export default ({ isDev }: Environment): Configuration => ({
 	entry: path.join(clientPath, "index.tsx"),
+	mode: isDev ? "development" : "production",
+	devtool: isDev ? "inline-source-map" : false,
 	output: {
 		publicPath: "/",
 		filename: "[hash].js",

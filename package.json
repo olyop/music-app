@@ -6,8 +6,11 @@
 	"deprecated": false,
 	"type": "module",
 	"scripts": {
-		"dev-server": "npx tsc --watch --outDir dist --rootDir src/server",
-		"dev-client": "npx webpack --env.isDev",
+		"dev": "clear && npm run delete-build && clear && npx concurrently \"npm:build-server\" \"npm:build-client\" \"npm:dev-server\"",
+		"build-server": "npx tsc --watch --outDir dist --rootDir src/server",
+		"build-client": "npx webpack --watch --env.isDev",
+		"dev-server": "npx nodemon dist/index.js -r dotenv/config",
+		"delete-build": "rm -r -f dist",
 		"sync": "git checkout . && git remote update && git pull",
 		"push": "clear && git status && git add -A && git commit -m \"Update\" && git push -u origin master"
 	},

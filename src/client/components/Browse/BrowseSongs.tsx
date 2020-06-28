@@ -4,7 +4,7 @@ import { RouteComponentProps } from "react-router-dom"
 import Song from "../Song"
 import QueryApi from "../QueryApi"
 import { Song as TSong } from "../../types"
-import GET_SONGS from "../../graphql/queries/getSongs.gql"
+import GET_SONGS from "../../graphql/queries/songs.gql"
 
 const BrowseSongs: FC<RouteComponentProps> = () => (
 	<QueryApi<TData>
@@ -20,7 +20,7 @@ const BrowseSongs: FC<RouteComponentProps> = () => (
 								key={song.songId}
 								className="PaddingHalf Hover ItemBorder"
 							/>
-						)
+						),
 					)}
 				</Fragment>
 			)

@@ -10,7 +10,7 @@ import QueryApi from "../QueryApi"
 import { Artist } from "../../types"
 import InLibraryButton from "../InLibraryButton"
 import { reactBem, determinePlural } from "../../helpers"
-import GET_ARTIST_PAGE from "../../graphql/queries/getArtistPage.gql"
+import GET_ARTIST_PAGE from "../../graphql/queries/artistPage.gql"
 
 import "./index.scss"
 

@@ -10,9 +10,9 @@ import {
 	ArtistBase,
 	UserDocBase,
 	PlaylistBase,
-} from "../types"
+} from "../common"
 
-interface Doc<T> {
+export interface Doc<T = string> {
 	__typename: T,
 }
 
@@ -21,9 +21,9 @@ export interface Play extends PlayBase, Doc<"Play"> {
 	song: Song,
 }
 
-interface UserDoc<T> extends UserDocBase, Doc<T> {
+export interface UserDoc<T = string> extends UserDocBase, Doc<T> {
+	plays: Play[],
 	inLibrary: boolean,
-	plays: Play[] | null,
 	dateAdded: number | null,
 }
 

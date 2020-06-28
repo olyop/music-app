@@ -5,7 +5,7 @@ import { createElement, useState, FC, ChangeEvent } from "react"
 import QueryApi from "../QueryApi"
 import { BemInputType, User } from "../../types"
 import { deserializeDuration, reactBem } from "../../helpers"
-import GET_USER_CURRENT from "../../graphql/queries/getUserCurrent.gql"
+import GET_USER_CURRENT from "../../graphql/queries/userCurrent.gql"
 
 import "./index.scss"
 

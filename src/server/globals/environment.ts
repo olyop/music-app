@@ -1,4 +1,4 @@
-/* eslint-disable prefer-destructuring */
+/* eslint-disable node/no-process-env */
 export const NODE_ENV = process.env.NODE_ENV!
 
 export const HOST = process.env.HOST!

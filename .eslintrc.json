@@ -9,9 +9,11 @@
 		"plugin:@typescript-eslint/recommended-requiring-type-checking",
 		"plugin:promise/recommended",
 		"plugin:import/typescript",
-		"plugin:promise/recommended"
+		"plugin:promise/recommended",
+		"plugin:node/recommended-module"
 	],
 	"plugins": [
+		"node",
 		"import",
 		"promise",
 		"@typescript-eslint"
@@ -21,6 +23,8 @@
 		"src/server/build"
 	],
 	"parserOptions": {
+		"ecmaVersion": 2020,
+		"extraFileExtensions": [".cjs"],
 		"project": "./tsconfig.json"
 	},
 	"env": {
@@ -54,10 +58,12 @@
 		"@typescript-eslint/ban-ts-comment": "off",
 		"jsx-a11y/click-events-have-key-events": "off",
 		"jsx-a11y/label-has-associated-control": "off",
+		"@typescript-eslint/prefer-regexp-exec": "off",
 		"jsx-a11y/control-has-associated-label": "off",
 		"jsx-a11y/no-static-element-interactions": "off",
 		"@typescript-eslint/no-non-null-assertion": "off",
 		"@typescript-eslint/explicit-module-boundary-types": "off",
+		"node/no-process-env": "error",
 		"no-mixed-spaces-and-tabs": [
 			"error",
 			"smart-tabs"

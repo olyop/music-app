@@ -9,7 +9,7 @@ import Progress from "../Progress"
 import { User } from "../../types"
 import { reactBem } from "../../helpers"
 import UserControls from "../UserControls"
-import GET_USER_CURRENT from "../../graphql/queries/getUserCurrent.gql"
+import GET_USER_CURRENT from "../../graphql/queries/userCurrent.gql"
 
 import "./index.scss"
 

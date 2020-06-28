@@ -3,24 +3,29 @@ import { isNull } from "lodash"
 
 import { Album } from "../../../../types"
 
+interface Input extends Album {
+	artists: string[],
+}
+
 const googleSearchScrape =
-	(album: Album) =>
+	(album: Input) =>
 		new Promise<string | null>(
 			(resolve, reject) => {
 				const query = `${album.title} ${album.artists.join(" ")} release date`
 				const params = new URLSearchParams({ q: query })
 				const url = `https://www.google.com/search?${params.toString()}`
 				fetch(url).then(res => res.text()).then(html => {
-					/* eslint-disable-next-line max-len */
+					// eslint-disable-next-line max-len
 					const reg = /(0[1-9]|[12]\d|3[01]) (January|February|March|April|May|June|July|August|September|October|November|December) (?:19[7-9]\d|2\d{3})(?=\D|$)/
 					const search = html.match(reg)
+					// eslint-disable-next-line promise/always-return
 					resolve(isNull(search) ? null : search[0])
 				}).catch(reject)
 			},
 		)
 
 export const albumReleased =
-	async (album: Album) => {
+	async (album: Input) => {
 		try {
 			const googleSearch = await googleSearchScrape(album)
 			if (isNull(googleSearch)) {

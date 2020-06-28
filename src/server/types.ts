@@ -9,7 +9,7 @@ import {
 	ArtistBase,
 	UserDocBase,
 	PlaylistBase,
-} from "../types"
+} from "./base"
 
 export enum ImgSizeEnum {
 	MINI,

@@ -3,6 +3,9 @@ import path from "path"
 export const SERVER_PATH =
   path.resolve("src", "server")
 
+export const PUBLIC_PATH =
+  path.resolve(SERVER_PATH, "public")
+
 export const BUILD_PATH =
   path.resolve(SERVER_PATH, "build")
 

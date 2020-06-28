@@ -5,7 +5,7 @@ import List from "../List"
 import Album from "../Album"
 import QueryApi from "../QueryApi"
 import { Album as TAlbum } from "../../types"
-import GET_ALBUMS from "../../graphql/queries/getAlbums.gql"
+import GET_ALBUMS from "../../graphql/queries/albums.gql"
 
 const BrowseAlbums: FC<RouteComponentProps> = () => (
 	<QueryApi<TData>

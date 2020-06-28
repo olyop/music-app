@@ -5,7 +5,7 @@ import List from "../List"
 import Artist from "../Artist"
 import QueryApi from "../QueryApi"
 import { Artist as TArtist } from "../../types"
-import GET_ARTISTS from "../../graphql/queries/getArtists.gql"
+import GET_ARTISTS from "../../graphql/queries/artists.gql"
 
 const BrowseArtists: FC<RouteComponentProps> = () => (
 	<QueryApi<TData>

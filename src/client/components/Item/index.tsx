@@ -4,7 +4,7 @@ import { createElement, ReactNode, ReactElement } from "react"
 import Img from "../Img"
 import PlayButton from "../PlayButton"
 import InLibraryButton from "../InLibraryButton"
-import { BemInputType, LibDoc } from "../../types"
+import { BemInputType, UserDoc } from "../../types"
 
 import {
 	reactBem,
@@ -15,9 +15,23 @@ import {
 
 import "./index.scss"
 
+type TProps<D, I> = {
+	doc: D,
+	imgDoc?: I,
+	left?: ReactNode,
+	upper: ReactNode,
+	lower?: ReactNode,
+	right?: ReactNode,
+	showPlay?: boolean,
+	showInLibrary?: boolean,
+	className?: BemInputType,
+	infoClassName?: BemInputType,
+	inLibClassName?: BemInputType,
+}
+
 const bem = reactBem("Item")
 
-const Item = <IDoc extends LibDoc, IImgDoc = Record<string, unknown>>({
+const Item = <D extends UserDoc, I extends UserDoc = UserDoc>({
 	doc,
 	left,
 	lower,
@@ -29,7 +43,7 @@ const Item = <IDoc extends LibDoc, IImgDoc = Record<string, unknown>>({
 	inLibClassName,
 	showPlay = true,
 	showInLibrary = true,
-}: TProps<IDoc, IImgDoc>): ReactElement => (
+}: TProps<D, I>): ReactElement => (
 	<div className={bem(className, "")}>
 		{left && (
 			<p
@@ -84,19 +98,5 @@ const Item = <IDoc extends LibDoc, IImgDoc = Record<string, unknown>>({
 		)}
 	</div>
 )
-
-type TProps<IDoc, IImgDoc> = {
-	doc: IDoc,
-	imgDoc?: IImgDoc,
-	left?: ReactNode,
-	upper: ReactNode,
-	lower?: ReactNode,
-	right?: ReactNode,
-	showPlay?: boolean,
-	showInLibrary?: boolean,
-	className?: BemInputType,
-	infoClassName?: BemInputType,
-	inLibClassName?: BemInputType,
-}
 
 export default Item

@@ -5,7 +5,7 @@ import { createElement, FC, Fragment, ChangeEventHandler } from "react"
 import QueryApi from "../QueryApi"
 import { reactBem } from "../../helpers"
 import { ListStyleEnum, User } from "../../types"
-import GET_USER from "../../graphql/queries/getUser.gql"
+import GET_USER from "../../graphql/queries/user.gql"
 import { useListStyleContext } from "../../contexts/ListStyle"
 
 import "./index.scss"

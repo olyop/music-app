@@ -17,7 +17,9 @@ import {
 	HOST,
 	PORT,
 	LOG_FORMAT,
+	BUILD_PATH,
 	CORS_CONFIG,
+	PUBLIC_PATH,
 } from "./globals"
 
 const app = express()
@@ -33,7 +35,8 @@ app.use(
 	cookieParser(),
 	globalHeaders(),
 	graphql(),
-	sendStatic(),
+	sendStatic(BUILD_PATH),
+	sendStatic(PUBLIC_PATH),
 )
 
 // send index.html

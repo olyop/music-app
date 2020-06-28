@@ -5,19 +5,12 @@ import {
 	Song, Album,
 } from "../../../types"
 
-import {
-	pipe,
-	sqlJoin,
-	sqlQuery,
-	resolver,
-	sqlParseTable,
-} from "../../../helpers"
-
 import { SELECT_SEARCH } from "../../../sql"
+import { pipe, sql } from "../../../helpers"
 import { COLUMN_NAMES } from "../../../globals"
 
 const parseSearch = <T>(res: QueryResult, exact: boolean) =>
-	pipe(sqlParseTable, exact ? head : identity)(res) as T[]
+	pipe(sql.parseTable, exact ? head : identity)(res) as T[]
 
 const docSearch =
 	<T>(tableName: string, docName: string, columnName: string, query: string, exact = false) =>
@@ -39,7 +32,7 @@ const docSearch =
 			},{
 				string: false,
 				key: "columnNames",
-				value: sqlJoin(COLUMN_NAMES[docName]),
+				value: sql.join(COLUMN_NAMES[docName]),
 			}],
 		})
 

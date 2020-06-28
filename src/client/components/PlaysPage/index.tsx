@@ -4,7 +4,7 @@ import { RouteComponentProps } from "react-router-dom"
 import QueryApi from "../QueryApi"
 import { Song } from "../../types"
 import { reactBem, deserializeDate } from "../../helpers"
-import GET_SONG_PLAYS from "../../graphql/queries/getSongPlays.gql"
+import GET_SONG_PLAYS from "../../graphql/queries/songPlays.gql"
 
 import "./index.scss"
 

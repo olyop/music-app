@@ -1,4 +1,4 @@
-import { LibDoc } from "../types"
+import { UserDoc } from "../types"
 
-export const filterInLibrary = <T extends LibDoc>(docs: T[]): T[] =>
+export const filterInLibrary = <T extends UserDoc>(docs: T[]): T[] =>
 	docs.filter(({ inLibrary }) => inLibrary)

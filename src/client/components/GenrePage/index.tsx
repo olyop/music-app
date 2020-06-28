@@ -5,7 +5,7 @@ import Song from "../Song"
 import QueryApi from "../QueryApi"
 import { Genre } from "../../types"
 import { reactBem } from "../../helpers"
-import GET_GENRE_PAGE from "../../graphql/queries/getGenrePage.gql"
+import GET_GENRE_PAGE from "../../graphql/queries/genrePage.gql"
 
 import "./index.scss"
 

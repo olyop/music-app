@@ -7,7 +7,7 @@
 	"type": "module",
 	"scripts": {
 		"dev-server": "npx tsc --watch --outDir dist --rootDir src/server",
-		"dev-client": "npx webpack --config webpack.client.config.ts --env.isDev",
+		"dev-client": "npx webpack --env.isDev",
 		"sync": "git checkout . && git remote update && git pull",
 		"push": "clear && git status && git add -A && git commit -m \"Update\" && git push -u origin master"
 	},

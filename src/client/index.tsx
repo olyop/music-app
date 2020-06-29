@@ -10,15 +10,15 @@ import "./index.scss"
 import "./classes.scss"
 
 const Index: FC = () => (
-	<StrictMode>
-		<ReactRouter>
-			<Authenticate>
-				<ApolloClient>
+	<ReactRouter>
+		<Authenticate>
+			<ApolloClient>
+				<StrictMode>
 					<Application/>
-				</ApolloClient>
-			</Authenticate>
-		</ReactRouter>
-	</StrictMode>
+				</StrictMode>
+			</ApolloClient>
+		</Authenticate>
+	</ReactRouter>
 )
 
 render(

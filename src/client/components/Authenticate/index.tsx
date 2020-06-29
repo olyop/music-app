@@ -2,8 +2,11 @@ import { createElement, FC } from "react"
 
 import { UserProvider } from "../../contexts/User"
 
+// eslint-disable-next-line node/no-process-env
+const { USER_ID } = process.env
+
 const Authenticate: FC = ({ children }) => (
-	<UserProvider value={process.env.USER_ID}>
+	<UserProvider value={USER_ID}>
 		{children}
 	</UserProvider>
 )

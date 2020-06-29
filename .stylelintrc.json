@@ -1,11 +1,6 @@
 {
 	"plugins": ["stylelint-scss"],
 	"extends": "stylelint-config-sass-guidelines",
-	"ignoreFiles": [
-		"**/*.ts",
-		"**/*.tsx",
-		"**/*.cjs"
-	],
 	"rules": {
 		"indentation": "tab",
 		"selector-max-id": 1,

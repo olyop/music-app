@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet"
 import { createElement, Fragment, FC } from "react"
 import { RouteComponentProps } from "react-router-dom"
 
@@ -32,6 +33,9 @@ const AlbumPage: FC<RouteComponentProps> = ({ match }) => (
 				const { title, songs, released, artists, totalDuration } = album
 				return (
 					<Fragment>
+						<Helmet>
+							<title>{title}</title>
+						</Helmet>
 						<div>
 							<Cover
 								url={album.cover}

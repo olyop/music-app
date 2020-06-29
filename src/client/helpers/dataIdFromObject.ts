@@ -1,4 +1,6 @@
+import { IdGetterObj } from "apollo-cache-inmemory"
+
 import { determineDocId } from "./determineDocId"
 
 export const dataIdFromObject =
-	<T>(doc: T) => determineDocId(doc)
+	(doc: IdGetterObj) => determineDocId(doc)

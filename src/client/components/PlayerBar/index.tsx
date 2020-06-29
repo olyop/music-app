@@ -1,15 +1,15 @@
-import { isNull } from "lodash"
+// import { isNull } from "lodash"
 import { createElement, FC } from "react"
-import { NavLink } from "react-router-dom"
+// import { NavLink } from "react-router-dom"
 
-import Icon from "../Icon"
-import Song from "../Song"
-import QueryApi from "../QueryApi"
-import Progress from "../Progress"
-import { User } from "../../types"
+// import Icon from "../Icon"
+// import Song from "../Song"
+// import QueryApi from "../QueryApi"
+// import Progress from "../Progress"
+// import { User } from "../../types"
 import { reactBem } from "../../helpers"
 import UserControls from "../UserControls"
-import GET_USER_CURRENT from "../../graphql/queries/userCurrent.gql"
+// import GET_USER_CURRENT from "../../graphql/queries/userCurrent.gql"
 
 import "./index.scss"
 
@@ -21,7 +21,7 @@ const PlayerBar: FC = () => (
 			className={bem("controls")}
 			iconClassName={bem("icon")}
 		/>
-		<div className={bem("main")}>
+		{/* <div className={bem("main")}>
 			<QueryApi<TData>
 				query={GET_USER_CURRENT}
 				children={
@@ -67,12 +67,12 @@ const PlayerBar: FC = () => (
 				}
 			/>
 			<Progress/>
-		</div>
+		</div> */}
 	</footer>
 )
 
-type TData = {
-	user: User,
-}
+// type TData = {
+// 	user: User,
+// }
 
 export default PlayerBar

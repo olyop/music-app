@@ -10,8 +10,6 @@ import { BundleAnalyzerPlugin } from "webpack-bundle-analyzer"
 import LodashModuleReplacementPlugin from "lodash-webpack-plugin"
 import OptimizeCssAssetsPlugin from "optimize-css-assets-webpack-plugin"
 
-interface Environment { isDev: boolean }
-
 // eslint-disable-next-line node/no-process-env
 const { HOST, DEV_PORT } = process.env
 
@@ -19,7 +17,7 @@ const srcPath = path.resolve("src")
 const distPath = path.resolve("dist")
 const clientPath = path.join(srcPath, "client")
 
-export default ({ isDev }: Environment): Configuration => ({
+export default ({ isDev }: { isDev: boolean }): Configuration => ({
 	entry: path.join(clientPath, "index.tsx"),
 	mode: isDev ? "development" : "production",
 	devtool: isDev ? "inline-source-map" : false,
@@ -30,7 +28,7 @@ export default ({ isDev }: Environment): Configuration => ({
 	},
 	resolve: {
 		symlinks: false,
-		extensions: [".ts", ".tsx", ".js"],
+		extensions: [".ts", ".tsx", ".js", ".json"],
 	},
 	devServer: {
 		hot: true,
@@ -41,6 +39,9 @@ export default ({ isDev }: Environment): Configuration => ({
 		stats: "errors-only",
 		historyApiFallback: true,
 		port: parseInt(DEV_PORT!),
+		proxy: {
+			"/": "http://localhost:3000/",
+		},
 	},
 	optimization: {
 		minimizer: [new TerserPlugin({ sourceMap: true })],
@@ -57,7 +58,7 @@ export default ({ isDev }: Environment): Configuration => ({
 				],
 			},
 			{
-				test: /\.(graphql|gql)$/,
+				test: /\.gql$/,
 				exclude: /node_modules/,
 				loader: "graphql-tag/loader",
 				include: path.join(clientPath, "graphql"),
@@ -69,6 +70,7 @@ export default ({ isDev }: Environment): Configuration => ({
 					loader: "ts-loader",
 					options: {
 						transpileOnly: isDev,
+						onlyCompileBundledFiles: true,
 					},
 				},
 			},

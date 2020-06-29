@@ -5,7 +5,7 @@ import { parseMetadata } from "./parseMetadata"
 import { MetadataResponse } from "./metadataResponse"
 import { createStreamFromUpload } from "../../../../helpers"
 
-export { MetadataResponse } from "./metadataResponse"
+export type { MetadataResponse }
 
 export const parseSong =
 	(file: Promise<FileUpload>) =>

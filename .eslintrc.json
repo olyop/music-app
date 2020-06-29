@@ -9,7 +9,6 @@
 		"plugin:@typescript-eslint/recommended-requiring-type-checking",
 		"plugin:promise/recommended",
 		"plugin:import/typescript",
-		"plugin:promise/recommended",
 		"plugin:node/recommended-module"
 	],
 	"plugins": [
@@ -23,11 +22,11 @@
 		"dist"
 	],
 	"parserOptions": {
-		"ecmaVersion": 2020,
 		"project": "./tsconfig.json"
 	},
 	"env": {
 		"node": true,
+		"es2020": true,
 		"browser": true
 	},
 	"settings": {
@@ -52,7 +51,6 @@
 		"react/require-default-props": "off",
 		"lines-between-class-members": "off",
 		"import/prefer-default-export": "off",
-		"react/jsx-filename-extension": "off",
 		"@typescript-eslint/comma-spacing": "off",
 		"@typescript-eslint/ban-ts-comment": "off",
 		"jsx-a11y/click-events-have-key-events": "off",

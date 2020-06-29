@@ -1,11 +1,7 @@
-import { toString } from "lodash"
+import { IdGetterObj, defaultDataIdFromObject } from "apollo-cache-inmemory"
 
-type TInput<K> = {
-	includes: (val: string) => K,
-}
-
-export const determineDocId = <T, K extends keyof T & TInput<K>>(doc: T): string => {
-	const keys = Object.keys(doc) as K[]
-	const key = keys.filter(k => k.includes("Id")).shift() as K
-	return toString(doc[key])
-}
+export const determineDocId = (doc: IdGetterObj) => (
+	doc.__typename ?
+		`${doc.__typename.toLowerCase()}Id` :
+		defaultDataIdFromObject(doc)
+)

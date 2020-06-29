@@ -44,7 +44,8 @@ html {
 	font-family: var(--font-family);
 	line-height: var(--line-height);
 	-moz-osx-font-smoothing: grayscale;
-	-webkit-font-smoothing: antialiased; }
+	-webkit-font-smoothing: antialiased;
+}
 
 *,
 *::after,
@@ -55,11 +56,13 @@ html {
 	font-size: inherit;
 	box-sizing: inherit;
 	font-family: inherit;
-	line-height: inherit; }
+	line-height: inherit;
+}
 
 a {
 	text-decoration: none;
 	&:hover,
 	&:focus,
 	&:active {
-		text-decoration: none; } }
+		text-decoration: none; }
+}

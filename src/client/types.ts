@@ -10,7 +10,7 @@ import {
 	ArtistBase,
 	UserDocBase,
 	PlaylistBase,
-} from "../common"
+} from "./base"
 
 export interface Doc<T = string> {
 	__typename: T,

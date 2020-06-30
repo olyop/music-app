@@ -10,7 +10,7 @@ import {
 	ArtistBase,
 	UserDocBase,
 	PlaylistBase,
-} from "./base"
+} from "@oly_op/music-app-common"
 
 export interface Doc<T = string> {
 	__typename: T,

@@ -1,4 +1,5 @@
 import { Helmet } from "react-helmet"
+import { createBem } from "@oly_op/bem"
 import { createElement, Fragment, FC } from "react"
 import { RouteComponentProps } from "react-router-dom"
 
@@ -11,17 +12,11 @@ import { Album } from "../../types"
 import genresFromAlbum from "./genresFromAlbum"
 import InLibraryButton from "../InLibraryButton"
 import QUERY_ALBUM_PAGE from "../../graphql/queries/albumPage.gql"
-
-import {
-	reactBem,
-	determineDiscs,
-	deserializeDate,
-	deserializeDuration,
-} from "../../helpers"
+import { determineDiscs, deserializeDate, deserializeDuration } from "../../helpers"
 
 import "./index.scss"
 
-const bem = reactBem("AlbumPage")
+const bem = createBem("AlbumPage")
 
 interface Params { albumId: string }
 

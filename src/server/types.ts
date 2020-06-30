@@ -9,7 +9,7 @@ import {
 	ArtistBase,
 	UserDocBase,
 	PlaylistBase,
-} from "./base"
+} from "@oly_op/music-app-common"
 
 export enum ImgSizeEnum {
 	MINI,

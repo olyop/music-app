@@ -3,11 +3,14 @@
 	"type": "module",
 	"version": "1.0.0",
 	"name": "music-app",
-	"deprecated": false,
 	"license": "UNLICENSED",
 	"description": "music-app",
 	"bugs": "https://github.com/olyop/music-app/issues",
 	"homepage": "https://github.com/olyop/music-app/blob/master/README.md",
+	"author": {
+		"name": "Oliver Plummer",
+		"email": "oliver.plummer@outlook.com"
+	},
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/olyop/music-app.git"
@@ -25,17 +28,13 @@
 		"webpack",
 		"eslint"
 	],
-	"author": {
-		"name": "Oliver Plummer",
-		"email": "oliver.plummer@outlook.com"
-	},
 	"scripts": {
 		"dev": "clear && npm run delete-build && npm run build-server && npx concurrently \"npm:dev-server\" \"npm:dev-client\" \"npm:dev-nodemon\"",
-		"dev-server": "npx tsc --watch --outDir dist",
+		"dev-server": "npx tsc --watch",
 		"dev-client": "cross-env NODE_ENV=dev npx webpack-dev-server --env.isDev",
 		"dev-nodemon": "npx nodemon dist/index.js -r dotenv/config",
 		"build": "npm run build-server && npm run build-client",
-		"build-server": "npx tsc --outDir dist",
+		"build-server": "npx tsc",
 		"build-client": "cross-env NODE_ENV=pro npx webpack",
 		"delete-build": "rm -r -f dist",
 		"sync": "git checkout . && git remote update && git pull",
@@ -44,6 +43,8 @@
 	"dependencies": {
 		"@apollo/react-hooks": "^3.1.5",
 		"@material-ui/core": "^4.10.2",
+		"@oly_op/bem": "^1.0.1",
+		"@oly_op/music-app-common": "^1.0.0",
 		"apollo-cache-inmemory": "^1.6.6",
 		"apollo-client": "^2.6.10",
 		"apollo-server-express": "^2.15.0",

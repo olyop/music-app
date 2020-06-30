@@ -33,7 +33,7 @@ const IconText: FC<TProps> = ({
 type TProps = {
 	icon: string,
 	text: string,
-	onClick: () => void,
+	onClick?: () => void,
 	className: BemInputType,
 	iconClassName: BemInputType,
 	textClassName: BemInputType,

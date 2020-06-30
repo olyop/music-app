@@ -1,9 +1,6 @@
 import { toString } from "lodash"
 
-type InputDoc = {
-	name?: string,
-	title?: string,
-}
+import { Doc } from "../types"
 
-export const determineDocName = <T extends InputDoc>(doc: T) =>
+export const determineDocName = <T extends Doc>(doc: T) =>
 	toString(doc["name" in doc ? "name" : "title"])

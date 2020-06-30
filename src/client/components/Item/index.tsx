@@ -1,13 +1,13 @@
 import { Link } from "react-router-dom"
+import { createBem, BemInputType } from "@oly_op/bem"
 import { createElement, ReactNode, ReactElement } from "react"
 
 import Img from "../Img"
+import { UserDoc } from "../../types"
 import PlayButton from "../PlayButton"
 import InLibraryButton from "../InLibraryButton"
-import { BemInputType, UserDoc } from "../../types"
 
 import {
-	reactBem,
 	determineDocPath,
 	determineDocName,
 	determineDocPhoto,
@@ -15,7 +15,7 @@ import {
 
 import "./index.scss"
 
-type TProps<D, I> = {
+type TProps<D extends UserDoc, I extends UserDoc> = {
 	doc: D,
 	imgDoc?: I,
 	left?: ReactNode,
@@ -29,7 +29,7 @@ type TProps<D, I> = {
 	inLibClassName?: BemInputType,
 }
 
-const bem = reactBem("Item")
+const bem = createBem("Item")
 
 const Item = <D extends UserDoc, I extends UserDoc = UserDoc>({
 	doc,

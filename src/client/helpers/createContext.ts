@@ -1,11 +1,6 @@
-/*
-	eslint-disable
-		@typescript-eslint/ban-types,
-		@typescript-eslint/explicit-module-boundary-types
-*/
 import { createContext as createCtx, useContext } from "react"
 
-export const createContext = <A extends {} | null>() => {
+export const createContext = <A extends Record<string, unknown> | null>() => {
 	const ctx = createCtx<A | undefined>(undefined)
 	function useCtx() {
 		const context = useContext(ctx)

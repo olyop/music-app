@@ -3,10 +3,14 @@ import { createElement, FC } from "react"
 import Item from "../Item"
 import DocLink from "../DocLink"
 import { determinePlural } from "../../helpers"
-import { ListStyleEnum, Genre as TGenre } from "../../types"
 import { useListStyleContext } from "../../contexts/ListStyle"
+import { ListStyleEnum, Genre as GenreType } from "../../types"
 
-const genreLower = ({ numOfSongs }: TGenre) =>
+interface PropTypes {
+	genre: GenreType,
+}
+
+const genreLower = ({ numOfSongs }: GenreType) =>
 	(numOfSongs ?
 		`${numOfSongs ? `${numOfSongs} song${determinePlural(numOfSongs)}` : ""}` :
 		null)
@@ -24,10 +28,6 @@ const Genre: FC<PropTypes> = ({ genre }) => {
 			className={classNames.concat("PaddingHalf").join(" ")}
 		/>
 	)
-}
-
-type PropTypes = {
-	genre: TGenre,
 }
 
 export default Genre

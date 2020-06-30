@@ -1,17 +1,19 @@
 import { Link } from "react-router-dom"
+import { createBem } from "@oly_op/bem"
 import { createElement, ReactElement } from "react"
 
-import {
-	reactBem,
-	determineDocPath,
-	determineDocName,
-} from "../../helpers"
+import { Doc } from "../../types"
+import { determineDocPath, determineDocName } from "../../helpers"
 
 import "./index.scss"
 
-const bem = reactBem("DocLink")
+const bem = createBem("DocLink")
 
-const DocLink = <T,>({ doc }: PropTypes<T>): ReactElement => {
+type PropTypes<T> = {
+	doc: T,
+}
+
+const DocLink = <T extends Doc,>({ doc }: PropTypes<T>): ReactElement => {
 	const text = determineDocName(doc)
 	return (
 		<Link
@@ -21,10 +23,6 @@ const DocLink = <T,>({ doc }: PropTypes<T>): ReactElement => {
 			to={determineDocPath(doc)}
 		/>
 	)
-}
-
-type PropTypes<T> = {
-	doc: T,
 }
 
 export default DocLink

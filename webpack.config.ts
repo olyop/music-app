@@ -1,3 +1,4 @@
+/* eslint-disable node/no-unpublished-import */
 import path from "path"
 import { Configuration } from "webpack"
 import DotenvPlugin from "dotenv-webpack"
@@ -20,9 +21,9 @@ const clientPath = path.join(srcPath, "client")
 const isDev = NODE_ENV === "dev"
 
 const config: Configuration = {
+	devtool: false,
 	mode: isDev ? "development" : "production",
 	entry: path.join(clientPath, "index.tsx"),
-	devtool: isDev ? "inline-source-map" : false,
 	output: {
 		publicPath: "/",
 		filename: "[hash].js",
@@ -69,11 +70,6 @@ const config: Configuration = {
 						onlyCompileBundledFiles: true,
 					},
 				},
-			},
-			{
-				test: /\.js$/,
-				enforce: "pre",
-				loader: "source-map-loader",
 			},
 		],
 	},

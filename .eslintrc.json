@@ -43,7 +43,6 @@
 		"react/no-children-prop": "off",
 		"node/no-missing-import": "off",
 		"implicit-arrow-linebreak": "off",
-		"node/no-unpublished-import": "off",
 		"react/require-default-props": "off",
 		"lines-between-class-members": "off",
 		"import/prefer-default-export": "off",

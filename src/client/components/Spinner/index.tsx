@@ -1,11 +1,9 @@
 import { createElement, FC } from "react"
-
-import { reactBem } from "../../helpers"
-import { BemInputType } from "../../types"
+import { createBem, BemInputType } from "@oly_op/bem"
 
 import "./index.scss"
 
-const bem = reactBem("Spinner")
+const bem = createBem("Spinner")
 
 const Spinner: FC<PropTypes> = ({ className, spinClassName }) => (
 	<div className={bem(className, "")}>

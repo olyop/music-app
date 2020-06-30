@@ -1,10 +1,10 @@
 {
-	"name": "@oly_op/music-app-common",
 	"type": "module",
 	"license": "MIT",
 	"version": "1.0.0",
 	"main": "index.ts",
 	"description": "music-app-common",
+	"name": "@oly_op/music-app-common",
 	"bugs": "https://github.com/olyop/music-app/issues",
 	"homepage": "https://github.com/olyop/music-app/blob/master/README.md",
 	"author": {

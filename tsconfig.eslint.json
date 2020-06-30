@@ -1,0 +1,7 @@
+{
+	"extends": "./tsconfig.json",
+	"compilerOptions": {
+		"typeRoots": ["./node_modules/@types", "src/client/graphql"]
+	},
+	"include": ["src", "webpack.config.ts"]
+}

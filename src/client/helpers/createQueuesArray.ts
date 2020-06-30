@@ -1,6 +1,15 @@
 import { uniqueId } from "lodash"
 
-export const createQueuesArray = ({ prev, current, next, queue }) => [
+import { Song } from "../types"
+
+interface Queue {
+	prev: Song[],
+	next: Song[],
+	queue: Song[],
+	current: Song,
+}
+
+export const createQueuesArray = ({ prev, current, next, queue }: Queue) => [
 	{
 		id: uniqueId(),
 		key: "prev",

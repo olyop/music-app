@@ -1,25 +1,27 @@
 import path from "path"
 import { Configuration } from "webpack"
 import DotenvPlugin from "dotenv-webpack"
-import TerserPlugin from "terser-webpack-plugin"
 import HtmlWebpackPlugin from "html-webpack-plugin"
 import { CleanWebpackPlugin } from "clean-webpack-plugin"
 import CompressionPlugin from "compression-webpack-plugin"
 import MiniCssExtractPlugin from "mini-css-extract-plugin"
-import { BundleAnalyzerPlugin } from "webpack-bundle-analyzer"
+// import { BundleAnalyzerPlugin } from "webpack-bundle-analyzer"
 import LodashModuleReplacementPlugin from "lodash-webpack-plugin"
 import OptimizeCssAssetsPlugin from "optimize-css-assets-webpack-plugin"
 
 // eslint-disable-next-line node/no-process-env
-const { HOST, DEV_PORT } = process.env
+const { HOST, DEV_PORT, NODE_ENV } = process.env
 
-const srcPath = path.resolve("src")
-const distPath = path.resolve("dist")
+const rootPath = __dirname
+const srcPath = path.join(rootPath, "src")
+const distPath = path.join(rootPath, "dist")
 const clientPath = path.join(srcPath, "client")
 
-export default ({ isDev }: { isDev: boolean }): Configuration => ({
-	entry: path.join(clientPath, "index.tsx"),
+const isDev = NODE_ENV === "dev"
+
+const config: Configuration = {
 	mode: isDev ? "development" : "production",
+	entry: path.join(clientPath, "index.tsx"),
 	devtool: isDev ? "inline-source-map" : false,
 	output: {
 		publicPath: "/",
@@ -28,7 +30,7 @@ export default ({ isDev }: { isDev: boolean }): Configuration => ({
 	},
 	resolve: {
 		symlinks: false,
-		extensions: [".ts", ".tsx", ".js", ".json"],
+		extensions: [".ts", ".tsx", ".js", ".json", ".gql"],
 	},
 	devServer: {
 		hot: true,
@@ -39,12 +41,6 @@ export default ({ isDev }: { isDev: boolean }): Configuration => ({
 		stats: "errors-only",
 		historyApiFallback: true,
 		port: parseInt(DEV_PORT!),
-		proxy: {
-			"/": "http://localhost:3000/",
-		},
-	},
-	optimization: {
-		minimizer: [new TerserPlugin({ sourceMap: true })],
 	},
 	module: {
 		rules: [
@@ -82,12 +78,14 @@ export default ({ isDev }: { isDev: boolean }): Configuration => ({
 		],
 	},
 	plugins: [
-		...(isDev ? [] : [
+		...(isDev ? [
+			new CleanWebpackPlugin(),
+		] : [
 			new CompressionPlugin(),
-			new LodashModuleReplacementPlugin(),
+			// new BundleAnalyzerPlugin(),
 			new OptimizeCssAssetsPlugin(),
+			new LodashModuleReplacementPlugin(),
 			new MiniCssExtractPlugin({ filename: "[hash].css" }),
-			new BundleAnalyzerPlugin(),
 		]),
 		new DotenvPlugin(),
 		new HtmlWebpackPlugin({
@@ -100,6 +98,7 @@ export default ({ isDev }: { isDev: boolean }): Configuration => ({
 				removeStyleLinkTypeAttributes: true,
 			},
 		}),
-		new CleanWebpackPlugin(),
 	],
-})
+}
+
+export default config

@@ -17,12 +17,8 @@
 		"promise",
 		"@typescript-eslint"
 	],
-	"ignorePatterns": [
-		"node_modules",
-		"dist"
-	],
 	"parserOptions": {
-		"project": "./tsconfig.json"
+		"project": "./tsconfig.eslint.json"
 	},
 	"env": {
 		"node": true,

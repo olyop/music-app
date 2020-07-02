@@ -2,18 +2,9 @@ import { createElement, FC } from "react"
 
 import Item from "../Item"
 import DocLink from "../DocLink"
-import { determinePlural } from "../../helpers"
+import genreLower from "./genreLower"
 import { useListStyleContext } from "../../contexts/ListStyle"
 import { ListStyleEnum, Genre as GenreType } from "../../types"
-
-interface PropTypes {
-	genre: GenreType,
-}
-
-const genreLower = ({ numOfSongs }: GenreType) =>
-	(numOfSongs ?
-		`${numOfSongs ? `${numOfSongs} song${determinePlural(numOfSongs)}` : ""}` :
-		null)
 
 const Genre: FC<PropTypes> = ({ genre }) => {
 	const { listStyle } =
@@ -28,6 +19,10 @@ const Genre: FC<PropTypes> = ({ genre }) => {
 			className={classNames.concat("PaddingHalf").join(" ")}
 		/>
 	)
+}
+
+interface PropTypes {
+	genre: GenreType,
 }
 
 export default Genre

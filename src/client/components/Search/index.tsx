@@ -1,14 +1,12 @@
 import { isEmpty } from "lodash"
-import { RouteComponentProps } from "react-router-dom"
+import { createBem } from "@oly_op/bem"
 import { createElement, useState, FC, ChangeEventHandler } from "react"
-
-import { reactBem } from "../../helpers"
 
 import "./index.scss"
 
-const bem = reactBem("Search")
+const bem = createBem("Search")
 
-const Search: FC<RouteComponentProps> = () => {
+const Search: FC = () => {
 	const [ input, setInput ] =
 		useState("")
 	const handleChange: ChangeEventHandler<HTMLInputElement> = event =>
@@ -18,8 +16,8 @@ const Search: FC<RouteComponentProps> = () => {
 			<div className={bem("bar")}>
 				<input
 					value={input}
-					onChange={handleChange}
 					placeholder="Search..."
+					onChange={handleChange}
 					className={bem("bar-input")}
 				/>
 			</div>

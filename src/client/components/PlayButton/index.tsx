@@ -1,22 +1,26 @@
+import { createElement, FC } from "react"
 import { useMutation } from "@apollo/react-hooks"
-import { createElement, ReactElement } from "react"
+import { createBem, BemInput } from "@oly_op/bem"
 
 import Icon from "../Icon"
 import ApiError from "../ApiError"
 import { determineDocId } from "../../helpers"
+import { User, UserDoc, Song } from "../../types"
 import { useUserContext } from "../../contexts/User"
 import { usePlayContext } from "../../contexts/Play"
 import USER_PLAY from "../../graphql/mutations/userPlay.gql"
-import { BemInputType, LibDoc, TDataUserPlay as TData } from "../../types"
 
-const PlayButton = <TDoc extends LibDoc>({ doc, className }: TProps<TDoc>): ReactElement => {
-	const { isCurrent } = doc
-	const userId = useUserContext()
+const bem = createBem("PlayButton")
+
+const PlayButton: FC<PropTypes> = ({ doc, className }) => {
 	const docId = determineDocId(doc)
+	const isCurrent = "isCurrent" in doc ? doc.isCurrent : false
+
+	const userId = useUserContext()
 	const { play, togglePlay } = usePlayContext()
 
 	const [ userPlay, { error } ] =
-		useMutation<TData, TVars>(USER_PLAY, { variables: { userId, docId } })
+		useMutation<User, Variables>(USER_PLAY, { variables: { userId, docId } })
 
 	if (error) {
 		return <ApiError error={error}/>
@@ -30,19 +34,19 @@ const PlayButton = <TDoc extends LibDoc>({ doc, className }: TProps<TDoc>): Reac
 			icon={icon}
 			title="Play"
 			onClick={handleClick}
-			className={[className, "IconHover"].join(" ")}
+			className={bem(className, "IconHover")}
 		/>
 	)
 }
 
-type TVars = {
+interface Variables {
 	docId: string,
 	userId: string,
 }
 
-type TProps<TDoc> = {
-	doc: TDoc,
-	className?: BemInputType,
+interface PropTypes {
+	doc: UserDoc | Song,
+	className?: BemInput,
 }
 
 export default PlayButton

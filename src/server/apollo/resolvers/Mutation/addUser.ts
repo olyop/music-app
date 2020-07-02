@@ -6,7 +6,7 @@ import { INSERT_USER } from "../../../sql"
 import { COLUMN_NAMES } from "../../../globals"
 import { sql, isUser, createResolver } from "../../../helpers"
 
-type Args = {
+interface Args {
 	user: User,
 }
 

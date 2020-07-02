@@ -1,14 +1,14 @@
+import { createBem } from "@oly_op/bem"
 import { createElement, FC } from "react"
 import { Switch, Route } from "react-router-dom"
 
 import routes from "./routes"
 import Sidebar from "../Sidebar"
-import { reactBem } from "../../helpers"
 import { useSidebarContext } from "../../contexts/Sidebar"
 
 import "./index.scss"
 
-const bem = reactBem("Pages")
+const bem = createBem("Pages")
 
 const Pages: FC = () => {
 	const { sidebar } = useSidebarContext()

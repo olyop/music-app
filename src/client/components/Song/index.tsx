@@ -1,21 +1,11 @@
+import { BemInput } from "@oly_op/bem"
 import { createElement, FC } from "react"
-import { BemInputType } from "@oly_op/bem"
 
 import Item from "../Item"
 import DocLinks from "../DocLinks"
 import { Song } from "../../types"
 import SongTitle from "../SongTitle"
 import { deserializeDuration } from "../../helpers"
-
-interface PropTypes {
-	song: Song,
-	showPlay?: boolean,
-	showCover?: boolean,
-	showRight?: boolean,
-	inLibClassName?: string,
-	className?: BemInputType,
-	showTrackNumber?: boolean,
-}
 
 const Song: FC<PropTypes> = ({
 	song,
@@ -39,4 +29,14 @@ const Song: FC<PropTypes> = ({
 	/>
 )
 
+
+interface PropTypes {
+	song: Song,
+	showPlay?: boolean,
+	showCover?: boolean,
+	showRight?: boolean,
+	className?: BemInput,
+	inLibClassName?: BemInput,
+	showTrackNumber?: boolean,
+}
 export default Song

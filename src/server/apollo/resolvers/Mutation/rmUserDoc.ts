@@ -1,7 +1,7 @@
 import { sql } from "../../../helpers"
 import { DELETE_USER_DOC } from "../../../sql"
 
-type Input = {
+interface Input {
 	query: string,
 	docId: string,
 	userId: string,

@@ -1,3 +1,4 @@
+import { BemInput } from "@oly_op/bem"
 import { DocumentNode } from "graphql"
 import { isUndefined, isNull } from "lodash"
 import { useQuery } from "@apollo/react-hooks"
@@ -5,21 +6,20 @@ import { createElement, ReactElement, ReactNode, Fragment } from "react"
 
 import Spinner from "../Spinner"
 import ApiError from "../ApiError"
-import { BemInputType } from "../../types"
 import { useUserContext } from "../../contexts/User"
 
-const QueryApi = <TData, TVars = Record<string, unknown>>({
+const QueryApi = <Data,>({
 	query,
 	children,
 	className,
 	spinner = true,
+	variables = {},
 	spinnerClassName,
-	variables = {} as TVars,
-}: PropTypes<TData, TVars>): ReactElement | null => {
+}: PropTypes<Data>): ReactElement | null => {
 	const userId =
 		useUserContext()
 	const { loading, error, data } =
-		useQuery<TData, BVars & TVars>(query, { variables: { userId, ...variables } })
+		useQuery<Data, Vars>(query, { variables: { userId, ...variables } })
 	if (spinner && loading) {
 		return <Spinner className={spinnerClassName}/>
 	} else if (!isUndefined(error)) {
@@ -36,17 +36,17 @@ const QueryApi = <TData, TVars = Record<string, unknown>>({
 	}
 }
 
-type BVars = {
+interface Vars {
 	userId: string,
 }
 
-type PropTypes<TData, TVars> = {
+interface PropTypes<Data> {
 	spinner?: boolean,
-	variables?: TVars,
 	className?: string,
 	query: DocumentNode,
-	spinnerClassName?: BemInputType,
-	children(data: TData): ReactNode,
+	spinnerClassName?: BemInput,
+	children(data: Data): ReactNode,
+	variables?: Record<string, unknown>,
 }
 
 export default QueryApi

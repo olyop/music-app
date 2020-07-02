@@ -6,9 +6,9 @@ import Cover from "../Cover"
 import DocLink from "../DocLink"
 import { determinePlural } from "../../helpers"
 import { useListStyleContext } from "../../contexts/ListStyle"
-import { Artist as TArtist, ListStyleEnum } from "../../types"
+import { Artist as ArtistType, ListStyleEnum } from "../../types"
 
-const artistLower = ({ numOfSongs, numOfAlbums }: TArtist) =>
+const artistLower = ({ numOfSongs, numOfAlbums }: ArtistType) =>
 	(numOfSongs || numOfAlbums ? `
 		${numOfAlbums ? `${toString(numOfAlbums)} album${determinePlural(numOfAlbums)}, ` : ""}
 		${numOfSongs ? `${toString(numOfSongs)} song${determinePlural(numOfSongs)}` : ""}
@@ -40,8 +40,8 @@ const Artist: FC<PropTypes> = ({ artist, className = null }) => {
 	)
 }
 
-type PropTypes = {
-	artist: TArtist,
+interface PropTypes {
+	artist: ArtistType,
 	className?: string,
 }
 

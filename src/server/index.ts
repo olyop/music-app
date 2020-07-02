@@ -9,7 +9,6 @@ import cookieParser from "cookie-parser"
 import {
 	graphql,
 	sendIndex,
-	sendStatic,
 	globalHeaders,
 } from "./middleware"
 
@@ -35,8 +34,8 @@ app.use(
 	cookieParser(),
 	globalHeaders(),
 	graphql(),
-	sendStatic(BUILD_PATH),
-	sendStatic(PUBLIC_PATH),
+	express.static(BUILD_PATH),
+	express.static(PUBLIC_PATH),
 )
 
 // send index.html

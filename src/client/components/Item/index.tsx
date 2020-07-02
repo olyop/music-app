@@ -1,37 +1,18 @@
 import { Link } from "react-router-dom"
-import { createBem, BemInputType } from "@oly_op/bem"
-import { createElement, ReactNode, ReactElement } from "react"
+import { createElement, ReactNode } from "react"
+import { createBem, BemInput } from "@oly_op/bem"
 
 import Img from "../Img"
 import { UserDoc } from "../../types"
 import PlayButton from "../PlayButton"
 import InLibraryButton from "../InLibraryButton"
-
-import {
-	determineDocPath,
-	determineDocName,
-	determineDocPhoto,
-} from "../../helpers"
+import { determineDocPath, determineDocName, determineDocPhoto } from "../../helpers"
 
 import "./index.scss"
 
-type TProps<D extends UserDoc, I extends UserDoc> = {
-	doc: D,
-	imgDoc?: I,
-	left?: ReactNode,
-	upper: ReactNode,
-	lower?: ReactNode,
-	right?: ReactNode,
-	showPlay?: boolean,
-	showInLibrary?: boolean,
-	className?: BemInputType,
-	infoClassName?: BemInputType,
-	inLibClassName?: BemInputType,
-}
-
 const bem = createBem("Item")
 
-const Item = <D extends UserDoc, I extends UserDoc = UserDoc>({
+const Item = <Doc extends UserDoc, ImgDoc extends UserDoc = UserDoc>({
 	doc,
 	left,
 	lower,
@@ -43,7 +24,7 @@ const Item = <D extends UserDoc, I extends UserDoc = UserDoc>({
 	inLibClassName,
 	showPlay = true,
 	showInLibrary = true,
-}: TProps<D, I>): ReactElement => (
+}: PropTypes<Doc, ImgDoc>) => (
 	<div className={bem(className, "")}>
 		{left && (
 			<p
@@ -98,5 +79,19 @@ const Item = <D extends UserDoc, I extends UserDoc = UserDoc>({
 		)}
 	</div>
 )
+
+interface PropTypes<Doc extends UserDoc, ImgDoc extends UserDoc> {
+	doc: Doc,
+	imgDoc?: ImgDoc,
+	left?: ReactNode,
+	upper: ReactNode,
+	lower?: ReactNode,
+	right?: ReactNode,
+	showPlay?: boolean,
+	className?: BemInput,
+	showInLibrary?: boolean,
+	infoClassName?: BemInput,
+	inLibClassName?: BemInput,
+}
 
 export default Item

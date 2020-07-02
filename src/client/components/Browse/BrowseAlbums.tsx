@@ -1,5 +1,4 @@
 import { createElement, FC } from "react"
-import { RouteComponentProps } from "react-router-dom"
 
 import List from "../List"
 import Album from "../Album"
@@ -7,7 +6,7 @@ import QueryApi from "../QueryApi"
 import { Album as TAlbum } from "../../types"
 import GET_ALBUMS from "../../graphql/queries/albums.gql"
 
-const BrowseAlbums: FC<RouteComponentProps> = () => (
+const BrowseAlbums: FC = () => (
 	<QueryApi<TData>
 		query={GET_ALBUMS}
 		children={

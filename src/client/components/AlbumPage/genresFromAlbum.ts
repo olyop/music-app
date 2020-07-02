@@ -1,7 +1,7 @@
 import { uniq } from "lodash"
+import { pipe } from "@oly_op/pipe"
 import { map, flattenDepth } from "lodash/fp"
 
-import { pipe } from "../../helpers"
 import { Album, Genre } from "../../types"
 
 const genresFromAlbum = (album: Album): Genre[] =>

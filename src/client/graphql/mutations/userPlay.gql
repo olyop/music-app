@@ -1,10 +1,10 @@
 mutation userPlay(
+  $docId: Uuid!
   $userId: Uuid!
-  $songId: Uuid!
 ) {
   userPlay(
+    docId: $docId
     userId: $userId
-    songId: $songId
   ) {
     userId
     prev {

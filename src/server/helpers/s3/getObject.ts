@@ -1,6 +1,6 @@
+import { pipe } from "@oly_op/pipe"
 import { identity, isUndefined } from "lodash"
 
-import { pipe } from "../utils"
 import s3 from "../../services/s3"
 import { bodyFromRes } from "./bodyFromRes"
 import { AWS_S3_BUCKET } from "../../globals"

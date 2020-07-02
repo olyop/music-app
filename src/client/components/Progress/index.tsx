@@ -1,15 +1,16 @@
 import { isUndefined, isNull } from "lodash"
 import Slider from "@material-ui/core/Slider"
+import { createBem, BemInput } from "@oly_op/bem"
 import { createElement, useState, FC, ChangeEvent } from "react"
 
 import QueryApi from "../QueryApi"
-import { BemInputType, User } from "../../types"
-import { deserializeDuration, reactBem } from "../../helpers"
+import { User } from "../../types"
+import { deserializeDuration } from "../../helpers"
 import GET_USER_CURRENT from "../../graphql/queries/userCurrent.gql"
 
 import "./index.scss"
 
-const bem = reactBem("Progress")
+const bem = createBem("Progress")
 
 const determineDuration = (data: { user: User } | undefined) =>
 	(isUndefined(data) || isNull(data.user.current) ?
@@ -21,7 +22,7 @@ const Progress: FC<PropTypes> = ({ className }) => {
 	const handleChange = (event: ChangeEvent<{ value: number }>) =>
 		setCurrent(event.target.value)
 	return (
-		<QueryApi<TData>
+		<QueryApi<Data>
 			spinner={false}
 			query={GET_USER_CURRENT}
 			children={
@@ -50,11 +51,11 @@ const Progress: FC<PropTypes> = ({ className }) => {
 	)
 }
 
-type PropTypes = {
-	className?: BemInputType,
+interface PropTypes {
+	className?: BemInput,
 }
 
-type TData = {
+interface Data {
 	user: User,
 }
 

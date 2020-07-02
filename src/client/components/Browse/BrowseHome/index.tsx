@@ -1,20 +1,24 @@
+import { createBem } from "@oly_op/bem"
 import { createElement, FC, Fragment } from "react"
-import { RouteComponentProps } from "react-router-dom"
 
 import List from "../../List"
 import Song from "../../Song"
 import Album from "../../Album"
 import QueryApi from "../../QueryApi"
-import { reactBem } from "../../../helpers"
 import QUERY_BROWSE from "../../../graphql/queries/browse.gql"
-import { Album as TAlbum, Song as TSong } from "../../../types"
+import { Album as AlbumType, Song as SongType } from "../../../types"
 
 import "./index.scss"
 
-const bem = reactBem("BrowseHome")
+interface Data {
+	newAlbums: AlbumType[],
+	topTenSongs: SongType[],
+}
 
-const BrowseHome: FC<RouteComponentProps> = () => (
-	<QueryApi<TData>
+const bem = createBem("BrowseHome")
+
+const BrowseHome: FC = () => (
+	<QueryApi<Data>
 		query={QUERY_BROWSE}
 		className={bem("")}
 		children={
@@ -49,10 +53,4 @@ const BrowseHome: FC<RouteComponentProps> = () => (
 		}
 	/>
 )
-
-type TData = {
-	newAlbums: TAlbum[],
-	topTenSongs: TSong[],
-}
-
 export default BrowseHome

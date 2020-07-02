@@ -1,18 +1,18 @@
 .Playlist {
-  display: flex;
-  margin-bottom: 10px;
-  box-shadow: var(--box-shadow);
-  border-radius: var(--border-radius);
-  background-color: var(--text-color);
-  &__cover {
-    width: 200px;
-    height: 200px;
-    display: grid;
-    grid-template-rows: 1fr 1fr;
-    grid-template-columns: 1fr 1fr;
-    &-img {
-      width: 100px;
-      height: 100px; } }
-  &__info {
-    font-size: 18rem;
-    padding: var(--space); } }
+	display: flex;
+	margin-bottom: 10px;
+	box-shadow: var(--box-shadow);
+	border-radius: var(--border-radius);
+	background-color: var(--text-color);
+	&__cover {
+		width: 200px;
+		height: 200px;
+		display: grid;
+		grid-template-rows: 1fr 1fr;
+		grid-template-columns: 1fr 1fr;
+		&-img {
+			width: 100px;
+			height: 100px; } }
+	&__info {
+		font-size: 18rem;
+		padding: var(--space); } }

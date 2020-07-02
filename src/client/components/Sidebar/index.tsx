@@ -1,13 +1,13 @@
+import { createBem } from "@oly_op/bem"
 import { createElement, FC } from "react"
 import { NavLink } from "react-router-dom"
 
 import Icon from "../Icon"
-import { reactBem } from "../../helpers"
 import { useSidebarContext } from "../../contexts/Sidebar"
 
 import "./index.scss"
 
-const bem = reactBem("Sidebar")
+const bem = createBem("Sidebar")
 
 const Sidebar: FC = () => {
 	const { toggleSidebar } = useSidebarContext()

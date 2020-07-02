@@ -11,11 +11,6 @@ import { COLUMN_NAMES } from "../../../globals"
 import { Song, UserArgs } from "../../../types"
 import { createResolver } from "../../../helpers"
 
-interface SongArgs extends UserArgs { songId: string }
-interface AlbumArgs extends UserArgs { albumId: string }
-interface GenreArgs extends UserArgs { genreId: string }
-interface ArtistArgs extends UserArgs { artistId: string }
-
 const resolver = createResolver()
 
 const userSongConfig =
@@ -57,6 +52,11 @@ const userArtistConfig =
 		userTableName: "users_artists",
 		columnNames: COLUMN_NAMES.ARTIST,
 	})
+
+interface SongArgs extends UserArgs { songId: string }
+interface AlbumArgs extends UserArgs { albumId: string }
+interface GenreArgs extends UserArgs { genreId: string }
+interface ArtistArgs extends UserArgs { artistId: string }
 
 export const rmUserSong =
 	resolver<Song, SongArgs>(

@@ -13,7 +13,7 @@ import { Genre } from "../../../types"
 import { INSERT_GENRE } from "../../../sql"
 import { COLUMN_NAMES } from "../../../globals"
 
-type Args = {
+interface Args {
 	genre: Genre,
 }
 

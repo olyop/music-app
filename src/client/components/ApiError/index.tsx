@@ -8,7 +8,7 @@ const ApiError: FC<PropTypes> = ({ error }) => (
 	</pre>
 )
 
-type PropTypes = {
+interface PropTypes {
 	error: Error,
 }
 

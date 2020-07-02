@@ -6,6 +6,7 @@
 		"selector-max-id": 1,
 		"string-quotes": "double",
 		"max-nesting-depth": null,
+		"no-eol-whitespace": true,
 		"selector-class-pattern": null,
 		"rule-empty-line-before": null,
 		"value-no-vendor-prefix": null,

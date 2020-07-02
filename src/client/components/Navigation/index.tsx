@@ -1,23 +1,23 @@
 import { NavLink } from "react-router-dom"
+import { createBem, BemInput } from "@oly_op/bem"
 import { createElement, Fragment, FC } from "react"
 
 import Icon from "../Icon"
-import { reactBem } from "../../helpers"
-import { Match, Route, BemInputType } from "../../types"
+import { Route } from "../../types"
 
 import "./index.scss"
 
-const bem = reactBem("Navigation")
+const bem = createBem("Navigation")
 
-const Navigation: FC<PropTypes> = ({ match, routes, className }) => (
+const Navigation: FC<PropTypes> = ({ path, routes, className }) => (
 	<nav className={bem(className, "")}>
 		{routes.map(
 			route => (route.ignore ? null : (
 				<NavLink
 					exact
 					key={route.id}
+					to={path + route.path}
 					className={bem("link")}
-					to={match.path + route.path}
 					activeClassName={bem("active")}
 					children={(
 						<Fragment>
@@ -37,10 +37,10 @@ const Navigation: FC<PropTypes> = ({ match, routes, className }) => (
 	</nav>
 )
 
-type PropTypes = {
-	match: Match,
+interface PropTypes {
+	path: string,
 	routes: Route[],
-	className: BemInputType,
+	className: BemInput,
 }
 
 export default Navigation

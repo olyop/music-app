@@ -1,12 +1,12 @@
 import client from "../../../apollo"
 import { ParseSongs } from "../../../types"
-import PARSE_SONGS from "../../../graphql/queries/parseSongs.gql"
+import PARSE_SONG from "../../../graphql/queries/parseSong.gql"
 
 const getMetadata = (files: FileList): Promise<ParseSongs> => new Promise(
 	(resolve, reject) => {
 		if (files instanceof FileList) {
 			client
-				.query<TData, TVar>({ query: PARSE_SONGS, variables: { files } })
+				.query<Data, Var>({ query: PARSE_SONG, variables: { files } })
 				.then(({ data }) => resolve({
 					album: data.parseSongs.album,
 					songs: data.parseSongs.songs.map(
@@ -23,11 +23,11 @@ const getMetadata = (files: FileList): Promise<ParseSongs> => new Promise(
 	},
 )
 
-type TData = {
+interface Data {
 	parseSongs: ParseSongs,
 }
 
-type TVar = {
+interface Var {
 	files: FileList,
 }
 

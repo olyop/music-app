@@ -1,12 +1,12 @@
 import { exists } from "./exists"
 
-type TInput = {
+interface Input {
 	value: string,
 	table: string,
 	column: string,
 }
 
-export const unique = ({ value, table, column }: TInput) =>
+export const unique = ({ value, table, column }: Input) =>
 	new Promise<boolean>(
 		(resolve, reject) => {
 			exists({ table, value, column })

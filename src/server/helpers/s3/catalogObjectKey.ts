@@ -1,10 +1,10 @@
 import { ImgFormat, ImgSizeEnum } from "../../types"
 
-type TInput = {
+interface Input {
 	id: string,
 	size: ImgSizeEnum,
 	format: ImgFormat,
 }
 
-export const catalogObjectKey = ({ id, size, format }: TInput) =>
+export const catalogObjectKey = ({ id, size, format }: Input) =>
 	`catalog/${id}/${ImgSizeEnum[size].toLowerCase()}.${ImgFormat[format].toLowerCase()}`

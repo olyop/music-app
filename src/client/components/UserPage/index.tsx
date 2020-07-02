@@ -1,25 +1,23 @@
 import { upperFirst } from "lodash"
-import { RouteComponentProps } from "react-router-dom"
+import { createBem } from "@oly_op/bem"
 import { createElement, FC, Fragment, ChangeEventHandler } from "react"
 
 import QueryApi from "../QueryApi"
-import { reactBem } from "../../helpers"
 import { ListStyleEnum, User } from "../../types"
 import GET_USER from "../../graphql/queries/user.gql"
 import { useListStyleContext } from "../../contexts/ListStyle"
 
 import "./index.scss"
 
-const bem = reactBem("UserPage")
+const bem = createBem("UserPage")
 
-const UserPage: FC<RouteComponentProps> = () => {
+const UserPage: FC = () => {
 	const { listStyle, setListStyle } =
 		useListStyleContext()
 	const handleSelectChange: ChangeEventHandler<HTMLSelectElement> = event =>
-		// @ts-ignore
 		setListStyle(ListStyleEnum[event.target.value])
 	return (
-		<QueryApi<TData>
+		<QueryApi<Data>
 			query={GET_USER}
 			className={bem("", "Padding")}
 			children={
@@ -50,7 +48,7 @@ const UserPage: FC<RouteComponentProps> = () => {
 	)
 }
 
-type TData = {
+interface Data {
 	user: User,
 }
 

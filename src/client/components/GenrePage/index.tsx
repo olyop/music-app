@@ -1,19 +1,19 @@
+import { createBem } from "@oly_op/bem"
 import { useParams } from "react-router-dom"
 import { createElement, FC, Fragment } from "react"
 
 import Song from "../Song"
 import QueryApi from "../QueryApi"
 import { Genre } from "../../types"
-import { reactBem } from "../../helpers"
 import GET_GENRE_PAGE from "../../graphql/queries/genrePage.gql"
 
 import "./index.scss"
 
-const bem = reactBem("GenrePage")
+const bem = createBem("GenrePage")
 
 const GenrePage: FC = () => (
 	<div className={bem("")}>
-		<QueryApi<TData>
+		<QueryApi<Data>
 			query={GET_GENRE_PAGE}
 			variables={useParams()}
 			children={
@@ -21,7 +21,9 @@ const GenrePage: FC = () => (
 					const { name, songs } = genre
 					return (
 						<Fragment>
-							<h1 className={bem("name", "Elevated")}>{name}</h1>
+							<h1 className={bem("name", "Elevated")}>
+								{name}
+							</h1>
 							<div className="Padding">
 								<div className="Elevated">
 									{songs.map(
@@ -43,7 +45,7 @@ const GenrePage: FC = () => (
 	</div>
 )
 
-type TData = {
+interface Data {
 	genre: Genre,
 }
 

@@ -44,7 +44,7 @@ export interface Album extends AlbumBase, UserDoc<"Album"> {
 
 export interface Genre extends GenreBase, UserDoc<"Genre"> {
 	songs: Song[],
-	numOfSongs: number,
+	numOfSongs?: number,
 }
 
 export interface Song extends SongBase, UserDoc<"Song"> {
@@ -109,6 +109,3 @@ export type ParseSongs = {
 	album: Album,
 	songs: Song[],
 }
-
-export type BemInputType =
-	ClassType | string | null | undefined

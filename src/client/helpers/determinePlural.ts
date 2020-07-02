@@ -1,2 +1,2 @@
-export const determinePlural = (length: number): "" | "s" =>
+export const determinePlural = (length: number) =>
 	(length === 1 ? "" : "s")

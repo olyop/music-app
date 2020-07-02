@@ -1,7 +1,5 @@
-export * from "./pipe"
 export * from "./show"
 export * from "./isHex"
-export * from "./reactBem"
 export * from "./isLength"
 export * from "./formatSize"
 export * from "./createContext"

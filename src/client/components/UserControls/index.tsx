@@ -1,17 +1,16 @@
 import { createElement, FC } from "react"
 import { useMutation } from "@apollo/react-hooks"
+import { createBem, BemInput } from "@oly_op/bem"
 
 import Icon from "../Icon"
-import { reactBem } from "../../helpers"
 import { useUserContext } from "../../contexts/User"
 import { usePlayContext } from "../../contexts/Play"
 import USER_PREV from "../../graphql/mutations/userPrev.gql"
 import USER_NEXT from "../../graphql/mutations/userNext.gql"
 
 import "./index.scss"
-import { BemInputType } from "../../types"
 
-const bem = reactBem("UserControls")
+const bem = createBem("UserControls")
 
 const UserControls: FC<PropTypes> = ({ className, iconClassName }) => {
 	const userId = useUserContext()
@@ -47,8 +46,8 @@ const UserControls: FC<PropTypes> = ({ className, iconClassName }) => {
 }
 
 type PropTypes = {
-	className?: BemInputType,
-	iconClassName?: BemInputType,
+	className?: BemInput,
+	iconClassName?: BemInput,
 }
 
 export default UserControls

@@ -10,13 +10,13 @@ const FeaturingArtists: FC<PropTypes> = ({ artists, featuring }) => (
 		{isEmpty(featuring) ? null : (
 			<Fragment>
 				<Fragment> feat. </Fragment>
-				<DocLinks docs={featuring} ampersand/>
+				<DocLinks ampersand docs={featuring}/>
 			</Fragment>
 		)}
 	</Fragment>
 )
 
-type PropTypes = {
+interface PropTypes {
 	artists: Artist[],
 	featuring: Artist[],
 }

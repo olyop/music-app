@@ -1,8 +1,8 @@
-import { pipe } from "../utils"
+import { pipe } from "@oly_op/pipe"
 
 import { Check } from "../../types"
 
-type CheckRes = {
+interface CheckRes {
 	name: string,
 	check: boolean,
 }

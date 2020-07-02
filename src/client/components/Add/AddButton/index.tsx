@@ -1,17 +1,16 @@
 import { createElement, FC } from "react"
 
-import reactBem from "@oly_op/react-bem"
+import { createBem } from "@oly_op/bem"
 import getMetadata from "../helpers/getMetadata"
 import handleMetadata from "../helpers/handleMetadata"
 
 import "./index.scss"
 
-const bem = reactBem("AddButton")
+const bem = createBem("AddButton")
 
 const AddButton: FC<TProps> = ({
 	setAlbum, setSongs, setError, setLoading,
 }) => {
-
 	const toggleLoading = () =>
 		setLoading(prevState => !prevState)
 

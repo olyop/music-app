@@ -26,7 +26,7 @@ interface Input extends Artist {
 	photo: Promise<FileUpload>,
 }
 
-type Args = {
+interface Args {
 	artist: Input,
 }
 

@@ -7,7 +7,7 @@ import {
 import { sql } from "../../../helpers"
 import { SQLVariable } from "../../../types"
 
-type Input = {
+interface Input {
 	query: string,
 	docId: string,
 	userId: string,

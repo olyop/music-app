@@ -1,24 +1,24 @@
 .Search {
-  height: 100%;
-  width: 1200px;
-  margin: 0 auto;
-  overflow: auto;
-  &__bar,
-  &__content {
-    padding: var(--space); }
-  &__bar {
-    width: 600px;
-    margin: 0 auto;
-    margin-top: calc(var(--space) * 2);
-    &-input {
-      border: 0;
-      width: 100%;
-      outline: none;
-      font-size: 20rem;
-      text-align: center;
-      border-bottom: 2px solid #333;
-      background-color: transparent;
-      padding: calc(var(--space) * 0.5); } }
-  &__content {
-    box-shadow: var(--box-shadow);
-    background-color: var(--text-color-white); } }
+	height: 100%;
+	width: 1200px;
+	margin: 0 auto;
+	overflow: auto;
+	&__bar,
+	&__content {
+		padding: var(--space); }
+	&__bar {
+		width: 600px;
+		margin: 0 auto;
+		margin-top: calc(var(--space) * 2);
+		&-input {
+			border: 0;
+			width: 100%;
+			outline: none;
+			font-size: 20rem;
+			text-align: center;
+			border-bottom: 2px solid #333;
+			background-color: transparent;
+			padding: calc(var(--space) * 0.5); } }
+	&__content {
+		box-shadow: var(--box-shadow);
+		background-color: var(--text-color-white); } }

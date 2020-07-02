@@ -1,5 +1,4 @@
 import { createElement, FC } from "react"
-import { RouteComponentProps } from "react-router-dom"
 
 import List from "../List"
 import Genre from "../Genre"
@@ -7,7 +6,7 @@ import QueryApi from "../QueryApi"
 import { Genre as TGenre } from "../../types"
 import GET_GENRES from "../../graphql/queries/genres.gql"
 
-const BrowseGenres: FC<RouteComponentProps> = () => (
+const BrowseGenres: FC = () => (
 	<QueryApi<TData>
 		query={GET_GENRES}
 		children={

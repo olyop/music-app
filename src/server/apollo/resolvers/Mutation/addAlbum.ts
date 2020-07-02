@@ -33,7 +33,7 @@ interface Input extends Omit<Album, "released"> {
 	cover: Promise<FileUpload>,
 }
 
-type Args = {
+interface Args {
 	album: Input,
 }
 

@@ -1,7 +1,7 @@
 import { sql } from "../../../helpers"
 import { SELECT_USER_DOC_IN_LIB } from "../../../sql"
 
-type TInput = {
+interface Input {
 	docId: string,
 	userId: string,
 	columnName: string,
@@ -9,7 +9,7 @@ type TInput = {
 }
 
 export const userDocInLib =
-	({ docId, userId, columnName, userDocTable }: TInput) =>
+	({ docId, userId, columnName, userDocTable }: Input) =>
 		sql.query<boolean>({
 			sql: SELECT_USER_DOC_IN_LIB,
 			parse: sql.resExists,

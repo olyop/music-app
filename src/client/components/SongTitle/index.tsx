@@ -4,11 +4,10 @@ import { createElement, Fragment, FC } from "react"
 import DocLink from "../DocLink"
 import DocLinks from "../DocLinks"
 import { Song } from "../../types"
-import { reactBem } from "../../helpers"
 
 import "./index.scss"
 
-const bem = reactBem("SongTitle")
+const className = "SongTitle"
 
 const SongTitle: FC<PropTypes> = ({ song, showRemixers = true }) => {
 	const { mix, remixers } = song
@@ -19,7 +18,7 @@ const SongTitle: FC<PropTypes> = ({ song, showRemixers = true }) => {
 				{isEmpty(remixers) ? (
 					<Fragment>
 						{isEmpty(mix) ? null : (
-							<span className={bem("")}>
+							<span className={className}>
 								<Fragment> - </Fragment>
 								{mix}
 								<Fragment> Mix</Fragment>
@@ -27,7 +26,7 @@ const SongTitle: FC<PropTypes> = ({ song, showRemixers = true }) => {
 						)}
 					</Fragment>
 				) : (
-					<span className={bem("")}>
+					<span className={className}>
 						<Fragment> - </Fragment>
 						<DocLinks ampersand docs={remixers}/>
 						<Fragment> </Fragment>
@@ -42,7 +41,7 @@ const SongTitle: FC<PropTypes> = ({ song, showRemixers = true }) => {
 			<Fragment>
 				<DocLink doc={song}/>
 				{isEmpty(mix) ? null : (
-					<span className={bem("")}>
+					<span className={className}>
 						<Fragment> - </Fragment>
 						{mix}
 						<Fragment> Mix</Fragment>
@@ -53,7 +52,7 @@ const SongTitle: FC<PropTypes> = ({ song, showRemixers = true }) => {
 	}
 }
 
-type PropTypes = {
+interface PropTypes {
 	song: Song,
 	showRemixers?: boolean,
 }

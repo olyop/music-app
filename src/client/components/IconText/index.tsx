@@ -1,14 +1,13 @@
+import { createBem, BemInput } from "@oly_op/bem"
 import { createElement, Fragment, FC } from "react"
 
 import Icon from "../Icon"
-import { reactBem } from "../../helpers"
 
 import "./index.scss"
-import { BemInputType } from "../../types"
 
-const bem = reactBem("IconText")
+const bem = createBem("IconText")
 
-const IconText: FC<TProps> = ({
+const IconText: FC<PropTypes> = ({
 	icon, text, onClick, className, iconClassName, textClassName,
 }) => (
 	<button
@@ -30,13 +29,13 @@ const IconText: FC<TProps> = ({
 	/>
 )
 
-type TProps = {
+interface PropTypes {
 	icon: string,
 	text: string,
+	className: BemInput,
 	onClick?: () => void,
-	className: BemInputType,
-	iconClassName: BemInputType,
-	textClassName: BemInputType,
+	iconClassName: BemInput,
+	textClassName: BemInput,
 }
 
 export default IconText

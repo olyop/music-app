@@ -8,7 +8,7 @@ import {
 	AWS_RDS_PASSWORD,
 } from "../globals"
 
-const pool = new Pool({
+const pg = new Pool({
 	port: AWS_RDS_PORT,
 	user: AWS_RDS_USER,
 	database: AWS_RDS_DB,
@@ -16,4 +16,4 @@ const pool = new Pool({
 	password: AWS_RDS_PASSWORD,
 })
 
-export default pool
+export default pg

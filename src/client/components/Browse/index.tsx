@@ -7,8 +7,8 @@ import Navigation from "../Navigation"
 const Browse: FC<RouteComponentProps> = ({ match }) => (
 	<div className="Padding">
 		<Navigation
-			match={match}
 			routes={routes}
+			path={match.path}
 			className="MarginBottom"
 		/>
 		<Switch>

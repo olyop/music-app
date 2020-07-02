@@ -7,11 +7,6 @@ import DocLinks from "../DocLinks"
 import { useListStyleContext } from "../../contexts/ListStyle"
 import { Album as AlbumType, ListStyleEnum } from "../../types"
 
-type PropTypes = {
-	album: AlbumType,
-	className?: string,
-}
-
 const Album: FC<PropTypes> = ({ album, className = null }) => {
 	const { listStyle } = useListStyleContext()
 	return listStyle === ListStyleEnum.grid ? (
@@ -35,6 +30,11 @@ const Album: FC<PropTypes> = ({ album, className = null }) => {
 			className={[ className, "PaddingHalf", "ItemBorder", "Hover" ].join(" ")}
 		/>
 	)
+}
+
+interface PropTypes {
+	album: AlbumType,
+	className?: string,
 }
 
 export default Album

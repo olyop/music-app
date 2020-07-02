@@ -1,12 +1,11 @@
+import { createBem } from "@oly_op/bem"
 import { createElement, FC, ReactNode } from "react"
 
 import Icon from "../Icon"
 
-import { reactBem } from "../../helpers"
-
 import "./index.scss"
 
-const bem = reactBem("Empty")
+const bem = createBem("Empty")
 
 const Empty: FC<PropTypes> = ({ title }) => (
 	<div className={bem("")}>
@@ -21,7 +20,7 @@ const Empty: FC<PropTypes> = ({ title }) => (
 	</div>
 )
 
-type PropTypes = {
+interface PropTypes {
 	title: ReactNode,
 }
 

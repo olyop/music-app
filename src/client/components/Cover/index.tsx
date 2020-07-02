@@ -1,20 +1,12 @@
 import { createElement, FC } from "react"
+import { createBem, BemInput } from "@oly_op/bem"
 
 import Img from "../Img"
 import IconText from "../IconText"
-import { reactBem } from "../../helpers"
-import { BemInputType } from "../../types"
 
 import "./index.scss"
 
-const bem = reactBem("Cover")
-
-type PropTypes = {
-	url: string,
-	landscape?: boolean,
-	className?: BemInputType,
-	imgClassName?: BemInputType,
-}
+const bem = createBem("Cover")
 
 const Cover: FC<PropTypes> = ({
 	url,
@@ -62,5 +54,12 @@ const Cover: FC<PropTypes> = ({
 		{children}
 	</Img>
 )
+
+interface PropTypes {
+	url: string,
+	landscape?: boolean,
+	className?: BemInput,
+	imgClassName?: BemInput,
+}
 
 export default Cover

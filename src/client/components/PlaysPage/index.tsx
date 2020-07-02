@@ -1,18 +1,15 @@
 import { createElement, Fragment, FC } from "react"
-import { RouteComponentProps } from "react-router-dom"
 
 import QueryApi from "../QueryApi"
 import { Song } from "../../types"
-import { reactBem, deserializeDate } from "../../helpers"
+import { deserializeDate } from "../../helpers"
 import GET_SONG_PLAYS from "../../graphql/queries/songPlays.gql"
 
 import "./index.scss"
 
-const bem = reactBem("PlaysPage")
-
-const PlaysPage: FC<RouteComponentProps> = () => (
-	<QueryApi<TData>
-		className={bem("")}
+const PlaysPage: FC = () => (
+	<QueryApi<Data>
+		className="PlaysPage"
 		query={GET_SONG_PLAYS}
 		children={
 			({ song }) => (
@@ -30,7 +27,7 @@ const PlaysPage: FC<RouteComponentProps> = () => (
 	/>
 )
 
-type TData = {
+interface Data {
 	song: Song,
 }
 

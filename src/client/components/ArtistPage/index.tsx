@@ -1,4 +1,5 @@
 import { isEmpty } from "lodash"
+import { createBem } from "@oly_op/bem"
 import { createElement, Fragment, FC } from "react"
 import { RouteComponentProps } from "react-router-dom"
 
@@ -8,16 +9,16 @@ import Song from "../Song"
 import Album from "../Album"
 import QueryApi from "../QueryApi"
 import { Artist } from "../../types"
+import { determinePlural } from "../../helpers"
 import InLibraryButton from "../InLibraryButton"
-import { reactBem, determinePlural } from "../../helpers"
 import GET_ARTIST_PAGE from "../../graphql/queries/artistPage.gql"
 
 import "./index.scss"
 
-const bem = reactBem("ArtistPage")
+const bem = createBem("ArtistPage")
 
 const ArtistPage: FC<RouteComponentProps> = ({ match }) => (
-	<QueryApi<TData>
+	<QueryApi<Data>
 		className={bem("")}
 		query={GET_ARTIST_PAGE}
 		variables={match.params}
@@ -95,7 +96,7 @@ const ArtistPage: FC<RouteComponentProps> = ({ match }) => (
 	/>
 )
 
-type TData = {
+interface Data {
 	artist: Artist,
 }
 

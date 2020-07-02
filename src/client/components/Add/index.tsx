@@ -1,3 +1,4 @@
+import { createBem } from "@oly_op/bem"
 import { isNull, orderBy } from "lodash"
 import { createElement, useState, FC } from "react"
 
@@ -7,13 +8,12 @@ import AddSongs from "./AddSongs"
 import AddAlbum from "./AddAlbum"
 import ApiError from "../ApiError"
 import AddButton from "./AddButton"
-import { reactBem } from "../../helpers"
 import determineGenres from "./helpers/determineGenres"
 import determineArtists from "./helpers/determineArtists"
 
 import "./index.scss"
 
-const bem = reactBem("Add")
+const bem = createBem("Add")
 
 const Add: FC = () => {
 	const [ album, setAlbum ] = useState(null)

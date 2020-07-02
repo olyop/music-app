@@ -1,10 +1,9 @@
 import { createElement, FC } from "react"
-
-import { reactBem } from "../../helpers"
+import { createBem, BemInput } from "@oly_op/bem"
 
 import "./index.scss"
 
-const bem = reactBem("Img")
+const bem = createBem("Img")
 
 const Img: FC<PropTypes> = ({ url, children, className, imgClassName }) => (
 	<div className={bem(className, "")}>
@@ -16,10 +15,10 @@ const Img: FC<PropTypes> = ({ url, children, className, imgClassName }) => (
 	</div>
 )
 
-type PropTypes = {
+interface PropTypes {
 	url: string,
-	className?: string,
-	imgClassName?: string,
+	className?: BemInput,
+	imgClassName?: BemInput,
 }
 
 export default Img

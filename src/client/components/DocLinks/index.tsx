@@ -1,9 +1,10 @@
-import { createElement, Fragment, ReactElement } from "react"
+import { createElement, Fragment } from "react"
 
 import DocLink from "../DocLink"
+import { Doc } from "../../types"
 import { determineConcat, determineDocId } from "../../helpers"
 
-const DocLinks = <T,>({ docs, ampersand = true }: TProps<T>): ReactElement => (
+const DocLinks = <T extends Doc,>({ docs, ampersand = true }: PropTypes<T>) => (
 	<Fragment>
 		{docs.map(
 			(doc, index) => (
@@ -16,7 +17,7 @@ const DocLinks = <T,>({ docs, ampersand = true }: TProps<T>): ReactElement => (
 	</Fragment>
 )
 
-type TProps<T> = {
+interface PropTypes<T> {
 	docs: T[],
 	ampersand?: boolean,
 }

@@ -1,12 +1,12 @@
+import { createBem } from "@oly_op/bem"
 import { createElement, FC } from "react"
 
 import Song from "../Song"
 import { Disc } from "../../types"
-import { reactBem } from "../../helpers"
 
 import "./index.scss"
 
-const bem = reactBem("Disc")
+const bem = createBem("Disc")
 
 const Disc: FC<PropTypes> = ({ disc: { songs, number } }) => (
 	<div className={bem("")}>
@@ -30,7 +30,7 @@ const Disc: FC<PropTypes> = ({ disc: { songs, number } }) => (
 	</div>
 )
 
-type PropTypes = {
+interface PropTypes {
 	disc: Disc,
 }
 

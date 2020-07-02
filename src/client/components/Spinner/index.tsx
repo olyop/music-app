@@ -1,5 +1,5 @@
 import { createElement, FC } from "react"
-import { createBem, BemInputType } from "@oly_op/bem"
+import { createBem, BemInput } from "@oly_op/bem"
 
 import "./index.scss"
 
@@ -13,9 +13,9 @@ const Spinner: FC<PropTypes> = ({ className, spinClassName }) => (
 	</div>
 )
 
-type PropTypes = {
-	className?: BemInputType,
-	spinClassName?: BemInputType,
+interface PropTypes {
+	className?: BemInput,
+	spinClassName?: BemInput,
 }
 
 export default Spinner

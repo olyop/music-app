@@ -1,4 +1,5 @@
 import { isEmpty } from "lodash"
+import { pipe } from "@oly_op/pipe"
 
 import {
 	IFormat as Format,
@@ -6,9 +7,9 @@ import {
 	ICommonTagsResult as Common,
 } from "music-metadata"
 
+import { toDataUrl } from "../../../../helpers"
 import { EMPTY_DATA_URL } from "../../../../globals"
 import { MetadataResponse } from "./metadataResponse"
-import { pipe, toDataUrl } from "../../../../helpers"
 import { splitList, strHasBrackets, strFindBrackets } from "./common"
 
 const removeMix = (str: string) =>

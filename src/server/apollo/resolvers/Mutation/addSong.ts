@@ -41,7 +41,7 @@ interface Input extends Song {
 	audio: Promise<FileUpload>,
 }
 
-type Args = {
+interface Args {
 	song: Input,
 }
 

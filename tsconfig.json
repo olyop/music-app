@@ -4,7 +4,6 @@
 		"strict": true,
 		"outDir": "dist",
 		"target": "ESNEXT",
-		"module": "ESNEXT",
 		"removeComments": true,
 		"noUnusedLocals": true,
 		"esModuleInterop": true,

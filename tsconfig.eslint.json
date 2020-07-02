@@ -1,13 +1,4 @@
 {
 	"extends": "./tsconfig.json",
-	"compilerOptions": {
-		"strict": true,
-		"noUnusedLocals": true,
-		"esModuleInterop": true,
-		"noUnusedParameters": true,
-		"noFallthroughCasesInSwitch": true,
-		"allowSyntheticDefaultImports": true,
-		"forceConsistentCasingInFileNames": true
-	},
 	"include": ["src", "webpack.config.ts"]
 }

@@ -19,7 +19,7 @@ import "./index.scss"
 const bem = createBem("AlbumPage")
 
 const AlbumPage: FC<RouteComponentProps> = ({ match }) => (
-	<QueryApi<TData>
+	<QueryApi<Data>
 		query={QUERY_ALBUM_PAGE}
 		variables={match.params}
 		className={bem("", "Padding")}
@@ -74,7 +74,7 @@ const AlbumPage: FC<RouteComponentProps> = ({ match }) => (
 	/>
 )
 
-type TData = {
+interface Data {
 	album: Album,
 }
 

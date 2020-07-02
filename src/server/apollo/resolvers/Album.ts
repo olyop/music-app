@@ -1,4 +1,5 @@
 import { identity } from "lodash"
+import { pipe } from "@oly_op/pipe"
 import { map, reduce } from "lodash/fp"
 
 import {
@@ -14,7 +15,6 @@ import {
 import {
 	s3,
 	sql,
-	pipe,
 	toDataUrl,
 	createResolver,
 } from "../../helpers"

@@ -1,4 +1,5 @@
 // import { isNull } from "lodash"
+import { createBem } from "@oly_op/bem"
 import { createElement, FC } from "react"
 // import { NavLink } from "react-router-dom"
 
@@ -7,13 +8,12 @@ import { createElement, FC } from "react"
 // import QueryApi from "../QueryApi"
 // import Progress from "../Progress"
 // import { User } from "../../types"
-import { reactBem } from "../../helpers"
 import UserControls from "../UserControls"
 // import GET_USER_CURRENT from "../../graphql/queries/userCurrent.gql"
 
 import "./index.scss"
 
-const bem = reactBem("PlayerBar")
+const bem = createBem("PlayerBar")
 
 const PlayerBar: FC = () => (
 	<footer className={bem("", "Elevated")}>

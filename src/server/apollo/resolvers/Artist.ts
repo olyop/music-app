@@ -5,9 +5,9 @@ import {
 	Play,
 	Album,
 	Artist,
+	UserArgs,
 	ImgFormat,
 	ImgSizeEnum,
-	UserArgs,
 } from "../../types"
 
 import {

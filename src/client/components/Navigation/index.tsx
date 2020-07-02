@@ -22,7 +22,7 @@ const Navigation: FC<PropTypes> = ({ path, routes, className }) => (
 					children={(
 						<Fragment>
 							<Icon
-								icon={route.icon}
+								icon={route.icon!}
 								className={bem("link-icon")}
 							/>
 							<span

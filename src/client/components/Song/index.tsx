@@ -22,13 +22,12 @@ const Song: FC<PropTypes> = ({
 		className={className}
 		inLibClassName={inLibClassName}
 		upper={<SongTitle song={song}/>}
-		imgDoc={showCover ? song.album : null}
+		imgDoc={showCover ? song.album : undefined}
 		left={showTrackNumber ? song.trackNumber : null}
 		lower={<DocLinks docs={song.artists} ampersand/>}
 		right={showRight ? deserializeDuration(song.duration) : null}
 	/>
 )
-
 
 interface PropTypes {
 	song: Song,
@@ -39,4 +38,5 @@ interface PropTypes {
 	inLibClassName?: BemInput,
 	showTrackNumber?: boolean,
 }
+
 export default Song

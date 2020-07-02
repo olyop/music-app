@@ -15,7 +15,7 @@ const UserPage: FC = () => {
 	const { listStyle, setListStyle } =
 		useListStyleContext()
 	const handleSelectChange: ChangeEventHandler<HTMLSelectElement> = event =>
-		setListStyle(ListStyleEnum[event.target.value])
+		setListStyle(event.target.value as ListStyleEnum)
 	return (
 		<QueryApi<Data>
 			query={GET_USER}

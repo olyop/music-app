@@ -80,7 +80,7 @@ const Item = <Doc extends UserDoc, ImgDoc extends UserDoc = UserDoc>({
 	</div>
 )
 
-interface PropTypes<Doc extends UserDoc, ImgDoc extends UserDoc> {
+interface PropTypes<Doc, ImgDoc> {
 	doc: Doc,
 	imgDoc?: ImgDoc,
 	left?: ReactNode,

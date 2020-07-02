@@ -1,6 +1,6 @@
 import { createContext as createCtx, useContext } from "react"
 
-export const createContext = <A extends Record<string, unknown> | null>() => {
+export const createContext = <A extends Record<string, unknown> | string | null>() => {
 	const ctx = createCtx<A | undefined>(undefined)
 	function useCtx() {
 		const context = useContext(ctx)

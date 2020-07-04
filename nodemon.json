@@ -1,7 +1,6 @@
 {
 	"verbose": false,
-	"watch": ["src/server"],
-	"ext": "json,gql,sql,ts,env,html",
-	"exec": "ts-node \"src/server/index.ts\"",
-	"ignore": ["src/client/","node_modules", "dist"]
+	"watch": ["dist"],
+	"ignore": ["src ","node_modules"],
+	"ext": "json,gql,sql,ts,env,html"
 }

@@ -18,7 +18,13 @@
 		"@typescript-eslint"
 	],
 	"parserOptions": {
-		"project": "./tsconfig.eslint.json"
+		"ecmaVersion": 2020,
+		"sourceType": "module",
+		"project": "./tsconfig.eslint.json",
+		"ecmaFeatures": {
+			"jsx": true,
+			"impliedStrict": true
+		}
 	},
 	"env": {
 		"node": true,
@@ -39,9 +45,10 @@
 		"react/prop-types": "off",
 		"no-nested-ternary": "off",
 		"object-curly-newline": "off",
+		"node/no-process-env": "error",
 		"array-bracket-spacing": "off",
-		"react/no-children-prop": "off",
 		"node/no-missing-import": "off",
+		"react/no-children-prop": "off",
 		"implicit-arrow-linebreak": "off",
 		"react/require-default-props": "off",
 		"lines-between-class-members": "off",
@@ -55,7 +62,6 @@
 		"jsx-a11y/no-static-element-interactions": "off",
 		"@typescript-eslint/no-non-null-assertion": "off",
 		"@typescript-eslint/explicit-module-boundary-types": "off",
-		"node/no-process-env": "error",
 		"no-mixed-spaces-and-tabs": [
 			"error",
 			"smart-tabs"

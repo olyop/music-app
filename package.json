@@ -1,6 +1,6 @@
 {
-	"private": true,
 	"type": "module",
+	"private": true,
 	"license": "MIT",
 	"version": "1.0.0",
 	"name": "music-app",
@@ -35,7 +35,7 @@
 		"dev": "clear && npm run delete-build && npm run build-server && npx concurrently \"npm:dev-server\" \"npm:dev-client\" \"npm:dev-nodemon\"",
 		"dev-server": "npx tsc --watch",
 		"dev-client": "cross-env NODE_ENV=dev npx webpack-dev-server --env.isDev",
-		"dev-nodemon": "npx nodemon -r dotenv/config",
+		"dev-nodemon": "npx nodemon -r dotenv/config dist/index.js",
 		"build": "npm run build-server && npm run build-client",
 		"build-server": "npx tsc",
 		"build-client": "cross-env NODE_ENV=pro npx webpack",

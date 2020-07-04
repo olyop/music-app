@@ -3,7 +3,7 @@ import { createElement, ReactNode } from "react"
 import { createBem, BemInput } from "@oly_op/bem"
 
 import Img from "../Img"
-import { UserDoc } from "../../types"
+import { Doc } from "../../types"
 import PlayButton from "../PlayButton"
 import InLibraryButton from "../InLibraryButton"
 import { determineDocPath, determineDocName, determineDocPhoto } from "../../helpers"
@@ -12,7 +12,7 @@ import "./index.scss"
 
 const bem = createBem("Item")
 
-const Item = <Doc extends UserDoc, ImgDoc extends UserDoc = UserDoc>({
+const Item = <D extends Doc, I extends Doc = Doc>({
 	doc,
 	left,
 	lower,
@@ -24,7 +24,7 @@ const Item = <Doc extends UserDoc, ImgDoc extends UserDoc = UserDoc>({
 	inLibClassName,
 	showPlay = true,
 	showInLibrary = true,
-}: PropTypes<Doc, ImgDoc>) => (
+}: PropTypes<D, I>) => (
 	<div className={bem(className, "")}>
 		{left && (
 			<p

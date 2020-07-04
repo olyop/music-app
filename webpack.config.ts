@@ -31,7 +31,7 @@ const config: Configuration = {
 	},
 	resolve: {
 		symlinks: false,
-		extensions: [".ts", ".tsx", ".js", ".json", ".gql"],
+		extensions: [".ts", ".tsx", ".js", ".gql"],
 	},
 	devServer: {
 		hot: true,
@@ -63,15 +63,15 @@ const config: Configuration = {
 			{
 				test: /\.tsx?$/,
 				exclude: /node_modules/,
-				use: {
-					loader: "awesome-typescript-loader",
-					options: {
-						useBabel: true,
-						useCache: isDev,
-						transpileOnly: isDev,
-						babelCore: "@babel/core",
+				use: [
+					"babel-loader",
+					{
+						loader: "ts-loader",
+						options: {
+							onlyCompileBundledFiles: true,
+						},
 					},
-				},
+				],
 			},
 		],
 	},

@@ -1,5 +1,6 @@
 # folders
 dist/
+.awcache/
 node_modules/
 
 # files

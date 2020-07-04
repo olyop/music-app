@@ -1,8 +1,8 @@
 {
 	"compilerOptions": {
-		"jsx": "react",
 		"strict": true,
 		"outDir": "dist",
+		"jsx": "preserve",
 		"target": "ESNext",
 		"module": "ESNext",
 		"removeComments": true,

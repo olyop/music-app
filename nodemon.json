@@ -1,6 +1,6 @@
 {
 	"verbose": false,
 	"watch": ["dist"],
-	"ignore": ["src ","node_modules"],
+	"ignore": ["dist/build"],
 	"ext": "json,gql,sql,ts,env,html"
 }

@@ -6,7 +6,7 @@ import HtmlWebpackPlugin from "html-webpack-plugin"
 import { CleanWebpackPlugin } from "clean-webpack-plugin"
 import CompressionPlugin from "compression-webpack-plugin"
 import MiniCssExtractPlugin from "mini-css-extract-plugin"
-// import { BundleAnalyzerPlugin } from "webpack-bundle-analyzer"
+import { BundleAnalyzerPlugin } from "webpack-bundle-analyzer"
 import LodashModuleReplacementPlugin from "lodash-webpack-plugin"
 import OptimizeCssAssetsPlugin from "optimize-css-assets-webpack-plugin"
 
@@ -64,10 +64,12 @@ const config: Configuration = {
 				test: /\.tsx?$/,
 				exclude: /node_modules/,
 				use: {
-					loader: "ts-loader",
+					loader: "awesome-typescript-loader",
 					options: {
+						useBabel: true,
+						useCache: isDev,
 						transpileOnly: isDev,
-						onlyCompileBundledFiles: true,
+						babelCore: "@babel/core",
 					},
 				},
 			},
@@ -78,7 +80,7 @@ const config: Configuration = {
 			new CleanWebpackPlugin(),
 		] : [
 			new CompressionPlugin(),
-			// new BundleAnalyzerPlugin(),
+			new BundleAnalyzerPlugin(),
 			new OptimizeCssAssetsPlugin(),
 			new LodashModuleReplacementPlugin(),
 			new MiniCssExtractPlugin({ filename: "[hash].css" }),

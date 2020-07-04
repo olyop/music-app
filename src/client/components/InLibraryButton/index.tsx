@@ -17,9 +17,7 @@ import ADD_USER_ALBUM from "../../graphql/mutations/addUserAlbum.gql"
 import ADD_USER_GENRE from "../../graphql/mutations/addUserGenre.gql"
 import ADD_USER_ARTIST from "../../graphql/mutations/addUserArtist.gql"
 
-const InLibraryButton = <T extends UserDoc>({
-	doc, className,
-}: PropTypes<T>): ReactElement => {
+const InLibraryButton = <T extends UserDoc>({ doc, className }: PropTypes<T>): ReactElement => {
 	const determineReturn = determineDocReturn(doc)
 	const variablesKey = determineReturn("songId", "albumId", "genreId", "artistId")
 	const refetchQuery = `getUser${determineReturn("Song", "Album", "Genre", "Artist")}s`

@@ -1,0 +1,12 @@
+{
+  "presets": [
+		"@babel/react",
+		"@babel/typescript",
+		"@babel/env"
+	],
+  "plugins": [
+		"lodash",
+		"@babel/plugin-proposal-class-properties",
+		"@babel/plugin-proposal-object-rest-spread"
+	]
+}

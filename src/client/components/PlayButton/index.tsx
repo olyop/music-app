@@ -4,8 +4,8 @@ import { createBem, BemInput } from "@oly_op/bem"
 
 import Icon from "../Icon"
 import ApiError from "../ApiError"
+import { User, Doc, Song } from "../../types"
 import { determineDocId } from "../../helpers"
-import { User, UserDoc, Song } from "../../types"
 import { useUserContext } from "../../contexts/User"
 import { usePlayContext } from "../../contexts/Play"
 import USER_PLAY from "../../graphql/mutations/userPlay.gql"
@@ -45,7 +45,7 @@ interface Variables {
 }
 
 interface PropTypes {
-	doc: UserDoc | Song,
+	doc: Doc | Song,
 	className?: BemInput,
 }
 

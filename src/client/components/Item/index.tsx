@@ -3,12 +3,15 @@ import { createElement, ReactNode } from "react"
 import { createBem, BemInput } from "@oly_op/bem"
 
 import Img from "../Img"
-import { Doc } from "../../types"
 import PlayButton from "../PlayButton"
+import { Doc, UserDoc } from "../../types"
 import InLibraryButton from "../InLibraryButton"
 import { determineDocPath, determineDocName, determineDocPhoto } from "../../helpers"
 
 import "./index.scss"
+
+const determineInLibrary = (inLib: boolean, _doc: Doc): _doc is UserDoc =>
+	inLib
 
 const bem = createBem("Item")
 
@@ -64,7 +67,7 @@ const Item = <D extends Doc, I extends Doc = Doc>({
 					/>
 				) : null}
 			</div>
-			{showInLibrary && (
+			{determineInLibrary(showInLibrary, doc) && (
 				<InLibraryButton
 					doc={doc}
 					className={bem(inLibClassName, "info-in-lib")}

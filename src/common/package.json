@@ -19,9 +19,5 @@
 	"files": [
     "types.ts",
 		"index.ts"
-	],
-	"scripts": {
-		"sync": "git checkout . && git remote update && git pull",
-		"push": "clear && git status && git add -A && git commit -m \"Update\" && git push -u origin master"
-	}
+	]
 }

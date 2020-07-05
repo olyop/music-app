@@ -3,11 +3,9 @@ import path from "path"
 import { Configuration } from "webpack"
 import DotenvPlugin from "dotenv-webpack"
 import HtmlWebpackPlugin from "html-webpack-plugin"
-import { CleanWebpackPlugin } from "clean-webpack-plugin"
 import CompressionPlugin from "compression-webpack-plugin"
 import MiniCssExtractPlugin from "mini-css-extract-plugin"
 import { BundleAnalyzerPlugin } from "webpack-bundle-analyzer"
-import LodashModuleReplacementPlugin from "lodash-webpack-plugin"
 import OptimizeCssAssetsPlugin from "optimize-css-assets-webpack-plugin"
 
 // eslint-disable-next-line node/no-process-env
@@ -17,12 +15,21 @@ const rootPath = __dirname
 const srcPath = path.join(rootPath, "src")
 const distPath = path.join(rootPath, "dist")
 const clientPath = path.join(srcPath, "client")
+const extensions = [".ts", ".tsx", ".js", ".gql"]
 
-const isDev = NODE_ENV === "dev"
+const IS_DEV = NODE_ENV === "dev"
+
+const HTML_MINIFY_CONFIG = {
+	removeComments: true,
+	collapseWhitespace: true,
+	removeRedundantAttributes: true,
+	removeScriptTypeAttributes: true,
+	removeStyleLinkTypeAttributes: true,
+}
 
 const config: Configuration = {
 	devtool: false,
-	mode: isDev ? "development" : "production",
+	mode: IS_DEV ? "development" : "production",
 	entry: path.join(clientPath, "index.tsx"),
 	output: {
 		publicPath: "/",
@@ -30,16 +37,15 @@ const config: Configuration = {
 		path: path.join(distPath, "build"),
 	},
 	resolve: {
+		extensions,
 		symlinks: false,
-		extensions: [".ts", ".tsx", ".js", ".gql"],
 	},
 	devServer: {
 		hot: true,
 		open: true,
 		host: HOST,
-		quiet: true,
 		compress: true,
-		stats: "errors-only",
+		stats: "minimal",
 		historyApiFallback: true,
 		port: parseInt(DEV_PORT!),
 	},
@@ -49,7 +55,7 @@ const config: Configuration = {
 				test: /\.scss$/,
 				exclude: /node_modules/,
 				loader: [
-					isDev ? "style-loader" : MiniCssExtractPlugin.loader,
+					IS_DEV ? "style-loader" : MiniCssExtractPlugin.loader,
 					"css-loader",
 					"sass-loader",
 				],
@@ -62,40 +68,23 @@ const config: Configuration = {
 			},
 			{
 				test: /\.tsx?$/,
+				loader: "ts-loader",
 				exclude: /node_modules/,
-				use: [
-					"babel-loader",
-					{
-						loader: "ts-loader",
-						options: {
-							onlyCompileBundledFiles: true,
-						},
-					},
-				],
 			},
 		],
 	},
 	plugins: [
-		...(isDev ? [
-			new CleanWebpackPlugin(),
-		] : [
+		new DotenvPlugin(),
+		new HtmlWebpackPlugin({
+			minify: HTML_MINIFY_CONFIG,
+			template: path.join(clientPath, "index.html"),
+		}),
+		...(IS_DEV ? [] : [
 			new CompressionPlugin(),
 			new BundleAnalyzerPlugin(),
 			new OptimizeCssAssetsPlugin(),
-			new LodashModuleReplacementPlugin(),
 			new MiniCssExtractPlugin({ filename: "[hash].css" }),
 		]),
-		new DotenvPlugin(),
-		new HtmlWebpackPlugin({
-			template: path.join(clientPath, "index.html"),
-			minify: {
-				removeComments: true,
-				collapseWhitespace: true,
-				removeRedundantAttributes: true,
-				removeScriptTypeAttributes: true,
-				removeStyleLinkTypeAttributes: true,
-			},
-		}),
 	],
 }
 

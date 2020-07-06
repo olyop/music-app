@@ -1,6 +1,6 @@
+import { pipe } from "@oly_op/pipe"
 import { map, flatten, uniq } from "lodash/fp"
 
-import { pipe } from "../../../helpers"
 import { Song, Genre } from "../../../types"
 
 const mapSongsGenres = (songs: Song[]) =>

@@ -78,12 +78,12 @@ export enum ListStyleEnum {
 	list = "list",
 }
 
-export type Disc = {
+export interface Disc {
 	songs: Song[],
 	number: number,
 }
 
-export type Route = {
+export interface Route {
 	id: string,
 	path: string,
 	icon?: string,
@@ -92,19 +92,26 @@ export type Route = {
 	component: FC<RouteComponentProps>,
 }
 
-export type ClassType = {
+export interface ClassType {
 	ignore: boolean,
 	className: string,
 }
 
-export type DataUserPlay = {
+export interface DataUserPlay {
 	prev: Song[],
 	next: Song[],
 	queue: Song[],
 	current: Song,
 }
 
-export type ParseSongs = {
+export interface ParseSongs {
 	album: Album,
 	songs: Song[],
+}
+
+export interface Queue {
+	prev: Song[],
+	next: Song[],
+	queue: Song[],
+	current: Song,
 }

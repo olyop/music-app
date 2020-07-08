@@ -32,7 +32,7 @@ export const album =
 		({ parent }) => (
 			sql.query({
 				sql: SELECT_ALBUM,
-				parse: res => sql.parseRow(res),
+				parse: sql.parseRow(),
 				variables: [{
 					key: "albumId",
 					value: parent.albumId,
@@ -50,7 +50,7 @@ export const genres =
 		({ parent }) => (
 			sql.query({
 				sql: SELECT_SONG_GENRES,
-				parse: res => sql.parseTable(res),
+				parse: sql.parseTable(),
 				variables: [{
 					key: "songId",
 					value: parent.songId,
@@ -68,7 +68,7 @@ export const artists =
 		({ parent }) => (
 			sql.query({
 				sql: SELECT_SONG_ARTISTS,
-				parse: res => sql.parseTable(res),
+				parse: sql.parseTable(),
 				variables: [{
 					key: "songId",
 					value: parent.songId,
@@ -86,7 +86,7 @@ export const remixers =
 		({ parent }) => (
 			sql.query({
 				sql: SELECT_SONG_REMIXERS,
-				parse: res => sql.parseTable(res),
+				parse: sql.parseTable(),
 				variables: [{
 					key: "songId",
 					value: parent.songId,
@@ -104,7 +104,7 @@ export const featuring =
 		({ parent }) => (
 			sql.query({
 				sql: SELECT_SONG_FEATURING,
-				parse: res => sql.parseTable(res),
+				parse: sql.parseTable(),
 				variables: [{
 					key: "songId",
 					value: parent.songId,
@@ -122,7 +122,7 @@ export const plays =
 		({ parent, args }) => (
 			sql.query({
 				sql: SELECT_USER_DOC_PLAYS,
-				parse: res => sql.parseTable(res),
+				parse: sql.parseTable(),
 				variables: [{
 					key: "songId",
 					value: parent.songId,
@@ -139,8 +139,8 @@ export const isCurrent =
 		({ parent, args }) => (
 			sql.query({
 				sql: CHECK_SONG_IS_CURRENT,
-				parse: ({ rows }: QueryResult<{ isCurrent: boolean }>) =>
-					!isNull(rows[0].isCurrent),
+				parse: ({ rows }: QueryResult<{ is_current: boolean }>) =>
+					!isNull(rows[0].is_current),
 				variables: [{
 					key: "userId",
 					value: args.userId,

@@ -22,7 +22,7 @@ export const addUser =
 			} else {
 				return sql.query({
 					sql: INSERT_USER,
-					parse: res => sql.parseRow(res),
+					parse: sql.parseRow(),
 					variables: [{
 						key: "userId",
 						value: uuid(),

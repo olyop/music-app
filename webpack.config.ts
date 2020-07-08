@@ -1,35 +1,42 @@
-/* eslint-disable node/no-unpublished-import */
+import os from "os"
 import path from "path"
 import DotenvPlugin from "dotenv-webpack"
+import CopyPlugin from "copy-webpack-plugin"
+import WriteFilePlugin from "write-file-webpack-plugin"
 import CompressionPlugin from "compression-webpack-plugin"
 import MiniCssExtractPlugin from "mini-css-extract-plugin"
 import { BundleAnalyzerPlugin } from "webpack-bundle-analyzer"
 import { Configuration, Plugin, RuleSetRule, Output } from "webpack"
 import HtmlWebpackPlugin, { MinifyOptions } from "html-webpack-plugin"
 import OptimizeCssAssetsPlugin from "optimize-css-assets-webpack-plugin"
-import TerserPlugin, { TerserPluginOptions } from "terser-webpack-plugin"
 import { Configuration as DevServerConfiguration } from "webpack-dev-server"
 
+const HOST = os.networkInterfaces().Ethernet[1].address
+
 // eslint-disable-next-line node/no-process-env
-const { HOST, DEV_PORT, NODE_ENV } = process.env
+const { NODE_ENV } = process.env
 
 const ROOT_PATH = __dirname
 const SRC_PATH = path.join(ROOT_PATH, "src")
 const DIST_PATH = path.join(ROOT_PATH, "dist")
+const BUILD_PATH = path.join(DIST_PATH, "build")
 const CLIENT_PATH = path.join(SRC_PATH, "client")
+const PUBLIC_PATH = path.join(CLIENT_PATH, "public")
+const INDEX_HTML = path.join(PUBLIC_PATH, "index.html")
+const CLIENT_ROOT_PATH = path.join(CLIENT_PATH, "index.tsx")
 
-const extensions = [".ts", ".tsx", ".js", ".gql"]
+const extensions = [".ts", ".tsx", ".js"]
 
 const IS_DEV = NODE_ENV === "dev"
 
 const mode = IS_DEV ? "development" : "production"
 
-const entry = path.join(CLIENT_PATH, "index.tsx")
+const entry = CLIENT_ROOT_PATH
 
 const output: Output = {
 	publicPath: "/",
+	path: BUILD_PATH,
 	filename: "[hash].js",
-	path: path.join(DIST_PATH, "build"),
 }
 
 const minify: MinifyOptions = {
@@ -40,56 +47,55 @@ const minify: MinifyOptions = {
 	removeStyleLinkTypeAttributes: true,
 }
 
-const TERSER_PLUGIN_CONFIG: TerserPluginOptions = {
-	extractComments: false,
-	terserOptions: { output: { comments: false } },
-}
-
 const devServer: DevServerConfiguration = {
 	hot: true,
-	open: true,
+	port: 8080,
 	host: HOST,
+	open: true,
+	quiet: true,
+	noInfo: true,
+	stats: "none",
 	compress: true,
-	stats: "minimal",
+	clientLogLevel: "error",
 	historyApiFallback: true,
-	port: parseInt(DEV_PORT!),
+	contentBase: PUBLIC_PATH,
+	proxy: { "/graphql": `http://${HOST}:3000` },
 }
 
-const rules: RuleSetRule[] = [{
-	test: /\.scss$/,
-	exclude: /node_modules/,
-	loader: [
-		IS_DEV ? "style-loader" : MiniCssExtractPlugin.loader,
-		"css-loader",
-		"sass-loader",
-	],
-},{
-	test: /\.gql$/,
-	exclude: /node_modules/,
-	loader: "graphql-tag/loader",
-	include: path.join(CLIENT_PATH, "graphql"),
-},{
-	test: /\.tsx?$/,
-	loader: "ts-loader",
-	exclude: /node_modules/,
-}]
+const rules: RuleSetRule[] = [
+	{
+		test: /\.scss$/,
+		exclude: /node_modules/,
+		loader: [
+			IS_DEV ? "style-loader" : MiniCssExtractPlugin.loader,
+			"css-loader",
+			"sass-loader",
+		],
+	},
+	{
+		test: /\.gql$/,
+		exclude: /node_modules/,
+		loader: "graphql-tag/loader",
+		include: path.join(CLIENT_PATH, "graphql"),
+	},
+	{
+		test: /\.tsx?$/,
+		loader: "ts-loader",
+		exclude: /node_modules/,
+	},
+]
 
 const plugins: Plugin[] = [
 	new DotenvPlugin(),
-	new HtmlWebpackPlugin({
-		minify,
-		template: path.join(CLIENT_PATH, "index.html"),
-	}),
+	new WriteFilePlugin(),
+	new HtmlWebpackPlugin({ minify, template: INDEX_HTML }),
 	...(IS_DEV ? [] : [
 		new CompressionPlugin(),
 		new BundleAnalyzerPlugin(),
 		new OptimizeCssAssetsPlugin(),
 		new MiniCssExtractPlugin({ filename: "[hash].css" }),
+		new CopyPlugin({ patterns: [{ from: PUBLIC_PATH, to: BUILD_PATH }] }),
 	]),
-]
-
-const minimizer: Plugin[] = [
-	new TerserPlugin(TERSER_PLUGIN_CONFIG),
 ]
 
 const config: Configuration = {
@@ -99,7 +105,6 @@ const config: Configuration = {
 	plugins,
 	devServer,
 	module: { rules },
-	optimization: { minimizer },
 	resolve: { symlinks: false,	extensions },
 }
 

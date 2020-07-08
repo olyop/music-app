@@ -18,7 +18,6 @@ import {
 	LOG_FORMAT,
 	BUILD_PATH,
 	CORS_CONFIG,
-	PUBLIC_PATH,
 } from "./globals"
 
 const app = express()
@@ -35,7 +34,6 @@ app.use(
 	globalHeaders(),
 	graphql(),
 	express.static(BUILD_PATH),
-	express.static(PUBLIC_PATH),
 )
 
 // send index.html

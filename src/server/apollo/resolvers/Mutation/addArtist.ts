@@ -64,7 +64,7 @@ export const addArtist =
 			const artistInsert =
 				sql.query<Artist>({
 					sql: INSERT_ARTIST,
-					parse: res => sql.parseRow(res),
+					parse: sql.parseRow(),
 					variables: [{
 						key: "artistId",
 						value: artistId,

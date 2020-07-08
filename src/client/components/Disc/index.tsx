@@ -11,8 +11,8 @@ const bem = createBem("Disc")
 const Disc: FC<PropTypes> = ({ disc: { songs, number } }) => (
 	<div className={bem("")}>
 		<h4
-			children={`Disc ${number}`}
 			className={bem("number")}
+			children={`Disc ${number}`}
 		/>
 		<div className="Elevated">
 			{songs.map(

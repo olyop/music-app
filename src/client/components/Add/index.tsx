@@ -1,5 +1,6 @@
+import isNull from "lodash/isNull"
+import orderBy from "lodash/orderBy"
 import { createBem } from "@oly_op/bem"
-import { isNull, orderBy } from "lodash"
 import { createElement, useState, FC } from "react"
 
 import AddDocs from "./AddDocs"
@@ -8,6 +9,7 @@ import AddSongs from "./AddSongs"
 import AddAlbum from "./AddAlbum"
 import ApiError from "../ApiError"
 import AddButton from "./AddButton"
+import { Album, Song } from "../../types"
 import determineGenres from "./helpers/determineGenres"
 import determineArtists from "./helpers/determineArtists"
 
@@ -16,10 +18,10 @@ import "./index.scss"
 const bem = createBem("Add")
 
 const Add: FC = () => {
-	const [ album, setAlbum ] = useState(null)
-	const [ songs, setSongs ] = useState(null)
 	const [ error, setError ] = useState(null)
 	const [ loading, setLoading ] = useState(false)
+	const [ album, setAlbum ] = useState<Album>(null)
+	const [ songs, setSongs ] = useState<Song[]>(null)
 
 	if (!isNull(error)) {
 		return <ApiError error={error}/>

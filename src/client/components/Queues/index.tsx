@@ -1,10 +1,11 @@
-// eslint-disable react/no-array-index-key
+import isNull from "lodash/isNull"
+import isEmpty from "lodash/isEmpty"
 import { createBem } from "@oly_op/bem"
-import { isEmpty, isNull } from "lodash"
 import { createElement, FC } from "react"
 
 import Song from "../Song"
 import QueueApi from "../QueryApi"
+import { User } from "../../types"
 import { createQueuesArray } from "../../helpers"
 import GET_USER_QUEUES from "../../graphql/queries/userQueues.gql"
 
@@ -13,11 +14,12 @@ import "./index.scss"
 const bem = createBem("Queues")
 
 const Queues: FC = () => (
-	<div className={bem("")}>
-		<QueueApi
-			query={GET_USER_QUEUES}
-			children={
-				({ user }) => createQueuesArray(user).map(
+	<QueueApi<Data>
+		className={bem("")}
+		query={GET_USER_QUEUES}
+		children={
+			({ user }) => (
+				createQueuesArray(user).map(
 					queue => (
 						isNull(queue.songs[0]) || isEmpty(queue.songs) ? null : (
 							<div key={queue.id} className={bem("section", queue.key)}>
@@ -27,9 +29,13 @@ const Queues: FC = () => (
 						)
 					),
 				)
-			}
-		/>
-	</div>
+			)
+		}
+	/>
 )
+
+interface Data {
+	user: User,
+}
 
 export default Queues

@@ -24,7 +24,7 @@ const Song: FC<PropTypes> = ({
 		upper={<SongTitle song={song}/>}
 		imgDoc={showCover ? song.album : undefined}
 		left={showTrackNumber ? song.trackNumber : null}
-		lower={<DocLinks docs={song.artists} ampersand/>}
+		lower={<DocLinks ampersand docs={song.artists}/>}
 		right={showRight ? deserializeDuration(song.duration) : null}
 	/>
 )

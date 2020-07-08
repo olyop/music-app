@@ -41,7 +41,7 @@ export const songs =
 		() => (
 			sql.query({
 				sql: SELECT_SONGS,
-				parse: res => sql.parseTable(res),
+				parse: sql.parseTable(),
 				variables: [{
 					string: false,
 					key: "columnNames",
@@ -56,7 +56,7 @@ export const albums =
 		() => (
 			sql.query({
 				sql: SELECT_ALBUMS,
-				parse: res => sql.parseTable(res),
+				parse: sql.parseTable(),
 				variables: [{
 					string: false,
 					key: "columnNames",
@@ -71,7 +71,7 @@ export const genres =
 		() => (
 			sql.query({
 				sql: SELECT_GENRES,
-				parse: res => sql.parseTable(res),
+				parse: sql.parseTable(),
 				variables: [{
 					string: false,
 					key: "columnNames",
@@ -86,7 +86,7 @@ export const artists =
 		() => (
 			sql.query({
 				sql: SELECT_ARTISTS,
-				parse: res => sql.parseTable(res),
+				parse: sql.parseTable(),
 				variables: [{
 					string: false,
 					key: "columnNames",
@@ -101,7 +101,7 @@ export const playlists =
 		() => (
 			sql.query({
 				sql: SELECT_PLAYLISTS,
-				parse: res => sql.parseTable(res),
+				parse: sql.parseTable(),
 				variables: [{
 					string: false,
 					key: "columnNames",
@@ -116,7 +116,7 @@ export const user =
 		({ args }) => (
 			sql.query({
 				sql: SELECT_USER,
-				parse: res => sql.parseRow(res),
+				parse: sql.parseRow(),
 				variables: [{
 					key: "userId",
 					value: args.userId,
@@ -134,7 +134,7 @@ export const play =
 		({ args }) => (
 			sql.query({
 				sql: SELECT_PLAY,
-				parse: res => sql.parseRow(res),
+				parse: sql.parseRow(),
 				variables: [{
 					key: "playId",
 					value: args.playId,
@@ -152,7 +152,7 @@ export const album =
 		({ args }) => (
 			sql.query({
 				sql: SELECT_ALBUM,
-				parse: res => sql.parseRow(res),
+				parse: sql.parseRow(),
 				variables: [{
 					string: false,
 					key: "columnNames",
@@ -170,7 +170,7 @@ export const genre =
 		({ args }) => (
 			sql.query({
 				sql: SELECT_GENRE,
-				parse: res => sql.parseRow(res),
+				parse: sql.parseRow(),
 				variables: [{
 					string: false,
 					key: "columnNames",
@@ -188,7 +188,7 @@ export const artist =
 		({ args }) => (
 			sql.query({
 				sql: SELECT_ARTIST,
-				parse: res => sql.parseRow(res),
+				parse: sql.parseRow(),
 				variables: [{
 					key: "artistId",
 					value: args.artistId,
@@ -206,7 +206,7 @@ export const playlist =
 		({ args }) => (
 			sql.query({
 				sql: SELECT_PLAYLIST,
-				parse: res => sql.parseRow(res),
+				parse: sql.parseRow(),
 				variables: [{
 					key: "playlistId",
 					value: args.playlistId,
@@ -224,7 +224,7 @@ export const song =
 		({ args }) => (
 			sql.query({
 				sql: SELECT_SONG,
-				parse: res => sql.parseRow(res),
+				parse: sql.parseRow(),
 				variables: [{
 					key: "songId",
 					value: args.songId,
@@ -257,7 +257,7 @@ export const newAlbums =
 		() => (
 			sql.query({
 				sql: SELECT_NEW_ALBUMS,
-				parse: res => sql.parseTable(res),
+				parse: sql.parseTable(),
 			})
 		),
 	)
@@ -267,7 +267,7 @@ export const topTenSongs =
 		() => (
 			sql.query({
 				sql: SELECT_TOP_TEN_SONGS,
-				parse: res => sql.parseTable(res),
+				parse: sql.parseTable(),
 			})
 		),
 	)

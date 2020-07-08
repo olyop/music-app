@@ -52,5 +52,6 @@ export const rmUserDoc = async <T>({
 
 	const result = await Promise.all([ returnQuery, deleteUserDoc ])
 
+	// @ts-ignore
 	return result[0] as T
 }

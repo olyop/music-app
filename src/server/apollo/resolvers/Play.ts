@@ -10,7 +10,7 @@ export const user =
 		({ parent }) => (
 			sql.query({
 				sql: SELECT_USER,
-				parse: res => sql.parseRow(res),
+				parse: sql.parseRow(),
 				variables: [{
 					key: "userId",
 					value: parent.userId,
@@ -24,7 +24,7 @@ export const song =
 		({ parent }) => (
 			sql.query({
 				sql: SELECT_SONG,
-				parse: res => sql.parseRow(res),
+				parse: sql.parseRow(),
 				variables: [{
 					key: "songId",
 					value: parent.songId,

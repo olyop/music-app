@@ -40,7 +40,7 @@ const Navigation: FC<PropTypes> = ({ path, routes, className }) => (
 interface PropTypes {
 	path: string,
 	routes: Route[],
-	className: BemInput,
+	className?: BemInput,
 }
 
 export default Navigation

@@ -1,4 +1,4 @@
-import { isEmpty } from "lodash"
+import isEmpty from "lodash/isEmpty"
 import { createElement, Fragment, FC } from "react"
 
 import DocLinks from "../DocLinks"

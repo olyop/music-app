@@ -77,5 +77,6 @@ export const addUserDoc = async <T>({
 
 	const result = await Promise.all([ returnQuery, actionQuery ])
 
+	// @ts-ignore
 	return result[0] as T
 }

@@ -1,19 +1,15 @@
 import { createBem } from "@oly_op/bem"
-import { createElement, FC, Fragment } from "react"
+import { createElement, FC } from "react"
 
 import List from "../../List"
 import Song from "../../Song"
 import Album from "../../Album"
+import Helmet from "../../Helmet"
 import QueryApi from "../../QueryApi"
 import QUERY_BROWSE from "../../../graphql/queries/browse.gql"
 import { Album as AlbumType, Song as SongType } from "../../../types"
 
 import "./index.scss"
-
-interface Data {
-	newAlbums: AlbumType[],
-	topTenSongs: SongType[],
-}
 
 const bem = createBem("BrowseHome")
 
@@ -23,7 +19,7 @@ const BrowseHome: FC = () => (
 		className={bem("")}
 		children={
 			({ newAlbums, topTenSongs }) => (
-				<Fragment>
+				<Helmet title="Browse">
 					<div className={bem("newAlbums")}>
 						<h2 className={bem("heading")}>New Albums</h2>
 						<List>
@@ -48,9 +44,15 @@ const BrowseHome: FC = () => (
 							),
 						)}
 					</div>
-				</Fragment>
+				</Helmet>
 			)
 		}
 	/>
 )
+
+interface Data {
+	newAlbums: AlbumType[],
+	topTenSongs: SongType[],
+}
+
 export default BrowseHome

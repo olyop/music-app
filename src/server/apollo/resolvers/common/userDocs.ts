@@ -18,7 +18,7 @@ export const userDocs = <T>({
 }: Input) =>
 	sql.query<T[]>({
 		sql: SELECT_USER_DOCS,
-		parse: res => sql.parseTable(res),
+		parse: sql.parseTable(),
 		variables: [{
 			key: "userId",
 			value: userId,

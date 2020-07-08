@@ -78,7 +78,7 @@ export const addAlbum =
 
 			const albumInsert: SQLConfig<Album> = {
 				sql: INSERT_ALBUM,
-				parse: res => sql.parseRow(res),
+				parse: sql.parseRow(),
 				variables: [{
 					key: "albumId",
 					value: albumId,

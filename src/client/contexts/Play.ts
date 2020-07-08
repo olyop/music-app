@@ -1,6 +1,6 @@
 import { createContext } from "../helpers"
 
-type PlayContext = {
+interface PlayContext {
 	play: boolean,
 	togglePlay: () => void,
 }

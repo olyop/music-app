@@ -1,7 +1,7 @@
 import { ListStyleEnum } from "../types"
 import { createContext } from "../helpers"
 
-type ListStyleContext = {
+interface ListStyleContext {
 	listStyle: ListStyleEnum,
 	setListStyle: (val: ListStyleEnum) => void,
 }

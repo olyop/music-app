@@ -5,8 +5,8 @@ import "./index.scss"
 
 const bem = createBem("Img")
 
-const Img: FC<PropTypes> = ({ url, children, className, imgClassName }) => (
-	<div className={bem(className, "")}>
+const Img: FC<PropTypes> = ({ url, title, children, className, imgClassName }) => (
+	<div className={bem(className, "")} title={title}>
 		<div
 			className={bem(imgClassName, "img")}
 			style={{ backgroundImage: `url(${url})` }}
@@ -17,6 +17,7 @@ const Img: FC<PropTypes> = ({ url, children, className, imgClassName }) => (
 
 interface PropTypes {
 	url: string,
+	title?: string,
 	className?: BemInput,
 	imgClassName?: BemInput,
 }

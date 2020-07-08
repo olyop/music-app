@@ -1,4 +1,5 @@
-import { toString } from "lodash"
+import toString from "lodash/toString"
+
 import { Doc } from "../types"
 
 export const determineDocType = <T extends Doc, K extends keyof T>(doc: T): string => {

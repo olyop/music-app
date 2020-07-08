@@ -12,6 +12,7 @@ mutation userPlay(
       title
       mix
       duration
+      isCurrent(userId: $userId)
       inLibrary(userId: $userId)
       featuring {
         artistId
@@ -40,6 +41,7 @@ mutation userPlay(
       mix
       title
       duration
+      isCurrent(userId: $userId)
       inLibrary(userId: $userId)
       featuring {
         artistId
@@ -68,6 +70,7 @@ mutation userPlay(
       mix
       title
       duration
+      isCurrent(userId: $userId)
       inLibrary(userId: $userId)
       featuring {
         artistId
@@ -96,6 +99,7 @@ mutation userPlay(
       mix
       title
       duration
+      isCurrent(userId: $userId)
       inLibrary(userId: $userId)
       featuring {
         artistId

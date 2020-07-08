@@ -3,6 +3,7 @@ import {
 	GUIDResolver as Uuid,
 	EmailAddressResolver as Email,
 	PositiveIntResolver as PositiveInt,
+	NonNegativeIntResolver as NonNegativeInt,
 } from "graphql-scalars"
 
 import * as Play from "./Play"
@@ -30,6 +31,7 @@ const resolvers = {
 	Mutation,
 	Playlist,
 	PositiveInt,
+	NonNegativeInt,
 }
 
 export default resolvers

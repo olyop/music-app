@@ -2,32 +2,35 @@ import { createElement, FC } from "react"
 
 import List from "../List"
 import Artist from "../Artist"
+import Helmet from "../Helmet"
 import QueryApi from "../QueryApi"
-import { Artist as TArtist } from "../../types"
+import { Artist as ArtistType } from "../../types"
 import GET_ARTISTS from "../../graphql/queries/artists.gql"
 
 const BrowseArtists: FC = () => (
-	<QueryApi<TData>
-		query={GET_ARTISTS}
-		children={
-			({ artists }) => (
-				<List>
-					{artists.map(
-						artist => (
-							<Artist
-								artist={artist}
-								key={artist.artistId}
-							/>
-						),
-					)}
-				</List>
-			)
-		}
-	/>
+	<Helmet title="Browse Artists">
+		<QueryApi<Data>
+			query={GET_ARTISTS}
+			children={
+				({ artists }) => (
+					<List>
+						{artists.map(
+							artist => (
+								<Artist
+									artist={artist}
+									key={artist.artistId}
+								/>
+							),
+						)}
+					</List>
+				)
+			}
+		/>
+	</Helmet>
 )
 
-type TData = {
-	artists: TArtist[],
+interface Data {
+	artists: ArtistType[],
 }
 
 export default BrowseArtists

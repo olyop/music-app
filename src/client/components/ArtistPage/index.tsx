@@ -1,12 +1,13 @@
-import { isEmpty } from "lodash"
+import isEmpty from "lodash/isEmpty"
 import { createBem } from "@oly_op/bem"
+import { useParams } from "react-router-dom"
 import { createElement, Fragment, FC } from "react"
-import { RouteComponentProps } from "react-router-dom"
 
 import Img from "../Img"
 import List from "../List"
 import Song from "../Song"
 import Album from "../Album"
+import Helmet from "../Helmet"
 import QueryApi from "../QueryApi"
 import { Artist } from "../../types"
 import { determinePlural } from "../../helpers"
@@ -17,16 +18,16 @@ import "./index.scss"
 
 const bem = createBem("ArtistPage")
 
-const ArtistPage: FC<RouteComponentProps> = ({ match }) => (
-	<QueryApi<Data>
+const ArtistPage: FC = () => (
+	<QueryApi<Data, Params>
 		className={bem("")}
 		query={GET_ARTIST_PAGE}
-		variables={match.params}
+		variables={useParams()}
 		children={
 			({ artist }) => {
 				const { name, photo, songs, albums } = artist
 				return (
-					<Fragment>
+					<Helmet title={name}>
 						<Img
 							url={photo}
 							imgClassName={bem("cover-img")}
@@ -89,7 +90,7 @@ const ArtistPage: FC<RouteComponentProps> = ({ match }) => (
 								</Fragment>
 							)}
 						</div>
-					</Fragment>
+					</Helmet>
 				)
 			}
 		}
@@ -98,6 +99,10 @@ const ArtistPage: FC<RouteComponentProps> = ({ match }) => (
 
 interface Data {
 	artist: Artist,
+}
+
+interface Params {
+	artistId: string,
 }
 
 export default ArtistPage

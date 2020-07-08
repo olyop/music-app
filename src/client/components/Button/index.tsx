@@ -1,5 +1,5 @@
 import { createElement, FC } from "react"
-import { createBem, BemInputType } from "@oly_op/bem"
+import { createBem, BemInput } from "@oly_op/bem"
 
 import Icon from "../Icon"
 
@@ -23,7 +23,7 @@ interface PropTypes {
 	icon?: string,
 	text?: string,
 	onClick?: () => void,
-	className?: BemInputType,
+	className?: BemInput,
 }
 
 export default Button

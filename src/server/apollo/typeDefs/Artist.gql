@@ -3,8 +3,8 @@ type Artist {
   artistId: Uuid!
   songs: [Song!]!
   albums: [Album!]!
-  numOfSongs: PositiveInt!
-  numOfAlbums: PositiveInt!
+  numOfSongs: NonNegativeInt!
+  numOfAlbums: NonNegativeInt!
   plays(userId: Uuid!): [Play!]
   inLibrary(userId: Uuid!): Boolean!
   dateAdded(userId: Uuid!): PositiveInt

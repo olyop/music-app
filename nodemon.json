@@ -1,6 +1,6 @@
 {
 	"verbose": false,
 	"watch": ["dist"],
-	"ignore": ["dist/build"],
-	"ext": "json,gql,sql,ts,env,html"
+	"ext": "gql,sql,js",
+	"ignore": ["src/*", "dist/build/*"]
 }

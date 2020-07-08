@@ -53,6 +53,7 @@
 	"files.exclude": {
 		// ".vscode/": true,
 		"node_modules/": true,
+		"dist": true,
 		".env": true
 	}
 }

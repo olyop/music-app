@@ -56,7 +56,7 @@ export const songs =
 		({ parent }) => (
 			artistSongs(
 				parent.artistId,
-				res => sql.parseTable(res),
+				sql.parseTable(),
 			)
 		),
 	)
@@ -71,7 +71,7 @@ export const numOfSongs =
 		),
 	)
 
-export const artistAlbums = <T>(artistId: string, parse: (res: QueryResult) => T) =>
+const artistAlbums = <T>(artistId: string, parse: (res: QueryResult) => T) =>
 	sql.query({
 		sql: SELECT_ARTIST_ALBUMS,
 		parse,
@@ -90,7 +90,7 @@ export const albums =
 		({ parent }) => (
 			artistAlbums(
 				parent.artistId,
-				res => sql.parseTable(res),
+				sql.parseTable(),
 			)
 		),
 	)
@@ -110,7 +110,7 @@ export const plays =
 		({ parent, args }) => (
 			sql.query({
 				sql: SELECT_USER_DOC_PLAYS,
-				parse: res => sql.parseTable(res),
+				parse: sql.parseTable(),
 				variables: [{
 					key: "userId",
 					value: args.userId,

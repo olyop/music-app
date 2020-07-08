@@ -17,8 +17,8 @@ const UserControls: FC<PropTypes> = ({ className, iconClassName }) => {
 	const { play, togglePlay } = usePlayContext()
 
 	const variables = { userId }
-	const [userPrev] = useMutation(USER_PREV, { variables })
-	const [userNext] = useMutation(USER_NEXT, { variables })
+	const [ userPrev ] = useMutation(USER_PREV, { variables })
+	const [ userNext ] = useMutation(USER_NEXT, { variables })
 
 	const handlePrevClick = () => userPrev()
 	const handlePlayClick = () => togglePlay()
@@ -45,7 +45,7 @@ const UserControls: FC<PropTypes> = ({ className, iconClassName }) => {
 	)
 }
 
-type PropTypes = {
+interface PropTypes {
 	className?: BemInput,
 	iconClassName?: BemInput,
 }

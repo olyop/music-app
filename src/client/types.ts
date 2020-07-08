@@ -108,10 +108,3 @@ export interface ParseSongs {
 	album: Album,
 	songs: Song[],
 }
-
-export interface Queue {
-	prev: Song[],
-	next: Song[],
-	queue: Song[],
-	current: Song,
-}

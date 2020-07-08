@@ -1,4 +1,4 @@
-import { toString } from "lodash"
+import toString from "lodash/toString"
 import { createElement, FC } from "react"
 
 import Item from "../Item"

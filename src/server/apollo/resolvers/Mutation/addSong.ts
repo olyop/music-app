@@ -127,7 +127,7 @@ export const addSong =
 
 			const songInsert: SQLConfig<Song> = {
 				sql: INSERT_SONG,
-				parse: res => sql.parseRow(res),
+				parse: sql.parseRow(),
 				variables: [{
 					key: "mix",
 					value: song.mix,

@@ -3,10 +3,6 @@ import { User, UserArgs } from "../../../types"
 import { UPDATE_USER_PLAY } from "../../../sql"
 import { sql, createResolver } from "../../../helpers"
 
-interface Args extends UserArgs {
-	songId: string,
-}
-
 const resolver =
 	createResolver()
 
@@ -15,13 +11,13 @@ export const userPlay =
 		({ args }) => (
 			sql.query({
 				sql: UPDATE_USER_PLAY,
-				parse: res => sql.parseRow(res),
+				parse: sql.parseRow(),
 				variables: [{
 					key: "userId",
 					value: args.userId,
 				},{
 					key: "songId",
-					value: args.songId,
+					value: args.docId,
 				},{
 					string: false,
 					key: "columnNames",
@@ -30,3 +26,7 @@ export const userPlay =
 			})
 		),
 	)
+
+interface Args extends UserArgs {
+	docId: string,
+}

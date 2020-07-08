@@ -1,6 +1,6 @@
 import { createContext } from "../helpers"
 
-type SidebarContext = {
+interface SidebarContext {
 	sidebar: boolean,
 	toggleSidebar: () => void,
 }

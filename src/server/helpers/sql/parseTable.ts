@@ -5,5 +5,5 @@ import { pipe } from "@oly_op/pipe"
 import { resRows } from "./resRows"
 import { convertToCamelCase } from "../resolver"
 
-export const parseTable = <T>(res: QueryResult): T[] =>
-	pipe(resRows, map(row => convertToCamelCase<T>(row)))(res)
+export const parseTable = <T>() => (res: QueryResult): T[] =>
+	pipe(resRows, map(convertToCamelCase<T>()))(res)

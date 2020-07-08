@@ -2,10 +2,11 @@
 	"compilerOptions": {
 		"jsx": "react",
 		"strict": true,
+		"allowJs": true,
 		"outDir": "dist",
 		"target": "ESNext",
-		"module": "ESNext",
 		"sourceMap": true,
+		"module": "CommonJS",
 		"removeComments": true,
 		"noUnusedLocals": true,
 		"esModuleInterop": true,

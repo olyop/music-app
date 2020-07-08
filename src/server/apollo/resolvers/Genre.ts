@@ -28,7 +28,7 @@ export const songs =
 		({ parent }) => (
 			genreSongs(
 				parent.genreId,
-				res => sql.parseTable(res),
+				sql.parseTable(),
 			)
 		),
 	)
@@ -48,7 +48,7 @@ export const plays =
 		({ parent, args }) => (
 			sql.query({
 				sql: SELECT_USER_DOC_PLAYS,
-				parse: res => sql.parseTable(res),
+				parse: sql.parseTable(),
 				variables: [{
 					key: "userId",
 					value: args.userId,

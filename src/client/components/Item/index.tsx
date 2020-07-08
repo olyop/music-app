@@ -10,8 +10,7 @@ import { determineDocPath, determineDocName, determineDocPhoto } from "../../hel
 
 import "./index.scss"
 
-const determineInLibrary = (inLib: boolean, _doc: Doc): _doc is UserDoc =>
-	inLib
+const determineInLibrary = (inLib: boolean, _doc: Doc): _doc is UserDoc => inLib
 
 const bem = createBem("Item")
 

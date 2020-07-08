@@ -20,6 +20,7 @@ query albumPage(
       duration
       discNumber
       trackNumber
+      isCurrent(userId: $userId)
       inLibrary(userId: $userId)
       featuring {
         artistId

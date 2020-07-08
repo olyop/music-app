@@ -1,6 +1,4 @@
-/* eslint-disable @typescript-eslint/comma-spacing */
-
-import { uniqueId } from "lodash"
+import uniqueId from "lodash/uniqueId"
 
 import { Route } from "../../types"
 import BrowseHome from "./BrowseHome"

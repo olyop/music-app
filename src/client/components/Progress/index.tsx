@@ -1,8 +1,9 @@
-import { isUndefined, isNull } from "lodash"
-import Slider from "@material-ui/core/Slider"
+import isNull from "lodash/isNull"
+import isUndefined from "lodash/isUndefined"
 import { createBem, BemInput } from "@oly_op/bem"
-import { createElement, useState, FC, ChangeEvent } from "react"
+import { createElement, useState, FC } from "react"
 
+import Slider from "../Slider"
 import QueryApi from "../QueryApi"
 import { User } from "../../types"
 import { deserializeDuration } from "../../helpers"
@@ -17,10 +18,7 @@ const determineDuration = (data: { user: User } | undefined) =>
 		0 : data.user.current.duration)
 
 const Progress: FC<PropTypes> = ({ className }) => {
-	const [ current, setCurrent ] =
-		useState(0)
-	const handleChange = (event: ChangeEvent<{ value: number }>) =>
-		setCurrent(event.target.value)
+	const [ current, setCurrent ] = useState(0)
 	return (
 		<QueryApi<Data>
 			spinner={false}
@@ -31,17 +29,11 @@ const Progress: FC<PropTypes> = ({ className }) => {
 					return (
 						<div className={bem(className, "")}>
 							<p className="Text">{deserializeDuration(current)}</p>
-							<div className={bem("slider")}>
-								<Slider
-									min={0}
-									step={1}
-									max={duration}
-									value={current}
-									// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-									// @ts-ignore
-									onChange={handleChange}
-								/>
-							</div>
+							<Slider
+								val={0.8}
+								onChange={setCurrent}
+								className={bem("slider")}
+							/>
 							<p className="Text">{deserializeDuration(duration)}</p>
 						</div>
 					)

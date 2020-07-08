@@ -9,7 +9,7 @@ export const userPrev =
 		() => (
 			sql.query({
 				sql: UPDATE_USER_PREV,
-				parse: res => sql.parseRow(res),
+				parse: sql.parseRow(),
 			})
 		),
 	)

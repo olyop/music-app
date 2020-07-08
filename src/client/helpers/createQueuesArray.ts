@@ -1,9 +1,9 @@
-import { uniqueId } from "lodash"
+import uniqueId from "lodash/uniqueId"
 
-import { Queue } from "../types"
+import { User } from "../types"
 
 export const createQueuesArray =
-	({ prev, current, next, queue }: Queue) => [{
+	({ prev, current, next, queue }: User) => [{
 		id: uniqueId(),
 		key: "prev",
 		name: "Previous",
@@ -12,7 +12,7 @@ export const createQueuesArray =
 		id: uniqueId(),
 		key: "current",
 		name: "Playing",
-		songs: [current],
+		songs: current ? [current] : [],
 	},{
 		id: uniqueId(),
 		key: "next",

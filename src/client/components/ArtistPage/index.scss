@@ -4,12 +4,13 @@
 		height: 30vh;
 		&-img {
 			filter: blur(1px);
-			background-position: top; } 
+			background-position: top; }
 		&-content {
 			left: 0;
 			bottom: 0;
 			z-index: 2;
 			position: absolute;
+			margin-bottom: calc(var(--space) * 0.2);
 			&-name,
 			&-stats {
 				color: var(--text-color-white); }

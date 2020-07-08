@@ -1,5 +1,5 @@
 SELECT
-  nullif(current, {{ songId }}) AS isCurrent
+  nullif(current, nullif(current, {{ songId }})) AS is_current
 FROM
   users
 WHERE

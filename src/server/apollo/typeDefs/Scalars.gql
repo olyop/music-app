@@ -3,3 +3,4 @@ scalar Json
 scalar Email
 scalar Upload
 scalar PositiveInt
+scalar NonNegativeInt

@@ -47,7 +47,7 @@ export const addGenre =
 
 			return sql.query<Genre>({
 				sql: INSERT_GENRE,
-				parse: res => sql.parseRow(res),
+				parse: sql.parseRow(),
 				variables: [{
 					key: "genreId",
 					value: uuid(),

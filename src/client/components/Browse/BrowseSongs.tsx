@@ -1,18 +1,19 @@
-import { createElement, FC, Fragment } from "react"
+import { createElement, FC } from "react"
 
 import Song from "../Song"
+import Helmet from "../Helmet"
 import QueryApi from "../QueryApi"
-import { Song as TSong } from "../../types"
+import { Song as SongType } from "../../types"
 import GET_SONGS from "../../graphql/queries/songs.gql"
 
 const BrowseSongs: FC = () => (
-	<QueryApi<TData>
-		query={GET_SONGS}
-		className="Elevated"
-		children={
-			({ songs }) => (
-				<Fragment>
-					{songs.map(
+	<Helmet title="Browse Songs">
+		<QueryApi<Data>
+			query={GET_SONGS}
+			className="Elevated"
+			children={
+				({ songs }) => (
+					songs.map(
 						song => (
 							<Song
 								song={song}
@@ -20,15 +21,15 @@ const BrowseSongs: FC = () => (
 								className="PaddingHalf Hover ItemBorder"
 							/>
 						),
-					)}
-				</Fragment>
-			)
-		}
-	/>
+					)
+				)
+			}
+		/>
+	</Helmet>
 )
 
-type TData = {
-	songs: TSong[],
+interface Data {
+	songs: SongType[],
 }
 
 export default BrowseSongs

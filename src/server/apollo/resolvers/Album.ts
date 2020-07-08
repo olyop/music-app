@@ -36,7 +36,7 @@ const albumSongs = <T = Song[]>(parse: (songs: Song[]) => T = identity) =>
 		({ parent }) => (
 			sql.query({
 				sql: SELECT_ALBUM_SONGS,
-				parse: pipe(sql.parseTable, parse),
+				parse: pipe(sql.parseTable(), parse),
 				variables: [{
 					key: "albumId",
 					value: parent.albumId,
@@ -77,7 +77,7 @@ export const artists =
 		({ parent }) => (
 			sql.query({
 				sql: SELECT_ALBUM_ARTISTS,
-				parse: res => sql.parseTable(res),
+				parse: sql.parseTable(),
 				variables: [{
 					key: "albumId",
 					value: parent.albumId,
@@ -95,7 +95,7 @@ export const plays =
 		({ parent, args }) => (
 			sql.query({
 				sql: SELECT_USER_ALBUM_PLAYS,
-				parse: res => sql.parseTable(res),
+				parse: sql.parseTable(),
 				variables: [{
 					key: "userId",
 					value: args.userId,

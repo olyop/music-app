@@ -3,7 +3,6 @@ import { useMutation } from "@apollo/react-hooks"
 import { createBem, BemInput } from "@oly_op/bem"
 
 import Icon from "../Icon"
-import ApiError from "../ApiError"
 import { User, Doc, Song } from "../../types"
 import { determineDocId } from "../../helpers"
 import { useUserContext } from "../../contexts/User"
@@ -19,14 +18,22 @@ const PlayButton: FC<PropTypes> = ({ doc, className }) => {
 	const userId = useUserContext()
 	const { play, togglePlay } = usePlayContext()
 
-	const [ userPlay, { error } ] =
-		useMutation<User, Variables>(USER_PLAY, { variables: { userId, docId } })
+	const [ userPlay ] =
+		useMutation<Data, Variables>(
+			USER_PLAY,
+			{ variables: { userId, docId } },
+		)
 
-	if (error) {
-		return <ApiError error={error}/>
+	const handleClick = () => {
+		if (isCurrent) {
+			togglePlay()
+		} else {
+			userPlay()
+				.then(togglePlay)
+				.catch(console.error)
+		}
 	}
 
-	const handleClick = () => (isCurrent ? togglePlay : userPlay)()
 	const icon = isCurrent && play ? "pause" : "play_arrow"
 
 	return (
@@ -39,14 +46,18 @@ const PlayButton: FC<PropTypes> = ({ doc, className }) => {
 	)
 }
 
-interface Variables {
-	docId: string,
-	userId: string,
-}
-
 interface PropTypes {
 	doc: Doc | Song,
 	className?: BemInput,
+}
+
+interface Data {
+	userPlay: User,
+}
+
+interface Variables {
+	docId: string,
+	userId: string,
 }
 
 export default PlayButton

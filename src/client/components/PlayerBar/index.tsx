@@ -1,15 +1,14 @@
-// import { isNull } from "lodash"
 import { createBem } from "@oly_op/bem"
 import { createElement, FC } from "react"
-// import { NavLink } from "react-router-dom"
+import { NavLink } from "react-router-dom"
 
-// import Icon from "../Icon"
-// import Song from "../Song"
-// import QueryApi from "../QueryApi"
-// import Progress from "../Progress"
-// import { User } from "../../types"
+import Icon from "../Icon"
+import Song from "../Song"
+import QueryApi from "../QueryApi"
+import Progress from "../Progress"
+import { User } from "../../types"
 import UserControls from "../UserControls"
-// import GET_USER_CURRENT from "../../graphql/queries/userCurrent.gql"
+import GET_USER_CURRENT from "../../graphql/queries/userCurrent.gql"
 
 import "./index.scss"
 
@@ -21,8 +20,8 @@ const PlayerBar: FC = () => (
 			className={bem("controls")}
 			iconClassName={bem("icon")}
 		/>
-		{/* <div className={bem("main")}>
-			<QueryApi<TData>
+		<div className={bem("main")}>
+			<QueryApi<Data>
 				query={GET_USER_CURRENT}
 				children={
 					({ user }) => (
@@ -53,7 +52,7 @@ const PlayerBar: FC = () => (
 									)}
 								/>
 							</div>
-							{isNull(user.current) ? null : (
+							{user.current && (
 								<Song
 									showPlay={false}
 									showRight={false}
@@ -67,12 +66,12 @@ const PlayerBar: FC = () => (
 				}
 			/>
 			<Progress/>
-		</div> */}
+		</div>
 	</footer>
 )
 
-// type TData = {
-// 	user: User,
-// }
+interface Data {
+	user: User,
+}
 
 export default PlayerBar

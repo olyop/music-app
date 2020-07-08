@@ -1,4 +1,4 @@
-import { toString } from "lodash"
+import toString from "lodash/toString"
 
 import { Doc } from "../types"
 

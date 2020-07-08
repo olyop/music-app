@@ -1,7 +1,8 @@
-import { upperFirst } from "lodash"
 import { createBem } from "@oly_op/bem"
-import { createElement, FC, Fragment, ChangeEventHandler } from "react"
+import upperFirst from "lodash/upperFirst"
+import { createElement, FC, ChangeEventHandler } from "react"
 
+import Helmet from "../Helmet"
 import QueryApi from "../QueryApi"
 import { ListStyleEnum, User } from "../../types"
 import GET_USER from "../../graphql/queries/user.gql"
@@ -22,9 +23,13 @@ const UserPage: FC = () => {
 			className={bem("", "Padding")}
 			children={
 				({ user }) => (
-					<Fragment>
-						<h1 className={bem("name", "MarginBottom")}>{user.name}</h1>
-						<h3 className={bem("option-text")}>List Style</h3>
+					<Helmet title={user.name}>
+						<h1 className={bem("name", "MarginBottom")}>
+							{user.name}
+						</h1>
+						<h3 className={bem("option-text")}>
+							List Style
+						</h3>
 						<select
 							className={bem("select")}
 							value={listStyle || "grid"}
@@ -41,7 +46,7 @@ const UserPage: FC = () => {
 								children={upperFirst(ListStyleEnum.list)}
 							/>
 						</select>
-					</Fragment>
+					</Helmet>
 				)
 			}
 		/>

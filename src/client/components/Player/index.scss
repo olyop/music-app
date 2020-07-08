@@ -1,47 +1,47 @@
 .Player {
-  top: 0;
-  left: 0;
-  z-index: 99;
-  width: 100vw;
-  height: 100vh;
-  position: absolute;
-  &__main,
-  &__spinner {
-    top: 50%;
-    left: 50%;
-    position: absolute;
-    transform: translate(-50%, -54%); }
-  &__close {
-    --font-size: 40rem;
-    --padding: calc(var(--space) * 0.5);
-    --height: calc(var(--font-size) + var(--padding) * 2);
-    top: 0;
-    left: 0;
-    position: absolute;
-    border-radius: 100%;
-    width: var(--height);
-    height: var(--height);
-    margin: var(--padding);
-    color: var(--text-color);
-    font-size: var(--font-size); }
-  &__main {
-    width: 50vw;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    &-cover {
-      width: 100%;
-      margin-bottom: calc(var(--space) * 2); }
-    &-text {
-      text-align: center;
-      margin-bottom: calc(var(--space) * 0.5); }
-    &-title {
-      font-size: 25rem;
-      font-weight: 700; }
-    &-album {
-      font-size: 20rem;
-      font-weight: 500; }
-    &-artists {
-      font-size: 20rem;
-      font-weight: 400;
-      margin-bottom: calc(var(--space) * 2.25); } } }
+	top: 0;
+	left: 0;
+	z-index: 99;
+	width: 100vw;
+	height: 100vh;
+	position: absolute;
+	&__main,
+	&__spinner {
+		top: 50%;
+		left: 50%;
+		position: absolute;
+		transform: translate(-50%, -54%); }
+	&__close {
+		--font-size: 40rem;
+		--padding: calc(var(--space) * 0.5);
+		--height: calc(var(--font-size) + var(--padding) * 2);
+		top: 0;
+		left: 0;
+		position: absolute;
+		border-radius: 100%;
+		width: var(--height);
+		height: var(--height);
+		margin: var(--padding);
+		color: var(--text-color);
+		font-size: var(--font-size); }
+	&__main {
+		width: 50vw;
+		display: flex;
+		align-items: center;
+		flex-direction: column;
+		&-cover {
+			width: 100%;
+			margin-bottom: calc(var(--space) * 2); }
+		&-text {
+			text-align: center;
+			margin-bottom: calc(var(--space) * 0.5); }
+		&-title {
+			font-size: 25rem;
+			font-weight: 700; }
+		&-album {
+			font-size: 20rem;
+			font-weight: 500; }
+		&-artists {
+			font-size: 20rem;
+			font-weight: 400;
+			margin-bottom: calc(var(--space) * 2.25); } } }

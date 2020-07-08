@@ -29,7 +29,7 @@ export const current =
 			isNull(parent.current) ? null : (
 				sql.query({
 					sql: SELECT_SONG,
-					parse: res => sql.parseRow(res),
+					parse: sql.parseRow(),
 					variables: [{
 						key: "songId",
 						value: parent.current,
@@ -48,7 +48,7 @@ export const prev =
 		({ parent }) => (
 			sql.query({
 				sql: SELECT_SONGS_IN,
-				parse: res => sql.parseTable(res),
+				parse: sql.parseTable(),
 				variables: [{
 					key: "userId",
 					value: parent.userId,
@@ -70,7 +70,7 @@ export const next =
 		({ parent }) => (
 			sql.query({
 				sql: SELECT_SONGS_IN,
-				parse: res => sql.parseTable(res),
+				parse: sql.parseTable(),
 				variables: [{
 					key: "userId",
 					value: parent.userId,
@@ -92,7 +92,7 @@ export const queue =
 		({ parent }) => (
 			sql.query({
 				sql: SELECT_SONGS_IN,
-				parse: res => sql.parseTable(res),
+				parse: sql.parseTable(),
 				variables: [{
 					key: "userId",
 					value: parent.userId,
@@ -114,7 +114,7 @@ export const plays =
 		({ parent }) => (
 			sql.query({
 				sql: SELECT_USER_PLAYS,
-				parse: res => sql.parseTable(res),
+				parse: sql.parseTable(),
 				variables: [{
 					key: "userId",
 					value: parent.userId,

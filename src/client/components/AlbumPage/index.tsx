@@ -1,10 +1,10 @@
-import { Helmet } from "react-helmet"
 import { createBem } from "@oly_op/bem"
+import { useParams } from "react-router-dom"
 import { createElement, Fragment, FC } from "react"
-import { RouteComponentProps } from "react-router-dom"
 
 import Disc from "../Disc"
 import Cover from "../Cover"
+import Helmet from "../Helmet"
 import Button from "../Button"
 import QueryApi from "../QueryApi"
 import DocLinks from "../DocLinks"
@@ -18,19 +18,17 @@ import "./index.scss"
 
 const bem = createBem("AlbumPage")
 
-const AlbumPage: FC<RouteComponentProps> = ({ match }) => (
-	<QueryApi<Data>
+const AlbumPage: FC = () => (
+	<QueryApi<Data, Params>
+		variables={useParams()}
 		query={QUERY_ALBUM_PAGE}
-		variables={match.params}
 		className={bem("", "Padding")}
 		children={
 			({ album }) => {
 				const { title, songs, released, artists, totalDuration } = album
+				const discs = determineDiscs(songs)
 				return (
-					<Fragment>
-						<Helmet>
-							<title>{title}</title>
-						</Helmet>
+					<Helmet title={title}>
 						<div>
 							<Cover
 								url={album.cover}
@@ -55,11 +53,7 @@ const AlbumPage: FC<RouteComponentProps> = ({ match }) => (
 								<DocLinks docs={artists}/>
 							</h2>
 							<div className={bem("discs", "MarginBottom")}>
-								{determineDiscs(songs).map(
-									disc => (
-										<Disc key={disc.number} disc={disc}/>
-									),
-								)}
+								{discs.map(disc => <Disc key={disc.number} disc={disc}/>)}
 							</div>
 							<p className={bem("footer-text")}>
 								{deserializeDuration(totalDuration, true)}
@@ -67,7 +61,7 @@ const AlbumPage: FC<RouteComponentProps> = ({ match }) => (
 								{deserializeDate(released)}
 							</p>
 						</div>
-					</Fragment>
+					</Helmet>
 				)
 			}
 		}
@@ -76,6 +70,10 @@ const AlbumPage: FC<RouteComponentProps> = ({ match }) => (
 
 interface Data {
 	album: Album,
+}
+
+interface Params {
+	albumId: string,
 }
 
 export default AlbumPage

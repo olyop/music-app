@@ -12,14 +12,14 @@ import {
 } from "@oly_op/music-app-common"
 
 export enum ImgSizeEnum {
-	MINI,
-	HALF,
-	FULL,
+	MINI = "MINI",
+	HALF = "HALF",
+	FULL = "FULL",
 }
 
 export enum ImgFormat {
-	JPG,
-	MP3,
+	JPG = "JPG",
+	MP3 = "MP3",
 }
 
 export type SQLVariable = {

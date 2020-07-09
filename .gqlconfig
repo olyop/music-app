@@ -5,8 +5,12 @@
 	query: {
 		files: [
 			{
-				match: 'src/client/graphql/**/*.gql',
 				parser: 'QueryParser',
+				match: 'src/client/graphql/queries/*.gql',
+			},
+			{
+				parser: 'QueryParser',
+				match: 'src/client/graphql/mutations/*.gql',
 			}
 		]
 	}

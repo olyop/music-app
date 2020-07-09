@@ -1,5 +1,5 @@
 import { createElement, FC } from "react"
-import { useMutation } from "@apollo/react-hooks"
+import { useMutation } from "@apollo/client"
 import { createBem, BemInput } from "@oly_op/bem"
 
 import Icon from "../Icon"

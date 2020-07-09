@@ -8,11 +8,11 @@ import GET_SONG_PLAYS from "../../graphql/queries/songPlays.gql"
 import "./index.scss"
 
 const PlaysPage: FC = () => (
-	<QueryApi<Data>
+	<QueryApi
 		className="PlaysPage"
 		query={GET_SONG_PLAYS}
 		children={
-			({ song }) => (
+			({ song }: Data) => (
 				<Fragment>
 					{song.plays.map(
 						play => (

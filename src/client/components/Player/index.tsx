@@ -20,12 +20,12 @@ import "./index.scss"
 const bem = createBem("Player")
 
 const Player: FC<RouteComponentProps> = ({ history }) => (
-	<QueryApi<Data>
+	<QueryApi
 		query={GET_USER_CURRENT}
 		className={bem("", "Elevated")}
 		spinnerClassName={bem("spinner")}
 		children={
-			({ user }) => (
+			({ user }: Data) => (
 				<Fragment>
 					<Icon
 						icon="close"

@@ -1,8 +1,7 @@
 .GenrePage {
-	&__name {
-		font-size: 30rem;
-		text-align: center;
-		background: #6190e8;
-		box-shadow: var(--box-shadow);
-		padding: calc(var(--space) * 1.5);
-		background: linear-gradient(to right, #ada996, #f2f2f2, #dbdbdb, #eaeaea); } }
+	font-size: 30rem;
+	text-align: center;
+	background: #6190e8;
+	box-shadow: var(--box-shadow);
+	padding: calc(var(--space) * 1.5);
+	background: linear-gradient(to right, #ada996, #f2f2f2, #dbdbdb, #eaeaea); }

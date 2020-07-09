@@ -1,4 +1,4 @@
-import { IdGetterObj } from "apollo-cache-inmemory"
+import { IdGetterObj } from "@apollo/client"
 
 import { Doc } from "../types"
 import { determineDocId } from "./determineDocId"

@@ -9,10 +9,10 @@ import GET_USER_ALBUMS from "../../graphql/queries/userAlbums.gql"
 
 const LibraryAlbums: FC = () => (
 	<Helmet title="Library Albums">
-		<QueryApi<User>
+		<QueryApi
 			query={GET_USER_ALBUMS}
 			children={
-				({ albums }) => (
+				({ user: { albums } }: Data) => (
 					<List>
 						{albums.map(
 							album => (
@@ -28,5 +28,9 @@ const LibraryAlbums: FC = () => (
 		/>
 	</Helmet>
 )
+
+interface Data {
+	user: User,
+}
 
 export default LibraryAlbums

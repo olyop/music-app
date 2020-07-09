@@ -10,10 +10,10 @@ import GET_USER_ARTISTS from "../../graphql/queries/userArtists.gql"
 
 const LibraryArtists: FC = () => (
 	<Helmet title="Library Artists">
-		<QueryApi<User>
+		<QueryApi
 			query={GET_USER_ARTISTS}
 			children={
-				({ artists }) => (
+				({ user: { artists } }: Data) => (
 					<List>
 						{orderBy(artists, "dateAdded", "desc").map(
 							artist => (
@@ -29,5 +29,9 @@ const LibraryArtists: FC = () => (
 		/>
 	</Helmet>
 )
+
+interface Data {
+	user: User,
+}
 
 export default LibraryArtists

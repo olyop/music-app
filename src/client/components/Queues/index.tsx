@@ -14,11 +14,11 @@ import "./index.scss"
 const bem = createBem("Queues")
 
 const Queues: FC = () => (
-	<QueueApi<Data>
+	<QueueApi
 		className={bem("")}
 		query={GET_USER_QUEUES}
 		children={
-			({ user }) => (
+			({ user }: Data) => (
 				createQueuesArray(user).map(
 					queue => (
 						isNull(queue.songs[0]) || isEmpty(queue.songs) ? null : (

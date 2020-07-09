@@ -1,6 +1,6 @@
 import { createBem } from "@oly_op/bem"
-import { createElement, FC } from "react"
 import { NavLink } from "react-router-dom"
+import { createElement, Fragment, FC } from "react"
 
 import Icon from "../Icon"
 import Song from "../Song"
@@ -21,11 +21,12 @@ const PlayerBar: FC = () => (
 			iconClassName={bem("icon")}
 		/>
 		<div className={bem("main")}>
-			<QueryApi<Data>
+			<QueryApi
 				query={GET_USER_CURRENT}
+				className={bem("main-info")}
 				children={
-					({ user }) => (
-						<div className={bem("main-info")}>
+					({ user }: Data) => (
+						<Fragment>
 							<div className={bem("main-info-controls")}>
 								<NavLink className={bem("main-info-controls-control")} to="/player">
 									<Icon
@@ -61,7 +62,7 @@ const PlayerBar: FC = () => (
 									className={bem("main-info-current")}
 								/>
 							)}
-						</div>
+						</Fragment>
 					)
 				}
 			/>

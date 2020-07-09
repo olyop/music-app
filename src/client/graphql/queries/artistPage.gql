@@ -5,6 +5,7 @@ query artistPage(
   artist(artistId: $artistId) {
     artistId
     name
+    numOfPlays
     photo(size: FULL)
     inLibrary(userId: $userId)
     songs {

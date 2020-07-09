@@ -14,11 +14,11 @@ import "./index.scss"
 const bem = createBem("BrowseHome")
 
 const BrowseHome: FC = () => (
-	<QueryApi<Data>
+	<QueryApi
 		query={QUERY_BROWSE}
 		className={bem("")}
 		children={
-			({ newAlbums, topTenSongs }) => (
+			({ newAlbums, topTenSongs }: Data) => (
 				<Helmet title="Browse">
 					<div className={bem("newAlbums")}>
 						<h2 className={bem("heading")}>New Albums</h2>

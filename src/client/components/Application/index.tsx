@@ -6,6 +6,7 @@ import PlayerBar from "../PlayerBar"
 import { ListStyleEnum } from "../../types"
 import { useLocalStorage } from "../../helpers"
 import { PlayProvider } from "../../contexts/Play"
+import { CurrentProvider } from "../../contexts/Current"
 import { SidebarProvider } from "../../contexts/Sidebar"
 import { ListStyleProvider } from "../../contexts/ListStyle"
 
@@ -13,6 +14,7 @@ import "./index.scss"
 
 const Application: FC = () => {
 	const [ play, setPlay ] = useState(false)
+	const [ current, setCurrent ] = useState(0)
 	const [ sidebar, setSidebar ] = useLocalStorage("sidebar", false)
 	const [ listStyle, setListStyle ] = useLocalStorage("listStyle", ListStyleEnum.grid)
 
@@ -29,13 +31,15 @@ const Application: FC = () => {
 
 	return (
 		<PlayProvider value={{ play, togglePlay }}>
-			<SidebarProvider value={{ sidebar, toggleSidebar }}>
-				<ListStyleProvider value={{ listStyle, setListStyle }}>
-					<Header/>
-					<Pages/>
-					<PlayerBar/>
-				</ListStyleProvider>
-			</SidebarProvider>
+			<CurrentProvider value={{ current, setCurrent }}>
+				<SidebarProvider value={{ sidebar, toggleSidebar }}>
+					<ListStyleProvider value={{ listStyle, setListStyle }}>
+						<Header/>
+						<Pages/>
+						<PlayerBar/>
+					</ListStyleProvider>
+				</SidebarProvider>
+			</CurrentProvider>
 		</PlayProvider>
 	)
 }

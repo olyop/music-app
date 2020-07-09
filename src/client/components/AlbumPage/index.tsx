@@ -19,12 +19,12 @@ import "./index.scss"
 const bem = createBem("AlbumPage")
 
 const AlbumPage: FC = () => (
-	<QueryApi<Data, Params>
-		variables={useParams()}
+	<QueryApi
 		query={QUERY_ALBUM_PAGE}
 		className={bem("", "Padding")}
+		variables={useParams<Params>()}
 		children={
-			({ album }) => {
+			({ album }: Data) => {
 				const { title, songs, released, artists, totalDuration } = album
 				const discs = determineDiscs(songs)
 				return (
@@ -72,7 +72,7 @@ interface Data {
 	album: Album,
 }
 
-interface Params {
+interface Params extends Record<string, string> {
 	albumId: string,
 }
 

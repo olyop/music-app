@@ -18,11 +18,11 @@ const UserPage: FC = () => {
 	const handleSelectChange: ChangeEventHandler<HTMLSelectElement> = event =>
 		setListStyle(event.target.value as ListStyleEnum)
 	return (
-		<QueryApi<Data>
+		<QueryApi
 			query={GET_USER}
 			className={bem("", "Padding")}
 			children={
-				({ user }) => (
+				({ user }: Data) => (
 					<Helmet title={user.name}>
 						<h1 className={bem("name", "MarginBottom")}>
 							{user.name}

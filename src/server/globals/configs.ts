@@ -1,3 +1,7 @@
+import { PoolConfig } from "pg"
+import { CorsOptions } from "cors"
+import { ApolloServerExpressConfig, GetMiddlewareOptions } from "apollo-server-express"
+
 import {
 	HOST,
 	PORT,
@@ -10,11 +14,11 @@ import {
 	AWS_RDS_PASSWORD,
 } from "./environment"
 
-export const CORS_CONFIG = {
+export const CORS_CONFIG: CorsOptions = {
 	origin: NODE_ENV === "production" ? `http://${HOST}:${PORT}/` : "*",
 }
 
-export const PG_CONFIG = {
+export const PG_CONFIG: PoolConfig = {
 	port: AWS_RDS_PORT,
 	user: AWS_RDS_USER,
 	database: AWS_RDS_DB,
@@ -22,16 +26,14 @@ export const PG_CONFIG = {
 	password: AWS_RDS_PASSWORD,
 }
 
-export const APOLLO_MIDDLEWARE_CONFIG = {
+export const APOLLO_MIDDLEWARE_CONFIG: GetMiddlewareOptions = {
 	cors: false,
-	debug: true,
 	path: "/graphql",
-	subscriptions: false,
 	bodyParserConfig: false,
 }
 
-export const APOLLO_SERVER_CONFIG = {
-	playground: true,
+export const APOLLO_SERVER_CONFIG: ApolloServerExpressConfig = {
 	introspection: true,
 	engine: { apiKey: APOLLO_KEY },
+	playground: { settings: { "editor.theme": "light" } },
 }

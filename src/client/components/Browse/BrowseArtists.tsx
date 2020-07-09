@@ -9,10 +9,10 @@ import GET_ARTISTS from "../../graphql/queries/artists.gql"
 
 const BrowseArtists: FC = () => (
 	<Helmet title="Browse Artists">
-		<QueryApi<Data>
+		<QueryApi
 			query={GET_ARTISTS}
 			children={
-				({ artists }) => (
+				({ artists }: Data) => (
 					<List>
 						{artists.map(
 							artist => (

@@ -10,10 +10,10 @@ import GET_USER_GENRES from "../../graphql/queries/userGenres.gql"
 
 const LibraryGenres: FC = () => (
 	<Helmet title="Library Genres">
-		<QueryApi<User>
+		<QueryApi
 			query={GET_USER_GENRES}
 			children={
-				({ genres }) => (
+				({ user: { genres } }: Data) => (
 					<List>
 						{orderBy(genres, "dateAdded", "desc").map(
 							genre => (
@@ -29,5 +29,9 @@ const LibraryGenres: FC = () => (
 		/>
 	</Helmet>
 )
+
+interface Data {
+	user: User,
+}
 
 export default LibraryGenres

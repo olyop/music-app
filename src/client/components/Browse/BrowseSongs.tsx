@@ -8,11 +8,11 @@ import GET_SONGS from "../../graphql/queries/songs.gql"
 
 const BrowseSongs: FC = () => (
 	<Helmet title="Browse Songs">
-		<QueryApi<Data>
+		<QueryApi
 			query={GET_SONGS}
 			className="Elevated"
 			children={
-				({ songs }) => (
+				({ songs }: Data) => (
 					songs.map(
 						song => (
 							<Song

@@ -19,13 +19,13 @@ import "./index.scss"
 const bem = createBem("ArtistPage")
 
 const ArtistPage: FC = () => (
-	<QueryApi<Data, Params>
+	<QueryApi
 		className={bem("")}
 		query={GET_ARTIST_PAGE}
-		variables={useParams()}
+		variables={useParams<Params>()}
 		children={
-			({ artist }) => {
-				const { name, photo, songs, albums } = artist
+			({ artist }: Data) => {
+				const { name, photo, songs, albums, numOfPlays } = artist
 				return (
 					<Helmet title={name}>
 						<Img
@@ -41,7 +41,7 @@ const ArtistPage: FC = () => (
 										className={bem("cover-content-name-add")}
 									/>
 								</h1>
-								<p className={bem("cover-content-stats")}>
+								<p className={bem("cover-content-text", "MarginBottomHalf")}>
 									{songs.length}
 									<Fragment> song</Fragment>
 									{determinePlural(songs.length)}
@@ -53,6 +53,10 @@ const ArtistPage: FC = () => (
 											{determinePlural(albums.length)}
 										</Fragment>
 									)}
+								</p>
+								<p className={bem("cover-content-text")}>
+									{numOfPlays}
+									<Fragment> plays</Fragment>
 								</p>
 							</div>
 							<div className={bem("cover-black")}/>
@@ -101,7 +105,7 @@ interface Data {
 	artist: Artist,
 }
 
-interface Params {
+interface Params extends Record<string, string> {
 	artistId: string,
 }
 

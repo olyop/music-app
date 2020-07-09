@@ -10,10 +10,10 @@ import GET_USER_PLAYLISTS from "../../graphql/queries/userPlaylists.gql"
 
 const LibraryPlaylists: FC = () => (
 	<Helmet title="Library Playlists">
-		<QueryApi<User>
+		<QueryApi
 			query={GET_USER_PLAYLISTS}
 			children={
-				({ playlists }) => (
+				({ user: { playlists } }: Data) => (
 					<List>
 						{orderBy(playlists, "dateAdded", "desc").map(
 							playlist => (
@@ -29,5 +29,9 @@ const LibraryPlaylists: FC = () => (
 		/>
 	</Helmet>
 )
+
+interface Data {
+	user: User,
+}
 
 export default LibraryPlaylists

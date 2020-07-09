@@ -11,6 +11,7 @@ import {
 } from "../../types"
 
 import {
+	SELECT_ARTIST_PLAYS,
 	SELECT_ARTIST_SONGS,
 	SELECT_ARTIST_ALBUMS,
 	SELECT_USER_DOC_PLAYS,
@@ -33,6 +34,20 @@ export const photo =
 					id: parent.artistId,
 					format: ImgFormat.JPG,
 				}),
+			})
+		),
+	)
+
+export const numOfPlays =
+	resolver<number>(
+		({ parent }) => (
+			sql.query({
+				parse: sql.rowCount,
+				sql: SELECT_ARTIST_PLAYS,
+				variables: [{
+					key: "artistId",
+					value: parent.artistId,
+				}],
 			})
 		),
 	)

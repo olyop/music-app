@@ -1,36 +1,36 @@
 .PlayerBar {
-  z-index: 2;
-  display: flex;
-  flex-direction: row;
-  height: var(--player-height);
-  &__icon {
-    color: var(--text-color); }
-  &__main,
-  &__controls {
-    padding: 0 var(--space); }
-  &__controls {
-    border-right: 1px solid var(--border-color); }
-  &__main {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    &-info {
-      display: flex;
-      flex-direction: row-reverse;
-      min-height: var(--info-height);
-      justify-content: space-between;
-      &-controls {
-        display: flex;
-        align-items: center;
-        &-control {
-          margin-right: calc(var(--space) * 0.25);
-          &-volume {
-            --height: calc(var(--button-size) - 2px);
-            margin-right: -2px;
-            width: var(--height);
-            height: var(--height);
-            font-size: var(--height); } } }
-      &-current {
-        width: 100%;
-        margin-right: calc(var(--space) * 0.25); } } } }
+	z-index: 2;
+	display: flex;
+	flex-direction: row;
+	height: var(--player-height);
+	&__icon {
+		color: var(--text-color); }
+	&__main,
+	&__controls {
+		padding: 0 var(--space); }
+	&__controls {
+		border-right: 1px solid var(--border-color); }
+	&__main {
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-evenly;
+		&-info {
+			display: flex;
+			flex-direction: row-reverse;
+			min-height: var(--info-height);
+			justify-content: space-between;
+			&-controls {
+				display: flex;
+				align-items: center;
+				&-control {
+					margin-right: calc(var(--space) * 0.25);
+					&-volume {
+						--height: calc(var(--button-size) - 2px);
+						margin-right: -2px;
+						width: var(--height);
+						height: var(--height);
+						font-size: var(--height); } } }
+			&-current {
+				width: 100%;
+				margin-right: calc(var(--space) * 0.25); } } } }

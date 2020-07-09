@@ -30,8 +30,9 @@ export interface Artist extends ArtistBase, UserDoc {
 	photo: string,
 	songs: Song[],
 	albums: Album[],
-	numOfSongs: number,
-	numOfAlbums: number,
+	numOfSongs?: number,
+	numOfPlays?: number,
+	numOfAlbums?: number,
 }
 
 export interface Album extends AlbumBase, UserDoc {

@@ -13,14 +13,13 @@ import "./index.scss"
 const bem = createBem("GenrePage")
 
 const GenrePage: FC = () => (
-	<QueryApi<Data, Params>
-		className={bem("")}
+	<QueryApi
 		query={GET_GENRE_PAGE}
-		variables={useParams()}
+		variables={useParams<Params>()}
 		children={
-			({ genre: { name, songs } }) => (
+			({ genre: { name, songs } }: Data) => (
 				<Helmet title={name}>
-					<h1 className={bem("name", "Elevated")}>
+					<h1 className={bem("", "Elevated")}>
 						{name}
 					</h1>
 					<div className="Margin Elevated">
@@ -44,7 +43,7 @@ interface Data {
 	genre: Genre,
 }
 
-interface Params {
+interface Params extends Record<string, string> {
 	genreId: string,
 }
 

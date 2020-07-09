@@ -8,10 +8,10 @@ import GET_USER_SONGS from "../../graphql/queries/userSongs.gql"
 
 const LibrarySongs: FC = () => (
 	<Helmet title="Library Songs">
-		<QueryApi<User>
+		<QueryApi
 			query={GET_USER_SONGS}
 			children={
-				({ songs }) => (
+				({ user: { songs } }: Data) => (
 					songs.map(
 						song => (
 							<Song
@@ -26,5 +26,9 @@ const LibrarySongs: FC = () => (
 		/>
 	</Helmet>
 )
+
+interface Data {
+	user: User,
+}
 
 export default LibrarySongs

@@ -9,10 +9,10 @@ import GET_ALBUMS from "../../graphql/queries/albums.gql"
 
 const BrowseAlbums: FC = () => (
 	<Helmet title="Browse Albums">
-		<QueryApi<Data>
+		<QueryApi
 			query={GET_ALBUMS}
 			children={
-				({ albums }) => (
+				({ albums }: Data) => (
 					<List>
 						{albums.map(
 							album => (

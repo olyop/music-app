@@ -1,4 +1,5 @@
 import { createElement, FC } from "react"
+import { ApolloError } from "@apollo/client"
 
 import "./index.scss"
 
@@ -9,7 +10,7 @@ const ApiError: FC<PropTypes> = ({ error }) => (
 )
 
 interface PropTypes {
-	error: Error,
+	error: ApolloError,
 }
 
 export default ApiError

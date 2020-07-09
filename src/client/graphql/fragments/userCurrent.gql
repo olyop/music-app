@@ -1,0 +1,6 @@
+fragment userCurrent on User {
+	current {
+		songId
+		isCurrent(userId: $userId)
+	}
+}

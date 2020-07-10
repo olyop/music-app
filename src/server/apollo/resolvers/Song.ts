@@ -1,5 +1,5 @@
-import { isNull } from "lodash"
-import { QueryResult } from "pg"
+// import { isNull } from "lodash"
+// import { QueryResult } from "pg"
 
 import {
 	Song,
@@ -17,7 +17,7 @@ import {
 	SELECT_SONG_REMIXERS,
 	SELECT_SONG_FEATURING,
 	SELECT_USER_DOC_PLAYS,
-	CHECK_SONG_IS_CURRENT,
+	// CHECK_SONG_IS_CURRENT,
 } from "../../sql"
 
 import { COLUMN_NAMES } from "../../globals"
@@ -134,23 +134,23 @@ export const plays =
 		),
 	)
 
-export const isCurrent =
-	resolver<boolean, UserArgs>(
-		({ parent, args }) => (
-			sql.query({
-				sql: CHECK_SONG_IS_CURRENT,
-				parse: ({ rows }: QueryResult<{ is_current: boolean }>) =>
-					!isNull(rows[0].is_current),
-				variables: [{
-					key: "userId",
-					value: args.userId,
-				},{
-					key: "songId",
-					value: parent.songId,
-				}],
-			})
-		),
-	)
+// export const isCurrent =
+// 	resolver<boolean, UserArgs>(
+// 		({ parent, args }) => (
+// 			sql.query({
+// 				sql: CHECK_SONG_IS_CURRENT,
+// 				parse: ({ rows }: QueryResult<{ is_current: boolean }>) =>
+// 					!isNull(rows[0].is_current),
+// 				variables: [{
+// 					key: "userId",
+// 					value: args.userId,
+// 				},{
+// 					key: "songId",
+// 					value: parent.songId,
+// 				}],
+// 			})
+// 		),
+// 	)
 
 export const dateAdded =
 	resolver<number, UserArgs>(

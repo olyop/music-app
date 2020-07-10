@@ -1,3 +1,0 @@
-fragment songIsCurrent on Song {
-	isCurrent(userId: $userId)
-}

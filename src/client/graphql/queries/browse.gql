@@ -5,7 +5,6 @@ query browse($userId: Uuid!) {
     title
     duration
     inLibrary(userId: $userId)
-    isCurrent(userId: $userId)
     featuring {
       artistId
       name

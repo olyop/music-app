@@ -18,7 +18,7 @@ const Application: FC = () => {
 	const [ sidebar, setSidebar ] = useLocalStorage("sidebar", false)
 	const [ listStyle, setListStyle ] = useLocalStorage("listStyle", ListStyleEnum.grid)
 
-	const togglePlay = () => setPlay(prevState => !prevState)
+	const togglePlay = (val?: boolean) => setPlay(prevState => val || !prevState)
 	const toggleSidebar = () => setSidebar(prevState => !prevState)
 
 	useEffect(() => {
@@ -30,8 +30,8 @@ const Application: FC = () => {
 	}, [sidebar])
 
 	return (
-		<PlayProvider value={{ play, togglePlay }}>
-			<CurrentProvider value={{ current, setCurrent }}>
+		<CurrentProvider value={{ current, setCurrent }}>
+			<PlayProvider value={{ play, setPlay, togglePlay }}>
 				<SidebarProvider value={{ sidebar, toggleSidebar }}>
 					<ListStyleProvider value={{ listStyle, setListStyle }}>
 						<Header/>
@@ -39,8 +39,8 @@ const Application: FC = () => {
 						<PlayerBar/>
 					</ListStyleProvider>
 				</SidebarProvider>
-			</CurrentProvider>
-		</PlayProvider>
+			</PlayProvider>
+		</CurrentProvider>
 	)
 }
 

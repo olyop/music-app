@@ -7,99 +7,11 @@ mutation userPlay(
     userId: $userId
   ) {
     userId
-    prev {
-      songId
-      title
-      mix
-      duration
-      isCurrent(userId: $userId)
-      inLibrary(userId: $userId)
-      featuring {
-        artistId
-        name
-      }
-      remixers {
-        artistId
-        name
-      }
-      artists {
-        artistId
-        name
-      }
-      genres {
-        genreId
-        name
-      }
-      album {
-        albumId
-        title
-        cover(size: HALF)
-      }
-    }
     current {
       songId
       mix
       title
       duration
-      isCurrent(userId: $userId)
-      inLibrary(userId: $userId)
-      featuring {
-        artistId
-        name
-      }
-      remixers {
-        artistId
-        name
-      }
-      artists {
-        artistId
-        name
-      }
-      genres {
-        genreId
-        name
-      }
-      album {
-        albumId
-        title
-        cover(size: HALF)
-      }
-    }
-    next {
-      songId
-      mix
-      title
-      duration
-      isCurrent(userId: $userId)
-      inLibrary(userId: $userId)
-      featuring {
-        artistId
-        name
-      }
-      remixers {
-        artistId
-        name
-      }
-      artists {
-        artistId
-        name
-      }
-      genres {
-        genreId
-        name
-      }
-      album {
-        albumId
-        title
-        cover(size: HALF)
-      }
-    }
-    queue {
-      songId
-      mix
-      title
-      duration
-      isCurrent(userId: $userId)
       inLibrary(userId: $userId)
       featuring {
         artistId

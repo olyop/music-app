@@ -4,23 +4,30 @@ import { createBem, BemInput } from "@oly_op/bem"
 import { useApolloClient, useMutation } from "@apollo/client"
 
 import Icon from "../Icon"
-import { User, Doc, Song } from "../../types"
+import { User, Doc } from "../../types"
 import { determineDocId } from "../../helpers"
 import { useUserContext } from "../../contexts/User"
 import { usePlayContext } from "../../contexts/Play"
 import USER_PLAY from "../../graphql/mutations/userPlay.gql"
 import USER_CURRENT_FRAG from "../../graphql/fragments/userCurrent.gql"
-import SONG_IS_CURRENT_FRAG from "../../graphql/fragments/songIsCurrent.gql"
 
 const bem = createBem("PlayButton")
 
 const PlayButton: FC<PropTypes> = ({ doc, className }) => {
+	console.log("PlayButton")
+	const userId = useUserContext()
 	const client = useApolloClient()
 	const docId = determineDocId(doc)
-	const isCurrent = "isCurrent" in doc ? doc.isCurrent : false
+	const { play, setPlay, togglePlay } = usePlayContext()
 
-	const userId = useUserContext()
-	const { play, togglePlay } = usePlayContext()
+	const user =
+		client.readFragment<User>({
+			id: userId,
+			fragment: USER_CURRENT_FRAG,
+		})
+
+	const isCurrent = isNull(user) || isNull(user.current) ?
+		false : user.current.songId === docId
 
 	const [ userPlay ] =
 		useMutation<Data, Variables>(
@@ -32,22 +39,8 @@ const PlayButton: FC<PropTypes> = ({ doc, className }) => {
 		if (isCurrent) {
 			togglePlay()
 		} else {
-			const { current } =
-				client.readFragment<User>({
-					id: userId,
-					variables: { userId },
-					fragment: USER_CURRENT_FRAG,
-				})!
-			if (!isNull(current)) {
-				client.writeFragment({
-					id: current.songId,
-					variables: { userId },
-					fragment: SONG_IS_CURRENT_FRAG,
-					data: { isCurrent: false, __typename: "Song" },
-				})
-			}
 			userPlay()
-				.then(() => play || togglePlay())
+				.then(() => setPlay(true))
 				.catch(console.error)
 		}
 	}
@@ -64,11 +57,6 @@ const PlayButton: FC<PropTypes> = ({ doc, className }) => {
 	)
 }
 
-interface PropTypes {
-	doc: Doc | Song,
-	className?: BemInput,
-}
-
 interface Data {
 	userPlay: User,
 }
@@ -76,6 +64,11 @@ interface Data {
 interface Variables {
 	docId: string,
 	userId: string,
+}
+
+interface PropTypes {
+	doc: Doc,
+	className?: BemInput,
 }
 
 export default PlayButton

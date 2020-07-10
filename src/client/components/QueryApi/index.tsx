@@ -19,7 +19,7 @@ const QueryApi: FC<PropTypes> = ({
 	const userId =
 		useUserContext()
 	const { loading, error, data } =
-		useQuery<unknown>(query, { variables: { ...variables, userId } })
+		useQuery<unknown, Vars>(query, { variables: { ...variables, userId } })
 	if (spinner && loading) {
 		return <Spinner className={spinnerClassName}/>
 	} else if (!isUndefined(error)) {
@@ -34,6 +34,10 @@ const QueryApi: FC<PropTypes> = ({
 	} else {
 		return null
 	}
+}
+
+interface Vars {
+	userId: string,
 }
 
 interface PropTypes {

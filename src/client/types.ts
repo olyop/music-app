@@ -51,7 +51,6 @@ export interface Song extends SongBase, UserDoc {
 	album: Album,
 	genres: Genre[],
 	artists: Artist[],
-	isCurrent: boolean,
 	remixers: Artist[],
 	featuring: Artist[],
 	dateAddedToPlaylist: number | null,

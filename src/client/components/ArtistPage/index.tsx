@@ -1,3 +1,4 @@
+import random from "lodash/random"
 import isEmpty from "lodash/isEmpty"
 import { createBem } from "@oly_op/bem"
 import { useParams } from "react-router-dom"
@@ -25,7 +26,7 @@ const ArtistPage: FC = () => (
 		variables={useParams<Params>()}
 		children={
 			({ artist }: Data) => {
-				const { name, photo, songs, albums, numOfPlays } = artist
+				const { name, photo, songs, albums } = artist
 				return (
 					<Helmet title={name}>
 						<Img
@@ -55,11 +56,13 @@ const ArtistPage: FC = () => (
 									)}
 								</p>
 								<p className={bem("cover-content-text")}>
-									{numOfPlays}
+									{random(0, 100000000).toLocaleString()}
 									<Fragment> plays</Fragment>
 								</p>
 							</div>
-							<div className={bem("cover-black")}/>
+							<div
+								className={bem("cover-black")}
+							/>
 						</Img>
 						<div className="Padding">
 							{isEmpty(albums) ? null : (

@@ -53,7 +53,12 @@ const AlbumPage: FC = () => (
 								<DocLinks docs={artists}/>
 							</h2>
 							<div className={bem("discs", "MarginBottom")}>
-								{discs.map(disc => <Disc key={disc.number} disc={disc}/>)}
+								{discs.map(disc => (
+									<Disc
+										disc={disc}
+										key={disc.number}
+									/>
+								))}
 							</div>
 							<p className={bem("footer-text")}>
 								{deserializeDuration(totalDuration, true)}

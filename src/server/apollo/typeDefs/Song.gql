@@ -12,7 +12,6 @@ type Song {
   trackNumber: PositiveInt!
   plays(userId: Uuid!): [Play!]
   inLibrary(userId: Uuid!): Boolean!
-  isCurrent(userId: Uuid!): Boolean!
   dateAdded(userId: Uuid!): PositiveInt
   dateAddedToPlaylist(playlistId: Uuid!): PositiveInt
 }

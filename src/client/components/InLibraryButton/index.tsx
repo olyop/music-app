@@ -1,8 +1,7 @@
-import { createElement } from "react"
+import { createElement, FC } from "react"
 import { useMutation } from "@apollo/client"
 
 import Icon from "../Icon"
-import ApiError from "../ApiError"
 import { UserDoc } from "../../types"
 import { useUserContext } from "../../contexts/User"
 import { determineDocReturn, determineDocId } from "../../helpers"
@@ -17,10 +16,9 @@ import ADD_USER_ALBUM from "../../graphql/mutations/addUserAlbum.gql"
 import ADD_USER_GENRE from "../../graphql/mutations/addUserGenre.gql"
 import ADD_USER_ARTIST from "../../graphql/mutations/addUserArtist.gql"
 
-const InLibraryButton = <T extends UserDoc>({ doc, className }: PropTypes<T>) => {
+const InLibraryButton: FC<PropTypes> = ({ doc, className }) => {
 	const determineReturn = determineDocReturn(doc)
 	const variablesKey = determineReturn("songId", "albumId", "genreId", "artistId")
-	const refetchQuery = `getUser${determineReturn("Song", "Album", "Genre", "Artist")}s`
 
 	const { inLibrary } = doc
 	const userId = useUserContext()
@@ -31,13 +29,13 @@ const InLibraryButton = <T extends UserDoc>({ doc, className }: PropTypes<T>) =>
 		determineReturn(ADD_USER_SONG, ADD_USER_ALBUM, ADD_USER_GENRE, ADD_USER_ARTIST)
 
 	const [ mutation, { loading, error } ] =
-		useMutation(MUTATION, {
-			refetchQueries: [ refetchQuery ],
-			variables: { userId, [variablesKey]: docId },
-		})
+		useMutation(
+			MUTATION,
+			{ variables: { userId, [variablesKey]: docId } },
+		)
 
 	if (error) {
-		return <ApiError error={error}/>
+		console.error(error)
 	}
 
 	const handleClick = () => mutation()
@@ -52,8 +50,8 @@ const InLibraryButton = <T extends UserDoc>({ doc, className }: PropTypes<T>) =>
 	)
 }
 
-interface PropTypes<T> {
-	doc: T,
+interface PropTypes {
+	doc: UserDoc,
 	className?: string,
 }
 

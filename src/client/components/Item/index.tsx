@@ -11,6 +11,7 @@ import { determineDocPath, determineDocName, determineDocPhoto } from "../../hel
 import "./index.scss"
 
 const determineInLibrary = (inLib: boolean, _doc: Doc): _doc is UserDoc => inLib
+const determineShowPlay = (showPlay: boolean, _doc: Doc): _doc is UserDoc => showPlay
 
 const bem = createBem("Item")
 
@@ -34,7 +35,7 @@ const Item = <D extends Doc, I extends Doc = Doc>({
 				className={bem("left")}
 			/>
 		)}
-		{showPlay && (
+		{determineShowPlay(showPlay, doc) && (
 			<PlayButton
 				doc={doc}
 				className={bem("play")}

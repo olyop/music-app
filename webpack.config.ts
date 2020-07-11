@@ -87,9 +87,10 @@ const rules: RuleSetRule[] = [
 
 const plugins: Plugin[] = [
 	new DotenvPlugin(),
-	new WriteFilePlugin(),
 	new HtmlWebpackPlugin({ minify, template: INDEX_HTML }),
-	...(IS_DEV ? [] : [
+	...(IS_DEV ? [
+		new WriteFilePlugin(),
+	] : [
 		new CompressionPlugin(),
 		new BundleAnalyzerPlugin(),
 		new OptimizeCssAssetsPlugin(),

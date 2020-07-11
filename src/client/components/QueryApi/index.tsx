@@ -46,7 +46,7 @@ interface PropTypes {
 	query: DocumentNode,
 	spinnerClassName?: BemInput,
 	variables?: Record<string, string>,
-	children(data: unknown): ReactNode,
+	children(data: unknown | undefined): ReactNode,
 }
 
 export default QueryApi

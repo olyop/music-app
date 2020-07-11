@@ -78,12 +78,11 @@ export const baseQuery =
 					const { sql, parse, variables = [] } = normalizeInput(input)
 					const variableKeys = getVariableKeys(sql)
 					if (!areVariablesProvided(variableKeys, variables)) {
-						reject(new TypeError("Invalid query arguments."))
+						reject(new Error("Invalid query arguments."))
 					} else {
 						const params: string[] = []
 						const sqlWithValues = replaceSqlWithValues(sql, variables, params)
-						client
-							.query(sqlWithValues, params)
+						client.query(sqlWithValues, params)
 							.then(parse)
 							.then(resolve)
 							.catch(reject)

@@ -53,10 +53,9 @@ const userArtistConfig =
 		columnNames: COLUMN_NAMES.ARTIST,
 	})
 
-interface SongArgs extends UserArgs { songId: string }
-interface AlbumArgs extends UserArgs { albumId: string }
-interface GenreArgs extends UserArgs { genreId: string }
-interface ArtistArgs extends UserArgs { artistId: string }
+interface SongArgs extends UserArgs {
+	songId: string,
+}
 
 export const rmUserSong =
 	resolver<Song, SongArgs>(
@@ -68,6 +67,10 @@ export const addUserSong =
 		({ args }) => addUserDoc(userSongConfig(args.songId, args.userId)),
 	)
 
+interface AlbumArgs extends UserArgs {
+	albumId: string,
+}
+
 export const rmUserAlbum =
 	resolver<Song, AlbumArgs>(
 		({ args }) => rmUserDoc(userAlbumConfig(args.albumId, args.userId)),
@@ -78,6 +81,10 @@ export const addUserAlbum =
 		({ args }) => addUserDoc(userAlbumConfig(args.albumId, args.userId)),
 	)
 
+interface GenreArgs extends UserArgs {
+	genreId: string,
+}
+
 export const rmUserGenre =
 	resolver<Song, GenreArgs>(
 		({ args }) => rmUserDoc(userGenreConfig(args.genreId, args.userId)),
@@ -87,6 +94,10 @@ export const addUserGenre =
 	resolver<Song, GenreArgs>(
 		({ args }) => addUserDoc(userGenreConfig(args.genreId, args.userId)),
 	)
+
+interface ArtistArgs extends UserArgs {
+	artistId: string,
+}
 
 export const rmUserArtist =
 	resolver<Song, ArtistArgs>(

@@ -29,7 +29,7 @@ export const rmUserDoc = async <T>({
 				key: "userId",
 				value: userId,
 			},{
-				key: "columnKey",
+				key: "columnName",
 				value: columnName,
 			},{
 				key: "tableName",

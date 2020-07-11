@@ -31,9 +31,11 @@ export const addUserDoc = async <T>({
 		key: "userId",
 		value: userId,
 	},{
-		key: "columnKey",
+		string: false,
+		key: "columnName",
 		value: columnName,
 	},{
+		string: false,
 		key: "tableName",
 		value: userTableName,
 	}]

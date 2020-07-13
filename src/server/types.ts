@@ -84,3 +84,12 @@ export interface Queue {
 	current: Song,
 	queue: Song[],
 }
+
+export interface AddRemoveInput {
+	query: string,
+	docId: string,
+	userId: string,
+	columnName: string,
+	columnNames: string[],
+	userTableName: string,
+}

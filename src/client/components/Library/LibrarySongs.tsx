@@ -9,6 +9,7 @@ import GET_USER_SONGS from "../../graphql/queries/userSongs.gql"
 const LibrarySongs: FC = () => (
 	<Helmet title="Library Songs">
 		<QueryApi
+			className="Elevated"
 			query={GET_USER_SONGS}
 			children={
 				({ user: { songs } }: Data) => (

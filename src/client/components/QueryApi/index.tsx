@@ -19,25 +19,19 @@ const QueryApi: FC<PropTypes> = ({
 	const userId =
 		useUserContext()
 	const { loading, error, data } =
-		useQuery<unknown, Vars>(query, { variables: { ...variables, userId } })
+		useQuery<unknown>(query, { variables: { ...variables, userId } })
 	if (spinner && loading) {
 		return <Spinner className={spinnerClassName}/>
 	} else if (!isUndefined(error)) {
 		return <ApiError error={error}/>
-	} else if (!isUndefined(data)) {
+	} else {
 		const render = children(data)
 		if (className) {
 			return <div className={className}>{render}</div>
 		} else {
 			return <Fragment>{render}</Fragment>
 		}
-	} else {
-		return null
 	}
-}
-
-interface Vars {
-	userId: string,
 }
 
 interface PropTypes {
@@ -45,8 +39,8 @@ interface PropTypes {
 	className?: string,
 	query: DocumentNode,
 	spinnerClassName?: BemInput,
-	variables?: Record<string, string>,
-	children(data: unknown | undefined): ReactNode,
+	children(data: unknown): ReactNode,
+	variables?: Record<string, unknown>,
 }
 
 export default QueryApi

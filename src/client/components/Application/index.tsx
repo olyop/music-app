@@ -9,6 +9,7 @@ import { PlayProvider } from "../../contexts/Play"
 import { CurrentProvider } from "../../contexts/Current"
 import { SidebarProvider } from "../../contexts/Sidebar"
 import { ListStyleProvider } from "../../contexts/ListStyle"
+import { ShowGenresProvider } from "../../contexts/ShowGenres"
 
 import "./index.scss"
 
@@ -16,6 +17,7 @@ const Application: FC = () => {
 	const [ play, setPlay ] = useState(false)
 	const [ current, setCurrent ] = useState(0)
 	const [ sidebar, setSidebar ] = useLocalStorage("sidebar", false)
+	const [ showGenres, setShowGenres ] = useLocalStorage("showGenres", false)
 	const [ listStyle, setListStyle ] = useLocalStorage("listStyle", ListStyleEnum.grid)
 
 	const togglePlay = (val?: boolean) => setPlay(prevState => val || !prevState)
@@ -34,9 +36,11 @@ const Application: FC = () => {
 			<PlayProvider value={{ play, setPlay, togglePlay }}>
 				<SidebarProvider value={{ sidebar, toggleSidebar }}>
 					<ListStyleProvider value={{ listStyle, setListStyle }}>
-						<Header/>
-						<Pages/>
-						<PlayerBar/>
+						<ShowGenresProvider value={{ showGenres, setShowGenres }}>
+							<Header/>
+							<Pages/>
+							<PlayerBar/>
+						</ShowGenresProvider>
 					</ListStyleProvider>
 				</SidebarProvider>
 			</PlayProvider>

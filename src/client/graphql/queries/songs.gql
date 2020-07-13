@@ -1,10 +1,9 @@
-query songs($userId: Uuid!) {
+query songs {
   songs {
     mix
     title
     songId
     duration
-    inLibrary(userId: $userId)
     featuring {
       name
       artistId

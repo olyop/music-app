@@ -3,7 +3,7 @@ SELECT
 FROM
   plays
 WHERE
-  user_id = {{ userId }} &&
+  user_id = {{ userId }} AND
   song_id in(
     SELECT
       song_id

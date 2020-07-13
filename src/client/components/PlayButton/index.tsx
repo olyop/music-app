@@ -1,15 +1,14 @@
 import isNull from "lodash/isNull"
 import { createElement, FC } from "react"
 import isUndefined from "lodash/isUndefined"
-import { useMutation } from "@apollo/client"
 import { createBem, BemInput } from "@oly_op/bem"
+import { useQuery, useMutation } from "@apollo/client"
 
 import Icon from "../Icon"
-import QueryApi from "../QueryApi"
-import { determineDocId } from "../../helpers"
-import { User, Song, UserDoc } from "../../types"
+import { User, UserDoc } from "../../types"
 import { useUserContext } from "../../contexts/User"
 import { usePlayContext } from "../../contexts/Play"
+import { isSong, determineDocId } from "../../helpers"
 import USER_PLAY from "../../graphql/mutations/userPlay.gql"
 import GET_USER_CURRENT from "../../graphql/queries/userCurrent.gql"
 
@@ -22,39 +21,40 @@ const PlayButton: FC<PropTypes> = ({ doc, className }) => {
 		determineDocId(doc)
 	const { play, setPlay, togglePlay } =
 		usePlayContext()
+	const { data } =
+		useQuery<UserCurrentRes>(GET_USER_CURRENT)
+	console.log(data.user.current.title)
 	const [ userPlay ] =
 		useMutation<UserPlayRes>(USER_PLAY, {
-			variables: { userId, docId },
-			optimisticResponse: {
+			variables: { docId, userId },
+			optimisticResponse: isSong(doc) ? {
 				userPlay: {
 					userId,
+					current: doc,
 					__typename: "User",
-					current: doc as Song,
 				},
-			},
+			} : undefined,
 		})
-	return (
-		<QueryApi
-			query={GET_USER_CURRENT}
-			spinner={false}
-			children={
-				(res: UserCurrentRes) => {
-					const isCurrent = isUndefined(res) || isNull(res.user.current) ?
-						false : res.user.current.songId === docId
-					const icon = isCurrent && play ?
-						"pause" : "play_arrow"
-					const handleClick = () =>
-						(isCurrent ? togglePlay() : userPlay().then(() => setPlay(true)))
-					return (
-						<Icon
-							icon={icon}
-							title="Play"
-							onClick={handleClick}
-							className={bem(className, "IconHover")}
-						/>
-					)
-				}
+	const isCurrent = isUndefined(data) || isNull(data.user.current) ?
+		false : data.user.current.songId === docId
+	const icon = isCurrent && play ?
+		"pause" : "play_arrow"
+	function handleClick() {
+		if (isSong(doc)) {
+			if (isCurrent) {
+				togglePlay()
+			} else {
+				setPlay(true)
+				userPlay()
 			}
+		}
+	}
+	return (
+		<Icon
+			icon={icon}
+			title="Play"
+			onClick={handleClick}
+			className={bem(className, "IconHover")}
 		/>
 	)
 }

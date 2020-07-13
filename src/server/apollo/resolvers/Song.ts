@@ -129,36 +129,22 @@ export const plays =
 				},{
 					key: "userId",
 					value: args.userId,
+				},{
+					string: false,
+					key: "columnNames",
+					value: sql.join(COLUMN_NAMES.PLAY),
 				}],
 			})
 		),
 	)
-
-// export const isCurrent =
-// 	resolver<boolean, UserArgs>(
-// 		({ parent, args }) => (
-// 			sql.query({
-// 				sql: CHECK_SONG_IS_CURRENT,
-// 				parse: ({ rows }: QueryResult<{ is_current: boolean }>) =>
-// 					!isNull(rows[0].is_current),
-// 				variables: [{
-// 					key: "userId",
-// 					value: args.userId,
-// 				},{
-// 					key: "songId",
-// 					value: parent.songId,
-// 				}],
-// 			})
-// 		),
-// 	)
 
 export const dateAdded =
 	resolver<number, UserArgs>(
 		({ parent, args }) => (
 			userDocDateAdded({
 				userId: args.userId,
+				docId: parent.songId,
 				columnName: "song_id",
-				docId: parent.albumId,
 				userDocTable: "users_songs",
 			})
 		),
@@ -169,7 +155,7 @@ export const inLibrary =
 		({ parent, args }) => (
 			userDocInLib({
 				userId: args.userId,
-				docId: parent.albumId,
+				docId: parent.songId,
 				columnName: "song_id",
 				userDocTable: "users_songs",
 			})

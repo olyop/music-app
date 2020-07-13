@@ -1,11 +1,11 @@
 export const GENRE = [
-	"genre_id",
 	"name",
+	"genre_id",
 ]
 
 export const ARTIST = [
-	"artist_id",
 	"name",
+	"artist_id",
 ]
 
 export const PLAY = [
@@ -48,26 +48,26 @@ export const USER_SONG = [
 	"user_id",
 	"song_id",
 	"in_library",
-	"date_created",
+	"date_added",
 ]
 
 export const USER_ALBUM = [
 	"user_id",
 	"album_id",
 	"in_library",
-	"date_created",
+	"date_added",
 ]
 
 export const USER_GENRE = [
 	"user_id",
 	"genre_id",
 	"in_library",
-	"date_created",
+	"date_added",
 ]
 
 export const USER_ARTIST = [
 	"user_id",
 	"artist_id",
 	"in_library",
-	"date_created",
+	"date_added",
 ]

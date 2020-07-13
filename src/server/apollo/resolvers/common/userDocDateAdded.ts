@@ -13,7 +13,7 @@ export const userDocDateAdded =
 	<T extends UserDoc>({ docId, userId, columnName, userDocTable }: Input) =>
 		sql.query<number>({
 			sql: SELECT_USER_DOC_ADDED,
-			parse: res => sql.parseRow<T>()(res).dateCreated,
+			parse: res => sql.parseRow<T>()(res).dateAdded,
 			variables: [{
 				key: "userId",
 				value: userId,
@@ -21,9 +21,11 @@ export const userDocDateAdded =
 				key: "docId",
 				value: docId,
 			},{
+				string: false,
 				key: "columnName",
 				value: columnName,
 			},{
+				string: false,
 				key: "tableName",
 				value: userDocTable,
 			}],

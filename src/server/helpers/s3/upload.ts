@@ -1,4 +1,4 @@
-import s3 from "../../services/s3"
+import { s3 } from "../../services"
 
 import { S3Upload } from "../../types"
 import { AWS_S3_ACL, AWS_S3_BUCKET } from "../../globals"

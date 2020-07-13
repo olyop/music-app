@@ -19,7 +19,7 @@ const SongTitle: FC<PropTypes> = ({ song, showRemixers = true }) => {
 					<Fragment>
 						{isEmpty(mix) ? null : (
 							<span className={className}>
-								<Fragment> - </Fragment>
+								<Fragment> </Fragment>
 								{mix}
 								<Fragment> Mix</Fragment>
 							</span>
@@ -27,7 +27,7 @@ const SongTitle: FC<PropTypes> = ({ song, showRemixers = true }) => {
 					</Fragment>
 				) : (
 					<span className={className}>
-						<Fragment> - </Fragment>
+						<Fragment> </Fragment>
 						<DocLinks ampersand docs={remixers}/>
 						<Fragment> </Fragment>
 						{mix}

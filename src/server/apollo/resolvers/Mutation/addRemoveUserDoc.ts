@@ -8,13 +8,17 @@ import {
 import { rmUserDoc } from "./rmUserDoc"
 import { addUserDoc } from "./addUserDoc"
 import { COLUMN_NAMES } from "../../../globals"
-import { Song, UserArgs } from "../../../types"
 import { createResolver } from "../../../helpers"
+import { Song, UserArgs, AddRemoveInput } from "../../../types"
 
-const resolver = createResolver()
+const resolver =
+	createResolver()
 
-const userSongConfig =
-	(docId: string, userId: string) => ({
+type AddRemoveFunc =
+	(docId: string, userId: string) => AddRemoveInput
+
+const userSongConfig: AddRemoveFunc =
+	(docId, userId) => ({
 		docId,
 		userId,
 		query: SELECT_SONG,
@@ -23,8 +27,8 @@ const userSongConfig =
 		columnNames: COLUMN_NAMES.SONG,
 	})
 
-const userAlbumConfig =
-	(docId: string, userId: string) => ({
+const userAlbumConfig: AddRemoveFunc =
+	(docId, userId) => ({
 		docId,
 		userId,
 		query: SELECT_ALBUM,
@@ -33,8 +37,8 @@ const userAlbumConfig =
 		columnNames: COLUMN_NAMES.ALBUM,
 	})
 
-const userGenreConfig =
-	(docId: string, userId: string) => ({
+const userGenreConfig: AddRemoveFunc =
+	(docId, userId) => ({
 		docId,
 		userId,
 		query: SELECT_GENRE,
@@ -43,8 +47,8 @@ const userGenreConfig =
 		columnNames: COLUMN_NAMES.GENRE,
 	})
 
-const userArtistConfig =
-	(docId: string, userId: string) => ({
+const userArtistConfig: AddRemoveFunc =
+	(docId, userId) => ({
 		docId,
 		userId,
 		query: SELECT_ARTIST,
@@ -101,7 +105,7 @@ interface ArtistArgs extends UserArgs {
 
 export const rmUserArtist =
 	resolver<Song, ArtistArgs>(
-		({ args }) => rmUserDoc(userGenreConfig(args.artistId, args.userId)),
+		({ args }) => rmUserDoc(userArtistConfig(args.artistId, args.userId)),
 	)
 
 export const addUserArtist =

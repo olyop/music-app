@@ -23,17 +23,20 @@ export const userDocs = <T>({
 			key: "userId",
 			value: userId,
 		},{
+			string: false,
 			key: "tableName",
 			value: tableName,
 		},{
+			string: false,
 			key: "columnName",
 			value: columnName,
 		},{
+			string: false,
 			key: "userTableName",
 			value: userTableName,
 		},{
 			string: false,
 			key: "columnNames",
-			value: sql.join(columnNames),
+			value: sql.join(columnNames, "songs"),
 		}],
 	})

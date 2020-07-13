@@ -6,8 +6,8 @@ mutation addUserGenre(
     userId: $userId
     genreId: $genreId
   ) {
-    genreId
     name
+    genreId
     inLibrary(userId: $userId)
     dateAdded(userId: $userId)
   }

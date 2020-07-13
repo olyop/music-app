@@ -20,6 +20,11 @@ import {
 	CORS_CONFIG,
 } from "./globals"
 
+// import { TABLES } from "./sql"
+// import { sql } from "./helpers"
+
+// sql.transaction(TABLES).catch(console.error)
+
 const app = express()
 
 // middleware stack

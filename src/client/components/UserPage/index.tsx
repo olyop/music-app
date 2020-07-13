@@ -7,6 +7,7 @@ import QueryApi from "../QueryApi"
 import { ListStyleEnum, User } from "../../types"
 import GET_USER from "../../graphql/queries/user.gql"
 import { useListStyleContext } from "../../contexts/ListStyle"
+import { useShowGenresContext } from "../../contexts/ShowGenres"
 
 import "./index.scss"
 
@@ -15,8 +16,12 @@ const bem = createBem("UserPage")
 const UserPage: FC = () => {
 	const { listStyle, setListStyle } =
 		useListStyleContext()
-	const handleSelectChange: ChangeEventHandler<HTMLSelectElement> = event =>
+	const { showGenres, setShowGenres } =
+		useShowGenresContext()
+	const handleListStyle: ChangeEventHandler<HTMLSelectElement> = event =>
 		setListStyle(event.target.value as ListStyleEnum)
+	const handleShowGenres: ChangeEventHandler<HTMLInputElement> = event =>
+		setShowGenres(event.target.checked)
 	return (
 		<QueryApi
 			query={GET_USER}
@@ -31,9 +36,9 @@ const UserPage: FC = () => {
 							List Style
 						</h3>
 						<select
-							className={bem("select")}
+							onChange={handleListStyle}
 							value={listStyle || "grid"}
-							onChange={handleSelectChange}
+							className="Text MarginBottomHalf"
 						>
 							<option
 								value={ListStyleEnum.grid}
@@ -46,6 +51,15 @@ const UserPage: FC = () => {
 								children={upperFirst(ListStyleEnum.list)}
 							/>
 						</select>
+						<h3 className={bem("option-text")}>
+							Show Genres
+						</h3>
+						<input
+							type="checkbox"
+							className="Text"
+							checked={showGenres}
+							onChange={handleShowGenres}
+						/>
 					</Helmet>
 				)
 			}

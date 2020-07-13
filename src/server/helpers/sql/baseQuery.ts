@@ -78,7 +78,10 @@ export const baseQuery =
 					const { sql, parse, variables = [] } = normalizeInput(input)
 					const variableKeys = getVariableKeys(sql)
 					if (!areVariablesProvided(variableKeys, variables)) {
-						reject(new Error("Invalid query arguments."))
+						// eslint-disable-next-line max-len
+						const err = new TypeError(`Invalid query arguments. ${variables.map(({ key }) => key).toString()} - ${variableKeys.toString()}`)
+						console.error({ err, sql })
+						reject(err)
 					} else {
 						const params: string[] = []
 						const sqlWithValues = replaceSqlWithValues(sql, variables, params)

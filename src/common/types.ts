@@ -6,7 +6,7 @@ export interface UserBase {
 }
 
 export interface UserDocBase {
-	dateCreated: number,
+	dateAdded: number,
 }
 
 export interface PlayBase {

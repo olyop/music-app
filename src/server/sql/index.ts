@@ -1,7 +1,6 @@
 import fs from "fs"
 import { join } from "path"
 
-// import { sql } from "../helpers"
 import { SQL_FOLER_PATH } from "../globals"
 
 const importFile = (path: string) =>
@@ -16,7 +15,6 @@ const importFileExists = (file: string) => importFile(sqlPath("exists", file))
 const importFileSelect = (file: string) => importFile(sqlPath("selects", file))
 const importFileInsert = (file: string) => importFile(sqlPath("inserts", file))
 const importFileUpdate = (file: string) => importFile(sqlPath("updateS", file))
-const importFileDelete = (file: string) => importFile(sqlPath("deletes", file))
 
 export const INSERT_USER = importFileInsert("user")
 export const INSERT_SONG = importFileInsert("song")
@@ -46,6 +44,7 @@ export const SELECT_PLAYLIST = importFileSelect("playlist")
 export const SELECT_USER_DOCS = importFileSelect("userDocs")
 export const SELECT_PLAYLISTS = importFileSelect("playlists")
 export const SELECT_NEW_ALBUMS = importFileSelect("newAlbums")
+export const SELECT_USER_SONGS = importFileSelect("userSongs")
 export const SELECT_USER_PLAYS = importFileSelect("userPlays")
 export const SELECT_ALBUM_SONGS = importFileSelect("albumSongs")
 export const SELECT_GENRE_SONGS = importFileSelect("genreSongs")
@@ -71,12 +70,10 @@ export const EXISTS_ALBUM_SONG = importFileExists("albumSong")
 export const UPDATE_USER_PREV = importFileUpdate("userPrev")
 export const UPDATE_USER_PLAY = importFileUpdate("userPlay")
 export const UPDATE_USER_NEXT = importFileUpdate("userNext")
-export const UPDATE_USER_DOC_IN_LIB = importFileUpdate("userDocInLib")
 export const UPDATE_USER_SONG_NEXT = importFileUpdate("userSongNext")
+export const UPDATE_USER_DOC_IN_LIB = importFileUpdate("userDocInLib")
 export const UPDATE_USER_SONG_LATER = importFileUpdate("userSongLater")
 export const UPDATE_USER_SONG_QUEUE = importFileUpdate("userSongQueue")
-
-export const DELETE_USER_DOC = importFileDelete("userDoc")
 
 export const CHECK_SONG_IS_CURRENT = importFileCheck("songIsCurrent")
 
@@ -102,29 +99,26 @@ export const TABLE_PLAYLISTS_SONGS = importFileTable("playlistsSongs")
 export const TABLE_USERS_PLAYLISTS = importFileTable("usersPlaylists")
 export const TABLE_SONGS_FEATURINGS = importFileTable("songsFeaturings")
 
-// const queries = [
-// 	TABLE_ARTISTS,
-// 	TABLE_GENRES,
-// 	TABLE_ALBUMS,
-// 	TABLE_ALBUMS_ARTISTS,
-// 	TABLE_SONGS,
-// 	TABLE_SONGS_GENRES,
-// 	TABLE_SONGS_ARTISTS,
-// 	TABLE_SONGS_REMIXERS,
-// 	TABLE_SONGS_FEATURINGS,
-// 	TABLE_USERS,
-// 	TABLE_USERS_NEXTS,
-// 	TABLE_USERS_PREVS,
-// 	TABLE_USERS_SONGS,
-// 	TABLE_USERS_ALBUMS,
-// 	TABLE_USERS_GENRES,
-// 	TABLE_USERS_QUEUES,
-// 	TABLE_USERS_ARTISTS,
-// 	TABLE_PLAYLISTS,
-// 	TABLE_PLAYLISTS_SONGS,
-// 	TABLE_USERS_PLAYLISTS,
-// 	TABLE_PLAYS,
-// ]
-
-// sqlTransaction(queries)
-//   .catch(error => { throw error })
+export const TABLES = [
+	TABLE_ARTISTS,
+	TABLE_GENRES,
+	TABLE_ALBUMS,
+	TABLE_ALBUMS_ARTISTS,
+	TABLE_SONGS,
+	TABLE_SONGS_GENRES,
+	TABLE_SONGS_ARTISTS,
+	TABLE_SONGS_REMIXERS,
+	TABLE_SONGS_FEATURINGS,
+	TABLE_USERS,
+	TABLE_USERS_NEXTS,
+	TABLE_USERS_PREVS,
+	TABLE_USERS_SONGS,
+	TABLE_USERS_ALBUMS,
+	TABLE_USERS_GENRES,
+	TABLE_USERS_QUEUES,
+	TABLE_USERS_ARTISTS,
+	TABLE_PLAYLISTS,
+	TABLE_PLAYLISTS_SONGS,
+	TABLE_USERS_PLAYLISTS,
+	TABLE_PLAYS,
+]

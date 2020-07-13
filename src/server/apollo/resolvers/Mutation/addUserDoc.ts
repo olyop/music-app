@@ -1,3 +1,5 @@
+import { camelCase } from "lodash"
+
 import {
 	EXISTS_USER_DOC,
 	INSERT_USER_DOC,
@@ -5,16 +7,7 @@ import {
 } from "../../../sql"
 
 import { sql } from "../../../helpers"
-import { SQLVariable } from "../../../types"
-
-interface Input {
-	query: string,
-	docId: string,
-	userId: string,
-	columnName: string,
-	columnNames: string[],
-	userTableName: string,
-}
+import { SQLVariable, AddRemoveInput } from "../../../types"
 
 export const addUserDoc = async <T>({
 	query,
@@ -23,7 +16,7 @@ export const addUserDoc = async <T>({
 	columnName,
 	columnNames,
 	userTableName,
-}: Input) => {
+}: AddRemoveInput) => {
 	const variables: SQLVariable[] = [{
 		key: "docId",
 		value: docId,
@@ -50,35 +43,41 @@ export const addUserDoc = async <T>({
 	const updateUserDocInLib =
 		sql.query({
 			sql: UPDATE_USER_DOC_IN_LIB,
-			parse: sql.parseRow,
+			parse: sql.parseRow(),
 			variables,
 		})
 
 	const insertUserDoc =
 		sql.query({
 			sql: INSERT_USER_DOC,
-			parse: sql.parseRow,
-			variables,
+			variables: [
+				...variables,
+				{
+					string: false,
+					key: "dateAdded",
+					value: Math.floor(Date.now() / 1000).toString(),
+				},
+			],
 		})
 
 	const actionQuery =
 		doesUserDocExist ? updateUserDocInLib : insertUserDoc
 
 	const returnQuery =
-		sql.query({
+		sql.query<T>({
 			sql: query,
-			parse: sql.parseRow,
+			parse: sql.parseRow(),
 			variables: [{
-				key: "docId",
 				value: docId,
-			}, {
+				key: camelCase(columnName),
+			},{
+				string: false,
 				key: "columnNames",
 				value: sql.join(columnNames),
 			}],
 		})
 
-	const result = await Promise.all([ returnQuery, actionQuery ])
+	const [ result ] = await Promise.all([ returnQuery, actionQuery ])
 
-	// @ts-ignore
-	return result[0] as T
+	return result
 }

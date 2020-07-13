@@ -1,14 +1,14 @@
 INSERT INTO {{ tableName }}
-  (
-    user_id,
-    {{ columnName }},
-    in_library,
-    date_created
-  )
+	(
+		user_id,
+		{{ columnName }},
+		in_library,
+		date_added
+	)
 VALUES
-  (
-    {{ userId }},
-    {{ docId }},
-    true,
-    now()
-  );
+	(
+		{{ userId }},
+		{{ docId }},
+		true,
+		{{ dateAdded }}
+	);

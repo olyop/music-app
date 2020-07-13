@@ -1,5 +1,5 @@
 /* eslint-disable promise/no-nesting */
-import pg from "../../services/pg"
+import { pg } from "../../services"
 import { SQLConfig } from "../../types"
 import { baseQuery } from "./baseQuery"
 

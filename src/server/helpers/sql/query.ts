@@ -1,4 +1,4 @@
-import pg from "../../services/pg"
+import { pg } from "../../services"
 import { baseQuery } from "./baseQuery"
 import { SQLConfig } from "../../types"
 

@@ -8,4 +8,4 @@ JOIN
 WHERE
 	user_id = {{ userId }}
 ORDER BY
-	{{ userTableName }}.date_created DESC;
+	{{ userTableName }}.date_added DESC;

@@ -1,7 +1,7 @@
 UPDATE
   {{ tableName }}
 SET
-  inLibrary = NOT inLibrary
+  in_library = NOT in_library
 WHERE
-  user_id = {{ userId }} &&
+  user_id = {{ userId }} AND
   {{ columnName }} = {{ docId }};

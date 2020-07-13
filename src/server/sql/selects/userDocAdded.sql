@@ -1,7 +1,7 @@
 SELECT
-  date_created
+  date_added
 FROM
   {{ tableName }}
 WHERE
-  user_id = {{ userId }} &&
+  user_id = {{ userId }} AND
   {{ columnName }} = {{ docId }};

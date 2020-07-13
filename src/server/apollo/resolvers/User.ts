@@ -14,6 +14,7 @@ import {
 	SELECT_SONG,
 	SELECT_SONGS_IN,
 	SELECT_USER_PLAYS,
+	SELECT_USER_SONGS,
 } from "../../sql"
 
 import { userDocs } from "./common"
@@ -126,12 +127,17 @@ export const plays =
 export const songs =
 	resolver<Song[]>(
 		({ parent }) => (
-			userDocs({
-				tableName: "songs",
-				columnName: "song_id",
-				userId: parent.userId,
-				userTableName: "users_songs",
-				columnNames: COLUMN_NAMES.SONG,
+			sql.query({
+				sql: SELECT_USER_SONGS,
+				parse: sql.parseTable(),
+				variables: [{
+					key: "userId",
+					value: parent.userId,
+				},{
+					string: false,
+					key: "columnNames",
+					value: sql.join(COLUMN_NAMES.SONG, "songs"),
+				}],
 			})
 		),
 	)

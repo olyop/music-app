@@ -70,7 +70,7 @@ export const dateAdded =
 			userDocDateAdded({
 				userId: args.userId,
 				docId: parent.genreId,
-				columnName: "artist_id",
+				columnName: "genre_id",
 				userDocTable: "users_genres",
 			})
 		),

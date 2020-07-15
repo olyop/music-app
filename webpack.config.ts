@@ -1,4 +1,3 @@
-import os from "os"
 import path from "path"
 import DotenvPlugin from "dotenv-webpack"
 import CopyPlugin from "copy-webpack-plugin"
@@ -10,8 +9,6 @@ import { Configuration, Plugin, RuleSetRule, Output } from "webpack"
 import HtmlWebpackPlugin, { MinifyOptions } from "html-webpack-plugin"
 import OptimizeCssAssetsPlugin from "optimize-css-assets-webpack-plugin"
 import { Configuration as DevServerConfiguration } from "webpack-dev-server"
-
-const HOST = os.networkInterfaces().Ethernet[1].address
 
 // eslint-disable-next-line node/no-process-env
 const { NODE_ENV } = process.env
@@ -30,8 +27,8 @@ const extensions = [".ts", ".tsx", ".js"]
 const IS_DEV = NODE_ENV === "dev"
 
 const mode = IS_DEV ? "development" : "production"
-
 const entry = CLIENT_ROOT_PATH
+const devtool = "inline-source-map"
 
 const output: Output = {
 	publicPath: "/",
@@ -50,16 +47,16 @@ const minify: MinifyOptions = {
 const devServer: DevServerConfiguration = {
 	hot: true,
 	port: 8080,
-	host: HOST,
 	open: true,
 	quiet: true,
 	noInfo: true,
 	stats: "none",
 	compress: true,
+	host: "192.168.1.110",
 	clientLogLevel: "error",
 	historyApiFallback: true,
 	contentBase: PUBLIC_PATH,
-	proxy: { "/graphql": `http://${HOST}:3000` },
+	proxy: { "/graphql": "http://192.168.1.110:3000" },
 }
 
 const rules: RuleSetRule[] = [
@@ -82,6 +79,14 @@ const rules: RuleSetRule[] = [
 		test: /\.tsx?$/,
 		loader: "ts-loader",
 		exclude: /node_modules/,
+		options: {
+			onlyCompileBundledFiles: true,
+		},
+	},
+	{
+		test: /\.js$/,
+		enforce: "pre",
+		use: "source-map-loader",
 	},
 ]
 
@@ -103,6 +108,7 @@ const config: Configuration = {
 	mode,
 	entry,
 	output,
+	devtool,
 	plugins,
 	devServer,
 	module: { rules },

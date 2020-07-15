@@ -14,14 +14,14 @@ const bem = createBem("UserControls")
 
 const UserControls: FC<PropTypes> = ({ className, iconClassName }) => {
 	const userId = useUserContext()
-	const { play, togglePlay } = usePlayContext()
+	const { play, setPlay } = usePlayContext()
 
 	const variables = { userId }
 	const [ userPrev ] = useMutation(USER_PREV, { variables })
 	const [ userNext ] = useMutation(USER_NEXT, { variables })
 
 	const handlePrevClick = () => userPrev()
-	const handlePlayClick = () => togglePlay()
+	const handlePlayClick = () => setPlay(prevState => !prevState)
 	const handleNextClick = () => userNext()
 
 	return (

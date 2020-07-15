@@ -6,7 +6,6 @@ import { createElement, Fragment, FC, ReactNode } from "react"
 
 import Spinner from "../Spinner"
 import ApiError from "../ApiError"
-import { useUserContext } from "../../contexts/User"
 
 const QueryApi: FC<PropTypes> = ({
 	query,
@@ -16,10 +15,8 @@ const QueryApi: FC<PropTypes> = ({
 	variables = {},
 	spinnerClassName,
 }) => {
-	const userId =
-		useUserContext()
 	const { loading, error, data } =
-		useQuery<unknown>(query, { variables: { ...variables, userId } })
+		useQuery<unknown>(query, { variables })
 	if (spinner && loading) {
 		return <Spinner className={spinnerClassName}/>
 	} else if (!isUndefined(error)) {

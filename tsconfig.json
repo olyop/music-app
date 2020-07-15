@@ -4,8 +4,7 @@
 		"strict": true,
 		"outDir": "dist",
 		"sourceMap": true,
-		"target": "ESNext",
-		"module": "ESNext",
+		"target": "ESNEXT",
 		"noImplicitAny": true,
 		"removeComments": true,
 		"noUnusedLocals": true,
@@ -18,8 +17,5 @@
 		"noFallthroughCasesInSwitch": true,
 		"strictPropertyInitialization": true,
 		"forceConsistentCasingInFileNames": true
-	},
-	"include": [
-		"src/server"
-	]
+	}
 }

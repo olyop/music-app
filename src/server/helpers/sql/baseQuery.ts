@@ -75,7 +75,7 @@ export const baseQuery =
 		(input: string | SQLConfig<TReturn>) =>
 			new Promise<TReturn>(
 				(resolve, reject) => {
-					const { sql, parse, variables = [] } = normalizeInput(input)
+					const { sql, log, parse, variables = [] } = normalizeInput(input)
 					const variableKeys = getVariableKeys(sql)
 					if (!areVariablesProvided(variableKeys, variables)) {
 						// eslint-disable-next-line max-len
@@ -85,6 +85,7 @@ export const baseQuery =
 					} else {
 						const params: string[] = []
 						const sqlWithValues = replaceSqlWithValues(sql, variables, params)
+						if (log) console.log(sqlWithValues)
 						client.query(sqlWithValues, params)
 							.then(parse)
 							.then(resolve)

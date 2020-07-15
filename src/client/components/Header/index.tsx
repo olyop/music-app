@@ -3,14 +3,20 @@ import { createElement, FC } from "react"
 import { NavLink } from "react-router-dom"
 
 import Icon from "../Icon"
-import { useSidebarContext } from "../../contexts/Sidebar"
+import { useSettingsContext } from "../../contexts/Settings"
 
 import "./index.scss"
 
 const bem = createBem("Header")
 
 const Header: FC = () => {
-	const { sidebar, toggleSidebar } = useSidebarContext()
+	const { setSettings, settings: { sidebar } } =
+		useSettingsContext()
+	const toggleSidebar = () =>
+		setSettings(prevState => ({
+			...prevState,
+			sidebar: !prevState.sidebar,
+		}))
 	return (
 		<header className={bem("", "Elevated")}>
 			<Icon

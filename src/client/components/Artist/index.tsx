@@ -5,7 +5,7 @@ import Item from "../Item"
 import Cover from "../Cover"
 import DocLink from "../DocLink"
 import { determinePlural } from "../../helpers"
-import { useListStyleContext } from "../../contexts/ListStyle"
+import { useSettingsContext } from "../../contexts/Settings"
 import { Artist as ArtistType, ListStyleEnum } from "../../types"
 
 const artistLower = ({ numOfSongs, numOfAlbums }: ArtistType) =>
@@ -15,7 +15,7 @@ const artistLower = ({ numOfSongs, numOfAlbums }: ArtistType) =>
 	` : null)
 
 const Artist: FC<PropTypes> = ({ artist, className = null }) => {
-	const { listStyle } = useListStyleContext()
+	const { settings: { listStyle } } = useSettingsContext()
 	return listStyle === ListStyleEnum.grid ? (
 		<div className={[ className, "Card", "Elevated" ].join(" ")}>
 			<Cover

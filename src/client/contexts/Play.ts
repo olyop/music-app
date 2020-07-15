@@ -1,9 +1,9 @@
+import { Dispatch, SetStateAction } from "react"
 import { createContext } from "../helpers"
 
 interface PlayContext {
 	play: boolean,
-	togglePlay: () => void,
-	setPlay: (val: boolean) => void,
+	setPlay: Dispatch<SetStateAction<boolean>>,
 }
 
 const [ usePlayContext, PlayProvider ] =

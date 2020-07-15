@@ -8,6 +8,7 @@ import QueryApi from "../QueryApi"
 import Progress from "../Progress"
 import { User } from "../../types"
 import UserControls from "../UserControls"
+import { useUserContext } from "../../contexts/User"
 import GET_USER_CURRENT from "../../graphql/queries/userCurrent.gql"
 
 import "./index.scss"
@@ -24,6 +25,7 @@ const PlayerBar: FC = () => (
 			<QueryApi
 				query={GET_USER_CURRENT}
 				className={bem("main-info")}
+				variables={{ userId: useUserContext() }}
 				children={
 					({ user }: Data) => (
 						<Fragment>

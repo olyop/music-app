@@ -15,8 +15,8 @@ input GenreInput {
 input AlbumInput {
 	title: String!
 	cover: Upload!
-	artistIds: [Uuid!]!
 	released: String!
+	artistIds: [Uuid!]!
 }
 
 input SongInput {
@@ -36,4 +36,9 @@ input PlaylistInput {
 	user: Uuid!
   name: String!
   songs: [Uuid!]!
+}
+
+input SongOrderByInput {
+	field: SongOrderField!
+	direction: OrderByDirection!
 }

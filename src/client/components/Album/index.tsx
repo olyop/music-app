@@ -4,11 +4,11 @@ import Item from "../Item"
 import Cover from "../Cover"
 import DocLink from "../DocLink"
 import DocLinks from "../DocLinks"
-import { useListStyleContext } from "../../contexts/ListStyle"
+import { useSettingsContext } from "../../contexts/Settings"
 import { Album as AlbumType, ListStyleEnum } from "../../types"
 
 const Album: FC<PropTypes> = ({ album, className = null }) => {
-	const { listStyle } = useListStyleContext()
+	const { settings: { listStyle } } = useSettingsContext()
 	return listStyle === ListStyleEnum.grid ? (
 		<div className={[ "Card", "Elevated", className ].join(" ")}>
 			<Cover

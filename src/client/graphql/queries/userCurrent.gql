@@ -6,7 +6,6 @@ query userCurrent($userId: Uuid!) {
       mix
       title
       duration
-      inLibrary(userId: $userId)
       featuring {
         artistId
         name

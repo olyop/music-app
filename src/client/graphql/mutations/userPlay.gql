@@ -12,7 +12,6 @@ mutation userPlay(
       mix
       title
       duration
-      inLibrary(userId: $userId)
       featuring {
         artistId
         name

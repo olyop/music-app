@@ -24,7 +24,7 @@ const Add: FC = () => {
 	const [ songs, setSongs ] = useState<Song[]>(null)
 
 	if (!isNull(error)) {
-		return <ApiError error={error}/>
+		return console.error(error)
 	} else if (loading) {
 		return <Spinner className="Padding"/>
 	} else if (isNull(songs) && isNull(album)) {

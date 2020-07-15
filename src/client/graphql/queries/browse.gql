@@ -4,7 +4,6 @@ query browse($userId: Uuid!) {
     mix
     title
     duration
-    inLibrary(userId: $userId)
     featuring {
       artistId
       name
@@ -35,7 +34,6 @@ query browse($userId: Uuid!) {
     albumId
     title
     cover(size: HALF)
-    inLibrary(userId: $userId)
     artists {
       artistId
       name

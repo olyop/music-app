@@ -5,7 +5,6 @@ query userAlbums($userId: Uuid!) {
       albumId
       title
       cover(size: HALF)
-      inLibrary(userId: $userId)
       dateAdded(userId: $userId)
       artists {
         artistId

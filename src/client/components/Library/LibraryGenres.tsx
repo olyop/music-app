@@ -6,12 +6,14 @@ import Genre from "../Genre"
 import Helmet from "../Helmet"
 import QueryApi from "../QueryApi"
 import { User } from "../../types"
+import { useUserContext } from "../../contexts/User"
 import GET_USER_GENRES from "../../graphql/queries/userGenres.gql"
 
 const LibraryGenres: FC = () => (
 	<Helmet title="Library Genres">
 		<QueryApi
 			query={GET_USER_GENRES}
+			variables={{ userId: useUserContext() }}
 			children={
 				({ user: { genres } }: Data) => (
 					<List>

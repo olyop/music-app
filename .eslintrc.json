@@ -19,6 +19,7 @@
 	],
 	"parserOptions": {
 		"sourceType": "module",
+		"ecmaFeatures": { "jsx": true },
 		"project": "./tsconfig.eslint.json"
 	},
 	"env": {

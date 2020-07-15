@@ -1,8 +1,10 @@
+import { Dispatch, SetStateAction } from "react"
+
 import { createContext } from "../helpers"
 
 interface CurrentContext {
 	current: number,
-	setCurrent: (val: number) => void,
+	setCurrent: Dispatch<SetStateAction<number>>,
 }
 
 const [ useCurrentContext, CurrentProvider ] =

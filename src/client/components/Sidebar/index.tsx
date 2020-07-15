@@ -3,14 +3,20 @@ import { createElement, FC } from "react"
 import { NavLink } from "react-router-dom"
 
 import Icon from "../Icon"
-import { useSidebarContext } from "../../contexts/Sidebar"
+import { useSettingsContext } from "../../contexts/Settings"
 
 import "./index.scss"
 
 const bem = createBem("Sidebar")
 
 const Sidebar: FC = () => {
-	const { toggleSidebar } = useSidebarContext()
+	const { setSettings } =
+		useSettingsContext()
+	const toggleSidebar = () =>
+		setSettings(prevState => ({
+			...prevState,
+			sidebar: !prevState.sidebar,
+		}))
 	return (
 		<nav className={bem("")}>
 			<NavLink

@@ -4,8 +4,8 @@ query userGenres($userId: Uuid!) {
     genres {
       genreId
       name
-      inLibrary(userId: $userId)
       dateAdded(userId: $userId)
+      inLibrary(userId: $userId)
     }
   }
 }

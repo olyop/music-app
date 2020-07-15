@@ -8,9 +8,10 @@ mutation rmUserAlbum(
   ) {
     albumId
     title
+    released
     cover(size: HALF)
-    inLibrary(userId: $userId)
     dateAdded(userId: $userId)
+    inLibrary(userId: $userId)
     artists {
       artistId
       name

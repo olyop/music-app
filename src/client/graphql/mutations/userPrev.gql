@@ -6,7 +6,6 @@ mutation userPrev($userId: Uuid!) {
       mix
       title
       duration
-      inLibrary(userId: $userId)
       featuring {
         artistId
         name
@@ -34,7 +33,6 @@ mutation userPrev($userId: Uuid!) {
       title
       mix
       duration
-      inLibrary(userId: $userId)
       featuring {
         artistId
         name
@@ -62,7 +60,6 @@ mutation userPrev($userId: Uuid!) {
       title
       mix
       duration
-      inLibrary(userId: $userId)
       featuring {
         artistId
         name
@@ -90,7 +87,6 @@ mutation userPrev($userId: Uuid!) {
       title
       mix
       duration
-      inLibrary(userId: $userId)
       featuring {
         artistId
         name

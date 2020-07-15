@@ -36,13 +36,28 @@ import { parseSong as parseSongFunc, MetadataResponse } from "./parseSong"
 const resolver =
 	createResolver()
 
+interface SongsArgs {
+	orderBy: {
+		field: string,
+		direction: string,
+	},
+}
+
 export const songs =
-	resolver<Song[]>(
-		() => (
+	resolver<Song[], SongsArgs>(
+		({ args }) => (
 			sql.query({
 				sql: SELECT_SONGS,
 				parse: sql.parseTable(),
 				variables: [{
+					string: false,
+					key: "orderByField",
+					value: args.orderBy.field,
+				},{
+					string: false,
+					key: "orderByDirection",
+					value: args.orderBy.direction,
+				},{
 					string: false,
 					key: "columnNames",
 					value: sql.join(COLUMN_NAMES.SONG, "songs"),

@@ -1,10 +1,9 @@
-query albums($userId: Uuid!) {
+query albums {
   albums {
     albumId
     title
     released
     cover(size: HALF)
-    inLibrary(userId: $userId)
     artists {
       artistId
       name

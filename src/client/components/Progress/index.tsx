@@ -6,6 +6,7 @@ import { createElement, ChangeEventHandler, FC } from "react"
 import QueryApi from "../QueryApi"
 import { User } from "../../types"
 import { deserializeDuration } from "../../helpers"
+import { useUserContext } from "../../contexts/User"
 import { useCurrentContext } from "../../contexts/Current"
 import GET_USER_CURRENT from "../../graphql/queries/userCurrent.gql"
 
@@ -18,6 +19,8 @@ const determineDuration = (data: { user: User } | undefined) =>
 		0 : data.user.current.duration)
 
 const Progress: FC<PropTypes> = ({ className }) => {
+	const userId =
+		useUserContext()
 	const { current, setCurrent } =
 		useCurrentContext()
 	const handleChange: ChangeEventHandler<HTMLInputElement> =
@@ -25,6 +28,7 @@ const Progress: FC<PropTypes> = ({ className }) => {
 	return (
 		<QueryApi
 			spinner={false}
+			variables={{ userId }}
 			query={GET_USER_CURRENT}
 			children={
 				(data: Data) => {

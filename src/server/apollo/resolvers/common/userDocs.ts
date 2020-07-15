@@ -37,6 +37,6 @@ export const userDocs = <T>({
 		},{
 			string: false,
 			key: "columnNames",
-			value: sql.join(columnNames, "songs"),
+			value: sql.join(columnNames, tableName),
 		}],
 	})

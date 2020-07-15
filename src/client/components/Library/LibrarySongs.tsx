@@ -4,6 +4,7 @@ import Song from "../Song"
 import Helmet from "../Helmet"
 import QueryApi from "../QueryApi"
 import { User } from "../../types"
+import { useUserContext } from "../../contexts/User"
 import GET_USER_SONGS from "../../graphql/queries/userSongs.gql"
 
 const LibrarySongs: FC = () => (
@@ -11,6 +12,7 @@ const LibrarySongs: FC = () => (
 		<QueryApi
 			className="Elevated"
 			query={GET_USER_SONGS}
+			variables={{ userId: useUserContext() }}
 			children={
 				({ user: { songs } }: Data) => (
 					songs.map(

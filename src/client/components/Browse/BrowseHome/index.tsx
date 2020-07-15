@@ -6,6 +6,7 @@ import Song from "../../Song"
 import Album from "../../Album"
 import Helmet from "../../Helmet"
 import QueryApi from "../../QueryApi"
+import { useUserContext } from "../../../contexts/User"
 import QUERY_BROWSE from "../../../graphql/queries/browse.gql"
 import { Album as AlbumType, Song as SongType } from "../../../types"
 
@@ -15,8 +16,9 @@ const bem = createBem("BrowseHome")
 
 const BrowseHome: FC = () => (
 	<QueryApi
-		query={QUERY_BROWSE}
 		className={bem("")}
+		query={QUERY_BROWSE}
+		variables={{ userId: useUserContext() }}
 		children={
 			({ newAlbums, topTenSongs }: Data) => (
 				<Helmet title="Browse">

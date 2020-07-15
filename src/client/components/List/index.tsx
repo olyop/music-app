@@ -1,24 +1,24 @@
+import { createElement, FC, ReactNode } from "react"
 import { createBem, BemInput } from "@oly_op/bem"
-import { createElement, ReactNode, FC } from "react"
 
 import { ListStyleEnum } from "../../types"
-import { useListStyleContext } from "../../contexts/ListStyle"
+import { useSettingsContext } from "../../contexts/Settings"
 
 const bem = createBem("List")
 
 const List: FC<PropTypes> = ({ children, className }) => {
-	const { listStyle } = useListStyleContext()
+	const { settings: { listStyle } } = useSettingsContext()
 	const listClassName = listStyle === ListStyleEnum.grid ? "Grid" : "Elevated"
 	return (
-		<div className={bem(className, listClassName, "")}>
+		<div className={bem(listClassName, className, "")}>
 			{children}
 		</div>
 	)
 }
 
 interface PropTypes {
-	children: ReactNode,
 	className?: BemInput,
+	children: ReactNode, // required prop as "FC" does not
 }
 
 export default List

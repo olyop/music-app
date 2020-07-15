@@ -6,7 +6,7 @@ import DocLinks from "../DocLinks"
 import { Song } from "../../types"
 import SongTitle from "../SongTitle"
 import { deserializeDuration } from "../../helpers"
-import { useShowGenresContext } from "../../contexts/ShowGenres"
+import { useSettingsContext } from "../../contexts/Settings"
 
 const Song: FC<PropTypes> = ({
 	song,
@@ -17,7 +17,7 @@ const Song: FC<PropTypes> = ({
 	showRight = true,
 	showTrackNumber = false,
 }) => {
-	const { showGenres } = useShowGenresContext()
+	const { settings: { showGenres } } = useSettingsContext()
 	return (
 		<Item
 			doc={song}

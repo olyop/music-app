@@ -15,15 +15,16 @@ import GET_USER_CURRENT from "../../graphql/queries/userCurrent.gql"
 const bem = createBem("PlayButton")
 
 const PlayButton: FC<PropTypes> = ({ doc, className }) => {
-	const userId =
-		useUserContext()
-	const docId =
-		determineDocId(doc)
-	const { play, setPlay, togglePlay } =
-		usePlayContext()
+	const userId = useUserContext()
+	const docId = determineDocId(doc)
+	const { play, setPlay } = usePlayContext()
+
 	const { data } =
-		useQuery<UserCurrentRes>(GET_USER_CURRENT)
-	console.log(data.user.current.title)
+		useQuery<UserCurrentRes>(
+			GET_USER_CURRENT,
+			{ variables: { userId } },
+		)
+
 	const [ userPlay ] =
 		useMutation<UserPlayRes>(USER_PLAY, {
 			variables: { docId, userId },
@@ -35,26 +36,27 @@ const PlayButton: FC<PropTypes> = ({ doc, className }) => {
 				},
 			} : undefined,
 		})
+
 	const isCurrent = isUndefined(data) || isNull(data.user.current) ?
 		false : data.user.current.songId === docId
-	const icon = isCurrent && play ?
-		"pause" : "play_arrow"
-	function handleClick() {
+
+	const handleClick = () => {
 		if (isSong(doc)) {
 			if (isCurrent) {
-				togglePlay()
+				setPlay(prevState => !prevState)
 			} else {
 				setPlay(true)
 				userPlay()
 			}
 		}
 	}
+
 	return (
 		<Icon
-			icon={icon}
 			title="Play"
 			onClick={handleClick}
 			className={bem(className, "IconHover")}
+			icon={isCurrent && play ? "pause" : "play_arrow"}
 		/>
 	)
 }

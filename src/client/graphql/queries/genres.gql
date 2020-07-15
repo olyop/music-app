@@ -1,8 +1,7 @@
-query genres($userId: Uuid!) {
+query genres {
   genres {
     genreId
     name
     numOfSongs
-    inLibrary(userId: $userId)
   }
 }

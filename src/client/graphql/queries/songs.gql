@@ -1,5 +1,5 @@
-query songs {
-  songs {
+query songs($orderBy: SongOrderByInput!) {
+  songs(orderBy: $orderBy) {
     mix
     title
     songId

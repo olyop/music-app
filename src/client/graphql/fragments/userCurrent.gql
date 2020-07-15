@@ -1,5 +1,0 @@
-fragment userCurrent on User {
-	current {
-		songId
-	}
-}

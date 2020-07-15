@@ -5,26 +5,33 @@ import { createElement, FC, ChangeEventHandler } from "react"
 import Helmet from "../Helmet"
 import QueryApi from "../QueryApi"
 import { ListStyleEnum, User } from "../../types"
+import { useUserContext } from "../../contexts/User"
 import GET_USER from "../../graphql/queries/user.gql"
-import { useListStyleContext } from "../../contexts/ListStyle"
-import { useShowGenresContext } from "../../contexts/ShowGenres"
+import { useSettingsContext } from "../../contexts/Settings"
 
 import "./index.scss"
 
 const bem = createBem("UserPage")
 
 const UserPage: FC = () => {
-	const { listStyle, setListStyle } =
-		useListStyleContext()
-	const { showGenres, setShowGenres } =
-		useShowGenresContext()
+	const userId =
+		useUserContext()
+	const { setSettings, settings: { showGenres, listStyle } } =
+		useSettingsContext()
 	const handleListStyle: ChangeEventHandler<HTMLSelectElement> = event =>
-		setListStyle(event.target.value as ListStyleEnum)
+		setSettings(prevState => ({
+			...prevState,
+			listStyle: event.target.value as ListStyleEnum,
+		}))
 	const handleShowGenres: ChangeEventHandler<HTMLInputElement> = event =>
-		setShowGenres(event.target.checked)
+		setSettings(prevState => ({
+			...prevState,
+			showGenres: event.target.checked,
+		}))
 	return (
 		<QueryApi
 			query={GET_USER}
+			variables={{ userId }}
 			className={bem("", "Padding")}
 			children={
 				({ user }: Data) => (

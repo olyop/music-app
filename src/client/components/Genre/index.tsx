@@ -3,12 +3,12 @@ import { createElement, FC } from "react"
 import Item from "../Item"
 import DocLink from "../DocLink"
 import genreLower from "./genreLower"
-import { useListStyleContext } from "../../contexts/ListStyle"
+import { useSettingsContext } from "../../contexts/Settings"
 import { ListStyleEnum, Genre as GenreType } from "../../types"
 
 const Genre: FC<PropTypes> = ({ genre }) => {
-	const { listStyle } =
-		useListStyleContext()
+	const { settings: { listStyle } } =
+		useSettingsContext()
 	const classNames = listStyle === ListStyleEnum.grid ?
 		[ "Card", "Elevated" ] : [ "ItemBorder", "Hover" ]
 	return (

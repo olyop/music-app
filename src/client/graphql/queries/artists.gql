@@ -1,10 +1,9 @@
-query artists($userId: Uuid!) {
+query artists {
   artists {
     artistId
     name
     numOfSongs
     numOfAlbums
     photo(size: MINI)
-    inLibrary(userId: $userId)
   }
 }

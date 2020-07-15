@@ -8,7 +8,8 @@ mutation rmUserGenre(
   ) {
     genreId
     name
-    inLibrary(userId: $userId)
+    numOfSongs
     dateAdded(userId: $userId)
+    inLibrary(userId: $userId)
   }
 }

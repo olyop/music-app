@@ -41,6 +41,9 @@
 .MarginBottomQuart {
 	margin-bottom: calc(var(--space) * 0.25); }
 
+.MarginRightHalf {
+	margin-right: var(--space-half); }
+
 .FlexList {
 	display: flex;
 	align-items: center; }

@@ -9,5 +9,5 @@ type Artist {
   plays(userId: Uuid!): [Play!]
   inLibrary(userId: Uuid!): Boolean!
   dateAdded(userId: Uuid!): PositiveInt
-  photo(size: ArtistPhotoSizes!): String!
+  photo(size: ArtistPhotoSize! = HALF): String!
 }

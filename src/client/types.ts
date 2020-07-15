@@ -78,6 +78,11 @@ export enum ListStyleEnum {
 	list = "list",
 }
 
+export enum OrderByDirection {
+	ASC = "ASC",
+	DESC = "DESC",
+}
+
 export interface Disc {
 	songs: Song[],
 	number: number,
@@ -107,4 +112,23 @@ export interface DataUserPlay {
 export interface ParseSongs {
 	album: Album,
 	songs: Song[],
+}
+
+interface DocOrderBy<F> {
+	field: F,
+	direction: OrderByDirection,
+}
+
+export enum SongOrderByField {
+	TITLE = "TITLE",
+	DURATION = "DURATION",
+}
+
+export type SongOrderBy = DocOrderBy<SongOrderByField>
+
+export interface Settings {
+	sidebar: boolean,
+	showGenres: boolean,
+	listStyle: ListStyleEnum,
+	songsOrderBy: SongOrderBy,
 }

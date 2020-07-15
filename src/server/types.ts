@@ -31,6 +31,7 @@ export type SQLVariable = {
 
 export type SQLConfig<TReturn = unknown> = {
 	sql: string,
+	log?: boolean,
 	variables?: SQLVariable[],
 	parse?: (res: QueryResult) => TReturn,
 }

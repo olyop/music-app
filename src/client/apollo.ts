@@ -1,8 +1,6 @@
 import { createUploadLink } from "apollo-upload-client"
 import { ApolloClient, InMemoryCache, TypePolicies } from "@apollo/client"
 
-// import { dataIdFromObject } from "./helpers"
-
 const typePolicies: TypePolicies = {
 	User: { keyFields: ["userId"] },
 	Song: { keyFields: ["songId"] },

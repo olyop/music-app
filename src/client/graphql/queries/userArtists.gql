@@ -5,8 +5,8 @@ query userArtists($userId: Uuid!) {
       artistId
       name
       photo(size: MINI)
-      inLibrary(userId: $userId)
       dateAdded(userId: $userId)
+      inLibrary(userId: $userId)
     }
   }
 }

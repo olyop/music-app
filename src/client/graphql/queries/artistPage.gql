@@ -1,19 +1,14 @@
-query artistPage(
-  $userId: Uuid!
-  $artistId: Uuid!
-) {
+query artistPage($artistId: Uuid!) {
   artist(artistId: $artistId) {
     artistId
     name
     numOfPlays
     photo(size: FULL)
-    inLibrary(userId: $userId)
     songs {
       songId
       mix
       title
       duration
-      inLibrary(userId: $userId)
       featuring {
         artistId
         name
@@ -41,7 +36,6 @@ query artistPage(
       albumId
       title
       cover(size: HALF)
-      inLibrary(userId: $userId)
       artists {
         artistId
         name

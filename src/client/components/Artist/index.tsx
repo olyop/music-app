@@ -16,7 +16,7 @@ const artistLower = ({ numOfSongs, numOfAlbums }: ArtistType) =>
 
 const Artist: FC<PropTypes> = ({ artist, className = null }) => {
 	const { settings: { listStyle } } = useSettingsContext()
-	return listStyle === ListStyleEnum.grid ? (
+	return listStyle === ListStyleEnum.GRID ? (
 		<div className={[ className, "Card", "Elevated" ].join(" ")}>
 			<Cover
 				landscape

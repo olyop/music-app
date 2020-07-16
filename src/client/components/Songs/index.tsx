@@ -1,10 +1,8 @@
-import { DocumentNode } from "graphql"
+import { createElement, FC } from "react"
 import { createBem, BemInput } from "@oly_op/bem"
-import { createElement, FC, Fragment } from "react"
 
 import Song from "../Song"
 import Select from "../Select"
-import QueryApi from "../QueryApi"
 import { useSettingsContext } from "../../contexts/Settings"
 
 import {
@@ -18,11 +16,9 @@ import "./index.scss"
 
 const bem = createBem("Songs")
 
-const Songs: FC<PropTypes> = ({ query, className }) => {
+const Songs: FC<PropTypes> = ({ songs, className }) => {
 	const { setSettings, settings: { songsOrderBy } } =
 		useSettingsContext()
-	const varaibles =
-		{ orderBy: songsOrderBy }
 	const handleChange = <T,>(key: keyof SongOrderBy) => (val: string) =>
 		setSettings(prevState => ({
 			...prevState,
@@ -32,51 +28,38 @@ const Songs: FC<PropTypes> = ({ query, className }) => {
 			},
 		}))
 	return (
-		<QueryApi
-			query={query}
-			variables={varaibles}
-			className={bem(className, "")}
-			children={
-				(res: Res) => (
-					<Fragment>
-						<div className={bem("selects")}>
-							<Select
-								value={songsOrderBy.field}
-								options={Object.keys(SongOrderByField)}
-								className={bem("select", "MarginRightHalf")}
-								onChange={handleChange<SongOrderByField>("field")}
-							/>
-							<Select
-								className={bem("select")}
-								value={songsOrderBy.direction}
-								options={Object.keys(OrderByDirection)}
-								onChange={handleChange<OrderByDirection>("direction")}
-							/>
-						</div>
-						<div className="Elevated">
-							{res.songs.map(
-								song => (
-									<Song
-										song={song}
-										key={song.songId}
-										className="PaddingHalf Hover ItemBorder"
-									/>
-								),
-							)}
-						</div>
-					</Fragment>
-				)
-			}
-		/>
+		<div className={bem(className, "")}>
+			<div className={bem("selects")}>
+				<Select
+					value={songsOrderBy.field}
+					options={Object.keys(SongOrderByField)}
+					className={bem("select", "MarginRightHalf")}
+					onChange={handleChange<SongOrderByField>("field")}
+				/>
+				<Select
+					className={bem("select")}
+					value={songsOrderBy.direction}
+					options={Object.keys(OrderByDirection)}
+					onChange={handleChange<OrderByDirection>("direction")}
+				/>
+			</div>
+			<div className="Elevated">
+				{songs.map(
+					song => (
+						<Song
+							song={song}
+							key={song.songId}
+							className="PaddingHalf Hover ItemBorder"
+						/>
+					),
+				)}
+			</div>
+		</div>
 	)
 }
 
-interface Res {
-	songs: SongType[],
-}
-
 interface PropTypes {
-	query: DocumentNode,
+	songs: SongType[],
 	className?: BemInput,
 }
 

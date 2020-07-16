@@ -1,4 +1,4 @@
-import { createElement, FC, Fragment } from "react"
+import { createElement, FC, Fragment, ReactNode } from "react"
 
 const Helmet: FC<PropTypes> = ({ title, children }) => {
 	// eslint-disable-next-line node/no-process-env
@@ -8,6 +8,7 @@ const Helmet: FC<PropTypes> = ({ title, children }) => {
 
 interface PropTypes {
 	title: string,
+	children: ReactNode,
 }
 
 export default Helmet

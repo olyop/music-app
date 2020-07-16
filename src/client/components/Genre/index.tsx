@@ -9,7 +9,7 @@ import { ListStyleEnum, Genre as GenreType } from "../../types"
 const Genre: FC<PropTypes> = ({ genre }) => {
 	const { settings: { listStyle } } =
 		useSettingsContext()
-	const classNames = listStyle === ListStyleEnum.grid ?
+	const classNames = listStyle === ListStyleEnum.GRID ?
 		[ "Card", "Elevated" ] : [ "ItemBorder", "Hover" ]
 	return (
 		<Item

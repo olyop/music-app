@@ -8,7 +8,7 @@ const bem = createBem("List")
 
 const List: FC<PropTypes> = ({ children, className }) => {
 	const { settings: { listStyle } } = useSettingsContext()
-	const listClassName = listStyle === ListStyleEnum.grid ? "Grid" : "Elevated"
+	const listClassName = listStyle === ListStyleEnum.GRID ? "Grid" : "Elevated"
 	return (
 		<div className={bem(listClassName, className, "")}>
 			{children}

@@ -74,8 +74,8 @@ export interface Playlist extends PlaylistBase, UserDoc {
 }
 
 export enum ListStyleEnum {
-	grid = "grid",
-	list = "list",
+	GRID = "GRID",
+	LIST = "LIST",
 }
 
 export enum OrderByDirection {

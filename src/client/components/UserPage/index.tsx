@@ -23,11 +23,13 @@ const UserPage: FC = () => {
 			...prevState,
 			listStyle: event.target.value as ListStyleEnum,
 		}))
-	const handleShowGenres: ChangeEventHandler<HTMLInputElement> = event =>
+	const handleShowGenres: ChangeEventHandler<HTMLInputElement> = event => {
+		console.log(event.target)
 		setSettings(prevState => ({
 			...prevState,
 			showGenres: event.target.checked,
 		}))
+	}
 	return (
 		<QueryApi
 			query={GET_USER}
@@ -43,19 +45,19 @@ const UserPage: FC = () => {
 							List Style
 						</h3>
 						<select
+							value={listStyle}
 							onChange={handleListStyle}
-							value={listStyle || "grid"}
 							className="Text MarginBottomHalf"
 						>
 							<option
-								value={ListStyleEnum.grid}
+								value={ListStyleEnum.GRID}
 								className={bem("select-option")}
-								children={upperFirst(ListStyleEnum.grid)}
+								children={upperFirst(ListStyleEnum.GRID)}
 							/>
 							<option
-								value={ListStyleEnum.list}
+								value={ListStyleEnum.LIST}
 								className={bem("select-option")}
-								children={upperFirst(ListStyleEnum.list)}
+								children={upperFirst(ListStyleEnum.LIST)}
 							/>
 						</select>
 						<h3 className={bem("option-text")}>

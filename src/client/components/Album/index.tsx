@@ -9,7 +9,7 @@ import { Album as AlbumType, ListStyleEnum } from "../../types"
 
 const Album: FC<PropTypes> = ({ album, className = null }) => {
 	const { settings: { listStyle } } = useSettingsContext()
-	return listStyle === ListStyleEnum.grid ? (
+	return listStyle === ListStyleEnum.GRID ? (
 		<div className={[ "Card", "Elevated", className ].join(" ")}>
 			<Cover
 				url={album.cover}

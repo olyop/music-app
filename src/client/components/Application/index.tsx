@@ -20,7 +20,7 @@ import "./index.scss"
 const defaultSettings: Settings = {
 	sidebar: false,
 	showGenres: false,
-	listStyle: ListStyleEnum.grid,
+	listStyle: ListStyleEnum.GRID,
 	songsOrderBy: {
 		field: SongOrderByField.TITLE,
 		direction: OrderByDirection.ASC,

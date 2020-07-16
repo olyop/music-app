@@ -6,7 +6,7 @@ import Cover from "../Cover"
 import DocLink from "../DocLink"
 import { determinePlural } from "../../helpers"
 import { useSettingsContext } from "../../contexts/Settings"
-import { Artist as ArtistType, ListStyleEnum } from "../../types"
+import { Artist as ArtistType, ListStyle } from "../../types"
 
 const artistLower = ({ numOfSongs, numOfAlbums }: ArtistType) =>
 	(numOfSongs || numOfAlbums ? `
@@ -16,7 +16,7 @@ const artistLower = ({ numOfSongs, numOfAlbums }: ArtistType) =>
 
 const Artist: FC<PropTypes> = ({ artist, className = null }) => {
 	const { settings: { listStyle } } = useSettingsContext()
-	return listStyle === ListStyleEnum.GRID ? (
+	return listStyle === ListStyle.GRID ? (
 		<div className={[ className, "Card", "Elevated" ].join(" ")}>
 			<Cover
 				landscape

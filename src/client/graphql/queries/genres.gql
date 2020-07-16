@@ -1,5 +1,5 @@
-query genres {
-  genres {
+query genres($orderBy: GenreOrderByInput!) {
+  genres(orderBy: $orderBy) {
     genreId
     name
     numOfSongs

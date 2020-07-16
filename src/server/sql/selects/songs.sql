@@ -3,4 +3,4 @@ SELECT
 FROM
   songs
 ORDER BY
-  songs.{{ orderByField }} {{ orderByDirection }};
+  {{ orderByField }} {{ orderByDirection }};

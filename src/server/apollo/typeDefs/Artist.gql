@@ -1,7 +1,6 @@
 type Artist {
   name: String!
   artistId: Uuid!
-  songs: [Song!]!
   albums: [Album!]!
   numOfPlays: Int!,
   numOfSongs: NonNegativeInt!
@@ -9,5 +8,6 @@ type Artist {
   plays(userId: Uuid!): [Play!]
   inLibrary(userId: Uuid!): Boolean!
   dateAdded(userId: Uuid!): PositiveInt
+  songs(orderBy: SongOrderByInput!): [Song!]!
   photo(size: ArtistPhotoSize! = HALF): String!
 }

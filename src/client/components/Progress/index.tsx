@@ -1,7 +1,7 @@
 import isNull from "lodash/isNull"
 import isUndefined from "lodash/isUndefined"
 import { createBem, BemInput } from "@oly_op/bem"
-import { createElement, ChangeEventHandler, FC } from "react"
+import { createElement, ChangeEventHandler, FC, Fragment } from "react"
 
 import QueryApi from "../QueryApi"
 import { User } from "../../types"
@@ -14,7 +14,7 @@ import "./index.scss"
 
 const bem = createBem("Progress")
 
-const determineDuration = (data: { user: User } | undefined) =>
+const determineDuration = (data: Data | undefined) =>
 	(isUndefined(data) || isNull(data.user.current) ?
 		0 : data.user.current.duration)
 
@@ -27,14 +27,14 @@ const Progress: FC<PropTypes> = ({ className }) => {
 		event => setCurrent(parseInt(event.target.value))
 	return (
 		<QueryApi
-			spinner={false}
 			variables={{ userId }}
 			query={GET_USER_CURRENT}
+			className={bem(className, "")}
 			children={
-				(data: Data) => {
+				(data: Data | undefined) => {
 					const duration = determineDuration(data)
 					return (
-						<div className={bem(className, "")}>
+						<Fragment>
 							<p
 								className="Text"
 								children={deserializeDuration(current)}
@@ -52,7 +52,7 @@ const Progress: FC<PropTypes> = ({ className }) => {
 								className="Text"
 								children={deserializeDuration(duration)}
 							/>
-						</div>
+						</Fragment>
 					)
 				}
 			}

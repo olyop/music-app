@@ -1,10 +1,13 @@
-query artistPage($artistId: Uuid!) {
+query artistPage(
+  $artistId: Uuid!
+  $songsOrderBy: SongOrderByInput!
+) {
   artist(artistId: $artistId) {
     artistId
     name
     numOfPlays
     photo(size: FULL)
-    songs {
+    songs(orderBy: $songsOrderBy) {
       songId
       mix
       title

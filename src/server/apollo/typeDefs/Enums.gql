@@ -1,3 +1,14 @@
+enum ArtistPhotoSize {
+  MINI
+  HALF
+  FULL
+}
+
+enum AlbumCoverSize {
+  HALF
+  FULL
+}
+
 enum OrderByDirection {
   ASC
   DESC
@@ -8,13 +19,6 @@ enum SongOrderField {
   DURATION
 }
 
-enum ArtistPhotoSize {
-  MINI
-  HALF
-  FULL
-}
-
-enum AlbumCoverSize {
-  HALF
-  FULL
+enum GenreOrderField {
+  NAME
 }

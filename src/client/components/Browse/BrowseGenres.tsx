@@ -1,35 +1,30 @@
 import { createElement, FC } from "react"
 
-import List from "../List"
-import Genre from "../Genre"
+import Genres from "../Genres"
 import Helmet from "../Helmet"
 import QueryApi from "../QueryApi"
 import { Genre as GenreType } from "../../types"
 import GET_GENRES from "../../graphql/queries/genres.gql"
+import { useSettingsContext } from "../../contexts/Settings"
 
-const BrowseGenres: FC = () => (
-	<Helmet title="Browse Genres">
-		<QueryApi
-			query={GET_GENRES}
-			children={
-				({ genres }: Data) => (
-					<List>
-						{genres.map(
-							genre => (
-								<Genre
-									genre={genre}
-									key={genre.genreId}
-								/>
-							),
-						)}
-					</List>
-				)
-			}
-		/>
-	</Helmet>
-)
+const BrowseGenres: FC = () => {
+	const { settings: { genresOrderBy } } = useSettingsContext()
+	return (
+		<Helmet title="Browse Genres">
+			<QueryApi
+				query={GET_GENRES}
+				variables={{ orderBy: genresOrderBy }}
+				children={
+					(res: Res | undefined) => (
+						res && <Genres genres={res.genres}/>
+					)
+				}
+			/>
+		</Helmet>
+	)
+}
 
-interface Data {
+interface Res {
 	genres: GenreType[],
 }
 

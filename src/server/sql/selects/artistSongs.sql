@@ -27,4 +27,4 @@ JOIN
   songs
     ON artist_songs_ids.song_id = songs.song_id
 ORDER BY
-  songs.track_number ASC;
+  songs.{{ orderByField }} {{ orderByDirection }};

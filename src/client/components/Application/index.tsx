@@ -5,14 +5,16 @@ import Header from "../Header"
 import PlayerBar from "../PlayerBar"
 import { useLocalStorage } from "../../helpers"
 import { PlayProvider } from "../../contexts/Play"
+import { LoadingProvider } from "../../contexts/Loading"
 import { CurrentProvider } from "../../contexts/Current"
 import { SettingsProvider } from "../../contexts/Settings"
 
 import {
 	Settings,
-	ListStyleEnum,
+	ListStyle,
 	OrderByDirection,
 	SongOrderByField,
+	GenreOrderByField,
 } from "../../types"
 
 import "./index.scss"
@@ -20,16 +22,21 @@ import "./index.scss"
 const defaultSettings: Settings = {
 	sidebar: false,
 	showGenres: false,
-	listStyle: ListStyleEnum.GRID,
+	listStyle: ListStyle.GRID,
 	songsOrderBy: {
 		field: SongOrderByField.TITLE,
+		direction: OrderByDirection.ASC,
+	},
+	genresOrderBy: {
+		field: GenreOrderByField.NAME,
 		direction: OrderByDirection.ASC,
 	},
 }
 
 const Application: FC = () => {
 	const [ play, setPlay ] = useState(false)
-	const [ current, setCurrent ] = useState(0)
+	const [ current, setCurrent ] = useState(100)
+	const [ loading, setLoading ] = useState(false)
 	const [ settings, setSettings ] = useLocalStorage("settings", defaultSettings)
 
 	useEffect(() => {
@@ -42,13 +49,15 @@ const Application: FC = () => {
 
 	return (
 		<PlayProvider value={{ play, setPlay }}>
-			<CurrentProvider value={{ current, setCurrent }}>
-				<SettingsProvider value={{ settings, setSettings }}>
-					<Header/>
-					<Pages/>
-					<PlayerBar/>
-				</SettingsProvider>
-			</CurrentProvider>
+			<LoadingProvider value={{ loading, setLoading }}>
+				<CurrentProvider value={{ current, setCurrent }}>
+					<SettingsProvider value={{ settings, setSettings }}>
+						<Header/>
+						<Pages/>
+						<PlayerBar/>
+					</SettingsProvider>
+				</CurrentProvider>
+			</LoadingProvider>
 		</PlayProvider>
 	)
 }

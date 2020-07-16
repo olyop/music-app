@@ -4,7 +4,7 @@ import { createElement, FC, ChangeEventHandler } from "react"
 
 import Helmet from "../Helmet"
 import QueryApi from "../QueryApi"
-import { ListStyleEnum, User } from "../../types"
+import { ListStyle, User } from "../../types"
 import { useUserContext } from "../../contexts/User"
 import GET_USER from "../../graphql/queries/user.gql"
 import { useSettingsContext } from "../../contexts/Settings"
@@ -18,18 +18,18 @@ const UserPage: FC = () => {
 		useUserContext()
 	const { setSettings, settings: { showGenres, listStyle } } =
 		useSettingsContext()
-	const handleListStyle: ChangeEventHandler<HTMLSelectElement> = event =>
-		setSettings(prevState => ({
-			...prevState,
-			listStyle: event.target.value as ListStyleEnum,
-		}))
-	const handleShowGenres: ChangeEventHandler<HTMLInputElement> = event => {
-		console.log(event.target)
-		setSettings(prevState => ({
-			...prevState,
-			showGenres: event.target.checked,
-		}))
-	}
+	const handleListStyle: ChangeEventHandler<HTMLSelectElement> =
+		({ target: { value } }) =>
+			setSettings(prevState => ({
+				...prevState,
+				listStyle: value as ListStyle,
+			}))
+	const handleShowGenres: ChangeEventHandler<HTMLInputElement> =
+		({ target: { checked } }) =>
+			setSettings(prevState => ({
+				...prevState,
+				showGenres: checked,
+			}))
 	return (
 		<QueryApi
 			query={GET_USER}
@@ -50,14 +50,14 @@ const UserPage: FC = () => {
 							className="Text MarginBottomHalf"
 						>
 							<option
-								value={ListStyleEnum.GRID}
+								value={ListStyle.GRID}
 								className={bem("select-option")}
-								children={upperFirst(ListStyleEnum.GRID)}
+								children={upperFirst(ListStyle.GRID.toLowerCase())}
 							/>
 							<option
-								value={ListStyleEnum.LIST}
+								value={ListStyle.LIST}
 								className={bem("select-option")}
-								children={upperFirst(ListStyleEnum.LIST)}
+								children={upperFirst(ListStyle.LIST.toLowerCase())}
 							/>
 						</select>
 						<h3 className={bem("option-text")}>

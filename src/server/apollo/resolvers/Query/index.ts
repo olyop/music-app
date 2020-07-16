@@ -8,6 +8,7 @@ import {
 	Genre,
 	Artist,
 	Playlist,
+	OrderByArgs,
 } from "../../../types"
 
 import {
@@ -36,15 +37,8 @@ import { parseSong as parseSongFunc, MetadataResponse } from "./parseSong"
 const resolver =
 	createResolver()
 
-interface SongsArgs {
-	orderBy: {
-		field: string,
-		direction: string,
-	},
-}
-
 export const songs =
-	resolver<Song[], SongsArgs>(
+	resolver<Song[], OrderByArgs>(
 		({ args }) => (
 			sql.query({
 				sql: SELECT_SONGS,
@@ -82,12 +76,20 @@ export const albums =
 	)
 
 export const genres =
-	resolver<Genre[]>(
-		() => (
+	resolver<Genre[], OrderByArgs>(
+		({ args }) => (
 			sql.query({
 				sql: SELECT_GENRES,
 				parse: sql.parseTable(),
 				variables: [{
+					string: false,
+					key: "orderByField",
+					value: args.orderBy.field,
+				},{
+					string: false,
+					key: "orderByDirection",
+					value: args.orderBy.direction,
+				},{
 					string: false,
 					key: "columnNames",
 					value: sql.join(COLUMN_NAMES.GENRE),

@@ -94,3 +94,12 @@ export interface AddRemoveInput {
 	columnNames: string[],
 	userTableName: string,
 }
+
+export interface OrderBy {
+	field: string,
+	direction: string,
+}
+
+export interface OrderByArgs {
+	orderBy: OrderBy,
+}

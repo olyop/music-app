@@ -42,3 +42,8 @@ input SongOrderByInput {
 	field: SongOrderField!
 	direction: OrderByDirection!
 }
+
+input GenreOrderByInput {
+	field: GenreOrderField!
+	direction: OrderByDirection!
+}

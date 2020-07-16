@@ -23,7 +23,6 @@ const Player: FC<RouteComponentProps> = ({ history }) => (
 	<QueryApi
 		query={GET_USER_CURRENT}
 		className={bem("", "Elevated")}
-		spinnerClassName={bem("spinner")}
 		children={
 			({ user }: Data) => (
 				<Fragment>

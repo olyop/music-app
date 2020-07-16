@@ -1,4 +1,6 @@
 SELECT
   {{ columnNames }}
 FROM
-  genres;
+  genres
+ORDER BY
+  {{ orderByField }} {{ orderByDirection }};

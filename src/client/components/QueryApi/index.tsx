@@ -1,43 +1,43 @@
-import { BemInput } from "@oly_op/bem"
 import { useQuery } from "@apollo/client"
 import type { DocumentNode } from "graphql"
 import isUndefined from "lodash/isUndefined"
-import { createElement, Fragment, FC, ReactNode } from "react"
+import { createElement, useEffect, Fragment, FC, ReactNode } from "react"
 
-import Spinner from "../Spinner"
 import ApiError from "../ApiError"
+import { useLoadingContext } from "../../contexts/Loading"
 
 const QueryApi: FC<PropTypes> = ({
 	query,
 	children,
 	className,
-	spinner = true,
 	variables = {},
-	spinnerClassName,
 }) => {
+	const { setLoading } =
+		useLoadingContext()
 	const { loading, error, data } =
 		useQuery<unknown>(query, { variables })
-	if (spinner && loading) {
-		return <Spinner className={spinnerClassName}/>
-	} else if (!isUndefined(error)) {
+	useEffect(() => {
+		setLoading(loading)
+	}, [loading, setLoading])
+	if (!isUndefined(error)) {
 		return <ApiError error={error}/>
-	} else {
+	} else if (!isUndefined(data)) {
 		const render = children(data)
 		if (className) {
 			return <div className={className}>{render}</div>
 		} else {
 			return <Fragment>{render}</Fragment>
 		}
+	} else {
+		return null
 	}
 }
 
 interface PropTypes {
-	spinner?: boolean,
 	className?: string,
 	query: DocumentNode,
-	spinnerClassName?: BemInput,
-	children(data: unknown): ReactNode,
 	variables?: Record<string, unknown>,
+	children(data: unknown | undefined): ReactNode,
 }
 
 export default QueryApi

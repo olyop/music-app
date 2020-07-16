@@ -5,9 +5,11 @@ import {
 	Play,
 	Album,
 	Artist,
+	OrderBy,
 	UserArgs,
 	ImgFormat,
 	ImgSizeEnum,
+	OrderByArgs,
 } from "../../types"
 
 import {
@@ -52,7 +54,11 @@ export const numOfPlays =
 		),
 	)
 
-const artistSongs = <T>(artistId: string, parse: (res: QueryResult) => T) =>
+const artistSongs = <T>(
+	artistId: string,
+	parse: (res: QueryResult) => T,
+	orderBy: OrderBy = { field: "TITLE", direction: "DESC" },
+) =>
 	sql.query({
 		sql: SELECT_ARTIST_SONGS,
 		parse,
@@ -61,17 +67,26 @@ const artistSongs = <T>(artistId: string, parse: (res: QueryResult) => T) =>
 			value: artistId,
 		},{
 			string: false,
+			key: "orderByField",
+			value: orderBy.field,
+		},{
+			string: false,
+			key: "orderByDirection",
+			value: orderBy.direction,
+		},{
+			string: false,
 			key: "columnNames",
 			value: sql.join(COLUMN_NAMES.SONG, "songs"),
 		}],
 	})
 
 export const songs =
-	resolver<Song[]>(
-		({ parent }) => (
+	resolver<Song[], OrderByArgs>(
+		({ parent, args }) => (
 			artistSongs(
 				parent.artistId,
 				sql.parseTable(),
+				args.orderBy,
 			)
 		),
 	)

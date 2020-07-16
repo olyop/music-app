@@ -73,7 +73,7 @@ export interface Playlist extends PlaylistBase, UserDoc {
 	songs: Song[],
 }
 
-export enum ListStyleEnum {
+export enum ListStyle {
 	GRID = "GRID",
 	LIST = "LIST",
 }
@@ -114,7 +114,7 @@ export interface ParseSongs {
 	songs: Song[],
 }
 
-interface DocOrderBy<F> {
+export interface DocOrderBy<F> {
 	field: F,
 	direction: OrderByDirection,
 }
@@ -124,11 +124,17 @@ export enum SongOrderByField {
 	DURATION = "DURATION",
 }
 
+export enum GenreOrderByField {
+	NAME = "NAME",
+}
+
 export type SongOrderBy = DocOrderBy<SongOrderByField>
+export type GenreOrderBy = DocOrderBy<GenreOrderByField>
 
 export interface Settings {
 	sidebar: boolean,
 	showGenres: boolean,
-	listStyle: ListStyleEnum,
+	listStyle: ListStyle,
 	songsOrderBy: SongOrderBy,
+	genresOrderBy: GenreOrderBy,
 }

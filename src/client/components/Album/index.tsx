@@ -5,11 +5,11 @@ import Cover from "../Cover"
 import DocLink from "../DocLink"
 import DocLinks from "../DocLinks"
 import { useSettingsContext } from "../../contexts/Settings"
-import { Album as AlbumType, ListStyleEnum } from "../../types"
+import { Album as AlbumType, ListStyle } from "../../types"
 
 const Album: FC<PropTypes> = ({ album, className = null }) => {
 	const { settings: { listStyle } } = useSettingsContext()
-	return listStyle === ListStyleEnum.GRID ? (
+	return listStyle === ListStyle.GRID ? (
 		<div className={[ "Card", "Elevated", className ].join(" ")}>
 			<Cover
 				url={album.cover}

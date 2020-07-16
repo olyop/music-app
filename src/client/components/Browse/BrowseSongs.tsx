@@ -14,7 +14,11 @@ const BrowseSongs: FC = () => {
 			<QueryApi
 				query={GET_SONGS}
 				variables={{ orderBy: settings.songsOrderBy }}
-				children={(res: Res) => <Songs songs={res.songs}/>}
+				children={
+					(res: Res | undefined) => (
+						res && <Songs songs={res.songs}/>
+					)
+				}
 			/>
 		</Helmet>
 	)

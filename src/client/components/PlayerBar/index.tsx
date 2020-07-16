@@ -1,5 +1,7 @@
+import isNull from "lodash/isNull"
 import { createBem } from "@oly_op/bem"
 import { NavLink } from "react-router-dom"
+import isUndefined from "lodash/isUndefined"
 import { createElement, Fragment, FC } from "react"
 
 import Icon from "../Icon"
@@ -27,7 +29,7 @@ const PlayerBar: FC = () => (
 				className={bem("main-info")}
 				variables={{ userId: useUserContext() }}
 				children={
-					({ user }: Data) => (
+					(data: Data | undefined) => (
 						<Fragment>
 							<div className={bem("main-info-controls")}>
 								<NavLink className={bem("main-info-controls-control")} to="/player">
@@ -55,11 +57,11 @@ const PlayerBar: FC = () => (
 									)}
 								/>
 							</div>
-							{user.current && (
+							{(!isUndefined(data) && !isNull(data.user.current)) && (
 								<Song
 									showPlay={false}
 									showRight={false}
-									song={user.current}
+									song={data.user.current}
 									inLibClassName={bem("icon")}
 									className={bem("main-info-current")}
 								/>

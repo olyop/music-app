@@ -8,10 +8,10 @@ type Query {
   artist(artistId: Uuid!): Artist!
   playlist(playlistId: Uuid!): Playlist!
   albums: [Album!]!
-  artists: [Artist!]!
   playlists: [Playlist!]!
   songs(orderBy: SongOrderByInput!): [Song!]!
   genres(orderBy: GenreOrderByInput!): [Genre!]!
+  artists(orderBy: ArtistOrderByInput!): [Artist!]!
 
   # misc queries
   newAlbums: [Album!]!

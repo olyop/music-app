@@ -3,4 +3,4 @@ SELECT
 FROM
   artists
 ORDER BY
-  name ASC;
+  {{ orderByField }} {{ orderByDirection }};

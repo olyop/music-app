@@ -1,9 +1,9 @@
 type Genre {
   name: String!
   genreId: Uuid!
-  songs: [Song!]!
   numOfSongs: NonNegativeInt!
   plays(userId: Uuid!): [Play!]
   inLibrary(userId: Uuid!): Boolean!
   dateAdded(userId: Uuid!): PositiveInt
+  songs(orderBy: SongOrderByInput!): [Song!]!
 }

@@ -11,6 +11,4 @@ JOIN
 WHERE
   songs_genres.genre_id = {{ genreId }}
 ORDER BY
-  albums.released DESC,
-  songs.disc_number ASC,
-  songs.track_number ASC;
+  songs.{{ orderByField }} {{ orderByDirection }};

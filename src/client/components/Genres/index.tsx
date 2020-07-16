@@ -1,15 +1,12 @@
 import { createElement, FC } from "react"
-import { createBem, BemInput } from "@oly_op/bem"
 
 import List from "../List"
 import Genre from "../Genre"
 import OrderBy from "../OrderBy"
 import { GenreOrderByField, Genre as GenreType } from "../../types"
 
-const bem = createBem("Songs")
-
 const Genres: FC<PropTypes> = ({ genres, className }) => (
-	<div className={bem(className, "")}>
+	<div className={className}>
 		<OrderBy
 			className="MarginBottom"
 			settingsKey="genresOrderBy"
@@ -29,8 +26,8 @@ const Genres: FC<PropTypes> = ({ genres, className }) => (
 )
 
 interface PropTypes {
+	className?: string,
 	genres: GenreType[],
-	className?: BemInput,
 }
 
 export default Genres

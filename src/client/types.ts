@@ -128,8 +128,13 @@ export enum GenreOrderByField {
 	NAME = "NAME",
 }
 
+export enum ArtistOrderByField {
+	NAME = "NAME",
+}
+
 export type SongOrderBy = DocOrderBy<SongOrderByField>
 export type GenreOrderBy = DocOrderBy<GenreOrderByField>
+export type ArtistOrderBy = DocOrderBy<ArtistOrderByField>
 
 export interface Settings {
 	sidebar: boolean,
@@ -137,4 +142,5 @@ export interface Settings {
 	listStyle: ListStyle,
 	songsOrderBy: SongOrderBy,
 	genresOrderBy: GenreOrderBy,
+	artistsOrderBy: ArtistOrderBy,
 }

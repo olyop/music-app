@@ -99,12 +99,20 @@ export const genres =
 	)
 
 export const artists =
-	resolver<Artist[]>(
-		() => (
+	resolver<Artist[], OrderByArgs>(
+		({ args }) => (
 			sql.query({
 				sql: SELECT_ARTISTS,
 				parse: sql.parseTable(),
 				variables: [{
+					string: false,
+					key: "orderByField",
+					value: args.orderBy.field,
+				},{
+					string: false,
+					key: "orderByDirection",
+					value: args.orderBy.direction,
+				},{
 					string: false,
 					key: "columnNames",
 					value: sql.join(COLUMN_NAMES.ARTIST),

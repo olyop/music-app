@@ -15,6 +15,7 @@ import {
 	OrderByDirection,
 	SongOrderByField,
 	GenreOrderByField,
+	ArtistOrderByField,
 } from "../../types"
 
 import "./index.scss"
@@ -29,6 +30,10 @@ const defaultSettings: Settings = {
 	},
 	genresOrderBy: {
 		field: GenreOrderByField.NAME,
+		direction: OrderByDirection.ASC,
+	},
+	artistsOrderBy: {
+		field: ArtistOrderByField.NAME,
 		direction: OrderByDirection.ASC,
 	},
 }

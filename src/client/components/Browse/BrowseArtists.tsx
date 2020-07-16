@@ -1,35 +1,30 @@
 import { createElement, FC } from "react"
 
-import List from "../List"
-import Artist from "../Artist"
 import Helmet from "../Helmet"
+import Artists from "../Artists"
 import QueryApi from "../QueryApi"
 import { Artist as ArtistType } from "../../types"
 import GET_ARTISTS from "../../graphql/queries/artists.gql"
+import { useSettingsContext } from "../../contexts/Settings"
 
-const BrowseArtists: FC = () => (
-	<Helmet title="Browse Artists">
-		<QueryApi
-			query={GET_ARTISTS}
-			children={
-				({ artists }: Data) => (
-					<List>
-						{artists.map(
-							artist => (
-								<Artist
-									artist={artist}
-									key={artist.artistId}
-								/>
-							),
-						)}
-					</List>
-				)
-			}
-		/>
-	</Helmet>
-)
+const BrowseArtists: FC = () => {
+	const { settings: { artistsOrderBy } } = useSettingsContext()
+	return (
+		<Helmet title="Browse Artists">
+			<QueryApi
+				query={GET_ARTISTS}
+				variables={{ orderBy: artistsOrderBy }}
+				children={
+					(res: Res | undefined) => (
+						res && <Artists artists={res.artists}/>
+					)
+				}
+			/>
+		</Helmet>
+	)
+}
 
-interface Data {
+interface Res {
 	artists: ArtistType[],
 }
 

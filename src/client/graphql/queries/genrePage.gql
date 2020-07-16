@@ -1,8 +1,11 @@
-query genrePage($genreId: Uuid!) {
+query genrePage(
+  $genreId: Uuid!
+  $songsOrderBy: SongOrderByInput!
+) {
   genre(genreId: $genreId) {
     genreId
     name
-    songs {
+    songs(orderBy: $songsOrderBy) {
       songId
       title
       mix

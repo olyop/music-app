@@ -1,4 +1,5 @@
 import path from "path"
+import dotenv from "dotenv"
 import DotenvPlugin from "dotenv-webpack"
 import CopyPlugin from "copy-webpack-plugin"
 import WriteFilePlugin from "write-file-webpack-plugin"
@@ -11,7 +12,7 @@ import OptimizeCssAssetsPlugin from "optimize-css-assets-webpack-plugin"
 import { Configuration as DevServerConfiguration } from "webpack-dev-server"
 
 // eslint-disable-next-line node/no-process-env
-const { NODE_ENV } = process.env
+const { HOST, PORT, DEV_PORT, NODE_ENV } = dotenv.config().parsed!
 
 const ROOT_PATH = __dirname
 const SRC_PATH = path.join(ROOT_PATH, "src")
@@ -24,7 +25,7 @@ const CLIENT_ROOT_PATH = path.join(CLIENT_PATH, "index.tsx")
 
 const extensions = [".ts", ".tsx", ".js"]
 
-const IS_DEV = NODE_ENV === "dev"
+const IS_DEV = NODE_ENV === "development"
 
 const mode = IS_DEV ? "development" : "production"
 const entry = CLIENT_ROOT_PATH
@@ -46,17 +47,17 @@ const minify: MinifyOptions = {
 
 const devServer: DevServerConfiguration = {
 	hot: true,
-	port: 8080,
 	open: true,
+	host: HOST,
 	quiet: true,
 	noInfo: true,
 	stats: "none",
 	compress: true,
-	host: "192.168.1.110",
 	clientLogLevel: "error",
+	port: parseInt(DEV_PORT),
 	historyApiFallback: true,
 	contentBase: PUBLIC_PATH,
-	proxy: { "/graphql": "http://192.168.1.110:3000" },
+	proxy: { "/graphql": `http://${HOST}:${PORT}` },
 }
 
 const rules: RuleSetRule[] = [

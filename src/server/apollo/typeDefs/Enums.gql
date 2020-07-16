@@ -22,3 +22,7 @@ enum SongOrderField {
 enum GenreOrderField {
   NAME
 }
+
+enum ArtistOrderField {
+  NAME
+}

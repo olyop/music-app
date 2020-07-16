@@ -47,3 +47,8 @@ input GenreOrderByInput {
 	field: GenreOrderField!
 	direction: OrderByDirection!
 }
+
+input ArtistOrderByInput {
+	field: ArtistOrderField!
+	direction: OrderByDirection!
+}

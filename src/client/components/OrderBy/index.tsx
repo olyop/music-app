@@ -43,12 +43,13 @@ const OrderBy: FC<PropTypes> = ({ className, settingsKey, fieldOptions }) => {
 	)
 }
 
-type OrderBySettings = Pick<Settings, "songsOrderBy" | "genresOrderBy">
+type SettingsOrderByKey =
+	Pick<Settings, "songsOrderBy" | "genresOrderBy" | "artistsOrderBy">
 
 interface PropTypes {
 	className?: string,
 	fieldOptions: string[],
-	settingsKey: keyof OrderBySettings,
+	settingsKey: keyof SettingsOrderByKey,
 }
 
 export default OrderBy

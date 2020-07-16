@@ -1,5 +1,5 @@
-query artists {
-  artists {
+query artists($orderBy: ArtistOrderByInput!) {
+  artists(orderBy: $orderBy) {
     artistId
     name
     numOfSongs

@@ -17,7 +17,8 @@ const Song: FC<PropTypes> = ({
 	showRight = true,
 	showTrackNumber = false,
 }) => {
-	const { settings: { showGenres } } = useSettingsContext()
+	const { settings: { showGenres } } =
+		useSettingsContext()
 	return (
 		<Item
 			doc={song}

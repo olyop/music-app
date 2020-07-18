@@ -13,4 +13,4 @@ JOIN
    albums
     ON artist_albums.album_id = albums.album_id
 ORDER BY
-  albums.released ASC;
+  albums.{{ orderByField }} {{ orderByDirection }};

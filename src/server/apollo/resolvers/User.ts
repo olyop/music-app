@@ -8,6 +8,7 @@ import {
 	Genre,
 	Artist,
 	Playlist,
+	OrderByArgs,
 } from "../../types"
 
 import {
@@ -124,10 +125,11 @@ export const plays =
 	)
 
 export const songs =
-	resolver<Song[]>(
-		({ parent }) => (
+	resolver<Song[], OrderByArgs>(
+		({ parent, args }) => (
 			userDocs({
 				tableName: "songs",
+				orderBy: args.orderBy,
 				columnName: "song_id",
 				userId: parent.userId,
 				userTableName: "users_songs",
@@ -137,12 +139,13 @@ export const songs =
 	)
 
 export const genres =
-	resolver<Genre[]>(
-		({ parent }) => (
+	resolver<Genre[], OrderByArgs>(
+		({ parent, args }) => (
 			userDocs({
 				tableName: "genres",
-				columnName: "genre_id",
+				orderBy: args.orderBy,
 				userId: parent.userId,
+				columnName: "genre_id",
 				userTableName: "users_genres",
 				columnNames: COLUMN_NAMES.GENRE,
 			})
@@ -150,12 +153,13 @@ export const genres =
 	)
 
 export const albums =
-	resolver<Album[]>(
-		({ parent }) => (
+	resolver<Album[], OrderByArgs>(
+		({ parent, args }) => (
 			userDocs({
 				tableName: "albums",
-				columnName: "album_id",
+				orderBy: args.orderBy,
 				userId: parent.userId,
+				columnName: "album_id",
 				userTableName: "users_albums",
 				columnNames: COLUMN_NAMES.ALBUM,
 			})
@@ -163,10 +167,11 @@ export const albums =
 	)
 
 export const artists =
-	resolver<Artist[]>(
-		({ parent }) => (
+	resolver<Artist[], OrderByArgs>(
+		({ parent, args }) => (
 			userDocs({
 				tableName: "artists",
+				orderBy: args.orderBy,
 				userId: parent.userId,
 				columnName: "artist_id",
 				userTableName: "users_artists",
@@ -176,10 +181,11 @@ export const artists =
 	)
 
 export const playlists =
-	resolver<Playlist[]>(
-		({ parent }) => (
+	resolver<Playlist[], OrderByArgs>(
+		({ parent, args }) => (
 			userDocs({
 				userId: parent.userId,
+				orderBy: args.orderBy,
 				tableName: "playlists",
 				columnName: "playlist_id",
 				columnNames: COLUMN_NAMES.SONG,

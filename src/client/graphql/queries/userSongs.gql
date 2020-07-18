@@ -1,7 +1,10 @@
-query userSongs($userId: Uuid!) {
+query userSongs(
+  $userId: Uuid!
+  $orderBy: UserSongOrderByInput!
+) {
   user(userId: $userId) {
     userId
-    songs {
+    songs(orderBy: $orderBy) {
       songId
       title
       mix

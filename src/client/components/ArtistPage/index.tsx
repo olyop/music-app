@@ -5,9 +5,8 @@ import { useParams } from "react-router-dom"
 import { createElement, Fragment, FC } from "react"
 
 import Img from "../Img"
-import List from "../List"
 import Songs from "../Songs"
-import Album from "../Album"
+import Albums from "../Albums"
 import Helmet from "../Helmet"
 import QueryApi from "../QueryApi"
 import { Artist } from "../../types"
@@ -22,8 +21,8 @@ const bem = createBem("ArtistPage")
 
 const ArtistPage: FC = () => {
 	const params = useParams<Params>()
-	const { settings: { songsOrderBy } } = useSettingsContext()
-	const variables = { ...params, songsOrderBy }
+	const { settings: { songsOrderBy, albumsOrderBy } } = useSettingsContext()
+	const variables = { ...params, songsOrderBy, albumsOrderBy }
 	return (
 		<QueryApi
 			className={bem("")}
@@ -73,16 +72,7 @@ const ArtistPage: FC = () => {
 								{isEmpty(albums) ? null : (
 									<Fragment>
 										<h2 className={bem("heading")}>Albums</h2>
-										<List className="MarginBottom">
-											{albums.map(
-												album => (
-													<Album
-														album={album}
-														key={album.albumId}
-													/>
-												),
-											)}
-										</List>
+										<Albums albums={albums} className="MarginBottom"/>
 									</Fragment>
 								)}
 								{isEmpty(songs) ? null : (

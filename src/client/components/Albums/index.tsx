@@ -2,28 +2,28 @@ import { createElement, FC } from "react"
 
 import {
 	OrderByIgnore,
-	ArtistOrderByField,
-	Artist as ArtistType,
+	AlbumOrderByField,
+	Album as AlbumType,
 } from "../../types"
 
 import List from "../List"
-import Artist from "../Artist"
+import Album from "../Album"
 import OrderBy from "../OrderBy"
 import { enumToString } from "../../helpers"
 
-const Artists: FC<PropTypes> = ({ artists, className, orderByIgnore }) => (
+const Albums: FC<PropTypes> = ({ albums, className, orderByIgnore = [] }) => (
 	<div className={className}>
 		<OrderBy
 			className="MarginBottom"
-			settingsKey="artistsOrderBy"
-			fieldOptions={enumToString(ArtistOrderByField, orderByIgnore)}
+			settingsKey="albumsOrderBy"
+			fieldOptions={enumToString(AlbumOrderByField, orderByIgnore)}
 		/>
 		<List>
-			{artists.map(
-				artist => (
-					<Artist
-						artist={artist}
-						key={artist.artistId}
+			{albums.map(
+				album => (
+					<Album
+						album={album}
+						key={album.albumId}
 					/>
 				),
 			)}
@@ -33,8 +33,8 @@ const Artists: FC<PropTypes> = ({ artists, className, orderByIgnore }) => (
 
 interface PropTypes {
 	className?: string,
-	artists: ArtistType[],
+	albums: AlbumType[],
 	orderByIgnore?: OrderByIgnore,
 }
 
-export default Artists
+export default Albums

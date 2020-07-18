@@ -1,15 +1,21 @@
 import { createElement, FC } from "react"
 
+import {
+	OrderByIgnore,
+	SongOrderByField,
+	Song as SongType,
+} from "../../types"
+
 import Song from "../Song"
 import OrderBy from "../OrderBy"
-import { SongOrderByField, Song as SongType } from "../../types"
+import { enumToString } from "../../helpers"
 
-const Songs: FC<PropTypes> = ({ songs, className }) => ( 
+const Songs: FC<PropTypes> = ({ songs, orderByIgnore, className }) => (
 	<div className={className}>
 		<OrderBy
 			className="MarginBottom"
 			settingsKey="songsOrderBy"
-			fieldOptions={Object.keys(SongOrderByField)}
+			fieldOptions={enumToString(SongOrderByField, orderByIgnore)}
 		/>
 		<div className="Elevated">
 			{songs.map(
@@ -28,6 +34,7 @@ const Songs: FC<PropTypes> = ({ songs, className }) => (
 interface PropTypes {
 	songs: SongType[],
 	className?: string,
+	orderByIgnore?: OrderByIgnore,
 }
 
 export default Songs

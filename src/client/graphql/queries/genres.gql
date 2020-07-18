@@ -1,7 +1,11 @@
-query genres($orderBy: GenreOrderByInput!) {
+query genres(
+  $userId: Uuid!
+  $orderBy: GenreOrderByInput!
+) {
   genres(orderBy: $orderBy) {
     genreId
     name
     numOfSongs
+    inLibrary(userId: $userId)
   }
 }

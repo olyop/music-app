@@ -1,6 +1,7 @@
 query artistPage(
   $artistId: Uuid!
   $songsOrderBy: SongOrderByInput!
+  $albumsOrderBy: AlbumOrderByInput!
 ) {
   artist(artistId: $artistId) {
     artistId
@@ -35,7 +36,7 @@ query artistPage(
         cover(size: HALF)
       }
     }
-    albums {
+    albums(orderBy: $albumsOrderBy) {
       albumId
       title
       cover(size: HALF)

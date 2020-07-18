@@ -1,9 +1,13 @@
-query artists($orderBy: ArtistOrderByInput!) {
+query artists(
+  $userId: Uuid!
+  $orderBy: ArtistOrderByInput!
+) {
   artists(orderBy: $orderBy) {
     artistId
     name
     numOfSongs
     numOfAlbums
     photo(size: MINI)
+    inLibrary(userId: $userId)
   }
 }

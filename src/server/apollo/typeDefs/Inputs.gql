@@ -39,16 +39,51 @@ input PlaylistInput {
 }
 
 input SongOrderByInput {
-	field: SongOrderField!
+	field: SongOrderByField!
+	direction: OrderByDirection!
+}
+
+input UserSongOrderByInput {
+	field: UserSongOrderByField!
 	direction: OrderByDirection!
 }
 
 input GenreOrderByInput {
-	field: GenreOrderField!
+	field: GenreOrderByField!
 	direction: OrderByDirection!
 }
 
-input ArtistOrderByInput {
-	field: ArtistOrderField!
+input UserGenreOrderByInput {
 	direction: OrderByDirection!
+	field: UserGenreOrderByField!
+}
+
+input ArtistOrderByInput {
+	field: ArtistOrderByField!
+	direction: OrderByDirection!
+}
+
+input UserArtistOrderByInput {
+	direction: OrderByDirection!
+	field: UserArtistOrderByField!
+}
+
+input AlbumOrderByInput {
+	field: AlbumOrderByField!
+	direction: OrderByDirection!
+}
+
+input UserAlbumOrderByInput {
+	direction: OrderByDirection!
+	field: UserAlbumOrderByField!
+}
+
+input PlaylistOrderByInput {
+	field: PlaylistOrderByField!
+	direction: OrderByDirection!
+}
+
+input UserPlaylistOrderByInput {
+	direction: OrderByDirection!
+	field: UserPlaylistOrderByField!
 }

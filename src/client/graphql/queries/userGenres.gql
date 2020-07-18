@@ -1,7 +1,10 @@
-query userGenres($userId: Uuid!) {
+query userGenres(
+  $userId: Uuid!
+  $orderBy: UserGenreOrderByInput!
+) {
   user(userId: $userId) {
     userId
-    genres {
+    genres(orderBy: $orderBy) {
       genreId
       name
       dateAdded(userId: $userId)

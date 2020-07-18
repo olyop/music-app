@@ -9,4 +9,4 @@ WHERE
 	in_library = true AND
 	user_id = {{ userId }}
 ORDER BY
-	{{ userTableName }}.date_added DESC;
+	{{ orderByTableName }}.{{ orderByField }} {{ orderByDirection }};

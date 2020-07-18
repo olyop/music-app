@@ -61,12 +61,20 @@ export const songs =
 	)
 
 export const albums =
-	resolver<Album[]>(
-		() => (
+	resolver<Album[], OrderByArgs>(
+		({ args }) => (
 			sql.query({
 				sql: SELECT_ALBUMS,
 				parse: sql.parseTable(),
 				variables: [{
+					string: false,
+					key: "orderByField",
+					value: args.orderBy.field,
+				},{
+					string: false,
+					key: "orderByDirection",
+					value: args.orderBy.direction,
+				},{
 					string: false,
 					key: "columnNames",
 					value: sql.join(COLUMN_NAMES.ALBUM),

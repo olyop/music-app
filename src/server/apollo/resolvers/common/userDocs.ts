@@ -1,8 +1,10 @@
 import { sql } from "../../../helpers"
+import { OrderBy } from "../../../types"
 import { SELECT_USER_DOCS } from "../../../sql"
 
-type Input = {
+interface Input {
 	userId: string,
+	orderBy: OrderBy,
 	tableName: string,
 	columnName: string,
 	columnNames: string[],
@@ -11,6 +13,7 @@ type Input = {
 
 export const userDocs = <T>({
 	userId,
+	orderBy,
 	tableName,
 	columnName,
 	columnNames,
@@ -34,6 +37,18 @@ export const userDocs = <T>({
 			string: false,
 			key: "userTableName",
 			value: userTableName,
+		},{
+			string: false,
+			key: "orderByField",
+			value: orderBy.field,
+		},{
+			string: false,
+			key: "orderByDirection",
+			value: orderBy.direction,
+		},{
+			string: false,
+			key: "orderByTableName",
+			value: orderBy.field === "DATE_ADDED" ? userTableName : tableName,
 		},{
 			string: false,
 			key: "columnNames",

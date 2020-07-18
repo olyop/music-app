@@ -3,4 +3,4 @@ SELECT
 FROM
   albums
 ORDER BY
-  released DESC;
+  {{ orderByField }} {{ orderByDirection }};

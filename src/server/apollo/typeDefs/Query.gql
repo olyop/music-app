@@ -7,11 +7,11 @@ type Query {
   genre(genreId: Uuid!): Genre!
   artist(artistId: Uuid!): Artist!
   playlist(playlistId: Uuid!): Playlist!
-  albums: [Album!]!
-  playlists: [Playlist!]!
   songs(orderBy: SongOrderByInput!): [Song!]!
+  albums(orderBy: AlbumOrderByInput!): [Album!]!
   genres(orderBy: GenreOrderByInput!): [Genre!]!
   artists(orderBy: ArtistOrderByInput!): [Artist!]!
+  playlists(orderBy: PlaylistOrderByInput!): [Playlist!]!
 
   # misc queries
   newAlbums: [Album!]!

@@ -1,5 +1,5 @@
-query albums {
-  albums {
+query albums($orderBy: AlbumOrderByInput!) {
+  albums(orderBy: $orderBy) {
     albumId
     title
     released

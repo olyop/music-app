@@ -1,16 +1,22 @@
 import { createElement, FC } from "react"
 
+import {
+	OrderByIgnore,
+	GenreOrderByField,
+	Genre as GenreType,
+} from "../../types"
+
 import List from "../List"
 import Genre from "../Genre"
 import OrderBy from "../OrderBy"
-import { GenreOrderByField, Genre as GenreType } from "../../types"
+import { enumToString } from "../../helpers"
 
-const Genres: FC<PropTypes> = ({ genres, className }) => (
+const Genres: FC<PropTypes> = ({ genres, className, orderByIgnore }) => (
 	<div className={className}>
 		<OrderBy
 			className="MarginBottom"
 			settingsKey="genresOrderBy"
-			fieldOptions={Object.keys(GenreOrderByField)}
+			fieldOptions={enumToString(GenreOrderByField, orderByIgnore)}
 		/>
 		<List>
 			{genres.map(
@@ -28,6 +34,7 @@ const Genres: FC<PropTypes> = ({ genres, className }) => (
 interface PropTypes {
 	className?: string,
 	genres: GenreType[],
+	orderByIgnore?: OrderByIgnore,
 }
 
 export default Genres

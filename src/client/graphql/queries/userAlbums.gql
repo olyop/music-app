@@ -1,7 +1,10 @@
-query userAlbums($userId: Uuid!) {
+query userAlbums(
+  $userId: Uuid!
+  $orderBy: UserAlbumOrderByInput!
+) {
   user(userId: $userId) {
     userId
-    albums {
+    albums(orderBy: $orderBy) {
       albumId
       title
       cover(size: HALF)

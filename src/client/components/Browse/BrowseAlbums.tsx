@@ -1,35 +1,35 @@
 import { createElement, FC } from "react"
 
-import List from "../List"
-import Album from "../Album"
+import Albums from "../Albums"
 import Helmet from "../Helmet"
 import QueryApi from "../QueryApi"
 import { Album as AlbumType } from "../../types"
+import { useUserContext } from "../../contexts/User"
 import GET_ALBUMS from "../../graphql/queries/albums.gql"
+import { useSettingsContext } from "../../contexts/Settings"
 
-const BrowseAlbums: FC = () => (
-	<Helmet title="Browse Albums">
-		<QueryApi
-			query={GET_ALBUMS}
-			children={
-				({ albums }: Data) => (
-					<List>
-						{albums.map(
-							album => (
-								<Album
-									album={album}
-									key={album.albumId}
-								/>
-							),
-						)}
-					</List>
-				)
-			}
-		/>
-	</Helmet>
-)
+const BrowseAlbums: FC = () => {
+	const userId = useUserContext()
+	const { settings } = useSettingsContext()
+	return (
+		<Helmet title="Browse Albums">
+			<QueryApi
+				query={GET_ALBUMS}
+				variables={{ userId, orderBy: settings.albumsOrderBy }}
+				children={(res: Res | undefined) => (
+					res && (
+						<Albums
+							albums={res.albums}
+							orderByIgnore={["DATE_ADDED"]}
+						/>
+					)
+				)}
+			/>
+		</Helmet>
+	)
+}
 
-interface Data {
+interface Res {
 	albums: AlbumType[],
 }
 

@@ -1,9 +1,13 @@
-query songs($orderBy: SongOrderByInput!) {
+query songs(
+  $userId: Uuid!
+  $orderBy: SongOrderByInput!
+) {
   songs(orderBy: $orderBy) {
     mix
     title
     songId
     duration
+    inLibrary(userId: $userId)
     featuring {
       name
       artistId

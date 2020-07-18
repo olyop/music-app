@@ -14,15 +14,51 @@ enum OrderByDirection {
   DESC
 }
 
-enum SongOrderField {
+enum SongOrderByField {
   TITLE
   DURATION
 }
 
-enum GenreOrderField {
+enum UserSongOrderByField {
+	TITLE
+  DURATION
+	DATE_ADDED
+}
+
+enum GenreOrderByField {
   NAME
 }
 
-enum ArtistOrderField {
+enum UserGenreOrderByField {
   NAME
+  DATE_ADDED
+}
+
+enum ArtistOrderByField {
+  NAME
+}
+
+enum UserArtistOrderByField {
+  NAME
+  DATE_ADDED
+}
+
+enum AlbumOrderByField {
+  TITLE
+  RELEASED
+}
+
+enum UserAlbumOrderByField {
+  TITLE
+  RELEASED
+  DATE_ADDED
+}
+
+enum PlaylistOrderByField {
+  NAME
+}
+
+enum UserPlaylistOrderByField {
+  NAME
+  DATE_ADDED
 }

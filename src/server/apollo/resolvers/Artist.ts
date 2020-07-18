@@ -101,7 +101,11 @@ export const numOfSongs =
 		),
 	)
 
-const artistAlbums = <T>(artistId: string, parse: (res: QueryResult) => T) =>
+const artistAlbums = <T>(
+	artistId: string,
+	parse: (res: QueryResult) => T,
+	orderBy: OrderBy = { field: "RELEASED", direction: "DESC" },
+) =>
 	sql.query({
 		sql: SELECT_ARTIST_ALBUMS,
 		parse,
@@ -110,17 +114,26 @@ const artistAlbums = <T>(artistId: string, parse: (res: QueryResult) => T) =>
 			value: artistId,
 		},{
 			string: false,
+			key: "orderByField",
+			value: orderBy.field,
+		},{
+			string: false,
+			key: "orderByDirection",
+			value: orderBy.direction,
+		},{
+			string: false,
 			key: "columnNames",
 			value: sql.join(COLUMN_NAMES.ALBUM, "albums"),
 		}],
 	})
 
 export const albums =
-	resolver<Album[]>(
-		({ parent }) => (
+	resolver<Album[], OrderByArgs>(
+		({ parent, args }) => (
 			artistAlbums(
 				parent.artistId,
 				sql.parseTable(),
+				args.orderBy,
 			)
 		),
 	)

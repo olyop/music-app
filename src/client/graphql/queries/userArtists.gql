@@ -1,7 +1,10 @@
-query userArtists($userId: Uuid!) {
+query userArtists(
+  $userId: Uuid!
+  $orderBy: UserArtistOrderByInput!
+) {
   user(userId: $userId) {
     userId
-    artists {
+    artists(orderBy: $orderBy) {
       artistId
       name
       photo(size: MINI)

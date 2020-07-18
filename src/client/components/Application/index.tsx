@@ -3,44 +3,18 @@ import { createElement, FC, useState, useEffect } from "react"
 import Pages from "../Pages"
 import Header from "../Header"
 import PlayerBar from "../PlayerBar"
+import defaultSettings from "./defaultSettings"
 import { useLocalStorage } from "../../helpers"
 import { PlayProvider } from "../../contexts/Play"
 import { LoadingProvider } from "../../contexts/Loading"
 import { CurrentProvider } from "../../contexts/Current"
 import { SettingsProvider } from "../../contexts/Settings"
 
-import {
-	Settings,
-	ListStyle,
-	OrderByDirection,
-	SongOrderByField,
-	GenreOrderByField,
-	ArtistOrderByField,
-} from "../../types"
-
 import "./index.scss"
-
-const defaultSettings: Settings = {
-	sidebar: false,
-	showGenres: false,
-	listStyle: ListStyle.GRID,
-	songsOrderBy: {
-		field: SongOrderByField.TITLE,
-		direction: OrderByDirection.ASC,
-	},
-	genresOrderBy: {
-		field: GenreOrderByField.NAME,
-		direction: OrderByDirection.ASC,
-	},
-	artistsOrderBy: {
-		field: ArtistOrderByField.NAME,
-		direction: OrderByDirection.ASC,
-	},
-}
 
 const Application: FC = () => {
 	const [ play, setPlay ] = useState(false)
-	const [ current, setCurrent ] = useState(100)
+	const [ current, setCurrent ] = useState(0)
 	const [ loading, setLoading ] = useState(false)
 	const [ settings, setSettings ] = useLocalStorage("settings", defaultSettings)
 

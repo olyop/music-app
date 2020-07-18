@@ -7,10 +7,10 @@ type User {
   next: [Song!]!
   queue: [Song!]!
   plays: [Play!]!
-  songs: [Song!]!
-  genres: [Genre!]!
-  albums: [Album!]!
-  artists: [Artist!]!
-  playlists: [Playlist!]!
   dateJoined: PositiveInt!
+  songs(orderBy: UserSongOrderByInput!): [Song!]!
+  genres(orderBy: UserGenreOrderByInput!): [Genre!]!
+  albums(orderBy: UserAlbumOrderByInput!): [Album!]!
+  artists(orderBy: UserArtistOrderByInput!): [Artist!]!
+  playlists(orderBy: UserPlaylistOrderByInput!): [Playlist!]!
 }

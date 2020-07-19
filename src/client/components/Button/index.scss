@@ -1,10 +1,10 @@
 .Button {
-	--font-size: 16rem;
 	display: flex;
 	cursor: pointer;
 	border: 1px solid;
 	align-items: center;
-	padding: calc(var(--space) * 0.5);
+	height: var(--button-size);
+	padding: var(--space-half);
 	border-color: var(--border-color);
 	border-radius: var(--border-radius);
 	background-color: var(--elevated-color);
@@ -14,10 +14,13 @@
 		border-color: #9e9e9e;
 		background-color: var(--ho-color); }
 	&__icon {
-		width: var(--font-size);
-		height: var(--font-size);
-		font-size: var(--font-size);
-		margin-right: calc(var(--space) * 0.25); }
+		width: 20rem;
+		height: 20rem;
+		font-size: 20rem;
+		margin-bottom: 2rem; }
+	&__space {
+		width: 2rem;
+		height: 100%; }
 	&__text {
 		display: block;
-		font-size: var(--font-size); } }
+		font-size: 14rem; } }

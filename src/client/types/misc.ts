@@ -4,8 +4,10 @@ import { RouteComponentProps } from "react-router-dom"
 import {
 	SongOrderBy,
 	AlbumOrderBy,
-	GenreOrderBy,
 	ArtistOrderBy,
+	UserSongOrderBy,
+	UserAlbumOrderBy,
+	UserArtistOrderBy,
 } from "./orderBy"
 
 import { ListStyle } from "./enums"
@@ -42,14 +44,18 @@ export interface ParseSongs {
 	songs: Song[],
 }
 
+export interface UserVar {
+	userId: string,
+}
+
 export interface Settings {
 	sidebar: boolean,
 	showGenres: boolean,
 	listStyle: ListStyle,
 	songsOrderBy: SongOrderBy,
 	albumsOrderBy: AlbumOrderBy,
-	genresOrderBy: GenreOrderBy,
 	artistsOrderBy: ArtistOrderBy,
+	userSongsOrderBy: UserSongOrderBy,
+	userAlbumsOrderBy: UserAlbumOrderBy,
+	userArtistsOrderBy: UserArtistOrderBy,
 }
-
-export type OrderByIgnore = string[]

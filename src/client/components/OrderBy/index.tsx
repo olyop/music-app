@@ -1,7 +1,6 @@
 import { createElement, FC } from "react"
 
 import Select from "../Select"
-import { enumToString } from "../../helpers"
 import { useSettingsContext } from "../../contexts/Settings"
 import { Settings, DocOrderBy, OrderByDirection } from "../../types"
 
@@ -9,7 +8,7 @@ const OrderBy: FC<PropTypes> = ({ fieldOptions, settingsKey, className }) => {
 	const { setSettings, settings } =
 		useSettingsContext()
 	const handleChange =
-		(orderByKey: keyof DocOrderBy<unknown>) =>
+		(orderByKey: keyof DocOrderBy) =>
 			(val: string) =>
 				setSettings(prevState => ({
 					...prevState,
@@ -33,14 +32,19 @@ const OrderBy: FC<PropTypes> = ({ fieldOptions, settingsKey, className }) => {
 			<Select
 				onChange={handleChange("direction")}
 				value={settings[settingsKey].direction}
-				options={enumToString(OrderByDirection)}
+				options={Object.keys(OrderByDirection)}
 			/>
 		</div>
 	)
 }
 
 type SettingsOrderByKey =
-	Pick<Settings, "songsOrderBy" | "albumsOrderBy" | "genresOrderBy" | "artistsOrderBy">
+	Pick<
+	Settings,
+	"songsOrderBy" | "userSongsOrderBy" |
+	"albumsOrderBy" | "userAlbumsOrderBy" |
+	"artistsOrderBy" | "userArtistsOrderBy"
+	>
 
 interface PropTypes {
 	className?: string,

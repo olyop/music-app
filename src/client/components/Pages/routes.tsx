@@ -1,5 +1,8 @@
+import { createElement } from "react"
+
 import uniqueId from "lodash/uniqueId"
 
+import Button from "../Button"
 import Queues from "../Queues"
 // import Add from "../Add"
 import Search from "../Search"
@@ -14,7 +17,22 @@ import ArtistPage from "../ArtistPage"
 
 import { Route } from "../../types"
 
+const Foo = () => (
+	<Button
+		icon="add"
+		text="Follow"
+		className="Foo Margin"
+		iconClassName="Foo__icon"
+		textClassName="Foo__text"
+	/>
+)
+
 const routes: Route[] = [
+	{
+		path: "/foo",
+		id: uniqueId(),
+		component: Foo,
+	},
 	// {
 	// 	path: "/add",
 	// 	id: uniqueId(),

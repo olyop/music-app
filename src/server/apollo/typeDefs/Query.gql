@@ -9,7 +9,6 @@ type Query {
   playlist(playlistId: Uuid!): Playlist!
   songs(orderBy: SongOrderByInput!): [Song!]!
   albums(orderBy: AlbumOrderByInput!): [Album!]!
-  genres(orderBy: GenreOrderByInput!): [Genre!]!
   artists(orderBy: ArtistOrderByInput!): [Artist!]!
   playlists(orderBy: PlaylistOrderByInput!): [Playlist!]!
 

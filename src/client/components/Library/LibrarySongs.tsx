@@ -1,23 +1,35 @@
 import { createElement, FC } from "react"
 
+import {
+	User,
+	UserVar,
+	UserSongOrderBy,
+	UserSongOrderByField,
+} from "../../types"
+
 import Songs from "../Songs"
 import Helmet from "../Helmet"
 import QueryApi from "../QueryApi"
-import { User } from "../../types"
 import { useUserContext } from "../../contexts/User"
 import { useSettingsContext } from "../../contexts/Settings"
 import GET_USER_SONGS from "../../graphql/queries/userSongs.gql"
 
 const LibrarySongs: FC = () => {
-	const { settings: { songsOrderBy } } = useSettingsContext()
+	const { settings: { userSongsOrderBy } } = useSettingsContext()
 	return (
 		<Helmet title="Library Songs">
-			<QueryApi
+			<QueryApi<Res, Vars>
 				query={GET_USER_SONGS}
-				variables={{ userId: useUserContext(), orderBy: songsOrderBy }}
-				children={(res: Res | undefined) => (
-					res && <Songs songs={res.user.songs}/>
-				)}
+				variables={{ userId: useUserContext(), orderBy: userSongsOrderBy }}
+				children={
+					res => (
+						<Songs
+							orderByKey="userSongsOrderBy"
+							songs={res ? res.user.songs : []}
+							orderByFields={Object.keys(UserSongOrderByField)}
+						/>
+					)
+				}
 			/>
 		</Helmet>
 	)
@@ -25,6 +37,10 @@ const LibrarySongs: FC = () => {
 
 interface Res {
 	user: User,
+}
+
+interface Vars extends UserVar {
+	orderBy: UserSongOrderBy,
 }
 
 export default LibrarySongs

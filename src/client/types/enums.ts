@@ -30,15 +30,6 @@ export enum UserAlbumOrderByField {
 	DATE_ADDED = "DATE_ADDED",
 }
 
-export enum GenreOrderByField {
-	NAME = "NAME",
-}
-
-export enum UserGenreOrderByField {
-	NAME = "NAME",
-	DATE_ADDED = "DATE_ADDED",
-}
-
 export enum ArtistOrderByField {
 	NAME = "NAME",
 }

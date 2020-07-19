@@ -1,22 +1,16 @@
 import { createElement, FC } from "react"
 
-import {
-	OrderByIgnore,
-	ArtistOrderByField,
-	Artist as ArtistType,
-} from "../../types"
-
 import List from "../List"
 import Artist from "../Artist"
 import OrderBy from "../OrderBy"
-import { enumToString } from "../../helpers"
+import { Settings, Artist as ArtistType } from "../../types"
 
-const Artists: FC<PropTypes> = ({ artists, className, orderByIgnore }) => (
+const Artists: FC<PropTypes> = ({ artists, orderByKey, orderByFields, className }) => (
 	<div className={className}>
 		<OrderBy
 			className="MarginBottom"
-			settingsKey="artistsOrderBy"
-			fieldOptions={enumToString(ArtistOrderByField, orderByIgnore)}
+			settingsKey={orderByKey}
+			fieldOptions={orderByFields}
 		/>
 		<List>
 			{artists.map(
@@ -34,7 +28,8 @@ const Artists: FC<PropTypes> = ({ artists, className, orderByIgnore }) => (
 interface PropTypes {
 	className?: string,
 	artists: ArtistType[],
-	orderByIgnore?: OrderByIgnore,
+	orderByFields: string[],
+	orderByKey: keyof Pick<Settings, "artistsOrderBy" | "userArtistsOrderBy">,
 }
 
 export default Artists

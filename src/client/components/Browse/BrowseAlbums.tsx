@@ -1,36 +1,47 @@
 import { createElement, FC } from "react"
 
+import {
+	Album,
+	UserVar,
+	AlbumOrderBy,
+	AlbumOrderByField,
+} from "../../types"
+
 import Albums from "../Albums"
 import Helmet from "../Helmet"
 import QueryApi from "../QueryApi"
-import { Album as AlbumType } from "../../types"
 import { useUserContext } from "../../contexts/User"
 import GET_ALBUMS from "../../graphql/queries/albums.gql"
 import { useSettingsContext } from "../../contexts/Settings"
 
 const BrowseAlbums: FC = () => {
 	const userId = useUserContext()
-	const { settings } = useSettingsContext()
+	const { settings: { albumsOrderBy } } = useSettingsContext()
 	return (
 		<Helmet title="Browse Albums">
-			<QueryApi
+			<QueryApi<Res, Vars>
 				query={GET_ALBUMS}
-				variables={{ userId, orderBy: settings.albumsOrderBy }}
-				children={(res: Res | undefined) => (
-					res && (
+				variables={{ userId, orderBy: albumsOrderBy }}
+				children={
+					res => (
 						<Albums
-							albums={res.albums}
-							orderByIgnore={["DATE_ADDED"]}
+							orderByKey="albumsOrderBy"
+							albums={res ? res.albums : []}
+							orderByFields={Object.keys(AlbumOrderByField)}
 						/>
 					)
-				)}
+				}
 			/>
 		</Helmet>
 	)
 }
 
 interface Res {
-	albums: AlbumType[],
+	albums: Album[],
+}
+
+interface Vars extends UserVar {
+	orderBy: AlbumOrderBy,
 }
 
 export default BrowseAlbums

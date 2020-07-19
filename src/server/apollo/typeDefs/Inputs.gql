@@ -48,16 +48,6 @@ input UserSongOrderByInput {
 	direction: OrderByDirection!
 }
 
-input GenreOrderByInput {
-	field: GenreOrderByField!
-	direction: OrderByDirection!
-}
-
-input UserGenreOrderByInput {
-	direction: OrderByDirection!
-	field: UserGenreOrderByField!
-}
-
 input ArtistOrderByInput {
 	field: ArtistOrderByField!
 	direction: OrderByDirection!

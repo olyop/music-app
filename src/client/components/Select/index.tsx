@@ -5,7 +5,7 @@ import "./index.scss"
 
 const bem = createBem("Select")
 
-const Select: FC<PropTypes> = ({ value, onChange, options, className }) => {
+const Select: FC<PropTypes> = ({ value, options, onChange, className }) => {
 	const handleChange: ChangeEventHandler<HTMLSelectElement> = event =>
 		onChange(event.target.value)
 	return (

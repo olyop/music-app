@@ -1,9 +1,0 @@
-query getGenreInLibrary(
-  $userId: Uuid!
-  $genreId: Uuid!
-) {
-  genre(genreId: $genreId) {
-    genreId
-    inLibrary(userId: $userId)
-  }
-}

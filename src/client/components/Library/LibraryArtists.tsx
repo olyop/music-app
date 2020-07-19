@@ -1,39 +1,47 @@
-import orderBy from "lodash/orderBy"
 import { createElement, FC } from "react"
 
-import List from "../List"
-import Artist from "../Artist"
+import {
+	User,
+	UserVar,
+	UserArtistOrderBy,
+	UserArtistOrderByField,
+} from "../../types"
+
 import Helmet from "../Helmet"
+import Artists from "../Artists"
 import QueryApi from "../QueryApi"
-import { User } from "../../types"
 import { useUserContext } from "../../contexts/User"
+import { useSettingsContext } from "../../contexts/Settings"
 import GET_USER_ARTISTS from "../../graphql/queries/userArtists.gql"
 
-const LibraryArtists: FC = () => (
-	<Helmet title="Library Artists">
-		<QueryApi
-			query={GET_USER_ARTISTS}
-			variables={{ userId: useUserContext() }}
-			children={
-				({ user: { artists } }: Data) => (
-					<List>
-						{orderBy(artists, "dateAdded", "desc").map(
-							artist => (
-								<Artist
-									artist={artist}
-									key={artist.artistId}
-								/>
-							),
-						)}
-					</List>
-				)
-			}
-		/>
-	</Helmet>
-)
+const LibraryArtists: FC = () => {
+	const userId = useUserContext()
+	const { settings: { userArtistsOrderBy } } = useSettingsContext()
+	return (
+		<Helmet title="Library Artists">
+			<QueryApi<Res, Vars>
+				query={GET_USER_ARTISTS}
+				variables={{ userId, orderBy: userArtistsOrderBy }}
+				children={
+					res => (
+						<Artists
+							orderByKey="userArtistsOrderBy"
+							artists={res ? res.user.artists : []}
+							orderByFields={Object.keys(UserArtistOrderByField)}
+						/>
+					)
+				}
+			/>
+		</Helmet>
+	)
+}
 
-interface Data {
+interface Res {
 	user: User,
+}
+
+interface Vars extends UserVar {
+	orderBy: UserArtistOrderBy,
 }
 
 export default LibraryArtists

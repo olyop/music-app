@@ -4,8 +4,10 @@ import {
 	OrderByDirection,
 	SongOrderByField,
 	AlbumOrderByField,
-	GenreOrderByField,
 	ArtistOrderByField,
+	UserSongOrderByField,
+	UserAlbumOrderByField,
+	UserArtistOrderByField,
 } from "../../types"
 
 const defaultSettings: Settings = {
@@ -20,13 +22,21 @@ const defaultSettings: Settings = {
 		direction: OrderByDirection.DESC,
 		field: AlbumOrderByField.RELEASED,
 	},
-	genresOrderBy: {
-		field: GenreOrderByField.NAME,
-		direction: OrderByDirection.ASC,
-	},
 	artistsOrderBy: {
 		field: ArtistOrderByField.NAME,
 		direction: OrderByDirection.ASC,
+	},
+	userSongsOrderBy: {
+		direction: OrderByDirection.DESC,
+		field: UserSongOrderByField.DATE_ADDED,
+	},
+	userAlbumsOrderBy: {
+		direction: OrderByDirection.DESC,
+		field: UserAlbumOrderByField.DATE_ADDED,
+	},
+	userArtistsOrderBy: {
+		direction: OrderByDirection.DESC,
+		field: UserArtistOrderByField.DATE_ADDED,
 	},
 }
 

@@ -27,6 +27,7 @@ export const INSERT_SONG_GENRE = importFileInsert("songGenre")
 export const INSERT_SONG_ARTIST = importFileInsert("songArtist")
 export const INSERT_SONG_REMIXER = importFileInsert("songRemixer")
 export const INSERT_ALBUM_ARTIST = importFileInsert("albumArtist")
+export const INSERT_USER_ALBUM_SONGS = importFileInsert("userAlbumSongs")
 
 export const SELECT_PLAY = importFileSelect("play")
 export const SELECT_SONG = importFileSelect("song")
@@ -36,7 +37,6 @@ export const SELECT_GENRE = importFileSelect("genre")
 export const SELECT_SONGS = importFileSelect("songs")
 export const SELECT_ALBUMS = importFileSelect("albums")
 export const SELECT_ARTIST = importFileSelect("artist")
-export const SELECT_GENRES = importFileSelect("genres")
 export const SELECT_SEARCH = importFileSelect("search")
 export const SELECT_ARTISTS = importFileSelect("artists")
 export const SELECT_SONGS_IN = importFileSelect("songsIn")
@@ -88,7 +88,6 @@ export const TABLE_USERS_PREVS = importFileTable("usersPrevs")
 export const TABLE_USERS_SONGS = importFileTable("usersSongs")
 export const TABLE_SONGS_GENRES = importFileTable("songsGenres")
 export const TABLE_USERS_ALBUMS = importFileTable("usersAlbums")
-export const TABLE_USERS_GENRES = importFileTable("usersGenres")
 export const TABLE_USERS_QUEUES = importFileTable("usersQueues")
 export const TABLE_SONGS_ARTISTS = importFileTable("songsArtistS")
 export const TABLE_USERS_ARTISTS = importFileTable("usersArtists")
@@ -113,7 +112,6 @@ export const TABLES = [
 	TABLE_USERS_PREVS,
 	TABLE_USERS_SONGS,
 	TABLE_USERS_ALBUMS,
-	TABLE_USERS_GENRES,
 	TABLE_USERS_QUEUES,
 	TABLE_USERS_ARTISTS,
 	TABLE_PLAYLISTS,

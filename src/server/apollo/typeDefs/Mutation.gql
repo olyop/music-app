@@ -29,10 +29,6 @@ type Mutation {
     userId: Uuid!
     albumId: Uuid!
   ): Album!
-  addUserGenre(
-    userId: Uuid!
-    genreId: Uuid!
-  ): Genre!
   addUserArtist(
     userId: Uuid!
     artistId: Uuid!
@@ -45,18 +41,26 @@ type Mutation {
     userId: Uuid!
     albumId: Uuid!
   ): Album!
-  rmUserGenre(
-    userId: Uuid!
-    genreId: Uuid!
-  ): Genre!
   rmUserArtist(
     userId: Uuid!
     artistId: Uuid!
   ): Artist!
-  addUser(user: UserInput!): User!
-  addSong(song: SongInput!): Song!
-  addGenre(genre: GenreInput!): Genre!
-  addAlbum(album: AlbumInput!): Album!
-  addArtist(artist: ArtistInput!): Artist!
-  addPlaylist(playlist: PlaylistInput!): Playlist!
+  addUser(
+    user: UserInput!
+  ): User!
+  addSong(
+    song: SongInput!
+  ): Song!
+  addGenre(
+    genre: GenreInput!
+  ): Genre!
+  addAlbum(
+    album: AlbumInput!
+  ): Album!
+  addArtist(
+    artist: ArtistInput!
+  ): Artist!
+  addPlaylist(
+    playlist: PlaylistInput!
+  ): Playlist!
 }

@@ -7,23 +7,47 @@ import "./index.scss"
 
 const bem = createBem("Button")
 
-const Button: FC<PropTypes> = ({ text, icon, onClick, className }) => (
+const Button: FC<PropTypes> = ({
+	text,
+	icon,
+	title,
+	onClick,
+	className,
+	iconClassName,
+	textClassName,
+}) => (
 	<button
-		title={text}
 		type="button"
 		onClick={onClick}
+		title={title || text}
 		className={bem(className, "", "Hover")}
 	>
-		{icon && <Icon className={bem("icon")} icon={icon}/>}
-		{text && <span className={bem("text")} children={text}/>}
+		{icon && (
+			<Icon
+				icon={icon}
+				className={bem(iconClassName, "icon")}
+			/>
+		)}
+		{(icon && text) ? (
+			<span className={bem("space")}/>
+		) : null}
+		{text && (
+			<span
+				children={text}
+				className={bem(textClassName, "text")}
+			/>
+		)}
 	</button>
 )
 
 interface PropTypes {
 	icon?: string,
 	text?: string,
+	title?: string,
 	onClick?: () => void,
 	className?: BemInput,
+	iconClassName?: BemInput,
+	textClassName?: BemInput,
 }
 
 export default Button

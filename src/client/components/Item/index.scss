@@ -32,8 +32,12 @@
 				font-size: 15rem;
 				margin-top: 4rem; } }
 		&-in-lib {
-			margin: 0;
+			width: auto;
+			outline: none;
+			padding: 4rem;
+			font-size: 28rem;
 			margin-left: var(--gap);
+			height: var(--info-height);
 			background-color: var(--color-elevated);
 			transition-duration: var(--transition-duration);
 			transition-property: opacity, background-color !important; } }

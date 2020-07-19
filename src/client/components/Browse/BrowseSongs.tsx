@@ -1,29 +1,36 @@
 import { createElement, FC } from "react"
 
+import {
+	Song,
+	UserVar,
+	SongOrderBy,
+	SongOrderByField,
+} from "../../types"
+
 import Songs from "../Songs"
 import Helmet from "../Helmet"
 import QueryApi from "../QueryApi"
-import { Song } from "../../types"
 import { useUserContext } from "../../contexts/User"
 import GET_SONGS from "../../graphql/queries/songs.gql"
 import { useSettingsContext } from "../../contexts/Settings"
 
 const BrowseSongs: FC = () => {
 	const userId = useUserContext()
-	const { settings } = useSettingsContext()
+	const { settings: { songsOrderBy } } = useSettingsContext()
 	return (
 		<Helmet title="Browse Songs">
-			<QueryApi
+			<QueryApi<Res, Vars>
 				query={GET_SONGS}
-				variables={{ userId, orderBy: settings.songsOrderBy }}
-				children={(res: Res | undefined) => (
-					res && (
+				variables={{ userId, orderBy: songsOrderBy }}
+				children={
+					res => (
 						<Songs
-							songs={res.songs}
-							orderByIgnore={["DATE_ADDED"]}
+							orderByKey="songsOrderBy"
+							songs={res ? res.songs : []}
+							orderByFields={Object.keys(SongOrderByField)}
 						/>
 					)
-				)}
+				}
 			/>
 		</Helmet>
 	)
@@ -31,6 +38,10 @@ const BrowseSongs: FC = () => {
 
 interface Res {
 	songs: Song[],
+}
+
+interface Vars extends UserVar {
+	orderBy: SongOrderBy,
 }
 
 export default BrowseSongs

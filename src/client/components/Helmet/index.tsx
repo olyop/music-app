@@ -1,8 +1,10 @@
-import { createElement, FC, Fragment, ReactNode } from "react"
+import { useEffect, createElement, FC, Fragment, ReactNode } from "react"
 
 const Helmet: FC<PropTypes> = ({ title, children }) => {
-	// eslint-disable-next-line node/no-process-env
-	document.title = `${title} - ${process.env.APP_NAME!}`
+	useEffect(() => {
+		// eslint-disable-next-line node/no-process-env
+		document.title = `${title} - ${process.env.APP_NAME!}`
+	}, [title, children])
 	return <Fragment>{children}</Fragment>
 }
 

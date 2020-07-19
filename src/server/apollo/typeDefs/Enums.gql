@@ -25,15 +25,6 @@ enum UserSongOrderByField {
 	DATE_ADDED
 }
 
-enum GenreOrderByField {
-  NAME
-}
-
-enum UserGenreOrderByField {
-  NAME
-  DATE_ADDED
-}
-
 enum ArtistOrderByField {
   NAME
 }

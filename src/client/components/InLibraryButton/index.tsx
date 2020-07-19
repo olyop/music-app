@@ -3,47 +3,45 @@ import isUndefined from "lodash/isUndefined"
 import { useQuery, useMutation } from "@apollo/client"
 
 import Icon from "../Icon"
+import Button from "../Button"
+import { isArtist } from "./isDoc"
 import { UserDoc } from "../../types"
 import { useUserContext } from "../../contexts/User"
+import { useSettingsContext } from "../../contexts/Settings"
 import { determineDocReturn, determineDocId } from "../../helpers"
+
+import GET_USER_SONGS from "../../graphql/queries/userSongs.gql"
+import GET_USER_ALBUMS from "../../graphql/queries/userAlbums.gql"
+import GET_USER_ARTISTS from "../../graphql/queries/userArtists.gql"
 
 import GET_SONG_IN_LIB from "../../graphql/queries/songInLib.gql"
 import GET_ALBUM_IN_LIB from "../../graphql/queries/albumInLib.gql"
-import GET_GENRE_IN_LIB from "../../graphql/queries/genreInLib.gql"
 import GET_ARTIST_IN_LIB from "../../graphql/queries/artistInLib.gql"
 
 import RM_USER_SONG from "../../graphql/mutations/rmUserSong.gql"
 import RM_USER_ALBUM from "../../graphql/mutations/rmUserAlbum.gql"
-import RM_USER_GENRE from "../../graphql/mutations/rmUserGenre.gql"
 import RM_USER_ARTIST from "../../graphql/mutations/rmUserArtist.gql"
 
 import ADD_USER_SONG from "../../graphql/mutations/addUserSong.gql"
 import ADD_USER_ALBUM from "../../graphql/mutations/addUserAlbum.gql"
-import ADD_USER_GENRE from "../../graphql/mutations/addUserGenre.gql"
 import ADD_USER_ARTIST from "../../graphql/mutations/addUserArtist.gql"
-
-import GET_USER_SONGS from "../../graphql/queries/userSongs.gql"
-import GET_USER_ALBUMS from "../../graphql/queries/userAlbums.gql"
-import GET_USER_GENRES from "../../graphql/queries/userGenres.gql"
-import GET_USER_ARTISTS from "../../graphql/queries/userArtists.gql"
-import { useSettingsContext } from "../../contexts/Settings"
 
 const InLibraryButton: FC<PropTypes> = ({ doc, className }) => {
 	const userId = useUserContext()
 	const docId = determineDocId(doc)
-	const { settings } = useSettingsContext()
 	const dr = determineDocReturn(doc)
+	const { settings } = useSettingsContext()
 
 	const docName =
-		dr("Song", "Album", "Genre", "Artist")
+		dr("Song", "Album", "Artist")
 	const docKey =
-		dr("songId", "albumId", "genreId", "artistId")
+		dr("songId", "albumId", "artistId")
 	const orderByKey =
-		dr("songsOrderBy", "albumsOrderBy", "genresOrderBy", "artistsOrderBy")
+		dr("userSongsOrderBy", "userAlbumsOrderBy", "userArtistsOrderBy")
 	const QUERY =
-		dr(GET_SONG_IN_LIB, GET_ALBUM_IN_LIB, GET_GENRE_IN_LIB, GET_ARTIST_IN_LIB)
+		dr(GET_SONG_IN_LIB, GET_ALBUM_IN_LIB, GET_ARTIST_IN_LIB)
 	const REFETCH_QUERY =
-		dr(GET_USER_SONGS, GET_USER_ALBUMS, GET_USER_GENRES, GET_USER_ARTISTS)
+		dr(GET_USER_SONGS, GET_USER_ALBUMS, GET_USER_ARTISTS)
 
 	const variables = { userId, [docKey]: docId }
 
@@ -59,8 +57,8 @@ const InLibraryButton: FC<PropTypes> = ({ doc, className }) => {
 	const mutationName = `${verb}User${docName}`
 
 	const MUTATION = inLibrary ?
-		dr(RM_USER_SONG, RM_USER_ALBUM, RM_USER_GENRE, RM_USER_ARTIST) :
-		dr(ADD_USER_SONG, ADD_USER_ALBUM, ADD_USER_GENRE, ADD_USER_ARTIST)
+		dr(RM_USER_SONG, RM_USER_ALBUM, RM_USER_ARTIST) :
+		dr(ADD_USER_SONG, ADD_USER_ALBUM, ADD_USER_ARTIST)
 
 	const [ mutation, { loading: mutationLoading } ] =
 		useMutation(MUTATION, {
@@ -79,17 +77,31 @@ const InLibraryButton: FC<PropTypes> = ({ doc, className }) => {
 		})
 
 	const handleClick = () => {
-		if (!queryLoading && !mutationLoading) mutation()
+		if (!queryLoading && !mutationLoading) {
+			mutation()
+		}
 	}
 
-	return (
-		<Icon
-			onClick={handleClick}
-			className={className}
-			icon={inLibrary ? "done" : "add"}
-			title={`${inLibrary ? "Remove from" : "Add to"} Library`}
-		/>
-	)
+	if (isArtist(doc)) {
+		return (
+			<Button
+				onClick={handleClick}
+				className={className}
+				text={inLibrary ? "FOLLOWING" : "FOLLOW"}
+				icon={inLibrary ? "person" : "person_outline"}
+				title={`${inLibrary ? "Remove from" : "Add to"} Library`}
+			/>
+		)
+	} else {
+		return (
+			<Icon
+				onClick={handleClick}
+				className={className}
+				icon={inLibrary ? "done" : "add"}
+				title={`${inLibrary ? "Remove from" : "Add to"} Library`}
+			/>
+		)
+	}
 }
 
 type Res = Record<string, UserDoc>

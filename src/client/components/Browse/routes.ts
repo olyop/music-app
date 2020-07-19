@@ -4,7 +4,6 @@ import { Route } from "../../types"
 import BrowseHome from "./BrowseHome"
 import BrowseSongs from "./BrowseSongs"
 import BrowseAlbums from "./BrowseAlbums"
-import BrowseGenres from "./BrowseGenres"
 import BrowseArtists from "./BrowseArtists"
 
 const routes: Route[] = [{
@@ -26,12 +25,6 @@ const routes: Route[] = [{
 	name: "Artists",
 	path: "/artists",
 	component: BrowseArtists,
-},{
-	id: uniqueId(),
-	name: "Genres",
-	path: "/genres",
-	icon: "palette",
-	component: BrowseGenres,
 },{
 	name: "Songs",
 	id: uniqueId(),

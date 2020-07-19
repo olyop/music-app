@@ -1,4 +1,5 @@
 query artistPage(
+  $userId: Uuid!
   $artistId: Uuid!
   $songsOrderBy: SongOrderByInput!
   $albumsOrderBy: AlbumOrderByInput!
@@ -8,11 +9,13 @@ query artistPage(
     name
     numOfPlays
     photo(size: FULL)
+    inLibrary(userId: $userId)
     songs(orderBy: $songsOrderBy) {
       songId
       mix
       title
       duration
+      inLibrary(userId: $userId)
       featuring {
         artistId
         name
@@ -34,12 +37,14 @@ query artistPage(
         title
         released
         cover(size: HALF)
+        inLibrary(userId: $userId)
       }
     }
     albums(orderBy: $albumsOrderBy) {
       albumId
       title
       cover(size: HALF)
+      inLibrary(userId: $userId)
       artists {
         artistId
         name

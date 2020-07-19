@@ -1,21 +1,21 @@
 import { useQuery } from "@apollo/client"
 import type { DocumentNode } from "graphql"
 import isUndefined from "lodash/isUndefined"
-import { createElement, useEffect, Fragment, FC, ReactNode } from "react"
+import { createElement, useEffect, Fragment, ReactNode } from "react"
 
 import ApiError from "../ApiError"
 import { useLoadingContext } from "../../contexts/Loading"
 
-const QueryApi: FC<PropTypes> = ({
+const QueryApi = <Res, Vars = Record<string, unknown>>({
 	query,
 	children,
 	className,
-	variables = {},
-}) => {
+	variables = {} as Vars,
+}: PropTypes<Res, Vars>) => {
 	const { setLoading } =
 		useLoadingContext()
 	const { loading, error, data } =
-		useQuery<unknown>(query, { variables })
+		useQuery<Res, Vars>(query, { variables })
 	useEffect(() => {
 		setLoading(loading)
 	}, [loading, setLoading])
@@ -33,11 +33,11 @@ const QueryApi: FC<PropTypes> = ({
 	}
 }
 
-interface PropTypes {
+interface PropTypes<Res, Vars> {
+	variables?: Vars,
 	className?: string,
 	query: DocumentNode,
-	variables?: Record<string, unknown>,
-	children(data: unknown | undefined): ReactNode,
+	children(data: Res | undefined): ReactNode,
 }
 
 export default QueryApi

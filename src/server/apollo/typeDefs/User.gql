@@ -9,7 +9,6 @@ type User {
   plays: [Play!]!
   dateJoined: PositiveInt!
   songs(orderBy: UserSongOrderByInput!): [Song!]!
-  genres(orderBy: UserGenreOrderByInput!): [Genre!]!
   albums(orderBy: UserAlbumOrderByInput!): [Album!]!
   artists(orderBy: UserArtistOrderByInput!): [Artist!]!
   playlists(orderBy: UserPlaylistOrderByInput!): [Playlist!]!

@@ -1,38 +1,47 @@
 import { createElement, FC } from "react"
 
-import List from "../List"
-import Album from "../Album"
+import {
+	User,
+	UserVar,
+	UserAlbumOrderBy,
+	UserAlbumOrderByField,
+} from "../../types"
+
+import Albums from "../Albums"
 import Helmet from "../Helmet"
 import QueryApi from "../QueryApi"
-import { User } from "../../types"
 import { useUserContext } from "../../contexts/User"
+import { useSettingsContext } from "../../contexts/Settings"
 import GET_USER_ALBUMS from "../../graphql/queries/userAlbums.gql"
 
-const LibraryAlbums: FC = () => (
-	<Helmet title="Library Albums">
-		<QueryApi
-			query={GET_USER_ALBUMS}
-			variables={{ userId: useUserContext() }}
-			children={
-				({ user: { albums } }: Data) => (
-					<List>
-						{albums.map(
-							album => (
-								<Album
-									album={album}
-									key={album.albumId}
-								/>
-							),
-						)}
-					</List>
-				)
-			}
-		/>
-	</Helmet>
-)
+const LibraryAlbums: FC = () => {
+	const userId = useUserContext()
+	const { settings: { userAlbumsOrderBy } } = useSettingsContext()
+	return (
+		<Helmet title="Library Albums">
+			<QueryApi<Res, Vars>
+				query={GET_USER_ALBUMS}
+				variables={{ userId, orderBy: userAlbumsOrderBy }}
+				children={
+					res => (
+						<Albums
+							orderByKey="userAlbumsOrderBy"
+							albums={res ? res.user.albums : []}
+							orderByFields={Object.keys(UserAlbumOrderByField)}
+						/>
+					)
+				}
+			/>
+		</Helmet>
+	)
+}
 
-interface Data {
+interface Res {
 	user: User,
+}
+
+interface Vars extends UserVar {
+	orderBy: UserAlbumOrderBy,
 }
 
 export default LibraryAlbums

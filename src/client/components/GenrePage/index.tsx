@@ -2,10 +2,17 @@ import { createBem } from "@oly_op/bem"
 import { createElement, FC } from "react"
 import { useParams } from "react-router-dom"
 
+import {
+	Genre,
+	UserVar,
+	SongOrderBy,
+	SongOrderByField,
+} from "../../types"
+
 import Songs from "../Songs"
 import Helmet from "../Helmet"
 import QueryApi from "../QueryApi"
-import { Genre } from "../../types"
+import { useUserContext } from "../../contexts/User"
 import { useSettingsContext } from "../../contexts/Settings"
 import GET_GENRE_PAGE from "../../graphql/queries/genrePage.gql"
 
@@ -14,19 +21,27 @@ import "./index.scss"
 const bem = createBem("GenrePage")
 
 const GenrePage: FC = () => {
-	const { settings } = useSettingsContext()
+	const userId = useUserContext()
+	const params = useParams<Params>()
+	const { settings: { songsOrderBy } } = useSettingsContext()
+	const variables = { userId, songsOrderBy, ...params }
 	return (
-		<QueryApi
+		<QueryApi<Res, Vars>
+			variables={variables}
 			query={GET_GENRE_PAGE}
-			variables={{
-				...useParams<Params>(),
-				songsOrderBy: settings.songsOrderBy,
-			}}
 			children={
-				(res: Res | undefined) => res && (
+				res => res && (
 					<Helmet title={res.genre.name}>
-						<h1 className={bem("", "Elevated")}>{res.genre.name}</h1>
-						<Songs className="Padding" songs={res.genre.songs}/>
+						<h1
+							children={res.genre.name}
+							className={bem("", "Elevated")}
+						/>
+						<Songs
+							className="Padding"
+							songs={res.genre.songs}
+							orderByKey="songsOrderBy"
+							orderByFields={Object.keys(SongOrderByField)}
+						/>
 					</Helmet>
 				)
 			}
@@ -40,6 +55,10 @@ interface Res {
 
 interface Params {
 	genreId: string,
+}
+
+interface Vars extends UserVar, Params {
+	songsOrderBy: SongOrderBy,
 }
 
 export default GenrePage

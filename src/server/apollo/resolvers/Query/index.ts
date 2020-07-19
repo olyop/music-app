@@ -20,7 +20,6 @@ import {
 	SELECT_SONGS,
 	SELECT_ALBUMS,
 	SELECT_ARTIST,
-	SELECT_GENRES,
 	SELECT_ARTISTS,
 	SELECT_PLAYLIST,
 	SELECT_PLAYLISTS,
@@ -78,29 +77,6 @@ export const albums =
 					string: false,
 					key: "columnNames",
 					value: sql.join(COLUMN_NAMES.ALBUM),
-				}],
-			})
-		),
-	)
-
-export const genres =
-	resolver<Genre[], OrderByArgs>(
-		({ args }) => (
-			sql.query({
-				sql: SELECT_GENRES,
-				parse: sql.parseTable(),
-				variables: [{
-					string: false,
-					key: "orderByField",
-					value: args.orderBy.field,
-				},{
-					string: false,
-					key: "orderByDirection",
-					value: args.orderBy.direction,
-				},{
-					string: false,
-					key: "columnNames",
-					value: sql.join(COLUMN_NAMES.GENRE),
 				}],
 			})
 		),

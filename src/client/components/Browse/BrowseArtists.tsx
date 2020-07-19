@@ -1,9 +1,15 @@
 import { createElement, FC } from "react"
 
+import {
+	Artist,
+	UserVar,
+	ArtistOrderBy,
+	ArtistOrderByField,
+} from "../../types"
+
 import Helmet from "../Helmet"
 import Artists from "../Artists"
 import QueryApi from "../QueryApi"
-import { Artist as ArtistType } from "../../types"
 import { useUserContext } from "../../contexts/User"
 import GET_ARTISTS from "../../graphql/queries/artists.gql"
 import { useSettingsContext } from "../../contexts/Settings"
@@ -13,24 +19,29 @@ const BrowseArtists: FC = () => {
 	const { settings: { artistsOrderBy } } = useSettingsContext()
 	return (
 		<Helmet title="Browse Artists">
-			<QueryApi
+			<QueryApi<Res, Vars>
 				query={GET_ARTISTS}
 				variables={{ userId, orderBy: artistsOrderBy }}
-				children={(res: Res | undefined) => (
-					res && (
+				children={
+					res => (
 						<Artists
-							artists={res.artists}
-							orderByIgnore={["DATE_ADDED"]}
+							orderByKey="artistsOrderBy"
+							artists={res ? res.artists : []}
+							orderByFields={Object.keys(ArtistOrderByField)}
 						/>
 					)
-				)}
+				}
 			/>
 		</Helmet>
 	)
 }
 
 interface Res {
-	artists: ArtistType[],
+	artists: Artist[],
+}
+
+interface Vars extends UserVar {
+	orderBy: ArtistOrderBy,
 }
 
 export default BrowseArtists

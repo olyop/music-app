@@ -1,17 +1,27 @@
 import random from "lodash/random"
 import isEmpty from "lodash/isEmpty"
 import { createBem } from "@oly_op/bem"
+import isUndefined from "lodash/isUndefined"
 import { useParams } from "react-router-dom"
 import { createElement, Fragment, FC } from "react"
+
+import {
+	Artist,
+	UserVar,
+	SongOrderBy,
+	AlbumOrderBy,
+	SongOrderByField,
+	AlbumOrderByField,
+} from "../../types"
 
 import Img from "../Img"
 import Songs from "../Songs"
 import Albums from "../Albums"
 import Helmet from "../Helmet"
 import QueryApi from "../QueryApi"
-import { Artist } from "../../types"
 import { determinePlural } from "../../helpers"
 import InLibraryButton from "../InLibraryButton"
+import { useUserContext } from "../../contexts/User"
 import { useSettingsContext } from "../../contexts/Settings"
 import GET_ARTIST_PAGE from "../../graphql/queries/artistPage.gql"
 
@@ -20,17 +30,19 @@ import "./index.scss"
 const bem = createBem("ArtistPage")
 
 const ArtistPage: FC = () => {
+	const userId = useUserContext()
 	const params = useParams<Params>()
 	const { settings: { songsOrderBy, albumsOrderBy } } = useSettingsContext()
-	const variables = { ...params, songsOrderBy, albumsOrderBy }
+	const variables = { userId, songsOrderBy, albumsOrderBy, ...params }
 	return (
-		<QueryApi
+		<QueryApi<Res, Vars>
 			className={bem("")}
 			variables={variables}
 			query={GET_ARTIST_PAGE}
 			children={
-				({ artist }: Data) => {
-					const { name, photo, songs, albums } = artist
+				res => {
+					if (isUndefined(res)) return null
+					const { name, photo, songs, albums } = res.artist
 					return (
 						<Helmet title={name}>
 							<Img
@@ -42,7 +54,7 @@ const ArtistPage: FC = () => {
 									<h1 className={bem("cover-content-name")}>
 										<span className={bem("cover-content-name-text")}>{name}</span>
 										<InLibraryButton
-											doc={artist}
+											doc={res.artist}
 											className={bem("cover-content-name-add")}
 										/>
 									</h1>
@@ -72,13 +84,22 @@ const ArtistPage: FC = () => {
 								{isEmpty(albums) ? null : (
 									<Fragment>
 										<h2 className={bem("heading")}>Albums</h2>
-										<Albums albums={albums} className="MarginBottom"/>
+										<Albums
+											albums={albums}
+											className="MarginBottom"
+											orderByKey="albumsOrderBy"
+											orderByFields={Object.keys(AlbumOrderByField)}
+										/>
 									</Fragment>
 								)}
 								{isEmpty(songs) ? null : (
 									<Fragment>
 										<h2 className={bem("heading")}>Songs</h2>
-										<Songs songs={songs}/>
+										<Songs
+											songs={songs}
+											orderByKey="songsOrderBy"
+											orderByFields={Object.keys(SongOrderByField)}
+										/>
 									</Fragment>
 								)}
 							</div>
@@ -90,12 +111,17 @@ const ArtistPage: FC = () => {
 	)
 }
 
-interface Data {
+interface Res {
 	artist: Artist,
 }
 
-interface Params extends Record<string, string> {
+interface Params {
 	artistId: string,
+}
+
+interface Vars extends UserVar, Params {
+	songsOrderBy: SongOrderBy,
+	albumsOrderBy: AlbumOrderBy,
 }
 
 export default ArtistPage

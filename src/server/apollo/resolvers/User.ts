@@ -6,6 +6,7 @@ import {
 	User,
 	Album,
 	Artist,
+	OrderBy,
 	Playlist,
 	OrderByArgs,
 } from "../../types"
@@ -13,10 +14,10 @@ import {
 import {
 	SELECT_SONG,
 	SELECT_SONGS_IN,
+	SELECT_USER_DOCS,
 	SELECT_USER_PLAYS,
 } from "../../sql"
 
-import { userDocs } from "./common"
 import { COLUMN_NAMES } from "../../globals"
 import { sql, createResolver } from "../../helpers"
 
@@ -122,6 +123,58 @@ export const plays =
 			})
 		),
 	)
+
+export const userDocs = <T>({
+	userId,
+	orderBy,
+	tableName,
+	columnName,
+	columnNames,
+	userTableName,
+}: {
+	userId: string,
+	orderBy: OrderBy,
+	tableName: string,
+	columnName: string,
+	columnNames: string[],
+	userTableName: string,
+}) =>
+	sql.query<T[]>({
+		sql: SELECT_USER_DOCS,
+		parse: sql.parseTable(),
+		variables: [{
+			key: "userId",
+			value: userId,
+		},{
+			string: false,
+			key: "tableName",
+			value: tableName,
+		},{
+			string: false,
+			key: "columnName",
+			value: columnName,
+		},{
+			string: false,
+			key: "userTableName",
+			value: userTableName,
+		},{
+			string: false,
+			key: "orderByField",
+			value: orderBy.field,
+		},{
+			string: false,
+			key: "orderByDirection",
+			value: orderBy.direction,
+		},{
+			string: false,
+			key: "orderByTableName",
+			value: orderBy.field === "DATE_ADDED" ? userTableName : tableName,
+		},{
+			string: false,
+			key: "columnNames",
+			value: sql.join(columnNames, tableName),
+		}],
+	})
 
 export const songs =
 	resolver<Song[], OrderByArgs>(

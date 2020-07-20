@@ -3,8 +3,8 @@ query artists(
   $orderBy: ArtistOrderByInput!
 ) {
   artists(orderBy: $orderBy) {
-    artistId
     name
+    artistId
     numOfSongs
     numOfAlbums
     photo(size: MINI)

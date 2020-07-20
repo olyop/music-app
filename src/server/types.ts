@@ -29,11 +29,11 @@ export type SQLVariable = {
 	parameterized?: boolean,
 }
 
-export type SQLConfig<TReturn = unknown> = {
+export type SQLConfig<Return = unknown> = {
 	sql: string,
 	log?: boolean,
 	variables?: SQLVariable[],
-	parse?: (res: QueryResult) => TReturn,
+	parse?: (res: QueryResult) => Return,
 }
 
 export type S3Upload = {

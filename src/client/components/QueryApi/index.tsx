@@ -21,15 +21,13 @@ const QueryApi = <Res, Vars = Record<string, unknown>>({
 	}, [loading, setLoading])
 	if (!isUndefined(error)) {
 		return <ApiError error={error}/>
-	} else if (!isUndefined(data)) {
+	} else {
 		const render = children(data)
 		if (className) {
 			return <div className={className}>{render}</div>
 		} else {
 			return <Fragment>{render}</Fragment>
 		}
-	} else {
-		return null
 	}
 }
 

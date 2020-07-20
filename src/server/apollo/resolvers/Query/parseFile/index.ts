@@ -1,15 +1,13 @@
 import { FileUpload } from "graphql-upload"
 import { parseStream } from "music-metadata"
 
+import { MetadataSong } from "./types"
 import { parseMetadata } from "./parseMetadata"
-import { MetadataResponse } from "./metadataResponse"
 import { createStreamFromUpload } from "../../../../helpers"
 
-export type { MetadataResponse }
-
-export const parseSong =
+export const parseFile =
 	(file: Promise<FileUpload>) =>
-		new Promise<MetadataResponse>(
+		new Promise<MetadataSong>(
 			(resolve, reject) => {
 				createStreamFromUpload(file)
 					.then(parseStream)

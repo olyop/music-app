@@ -7,9 +7,9 @@ import {
 	ICommonTagsResult as Common,
 } from "music-metadata"
 
+import { MetadataSong } from "./types"
 import { toDataUrl } from "../../../../helpers"
 import { EMPTY_DATA_URL } from "../../../../globals"
-import { MetadataResponse } from "./metadataResponse"
 import { splitList, strHasBrackets, strFindBrackets } from "./common"
 
 const removeMix = (str: string) =>
@@ -93,10 +93,10 @@ const determineGenres = ({ genre }: Common) =>
 	(genre && !isEmpty(genre) ? genre : [])
 
 const determineDiscNumber = ({ disk }: Common) =>
-	disk?.no || 1
+	disk.no || 1
 
 const determineTrackNumber = ({ track }: Common) =>
-	track?.no || 1
+	track.no || 1
 
 const determineDuration = ({ duration }: Format) =>
 	Math.floor(duration || 0)
@@ -108,7 +108,7 @@ const determineAlbum = ({ album, albumartist, year, picture }: Common) => ({
 	cover: picture ? toDataUrl(picture[0].data) : EMPTY_DATA_URL,
 })
 
-export const parseMetadata = ({ common, format }: Metadata): MetadataResponse => ({
+export const parseMetadata = ({ common, format }: Metadata): MetadataSong => ({
 	mix: determineMix(common),
 	title: determineTitle(common),
 	album: determineAlbum(common),

@@ -1,9 +1,13 @@
-query albums($orderBy: AlbumOrderByInput!) {
+query albums(
+  $userId: Uuid!
+  $orderBy: AlbumOrderByInput!
+) {
   albums(orderBy: $orderBy) {
     albumId
     title
     released
     cover(size: HALF)
+    inLibrary(userId: $userId)
     artists {
       artistId
       name

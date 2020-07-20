@@ -1,16 +1,20 @@
+import { createBem } from "@oly_op/bem"
 import { createElement, FC } from "react"
 
 import Item from "../Item"
 import Cover from "../Cover"
 import DocLink from "../DocLink"
 import DocLinks from "../DocLinks"
+import { deserializeDate } from "../../helpers"
 import { useSettingsContext } from "../../contexts/Settings"
 import { Album as AlbumType, ListStyle } from "../../types"
+
+const bem = createBem("Album")
 
 const Album: FC<PropTypes> = ({ album, className = null }) => {
 	const { settings: { listStyle } } = useSettingsContext()
 	return listStyle === ListStyle.GRID ? (
-		<div className={[ "Card", "Elevated", className ].join(" ")}>
+		<div className={bem(className, "Card", "Elevated")}>
 			<Cover
 				url={album.cover}
 			/>
@@ -26,8 +30,9 @@ const Album: FC<PropTypes> = ({ album, className = null }) => {
 			doc={album}
 			imgDoc={album}
 			upper={<DocLink doc={album}/>}
+			right={deserializeDate(album.released)}
 			lower={<DocLinks docs={album.artists}/>}
-			className={[ className, "PaddingHalf", "ItemBorder", "Hover" ].join(" ")}
+			className={bem(className, "PaddingHalf", "ItemBorder", "Hover")}
 		/>
 	)
 }

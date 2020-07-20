@@ -20,8 +20,7 @@ import {
 } from "../../sql"
 
 import { COLUMN_NAMES } from "../../globals"
-import { userDocInLib } from "./common/userDocInLib"
-import { userDocDateAdded } from "./common/userDocDateAdded"
+import { userDocInLib, userDocDateAdded } from "./common"
 import { s3, sql, createResolver, toDataUrl } from "../../helpers"
 
 const resolver = createResolver<Artist>()

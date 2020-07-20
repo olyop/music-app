@@ -1,10 +1,14 @@
-query albumPage($albumId: Uuid!) {
+query albumPage(
+  $userId: Uuid!
+  $albumId: Uuid!
+) {
   album(albumId: $albumId) {
     albumId
     title
     released
     totalDuration
     cover(size: FULL)
+    inLibrary(userId: $userId)
     artists {
       artistId
       name
@@ -16,6 +20,7 @@ query albumPage($albumId: Uuid!) {
       duration
       discNumber
       trackNumber
+      inLibrary(userId: $userId)
       featuring {
         artistId
         name

@@ -2,7 +2,6 @@ import { QueryResult } from "pg"
 
 import { COLUMN_NAMES } from "../../globals"
 import { sql, createResolver } from "../../helpers"
-import { userDocDateAdded, userDocInLib } from "./common"
 import { SELECT_GENRE_SONGS, SELECT_USER_DOC_PLAYS } from "../../sql"
 import { Song, Play, Genre, UserArgs, OrderBy, OrderByArgs } from "../../types"
 
@@ -73,30 +72,6 @@ export const plays =
 					key: "columnNames",
 					value: sql.join(COLUMN_NAMES.PLAY),
 				}],
-			})
-		),
-	)
-
-export const dateAdded =
-	resolver<number, UserArgs>(
-		({ parent, args }) => (
-			userDocDateAdded({
-				userId: args.userId,
-				docId: parent.genreId,
-				columnName: "genre_id",
-				userDocTable: "users_genres",
-			})
-		),
-	)
-
-export const inLibrary =
-	resolver<boolean, UserArgs>(
-		({ parent, args }) => (
-			userDocInLib({
-				userId: args.userId,
-				docId: parent.genreId,
-				columnName: "genre_id",
-				userDocTable: "users_genres",
 			})
 		),
 	)

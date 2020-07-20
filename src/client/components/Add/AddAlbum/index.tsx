@@ -1,22 +1,24 @@
 import { createBem } from "@oly_op/bem"
 import { createElement, FC, Dispatch, SetStateAction } from "react"
 
+import { Album } from "../types"
 import AddList from "../AddList"
 import AddCover from "../AddCover"
 import AddLabel from "../AddLabel"
 import AddInput from "../AddInput"
-import { Album } from "../../../types"
 
 import "./index.scss"
 
 const bem = createBem("AddAlbum")
 
 const AddAlbum: FC<PropTypes> = ({ album, className, handleChange }) => {
-	const onChange = (objKey: string) => (val: unknown) =>
-		handleChange(prevState => ({
-			...prevState,
-			[objKey]: val,
-		}))
+	const onChange =
+		(objKey: keyof Album) =>
+			(val: string | number) =>
+				handleChange(prevState => ({
+					...prevState,
+					[objKey]: val,
+				}))
 	return (
 		<div className={className}>
 			<AddCover

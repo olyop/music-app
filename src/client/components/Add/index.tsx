@@ -7,9 +7,8 @@ import AddDocs from "./AddDocs"
 import Spinner from "../Spinner"
 import AddSongs from "./AddSongs"
 import AddAlbum from "./AddAlbum"
-import ApiError from "../ApiError"
 import AddButton from "./AddButton"
-import { Album, Song } from "../../types"
+import { Album, Song } from "./types"
 import determineGenres from "./helpers/determineGenres"
 import determineArtists from "./helpers/determineArtists"
 
@@ -20,8 +19,8 @@ const bem = createBem("Add")
 const Add: FC = () => {
 	const [ error, setError ] = useState(null)
 	const [ loading, setLoading ] = useState(false)
-	const [ album, setAlbum ] = useState<Album>(null)
-	const [ songs, setSongs ] = useState<Song[]>(null)
+	const [ album, setAlbum ] = useState<Album | null>(null)
+	const [ songs, setSongs ] = useState<Song[] | null>(null)
 
 	if (!isNull(error)) {
 		return console.error(error)

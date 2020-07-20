@@ -61,7 +61,7 @@ const InLibraryButton: FC<PropTypes> = ({ doc, className }) => {
 		dr(ADD_USER_SONG, ADD_USER_ALBUM, ADD_USER_ARTIST)
 
 	const [ mutation, { loading: mutationLoading } ] =
-		useMutation(MUTATION, {
+		useMutation<Res>(MUTATION, {
 			variables,
 			refetchQueries: [{
 				query: REFETCH_QUERY,
@@ -69,6 +69,7 @@ const InLibraryButton: FC<PropTypes> = ({ doc, className }) => {
 			}],
 			optimisticResponse: {
 				[mutationName]: {
+					...doc,
 					[docKey]: docId,
 					__typename: docName,
 					inLibrary: !inLibrary,
@@ -77,17 +78,15 @@ const InLibraryButton: FC<PropTypes> = ({ doc, className }) => {
 		})
 
 	const handleClick = () => {
-		if (!queryLoading && !mutationLoading) {
-			mutation()
-		}
+		if (!queryLoading && !mutationLoading) mutation()
 	}
 
 	if (isArtist(doc)) {
 		return (
 			<Button
+				text="FOLLOW"
 				onClick={handleClick}
 				className={className}
-				text={inLibrary ? "FOLLOWING" : "FOLLOW"}
 				icon={inLibrary ? "person" : "person_outline"}
 				title={`${inLibrary ? "Remove from" : "Add to"} Library`}
 			/>

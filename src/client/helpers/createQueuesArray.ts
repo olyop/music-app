@@ -1,9 +1,9 @@
 import uniqueId from "lodash/uniqueId"
 
-import { User } from "../types"
+import { User, Queue } from "../types"
 
 export const createQueuesArray =
-	({ prev, current, next, queue }: User) => [{
+	({ prev, current, next, queue }: User): Queue[] => [{
 		id: uniqueId(),
 		key: "prev",
 		name: "Previous",

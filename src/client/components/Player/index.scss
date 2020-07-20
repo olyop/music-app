@@ -10,7 +10,7 @@
 		top: 50%;
 		left: 50%;
 		position: absolute;
-		transform: translate(-50%, -54%); }
+		transform: translate(-50%, -50%); }
 	&__close {
 		--font-size: 40rem;
 		--padding: calc(var(--space) * 0.5);
@@ -31,18 +31,31 @@
 		flex-direction: column;
 		&-cover {
 			width: 100%;
-			margin-bottom: calc(var(--space) * 2); }
+			margin-bottom: var(--space-double); }
 		&-text {
 			text-align: center;
-			margin-bottom: calc(var(--space) * 0.5); }
+			margin-bottom: var(--space-half); }
 		&-title {
-			font-size: 25rem;
-			font-weight: 700; }
+			display: flex;
+			font-size: 30rem;
+			font-weight: 700;
+			align-items: center;
+			&-inLibrary {
+				margin-left: var(--space-half); } }
 		&-album {
 			font-size: 20rem;
 			font-weight: 500; }
 		&-progress {
 			background-color: #e0e0e0; }
+		&-controls {
+			width: auto;
+			margin-top: var(--space-double);
+			&-icon {
+				--size: 50rem;
+				width: var(--size);
+				height: var(--size);
+				font-size: var(--size);
+				color: var(--text-color); } }
 		&-artists {
 			font-size: 20rem;
 			font-weight: 400;

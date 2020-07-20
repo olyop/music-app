@@ -21,9 +21,9 @@ const Sidebar: FC = () => {
 		<nav className={bem("")}>
 			<NavLink
 				title="Browse"
-				to="/catalog/browse"
 				onClick={toggleSidebar}
 				className={bem("route")}
+				to="/catalog/browse/songs"
 			>
 				<Icon className={bem("route-icon")} icon="view_list"/>
 				<p className={bem("route-text")}>Browse</p>

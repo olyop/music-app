@@ -1,5 +1,5 @@
-import { createElement, FC } from "react"
 import { createBem, BemInput } from "@oly_op/bem"
+import { createElement, FC, ReactNode } from "react"
 
 import "./index.scss"
 
@@ -12,6 +12,7 @@ const AddLabel: FC<PropTypes> = ({ children, className }) => (
 )
 
 interface PropTypes {
+	children: ReactNode,
 	className: BemInput,
 }
 

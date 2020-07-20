@@ -1,10 +1,10 @@
-import { uniqueId } from "lodash"
+import uniqueId from "lodash/uniqueId"
 import { dataUrlToBlob } from "./dataUrlBlobConvert"
 
 const normalizeList = list =>
   list.map(item => ({ id: uniqueId(), val: item }))
 
-const handleMetadata = (setAlbum, setSongs) => ({ songs, album }) => {
+export const handleMetadata = (setAlbum, setSongs) => ({ songs, album }) => {
   setSongs(songs.map(song => ({
     ...song,
     id: uniqueId(),
@@ -19,5 +19,3 @@ const handleMetadata = (setAlbum, setSongs) => ({ songs, album }) => {
     artists: normalizeList(album.artists),
   })
 }
-
-export default handleMetadata

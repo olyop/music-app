@@ -18,8 +18,7 @@ const googleSearchScrape =
 					// eslint-disable-next-line max-len
 					const reg = /(0[1-9]|[12]\d|3[01]) (January|February|March|April|May|June|July|August|September|October|November|December) (?:19[7-9]\d|2\d{3})(?=\D|$)/
 					const search = html.match(reg)
-					// eslint-disable-next-line promise/always-return
-					resolve(isNull(search) ? null : search[0])
+					return resolve(isNull(search) ? null : search[0])
 				}).catch(reject)
 			},
 		)

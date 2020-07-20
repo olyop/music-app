@@ -30,8 +30,8 @@ import {
 import { COLUMN_NAMES } from "../../../globals"
 import fetchAndParseUrl from "./fetchAndParseUrl"
 import fetchImageSearch from "./fetchImageSearch"
+import { parseFile, MetadataSong } from "./parseFile"
 import { sql, createResolver } from "../../../helpers"
-import { parseSong as parseSongFunc, MetadataResponse } from "./parseSong"
 
 const resolver =
 	createResolver()
@@ -163,12 +163,12 @@ export const album =
 				sql: SELECT_ALBUM,
 				parse: sql.parseRow(),
 				variables: [{
+					key: "albumId",
+					value: args.albumId,
+				},{
 					string: false,
 					key: "columnNames",
 					value: sql.join(COLUMN_NAMES.ALBUM),
-				},{
-					key: "albumId",
-					value: args.albumId,
 				}],
 			})
 		),
@@ -181,12 +181,12 @@ export const genre =
 				sql: SELECT_GENRE,
 				parse: sql.parseRow(),
 				variables: [{
+					key: "genreId",
+					value: args.genreId,
+				},{
 					string: false,
 					key: "columnNames",
 					value: sql.join(COLUMN_NAMES.GENRE),
-				},{
-					key: "genreId",
-					value: args.genreId,
 				}],
 			})
 		),
@@ -246,21 +246,6 @@ export const song =
 		),
 	)
 
-export const parseUrl =
-	resolver<string, { url: string }>(
-		({ args }) => fetchAndParseUrl(args.url),
-	)
-
-export const imageSearch =
-	resolver<string, { query: string }>(
-		({ args }) => fetchImageSearch(args.query),
-	)
-
-export const parseSong =
-	resolver<MetadataResponse, { file: Promise<FileUpload> }>(
-		({ args }) => parseSongFunc(args.file),
-	)
-
 export const newAlbums =
 	resolver<Album[]>(
 		() => (
@@ -279,4 +264,19 @@ export const topTenSongs =
 				parse: sql.parseTable(),
 			})
 		),
+	)
+
+export const parseUrl =
+	resolver<string, { url: string }>(
+		({ args }) => fetchAndParseUrl(args.url),
+	)
+
+export const imageSearch =
+	resolver<string, { query: string }>(
+		({ args }) => fetchImageSearch(args.query),
+	)
+
+export const parseSong =
+	resolver<MetadataSong, { file: Promise<FileUpload> }>(
+		({ args }) => parseFile(args.file),
 	)

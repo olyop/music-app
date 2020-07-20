@@ -1,15 +1,17 @@
 query genrePage(
+  $userId: Uuid!
   $genreId: Uuid!
   $songsOrderBy: SongOrderByInput!
 ) {
   genre(genreId: $genreId) {
-    genreId
     name
+    genreId
     songs(orderBy: $songsOrderBy) {
       songId
       title
       mix
       duration
+      inLibrary(userId: $userId)
       featuring {
         artistId
         name

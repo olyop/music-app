@@ -42,7 +42,8 @@ const ArtistPage: FC = () => {
 			children={
 				res => {
 					if (isUndefined(res)) return null
-					const { name, photo, songs, albums } = res.artist
+					const { artist } = res
+					const { name, photo, songs, albums } = artist
 					return (
 						<Helmet title={name}>
 							<Img
@@ -54,7 +55,7 @@ const ArtistPage: FC = () => {
 									<h1 className={bem("cover-content-name")}>
 										<span className={bem("cover-content-name-text")}>{name}</span>
 										<InLibraryButton
-											doc={res.artist}
+											doc={artist}
 											className={bem("cover-content-name-add")}
 										/>
 									</h1>

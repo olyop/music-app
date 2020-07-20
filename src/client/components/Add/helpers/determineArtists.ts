@@ -3,8 +3,6 @@ import uniq from "lodash/fp/uniq"
 import { pipe } from "@oly_op/pipe"
 import flatten from "lodash/fp/flatten"
 
-import { Album } from "../../../types"
-
 const determineAlbumArtists = (album: Album) =>
 	album.artists.map(({ val }) => val)
 
@@ -19,9 +17,7 @@ const determineSongArtists = songs =>
 		map(({ val }) => val),
 	)
 
-const determineArtists = (album, songs) => uniq([
+export const determineArtists = (album, songs) => uniq([
 	...determineSongArtists(songs),
 	...determineAlbumArtists(album),
 ])
-
-export default determineArtists

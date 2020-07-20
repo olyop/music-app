@@ -33,16 +33,15 @@ query artistPage(
         name
       }
       album {
-        albumId
         title
-        released
+        albumId
         cover(size: HALF)
-        inLibrary(userId: $userId)
       }
     }
     albums(orderBy: $albumsOrderBy) {
-      albumId
       title
+      albumId
+      released
       cover(size: HALF)
       inLibrary(userId: $userId)
       artists {

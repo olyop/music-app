@@ -1,23 +1,32 @@
-import { createElement, FC } from "react"
+import {
+	FC,
+	Dispatch,
+	createElement,
+	SetStateAction,
+	ChangeEventHandler,
+} from "react"
 
 import { createBem } from "@oly_op/bem"
-import getMetadata from "../helpers/getMetadata"
-import handleMetadata from "../helpers/handleMetadata"
+
+import { Song, Album } from "../types"
+import { getMetadata, handleMetadata } from "../helpers"
 
 import "./index.scss"
 
 const bem = createBem("AddButton")
 
-const AddButton: FC<TProps> = ({
+const AddButton: FC<PropTypes> = ({
 	setAlbum, setSongs, setError, setLoading,
 }) => {
 	const toggleLoading = () =>
 		setLoading(prevState => !prevState)
 
-	const handleNewFiles = event => {
+	const handleNewFiles: ChangeEventHandler<HTMLInputElement> = event => {
 		toggleLoading()
-		getMetadata(event.target.files)
-			.then(handleMetadata(setAlbum, setSongs))
+		const files = Array.from(event.target.files || [])
+		const fileUploads = files.map(getMetadata)
+		return Promise.all(fileUploads)
+			.then(setSongs)
 			.catch(setError)
 			.finally(toggleLoading)
 	}
@@ -33,12 +42,11 @@ const AddButton: FC<TProps> = ({
 		/>
 	)
 }
-
-type TProps = {
-	setAlbum: func.isRequired,
-	setSongs: func.isRequired,
-	setError: func.isRequired,
-	setLoading: func.isRequired,
+interface PropTypes {
+	setError: Dispatch<SetStateAction<Error>>,
+	setSongs: Dispatch<SetStateAction<Song[]>>,
+	setAlbum: Dispatch<SetStateAction<Album[]>>,
+	setLoading: Dispatch<SetStateAction<boolean>>,
 }
 
 export default AddButton

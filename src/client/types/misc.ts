@@ -39,9 +39,11 @@ export interface DataUserPlay {
 	current: Song,
 }
 
-export interface ParseSongs {
-	album: Album,
+export interface Queue {
+	id: string,
+	name: string,
 	songs: Song[],
+	key: "prev" | "next" | "queue" | "current",
 }
 
 export interface UserVar {

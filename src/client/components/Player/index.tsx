@@ -1,7 +1,8 @@
 import isNull from "lodash/isNull"
 import { createBem } from "@oly_op/bem"
+import isUndefined from "lodash/isUndefined"
 import { createElement, FC, Fragment } from "react"
-import { RouteComponentProps } from "react-router-dom"
+import { Link, RouteComponentProps } from "react-router-dom"
 
 import Img from "../Img"
 import Icon from "../Icon"
@@ -9,10 +10,14 @@ import Empty from "../Empty"
 import Helmet from "../Helmet"
 import DocLink from "../DocLink"
 import QueryApi from "../QueryApi"
-import { User } from "../../types"
 import Progress from "../Progress"
 import SongTitle from "../SongTitle"
+import UserControls from "../UserControls"
+import { User, UserVar } from "../../types"
+import InLibraryButton from "../InLibraryButton"
+import { determineDocPath } from "../../helpers"
 import FeaturingArtists from "../FeaturingArtists"
+import { useUserContext } from "../../contexts/User"
 import GET_USER_CURRENT from "../../graphql/queries/userCurrent.gql"
 
 import "./index.scss"
@@ -20,41 +25,54 @@ import "./index.scss"
 const bem = createBem("Player")
 
 const Player: FC<RouteComponentProps> = ({ history }) => (
-	<QueryApi
+	<QueryApi<Res, UserVar>
 		query={GET_USER_CURRENT}
 		className={bem("", "Elevated")}
+		variables={{ userId: useUserContext() }}
 		children={
-			({ user }: Data) => (
+			res => (
 				<Fragment>
 					<Icon
 						icon="close"
 						onClick={() => history.goBack()}
 						className={bem("close", "PaddingHalf")}
 					/>
-					{isNull(user.current) ? <Empty title="No Current Song"/> : (
-						<Helmet title={user.current.title}>
+					{isUndefined(res) ? null : isNull(res.user.current) ? <Empty title="No Current Song"/> : (
+						<Helmet title={res.user.current.title}>
 							<div className={bem("main", "Padding")}>
-								<Img
-									url={user.current.album.cover}
-									title={user.current.album.title}
-									className={bem("main-cover", "Card", "Elevated")}
-								/>
+								<Link className={bem("main-cover")} to={determineDocPath(res.user.current.album)}>
+									<Img
+										url={res.user.current.album.cover}
+										title={res.user.current.album.title}
+										className={bem("Card", "Elevated")}
+									/>
+								</Link>
 								<h1 className={bem("main-title", "main-text")}>
 									<SongTitle
 										showRemixers
-										song={user.current}
+										song={res.user.current}
+									/>
+									<InLibraryButton
+										doc={res.user.current}
+										className={bem("main-title-inLibrary")}
 									/>
 								</h1>
 								<h2 className={bem("main-album", "main-text")}>
-									<DocLink doc={user.current.album}/>
+									<DocLink doc={res.user.current.album}/>
 								</h2>
 								<h3 className={bem("main-artists", "main-text")}>
 									<FeaturingArtists
-										artists={user.current.artists}
-										featuring={user.current.featuring}
+										artists={res.user.current.artists}
+										featuring={res.user.current.featuring}
 									/>
 								</h3>
-								<Progress className={bem("main-progreess")}/>
+								<Progress
+									className={bem("main-progreess")}
+								/>
+								<UserControls
+									className={bem("main-controls")}
+									iconClassName={bem("main-controls-icon")}
+								/>
 							</div>
 						</Helmet>
 					)}
@@ -64,7 +82,7 @@ const Player: FC<RouteComponentProps> = ({ history }) => (
 	/>
 )
 
-interface Data {
+interface Res {
 	user: User,
 }
 

@@ -4,9 +4,9 @@ import { createElement, FC, ChangeEventHandler } from "react"
 
 import Helmet from "../Helmet"
 import QueryApi from "../QueryApi"
-import { ListStyle, User } from "../../types"
 import { useUserContext } from "../../contexts/User"
 import GET_USER from "../../graphql/queries/user.gql"
+import { ListStyle, User, UserVar } from "../../types"
 import { useSettingsContext } from "../../contexts/Settings"
 
 import "./index.scss"
@@ -31,15 +31,15 @@ const UserPage: FC = () => {
 				showGenres: checked,
 			}))
 	return (
-		<QueryApi
+		<QueryApi<Res, UserVar>
 			query={GET_USER}
 			variables={{ userId }}
 			className={bem("", "Padding")}
 			children={
-				({ user }: Data) => (
-					<Helmet title={user.name}>
+				res => res && (
+					<Helmet title={res.user.name}>
 						<h1 className={bem("name", "MarginBottom")}>
-							{user.name}
+							{res.user.name}
 						</h1>
 						<h3 className={bem("option-text")}>
 							List Style
@@ -76,7 +76,7 @@ const UserPage: FC = () => {
 	)
 }
 
-interface Data {
+interface Res {
 	user: User,
 }
 

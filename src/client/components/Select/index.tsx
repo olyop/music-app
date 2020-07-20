@@ -1,3 +1,4 @@
+import startCase from "lodash/startCase"
 import { createBem, BemInput } from "@oly_op/bem"
 import { createElement, FC, ChangeEventHandler } from "react"
 
@@ -19,8 +20,8 @@ const Select: FC<PropTypes> = ({ value, options, onChange, className }) => {
 					<option
 						key={option}
 						value={option}
-						children={option}
 						className={bem("option")}
+						children={startCase(option.toLowerCase())}
 					/>
 				),
 			)}

@@ -32,6 +32,7 @@
 		"eslint"
 	],
 	"scripts": {
+		"dev-test": "clear && npm run delete-build && npm run build-server && npm run build-watch && npx concurrently \"npm:dev-server\" \"npm:dev-upload\" \"npm:dev-nodemon\"",
 		"dev": "clear && npm run delete-build && npm run build-server && npm run build-watch && npx concurrently \"npm:dev-watch\" \"npm:dev-server\" \"npm:dev-client\" \"npm:dev-upload\" \"npm:dev-nodemon\"",
 		"dev-nodemon": "npx nodemon -r dotenv/config dist/index.js",
 		"dev-server": "npx tsc --project tsconfig.server.json --watch",
@@ -51,6 +52,7 @@
 		"@apollo/client": "^3.0.2",
 		"@material-ui/core": "^4.11.0",
 		"@material-ui/icons": "^4.9.1",
+		"@material-ui/styles": "^4.10.0",
 		"@oly_op/bem": "^2.4.0",
 		"@oly_op/music-app-common": "^1.4.0",
 		"@oly_op/pipe": "^2.0.2",

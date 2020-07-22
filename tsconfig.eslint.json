@@ -5,5 +5,14 @@
 		"webpack.base.ts",
 		"webpack.client.ts",
 		"webpack.upload.ts"
+	],
+	"exclude": [
+		"dist",
+		"node_modules",
+		"src/server/sql",
+		"src/common/gql",
+		"src/client/public",
+		"src/upload/public",
+		"src/client/graphql"
 	]
 }

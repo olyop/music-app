@@ -2,7 +2,6 @@ import path from "path"
 import dotenv from "dotenv"
 import { merge } from "webpack-merge"
 import { Configuration } from "webpack"
-import CopyPlugin from "copy-webpack-plugin"
 import HtmlWebpackPlugin from "html-webpack-plugin"
 
 import baseConfig from "./webpack.base"
@@ -30,7 +29,6 @@ const config: Configuration = {
 	},
 	plugins: [
 		new HtmlWebpackPlugin({ template: UPLOAD_INDEX_HTML }),
-		new CopyPlugin({ patterns: [{ from: UPLOAD_PUBLIC_PATH, to: BUILD_PATH }] }),
 	],
 }
 

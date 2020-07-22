@@ -2,5 +2,5 @@
 	"verbose": false,
 	"watch": ["dist"],
 	"ext": "gql,sql,js",
-	"ignore": ["src/*", "dist/build/*"]
+	"ignore": ["src", "dist/build"]
 }

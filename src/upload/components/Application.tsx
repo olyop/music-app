@@ -14,16 +14,16 @@ import { parseFile, orderSongs } from "../helpers"
 const Application: FC = () => {
 	const [ songs, setSongs ] = useState<Song[]>([])
 
-	const handleChange: ChangeEventHandler<HTMLInputElement> = async event => {
-		const files = Array.from(event.target.files!)
-		const getFiles = files.map(file => parseBlob(file))
-		try {
-			const res = await Promise.all(getFiles)
-			setSongs(orderSongs(res.map(parseFile)))
-		} catch (error) {
-			console.error(error)
-		}
-	}
+	const handleChange: ChangeEventHandler<HTMLInputElement> = event =>
+		Promise
+			.resolve(event.target.files!)
+			.then(files => Array.from(files))
+			.then(files => files.map(file => parseBlob(file)))
+			.then(files => Promise.all(files))
+			.then(files => files.map(parseFile))
+			.then(orderSongs)
+			.then(setSongs)
+			.catch(console.error)
 
 	if (songs.length !== 0) {
 		console.log(songs[0])

@@ -1,8 +1,10 @@
 {
-	"include": ["src/server"],
 	"extends": "./tsconfig.json",
 	"compilerOptions": {
 		"target": "ESNext",
 		"module": "CommonJS"
-	}
+	},
+	"include": [
+		"src/server"
+	]
 }

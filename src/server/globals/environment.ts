@@ -2,9 +2,7 @@
 export const NODE_ENV = process.env.NODE_ENV!
 
 export const HOST = process.env.HOST!
-
-export const DEV_PORT = process.env.DEV_PORT!
-export const PORT = parseInt(process.env.PORT!)
+export const PORT = parseInt(process.env.SERVER_PORT!)
 
 export const APP_NAME = process.env.APP_NAME!
 

@@ -8,5 +8,5 @@ type Album {
   plays(userId: Uuid!): [Play!]
   inLibrary(userId: Uuid!): Boolean!
   dateAdded(userId: Uuid!): PositiveInt
-  cover(size: AlbumCoverSize! = HALF): String!
+  cover(size: AlbumCoverSize! = HALF): Url!
 }

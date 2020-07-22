@@ -11,7 +11,6 @@ import {
 } from "../../types"
 
 const defaultSettings: Settings = {
-	sidebar: false,
 	showGenres: false,
 	listStyle: ListStyle.GRID,
 	songsOrderBy: {

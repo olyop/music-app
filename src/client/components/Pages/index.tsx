@@ -4,14 +4,14 @@ import { Switch, Route } from "react-router-dom"
 
 import routes from "./routes"
 import Sidebar from "../Sidebar"
-import { useSettingsContext } from "../../contexts/Settings"
+import { useSidebarContext } from "../../contexts/Sidebar"
 
 import "./index.scss"
 
 const bem = createBem("Pages")
 
 const Pages: FC = () => {
-	const { settings: { sidebar } } = useSettingsContext()
+	const { sidebar } = useSidebarContext()
 	return (
 		<main className={bem("")}>
 			{sidebar ? <Sidebar/> : null}

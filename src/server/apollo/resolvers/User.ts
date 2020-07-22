@@ -124,7 +124,7 @@ export const plays =
 		),
 	)
 
-export const userDocs = <T>({
+const userDocs = <T>({
 	userId,
 	orderBy,
 	tableName,

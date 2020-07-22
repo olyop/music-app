@@ -7,7 +7,7 @@ type Artist {
   plays(userId: Uuid!): [Play!]
   inLibrary(userId: Uuid!): Boolean!
   dateAdded(userId: Uuid!): PositiveInt
+  photo(size: ArtistPhotoSize! = HALF): Url!
   songs(orderBy: SongOrderByInput!): [Song!]!
-  photo(size: ArtistPhotoSize! = HALF): String!
   albums(orderBy: AlbumOrderByInput!): [Album!]!
 }

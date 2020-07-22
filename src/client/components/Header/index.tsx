@@ -4,23 +4,17 @@ import { createElement, FC, Fragment } from "react"
 
 import Icon from "../Icon"
 import Loading from "../Loading"
+import { useSidebarContext } from "../../contexts/Sidebar"
 import { useLoadingContext } from "../../contexts/Loading"
-import { useSettingsContext } from "../../contexts/Settings"
 
 import "./index.scss"
 
 const bem = createBem("Header")
 
 const Header: FC = () => {
-	const { loading } =
-		useLoadingContext()
-	const { setSettings, settings: { sidebar } } =
-		useSettingsContext()
-	const toggleSidebar = () =>
-		setSettings(prevState => ({
-			...prevState,
-			sidebar: !prevState.sidebar,
-		}))
+	const { loading } = useLoadingContext()
+	const { sidebar, setSidebar } = useSidebarContext()
+	const toggleSidebar = () => setSidebar(prevState => !prevState)
 	return (
 		<Fragment>
 			{loading ? <Loading/> : null}

@@ -1,7 +1,9 @@
 {
 	"extends": "./tsconfig.json",
 	"include": [
-		"./src",
-		"webpack.config.ts"
+		"src",
+		"webpack.base.ts",
+		"webpack.client.ts",
+		"webpack.upload.ts"
 	]
 }

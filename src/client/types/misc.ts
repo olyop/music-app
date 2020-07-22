@@ -10,8 +10,8 @@ import {
 	UserArtistOrderBy,
 } from "./orderBy"
 
+import { Song } from "./docs"
 import { ListStyle } from "./enums"
-import { Song, Album } from "./docs"
 
 export interface Disc {
 	songs: Song[],
@@ -51,7 +51,6 @@ export interface UserVar {
 }
 
 export interface Settings {
-	sidebar: boolean,
 	showGenres: boolean,
 	listStyle: ListStyle,
 	songsOrderBy: SongOrderBy,

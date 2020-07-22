@@ -3,20 +3,15 @@ import { createElement, FC } from "react"
 import { NavLink } from "react-router-dom"
 
 import Icon from "../Icon"
-import { useSettingsContext } from "../../contexts/Settings"
+import { useSidebarContext } from "../../contexts/Sidebar"
 
 import "./index.scss"
 
 const bem = createBem("Sidebar")
 
 const Sidebar: FC = () => {
-	const { setSettings } =
-		useSettingsContext()
-	const toggleSidebar = () =>
-		setSettings(prevState => ({
-			...prevState,
-			sidebar: !prevState.sidebar,
-		}))
+	const { setSidebar } = useSidebarContext()
+	const toggleSidebar = () => setSidebar(prevState => !prevState)
 	return (
 		<nav className={bem("")}>
 			<NavLink
@@ -37,15 +32,15 @@ const Sidebar: FC = () => {
 				<Icon className={bem("route-icon")} icon="library_music"/>
 				<p className={bem("route-text")}>Library</p>
 			</NavLink>
-			<NavLink
-				to="/add"
+			<a
 				title="Add"
-				onClick={toggleSidebar}
 				className={bem("route")}
+				// eslint-disable-next-line node/no-process-env
+				href={`http://${process.env.HOST!}:${process.env.DEV_UPLOAD_PORT!}`}
 			>
-				<Icon className={bem("route-icon")} icon="add_circle"/>
-				<p className={bem("route-text")}>Add Music</p>
-			</NavLink>
+				<Icon className={bem("route-icon")} icon="open_in_new"/>
+				<p className={bem("route-text")}>Add</p>
+			</a>
 		</nav>
 	)
 }

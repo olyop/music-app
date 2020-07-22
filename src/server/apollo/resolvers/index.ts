@@ -1,5 +1,5 @@
 import {
-	JSONResolver as Json,
+	URLResolver as Url,
 	GUIDResolver as Uuid,
 	EmailAddressResolver as Email,
 	PositiveIntResolver as PositiveInt,
@@ -18,8 +18,8 @@ import * as Query from "./Query"
 import * as Mutation from "./Mutation"
 
 const resolvers = {
+	Url,
 	Uuid,
-	Json,
 	Play,
 	User,
 	Song,

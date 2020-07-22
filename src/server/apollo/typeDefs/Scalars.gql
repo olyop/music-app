@@ -1,5 +1,5 @@
+scalar Url
 scalar Uuid
-scalar Json
 scalar Email
 scalar Upload
 scalar PositiveInt

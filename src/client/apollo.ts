@@ -1,4 +1,5 @@
 import {
+	HttpLink,
 	FieldPolicy,
 	ApolloClient,
 	TypePolicies,
@@ -7,7 +8,6 @@ import {
 } from "@apollo/client"
 
 import isEmpty from "lodash/isEmpty"
-import { createUploadLink } from "apollo-upload-client"
 
 import { Song, Album, Artist } from "./types"
 
@@ -32,10 +32,8 @@ const typePolicies: TypePolicies = {
 	Playlist: { keyFields: ["playlistId"] },
 }
 
+const link = new HttpLink({ uri: "/graphql" })
 const cache = new InMemoryCache({ typePolicies })
-const link = createUploadLink({ uri: "/graphql" })
-
-// @ts-ignore
 const client = new ApolloClient({ link, cache })
 
 export default client

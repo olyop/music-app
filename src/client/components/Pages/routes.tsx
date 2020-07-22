@@ -4,7 +4,6 @@ import uniqueId from "lodash/uniqueId"
 
 import Button from "../Button"
 import Queues from "../Queues"
-// import Add from "../Add"
 import Search from "../Search"
 import Player from "../Player"
 import Catalog from "../Catalog"
@@ -33,11 +32,6 @@ const routes: Route[] = [
 		id: uniqueId(),
 		component: Foo,
 	},
-	// {
-	// 	path: "/add",
-	// 	id: uniqueId(),
-	// 	component: Add,
-	// },
 	{
 		id: uniqueId(),
 		path: "/catalog",

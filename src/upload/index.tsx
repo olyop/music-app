@@ -5,8 +5,6 @@ import CssBaseline from "@material-ui/core/CssBaseline"
 import Application from "./components/Application"
 import ApolloClient from "./components/ApolloClient"
 
-import "./index.scss"
-
 const Index: FC = () => (
 	<ApolloClient>
 		<StrictMode>

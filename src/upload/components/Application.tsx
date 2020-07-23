@@ -9,16 +9,11 @@ import isEmpty from "lodash/isEmpty"
 import { styled } from "@material-ui/core/styles"
 import { parseBlob } from "music-metadata-browser"
 
-import {
-	parseFile,
-	orderSongs,
-	normalizeFileList,
-} from "../helpers"
-
 import Add from "./Add"
 import Main from "./Main"
 import { State, Song } from "../types"
 import { StateContextProvider } from "../context"
+import { parseFile, normalizeFileList } from "../helpers"
 
 const Root = styled("div")({
 	width: "100vw",

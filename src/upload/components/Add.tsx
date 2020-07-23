@@ -1,12 +1,15 @@
-import { createElement, FC, ChangeEventHandler } from "react"
+import { createElement, FC, Fragment } from "react"
 
 import Button from "@material-ui/core/Button"
 import { styled } from "@material-ui/core/styles"
 import AddCircle from "@material-ui/icons/AddCircle"
+import CircularProgress from "@material-ui/core/CircularProgress"
+
+import { useStateContext } from "../context"
 
 const Root = styled("div")({
-	width: "100vw",
-	height: "100vh",
+	width: "100%",
+	height: "100%",
 	display: "flex",
 	alignItems: "center",
 	justifyContent: "center",
@@ -28,27 +31,33 @@ const InputButton = styled("input")({
 	position: "absolute",
 })
 
-const Add: FC<PropTypes> = ({ onChange }) => (
-	<Root>
-		<AddButton
-			size="large"
-			color="primary"
-			variant="outlined"
-			startIcon={<AddCircle/>}
-		>
-			Add files
-			<InputButton
-				value=""
-				multiple
-				type="file"
-				onChange={onChange}
-			/>
-		</AddButton>
-	</Root>
-)
-
-interface PropTypes {
-	onChange: ChangeEventHandler<HTMLInputElement>,
+const Add: FC = () => {
+	const { loading, handleFiles } = useStateContext()
+	return (
+		<Root>
+			{loading ? (
+				<CircularProgress/>
+			) : (
+				<AddButton
+					size="large"
+					color="primary"
+					variant="outlined"
+					startIcon={<AddCircle/>}
+					children={(
+						<Fragment>
+							Add files
+							<InputButton
+								value=""
+								multiple
+								type="file"
+								onChange={handleFiles}
+							/>
+						</Fragment>
+					)}
+				/>
+			)}
+		</Root>
+	)
 }
 
 export default Add

@@ -5,32 +5,55 @@ import {
 	ChangeEventHandler,
 } from "react"
 
+import isEmpty from "lodash/isEmpty"
+import { styled } from "@material-ui/core/styles"
 import { parseBlob } from "music-metadata-browser"
 
+import {
+	parseFile,
+	orderSongs,
+	normalizeFileList,
+} from "../helpers"
+
 import Add from "./Add"
-import { Song } from "../types"
-import { parseFile, orderSongs } from "../helpers"
+import Main from "./Main"
+import { State, Song } from "../types"
+import { StateContextProvider } from "../context"
+
+const Root = styled("div")({
+	width: "100vw",
+	height: "100vh",
+})
 
 const Application: FC = () => {
+	const [ loading, setLoading ] = useState(false)
 	const [ songs, setSongs ] = useState<Song[]>([])
 
-	const handleChange: ChangeEventHandler<HTMLInputElement> = event =>
-		Promise
-			.resolve(event.target.files!)
-			.then(files => Array.from(files))
-			.then(files => files.map(file => parseBlob(file)))
-			.then(files => Promise.all(files))
-			.then(files => files.map(parseFile))
-			.then(orderSongs)
-			.then(setSongs)
-			.catch(console.error)
+	const handleFiles: ChangeEventHandler<HTMLInputElement> = async event => {
+		try {
+			setLoading(true)
+			const files = normalizeFileList(event.target.files)
+			const res = await Promise.all(files.map(file => parseBlob(file)))
+			setSongs(res.map(parseFile))
+		} catch (error) {
+			console.error(error)
+		} finally {
+			setLoading(false)
+		}
+	}
 
-	if (songs.length !== 0) {
-		console.log(songs[0])
+	const state: State = {
+		songs,
+		loading,
+		handleFiles,
 	}
 
 	return (
-		<Add onChange={handleChange}/>
+		<StateContextProvider value={state}>
+			<Root>
+				{isEmpty(songs) ? <Add/> : <Main/>}
+			</Root>
+		</StateContextProvider>
 	)
 }
 

@@ -32,7 +32,6 @@
 		"eslint"
 	],
 	"scripts": {
-		"dev-test": "clear && npm run delete-build && npm run build-server && npm run build-watch && npx concurrently \"npm:dev-server\" \"npm:dev-upload\" \"npm:dev-nodemon\"",
 		"dev": "clear && npm run delete-build && npm run build-server && npm run build-watch && npx concurrently \"npm:dev-watch\" \"npm:dev-server\" \"npm:dev-client\" \"npm:dev-upload\" \"npm:dev-nodemon\"",
 		"dev-nodemon": "npx nodemon -r dotenv/config dist/index.js",
 		"dev-server": "npx tsc --project tsconfig.server.json --watch",

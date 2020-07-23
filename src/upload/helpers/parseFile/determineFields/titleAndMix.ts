@@ -13,7 +13,8 @@ const hasBracket = (str: string) =>
 // 	str.includes("Remix") ||
 // 	str.includes("Bootleg")
 
-export const determineMix = () => ""
+export const determineMix = ({ common: { title } }: IAudioMetadata) =>
+	title || ""
 
 export const determineTitle = ({ common: { title } }: IAudioMetadata) => {
 	if (title) {

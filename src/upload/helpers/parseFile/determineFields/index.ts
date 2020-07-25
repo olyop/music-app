@@ -1,4 +1,6 @@
+export * from "./album"
+export * from "./genres"
+export * from "./artists"
 export * from "./duration"
 export * from "./titleAndMix"
-export * from "./determineAlbum"
 export * from "./discAndTrackNumber"

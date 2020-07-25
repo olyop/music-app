@@ -47,6 +47,7 @@
 		"node/no-missing-import": "off",
 		"react/no-children-prop": "off",
 		"implicit-arrow-linebreak": "off",
+		"react/no-array-index-key": "off",
 		"react/no-unused-prop-types": "off",
 		"node/no-unpublished-import": "off",
 		"react/require-default-props": "off",

@@ -6,15 +6,19 @@ const indexOfBracket = (str: string) =>
 const hasBracket = (str: string) =>
 	str.includes("(")
 
-// const hasMix = (str: string) =>
-// 	str.includes("Mix") || str.includes("Extended")
-
-// const hasRemix = (str: string) =>
-// 	str.includes("Remix") ||
-// 	str.includes("Bootleg")
-
-export const determineMix = ({ common: { title } }: IAudioMetadata) =>
-	title || ""
+export const determineMix = ({ common: { title } }: IAudioMetadata) => {
+	if (title) {
+		if (title.includes("Original")) {
+			return "Original"
+		} else if (title.includes("Extended")) {
+			return "Extended"
+		} else {
+			return ""
+		}
+	} else {
+		return ""
+	}
+}
 
 export const determineTitle = ({ common: { title } }: IAudioMetadata) => {
 	if (title) {

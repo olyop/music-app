@@ -23,7 +23,6 @@ const config: Configuration = {
 		path: BUILD_PATH,
 	},
 	devServer: {
-		open: false,
 		port: parseInt(DEV_UPLOAD_PORT),
 		contentBase: UPLOAD_PUBLIC_PATH,
 	},

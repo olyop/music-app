@@ -6,8 +6,10 @@ import {
 } from "react"
 
 import isEmpty from "lodash/isEmpty"
-import { styled } from "@material-ui/core/styles"
 import { parseBlob } from "music-metadata-browser"
+
+import Box from "@material-ui/core/Box"
+import styled from "@material-ui/core/styles/styled"
 
 import Add from "./Add"
 import Main from "./Main"
@@ -15,10 +17,11 @@ import { State, Song } from "../types"
 import { StateContextProvider } from "../context"
 import { parseFile, normalizeFileList } from "../helpers"
 
-const Root = styled("div")({
-	width: "100vw",
-	height: "100vh",
-})
+const Root =
+	styled(Box)({
+		width: "100vw",
+		height: "100vh",
+	})
 
 const Application: FC = () => {
 	const [ loading, setLoading ] = useState(false)

@@ -21,7 +21,7 @@ import {
 
 import { COLUMN_NAMES } from "../../globals"
 import { userDocInLib, userDocDateAdded } from "./common"
-import { s3, sql, createResolver, toDataUrl } from "../../helpers"
+import { s3, sql, createResolver, bufferToDataUrl } from "../../helpers"
 
 const resolver = createResolver<Artist>()
 
@@ -29,7 +29,7 @@ export const photo =
 	resolver<string, { size: ImgSizeEnum }>(
 		({ parent, args }) => (
 			s3.getObject({
-				parse: toDataUrl,
+				parse: bufferToDataUrl,
 				key: s3.catalogObjectKey({
 					size: args.size,
 					id: parent.artistId,

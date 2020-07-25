@@ -13,13 +13,6 @@ import {
 } from "../../types"
 
 import {
-	s3,
-	sql,
-	toDataUrl,
-	createResolver,
-} from "../../helpers"
-
-import {
 	SELECT_ALBUM_SONGS,
 	SELECT_ALBUM_ARTISTS,
 	SELECT_USER_ALBUM_PLAYS,
@@ -27,6 +20,7 @@ import {
 
 import { COLUMN_NAMES } from "../../globals"
 import { userDocInLib, userDocDateAdded } from "./common"
+import { s3, sql, createResolver, bufferToDataUrl } from "../../helpers"
 
 const resolver =
 	createResolver<Album>()
@@ -62,7 +56,7 @@ export const cover =
 	resolver<string, { size: ImgSizeEnum }>(
 		({ parent, args }) => (
 			s3.getObject({
-				parse: toDataUrl,
+				parse: bufferToDataUrl,
 				key: s3.catalogObjectKey({
 					size: args.size,
 					id: parent.albumId,

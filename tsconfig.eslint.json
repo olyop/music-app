@@ -8,11 +8,6 @@
 	],
 	"exclude": [
 		"dist",
-		"node_modules",
-		"src/server/sql",
-		"src/common/gql",
-		"src/client/public",
-		"src/upload/public",
-		"src/client/graphql"
+		"node_modules"
 	]
 }

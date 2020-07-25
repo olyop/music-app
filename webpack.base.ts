@@ -20,6 +20,7 @@ const config: Configuration = {
 	devServer: {
 		hot: true,
 		host: HOST,
+		open: true,
 		quiet: true,
 		noInfo: true,
 		stats: "none",

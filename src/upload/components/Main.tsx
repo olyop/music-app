@@ -1,9 +1,10 @@
 import { createElement, FC } from "react"
 
 import Grid from "@material-ui/core/Grid"
-import { styled, withTheme } from "@material-ui/core/styles"
+import styled from "@material-ui/core/styles/styled"
 
 import Albums from "./Albums"
+import { useStateContext } from "../context"
 
 const Root =
 	styled(Grid)({
@@ -12,32 +13,34 @@ const Root =
 	})
 
 const Section =
-	styled(withTheme(Grid))(({ theme }) => ({
+	styled(Grid)(({ theme }) => ({
 		width: "100%",
 		height: "100%",
-		padding: theme.spacing(5),
+		padding: theme.spacing(4),
 	}))
 
-const Left =
-	styled(withTheme(Section))(({ theme }) => ({
-		border: 1,
-		borderColor: theme.palette.grey[300],
-	}))
+const Content =
+	styled(Section)({
+		overflow: "auto",
+	})
 
-const Right =
-	styled(withTheme(Left))(({ theme }) => ({
+const Sidebar =
+	styled(Section)(({ theme }) => ({
 		backgroundColor: theme.palette.common.white,
 	}))
 
-const Main: FC = () => (
-	<Root container>
-		<Left item xs={7} sm={9}>
-			<Albums/>
-		</Left>
-		<Right item xs={5} sm={3}>
-			Right
-		</Right>
-	</Root>
-)
+const Main: FC = () => {
+	const { songs } = useStateContext()
+	return (
+		<Root container>
+			<Content item sm={7} md={9}>
+				<Albums songs={songs}/>
+			</Content>
+			<Sidebar item sm={5} md={3}>
+				Right
+			</Sidebar>
+		</Root>
+	)
+}
 
 export default Main

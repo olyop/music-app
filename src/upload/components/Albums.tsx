@@ -9,9 +9,15 @@ import { songsToAlbums, orderAlbums } from "../helpers"
 
 const Section =
 	styled(Album)(({ theme }) => ({
+		borderBottom: 2,
+		borderBottomStyle: "solid",
 		marginBottom: theme.spacing(6),
+		paddingBottom: theme.spacing(7),
+		borderBottomColor: theme.palette.grey[300],
 		"&:last-child": {
+			border: 0,
 			marginBottom: 0,
+			paddingBottom: 0,
 		},
 	}))
 

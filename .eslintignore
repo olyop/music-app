@@ -1,0 +1,7 @@
+dist/
+**/*.js
+node_modules/
+src/server/sql
+src/client/public
+src/upload/public
+src/client/graphql

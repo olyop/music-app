@@ -1,18 +1,28 @@
 import { render } from "react-dom"
+import DateFnsUtils from "@date-io/date-fns"
+import { ApolloProvider } from "@apollo/client"
 import { createElement, StrictMode, FC } from "react"
-import CssBaseline from "@material-ui/core/CssBaseline"
 
+import CssBaseline from "@material-ui/core/CssBaseline"
+import ThemeProvider from "@material-ui/styles/ThemeProvider"
+import { MuiPickersUtilsProvider } from "@material-ui/pickers"
+
+import theme from "./theme"
+import apollo from "./apollo"
 import Application from "./components/Application"
-import ApolloClient from "./components/ApolloClient"
 
 const Index: FC = () => (
-	<ApolloClient>
-		<StrictMode>
+	<ApolloProvider client={apollo}>
+		<ThemeProvider theme={theme}>
 			<CssBaseline>
-				<Application/>
+				<MuiPickersUtilsProvider utils={DateFnsUtils}>
+					<StrictMode>
+						<Application/>
+					</StrictMode>
+				</MuiPickersUtilsProvider>
 			</CssBaseline>
-		</StrictMode>
-	</ApolloClient>
+		</ThemeProvider>
+	</ApolloProvider>
 )
 
 render(

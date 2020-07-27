@@ -1,4 +1,5 @@
 import { createElement, FC } from "react"
+import { deserializeDuration } from "@oly_op/music-app-common"
 
 import Grid from "@material-ui/core/Grid"
 import Table from "@material-ui/core/Table"
@@ -10,8 +11,8 @@ import TableHead from "@material-ui/core/TableHead"
 import AccessTimeIcon from "@material-ui/icons/AccessTime"
 import TableContainer from "@material-ui/core/TableContainer"
 
+import { orderSongs } from "../helpers"
 import { Song as TSong } from "../types"
-import { orderSongs, deserializeDuration } from "../helpers"
 
 const Songs: FC<PropTypes> = ({ songs }) => (
 	<TableContainer component={Paper}>

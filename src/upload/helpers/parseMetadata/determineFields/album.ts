@@ -1,7 +1,7 @@
 import { IAudioMetadata } from "music-metadata-browser"
+import { bufferToDataUrl } from "@oly_op/music-app-common"
 
 import { Album } from "../../../types"
-import { bufferToDataUrl } from "../../bufferToDataUrl"
 
 export const determineAlbum = ({ common }: IAudioMetadata): Album => ({
 	title: common.album || "",

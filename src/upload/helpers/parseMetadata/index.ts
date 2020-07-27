@@ -13,7 +13,7 @@ import {
 
 import { Song } from "../../types"
 
-export const parseFile = (metadata: IAudioMetadata): Song => ({
+export const parseMetadata = (metadata: IAudioMetadata): Song => ({
 	mix: determineMix(metadata),
 	album: determineAlbum(metadata),
 	title: determineTitle(metadata),

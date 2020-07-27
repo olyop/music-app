@@ -6,7 +6,6 @@ import {
 } from "react"
 
 import isEmpty from "lodash/isEmpty"
-import { parseBlob } from "music-metadata-browser"
 
 import Box from "@material-ui/core/Box"
 import styled from "@material-ui/core/styles/styled"
@@ -14,8 +13,8 @@ import styled from "@material-ui/core/styles/styled"
 import Add from "./Add"
 import Main from "./Main"
 import { State, Song } from "../types"
+import { parseFiles } from "../helpers"
 import { StateContextProvider } from "../context"
-import { parseFile, normalizeFileList } from "../helpers"
 
 const Root =
 	styled(Box)({
@@ -27,17 +26,14 @@ const Application: FC = () => {
 	const [ loading, setLoading ] = useState(false)
 	const [ songs, setSongs ] = useState<Song[]>([])
 
-	const handleFiles: ChangeEventHandler<HTMLInputElement> = async event => {
-		try {
-			setLoading(true)
-			const files = normalizeFileList(event.target.files)
-			const res = await Promise.all(files.map(file => parseBlob(file)))
-			setSongs(res.map(parseFile))
-		} catch (error) {
-			console.error(error)
-		} finally {
-			setLoading(false)
-		}
+	const toggleLoading = () => setLoading(prevState => !prevState)
+
+	const handleFiles: ChangeEventHandler<HTMLInputElement> = event => {
+		setLoading(true)
+		parseFiles(event.target.files)
+			.then(setSongs)
+			.catch(console.error)
+			.finally(toggleLoading)
 	}
 
 	const state: State = {

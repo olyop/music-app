@@ -44,16 +44,3 @@ export interface PlaylistBase {
 	playlistId: string,
 	dateCreated: number,
 }
-
-export interface AlbumMetadata extends Omit<AlbumBase, "albumId"> {
-	cover: string,
-	artists: string[],
-}
-
-export interface SongMetadata extends Omit<SongBase, "songId"> {
-	genres: string[],
-	artists: string[],
-	remixers: string[],
-	featuring: string[],
-	album: AlbumMetadata,
-}

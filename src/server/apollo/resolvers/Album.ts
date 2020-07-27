@@ -1,6 +1,7 @@
 import { identity } from "lodash"
 import { pipe } from "@oly_op/pipe"
 import { map, reduce } from "lodash/fp"
+import { bufferToDataUrl } from "@oly_op/music-app-common"
 
 import {
 	Song,
@@ -19,8 +20,8 @@ import {
 } from "../../sql"
 
 import { COLUMN_NAMES } from "../../globals"
+import { s3, sql, createResolver } from "../../helpers"
 import { userDocInLib, userDocDateAdded } from "./common"
-import { s3, sql, createResolver, bufferToDataUrl } from "../../helpers"
 
 const resolver =
 	createResolver<Album>()

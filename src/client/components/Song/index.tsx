@@ -1,11 +1,11 @@
 import { BemInput } from "@oly_op/bem"
 import { createElement, FC, Fragment } from "react"
+import { deserializeDuration } from "@oly_op/music-app-common"
 
 import Item from "../Item"
 import DocLinks from "../DocLinks"
 import { Song } from "../../types"
 import SongTitle from "../SongTitle"
-import { deserializeDuration } from "../../helpers"
 import { useSettingsContext } from "../../contexts/Settings"
 
 const Song: FC<PropTypes> = ({

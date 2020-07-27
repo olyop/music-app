@@ -1,12 +1,13 @@
 import noop from "lodash/noop"
 import { createElement, FC } from "react"
+import DateFnsUtils from "@date-io/date-fns"
 
 import Box from "@material-ui/core/Box"
-import { DatePicker } from "@material-ui/pickers"
-import InputBase from "@material-ui/core/InputBase"
+import Grid from "@material-ui/core/Grid"
 import styled from "@material-ui/core/styles/styled"
-import Typography from "@material-ui/core/Typography"
+import TextField from "@material-ui/core/TextField"
 import { StyledProps } from "@material-ui/core/styles"
+import { DatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers"
 
 import Img from "./Img"
 import Songs from "./Songs"
@@ -18,47 +19,52 @@ const Cover =
 		height: 200,
 		cursor: "pointer",
 		boxShadow: theme.shadows[3],
-		marginTop: theme.spacing(3),
 		marginBottom: theme.spacing(3),
 		borderRadius: theme.shape.borderRadius,
 	}))
 
+const Main =
+	styled(Grid)(({ theme }) => ({
+		marginBottom: theme.spacing(2),
+	}))
+
 const Title =
-	styled(InputBase)(({ theme }) => ({
-		display: "block",
-		...theme.typography.h4,
+	styled(TextField)(({ theme }) => ({
+		marginRight: theme.spacing(2),
+		backgroundColor: theme.palette.common.white,
 	}))
 
 const Released =
 	styled(DatePicker)(({ theme }) => ({
-		display: "block",
-		marginTop: theme.spacing(1),
+		backgroundColor: theme.palette.common.white,
 	}))
 
 const Album: FC<PropTypes> = ({ album, className }) => (
 	<Box className={className}>
-		<Title
-			spellCheck={false}
-			defaultValue={album.title}
-		/>
-		<Typography
-			variant="h6"
-			component="h3"
-			children={album.artists[0]}
-		/>
-		<Released
-			disableFuture
-			onChange={noop}
-			label="Released"
-			format="dd/MM/yyyy"
-			value={new Date(album.released.toString())}
-		/>
 		{album.cover && (
 			<Cover
 				url={album.cover}
 				title={album.title}
 			/>
 		)}
+		<Main>
+			<Title
+				label="Title"
+				variant="outlined"
+				spellCheck={false}
+				defaultValue={album.title}
+			/>
+			<MuiPickersUtilsProvider utils={DateFnsUtils}>
+				<Released
+					minDate={1}
+					onChange={noop}
+					label="Released"
+					format="dd/MM/yyyy"
+					inputVariant="outlined"
+					value={new Date(album.released.toString())}
+				/>
+			</MuiPickersUtilsProvider>
+		</Main>
 		<Songs songs={album.songs}/>
 	</Box>
 )

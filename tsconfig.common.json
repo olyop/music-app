@@ -1,0 +1,13 @@
+{
+	"extends": "./tsconfig.json",
+	"compilerOptions": {
+		"declaration": true,
+		"module": "CommonJS",
+		"outDir": "src/common/dist"
+	},
+	"files": [
+		"src/common/src/index.ts",
+		"src/common/src/bufferToDataUrl.ts",
+		"src/common/src/deserializeDuration.ts"
+	]
+}

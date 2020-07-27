@@ -6,7 +6,7 @@ import {
 	GenreBase,
 	ArtistBase,
 	PlaylistBase,
-} from "@oly_op/music-app-common"
+} from "@oly_op/music-app-types"
 
 export interface Doc {
 	__typename: string,

@@ -1,5 +1,9 @@
 import { ChangeEventHandler } from "react"
-import { SongBase, AlbumBase } from "@oly_op/music-app-common"
+import { SongBase, AlbumBase, ArtistBase } from "@oly_op/music-app-types"
+
+export interface Artist extends Omit<ArtistBase, "artisId"> {
+	cover: string,
+}
 
 export interface Album extends Omit<AlbumBase, "albumId"> {
 	artists: string[],

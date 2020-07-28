@@ -1,8 +1,8 @@
 {
-	"private": false,
-	"license": "MIT",
-	"version": "3.3.0",
 	"main": "dist",
+	"license": "MIT",
+	"version": "3.6.0",
+	"types": "dist/index.d.ts",
 	"description": "music-app-common",
 	"name": "@oly_op/music-app-common",
 	"bugs": "https://github.com/olyop/music-app/issues",
@@ -10,9 +10,6 @@
 	"author": {
 		"name": "Oliver Plummer",
 		"email": "oliver.plummer@outlook.com"
-	},
-	"peerDependencies": {
-		"react": "16.13.x"
 	},
 	"repository": {
     "type": "git",

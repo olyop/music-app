@@ -1,5 +1,5 @@
 import uniq from "lodash/uniq"
-import { pipe } from "@oly_op/pipe"
+import pipe from "@oly_op/pipe"
 import flattenDepth from "lodash/flattenDepth"
 
 import { Album, Genre } from "../../types"

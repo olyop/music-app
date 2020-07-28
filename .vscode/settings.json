@@ -23,6 +23,7 @@
 	"editor.fontLigatures": false,
 	"javascript.showUnused": false,
 	"typescript.showUnused": false,
+	"typescript.unu"
 	"explorer.confirmDelete": false,
 	"editor.minimap.enabled": false,
   "eslint.alwaysShowStatus": true,

@@ -1,5 +1,5 @@
+import pipe from "@oly_op/pipe"
 import { identity } from "lodash"
-import { pipe } from "@oly_op/pipe"
 import { map, reduce } from "lodash/fp"
 import { bufferToDataUrl } from "@oly_op/music-app-common"
 

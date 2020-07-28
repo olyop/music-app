@@ -17,10 +17,8 @@ type Query {
   topTenSongs: [Song!]!
   
   # search
-  songSearch(query: String!, exact: Boolean = false): [Song!]!
-  albumSearch(query: String!, exact: Boolean = false): [Album!]!
-  genreSearch(query: String!, exact: Boolean = false): [Genre!]!
-  artistSearch(query: String!, exact: Boolean = false): [Artist!]!
-  genreSearchExact(query: String!, exact: Boolean = false): Genre
-  artistSearchExact(query: String!, exact: Boolean = false): Artist
+  # songSearch(query: String!, exact: Boolean = false): [Song!]!
+  # albumSearch(query: String!, exact: Boolean = false): [Album!]!
+  genreSearch(query: String!): [Genre!]!
+  artistSearch(query: String!): [Artist!]!
 }

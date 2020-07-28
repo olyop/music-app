@@ -1,4 +1,4 @@
-import { pipe } from "@oly_op/pipe"
+import pipe from "@oly_op/pipe"
 import { identity, isUndefined } from "lodash"
 
 import { s3 } from "../../services"

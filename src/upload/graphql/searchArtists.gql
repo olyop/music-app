@@ -1,6 +1,0 @@
-query searchArtists($query: string!) {
-	searchArtists(query: $query) {
-		name
-		artistId
-	}
-}

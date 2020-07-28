@@ -7,22 +7,23 @@ import Albums from "./Albums"
 import { useStateContext } from "../context"
 
 const Root =
-	styled(Grid)({
+	styled(Grid)(({ theme }) => ({
 		width: "100%",
 		height: "100%",
-	})
+		[theme.breakpoints.down("lg")]: {
+			overflow: "auto",
+		},
+	}))
 
 const Section =
 	styled(Grid)(({ theme }) => ({
 		width: "100%",
-		height: "100%",
 		padding: theme.spacing(4),
+		[theme.breakpoints.up("lg")]: {
+			height: "100%",
+			overflow: "auto",
+		},
 	}))
-
-const Content =
-	styled(Section)({
-		overflow: "auto",
-	})
 
 const Sidebar =
 	styled(Section)(({ theme }) => ({
@@ -33,10 +34,10 @@ const Main: FC = () => {
 	const { songs } = useStateContext()
 	return (
 		<Root container>
-			<Content item sm={7} md={9}>
+			<Section item lg={9}>
 				<Albums songs={songs}/>
-			</Content>
-			<Sidebar item sm={5} md={3}>
+			</Section>
+			<Sidebar item lg={3}>
 				Right
 			</Sidebar>
 		</Root>

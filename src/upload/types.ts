@@ -6,8 +6,8 @@ export interface Artist extends Omit<ArtistBase, "artisId"> {
 }
 
 export interface Album extends Omit<AlbumBase, "albumId"> {
+	cover: string,
 	artists: string[],
-	cover: string | null,
 }
 
 export interface AlbumWithSongs extends Album {

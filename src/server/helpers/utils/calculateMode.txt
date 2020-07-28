@@ -1,7 +1,7 @@
 import { head } from "lodash"
 import { map, reduce, orderBy } from "lodash/fp"
 
-import { pipe } from "./pipe"
+import pipe from "./pipe"
 
 export const calculateMode = (arr: Record<string, unknown>[]) =>
 	pipe(

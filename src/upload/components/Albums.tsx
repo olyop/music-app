@@ -1,6 +1,6 @@
-import { createElement, FC } from "react"
+import { createElement, FC, Fragment } from "react"
 
-import Box from "@material-ui/core/Box"
+// import Box from "@material-ui/core/Box"
 import styled from "@material-ui/core/styles/styled"
 
 import Album from "./Album"
@@ -9,11 +9,9 @@ import { songsToAlbums, orderAlbums } from "../helpers"
 
 const Section =
 	styled(Album)(({ theme }) => ({
-		borderBottom: 2,
-		borderBottomStyle: "solid",
-		marginBottom: theme.spacing(6),
-		paddingBottom: theme.spacing(7),
-		borderBottomColor: theme.palette.grey[300],
+		...theme.borderBottom,
+		marginBottom: theme.spacing(4),
+		paddingBottom: theme.spacing(4),
 		"&:last-child": {
 			border: 0,
 			marginBottom: 0,
@@ -22,7 +20,7 @@ const Section =
 	}))
 
 const Albums: FC<PropTypes> = ({ songs }) => (
-	<Box>
+	<Fragment>
 		{orderAlbums(songsToAlbums(songs)).map(
 			(album, index) => (
 				<Section
@@ -31,7 +29,7 @@ const Albums: FC<PropTypes> = ({ songs }) => (
 				/>
 			),
 		)}
-	</Box>
+	</Fragment>
 )
 
 interface PropTypes {

@@ -1,5 +1,5 @@
+import pipe from "@oly_op/pipe"
 import { QueryResult } from "pg"
-import { pipe } from "@oly_op/pipe"
 import { isUndefined } from "lodash"
 
 import { resRows } from "./resRows"

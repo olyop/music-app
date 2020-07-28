@@ -1,4 +1,4 @@
-import { pipe } from "@oly_op/pipe"
+import pipe from "@oly_op/pipe"
 
 import { Check } from "../../types"
 

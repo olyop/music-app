@@ -5,38 +5,90 @@ import Grid from "@material-ui/core/Grid"
 import Table from "@material-ui/core/Table"
 import Paper from "@material-ui/core/Paper"
 import TableRow from "@material-ui/core/TableRow"
+import InputBase from "@material-ui/core/InputBase"
 import TableBody from "@material-ui/core/TableBody"
 import TableCell from "@material-ui/core/TableCell"
 import TableHead from "@material-ui/core/TableHead"
 import AccessTimeIcon from "@material-ui/icons/AccessTime"
+import withStyles from "@material-ui/core/styles/withStyles"
 import TableContainer from "@material-ui/core/TableContainer"
 
 import { orderSongs } from "../helpers"
 import { Song as TSong } from "../types"
+
+const TrackNumber =
+	withStyles({
+		root: {
+			width: 32,
+			paddingRight: 0,
+			textAlign: "right",
+		},
+	})(TableCell)
+
+const Duration =
+	withStyles(theme => ({
+		root: {
+			width: 35,
+			paddingLeft: 0,
+			paddingRight: 0,
+			textAlign: "center",
+			color: theme.palette.grey[600],
+		},
+	}))(TableCell)
+
+const Input =
+	withStyles({
+		input: {
+			fontSize: 14,
+		},
+	})(InputBase)
+
+const TrackNumberInput =
+	withStyles({
+		input: {
+			textAlign: "right",
+		},
+	})(Input)
 
 const Songs: FC<PropTypes> = ({ songs }) => (
 	<TableContainer component={Paper}>
 		<Table size="small">
 			<TableHead>
 				<TableRow>
-					<TableCell padding="checkbox">#</TableCell>
+					<TrackNumber>#</TrackNumber>
 					<TableCell>Title</TableCell>
-					<TableCell padding="checkbox">
+					<Duration>
 						<Grid container alignItems="center" justify="center">
 							<AccessTimeIcon fontSize="small"/>
 						</Grid>
+					</Duration>
+					<TableCell>
+						Artists
 					</TableCell>
-					<TableCell>Artists</TableCell>
+					<TableCell>
+						Genres
+					</TableCell>
 				</TableRow>
 			</TableHead>
 			<TableBody>
 				{orderSongs(songs).map(
 					song => (
 						<TableRow hover key={song.trackNumber}>
-							<TableCell padding="checkbox">{song.trackNumber}</TableCell>
-							<TableCell>{song.title}</TableCell>
-							<TableCell padding="checkbox">{deserializeDuration(song.duration)}</TableCell>
-							<TableCell>{song.artists}</TableCell>
+							<TrackNumber>
+								<TrackNumberInput defaultValue={song.trackNumber}/>
+							</TrackNumber>
+							<TableCell>
+								<Input defaultValue={song.title}/>
+							</TableCell>
+							<Duration>
+								{deserializeDuration(song.duration)}
+							</Duration>
+							<TableCell>
+								{song.artists}
+							</TableCell>
+							<TableCell>
+								{song.genres}
+							</TableCell>
 						</TableRow>
 					),
 				)}

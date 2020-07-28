@@ -1,6 +1,6 @@
+import pipe from "@oly_op/pipe"
 import { map } from "lodash/fp"
 import { QueryResult } from "pg"
-import { pipe } from "@oly_op/pipe"
 
 import { resRows } from "./resRows"
 import { convertToCamelCase } from "../resolver"

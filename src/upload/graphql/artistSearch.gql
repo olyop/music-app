@@ -1,0 +1,6 @@
+query artistSearch($query: string!) {
+	artistSearch(query: $query) {
+		name
+		artistId
+	}
+}

@@ -28,6 +28,8 @@ import {
 import { COLUMN_NAMES } from "../../globals"
 import { sql, createResolver } from "../../helpers"
 
+export * from "./searches"
+
 const resolver =
 	createResolver()
 

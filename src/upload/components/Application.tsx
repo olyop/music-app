@@ -1,11 +1,6 @@
-import {
-	FC,
-	useState,
-	createElement,
-	ChangeEventHandler,
-} from "react"
-
 import isEmpty from "lodash/isEmpty"
+import { useApolloClient } from "@apollo/client"
+import { FC, useState, createElement } from "react"
 
 import Box from "@material-ui/core/Box"
 import styled from "@material-ui/core/styles/styled"
@@ -23,14 +18,16 @@ const Root =
 	})
 
 const Application: FC = () => {
+	const client = useApolloClient()
 	const [ loading, setLoading ] = useState(false)
 	const [ songs, setSongs ] = useState<Song[]>([])
 
-	const toggleLoading = () => setLoading(prevState => !prevState)
+	const toggleLoading = () =>
+		setLoading(prevState => !prevState)
 
-	const handleFiles: ChangeEventHandler<HTMLInputElement> = event => {
+	const handleFiles = (files: FileList) => {
 		setLoading(true)
-		parseFiles(event.target.files)
+		parseFiles(client, files)
 			.then(setSongs)
 			.catch(console.error)
 			.finally(toggleLoading)

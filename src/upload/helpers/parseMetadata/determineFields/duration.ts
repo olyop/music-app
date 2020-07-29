@@ -1,4 +1,4 @@
-import { IAudioMetadata } from "music-metadata-browser"
+import { IFormat } from "music-metadata-browser"
 
-export const determineDuration = ({ format: { duration } }: IAudioMetadata) =>
+export const determineDuration = ({ duration }: IFormat) =>
 	(duration ? Math.floor(duration) : 0)

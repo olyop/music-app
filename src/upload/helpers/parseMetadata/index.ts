@@ -7,19 +7,23 @@ import {
 	determineGenres,
 	determineArtists,
 	determineDuration,
+	determineRemixers,
+	determineFeaturing,
 	determineDiscNumber,
 	determineTrackNumber,
 } from "./determineFields"
 
 import { Song } from "../../types"
 
-export const parseMetadata = (metadata: IAudioMetadata): Song => ({
-	mix: determineMix(metadata),
-	album: determineAlbum(metadata),
-	title: determineTitle(metadata),
-	genres: determineGenres(metadata),
-	artists: determineArtists(metadata),
-	duration: determineDuration(metadata),
-	discNumber: determineDiscNumber(metadata),
-	trackNumber: determineTrackNumber(metadata),
+export const parseMetadata = ({ common, format }: IAudioMetadata): Song => ({
+	mix: determineMix(common),
+	album: determineAlbum(common),
+	title: determineTitle(common),
+	genres: determineGenres(common),
+	artists: determineArtists(common),
+	duration: determineDuration(format),
+	remixers: determineRemixers(common),
+	featuring: determineFeaturing(common),
+	discNumber: determineDiscNumber(common),
+	trackNumber: determineTrackNumber(common),
 })

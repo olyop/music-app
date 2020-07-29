@@ -84,10 +84,10 @@ const Songs: FC<PropTypes> = ({ songs }) => (
 								{deserializeDuration(song.duration)}
 							</Duration>
 							<TableCell>
-								{song.artists}
+								{song.artists.join(", ")}
 							</TableCell>
 							<TableCell>
-								{song.genres}
+								{song.genres.join(", ")}
 							</TableCell>
 						</TableRow>
 					),

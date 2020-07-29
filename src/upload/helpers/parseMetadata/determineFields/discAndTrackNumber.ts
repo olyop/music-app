@@ -1,7 +1,7 @@
-import { IAudioMetadata } from "music-metadata-browser"
+import { ICommonTagsResult } from "music-metadata-browser"
 
-export const determineDiscNumber = ({ common: { disk } }: IAudioMetadata) =>
+export const determineDiscNumber = ({ disk }: ICommonTagsResult) =>
 	disk.no || 1
 
-export const determineTrackNumber = ({ common: { track } }: IAudioMetadata) =>
+export const determineTrackNumber = ({ track }: ICommonTagsResult) =>
 	track.no || 1

@@ -3,6 +3,8 @@ SELECT
 FROM
   {{ tableName }}
 WHERE
-  lower({{ columnName }}) LIKE {{ query }}
+  {{ columnName }} {{ sqlSearchType }} {{ query }}
+ORDER BY
+  {{ columnName }} ASC
 LIMIT
   10;

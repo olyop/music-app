@@ -1,4 +1,6 @@
-import { IAudioMetadata } from "music-metadata-browser"
+import { ICommonTagsResult } from "music-metadata-browser"
 
-export const determineArtists = ({ common: { artist } }: IAudioMetadata) =>
-	(artist ? [artist] : [])
+import { splitList, removeFeat } from "./common"
+
+export const determineArtists = ({ artist }: ICommonTagsResult) =>
+	(artist ? splitList(removeFeat(artist)) : [])

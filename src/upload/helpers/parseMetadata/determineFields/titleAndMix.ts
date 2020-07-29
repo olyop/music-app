@@ -1,17 +1,13 @@
-import { IAudioMetadata } from "music-metadata-browser"
+import { ICommonTagsResult } from "music-metadata-browser"
 
-const indexOfBracket = (str: string) =>
-	str.indexOf("(")
+import { strHasBrackets, strFindBrackets } from "./common"
 
-const hasBracket = (str: string) =>
-	str.includes("(")
-
-export const determineMix = ({ common: { title } }: IAudioMetadata) => {
+export const determineMix = ({ title }: ICommonTagsResult) => {
 	if (title) {
-		if (title.includes("Original")) {
-			return "Original"
-		} else if (title.includes("Extended")) {
+		if (title.includes("Extended")) {
 			return "Extended"
+		} else if (title.includes("Original")) {
+			return "Original"
 		} else {
 			return ""
 		}
@@ -20,14 +16,21 @@ export const determineMix = ({ common: { title } }: IAudioMetadata) => {
 	}
 }
 
-export const determineTitle = ({ common: { title } }: IAudioMetadata) => {
+export const determineTitle = ({ title }: ICommonTagsResult) => {
 	if (title) {
-		if (hasBracket(title)) {
-			return title.slice(0, indexOfBracket(title) - 1)
+		if (strHasBrackets(title)) {
+			const brackets = strFindBrackets(title)
+			if (brackets.includes("Extended") ||
+					brackets.includes("Remix") ||
+					brackets.includes("Original")) {
+				return title.slice(0, title.indexOf(brackets) - 2)
+			} else {
+				return title
+			}
 		} else {
 			return title
 		}
 	} else {
-		return "Untitled"
+		return ""
 	}
 }

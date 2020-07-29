@@ -1,13 +1,15 @@
-import { IAudioMetadata } from "music-metadata-browser"
+import { ICommonTagsResult } from "music-metadata-browser"
 import { bufferToDataUrl } from "@oly_op/music-app-common"
 
+import { splitList } from "./common"
 import { Album } from "../../../types"
 
-export const determineAlbum = ({ common }: IAudioMetadata): Album => ({
-	title: common.album || "",
-	artists: common.albumartist ? [common.albumartist] : [],
-	cover: common.picture ? bufferToDataUrl(common.picture[0].data) : "data:null",
-	released: common.year ?
-		new Date(common.year.toString()).valueOf() :
-		Math.floor(Date.now() / 1000),
+const determineReleased = (year: number | undefined) =>
+	new Date(year ? year.toString() : Math.floor(Date.now() / 1000)).valueOf()
+
+export const determineAlbum = ({ album, albumartist, picture, year }: ICommonTagsResult): Album => ({
+	title: album || "",
+	released: determineReleased(year),
+	artists: albumartist ? splitList(albumartist) : [],
+	cover: picture ? bufferToDataUrl(picture[0].data) : null,
 })

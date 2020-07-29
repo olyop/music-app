@@ -28,17 +28,19 @@ const Inner =
 
 const Img: FC<PropTypes> = ({ url, title, children, className }) => (
 	<Root className={className} title={title}>
-		<Inner
-			className="img"
-			style={{ backgroundImage: `url(${url})` }}
-		/>
+		{url && (
+			<Inner
+				className="img"
+				style={{ backgroundImage: `url(${url})` }}
+			/>
+		)}
 		{children}
 	</Root>
 )
 
 interface PropTypes extends StyledProps {
-	url: string,
 	title?: string,
+	url: string | null,
 }
 
 export default Img

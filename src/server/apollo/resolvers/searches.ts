@@ -5,13 +5,14 @@ import { sql, createResolver } from "../../helpers"
 
 interface DocSearchOptions {
 	query: string,
+	exact: boolean,
 	tableName: string,
 	columnName: string,
 	columnNames: string[],
 }
 
 const docSearch =
-	<T>({ query, tableName, columnName, columnNames }: DocSearchOptions) =>
+	<T>({ query, exact, tableName, columnName, columnNames }: DocSearchOptions) =>
 		sql.query({
 			sql: SELECT_SEARCH,
 			parse: sql.parseTable<T>(),
@@ -21,21 +22,26 @@ const docSearch =
 				value: tableName,
 			},{
 				string: false,
-				key: "columnName",
-				value: columnName,
+				key: "sqlSearchType",
+				value: exact ? "=" : "LIKE",
 			},{
 				string: false,
 				key: "columnNames",
 				value: sql.join(columnNames),
 			},{
+				string: false,
+				key: "columnName",
+				value: exact ? columnName : `lower(${columnName})`,
+			},{
 				key: "query",
 				parameterized: true,
-				value: `%${query.toLowerCase()}%`,
+				value: exact ? query : `%${query.toLowerCase()}%`,
 			}],
 		})
 
 interface Args {
 	query: string,
+	exact: boolean,
 }
 
 const resolver =
@@ -45,7 +51,7 @@ export const artistSearch =
 	resolver<Artist[], Args>(
 		({ args }) => (
 			docSearch({
-				query: args.query,
+				...args,
 				columnName: "name",
 				tableName: "artists",
 				columnNames: COLUMN_NAMES.ARTIST,
@@ -57,7 +63,7 @@ export const genreSearch =
 	resolver<Genre[], Args>(
 		({ args }) => (
 			docSearch({
-				query: args.query,
+				...args,
 				columnName: "name",
 				tableName: "genres",
 				columnNames: COLUMN_NAMES.GENRE,

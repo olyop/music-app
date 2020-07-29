@@ -1,13 +1,16 @@
-import { ChangeEventHandler } from "react"
-import { SongBase, AlbumBase, ArtistBase } from "@oly_op/music-app-types"
+import {
+	SongBase,
+	GenreBase,
+	AlbumBase,
+	ArtistBase,
+} from "@oly_op/music-app-types"
 
-export interface Artist extends Omit<ArtistBase, "artisId"> {
-	cover: string,
-}
+export type Genre = Omit<GenreBase, "genreId">
+export type Artist = Omit<ArtistBase, "artistId">
 
 export interface Album extends Omit<AlbumBase, "albumId"> {
-	cover: string,
 	artists: string[],
+	cover: string | null,
 }
 
 export interface AlbumWithSongs extends Album {
@@ -18,10 +21,12 @@ export interface Song extends Omit<SongBase, "songId"> {
 	album: Album,
 	genres: string[],
 	artists: string[],
+	remixers: string[],
+	featuring: string[],
 }
 
 export interface State {
 	songs: Song[],
 	loading: boolean,
-	handleFiles: ChangeEventHandler<HTMLInputElement>,
+	handleFiles: (files: FileList) => void,
 }

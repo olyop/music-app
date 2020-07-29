@@ -1,4 +1,9 @@
-import { createElement, FC, Fragment } from "react"
+import {
+	FC,
+	Fragment,
+	createElement,
+	ChangeEventHandler,
+} from "react"
 
 import Grid from "@material-ui/core/Grid"
 import Button from "@material-ui/core/Button"
@@ -38,7 +43,10 @@ const InputButton =
 	})
 
 const Add: FC = () => {
-	const { loading, handleFiles } = useStateContext()
+	const { loading, handleFiles } =
+		useStateContext()
+	const handleChange: ChangeEventHandler<HTMLInputElement> = event =>
+		handleFiles(event.target.files!)
 	return (
 		<Root
 			container
@@ -60,7 +68,7 @@ const Add: FC = () => {
 								value=""
 								multiple
 								type="file"
-								onChange={handleFiles}
+								onChange={handleChange}
 							/>
 						</Fragment>
 					)}

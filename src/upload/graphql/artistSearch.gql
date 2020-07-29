@@ -1,5 +1,8 @@
-query artistSearch($query: string!) {
-	artistSearch(query: $query) {
+query artistSearch(
+	$query: String!,
+	$exact: Boolean!,
+) {
+	artistSearch(query: $query, exact: $exact) {
 		name
 		artistId
 	}

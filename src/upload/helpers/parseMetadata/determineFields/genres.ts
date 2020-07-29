@@ -1,4 +1,6 @@
-import { IAudioMetadata } from "music-metadata-browser"
+import { ICommonTagsResult } from "music-metadata-browser"
 
-export const determineGenres = ({ common: { genre } }: IAudioMetadata) =>
-	genre || []
+import { splitList } from "./common"
+
+export const determineGenres = ({ genre }: ICommonTagsResult) =>
+	(genre ? splitList(genre[0]) : [])

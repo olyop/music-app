@@ -1,34 +1,77 @@
-import Downshift from "downshift"
-import { createElement, FC } from "react"
+import {
+	useCombobox,
+	useMultipleSelection,
+	UseComboboxReturnValue,
+	UseMultipleSelectionReturnValue,
+} from "downshift"
 
-import Box from "@material-ui/core/Box"
-import Input from "@material-ui/core/Input"
-import styled from "@material-ui/core/styles/styled"
-import { StyledProps } from "@material-ui/core/styles"
+import { useState, useEffect, ReactElement } from "react"
 
-const AutoComplete: FC<StyledProps> = ({
-	label,
-	className,
-}) => (
-	<Downshift
-		itemToString={}
-	>
-		{({
-			isOpen,
-			inputValue,
-			getItemProps,
-			getMenuProps,
-			selectedItem,
-			getRootProps,
-			getInputProps,
-			getLabelProps,
-			highlightedIndex,
-		}) => (
-			<Box className={className}>
+const { stateChangeTypes } = useCombobox
 
-			</Box>
-		)}
-	</Downshift>
-)
+const AutoComplete = ({ init, render, fetchFunction }: PropTypes) => {
+	const [ input, setInput ] =
+		useState("")
+	const [ results, setResults ] =
+		useState<string[]>([])
+	const multipleSelection =
+		useMultipleSelection<string>({ initialSelectedItems: init })
+	const getFilteredItems = (arr: string[]) =>
+		arr.filter(item => (
+			multipleSelection.selectedItems.indexOf(item) < 0 &&
+			item.toLowerCase().startsWith(input.toLowerCase())
+		))
+	const comboxBox =
+		useCombobox<string>({
+			inputValue: input,
+			items: getFilteredItems(results),
+			onStateChange: ({ type, inputValue, selectedItem }) => {
+				switch (type) {
+					case useCombobox.stateChangeTypes.InputChange:
+						setInput(inputValue!)
+						break
+					case stateChangeTypes.InputKeyDownEnter:
+					case stateChangeTypes.ItemClick:
+					case stateChangeTypes.InputBlur:
+						if (selectedItem) {
+							setInput("")
+							multipleSelection.addSelectedItem(selectedItem)
+						}
+						break
+					default:
+						break
+				}
+			},
+		})
+
+	useEffect(() => {
+		fetchFunction(input)
+			.then(setResults)
+			.catch(console.error)
+	}, [input, fetchFunction])
+
+	return render({
+		results,
+		getFilteredItems,
+		...comboxBox,
+		...multipleSelection,
+	})
+}
+
+interface CallbackBase {
+	results: string[],
+	getFilteredItems: (arr: string[]) => string[],
+}
+
+interface Callback extends
+	CallbackBase,
+	UseComboboxReturnValue<string>,
+	UseMultipleSelectionReturnValue<string> {}
+
+interface PropTypes {
+	init?: string[],
+	render: (callback: Callback) => ReactElement,
+	fetchFunction: (val: string) => Promise<string[]>,
+}
 
 export default AutoComplete

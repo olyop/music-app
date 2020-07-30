@@ -1,5 +1,4 @@
 import isEmpty from "lodash/isEmpty"
-import { useApolloClient } from "@apollo/client"
 import { FC, useState, createElement } from "react"
 
 import Box from "@material-ui/core/Box"
@@ -18,7 +17,6 @@ const Root =
 	})
 
 const Application: FC = () => {
-	const client = useApolloClient()
 	const [ loading, setLoading ] = useState(false)
 	const [ songs, setSongs ] = useState<Song[]>([])
 
@@ -27,7 +25,7 @@ const Application: FC = () => {
 
 	const handleFiles = (files: FileList) => {
 		setLoading(true)
-		parseFiles(client, files)
+		parseFiles(files)
 			.then(setSongs)
 			.catch(console.error)
 			.finally(toggleLoading)

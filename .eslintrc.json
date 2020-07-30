@@ -157,7 +157,10 @@
 		"@typescript-eslint/indent": [
 			"error",
 			"tab",
-			{ "MemberExpression": "off" }
+			{
+				"SwitchCase": 1,
+				"MemberExpression": "off"
+			}
 		],
 		"no-multiple-empty-lines": [
 			"error",

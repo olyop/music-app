@@ -1,5 +1,4 @@
 import noop from "lodash/noop"
-import Downshift from "downshift"
 import { createElement, FC } from "react"
 
 import Box from "@material-ui/core/Box"
@@ -10,6 +9,7 @@ import { StyledProps } from "@material-ui/core/styles"
 
 import Img from "./Img"
 import Songs from "./Songs"
+import AlbumArtists from "./AlbumArtists"
 import { AlbumWithSongs } from "../types"
 
 const Root =
@@ -35,6 +35,12 @@ const Title =
 		marginBottom: theme.spacing(0.25),
 	}))
 
+const Artists =
+	styled(AlbumArtists)(({ theme }) => ({
+		marginTop: theme.spacing(2),
+		marginBottom: theme.spacing(2),
+	}))
+
 const Released =
 	styled(DatePicker)(({ theme }) => ({
 		display: "block",
@@ -44,7 +50,7 @@ const Released =
 
 const Album: FC<PropTypes> = ({
 	className,
-	album: { title, cover, songs, released },
+	album: { title, artists, cover, songs, released },
 }) => (
 	<Root className={className}>
 		<Cover
@@ -55,6 +61,9 @@ const Album: FC<PropTypes> = ({
 			<Box>
 				<Title
 					defaultValue={title}
+				/>
+				<Artists
+					init={artists}
 				/>
 				<Released
 					minDate={1}

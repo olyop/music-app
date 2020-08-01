@@ -1,6 +1,12 @@
-import { createElement, FC } from "react"
+/* eslint-disable react/jsx-props-no-spreading */
+import isEmpty from "lodash/isEmpty"
 import { useApolloClient } from "@apollo/client"
+import { createElement, FC, Fragment } from "react"
 
+import Grid from "@material-ui/core/Grid"
+import Chip from "@material-ui/core/Chip"
+import TextField from "@material-ui/core/TextField"
+import styled from "@material-ui/core/styles/styled"
 import { StyledProps } from "@material-ui/core/styles"
 
 import { Artist } from "../types"
@@ -8,22 +14,30 @@ import { searchQuery } from "../helpers"
 import AutoComplete from "./AutoComplete"
 import ARTIST_SEARCH from "../graphql/artistSearch.gql"
 
+const Artists =
+	styled(Grid)(({ theme }) => ({
+		width: "auto",
+		marginRight: theme.spacing(1),
+	}))
+
 const AlbumArtists: FC<PropTypes> = ({ init, className }) => {
 	const client = useApolloClient()
+	const query = searchQuery(client)
 	return (
 		<AutoComplete
 			init={init}
-			fetchFunction={searchQuery(client)<Artist, Res>({
-				query: ARTIST_SEARCH,
-				parseDoc: ({ name }) => name,
-				parseRes: ({ artistSearch }) => artistSearch,
-			})}
+			getResults={(
+				query<Artist, Res>({
+					query: ARTIST_SEARCH,
+					parseDoc: ({ name }) => name,
+					parseRes: ({ artistSearch }) => artistSearch,
+				})
+			)}
 			render={({
 				isOpen,
 				results,
 				getMenuProps,
 				getItemProps,
-				getLabelProps,
 				selectedItems,
 				getInputProps,
 				getComboboxProps,
@@ -32,35 +46,33 @@ const AlbumArtists: FC<PropTypes> = ({ init, className }) => {
 				highlightedIndex,
 				removeSelectedItem,
 				getSelectedItemProps,
-				getToggleButtonProps,
 			}) => (
-				<div className={className}>
-					<label {...getLabelProps()}>Test</label>
-					<div>
-						{selectedItems.map((selectedItem, index) => (
-							<span
-								key={`selected-item-${index}`}
-								{...getSelectedItemProps({ selectedItem, index })}
-							>
-								{selectedItem}
-								<span
-									children="&#10005;"
-									onClick={() => removeSelectedItem(selectedItem)}
-								/>
-							</span>
-						))}
-						<div {...getComboboxProps()}>
-							<input
-								{...getInputProps(getDropdownProps({ preventKeyAction: isOpen }))}
-							/>
-							<button
-								type="button"
-								children="&#8595;"
-								aria-label="toggle menu"
-								{...getToggleButtonProps()}
-							/>
-						</div>
-					</div>
+				<Fragment>
+					<TextField
+						label="Artists"
+						variant="outlined"
+						className={className}
+						{...getComboboxProps()}
+						InputLabelProps={{ shrink: true }}
+						inputProps={(
+							// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+							getInputProps(getDropdownProps({ preventKeyAction: isOpen }))
+						)}
+						InputProps={{
+							startAdornment: isEmpty(selectedItems) ? undefined : (
+								<Artists container direction="row">
+									{selectedItems.map((selectedItem, index) => (
+										<Chip
+											label={selectedItem}
+											key={`selected-item-${index}`}
+											onDelete={() => removeSelectedItem(selectedItem)}
+											{...getSelectedItemProps({ selectedItem, index })}
+										/>
+									))}
+								</Artists>
+							),
+						}}
+					/>
 					<ul {...getMenuProps()}>
 						{isOpen && getFilteredItems(results).map(
 							(result, index) => (
@@ -73,7 +85,7 @@ const AlbumArtists: FC<PropTypes> = ({ init, className }) => {
 							),
 						)}
 					</ul>
-				</div>
+				</Fragment>
 			)}
 		/>
 	)

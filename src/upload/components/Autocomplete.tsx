@@ -9,7 +9,7 @@ import { useState, useEffect, ReactElement } from "react"
 
 const { stateChangeTypes } = useCombobox
 
-const AutoComplete = ({ init, render, fetchFunction }: PropTypes) => {
+const AutoComplete = ({ init, render, getResults }: PropTypes) => {
 	const [ input, setInput ] =
 		useState("")
 	const [ results, setResults ] =
@@ -45,10 +45,11 @@ const AutoComplete = ({ init, render, fetchFunction }: PropTypes) => {
 		})
 
 	useEffect(() => {
-		fetchFunction(input)
+		Promise
+			.resolve(getResults(input))
 			.then(setResults)
 			.catch(console.error)
-	}, [input, fetchFunction])
+	}, [input, getResults])
 
 	return render({
 		results,
@@ -71,7 +72,7 @@ interface Callback extends
 interface PropTypes {
 	init?: string[],
 	render: (callback: Callback) => ReactElement,
-	fetchFunction: (val: string) => Promise<string[]>,
+	getResults: (val: string) => string[] | Promise<string[]>,
 }
 
 export default AutoComplete

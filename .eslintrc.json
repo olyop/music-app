@@ -54,7 +54,6 @@
 		"react/require-default-props": "off",
 		"lines-between-class-members": "off",
 		"import/prefer-default-export": "off",
-		"react/jsx-props-no-spreading": "off",
 		"@typescript-eslint/comma-spacing": "off",
 		"@typescript-eslint/ban-ts-comment": "off",
 		"jsx-a11y/click-events-have-key-events": "off",
@@ -114,9 +113,17 @@
 			"error",
 			"double"
 		],
+		"react/jsx-no-duplicate-props": [
+			"error",
+			{
+				"ignoreCase": false
+			}
+		],
 		"@typescript-eslint/no-unused-vars": [
 			"error",
-			{ "args": "none" }
+			{
+				"args": "none"
+			}
 		],
 		"@typescript-eslint/naming-convention": [
 			"error",

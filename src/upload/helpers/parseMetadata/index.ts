@@ -1,3 +1,4 @@
+import uniqueId from "lodash/uniqueId"
 import { IAudioMetadata } from "music-metadata-browser"
 
 import {
@@ -16,6 +17,7 @@ import {
 import { Song } from "../../types"
 
 export const parseMetadata = ({ common, format }: IAudioMetadata): Song => ({
+	id: uniqueId(),
 	mix: determineMix(common),
 	album: determineAlbum(common),
 	title: determineTitle(common),

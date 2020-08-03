@@ -1,4 +1,5 @@
 import isEmpty from "lodash/isEmpty"
+import filter from "lodash/fp/filter"
 import { FC, useState, createElement } from "react"
 
 import Box from "@material-ui/core/Box"
@@ -31,10 +32,14 @@ const Application: FC = () => {
 			.finally(toggleLoading)
 	}
 
+	const handleSongRemove = (id: string) =>
+		setSongs(filter(song => song.id !== id))
+
 	const state: State = {
 		songs,
 		loading,
 		handleFiles,
+		handleSongRemove,
 	}
 
 	return (

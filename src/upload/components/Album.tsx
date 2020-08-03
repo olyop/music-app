@@ -35,6 +35,15 @@ const Title =
 		marginBottom: theme.spacing(0.25),
 	}))
 
+const Info =
+	styled(Box)(({ theme }) => ({
+		display: "grid",
+		alignItems: "center",
+		gridGap: theme.spacing(2),
+		marginBottom: theme.spacing(1),
+		gridTemplateColumns: "auto 114px",
+	}))
+
 const Artists =
 	styled(AlbumArtists)(({ theme }) => ({
 		marginTop: theme.spacing(2),
@@ -43,9 +52,9 @@ const Artists =
 
 const Released =
 	styled(DatePicker)(({ theme }) => ({
+		width: 114,
 		display: "block",
 		...theme.typography.h6,
-		marginBottom: theme.spacing(3),
 	}))
 
 const Album: FC<PropTypes> = ({
@@ -58,10 +67,10 @@ const Album: FC<PropTypes> = ({
 			title={title}
 		/>
 		<Box>
-			<Box>
-				<Title
-					defaultValue={title}
-				/>
+			<Title
+				defaultValue={title}
+			/>
+			<Info>
 				<Artists
 					init={artists}
 				/>
@@ -69,9 +78,11 @@ const Album: FC<PropTypes> = ({
 					minDate={1}
 					onChange={noop}
 					value={released}
+					label="Released"
 					format="dd/MM/yyyy"
+					inputVariant="outlined"
 				/>
-			</Box>
+			</Info>
 			<Songs songs={songs}/>
 		</Box>
 	</Root>

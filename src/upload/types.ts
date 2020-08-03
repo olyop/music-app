@@ -18,6 +18,7 @@ export interface AlbumWithSongs extends Album {
 }
 
 export interface Song extends Omit<SongBase, "songId"> {
+	id: string,
 	album: Album,
 	genres: string[],
 	artists: string[],
@@ -29,4 +30,5 @@ export interface State {
 	songs: Song[],
 	loading: boolean,
 	handleFiles: (files: FileList) => void,
+	handleSongRemove: (id: string) => void,
 }

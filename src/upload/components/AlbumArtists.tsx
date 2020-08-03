@@ -14,10 +14,24 @@ import { searchQuery } from "../helpers"
 import AutoComplete from "./AutoComplete"
 import ARTIST_SEARCH from "../graphql/artistSearch.gql"
 
+const Input =
+	styled(TextField)({
+		width: "100%",
+	})
+
 const Artists =
 	styled(Grid)(({ theme }) => ({
 		width: "auto",
+		flexWrap: "unset",
 		marginRight: theme.spacing(1),
+	}))
+
+const Artist =
+	styled(Chip)(({ theme }) => ({
+		marginRight: theme.spacing(1),
+		"&:last-child": {
+			marginRight: 0,
+		},
 	}))
 
 const AlbumArtists: FC<PropTypes> = ({ init, className }) => {
@@ -48,7 +62,7 @@ const AlbumArtists: FC<PropTypes> = ({ init, className }) => {
 				getSelectedItemProps,
 			}) => (
 				<Fragment>
-					<TextField
+					<Input
 						label="Artists"
 						variant="outlined"
 						className={className}
@@ -62,7 +76,7 @@ const AlbumArtists: FC<PropTypes> = ({ init, className }) => {
 							startAdornment: isEmpty(selectedItems) ? undefined : (
 								<Artists container direction="row">
 									{selectedItems.map((selectedItem, index) => (
-										<Chip
+										<Artist
 											label={selectedItem}
 											key={`selected-item-${index}`}
 											onDelete={() => removeSelectedItem(selectedItem)}
@@ -73,18 +87,20 @@ const AlbumArtists: FC<PropTypes> = ({ init, className }) => {
 							),
 						}}
 					/>
-					<ul {...getMenuProps()}>
-						{isOpen && getFilteredItems(results).map(
-							(result, index) => (
-								<li
-									children={result}
-									key={result + index.toString()}
-									{...getItemProps({ item: result, index })}
-									style={highlightedIndex === index ? {} : {}}
-								/>
-							),
-						)}
-					</ul>
+					{isOpen && (
+						<ul {...getMenuProps()}>
+							{getFilteredItems(results).map(
+								(result, index) => (
+									<li
+										children={result}
+										key={result + index.toString()}
+										{...getItemProps({ item: result, index })}
+										style={highlightedIndex === index ? {} : {}}
+									/>
+								),
+							)}
+						</ul>
+					)}
 				</Fragment>
 			)}
 		/>

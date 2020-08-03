@@ -1,10 +1,9 @@
 import { createElement, FC, Fragment } from "react"
 
-// import Box from "@material-ui/core/Box"
 import styled from "@material-ui/core/styles/styled"
 
 import Album from "./Album"
-import { Song } from "../types"
+import { useStateContext } from "../context"
 import { songsToAlbums, orderAlbums } from "../helpers"
 
 const Section =
@@ -19,21 +18,20 @@ const Section =
 		},
 	}))
 
-const Albums: FC<PropTypes> = ({ songs }) => (
-	<Fragment>
-		{orderAlbums(songsToAlbums(songs)).map(
-			(album, index) => (
-				<Section
-					key={index}
-					album={album}
-				/>
-			),
-		)}
-	</Fragment>
-)
-
-interface PropTypes {
-	songs: Song[],
+const Albums: FC = () => {
+	const { songs } = useStateContext()
+	return (
+		<Fragment>
+			{orderAlbums(songsToAlbums(songs)).map(
+				(album, index) => (
+					<Section
+						key={index}
+						album={album}
+					/>
+				),
+			)}
+		</Fragment>
+	)
 }
 
 export default Albums

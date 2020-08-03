@@ -4,17 +4,20 @@ import { deserializeDuration } from "@oly_op/music-app-common"
 import Grid from "@material-ui/core/Grid"
 import Table from "@material-ui/core/Table"
 import Paper from "@material-ui/core/Paper"
+import CloseIcon from "@material-ui/icons/Close"
 import TableRow from "@material-ui/core/TableRow"
 import InputBase from "@material-ui/core/InputBase"
 import TableBody from "@material-ui/core/TableBody"
 import TableCell from "@material-ui/core/TableCell"
 import TableHead from "@material-ui/core/TableHead"
+import IconButton from "@material-ui/core/IconButton"
 import AccessTimeIcon from "@material-ui/icons/AccessTime"
 import withStyles from "@material-ui/core/styles/withStyles"
 import TableContainer from "@material-ui/core/TableContainer"
 
+import { Song } from "../types"
 import { orderSongs } from "../helpers"
-import { Song as TSong } from "../types"
+import { useStateContext } from "../context"
 
 const TrackNumber =
 	withStyles({
@@ -50,55 +53,76 @@ const TrackNumberInput =
 		},
 	})(Input)
 
-const Songs: FC<PropTypes> = ({ songs }) => (
-	<TableContainer component={Paper}>
-		<Table size="small">
-			<TableHead>
-				<TableRow>
-					<TrackNumber>#</TrackNumber>
-					<TableCell>Title</TableCell>
-					<Duration>
-						<Grid container alignItems="center" justify="center">
-							<AccessTimeIcon fontSize="small"/>
-						</Grid>
-					</Duration>
-					<TableCell>
-						Artists
-					</TableCell>
-					<TableCell>
-						Genres
-					</TableCell>
-				</TableRow>
-			</TableHead>
-			<TableBody>
-				{orderSongs(songs).map(
-					song => (
-						<TableRow hover key={song.trackNumber}>
-							<TrackNumber>
-								<TrackNumberInput defaultValue={song.trackNumber}/>
-							</TrackNumber>
-							<TableCell>
-								<Input defaultValue={song.title}/>
-							</TableCell>
-							<Duration>
-								{deserializeDuration(song.duration)}
-							</Duration>
-							<TableCell>
-								{song.artists.join(", ")}
-							</TableCell>
-							<TableCell>
-								{song.genres.join(", ")}
-							</TableCell>
-						</TableRow>
-					),
-				)}
-			</TableBody>
-		</Table>
-	</TableContainer>
-)
+const Close =
+	withStyles({
+		root: {
+			paddingTop: "0 !important",
+			paddingBottom: "0 !important",
+			paddingLeft: "4px !important",
+			paddingRight: "4px !important",
+		},
+	})(TableCell)
+
+const Songs: FC<PropTypes> = ({ songs }) => {
+	const { handleSongRemove } = useStateContext()
+	return (
+		<TableContainer component={Paper}>
+			<Table size="small">
+				<TableHead>
+					<TableRow>
+						<TrackNumber>#</TrackNumber>
+						<TableCell>Title</TableCell>
+						<Duration>
+							<Grid container alignItems="center" justify="center">
+								<AccessTimeIcon fontSize="small"/>
+							</Grid>
+						</Duration>
+						<TableCell>
+							Artists
+						</TableCell>
+						<TableCell>
+							Genres
+						</TableCell>
+						<TableCell padding="checkbox"/>
+					</TableRow>
+				</TableHead>
+				<TableBody>
+					{orderSongs(songs).map(
+						song => (
+							<TableRow hover key={song.trackNumber}>
+								<TrackNumber>
+									<TrackNumberInput defaultValue={song.trackNumber}/>
+								</TrackNumber>
+								<TableCell>
+									<Input defaultValue={song.title}/>
+								</TableCell>
+								<Duration>
+									{deserializeDuration(song.duration)}
+								</Duration>
+								<TableCell>
+									{song.artists.join(", ")}
+								</TableCell>
+								<TableCell>
+									{song.genres.join(", ")}
+								</TableCell>
+								<Close>
+									<Grid container alignItems="center" justify="center">
+										<IconButton size="small" onClick={() => handleSongRemove(song.id)}>
+											<CloseIcon fontSize="small"/>
+										</IconButton>
+									</Grid>
+								</Close>
+							</TableRow>
+						),
+					)}
+				</TableBody>
+			</Table>
+		</TableContainer>
+	)
+}
 
 interface PropTypes {
-	songs: TSong[],
+	songs: Song[],
 }
 
 export default Songs

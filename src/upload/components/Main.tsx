@@ -4,7 +4,6 @@ import Grid from "@material-ui/core/Grid"
 import styled from "@material-ui/core/styles/styled"
 
 import Albums from "./Albums"
-import { useStateContext } from "../context"
 
 const Root =
 	styled(Grid)(({ theme }) => ({
@@ -30,18 +29,15 @@ const Sidebar =
 		backgroundColor: theme.palette.common.white,
 	}))
 
-const Main: FC = () => {
-	const { songs } = useStateContext()
-	return (
-		<Root container>
-			<Section item lg={9}>
-				<Albums songs={songs}/>
-			</Section>
-			<Sidebar item lg={3}>
-				Right
-			</Sidebar>
-		</Root>
-	)
-}
+const Main: FC = () => (
+	<Root container>
+		<Section item lg={9}>
+			<Albums/>
+		</Section>
+		<Sidebar item lg={3}>
+			Right
+		</Sidebar>
+	</Root>
+)
 
 export default Main

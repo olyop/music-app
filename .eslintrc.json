@@ -48,7 +48,6 @@
 		"react/no-children-prop": "off",
 		"promise/catch-or-return": "off",
 		"implicit-arrow-linebreak": "off",
-		"react/no-array-index-key": "off",
 		"react/no-unused-prop-types": "off",
 		"node/no-unpublished-import": "off",
 		"react/require-default-props": "off",

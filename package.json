@@ -52,7 +52,7 @@
 		"publish-common": "rm -r -f src/common/dist && npx tsc --outDir src/common/dist --project tsconfig.common.json && cd src/common && npm publish && cd ../.. && npm i -S -P @oly_op/music-app-common@latest"
 	},
 	"dependencies": {
-		"@apollo/client": "^3.1.1",
+		"@apollo/client": "^3.1.2",
 		"@date-io/date-fns": "^1.3.13",
 		"@material-ui/core": "^4.11.0",
 		"@material-ui/icons": "^4.9.1",
@@ -60,10 +60,9 @@
 		"@oly_op/bem": "^2.4.0",
 		"@oly_op/music-app-common": "^3.6.0",
 		"@oly_op/pipe": "^3.1.0",
-		"@typescript-eslint/eslint-plugin": "^3.7.1",
 		"apollo-server-express": "^2.16.1",
 		"apollo-upload-client": "^14.1.1",
-		"aws-sdk": "^2.725.0",
+		"aws-sdk": "^2.726.0",
 		"body-parser": "^1.19.0",
 		"compression": "^1.7.4",
 		"cookie-parser": "^1.4.5",
@@ -114,7 +113,8 @@
 		"@types/webpack-dev-server": "^3.11.0",
 		"@types/webpack-env": "^1.15.2",
 		"@types/write-file-webpack-plugin": "^4.5.0",
-		"@typescript-eslint/parser": "^3.7.1",
+		"@typescript-eslint/eslint-plugin": "^3.8.0",
+		"@typescript-eslint/parser": "^3.8.0",
 		"compression-webpack-plugin": "^4.0.0",
 		"concurrently": "^5.2.0",
 		"cross-env": "^7.0.2",
@@ -150,7 +150,7 @@
 		"webpack-bundle-analyzer": "^3.8.0",
 		"webpack-cli": "^3.3.12",
 		"webpack-dev-server": "^3.11.0",
-		"webpack-merge": "^5.0.9",
+		"webpack-merge": "^5.1.0",
 		"write-file-webpack-plugin": "^4.5.1"
 	}
 }

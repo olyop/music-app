@@ -5,6 +5,7 @@ import {
 	UseMultipleSelectionReturnValue,
 } from "downshift"
 
+import isEmpty from "lodash/isEmpty"
 import { useState, useEffect, ReactElement } from "react"
 
 const { stateChangeTypes } = useCombobox
@@ -16,11 +17,13 @@ const AutoComplete = ({ init, render, getResults }: PropTypes) => {
 		useState<string[]>([])
 	const multipleSelection =
 		useMultipleSelection<string>({ initialSelectedItems: init })
-	const getFilteredItems = (arr: string[]) =>
-		arr.filter(item => (
+	const getFilteredItems = (arr: string[]) => [
+		...(isEmpty(input) ? [] : [input]),
+		...arr.filter(item => (
 			multipleSelection.selectedItems.indexOf(item) < 0 &&
 			item.toLowerCase().startsWith(input.toLowerCase())
-		))
+		)),
+	]
 	const comboxBox =
 		useCombobox<string>({
 			inputValue: input,
@@ -45,10 +48,12 @@ const AutoComplete = ({ init, render, getResults }: PropTypes) => {
 		})
 
 	useEffect(() => {
-		Promise
-			.resolve(getResults(input))
-			.then(setResults)
-			.catch(console.error)
+		if (!isEmpty(input)) {
+			Promise
+				.resolve(getResults(input))
+				.then(setResults)
+				.catch(console.error)
+		}
 	}, [input, getResults])
 
 	return render({

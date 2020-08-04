@@ -16,7 +16,6 @@ import withStyles from "@material-ui/core/styles/withStyles"
 import TableContainer from "@material-ui/core/TableContainer"
 
 import { Song } from "../types"
-import { orderSongs } from "../helpers"
 import { useStateContext } from "../context"
 
 const TrackNumber =
@@ -41,9 +40,8 @@ const Duration =
 
 const Input =
 	withStyles({
-		input: {
-			fontSize: 14,
-		},
+		root: { width: "100%" },
+		input: { fontSize: 14 },
 	})(InputBase)
 
 const TrackNumberInput =
@@ -63,7 +61,7 @@ const Close =
 		},
 	})(TableCell)
 
-const Songs: FC<PropTypes> = ({ songs }) => {
+const Songs: FC<PropTypes> = ({ songs, albumId }) => {
 	const { handleSongRemove } = useStateContext()
 	return (
 		<TableContainer component={Paper}>
@@ -87,9 +85,9 @@ const Songs: FC<PropTypes> = ({ songs }) => {
 					</TableRow>
 				</TableHead>
 				<TableBody>
-					{orderSongs(songs).map(
+					{songs.map(
 						song => (
-							<TableRow hover key={song.trackNumber}>
+							<TableRow hover key={song.songId}>
 								<TrackNumber>
 									<TrackNumberInput defaultValue={song.trackNumber}/>
 								</TrackNumber>
@@ -107,7 +105,7 @@ const Songs: FC<PropTypes> = ({ songs }) => {
 								</TableCell>
 								<Close>
 									<Grid container alignItems="center" justify="center">
-										<IconButton size="small" onClick={() => handleSongRemove(song.id)}>
+										<IconButton size="small" onClick={() => handleSongRemove(albumId, song.songId)}>
 											<CloseIcon fontSize="small"/>
 										</IconButton>
 									</Grid>
@@ -123,6 +121,7 @@ const Songs: FC<PropTypes> = ({ songs }) => {
 
 interface PropTypes {
 	songs: Song[],
+	albumId: string,
 }
 
 export default Songs

@@ -1,5 +1,5 @@
+import map from "lodash/fp/map"
 import isEmpty from "lodash/isEmpty"
-import filter from "lodash/fp/filter"
 import { FC, useState, createElement } from "react"
 
 import Box from "@material-ui/core/Box"
@@ -7,8 +7,8 @@ import styled from "@material-ui/core/styles/styled"
 
 import Add from "./Add"
 import Main from "./Main"
-import { State, Song } from "../types"
 import { parseFiles } from "../helpers"
+import { State, Album } from "../types"
 import { StateContextProvider } from "../context"
 
 const Root =
@@ -19,7 +19,7 @@ const Root =
 
 const Application: FC = () => {
 	const [ loading, setLoading ] = useState(false)
-	const [ songs, setSongs ] = useState<Song[]>([])
+	const [ albums, setAlbums ] = useState<Album[]>([])
 
 	const toggleLoading = () =>
 		setLoading(prevState => !prevState)
@@ -27,25 +27,44 @@ const Application: FC = () => {
 	const handleFiles = (files: FileList) => {
 		setLoading(true)
 		parseFiles(files)
-			.then(setSongs)
+			.then(setAlbums)
 			.catch(console.error)
 			.finally(toggleLoading)
 	}
 
-	const handleSongRemove = (id: string) =>
-		setSongs(filter(song => song.id !== id))
+	const handleAlbumTitleChange = (albumId: string, title: string) =>
+		setAlbums(map(album => (
+			album.albumId !== albumId ?
+				album : { ...album, title }
+		)))
+
+	const handleAlbumReleasedChange = (albumId: string, released: number) =>
+		setAlbums(map(album => (
+			album.albumId !== albumId ?
+				album : { ...album, released }
+		)))
+
+	const handleSongRemove = (albumId: string, songId: string) =>
+		setAlbums(map(album => (
+			album.albumId !== albumId ? album : {
+				...album,
+				songs: album.songs.filter(song => song.songId === songId),
+			}
+		)))
 
 	const state: State = {
-		songs,
+		albums,
 		loading,
 		handleFiles,
 		handleSongRemove,
+		handleAlbumTitleChange,
+		handleAlbumReleasedChange,
 	}
 
 	return (
 		<StateContextProvider value={state}>
 			<Root>
-				{isEmpty(songs) ? <Add/> : <Main/>}
+				{isEmpty(albums) ? <Add/> : <Main/>}
 			</Root>
 		</StateContextProvider>
 	)

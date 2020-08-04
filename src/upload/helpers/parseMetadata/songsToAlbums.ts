@@ -1,10 +1,11 @@
 import find from "lodash/find"
+import uniqueId from "lodash/uniqueId"
 
-import { Song, AlbumWithSongs } from "../types"
+import { SongParsed, Album } from "../../types"
 
-export const songsToAlbums = (songs: Song[]) =>
-	songs.reduce(
-		(albums: AlbumWithSongs[], song: Song): AlbumWithSongs[] => {
+export const songsToAlbums = (songs: SongParsed[]) =>
+	songs.reduce<Album[]>(
+		(albums, song: SongParsed): Album[] => {
 			const { title } = song.album
 			if (find(albums, { title })) {
 				return albums.map(
@@ -16,7 +17,11 @@ export const songsToAlbums = (songs: Song[]) =>
 			} else {
 				return [
 					...albums,
-					{ ...song.album, songs: [song] },
+					{
+						...song.album,
+						songs: [song],
+						albumId: uniqueId(),
+					},
 				]
 			}
 		},

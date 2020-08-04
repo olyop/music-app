@@ -1,18 +1,17 @@
-import map from "lodash/fp/map"
 import { parseBlob } from "music-metadata-browser"
 
-import { Song } from "../types"
+import { Album } from "../types"
 import { parseMetadata } from "./parseMetadata"
 
 export const parseFiles =
 	(fileList: FileList) =>
-		new Promise<Song[]>(
+		new Promise<Album[]>(
 			(resolve, reject) => {
 				const files = Array.from(fileList)
 				const promises = files.map(file => parseBlob(file))
 				Promise
 					.all(promises)
-					.then(map(parseMetadata))
+					.then(parseMetadata)
 					.then(resolve)
 					.catch(reject)
 			},

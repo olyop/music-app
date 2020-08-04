@@ -4,7 +4,6 @@ import styled from "@material-ui/core/styles/styled"
 
 import Album from "./Album"
 import { useStateContext } from "../context"
-import { songsToAlbums, orderAlbums } from "../helpers"
 
 const Section =
 	styled(Album)(({ theme }) => ({
@@ -19,14 +18,14 @@ const Section =
 	}))
 
 const Albums: FC = () => {
-	const { songs } = useStateContext()
+	const { albums } = useStateContext()
 	return (
 		<Fragment>
-			{orderAlbums(songsToAlbums(songs)).map(
-				(album, index) => (
+			{albums.map(
+				album => (
 					<Section
-						key={index}
 						album={album}
+						key={album.albumId}
 					/>
 				),
 			)}

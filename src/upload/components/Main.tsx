@@ -17,6 +17,7 @@ const Root =
 const Section =
 	styled(Grid)(({ theme }) => ({
 		width: "100%",
+		minHeight: "100vh",
 		padding: theme.spacing(4),
 		[theme.breakpoints.up("lg")]: {
 			height: "100%",

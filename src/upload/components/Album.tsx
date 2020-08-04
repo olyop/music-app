@@ -1,16 +1,16 @@
-import noop from "lodash/noop"
-import { createElement, FC } from "react"
+import { createElement, FC, ChangeEventHandler } from "react"
 
 import Box from "@material-ui/core/Box"
 import Input from "@material-ui/core/Input"
-import { DatePicker } from "@material-ui/pickers"
 import styled from "@material-ui/core/styles/styled"
 import { StyledProps } from "@material-ui/core/styles"
+import { DatePicker, DatePickerProps } from "@material-ui/pickers"
 
 import Img from "./Img"
 import Songs from "./Songs"
+import { Album } from "../types"
 import AlbumArtists from "./AlbumArtists"
-import { AlbumWithSongs } from "../types"
+import { useStateContext } from "../context"
 
 const Root =
 	styled(Box)(({ theme }) => ({
@@ -51,45 +51,56 @@ const Artists =
 	}))
 
 const Released =
-	styled(DatePicker)(({ theme }) => ({
+	styled(DatePicker)({
 		width: 114,
 		display: "block",
-		...theme.typography.h6,
-	}))
+	})
 
 const Album: FC<PropTypes> = ({
 	className,
-	album: { title, artists, cover, songs, released },
-}) => (
-	<Root className={className}>
-		<Cover
-			url={cover}
-			title={title}
-		/>
-		<Box>
-			<Title
-				defaultValue={title}
+	album: { albumId, title, artists, cover, songs, released },
+}) => {
+	const { handleAlbumTitleChange, handleAlbumReleasedChange } =
+		useStateContext()
+	const handleTitleChange: ChangeEventHandler<HTMLInputElement> = event =>
+		handleAlbumTitleChange(title, event.target.value)
+	const handleReleasedChange: DatePickerProps["onChange"] = date =>
+		handleAlbumReleasedChange(albumId, date!.valueOf())
+	return (
+		<Root className={className}>
+			<Cover
+				url={cover}
+				title={title}
 			/>
-			<Info>
-				<Artists
-					init={artists}
+			<Box>
+				<Title
+					defaultValue={title}
+					onChange={handleTitleChange}
 				/>
-				<Released
-					minDate={1}
-					onChange={noop}
-					value={released}
-					label="Released"
-					format="dd/MM/yyyy"
-					inputVariant="outlined"
+				<Info>
+					<Artists
+						init={artists}
+					/>
+					<Released
+						minDate={1}
+						value={released}
+						label="Released"
+						format="dd/MM/yyyy"
+						inputVariant="outlined"
+						onChange={handleReleasedChange}
+					/>
+				</Info>
+				<Songs
+					songs={songs}
+					albumId={albumId}
 				/>
-			</Info>
-			<Songs songs={songs}/>
-		</Box>
-	</Root>
-)
+			</Box>
+		</Root>
+	)
+}
 
 interface PropTypes extends StyledProps {
-	album: AlbumWithSongs,
+	album: Album,
 }
 
 export default Album

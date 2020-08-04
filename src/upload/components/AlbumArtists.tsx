@@ -1,30 +1,43 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import isEmpty from "lodash/isEmpty"
+import { createElement, FC } from "react"
 import { useApolloClient } from "@apollo/client"
-import { createElement, FC, Fragment } from "react"
 
+import Box from "@material-ui/core/Box"
+import List from "@material-ui/core/List"
 import Grid from "@material-ui/core/Grid"
 import Chip from "@material-ui/core/Chip"
+import ListItem from "@material-ui/core/ListItem"
 import TextField from "@material-ui/core/TextField"
 import styled from "@material-ui/core/styles/styled"
 import { StyledProps } from "@material-ui/core/styles"
+import withStyles from "@material-ui/core/styles/withStyles"
 
 import { Artist } from "../types"
 import { searchQuery } from "../helpers"
 import AutoComplete from "./AutoComplete"
 import ARTIST_SEARCH from "../graphql/artistSearch.gql"
 
-const Input =
-	styled(TextField)({
-		width: "100%",
+const Root =
+	styled(Box)({
+		position: "relative",
 	})
 
+const Input =
+	withStyles({
+		root: {
+			width: "100%",
+		},
+	})(TextField)
+
 const Artists =
-	styled(Grid)(({ theme }) => ({
-		width: "auto",
-		flexWrap: "unset",
-		marginRight: theme.spacing(1),
-	}))
+	withStyles(theme => ({
+		root: {
+			width: "auto",
+			flexWrap: "unset",
+			marginRight: theme.spacing(1),
+		},
+	}))(Grid)
 
 const Artist =
 	styled(Chip)(({ theme }) => ({
@@ -33,6 +46,20 @@ const Artist =
 			marginRight: 0,
 		},
 	}))
+
+const Menu =
+	withStyles(theme => ({
+		root: {
+			zIndex: 2,
+			width: "100%",
+			height: "auto",
+			position: "absolute",
+			top: "calc(100% - 10px)",
+			boxShadow: theme.shadows[5],
+			borderRadius: theme.shape.borderRadius,
+			backgroundColor: theme.palette.common.white,
+		},
+	}))(List)
 
 const AlbumArtists: FC<PropTypes> = ({ init, className }) => {
 	const client = useApolloClient()
@@ -61,7 +88,7 @@ const AlbumArtists: FC<PropTypes> = ({ init, className }) => {
 				removeSelectedItem,
 				getSelectedItemProps,
 			}) => (
-				<Fragment>
+				<Root>
 					<Input
 						label="Artists"
 						variant="outlined"
@@ -78,6 +105,7 @@ const AlbumArtists: FC<PropTypes> = ({ init, className }) => {
 									{selectedItems.map((selectedItem, index) => (
 										<Artist
 											label={selectedItem}
+											// eslint-disable-next-line react/no-array-index-key
 											key={`selected-item-${index}`}
 											onDelete={() => removeSelectedItem(selectedItem)}
 											{...getSelectedItemProps({ selectedItem, index })}
@@ -87,21 +115,20 @@ const AlbumArtists: FC<PropTypes> = ({ init, className }) => {
 							),
 						}}
 					/>
-					{isOpen && (
-						<ul {...getMenuProps()}>
-							{getFilteredItems(results).map(
-								(result, index) => (
-									<li
-										children={result}
-										key={result + index.toString()}
-										{...getItemProps({ item: result, index })}
-										style={highlightedIndex === index ? {} : {}}
-									/>
-								),
-							)}
-						</ul>
-					)}
-				</Fragment>
+					<Menu {...getMenuProps()} style={{ display: isOpen ? "block" : "none" }}>
+						{getFilteredItems(results).map(
+							(result, index) => (
+								<ListItem
+									button
+									children={result}
+									key={result + index.toString()}
+									{...getItemProps({ item: result, index })}
+									style={highlightedIndex === index ? {} : {}}
+								/>
+							),
+						)}
+					</Menu>
+				</Root>
 			)}
 		/>
 	)

@@ -21,11 +21,19 @@ export interface SongParsed extends Omit<Song, "album"> {
 	album: AlbumParsed,
 }
 
+export type HandleFiles =
+	(files: FileList) => void
+
+export type HandleSongRemove =
+	(albumId: string, songId: string) => void
+
+export type HandleAlbumChange =
+	(albumId: string, val: string | number | string[], key: keyof Album) => void
+
 export interface State {
 	albums: Album[],
 	loading: boolean,
-	handleFiles: (files: FileList) => void,
-	handleSongRemove: (albumId: string, songId: string) => void,
-	handleAlbumTitleChange: (albumId: string, title: string) => void,
-	handleAlbumReleasedChange: (albumId: string, released: number) => void,
+	handleFiles: HandleFiles,
+	handleSongRemove: HandleSongRemove,
+	handleAlbumChange: HandleAlbumChange,
 }

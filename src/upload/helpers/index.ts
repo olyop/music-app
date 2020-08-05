@@ -1,4 +1,3 @@
-export * from "./isNotNull"
 export * from "./searchQuery"
 export * from "./parseFiles"
 export * from "./parseMetadata"

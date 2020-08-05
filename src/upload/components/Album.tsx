@@ -60,12 +60,14 @@ const Album: FC<PropTypes> = ({
 	className,
 	album: { albumId, title, artists, cover, songs, released },
 }) => {
-	const { handleAlbumTitleChange, handleAlbumReleasedChange } =
+	const { handleAlbumChange } =
 		useStateContext()
 	const handleTitleChange: ChangeEventHandler<HTMLInputElement> = event =>
-		handleAlbumTitleChange(title, event.target.value)
+		handleAlbumChange(title, event.target.value, "title")
 	const handleReleasedChange: DatePickerProps["onChange"] = date =>
-		handleAlbumReleasedChange(albumId, date!.valueOf())
+		handleAlbumChange(albumId, date!.valueOf(), "released")
+	const handleArtistsChange = (val: string[]) =>
+		handleAlbumChange(albumId, val, "artists")
 	return (
 		<Root className={className}>
 			<Cover
@@ -79,7 +81,8 @@ const Album: FC<PropTypes> = ({
 				/>
 				<Info>
 					<Artists
-						init={artists}
+						artists={artists}
+						onChange={handleArtistsChange}
 					/>
 					<Released
 						minDate={1}

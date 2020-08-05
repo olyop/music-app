@@ -10,13 +10,13 @@ import { useState, useEffect, ReactElement } from "react"
 
 const { stateChangeTypes } = useCombobox
 
-const AutoComplete = ({ init, render, getResults }: PropTypes) => {
+const AutoComplete = ({ val, render, getResults }: PropTypes) => {
 	const [ input, setInput ] =
 		useState("")
 	const [ results, setResults ] =
 		useState<string[]>([])
 	const multipleSelection =
-		useMultipleSelection<string>({ initialSelectedItems: init })
+		useMultipleSelection<string>({ initialSelectedItems: val })
 	const getFilteredItems = (arr: string[]) => [
 		...(isEmpty(input) ? [] : [input]),
 		...arr.filter(item => (
@@ -75,7 +75,8 @@ interface Callback extends
 	UseMultipleSelectionReturnValue<string> {}
 
 interface PropTypes {
-	init?: string[],
+	val: string[],
+	onChange: (val: string[]) => void,
 	render: (callback: Callback) => ReactElement,
 	getResults: (val: string) => string[] | Promise<string[]>,
 }

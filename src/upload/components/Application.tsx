@@ -1,14 +1,23 @@
 import map from "lodash/fp/map"
+import pipe from "@oly_op/pipe"
+import filter from "lodash/fp/filter"
 import isEmpty from "lodash/isEmpty"
 import { FC, useState, createElement } from "react"
 
 import Box from "@material-ui/core/Box"
 import styled from "@material-ui/core/styles/styled"
 
+import {
+	State,
+	Album,
+	HandleFiles,
+	HandleSongRemove,
+	HandleAlbumChange,
+} from "../types"
+
 import Add from "./Add"
 import Main from "./Main"
 import { parseFiles } from "../helpers"
-import { State, Album } from "../types"
 import { StateContextProvider } from "../context"
 
 const Root =
@@ -24,7 +33,7 @@ const Application: FC = () => {
 	const toggleLoading = () =>
 		setLoading(prevState => !prevState)
 
-	const handleFiles = (files: FileList) => {
+	const handleFiles: HandleFiles = files => {
 		setLoading(true)
 		parseFiles(files)
 			.then(setAlbums)
@@ -32,33 +41,29 @@ const Application: FC = () => {
 			.finally(toggleLoading)
 	}
 
-	const handleAlbumTitleChange = (albumId: string, title: string) =>
+	const handleAlbumChange: HandleAlbumChange = (albumId, val, key) =>
 		setAlbums(map(album => (
-			album.albumId !== albumId ?
-				album : { ...album, title }
+			album.albumId === albumId ?
+				{ ...album, [key]: val } : album
 		)))
 
-	const handleAlbumReleasedChange = (albumId: string, released: number) =>
-		setAlbums(map(album => (
-			album.albumId !== albumId ?
-				album : { ...album, released }
-		)))
-
-	const handleSongRemove = (albumId: string, songId: string) =>
-		setAlbums(map(album => (
-			album.albumId !== albumId ? album : {
-				...album,
-				songs: album.songs.filter(song => song.songId === songId),
-			}
-		)))
+	const handleSongRemove: HandleSongRemove = (albumId, songId) =>
+		setAlbums(pipe(
+			map(album => (
+				album.albumId === albumId ? {
+					...album,
+					songs: album.songs.filter(song => song.songId !== songId),
+				} : album
+			)),
+			filter(({ songs }) => !isEmpty(songs)),
+		))
 
 	const state: State = {
 		albums,
 		loading,
 		handleFiles,
 		handleSongRemove,
-		handleAlbumTitleChange,
-		handleAlbumReleasedChange,
+		handleAlbumChange,
 	}
 
 	return (

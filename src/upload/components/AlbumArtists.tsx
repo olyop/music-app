@@ -61,12 +61,13 @@ const Menu =
 		},
 	}))(List)
 
-const AlbumArtists: FC<PropTypes> = ({ init, className }) => {
+const AlbumArtists: FC<PropTypes> = ({ artists, onChange, className }) => {
 	const client = useApolloClient()
 	const query = searchQuery(client)
 	return (
 		<AutoComplete
-			init={init}
+			val={artists}
+			onChange={onChange}
 			getResults={(
 				query<Artist, Res>({
 					query: ARTIST_SEARCH,
@@ -139,7 +140,8 @@ interface Res {
 }
 
 interface PropTypes extends StyledProps {
-	init: string[],
+	artists: string[],
+	onChange: (val: string[]) => void,
 }
 
 export default AlbumArtists

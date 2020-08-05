@@ -27,6 +27,9 @@ export type HandleFiles =
 export type HandleSongRemove =
 	(albumId: string, songId: string) => void
 
+export type HandleSongChange =
+	(albumId: string, songId: string, val: string | number | string[], key: keyof Song) => void
+
 export type HandleAlbumChange =
 	(albumId: string, val: string | number | string[], key: keyof Album) => void
 
@@ -35,5 +38,6 @@ export interface State {
 	loading: boolean,
 	handleFiles: HandleFiles,
 	handleSongRemove: HandleSongRemove,
+	handleSongChange: HandleSongChange,
 	handleAlbumChange: HandleAlbumChange,
 }

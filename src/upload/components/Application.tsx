@@ -12,6 +12,7 @@ import {
 	Album,
 	HandleFiles,
 	HandleSongRemove,
+	HandleSongChange,
 	HandleAlbumChange,
 } from "../types"
 
@@ -47,6 +48,18 @@ const Application: FC = () => {
 				{ ...album, [key]: val } : album
 		)))
 
+	const handleSongChange: HandleSongChange = (albumId, songId, val, key) =>
+		setAlbums(map(album => (
+			album.albumId === albumId ?
+				{
+					...album,
+					songs: album.songs.map(song => (
+						song.songId === songId ?
+							{ ...song, [key]: val } : song
+					)),
+				} : album
+		)))
+
 	const handleSongRemove: HandleSongRemove = (albumId, songId) =>
 		setAlbums(pipe(
 			map(album => (
@@ -63,6 +76,7 @@ const Application: FC = () => {
 		loading,
 		handleFiles,
 		handleSongRemove,
+		handleSongChange,
 		handleAlbumChange,
 	}
 

@@ -82,8 +82,8 @@ const AlbumArtists: FC<PropTypes> = ({ artists, onChange, className }) => {
 				getItemProps,
 				selectedItems,
 				getInputProps,
+				getLabelProps,
 				getComboboxProps,
-				getDropdownProps,
 				getFilteredItems,
 				highlightedIndex,
 				removeSelectedItem,
@@ -95,11 +95,13 @@ const AlbumArtists: FC<PropTypes> = ({ artists, onChange, className }) => {
 						variant="outlined"
 						className={className}
 						{...getComboboxProps()}
-						InputLabelProps={{ shrink: true }}
-						inputProps={(
+						// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+						InputLabelProps={{
+							shrink: true,
 							// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-							getInputProps(getDropdownProps({ preventKeyAction: isOpen }))
-						)}
+							...getLabelProps(),
+						}}
+						inputProps={getInputProps()}
 						InputProps={{
 							startAdornment: isEmpty(selectedItems) ? undefined : (
 								<Artists container direction="row">
@@ -117,14 +119,14 @@ const AlbumArtists: FC<PropTypes> = ({ artists, onChange, className }) => {
 						}}
 					/>
 					<Menu {...getMenuProps()} style={{ display: isOpen ? "block" : "none" }}>
-						{getFilteredItems(results).map(
+						{isOpen && getFilteredItems(results).map(
 							(result, index) => (
 								<ListItem
 									button
 									children={result}
 									key={result + index.toString()}
+									selected={highlightedIndex === index}
 									{...getItemProps({ item: result, index })}
-									style={highlightedIndex === index ? {} : {}}
 								/>
 							),
 						)}

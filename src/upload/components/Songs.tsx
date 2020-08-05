@@ -1,4 +1,4 @@
-import { createElement, FC } from "react"
+import { createElement, FC, ChangeEventHandler } from "react"
 import { deserializeDuration } from "@oly_op/music-app-common"
 
 import Grid from "@material-ui/core/Grid"
@@ -61,8 +61,14 @@ const Close =
 		},
 	})(TableCell)
 
+type HandleTitleChange = (songId: string) => ChangeEventHandler<HTMLInputElement>
+
 const Songs: FC<PropTypes> = ({ songs, albumId }) => {
-	const { handleSongRemove } = useStateContext()
+	const { handleSongRemove, handleSongChange } =
+		useStateContext()
+	const handleTitleChange: HandleTitleChange =
+		songId => event =>
+			handleSongChange(albumId, songId, event.target.value, "title")
 	return (
 		<TableContainer component={Paper}>
 			<Table size="small">
@@ -89,10 +95,13 @@ const Songs: FC<PropTypes> = ({ songs, albumId }) => {
 						song => (
 							<TableRow hover key={song.songId}>
 								<TrackNumber>
-									<TrackNumberInput defaultValue={song.trackNumber}/>
+									<TrackNumberInput value={song.trackNumber}/>
 								</TrackNumber>
 								<TableCell>
-									<Input defaultValue={song.title}/>
+									<Input
+										value={song.title}
+										onChange={handleTitleChange(song.songId)}
+									/>
 								</TableCell>
 								<Duration>
 									{deserializeDuration(song.duration)}

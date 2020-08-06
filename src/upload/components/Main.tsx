@@ -4,6 +4,7 @@ import Grid from "@material-ui/core/Grid"
 import styled from "@material-ui/core/styles/styled"
 
 import Albums from "./Albums"
+import Artists from "./Artists"
 
 const Root =
 	styled(Grid)(({ theme }) => ({
@@ -36,7 +37,7 @@ const Main: FC = () => (
 			<Albums/>
 		</Section>
 		<Sidebar item lg={3}>
-			Right
+			<Artists/>
 		</Sidebar>
 	</Root>
 )

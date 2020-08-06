@@ -1,3 +1,4 @@
+import orderBy from "lodash/orderBy"
 import { createElement, FC, ChangeEventHandler } from "react"
 import { deserializeDuration } from "@oly_op/music-app-common"
 
@@ -16,6 +17,7 @@ import withStyles from "@material-ui/core/styles/withStyles"
 import TableContainer from "@material-ui/core/TableContainer"
 
 import { Song } from "../types"
+import SongArtists from "./SongArtists"
 import { useStateContext } from "../context"
 
 const TrackNumber =
@@ -61,14 +63,22 @@ const Close =
 		},
 	})(TableCell)
 
-type HandleTitleChange = (songId: string) => ChangeEventHandler<HTMLInputElement>
+type InputChange = (songId: string) => ChangeEventHandler<HTMLInputElement>
+type SelectionChange = (songId: string) => (arr: string[]) => void
 
 const Songs: FC<PropTypes> = ({ songs, albumId }) => {
 	const { handleSongRemove, handleSongChange } =
 		useStateContext()
-	const handleTitleChange: HandleTitleChange =
-		songId => event =>
-			handleSongChange(albumId, songId, event.target.value, "title")
+	const handleTitleChange: InputChange = songId => event =>
+		handleSongChange(albumId, songId, event.target.value, "title")
+	const handleTrackNumberChange: InputChange = songId => event =>
+		handleSongChange(albumId, songId, event.target.value, "trackNumber")
+	const handleArtistsChange: SelectionChange = songId => arr =>
+		handleSongChange(albumId, songId, arr, "artists")
+	const handleFeaturingChange: SelectionChange = songId => arr =>
+		handleSongChange(albumId, songId, arr, "featuring")
+	const handleRemixersChange: SelectionChange = songId => arr =>
+		handleSongChange(albumId, songId, arr, "remixers")
 	return (
 		<TableContainer component={Paper}>
 			<Table size="small">
@@ -85,17 +95,26 @@ const Songs: FC<PropTypes> = ({ songs, albumId }) => {
 							Artists
 						</TableCell>
 						<TableCell>
+							Featuring
+						</TableCell>
+						<TableCell>
+							Remixers
+						</TableCell>
+						<TableCell>
 							Genres
 						</TableCell>
 						<TableCell padding="checkbox"/>
 					</TableRow>
 				</TableHead>
 				<TableBody>
-					{songs.map(
+					{orderBy(songs, "trackNumber").map(
 						song => (
 							<TableRow hover key={song.songId}>
 								<TrackNumber>
-									<TrackNumberInput value={song.trackNumber}/>
+									<TrackNumberInput
+										value={song.trackNumber}
+										onChange={handleTrackNumberChange(song.songId)}
+									/>
 								</TrackNumber>
 								<TableCell>
 									<Input
@@ -107,7 +126,22 @@ const Songs: FC<PropTypes> = ({ songs, albumId }) => {
 									{deserializeDuration(song.duration)}
 								</Duration>
 								<TableCell>
-									{song.artists.join(", ")}
+									<SongArtists
+										artists={song.artists}
+										onChange={handleArtistsChange(song.songId)}
+									/>
+								</TableCell>
+								<TableCell>
+									<SongArtists
+										artists={song.featuring}
+										onChange={handleFeaturingChange(song.songId)}
+									/>
+								</TableCell>
+								<TableCell>
+									<SongArtists
+										artists={song.remixers}
+										onChange={handleRemixersChange(song.songId)}
+									/>
 								</TableCell>
 								<TableCell>
 									{song.genres.join(", ")}

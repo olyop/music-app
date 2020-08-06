@@ -1,6 +1,6 @@
 import { SongBase, AlbumBase, ArtistBase } from "@oly_op/music-app-types"
 
-export type Artist = Omit<ArtistBase, "artistId">
+export type Artist = ArtistBase
 
 export interface Song extends SongBase {
 	genres: string[],

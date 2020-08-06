@@ -76,7 +76,7 @@ const Album: FC<PropTypes> = ({
 			/>
 			<Box>
 				<Title
-					defaultValue={title}
+					value={title}
 					onChange={handleTitleChange}
 				/>
 				<Info>

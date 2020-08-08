@@ -50,14 +50,13 @@ const Application: FC = () => {
 
 	const handleSongChange: HandleSongChange = (albumId, songId, val, key) =>
 		setAlbums(map(album => (
-			album.albumId === albumId ?
-				{
-					...album,
-					songs: album.songs.map(song => (
-						song.songId === songId ?
-							{ ...song, [key]: val } : song
-					)),
-				} : album
+			album.albumId === albumId ? {
+				...album,
+				songs: album.songs.map(song => (
+					song.songId === songId ?
+						{ ...song, [key]: val } : song
+				)),
+			} : album
 		)))
 
 	const handleSongRemove: HandleSongRemove = (albumId, songId) =>

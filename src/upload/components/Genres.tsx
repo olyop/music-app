@@ -4,16 +4,14 @@ import { createElement, useState, useEffect, FC } from "react"
 
 import Box from "@material-ui/core/Box"
 import Card from "@material-ui/core/Card"
-import CardMedia from "@material-ui/core/CardMedia"
 import Typography from "@material-ui/core/Typography"
 import CardContent from "@material-ui/core/CardContent"
-import { StyledProps } from "@material-ui/core/styles"
 import withStyles from "@material-ui/core/styles/withStyles"
 import CardActionArea from "@material-ui/core/CardActionArea"
 
-import { Artist } from "../types"
+import { Genre } from "../types"
 import { useStateContext } from "../context"
-import { getArtistsToAdd } from "../helpers"
+import { getGenresToAdd } from "../helpers"
 
 const Header =
 	withStyles(theme => ({
@@ -22,7 +20,7 @@ const Header =
 		},
 	}))(Typography)
 
-const Artist =
+const Genre =
 	withStyles(theme => ({
 		root: {
 			marginBottom: theme.spacing(2),
@@ -32,39 +30,35 @@ const Artist =
 		},
 	}))(Card)
 
-const Artists: FC<StyledProps> = ({ className }) => {
+const Genres: FC = () => {
 	const client = useApolloClient()
 	const { albums } = useStateContext()
-	const [ artists, setArtists ] = useState<Artist[]>([])
+	const [ genres, setGenres ] = useState<Genre[]>([])
 	useEffect(() => {
-		getArtistsToAdd(client)(albums)
-			.then(setArtists)
+		getGenresToAdd(client)(albums)
+			.then(setGenres)
 			.catch(console.error)
 	}, [client, albums])
 	return (
-		<Box className={className}>
-			<Header variant="h6">Artists</Header>
-			{orderBy(artists, "name").map(
-				artist => (
-					<Artist key={artist.artistId}>
+		<Box>
+			<Header variant="h6">Genres</Header>
+			{orderBy(genres, "name").map(
+				genre => (
+					<Genre key={genre.genreId}>
 						<CardActionArea>
-							<CardMedia
-								image="null"
-								title={artist.name}
-							/>
 							<CardContent>
 								<Typography
 									component="h2"
 									variant="subtitle2"
-									children={artist.name}
+									children={genre.name}
 								/>
 							</CardContent>
 						</CardActionArea>
-					</Artist>
+					</Genre>
 				),
 			)}
 		</Box>
 	)
 }
 
-export default Artists
+export default Genres

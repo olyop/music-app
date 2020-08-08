@@ -103,7 +103,7 @@
 		"@types/node-sass": "^4.11.1",
 		"@types/optimize-css-assets-webpack-plugin": "^5.0.1",
 		"@types/pg": "^7.14.4",
-		"@types/react": "^16.9.43",
+		"@types/react": "^16.9.45",
 		"@types/react-dom": "^16.9.8",
 		"@types/react-router-dom": "^5.1.5",
 		"@types/sharp": "^0.25.1",

@@ -12,9 +12,9 @@ import { getSearchResults } from "./getSearchResults"
 import ARTIST_SEARCH from "../graphql/artistSearch.gql"
 
 const stringsToArtists = (arr: string[]): Artist[] =>
-	arr.map(artist => ({
+	arr.map(name => ({
+		name,
 		cover: null,
-		name: artist,
 		artistId: uniqueId(),
 	}))
 

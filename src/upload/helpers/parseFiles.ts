@@ -11,7 +11,7 @@ export const parseFiles =
 				const promises = files.map(file => parseBlob(file))
 				Promise
 					.all(promises)
-					.then(parseMetadata)
+					.then(parseMetadata(files))
 					.then(resolve)
 					.catch(reject)
 			},

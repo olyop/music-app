@@ -12,7 +12,8 @@ import { determineDiscNumber, determineTrackNumber } from "./discAndTrackNumber"
 
 import { SongParsed } from "../../../types"
 
-const determineSong = ({ common, format }: IAudioMetadata): SongParsed => ({
+const determineSong = (audio: File, { common, format }: IAudioMetadata): SongParsed => ({
+	audio,
 	songId: uniqueId(),
 	mix: determineMix(common),
 	album: determineAlbum(common),

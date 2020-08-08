@@ -2,7 +2,9 @@ import { createElement, FC } from "react"
 
 import Grid from "@material-ui/core/Grid"
 import styled from "@material-ui/core/styles/styled"
+import withStyles from "@material-ui/core/styles/withStyles"
 
+import Genres from "./Genres"
 import Albums from "./Albums"
 import Artists from "./Artists"
 
@@ -16,14 +18,21 @@ const Root =
 	}))
 
 const Section =
-	styled(Grid)(({ theme }) => ({
-		width: "100%",
-		minHeight: "100vh",
-		padding: theme.spacing(4),
-		[theme.breakpoints.up("lg")]: {
-			height: "100%",
-			overflow: "auto",
+	withStyles(theme => ({
+		root: {
+			width: "100%",
+			minHeight: "100vh",
+			padding: theme.spacing(4),
+			[theme.breakpoints.up("lg")]: {
+				height: "100%",
+				overflow: "auto",
+			},
 		},
+	}))(Grid)
+
+const ArtistsSection =
+	styled(Artists)(({ theme }) => ({
+		marginBottom: theme.spacing(2),
 	}))
 
 const Sidebar =
@@ -37,7 +46,8 @@ const Main: FC = () => (
 			<Albums/>
 		</Section>
 		<Sidebar item lg={2}>
-			<Artists/>
+			<ArtistsSection/>
+			<Genres/>
 		</Sidebar>
 	</Root>
 )

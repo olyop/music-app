@@ -1,4 +1,6 @@
-import { SongBase, AlbumBase, ArtistBase } from "@oly_op/music-app-types"
+import { SongBase, AlbumBase, GenreBase, ArtistBase } from "@oly_op/music-app-types"
+
+export type Genre = GenreBase
 
 export interface Artist extends ArtistBase {
 	cover: string | null,
@@ -20,6 +22,7 @@ export interface Album extends AlbumBase {
 export type AlbumParsed = Omit<Album, "albumId" | "songs">
 
 export interface SongParsed extends Omit<Song, "album"> {
+	audio: File,
 	album: AlbumParsed,
 }
 

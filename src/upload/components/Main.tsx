@@ -33,10 +33,10 @@ const Sidebar =
 
 const Main: FC = () => (
 	<Root container>
-		<Section item lg={9}>
+		<Section item lg={10}>
 			<Albums/>
 		</Section>
-		<Sidebar item lg={3}>
+		<Sidebar item lg={2}>
 			<Artists/>
 		</Sidebar>
 	</Root>

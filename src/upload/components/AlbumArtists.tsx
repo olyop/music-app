@@ -14,8 +14,8 @@ import { StyledProps } from "@material-ui/core/styles"
 import withStyles from "@material-ui/core/styles/withStyles"
 
 import { Artist } from "../types"
-import { searchQuery } from "../helpers"
 import AutoComplete from "./AutoComplete"
+import { getSearchResults } from "../helpers"
 import ARTIST_SEARCH from "../graphql/artistSearch.gql"
 
 const Root =
@@ -63,13 +63,13 @@ const Menu =
 
 const AlbumArtists: FC<PropTypes> = ({ artists, onChange, className }) => {
 	const client = useApolloClient()
-	const query = searchQuery(client)
+	const query = getSearchResults(client)
 	return (
 		<AutoComplete
 			val={artists}
 			onChange={onChange}
 			getResults={(
-				query<Artist, Res>({
+				query<Artist, Res, string>({
 					query: ARTIST_SEARCH,
 					parseDoc: ({ name }) => name,
 					parseRes: ({ artistSearch }) => artistSearch,

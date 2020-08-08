@@ -23,9 +23,9 @@ import { useStateContext } from "../context"
 const TrackNumber =
 	withStyles({
 		root: {
-			width: 32,
-			paddingRight: 0,
+			width: 15,
 			textAlign: "right",
+			padding: "0 !important",
 		},
 	})(TableCell)
 
@@ -79,11 +79,14 @@ const Songs: FC<PropTypes> = ({ songs, albumId }) => {
 		handleSongChange(albumId, songId, arr, "featuring")
 	const handleRemixersChange: SelectionChange = songId => arr =>
 		handleSongChange(albumId, songId, arr, "remixers")
+	const handleGenresChange: SelectionChange = songId => arr =>
+		handleSongChange(albumId, songId, arr, "genres")
 	return (
 		<TableContainer component={Paper}>
 			<Table size="small">
 				<TableHead>
 					<TableRow>
+						<TableCell padding="checkbox"/>
 						<TrackNumber>#</TrackNumber>
 						<TableCell>Title</TableCell>
 						<Duration>
@@ -103,13 +106,19 @@ const Songs: FC<PropTypes> = ({ songs, albumId }) => {
 						<TableCell>
 							Genres
 						</TableCell>
-						<TableCell padding="checkbox"/>
 					</TableRow>
 				</TableHead>
 				<TableBody>
 					{orderBy(songs, "trackNumber").map(
 						song => (
 							<TableRow hover key={song.songId}>
+								<Close>
+									<Grid container alignItems="center" justify="center">
+										<IconButton size="small" onClick={() => handleSongRemove(albumId, song.songId)}>
+											<CloseIcon fontSize="small"/>
+										</IconButton>
+									</Grid>
+								</Close>
 								<TrackNumber>
 									<TrackNumberInput
 										value={song.trackNumber}
@@ -144,15 +153,11 @@ const Songs: FC<PropTypes> = ({ songs, albumId }) => {
 									/>
 								</TableCell>
 								<TableCell>
-									{song.genres.join(", ")}
+									<SongArtists
+										artists={song.genres}
+										onChange={handleGenresChange(song.songId)}
+									/>
 								</TableCell>
-								<Close>
-									<Grid container alignItems="center" justify="center">
-										<IconButton size="small" onClick={() => handleSongRemove(albumId, song.songId)}>
-											<CloseIcon fontSize="small"/>
-										</IconButton>
-									</Grid>
-								</Close>
 							</TableRow>
 						),
 					)}

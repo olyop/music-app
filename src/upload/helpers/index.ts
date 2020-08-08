@@ -1,5 +1,5 @@
-export * from "./searchQuery"
 export * from "./parseFiles"
 export * from "./parseMetadata"
 export * from "./createContext"
-export * from "./albumsToArtists"
+export * from "./getArtistsToAdd"
+export * from "./getSearchResults"

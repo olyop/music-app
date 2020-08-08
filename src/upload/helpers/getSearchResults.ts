@@ -1,27 +1,28 @@
 import map from "lodash/fp/map"
+import identity from "lodash/identity"
 import type { DocumentNode } from "graphql"
-import { ApolloClient } from "@apollo/client"
+import type { ApolloClient } from "@apollo/client"
 
 interface Vars {
 	query: string,
 	exact: boolean,
 }
 
-interface Input<Doc, Res> {
+interface Input<Doc, Res, Ret> {
 	exact?: boolean,
 	query: DocumentNode,
+	parseDoc?: (doc: Doc) => Ret,
 	parseRes: (res: Res) => Doc[],
-	parseDoc: (doc: Doc) => string,
 }
 
-export const searchQuery =
-	(apollo: ApolloClient<unknown>) =>
-		<Doc, Res>({ query, parseRes, parseDoc, exact = false }: Input<Doc, Res>) =>
+export const getSearchResults =
+	(client: ApolloClient<unknown>) =>
+		<Doc, Res, Ret = Doc>({ query, parseRes, parseDoc = identity, exact = false }: Input<Doc, Res, Ret>) =>
 			(text: string) =>
-				new Promise<string[]>(
+				new Promise<Ret[]>(
 					(resolve, reject) => {
 						const variables = { exact, query: text }
-						apollo
+						client
 							.query<Res, Vars>({ query, variables })
 							.then(({ data }) => data!)
 							.then(parseRes)

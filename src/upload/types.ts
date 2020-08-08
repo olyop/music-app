@@ -1,6 +1,8 @@
 import { SongBase, AlbumBase, ArtistBase } from "@oly_op/music-app-types"
 
-export type Artist = ArtistBase
+export interface Artist extends ArtistBase {
+	cover: string | null,
+}
 
 export interface Song extends SongBase {
 	genres: string[],

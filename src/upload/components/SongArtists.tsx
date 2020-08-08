@@ -6,15 +6,15 @@ import { useApolloClient } from "@apollo/client"
 import Box from "@material-ui/core/Box"
 import List from "@material-ui/core/List"
 import Grid from "@material-ui/core/Grid"
-import InputBase from "@material-ui/core/Input"
+import Chip from "@material-ui/core/Chip"
 import ListItem from "@material-ui/core/ListItem"
+import InputBase from "@material-ui/core/InputBase"
 import styled from "@material-ui/core/styles/styled"
-import Typography from "@material-ui/core/Typography"
 import withStyles from "@material-ui/core/styles/withStyles"
 
 import { Artist } from "../types"
-import { searchQuery } from "../helpers"
 import AutoComplete from "./AutoComplete"
+import { getSearchResults } from "../helpers"
 import ARTIST_SEARCH from "../graphql/artistSearch.gql"
 
 const Root =
@@ -25,35 +25,41 @@ const Root =
 const Input =
 	withStyles({
 		root: {
-			width: "100%",
+			display: "flex",
+			alignItems: "center",
 		},
 	})(InputBase)
 
 const Artists =
-	withStyles(theme => ({
+	withStyles({
 		root: {
 			width: "auto",
 			flexWrap: "unset",
-			marginRight: theme.spacing(1),
 		},
-	}))(Grid)
+	})(Grid)
 
 const Artist =
-	styled(Typography)(({ theme }) => ({
-		marginRight: theme.spacing(1),
-		"&:last-child": {
-			marginRight: 0,
+	withStyles(theme => ({
+		root: {
+			padding: 0,
+			marginRight: theme.spacing(0.4),
+			backgroundColor: "transparent !important",
 		},
-	}))
+		label: {
+			padding: 0,
+			marginBottom: 1,
+			marginRight: theme.spacing(0.75),
+		},
+	}))(Chip)
 
 const Menu =
 	withStyles(theme => ({
 		root: {
 			zIndex: 2,
+			top: "100%",
 			width: "100%",
 			height: "auto",
 			position: "absolute",
-			top: "calc(100% - 10px)",
 			boxShadow: theme.shadows[5],
 			borderRadius: theme.shape.borderRadius,
 			backgroundColor: theme.palette.common.white,
@@ -62,13 +68,13 @@ const Menu =
 
 const SongArtists: FC<PropTypes> = ({ artists, onChange }) => {
 	const client = useApolloClient()
-	const query = searchQuery(client)
+	const query = getSearchResults(client)
 	return (
 		<AutoComplete
 			val={artists}
 			onChange={onChange}
 			getResults={(
-				query<Artist, Res>({
+				query<Artist, Res, string>({
 					query: ARTIST_SEARCH,
 					parseDoc: ({ name }) => name,
 					parseRes: ({ artistSearch }) => artistSearch,
@@ -89,24 +95,24 @@ const SongArtists: FC<PropTypes> = ({ artists, onChange }) => {
 			}) => (
 				<Root>
 					<Input
-						{...getInputProps()}
 						{...getComboboxProps()}
-						InputProps={{
-							startAdornment: isEmpty(selectedItems) ? undefined : (
-								<Artists container direction="row">
-									{selectedItems.map((selectedItem, index) => (
+						inputProps={getInputProps()}
+						startAdornment={isEmpty(selectedItems) ? undefined : (
+							<Artists container direction="row">
+								{selectedItems.map(
+									(selectedItem, index) => (
 										<Artist
-											variant="body1"
-											children={selectedItem}
-											// eslint-disable-next-line react/no-array-index-key
-											key={`selected-item-${index}`}
+											size="small"
+											clickable={false}
+											key={selectedItem}
+											label={selectedItem}
 											onDelete={() => removeSelectedItem(selectedItem)}
 											{...getSelectedItemProps({ selectedItem, index })}
 										/>
-									))}
-								</Artists>
-							),
-						}}
+									),
+								)}
+							</Artists>
+						)}
 					/>
 					<Menu {...getMenuProps()} style={{ display: isOpen ? "block" : "none" }}>
 						{isOpen && getFilteredItems(results).map(

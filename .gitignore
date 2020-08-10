@@ -1,10 +1,12 @@
 # folders
 dist/
 node_modules/
-
-src/common/*
-!src/common/src/*
-!src/common/package.json
+src/common/bufferToDataUrl.js
+src/common/bufferToDataUrl.d.ts
+src/common/bufferToDataUrl.js.map
+src/common/deserializeDuration.js
+src/common/deserializeDuration.d.ts
+src/common/deserializeDuration.js.map
 
 # files
 .env

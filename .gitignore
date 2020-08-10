@@ -1,7 +1,9 @@
 # folders
 dist/
+src/common
 node_modules/
-src/common/dist/
+
+!src/common/src
 
 # files
 .env

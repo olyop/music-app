@@ -16,7 +16,7 @@ import { getGenresToAdd } from "../helpers"
 const Header =
 	withStyles(theme => ({
 		root: {
-			marginBottom: theme.spacing(2),
+			marginBottom: theme.spacing(1),
 		},
 	}))(Typography)
 
@@ -49,7 +49,7 @@ const Genres: FC = () => {
 							<CardContent>
 								<Typography
 									component="h2"
-									variant="subtitle2"
+									variant="subtitle1"
 									children={genre.name}
 								/>
 							</CardContent>

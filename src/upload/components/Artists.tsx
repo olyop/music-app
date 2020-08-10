@@ -18,14 +18,15 @@ import { getArtistsToAdd } from "../helpers"
 const Header =
 	withStyles(theme => ({
 		root: {
-			marginBottom: theme.spacing(2),
+			marginTop: -6,
+			marginBottom: theme.spacing(1),
 		},
 	}))(Typography)
 
 const Artist =
 	withStyles(theme => ({
 		root: {
-			marginBottom: theme.spacing(2),
+			marginBottom: theme.spacing(1.5),
 			"&:last-child": {
 				marginBottom: 0,
 			},
@@ -55,7 +56,7 @@ const Artists: FC<StyledProps> = ({ className }) => {
 							<CardContent>
 								<Typography
 									component="h2"
-									variant="subtitle2"
+									variant="subtitle1"
 									children={artist.name}
 								/>
 							</CardContent>

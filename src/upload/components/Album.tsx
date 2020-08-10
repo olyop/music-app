@@ -1,10 +1,18 @@
-import { createElement, FC, ChangeEventHandler } from "react"
+import noop from "lodash/noop"
+import { useState, createElement, FC, ChangeEventHandler } from "react"
 
 import Box from "@material-ui/core/Box"
 import Input from "@material-ui/core/Input"
+import Button from "@material-ui/core/Button"
+import Dialog from "@material-ui/core/Dialog"
 import styled from "@material-ui/core/styles/styled"
 import { StyledProps } from "@material-ui/core/styles"
+import MuiDialogTitle from "@material-ui/core/DialogTitle"
+import withStyles from "@material-ui/core/styles/withStyles"
+import MuiDialogContent from "@material-ui/core/DialogContent"
+import MuiDialogActions from "@material-ui/core/DialogActions"
 import { DatePicker, DatePickerProps } from "@material-ui/pickers"
+import DialogContentText from "@material-ui/core/DialogContentText"
 
 import Img from "./Img"
 import Songs from "./Songs"
@@ -27,6 +35,37 @@ const Cover =
 		boxShadow: theme.shadows[3],
 		borderRadius: theme.shape.borderRadius,
 	}))
+
+const DialogTitle =
+	withStyles(theme => ({
+		root: {
+			padding: theme.spacing(2),
+		},
+	}))(MuiDialogTitle)
+
+const DialogCover =
+	styled(Img)(({ theme }) => ({
+		width: 300,
+		height: 300,
+		cursor: "pointer",
+		boxShadow: theme.shadows[3],
+		borderRadius: theme.shape.borderRadius,
+	}))
+
+const DialogContent =
+	withStyles(theme => ({
+		root: {
+			padding: theme.spacing(2),
+		},
+	}))(MuiDialogContent)
+
+const DialogActions =
+	withStyles(theme => ({
+		root: {
+			margin: 0,
+			padding: theme.spacing(2),
+		},
+	}))(MuiDialogActions)
 
 const Title =
 	styled(Input)(({ theme }) => ({
@@ -60,8 +99,12 @@ const Album: FC<PropTypes> = ({
 	className,
 	album: { albumId, title, artists, cover, songs, released },
 }) => {
+	const [ open, setOpen ] =
+		useState(false)
 	const { handleAlbumChange } =
 		useStateContext()
+	const toggleClose = () =>
+		setOpen(prevState => !prevState)
 	const handleTitleChange: ChangeEventHandler<HTMLInputElement> = event =>
 		handleAlbumChange(title, event.target.value, "title")
 	const handleReleasedChange: DatePickerProps["onChange"] = date =>
@@ -73,7 +116,33 @@ const Album: FC<PropTypes> = ({
 			<Cover
 				url={cover}
 				title={title}
+				onClick={toggleClose}
 			/>
+			<Dialog open={open} onClose={toggleClose}>
+				<DialogTitle>Set cover</DialogTitle>
+				<DialogContent dividers>
+					<DialogContentText
+						children={title}
+					/>
+					<DialogCover
+						url={cover}
+						title={title}
+						onClick={noop}
+					/>
+				</DialogContent>
+				<DialogActions>
+					<Button
+						variant="text"
+						children="Close"
+						onClick={toggleClose}
+					/>
+					<Button
+						onClick={noop}
+						children="Upload"
+						variant="contained"
+					/>
+				</DialogActions>
+			</Dialog>
 			<Box>
 				<Title
 					value={title}

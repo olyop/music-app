@@ -32,7 +32,7 @@ const Section =
 
 const ArtistsSection =
 	styled(Artists)(({ theme }) => ({
-		marginBottom: theme.spacing(2),
+		marginBottom: theme.spacing(3),
 	}))
 
 const Sidebar =

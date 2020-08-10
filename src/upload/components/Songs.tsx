@@ -87,8 +87,12 @@ const Songs: FC<PropTypes> = ({ songs, albumId }) => {
 				<TableHead>
 					<TableRow>
 						<TableCell padding="checkbox"/>
-						<TrackNumber>#</TrackNumber>
-						<TableCell>Title</TableCell>
+						<TrackNumber>
+							#
+						</TrackNumber>
+						<TableCell>
+							Title
+						</TableCell>
 						<Duration>
 							<Grid container alignItems="center" justify="center">
 								<AccessTimeIcon fontSize="small"/>

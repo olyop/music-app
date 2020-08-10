@@ -26,8 +26,8 @@ const Inner =
 		backgroundPosition: "50% 50%",
 	})
 
-const Img: FC<PropTypes> = ({ url, title, children, className }) => (
-	<Root className={className} title={title}>
+const Img: FC<PropTypes> = ({ url, onClick, title, children, className }) => (
+	<Root onClick={onClick} className={className} title={title}>
 		{url && (
 			<Inner
 				className="img"
@@ -41,6 +41,7 @@ const Img: FC<PropTypes> = ({ url, title, children, className }) => (
 interface PropTypes extends StyledProps {
 	title?: string,
 	url: string | null,
+	onClick: () => void,
 }
 
 export default Img

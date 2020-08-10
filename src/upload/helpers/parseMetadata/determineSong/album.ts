@@ -1,5 +1,5 @@
 import { ICommonTagsResult } from "music-metadata-browser"
-import { bufferToDataUrl } from "@oly_op/music-app-common"
+import bufferToDataUrl from "@oly_op/music-app-common/bufferToDataUrl"
 
 import { splitList } from "./common"
 import { AlbumParsed } from "../../../types"

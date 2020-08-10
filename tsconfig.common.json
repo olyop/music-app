@@ -3,10 +3,9 @@
 	"compilerOptions": {
 		"declaration": true,
 		"module": "CommonJS",
-		"outDir": "src/common/dist"
+		"outDir": "src/common"
 	},
 	"files": [
-		"src/common/src/index.ts",
 		"src/common/src/bufferToDataUrl.ts",
 		"src/common/src/deserializeDuration.ts"
 	]

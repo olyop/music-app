@@ -1,4 +1,4 @@
-export const deserializeDuration = (duration: number, wordFormat = false): string => {
+const deserializeDuration = (duration: number, wordFormat = false): string => {
 	const minutes = Math.floor(duration / 60)
 	const seconds = duration % 60
 	if (wordFormat) {
@@ -7,3 +7,5 @@ export const deserializeDuration = (duration: number, wordFormat = false): strin
 		return `${minutes}:${seconds <= 9 ? "0" : ""}${seconds}`
 	}
 }
+
+export default deserializeDuration

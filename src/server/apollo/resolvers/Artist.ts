@@ -1,6 +1,5 @@
 import { QueryResult } from "pg"
-import { bufferToDataUrl } from "@oly_op/music-app-common"
-
+import bufferToDataUrl from "@oly_op/music-app-common/bufferToDataUrl"
 import {
 	Song,
 	Play,

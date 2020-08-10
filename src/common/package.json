@@ -1,8 +1,6 @@
 {
-	"main": "dist",
 	"license": "MIT",
-	"version": "3.6.0",
-	"types": "dist/index.d.ts",
+	"version": "5.0.1",
 	"description": "music-app-common",
 	"name": "@oly_op/music-app-common",
 	"bugs": "https://github.com/olyop/music-app/issues",

@@ -1,6 +1,6 @@
 import orderBy from "lodash/orderBy"
 import { createElement, FC, ChangeEventHandler } from "react"
-import { deserializeDuration } from "@oly_op/music-app-common"
+import deserializeDuration from "@oly_op/music-app-common/deserializeDuration"
 
 import Grid from "@material-ui/core/Grid"
 import Table from "@material-ui/core/Table"

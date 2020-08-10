@@ -1,8 +1,9 @@
-import { createElement, FC } from "react"
+import { createElement, FC, ChangeEventHandler } from "react"
 
 import Box from "@material-ui/core/Box"
 import styled from "@material-ui/core/styles/styled"
-import { StyledProps } from "@material-ui/core/styles"
+
+import { blobToDataUrl } from "../helpers"
 
 const Root =
 	styled(Box)({
@@ -13,6 +14,18 @@ const Root =
 			display: "block",
 			paddingTop: "100%",
 		},
+	})
+
+const Input =
+	styled("input")({
+		top: 0,
+		left: 0,
+		zIndex: 2,
+		opacity: 0,
+		width: "100%",
+		height: "100%",
+		cursor: "pointer",
+		position: "absolute",
 	})
 
 const Inner =
@@ -26,22 +39,31 @@ const Inner =
 		backgroundPosition: "50% 50%",
 	})
 
-const Img: FC<PropTypes> = ({ url, onClick, title, children, className }) => (
-	<Root onClick={onClick} className={className} title={title}>
-		{url && (
-			<Inner
-				className="img"
-				style={{ backgroundImage: `url(${url})` }}
+const Img: FC<PropTypes> = ({ url, onChange, title, children, className }) => {
+	const handleChange: ChangeEventHandler<HTMLInputElement> = async event =>
+		onChange(await blobToDataUrl(event.target.files![0]))
+	return (
+		<Root className={className} title={title}>
+			<Input
+				type="file"
+				onChange={handleChange}
 			/>
-		)}
-		{children}
-	</Root>
-)
+			{url && (
+				<Inner
+					className="img"
+					style={{ backgroundImage: `url(${url})` }}
+				/>
+			)}
+			{children}
+		</Root>
+	)
+}
 
-interface PropTypes extends StyledProps {
+interface PropTypes {
 	title?: string,
+	className?: string,
 	url: string | null,
-	onClick: () => void,
+	onChange: (dataUrl: string) => void,
 }
 
 export default Img

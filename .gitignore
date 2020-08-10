@@ -1,8 +1,8 @@
 # folders
 dist/
-src/common
 node_modules/
 
+src/common/*
 !src/common/src
 
 # files

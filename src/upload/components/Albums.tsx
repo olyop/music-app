@@ -1,6 +1,8 @@
-import { createElement, FC, Fragment } from "react"
+import { createElement, FC } from "react"
 
+import Box from "@material-ui/core/Box"
 import styled from "@material-ui/core/styles/styled"
+import type { StyledProps } from "@material-ui/core/styles"
 
 import Album from "./Album"
 import { useStateContext } from "../context"
@@ -17,10 +19,10 @@ const Section =
 		},
 	}))
 
-const Albums: FC = () => {
+const Albums: FC<StyledProps> = ({ className }) => {
 	const { albums } = useStateContext()
 	return (
-		<Fragment>
+		<Box className={className}>
 			{albums.map(
 				album => (
 					<Section
@@ -29,7 +31,7 @@ const Albums: FC = () => {
 					/>
 				),
 			)}
-		</Fragment>
+		</Box>
 	)
 }
 

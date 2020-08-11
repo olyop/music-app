@@ -55,7 +55,7 @@ const Artist =
 const Menu =
 	withStyles(theme => ({
 		root: {
-			zIndex: 2,
+			zIndex: 3,
 			top: "100%",
 			width: "100%",
 			height: "auto",

@@ -1,6 +1,5 @@
 import orderBy from "lodash/orderBy"
-import { useApolloClient } from "@apollo/client"
-import { createElement, useState, useEffect, FC } from "react"
+import { createElement, FC } from "react"
 
 import Box from "@material-ui/core/Box"
 import Card from "@material-ui/core/Card"
@@ -14,7 +13,6 @@ import CardActionArea from "@material-ui/core/CardActionArea"
 import Img from "./Img"
 import { Artist } from "../types"
 import { useStateContext } from "../context"
-import { getArtistsToAdd } from "../helpers"
 
 const Header =
 	withStyles(theme => ({
@@ -41,35 +39,18 @@ const Photo =
 	}))
 
 const Artists: FC<StyledProps> = ({ className }) => {
-	const client =
-		useApolloClient()
-	const { albums } =
-		useStateContext()
-	const [ artists, setArtists ] =
-		useState<Artist[]>([])
-	const handleCoverChange = (artistId: string) => (dataUrl: string) =>
-		setArtists(prevState => prevState.map(
-			item => (item.artistId === artistId ? {
-				...item,
-				cover: dataUrl,
-			} : item),
-		))
-	useEffect(() => {
-		getArtistsToAdd(client)(albums)
-			.then(setArtists)
-			.catch(console.error)
-	}, [client, albums])
+	const { artists, handleArtistPhotoChange } = useStateContext()
 	return (
 		<Box className={className}>
 			<Header variant="h6">Artists</Header>
 			{orderBy(artists, "name").map(
 				artist => (
-					<Artist key={artist.artistId}>
+					<Artist key={artist.name}>
 						<CardActionArea>
 							<Photo
-								url={artist.cover}
+								url={artist.photo}
 								title={artist.name}
-								onChange={handleCoverChange(artist.artistId)}
+								onChange={handleArtistPhotoChange(artist.artistId)}
 							/>
 							<CardContent>
 								<Typography

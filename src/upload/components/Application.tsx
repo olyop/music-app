@@ -1,24 +1,34 @@
 import map from "lodash/fp/map"
 import pipe from "@oly_op/pipe"
-import filter from "lodash/fp/filter"
 import isEmpty from "lodash/isEmpty"
-import { FC, useState, createElement } from "react"
+import filter from "lodash/fp/filter"
+import { useApolloClient } from "@apollo/client"
+import { FC, useState, useEffect, createElement } from "react"
 
 import Box from "@material-ui/core/Box"
 import styled from "@material-ui/core/styles/styled"
 
 import {
-	State,
+	submit,
+	canSubmit,
+	parseFiles,
+	getGenresToAdd,
+	getArtistsToAdd,
+} from "../helpers"
+
+import {
 	Album,
+	Genre,
+	Artist,
 	HandleFiles,
 	HandleSongRemove,
 	HandleSongChange,
 	HandleAlbumChange,
+	HandleArtistPhotoChange,
 } from "../types"
 
 import Add from "./Add"
 import Main from "./Main"
-import { parseFiles } from "../helpers"
 import { StateContextProvider } from "../context"
 
 const Root =
@@ -28,8 +38,11 @@ const Root =
 	})
 
 const Application: FC = () => {
+	const client = useApolloClient()
 	const [ loading, setLoading ] = useState(false)
 	const [ albums, setAlbums ] = useState<Album[]>([])
+	const [ genres, setGenres ] = useState<Genre[]>([])
+	const [ artists, setArtists ] = useState<Artist[]>([])
 
 	const toggleLoading = () =>
 		setLoading(prevState => !prevState)
@@ -41,6 +54,26 @@ const Application: FC = () => {
 			.catch(console.error)
 			.finally(toggleLoading)
 	}
+
+	const handleArtistPhotoChange: HandleArtistPhotoChange = artistId => dataUrl =>
+		setArtists(prevState => prevState.map(
+			item => (item.artistId === artistId ? {
+				...item,
+				photo: dataUrl,
+			} : item),
+		))
+
+	useEffect(() => {
+		getArtistsToAdd(client)(albums)
+			.then(setArtists)
+			.catch(console.error)
+	}, [client, albums])
+
+	useEffect(() => {
+		getGenresToAdd(client)(albums)
+			.then(setGenres)
+			.catch(console.error)
+	}, [client, albums])
 
 	const handleAlbumChange: HandleAlbumChange = (albumId, val, key) =>
 		setAlbums(map(album => (
@@ -70,17 +103,37 @@ const Application: FC = () => {
 			filter(({ songs }) => !isEmpty(songs)),
 		))
 
-	const state: State = {
-		albums,
-		loading,
-		handleFiles,
-		handleSongRemove,
-		handleSongChange,
-		handleAlbumChange,
+	const handleSubmit = async () => {
+		if (canSubmit(artists, genres, albums)) {
+			setLoading(true)
+			try {
+				await submit(client)(artists, genres, albums)
+			} catch (error) {
+				console.error(error)
+			} finally {
+				setAlbums([])
+				setGenres([])
+				setArtists([])
+				toggleLoading()
+			}
+		}
 	}
 
 	return (
-		<StateContextProvider value={state}>
+		<StateContextProvider
+			value={{
+				albums,
+				genres,
+				artists,
+				loading,
+				handleFiles,
+				handleSubmit,
+				handleSongRemove,
+				handleSongChange,
+				handleAlbumChange,
+				handleArtistPhotoChange,
+			}}
+		>
 			<Root>
 				{isEmpty(albums) ? <Add/> : <Main/>}
 			</Root>

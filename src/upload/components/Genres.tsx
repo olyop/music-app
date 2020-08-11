@@ -1,6 +1,5 @@
 import orderBy from "lodash/orderBy"
-import { useApolloClient } from "@apollo/client"
-import { createElement, useState, useEffect, FC } from "react"
+import { createElement, FC } from "react"
 
 import Box from "@material-ui/core/Box"
 import Card from "@material-ui/core/Card"
@@ -9,9 +8,7 @@ import CardContent from "@material-ui/core/CardContent"
 import withStyles from "@material-ui/core/styles/withStyles"
 import CardActionArea from "@material-ui/core/CardActionArea"
 
-import { Genre } from "../types"
 import { useStateContext } from "../context"
-import { getGenresToAdd } from "../helpers"
 
 const Header =
 	withStyles(theme => ({
@@ -31,14 +28,7 @@ const Genre =
 	}))(Card)
 
 const Genres: FC = () => {
-	const client = useApolloClient()
-	const { albums } = useStateContext()
-	const [ genres, setGenres ] = useState<Genre[]>([])
-	useEffect(() => {
-		getGenresToAdd(client)(albums)
-			.then(setGenres)
-			.catch(console.error)
-	}, [client, albums])
+	const { genres } = useStateContext()
 	return (
 		<Box>
 			<Header variant="h6">Genres</Header>

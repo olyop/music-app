@@ -3,7 +3,7 @@ import { SongBase, AlbumBase, GenreBase, ArtistBase } from "@oly_op/music-app-ty
 export type Genre = GenreBase
 
 export interface Artist extends ArtistBase {
-	cover: string | null,
+	photo: string | null,
 }
 
 export interface Song extends SongBase {
@@ -38,11 +38,18 @@ export type HandleSongChange =
 export type HandleAlbumChange =
 	(albumId: string, val: string | number | string[], key: keyof Album) => void
 
+export type HandleArtistPhotoChange =
+	(artistId: string) => (dataUrl: string) => void
+
 export interface State {
 	albums: Album[],
+	genres: Genre[],
 	loading: boolean,
+	artists: Artist[],
+	handleSubmit: () => void,
 	handleFiles: HandleFiles,
 	handleSongRemove: HandleSongRemove,
 	handleSongChange: HandleSongChange,
 	handleAlbumChange: HandleAlbumChange,
+	handleArtistPhotoChange: HandleArtistPhotoChange,
 }

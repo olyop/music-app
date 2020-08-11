@@ -5,7 +5,7 @@ import { splitList } from "./common"
 import { AlbumParsed } from "../../../types"
 
 const determineReleased = (year: number | undefined) =>
-	new Date(year ? year.toString() : Math.floor(Date.now() / 1000)).valueOf()
+	Math.floor((new Date(year ? year.toString() : Math.floor(Date.now() / 1000))).valueOf() / 1000)
 
 export const determineAlbum = ({ album, albumartist, picture, year }: ICommonTagsResult): AlbumParsed => ({
 	title: album || "",

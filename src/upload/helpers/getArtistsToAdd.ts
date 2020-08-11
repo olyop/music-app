@@ -7,7 +7,6 @@ import includes from "lodash/includes"
 import uniqueId from "lodash/uniqueId"
 import type { ApolloClient } from "@apollo/client"
 
-import test from "./test"
 import { Album, Artist } from "../types"
 import { getSearchResults } from "./getSearchResults"
 import ARTIST_SEARCH from "../graphql/artistSearch.gql"
@@ -15,7 +14,7 @@ import ARTIST_SEARCH from "../graphql/artistSearch.gql"
 const stringsToArtists = (arr: string[]): Artist[] =>
 	arr.map(name => ({
 		name,
-		cover: test,
+		photo: null,
 		artistId: uniqueId(),
 	}))
 

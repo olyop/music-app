@@ -92,9 +92,10 @@ const Album: FC<PropTypes> = ({
 					/>
 					<Released
 						minDate={1}
-						value={released}
+						disableFuture
 						label="Released"
 						format="dd/MM/yyyy"
+						value={released * 1000}
 						inputVariant="outlined"
 						onChange={handleReleasedChange}
 					/>

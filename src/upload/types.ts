@@ -6,6 +6,10 @@ export interface Artist extends ArtistBase {
 	photo: string | null,
 }
 
+export interface UploadArtist extends Omit<ArtistBase, "artistId"> {
+	photo: Blob,
+}
+
 export interface Song extends SongBase {
 	genres: string[],
 	artists: string[],

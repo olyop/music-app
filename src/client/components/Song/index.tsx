@@ -1,6 +1,6 @@
 import { BemInput } from "@oly_op/bem"
 import { createElement, FC, Fragment } from "react"
-import { deserializeDuration } from "@oly_op/music-app-common"
+import deserializeDuration from "@oly_op/music-app-common/deserializeDuration"
 
 import Item from "../Item"
 import DocLinks from "../DocLinks"

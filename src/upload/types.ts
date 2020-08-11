@@ -2,6 +2,8 @@ import { SongBase, AlbumBase, GenreBase, ArtistBase } from "@oly_op/music-app-ty
 
 export type Genre = GenreBase
 
+export type UploadGenre = Omit<GenreBase, "genreId">
+
 export interface Artist extends ArtistBase {
 	photo: string | null,
 }
@@ -21,6 +23,10 @@ export interface Album extends AlbumBase {
 	songs: Song[],
 	artists: string[],
 	cover: string | null,
+}
+
+export interface UploadAlbum extends Omit<AlbumBase, "albumId"> {
+	cover: Blob,
 }
 
 export type AlbumParsed = Omit<Album, "albumId" | "songs">

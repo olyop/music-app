@@ -6,6 +6,8 @@ import {
 	NonNegativeIntResolver as NonNegativeInt,
 } from "graphql-scalars"
 
+import { GraphQLUpload as Upload } from "graphql-upload"
+
 import * as Play from "./Play"
 import * as User from "./User"
 import * as Song from "./Song"
@@ -27,6 +29,7 @@ const resolvers = {
 	Query,
 	Genre,
 	Album,
+	Upload,
 	Artist,
 	Mutation,
 	Playlist,

@@ -5,6 +5,7 @@ import express from "express"
 import bodyParser from "body-parser"
 import compression from "compression"
 import cookieParser from "cookie-parser"
+import { graphqlUploadExpress } from "graphql-upload"
 
 import {
 	graphql,
@@ -37,6 +38,7 @@ app.use(
 	bodyParser.urlencoded({ extended: false }),
 	cookieParser(),
 	globalHeaders(),
+	graphqlUploadExpress(),
 	graphql(),
 	express.static(BUILD_PATH),
 )

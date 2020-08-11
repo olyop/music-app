@@ -2,6 +2,7 @@ import { createBem } from "@oly_op/bem"
 import isUndefined from "lodash/isUndefined"
 import { useParams } from "react-router-dom"
 import { createElement, Fragment, FC } from "react"
+import deserializeDuration from "@oly_op/music-app-common/deserializeDuration"
 
 import Disc from "../Disc"
 import Cover from "../Cover"
@@ -13,8 +14,8 @@ import { Album, UserVar } from "../../types"
 import genresFromAlbum from "./genresFromAlbum"
 import InLibraryButton from "../InLibraryButton"
 import { useUserContext } from "../../contexts/User"
+import { determineDiscs, deserializeDate } from "../../helpers"
 import QUERY_ALBUM_PAGE from "../../graphql/queries/albumPage.gql"
-import { determineDiscs, deserializeDate, deserializeDuration } from "../../helpers"
 
 import "./index.scss"
 

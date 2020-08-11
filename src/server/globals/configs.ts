@@ -36,6 +36,7 @@ export const APOLLO_MIDDLEWARE_CONFIG: GetMiddlewareOptions = {
 }
 
 export const APOLLO_SERVER_CONFIG: ApolloServerExpressConfig = {
+	uploads: false,
 	introspection: true,
 	engine: { apiKey: APOLLO_KEY },
 	playground: { settings: { "editor.theme": "light" } },

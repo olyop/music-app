@@ -55,12 +55,9 @@ const Application: FC = () => {
 			.finally(toggleLoading)
 	}
 
-	const handleArtistPhotoChange: HandleArtistPhotoChange = artistId => dataUrl =>
+	const handleArtistPhotoChange: HandleArtistPhotoChange = artistId => photo =>
 		setArtists(prevState => prevState.map(
-			item => (item.artistId === artistId ? {
-				...item,
-				photo: dataUrl,
-			} : item),
+			item => (item.artistId === artistId ? { ...item, photo } : item),
 		))
 
 	useEffect(() => {

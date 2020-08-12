@@ -20,7 +20,6 @@ import ALBUM_SEARCH from "../graphql/albumSearch.gql"
 import GENRE_SEARCH from "../graphql/genreSearch.gql"
 import ARTIST_SEARCH from "../graphql/artistSearch.gql"
 
-import { dataUrlToBlob } from "./dataUrlToBlob"
 import { getSearchResults } from "./getSearchResults"
 
 type Client = ApolloClient<unknown>
@@ -46,7 +45,7 @@ const genreUploads = (client: Client, genres: Genre[]) =>
 const artistUploads = (client: Client, artists: Artist[]) =>
 	artists.map(({ name, photo }) => client.mutate<Artist, ArtistUpload>({
 		mutation: ADD_ARTIST,
-		variables: { name, photo: dataUrlToBlob(photo!) },
+		variables: { name, photo: photo! },
 	}))
 
 const searchAlbum = (client: Client) => async (album: string) => {
@@ -99,11 +98,25 @@ const albumUploads = (client: Client, albums: Album[]) =>
 			title,
 			artists,
 			released,
-			cover: dataUrlToBlob(cover!),
+			cover: cover!,
 		},
 	}))
 
-const populateSong = (client: Client) => async (song: Song): Promise<Song> => {
+const albumsToSongs = (albums: Album[]) =>
+	albums.reduce<SongUpload[]>(
+		(songs, album) => [
+			...songs,
+			...album.songs.map(
+				({ songId, ...song }) => ({
+					...song,
+					album: album.title,
+				}),
+			),
+		],
+		[],
+	)
+
+const populateSong = (client: Client) => async (song: SongUpload): Promise<SongUpload> => {
 	const album = await searchAlbum(client)(song.album)
 	const genres = await Promise.all(song.genres.map(searchGenre(client)))
 	const artists = await Promise.all(song.artists.map(searchArtist(client)))
@@ -129,7 +142,7 @@ export const submit =
 				await Promise.all(albumUploads(client, albumsPopulated))
 
 				// upload songs
-				const songs = albums.reduce<Song[]>((acc, doc) => [...acc, ...doc.songs], [])
+				const songs = albumsToSongs(albums)
 				const songsPopulated = await Promise.all(songs.map(populateSong(client)))
 				await Promise.all(songUploads(client, songsPopulated))
 			} catch (error) {

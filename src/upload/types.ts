@@ -45,10 +45,10 @@ export type HandleSongChange =
 	(albumId: string, songId: string, val: string | number | string[], key: keyof Song) => void
 
 export type HandleAlbumChange =
-	(albumId: string, val: string | number | string[], key: keyof Album) => void
+	(albumId: string, val: string | string[] | number | Blob, key: keyof Album) => void
 
 export type HandleArtistPhotoChange =
-	(artistId: string) => (dataUrl: string) => void
+	(artistId: string) => (photo: Blob) => void
 
 export interface State {
 	albums: Album[],

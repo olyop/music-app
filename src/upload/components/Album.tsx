@@ -71,12 +71,12 @@ const Album: FC<PropTypes> = ({
 		handleAlbumChange(albumId, Math.floor(date!.valueOf() / 1000), "released")
 	const handleArtistsChange = (val: string[]) =>
 		handleAlbumChange(albumId, val, "artists")
-	const handleCoverChange = (dataUrl: string) =>
-		handleAlbumChange(albumId, dataUrl, "cover")
+	const handleCoverChange = (img: Blob) =>
+		handleAlbumChange(albumId, img, "cover")
 	return (
 		<Root className={className}>
 			<Cover
-				url={cover}
+				img={cover}
 				title={title}
 				onChange={handleCoverChange}
 			/>

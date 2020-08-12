@@ -48,7 +48,7 @@ const Artists: FC<StyledProps> = ({ className }) => {
 					<Artist key={artist.name}>
 						<CardActionArea>
 							<Photo
-								url={artist.photo}
+								img={artist.photo}
 								title={artist.name}
 								onChange={handleArtistPhotoChange(artist.artistId)}
 							/>

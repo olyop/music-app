@@ -1,9 +1,7 @@
-import { createElement, FC, ChangeEventHandler } from "react"
+import { useEffect, createElement, FC, ChangeEventHandler } from "react"
 
 import Box from "@material-ui/core/Box"
 import styled from "@material-ui/core/styles/styled"
-
-import { blobToDataUrl } from "../helpers"
 
 const Root =
 	styled(Box)({
@@ -39,31 +37,34 @@ const Inner =
 		backgroundPosition: "50% 50%",
 	})
 
-const Img: FC<PropTypes> = ({ url, onChange, title, children, className }) => {
-	const handleChange: ChangeEventHandler<HTMLInputElement> = async event =>
-		onChange(await blobToDataUrl(event.target.files![0]))
+const Img: FC<PropTypes> = ({ img, onChange, title, children, className }) => {
+	const handleChange: ChangeEventHandler<HTMLInputElement> = event =>
+		onChange(event.target.files![0])
+	useEffect(() => {
+		const url = URL.createObjectURL(img)
+		document.querySelector<HTMLImageElement>(`#${title}`)!.src = url
+		return () => URL.revokeObjectURL(url)
+	})
 	return (
 		<Root className={className} title={title}>
 			<Input
 				type="file"
 				onChange={handleChange}
 			/>
-			{url && (
-				<Inner
-					className="img"
-					style={{ backgroundImage: `url(${url})` }}
-				/>
-			)}
+			<Inner
+				id={title}
+				className="img"
+			/>
 			{children}
 		</Root>
 	)
 }
 
 interface PropTypes {
-	title?: string,
+	title: string,
+	img: Blob | null,
 	className?: string,
-	url: string | null,
-	onChange: (dataUrl: string) => void,
+	onChange: (img: Blob) => void,
 }
 
 export default Img

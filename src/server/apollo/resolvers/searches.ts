@@ -1,6 +1,6 @@
 import { SELECT_SEARCH } from "../../sql"
-import { Artist, Genre } from "../../types"
 import { COLUMN_NAMES } from "../../globals"
+import { Artist, Album, Genre } from "../../types"
 import { sql, createResolver } from "../../helpers"
 
 interface DocSearchOptions {
@@ -55,6 +55,18 @@ export const artistSearch =
 				columnName: "name",
 				tableName: "artists",
 				columnNames: COLUMN_NAMES.ARTIST,
+			})
+		),
+	)
+
+export const albumSearch =
+	resolver<Album[], Args>(
+		({ args }) => (
+			docSearch({
+				...args,
+				tableName: "albums",
+				columnName: "title",
+				columnNames: COLUMN_NAMES.ALBUM,
 			})
 		),
 	)

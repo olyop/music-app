@@ -33,11 +33,12 @@ import {
 
 import { COLUMN_NAMES } from "../../../globals"
 
-interface Input extends Song {
-	genreIds: string[],
-	artistIds: string[],
-	remixerIds: string[],
-	featuringIds:string[],
+interface Input extends Omit<Song, "albumId"> {
+	album: string,
+	genres: string[],
+	artists: string[],
+	remixers: string[],
+	featuring: string[],
 	audio: Promise<FileUpload>,
 }
 
@@ -65,7 +66,7 @@ export const addSong =
 					parse: res => !sql.resExists(res),
 					variables: [{
 						key: "albumId",
-						value: song.albumId,
+						value: song.album,
 					},{
 						string: false,
 						key: "discNumber",
@@ -81,35 +82,35 @@ export const addSong =
 				check: sql.exists({
 					table: "genres",
 					column: "genre_id",
-					value: song.genreIds,
+					value: song.genres,
 				}),
 			},{
 				name: "doesAlbumExist",
 				check: sql.exists({
 					table: "albums",
+					value: song.album,
 					column: "album_id",
-					value: song.albumId,
 				}),
 			},{
 				name: "doArtistsExist",
 				check: sql.exists({
 					table: "artists",
 					column: "artist_id",
-					value: song.artistIds,
+					value: song.artists,
 				}),
 			},{
 				name: "doRemixersExist",
 				check: sql.exists({
 					table: "artists",
 					column: "artist_id",
-					value: song.remixerIds,
+					value: song.remixers,
 				}),
 			},{
 				name: "doFeaturingExist",
 				check: sql.exists({
 					table: "artists",
 					column: "artist_id",
-					value: song.featuringIds,
+					value: song.featuring,
 				}),
 			}]
 
@@ -141,7 +142,7 @@ export const addSong =
 					value: songId,
 				},{
 					key: "albumId",
-					value: song.albumId,
+					value: song.album,
 				},{
 					string: false,
 					key: "duration",
@@ -161,7 +162,7 @@ export const addSong =
 				}],
 			}
 
-			const genresInsert = song.genreIds.map(
+			const genresInsert = song.genres.map(
 				(genreId, index): SQLConfig<Genre> => ({
 					sql: INSERT_SONG_GENRE,
 					variables: [{
@@ -178,7 +179,7 @@ export const addSong =
 				}),
 			)
 
-			const artistsInsert = song.artistIds.map(
+			const artistsInsert = song.artists.map(
 				(artistId, index): SQLConfig<Artist> => ({
 					sql: INSERT_SONG_ARTIST,
 					variables: [{
@@ -195,7 +196,7 @@ export const addSong =
 				}),
 			)
 
-			const remixersInsert = song.remixerIds.map(
+			const remixersInsert = song.remixers.map(
 				(artistId, index): SQLConfig<Artist> => ({
 					sql: INSERT_SONG_REMIXER,
 					variables: [{
@@ -212,7 +213,7 @@ export const addSong =
 				}),
 			)
 
-			const featuringsInsert = song.featuringIds.map(
+			const featuringsInsert = song.featuring.map(
 				(artistId, index): SQLConfig<Artist> => ({
 					sql: INSERT_SONG_FEAT,
 					variables: [{

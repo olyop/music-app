@@ -1,39 +1,38 @@
-import { SongBase, AlbumBase, GenreBase, ArtistBase } from "@oly_op/music-app-types"
-
-export type Genre = GenreBase
-
-export type UploadGenre = Omit<GenreBase, "genreId">
-
-export interface Artist extends ArtistBase {
-	photo: string | null,
-}
-
-export interface UploadArtist extends Omit<ArtistBase, "artistId"> {
-	photo: Blob,
-}
+import type { SongBase, AlbumBase, GenreBase, ArtistBase } from "@oly_op/music-app-types"
 
 export interface Song extends SongBase {
+	audio: Blob,
 	genres: string[],
 	artists: string[],
 	remixers: string[],
 	featuring: string[],
 }
 
+export type Genre = GenreBase
+
 export interface Album extends AlbumBase {
 	songs: Song[],
 	artists: string[],
-	cover: string | null,
+	cover: Blob | null,
 }
 
-export interface UploadAlbum extends Omit<AlbumBase, "albumId"> {
+export interface Artist extends ArtistBase {
+	photo: Blob | null,
+}
+
+export interface SongUpload extends Omit<Song, "songId"> {
+	album: string,
+}
+
+export type GenreUpload = Omit<Genre, "genreId">
+
+export interface AlbumUpload extends Omit<AlbumBase, "albumId"> {
 	cover: Blob,
+	artists: string[],
 }
 
-export type AlbumParsed = Omit<Album, "albumId" | "songs">
-
-export interface SongParsed extends Omit<Song, "album"> {
-	audio: File,
-	album: AlbumParsed,
+export interface ArtistUpload extends Omit<ArtistBase, "artistId"> {
+	photo: Blob,
 }
 
 export type HandleFiles =

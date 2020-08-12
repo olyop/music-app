@@ -13,18 +13,18 @@ const isReleased = (released: string) => (
 
 interface Input extends Omit<Album, "released"> {
 	cover: Buffer,
+	artists: string[],
 	released: string,
-	artistIds: string[],
 }
 
 export const isAlbum = ({
 	title,
 	cover,
+	artists,
 	released,
-	artistIds,
 }: Input) => (
 	isImg(cover) &&
 	isText(title) &&
 	isReleased(released) &&
-	isArrayOfUuids(artistIds)
+	isArrayOfUuids(artists)
 )

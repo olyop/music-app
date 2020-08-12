@@ -14,33 +14,33 @@ export const isSong = ({
 	mix,
 	title,
 	audio,
-	albumId,
-	genreIds,
-	artistIds,
-	remixerIds,
+	album,
+	genres,
+	artists,
+	remixers,
+	featuring,
 	discNumber,
 	trackNumber,
-	featuringIds,
 }: {
 	mix: string,
 	title: string,
 	audio: Buffer,
-	albumId: string,
-	genreIds: string[],
+	album: string,
+	genres: string[],
+	artists: string[],
 	discNumber: number,
-	artistIds: string[],
+	remixers: string[],
 	trackNumber: number,
-	remixerIds: string[],
-	featuringIds: string[],
+	featuring: string[],
 }) => (
 	isText(title) &&
 	isAudio(audio) &&
-	isUuid(albumId) &&
+	isUuid(album) &&
 	isText(mix, true) &&
-	isArrayOfUuids(genreIds) &&
-	isArrayOfUuids(artistIds) &&
+	isArrayOfUuids(genres) &&
+	isArrayOfUuids(artists) &&
 	isPositiveInt(discNumber) &&
-	isArrayOfUuids(remixerIds) &&
+	isArrayOfUuids(remixers) &&
 	isPositiveInt(trackNumber) &&
-	isArrayOfUuids(featuringIds)
+	isArrayOfUuids(featuring)
 )

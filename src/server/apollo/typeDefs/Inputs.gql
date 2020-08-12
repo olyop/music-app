@@ -15,19 +15,19 @@ input GenreInput {
 input AlbumInput {
 	title: String!
 	cover: Upload!
+	artists: [Uuid!]!
 	released: String!
-	artistIds: [Uuid!]!
 }
 
 input SongInput {
 	mix: String!
-	albumId: Uuid!
+	album: Uuid!
 	title: String!
 	audio: Upload!
-	genreIds: [Uuid!]!
-	artistIds: [Uuid!]!
-	remixerIds: [Uuid!]!
-	featuringIds: [Uuid!]!
+	genres: [Uuid!]!
+	artists: [Uuid!]!
+	remixers: [Uuid!]!
+	featuring: [Uuid!]!
 	discNumber: PositiveInt!
 	trackNumber: PositiveInt!
 }

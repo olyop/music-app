@@ -1,12 +1,12 @@
 mutation addSong(
   $mix: String!
-  $albumId: Uuid!
+  $album: Uuid!
   $audio: Upload!
   $title: String!
-  $genreIds: [Uuid!]!
-  $artistIds: [Uuid!]!
-  $remixerIds: [Uuid!]!
-  $featuringIds: [Uuid!]!
+  $genres: [Uuid!]!
+  $artists: [Uuid!]!
+  $remixers: [Uuid!]!
+  $featuring: [Uuid!]!
   $discNumber: PositiveInt!
   $trackNumber: PositiveInt!
 ) {
@@ -14,14 +14,15 @@ mutation addSong(
     mix: $mix
     audio: $audio
     title: $title
-    albumId: $albumId
-    genreIds: $genreIds
-    artistIds: $artistIds
-    remixerIds: $remixerIds
+    album: $album
+    genres: $genres
+    artists: $artists
+    remixers: $remixers
+    featuring: $featuring
     discNumber: $discNumber
     trackNumber: $trackNumber
-    featuringIds: $featuringIds
   }) {
     songId
+    title
   }
 }

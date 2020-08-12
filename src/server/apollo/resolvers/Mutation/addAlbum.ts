@@ -28,8 +28,8 @@ import { IMAGE_SIZES, COLUMN_NAMES } from "../../../globals"
 import { INSERT_ALBUM, INSERT_ALBUM_ARTIST } from "../../../sql"
 
 interface Input extends Omit<Album, "released"> {
+	artists: string[],
 	released: string,
-	artistIds: string[],
 	cover: Promise<FileUpload>,
 }
 
@@ -62,7 +62,7 @@ export const addAlbum =
 				check: sql.exists({
 					table: "artists",
 					column: "artist_id",
-					value: album.artistIds,
+					value: album.artists,
 				}),
 			}]
 
@@ -115,7 +115,7 @@ export const addAlbum =
 			const transaction =
 				sql.transaction([
 					albumInsert,
-					...album.artistIds.map(artistInsert),
+					...album.artists.map(artistInsert),
 				])
 
 			const coverUploads: S3Upload[] = [{

@@ -18,7 +18,7 @@ type Query {
   
   # search
   # songSearch(query: String!, exact: Boolean = false): [Song!]!
-  # albumSearch(query: String!, exact: Boolean = false): [Album!]!
+  albumSearch(query: String!, exact: Boolean!): [Album!]!
   genreSearch(query: String!, exact: Boolean!): [Genre!]!
   artistSearch(query: String!, exact: Boolean!): [Artist!]!
 }

@@ -59,25 +59,25 @@ export interface User extends UserBase {
 	current: string,
 }
 
+export type UserDoc = UserDocBase
+
 export interface Play extends PlayBase {
 	playId: string,
 	userId: string,
 	songId: string,
 }
 
-export type UserDoc = UserDocBase
-
-export interface Song extends UserDoc, SongBase {
+export interface Song extends UserDocBase, SongBase {
 	albumId: string,
 }
 
-export interface Playlist extends UserDoc, PlaylistBase {
+export interface Playlist extends UserDocBase, PlaylistBase {
 	userId: string,
 }
 
-export interface Album extends UserDoc, AlbumBase {}
-export interface Genre extends UserDoc, GenreBase {}
-export interface Artist extends UserDoc, ArtistBase {}
+export interface Album extends UserDocBase, AlbumBase {}
+export interface Genre extends UserDocBase, GenreBase {}
+export interface Artist extends UserDocBase, ArtistBase {}
 
 export interface Queue {
 	prev: Song[],

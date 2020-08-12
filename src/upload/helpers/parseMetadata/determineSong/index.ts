@@ -1,4 +1,3 @@
-import uniqueId from "lodash/uniqueId"
 import { IAudioMetadata } from "music-metadata-browser"
 
 import { determineAlbum } from "./album"
@@ -10,11 +9,10 @@ import { determineFeaturing } from "./featuring"
 import { determineMix, determineTitle } from "./titleAndMix"
 import { determineDiscNumber, determineTrackNumber } from "./discAndTrackNumber"
 
-import { SongParsed } from "../../../types"
+import { SongParsed } from "../types"
 
-const determineSong = (audio: File, { common, format }: IAudioMetadata): SongParsed => ({
+const determineSong = (audio: Blob, { common, format }: IAudioMetadata): SongParsed => ({
 	audio,
-	songId: uniqueId(),
 	mix: determineMix(common),
 	album: determineAlbum(common),
 	title: determineTitle(common),

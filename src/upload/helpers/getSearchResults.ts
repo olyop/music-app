@@ -17,7 +17,7 @@ interface Input<Doc, Res, Ret> {
 
 export const getSearchResults =
 	(client: ApolloClient<unknown>) =>
-		<Doc, Res, Ret = Doc>({ query, parseRes, parseDoc = identity, exact = false }: Input<Doc, Res, Ret>) =>
+		<Doc, Res, Ret = Doc>({ query, parseRes, exact = false, parseDoc = identity }: Input<Doc, Res, Ret>) =>
 			(text: string) =>
 				new Promise<Ret[]>(
 					(resolve, reject) => {

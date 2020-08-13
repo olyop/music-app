@@ -1,4 +1,4 @@
-import { ICommonTagsResult } from "music-metadata-browser"
+import type { ICommonTagsResult } from "music-metadata"
 import bufferToDataUrl from "@oly_op/music-app-common/bufferToDataUrl"
 
 import { splitList } from "./common"
@@ -6,7 +6,7 @@ import { AlbumParsed } from "../types"
 import { dataUrlToBlob } from "../../dataUrlToBlob"
 
 const determineReleased = (year: number | undefined) =>
-	Math.floor((new Date(year ? year.toString() : Math.floor(Date.now() / 1000))).valueOf() / 1000)
+	(year ? (year - 1970) * 365 : 2020)
 
 export const determineAlbum = ({ album, albumartist, picture, year }: ICommonTagsResult): AlbumParsed => ({
 	title: album || "",

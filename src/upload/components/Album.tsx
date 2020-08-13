@@ -68,7 +68,7 @@ const Album: FC<PropTypes> = ({
 	const handleTitleChange: ChangeEventHandler<HTMLInputElement> = event =>
 		handleAlbumChange(title, event.target.value, "title")
 	const handleReleasedChange: DatePickerProps["onChange"] = date =>
-		handleAlbumChange(albumId, Math.floor(date!.valueOf() / 1000), "released")
+		handleAlbumChange(albumId, Math.floor(Math.floor(date!.valueOf() / 1000) / 86400), "released")
 	const handleArtistsChange = (val: string[]) =>
 		handleAlbumChange(albumId, val, "artists")
 	const handleCoverChange = (img: Blob) =>
@@ -95,8 +95,8 @@ const Album: FC<PropTypes> = ({
 						disableFuture
 						label="Released"
 						format="dd/MM/yyyy"
-						value={released * 1000}
 						inputVariant="outlined"
+						value={released * 1000 * 86400}
 						onChange={handleReleasedChange}
 					/>
 				</Info>

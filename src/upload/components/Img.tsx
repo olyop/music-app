@@ -1,3 +1,4 @@
+import camelCase from "lodash/camelCase"
 import { useEffect, createElement, FC, ChangeEventHandler } from "react"
 
 import Box from "@material-ui/core/Box"
@@ -41,8 +42,9 @@ const Img: FC<PropTypes> = ({ img, onChange, title, children, className }) => {
 	const handleChange: ChangeEventHandler<HTMLInputElement> = event =>
 		onChange(event.target.files![0])
 	useEffect(() => {
-		const url = URL.createObjectURL(img)
-		document.querySelector<HTMLImageElement>(`#${title}`)!.src = url
+		const element = document.querySelector<HTMLImageElement>(`#${camelCase(title)}`)!
+		const url = img ? URL.createObjectURL(img) : "null"
+		element.style.backgroundImage = `url(${url})`
 		return () => URL.revokeObjectURL(url)
 	})
 	return (
@@ -52,8 +54,8 @@ const Img: FC<PropTypes> = ({ img, onChange, title, children, className }) => {
 				onChange={handleChange}
 			/>
 			<Inner
-				id={title}
 				className="img"
+				id={camelCase(title)}
 			/>
 			{children}
 		</Root>

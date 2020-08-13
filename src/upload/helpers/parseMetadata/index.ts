@@ -1,10 +1,9 @@
-import { IAudioMetadata } from "music-metadata-browser"
-
+import { TempSong } from "../../types"
 import determineSong from "./determineSong"
 import { orderAlbums } from "./orderAlbums"
 import { songsToAlbums } from "./songsToAlbums"
 
-export const parseMetadata = (files: File[]) => (metadata: IAudioMetadata[]) => {
-	const songs = metadata.map((res, index) => determineSong(files[index], res))
+export const parseMetadata = (metadata: TempSong[]) => {
+	const songs = metadata.map(determineSong)
 	return orderAlbums(songsToAlbums(songs))
 }

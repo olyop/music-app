@@ -1,8 +1,8 @@
 mutation addAlbum(
   $cover: Upload!,
   $title: String!,
+  $released: Int!,
   $artists: [Uuid!]!,
-  $released: String!,
 ) {
   addAlbum(album: {
     cover: $cover,
@@ -10,6 +10,7 @@ mutation addAlbum(
     artists: $artists,
     released: $released,
   }) {
+    title
     albumId
   }
 }

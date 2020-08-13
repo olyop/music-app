@@ -1,5 +1,3 @@
-import { IAudioMetadata } from "music-metadata-browser"
-
 import { determineAlbum } from "./album"
 import { determineGenres } from "./genres"
 import { determineArtists } from "./artists"
@@ -10,8 +8,9 @@ import { determineMix, determineTitle } from "./titleAndMix"
 import { determineDiscNumber, determineTrackNumber } from "./discAndTrackNumber"
 
 import { SongParsed } from "../types"
+import { TempSong } from "../../../types"
 
-const determineSong = (audio: Blob, { common, format }: IAudioMetadata): SongParsed => ({
+const determineSong = ({ audio, metadata: { common, format } }: TempSong): SongParsed => ({
 	audio,
 	mix: determineMix(common),
 	album: determineAlbum(common),

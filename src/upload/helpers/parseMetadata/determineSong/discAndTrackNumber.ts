@@ -1,4 +1,4 @@
-import { ICommonTagsResult } from "music-metadata-browser"
+import type { ICommonTagsResult } from "music-metadata"
 
 export const determineDiscNumber = ({ disk }: ICommonTagsResult) =>
 	disk.no || 1

@@ -1,4 +1,4 @@
-import { ICommonTagsResult } from "music-metadata-browser"
+import type { ICommonTagsResult } from "music-metadata"
 
 import { splitList, removeFeat } from "./common"
 

@@ -18,7 +18,6 @@ import {
 	resize,
 	isAlbum,
 	createResolver,
-	determineReleased,
 	uploadFileFromClient,
 	determineFailedChecks,
 	determineChecksResults,
@@ -28,8 +27,8 @@ import { IMAGE_SIZES, COLUMN_NAMES } from "../../../globals"
 import { INSERT_ALBUM, INSERT_ALBUM_ARTIST } from "../../../sql"
 
 interface Input extends Omit<Album, "released"> {
+	released: number,
 	artists: string[],
-	released: string,
 	cover: Promise<FileUpload>,
 }
 
@@ -93,7 +92,7 @@ export const addAlbum =
 				},{
 					string: false,
 					key: "released",
-					value: determineReleased(album.released).toString(),
+					value: album.released.toString(),
 				}],
 			}
 

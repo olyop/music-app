@@ -1,6 +1,5 @@
 export * from "./resize"
 export * from "./createResolver"
-export * from "./determineReleased"
 export * from "./determineUserNext"
 export * from "./determineUserPrev"
 export * from "./convertToCamelCase"

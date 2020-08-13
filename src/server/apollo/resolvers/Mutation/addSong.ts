@@ -1,6 +1,6 @@
 import { v4 as uuid } from "uuid"
 import { FileUpload } from "graphql-upload"
-import musicMetadata from "music-metadata-browser"
+import { parseBuffer } from "music-metadata"
 import { UserInputError } from "apollo-server-express"
 
 import {
@@ -123,7 +123,7 @@ export const addSong =
 			}
 
 			const songId = uuid()
-			const metadata = await musicMetadata.parseBuffer(audio)
+			const metadata = await parseBuffer(audio)
 			const duration = Math.floor(metadata.format.duration || 0)
 
 			const songInsert: SQLConfig<Song> = {

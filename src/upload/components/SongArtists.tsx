@@ -19,7 +19,7 @@ import ARTIST_SEARCH from "../graphql/artistSearch.gql"
 
 const Root =
 	styled(Box)({
-		position: "relative",
+		position: "absolute",
 	})
 
 const Input =

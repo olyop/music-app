@@ -9,7 +9,6 @@ import Grid from "@material-ui/core/Grid"
 import Chip from "@material-ui/core/Chip"
 import ListItem from "@material-ui/core/ListItem"
 import InputBase from "@material-ui/core/InputBase"
-import styled from "@material-ui/core/styles/styled"
 import withStyles from "@material-ui/core/styles/withStyles"
 
 import { Artist } from "../types"
@@ -17,14 +16,11 @@ import AutoComplete from "./AutoComplete"
 import { getSearchResults } from "../helpers"
 import ARTIST_SEARCH from "../graphql/artistSearch.gql"
 
-const Root =
-	styled(Box)({
-		position: "absolute",
-	})
-
 const Input =
 	withStyles({
 		root: {
+			top: 0,
+			left: 0,
 			display: "flex",
 			alignItems: "center",
 		},
@@ -56,10 +52,8 @@ const Menu =
 	withStyles(theme => ({
 		root: {
 			zIndex: 3,
-			top: "100%",
 			width: "100%",
 			height: "auto",
-			position: "absolute",
 			boxShadow: theme.shadows[5],
 			borderRadius: theme.shape.borderRadius,
 			backgroundColor: theme.palette.common.white,
@@ -93,7 +87,7 @@ const SongArtists: FC<PropTypes> = ({ artists, onChange }) => {
 				removeSelectedItem,
 				getSelectedItemProps,
 			}) => (
-				<Root>
+				<Box>
 					<Input
 						{...getComboboxProps()}
 						inputProps={getInputProps()}
@@ -127,7 +121,7 @@ const SongArtists: FC<PropTypes> = ({ artists, onChange }) => {
 							),
 						)}
 					</Menu>
-				</Root>
+				</Box>
 			)}
 		/>
 	)

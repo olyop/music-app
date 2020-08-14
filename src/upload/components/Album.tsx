@@ -73,6 +73,7 @@ const Album: FC<PropTypes> = ({
 		handleAlbumChange(albumId, val, "artists")
 	const handleCoverChange = (img: Blob) =>
 		handleAlbumChange(albumId, img, "cover")
+	console.log(released * 86400)
 	return (
 		<Root className={className}>
 			<Cover
@@ -96,7 +97,7 @@ const Album: FC<PropTypes> = ({
 						label="Released"
 						format="dd/MM/yyyy"
 						inputVariant="outlined"
-						value={released * 1000 * 86400}
+						value={released * 86400 * 1000}
 						onChange={handleReleasedChange}
 					/>
 				</Info>

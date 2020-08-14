@@ -13,7 +13,10 @@ export const songsToAlbums = (songs: SongParsed[]) =>
 					album => (
 						album.title === title ? {
 							...album,
-							songs: [ ...album.songs, { ...song, songId: uniqueId() } ],
+							songs: [
+								...album.songs,
+								{ ...song, songId: uniqueId() },
+							],
 						} : album
 					),
 				)

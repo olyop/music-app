@@ -6,7 +6,7 @@ import { AlbumParsed } from "../types"
 import { dataUrlToBlob } from "../../dataUrlToBlob"
 
 const determineReleased = (year: number | undefined) =>
-	(year ? (year - 1970) * 365 : 2020)
+	Math.floor(((year ? (new Date(year, 0, 0)).valueOf() : Date.now()) / 1000) / 86400)
 
 export const determineAlbum = ({ album, albumartist, picture, year }: ICommonTagsResult): AlbumParsed => ({
 	title: album || "",

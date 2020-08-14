@@ -5,14 +5,12 @@ import isEmpty from "lodash/isEmpty"
 import { Artist, Genre, Album } from "../types"
 
 const canSubmitArtists = (artists: Artist[]) => artists.reduce(
-	(submit, { name, photo }) =>
-		(isNull(photo) || isEmpty(name) ? false : submit),
+	(submit, { name, photo }) => (isNull(photo) || isEmpty(name) ? false : submit),
 	true,
 )
 
 const canSubmitGenres = (genres: Genre[]) => genres.reduce(
-	(submit, { name }) =>
-		(isEmpty(name) ? false : submit),
+	(submit, { name }) => (isEmpty(name) ? false : submit),
 	true,
 )
 

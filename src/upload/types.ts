@@ -14,7 +14,7 @@ export interface Album extends AlbumBase {
 export type Genre = GenreBase
 
 export interface Song extends SongBase {
-	audio: Blob,
+	audio: File,
 	genres: string[],
 	artists: string[],
 	remixers: string[],
@@ -50,6 +50,6 @@ export interface State {
 }
 
 export interface TempSong {
-	audio: Blob,
+	audio: File,
 	metadata: IAudioMetadata,
 }

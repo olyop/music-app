@@ -5,8 +5,9 @@ import { splitList } from "./common"
 import { AlbumParsed } from "../types"
 import { dataUrlToBlob } from "../../dataUrlToBlob"
 
-const determineReleased = (year: number | undefined) =>
-	Math.floor(((year ? (new Date(year, 0, 0)).valueOf() : Date.now()) / 1000) / 86400)
+// @ts-ignore
+const determineReleased = (year: number | undefined) => 18397
+// (year ? ((year - 1970) * 365) : Math.floor(Date.now() / 1000 / 86400))
 
 export const determineAlbum = ({ album, albumartist, picture, year }: ICommonTagsResult): AlbumParsed => ({
 	title: album || "",

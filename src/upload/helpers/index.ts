@@ -1,4 +1,4 @@
-export * from "./submit"
+export * from "./upload"
 export * from "./canSubmit"
 export * from "./parseFiles"
 export * from "./parseMetadata"

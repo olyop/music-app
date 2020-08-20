@@ -2,36 +2,43 @@ import { createElement, FC } from "react"
 
 import Box from "@material-ui/core/Box"
 import styled from "@material-ui/core/styles/styled"
+import withStyles from "@material-ui/core/styles/withStyles"
 
 import Genres from "./Genres"
-import Submit from "./Submit"
-import Artists from "./Artists"
-import AlbumsImported from "./Albums"
+import _Submit from "./Submit"
+import _Albums from "./Albums"
+import _Artists from "./Artists"
 
 const Root =
+	styled(Box)({
+		width: "100vw",
+		height: "100vh",
+	})
+
+const Content =
 	styled(Box)(({ theme }) => ({
 		width: "100%",
 		display: "flex",
-		height: `calc(100vh - ${theme.spacing(7)}px)`,
+		height: `calc(100% - ${theme.spacing(7)}px)`,
 	}))
+
+const Submit =
+	withStyles(theme => ({
+		root: {
+			width: "100%",
+			height: theme.spacing(7),
+		},
+	}))(_Submit)
 
 const Albums =
-	styled(AlbumsImported)(({ theme }) => ({
+	styled(_Albums)(({ theme }) => ({
+		width: "85vw",
 		height: "100%",
 		padding: theme.spacing(3),
-		[theme.breakpoints.down("xl")]: {
-			width: "85vw",
-		},
-		[theme.breakpoints.down("lg")]: {
-			width: "80vw",
-		},
-		[theme.breakpoints.down("md")]: {
-			width: "70vw",
-		},
 	}))
 
-const ArtistsSection =
-	styled(Artists)(({ theme }) => ({
+const Artists =
+	styled(_Artists)(({ theme }) => ({
 		marginBottom: theme.spacing(3),
 	}))
 
@@ -39,30 +46,22 @@ const Sidebar =
 	styled(Box)(({ theme }) => ({
 		width: "15vw",
 		height: "100%",
+		overflow: "auto",
 		padding: theme.spacing(3),
 		backgroundColor: theme.palette.common.white,
-		[theme.breakpoints.down("md")]: {
-			width: "30vw",
-		},
-		[theme.breakpoints.up("lg")]: {
-			width: "20vw",
-		},
-		[theme.breakpoints.up("xl")]: {
-			width: "15vw",
-		},
 	}))
 
 const Main: FC = () => (
-	<Box>
-		<Root>
+	<Root>
+		<Content>
 			<Albums/>
 			<Sidebar>
-				<ArtistsSection/>
+				<Artists/>
 				<Genres/>
 			</Sidebar>
-		</Root>
+		</Content>
 		<Submit/>
-	</Box>
+	</Root>
 )
 
 export default Main

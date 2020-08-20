@@ -1,6 +1,0 @@
-type Play {
-  user: User!
-  song: Song!
-  playId: Uuid!
-  dateCreated: PositiveInt!
-}

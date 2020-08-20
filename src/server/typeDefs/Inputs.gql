@@ -1,0 +1,79 @@
+input ArtistInput {
+	name: String!
+	photo: Upload!
+}
+
+input GenreInput {
+	name: String!
+}
+
+input AlbumInput {
+	title: String!
+	cover: Upload!
+	released: Int!
+	artists: [String!]!
+}
+
+input SongInput {
+	mix: String!
+	album: String!
+	title: String!
+	audio: Upload!
+	genres: [String!]!
+	artists: [String!]!
+	remixers: [String!]!
+	featuring: [String!]!
+	discNumber: PositiveInt!
+	trackNumber: PositiveInt!
+}
+
+input UserInput {
+	name: String!
+	email: Email!
+}
+
+input PlaylistInput {
+	user: Uuid!
+  name: String!
+  songs: [Uuid!]!
+}
+
+input SongOrderByInput {
+	field: SongOrderByField!
+	direction: OrderByDirection!
+}
+
+input UserSongOrderByInput {
+	field: UserSongOrderByField!
+	direction: OrderByDirection!
+}
+
+input ArtistOrderByInput {
+	field: ArtistOrderByField!
+	direction: OrderByDirection!
+}
+
+input UserArtistOrderByInput {
+	direction: OrderByDirection!
+	field: UserArtistOrderByField!
+}
+
+input AlbumOrderByInput {
+	field: AlbumOrderByField!
+	direction: OrderByDirection!
+}
+
+input UserAlbumOrderByInput {
+	direction: OrderByDirection!
+	field: UserAlbumOrderByField!
+}
+
+input PlaylistOrderByInput {
+	field: PlaylistOrderByField!
+	direction: OrderByDirection!
+}
+
+input UserPlaylistOrderByInput {
+	direction: OrderByDirection!
+	field: UserPlaylistOrderByField!
+}

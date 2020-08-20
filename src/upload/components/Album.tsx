@@ -66,14 +66,13 @@ const Album: FC<PropTypes> = ({
 	const { handleAlbumChange } =
 		useStateContext()
 	const handleTitleChange: ChangeEventHandler<HTMLInputElement> = event =>
-		handleAlbumChange(title, event.target.value, "title")
+		handleAlbumChange(albumId, event.target.value, "title")
 	const handleReleasedChange: DatePickerProps["onChange"] = date =>
 		handleAlbumChange(albumId, Math.floor(Math.floor(date!.valueOf() / 1000) / 86400), "released")
 	const handleArtistsChange = (val: string[]) =>
 		handleAlbumChange(albumId, val, "artists")
 	const handleCoverChange = (img: Blob) =>
 		handleAlbumChange(albumId, img, "cover")
-	console.log(released * 86400)
 	return (
 		<Root className={className}>
 			<Cover

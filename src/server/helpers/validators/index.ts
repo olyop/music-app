@@ -1,7 +1,0 @@
-export * from "./isUser"
-export * from "./isUuid"
-export * from "./isSong"
-export * from "./isEmail"
-export * from "./isAlbum"
-export * from "./isGenre"
-export * from "./isArtist"

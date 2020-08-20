@@ -1,16 +1,16 @@
+import { PoolClient } from "pg"
+
 import { exists } from "./exists"
 
-interface Input {
+interface UniqueInput {
 	value: string,
 	table: string,
 	column: string,
 }
 
-export const unique = ({ value, table, column }: Input) =>
-	new Promise<boolean>(
-		(resolve, reject) => {
-			exists({ table, value, column })
-				.then(res => resolve(!res))
-				.catch(reject)
-		},
-	)
+export const unique =
+	(client: PoolClient) =>
+		async ({ value, table, column }: UniqueInput) => {
+			const res = await exists(client)({ table, value, column })
+			return !res
+		}

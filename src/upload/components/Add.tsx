@@ -9,19 +9,18 @@ import Grid from "@material-ui/core/Grid"
 import Button from "@material-ui/core/Button"
 import AddCircle from "@material-ui/icons/AddCircle"
 import styled from "@material-ui/core/styles/styled"
-import withTheme from "@material-ui/core/styles/withTheme"
 import CircularProgress from "@material-ui/core/CircularProgress"
 
 import { useStateContext } from "../context"
 
 const Root =
-	styled(withTheme(Grid))({
-		width: "100%",
-		height: "100%",
+	styled(Grid)({
+		width: "100vw",
+		height: "100vh",
 	})
 
 const AddButton =
-	styled(withTheme(Button))(({ theme }) => ({
+	styled(Button)(({ theme }) => ({
 		cursor: "pointer",
 		position: "relative",
 		paddingTop: theme.spacing(2),

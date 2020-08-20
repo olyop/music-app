@@ -5,11 +5,8 @@ import filter from "lodash/fp/filter"
 import { useApolloClient } from "@apollo/client"
 import { FC, useState, useEffect, createElement } from "react"
 
-import Box from "@material-ui/core/Box"
-import styled from "@material-ui/core/styles/styled"
-
 import {
-	submit,
+	upload,
 	canSubmit,
 	parseFiles,
 	getGenresToAdd,
@@ -31,18 +28,24 @@ import Add from "./Add"
 import Main from "./Main"
 import { StateContextProvider } from "../context"
 
-const Root =
-	styled(Box)({
-		width: "100vw",
-		height: "100vh",
-	})
-
 const Application: FC = () => {
 	const client = useApolloClient()
 	const [ loading, setLoading ] = useState(false)
 	const [ albums, setAlbums ] = useState<Album[]>([])
 	const [ genres, setGenres ] = useState<Genre[]>([])
 	const [ artists, setArtists ] = useState<Artist[]>([])
+
+	useEffect(() => {
+		getArtistsToAdd(client)(albums)
+			.then(setArtists)
+			.catch(console.error)
+	}, [client, albums])
+
+	useEffect(() => {
+		getGenresToAdd(client)(albums)
+			.then(setGenres)
+			.catch(console.error)
+	}, [client, albums])
 
 	const toggleLoading = () =>
 		setLoading(prevState => !prevState)
@@ -59,18 +62,6 @@ const Application: FC = () => {
 		setArtists(prevState => prevState.map(
 			item => (item.artistId === artistId ? { ...item, photo } : item),
 		))
-
-	useEffect(() => {
-		getArtistsToAdd(client)(albums)
-			.then(setArtists)
-			.catch(console.error)
-	}, [client, albums])
-
-	useEffect(() => {
-		getGenresToAdd(client)(albums)
-			.then(setGenres)
-			.catch(console.error)
-	}, [client, albums])
 
 	const handleAlbumChange: HandleAlbumChange = (albumId, val, key) =>
 		setAlbums(map(album => (
@@ -104,7 +95,7 @@ const Application: FC = () => {
 		if (canSubmit(artists, genres, albums)) {
 			setLoading(true)
 			try {
-				await submit(client)(artists, genres, albums)
+				await upload(client)(artists, genres, albums)
 			} catch (error) {
 				console.error(error)
 			} finally {
@@ -130,11 +121,8 @@ const Application: FC = () => {
 				handleAlbumChange,
 				handleArtistPhotoChange,
 			}}
-		>
-			<Root>
-				{isEmpty(albums) ? <Add/> : <Main/>}
-			</Root>
-		</StateContextProvider>
+			children={isEmpty(albums) ? <Add/> : <Main/>}
+		/>
 	)
 }
 

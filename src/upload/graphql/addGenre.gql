@@ -1,5 +1,0 @@
-mutation addGenre($name: String!) {
-  addGenre(genre: { name: $name }) {
-    genreId,
-  }
-}

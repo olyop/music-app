@@ -1,51 +1,47 @@
-import { query } from "./query"
+import { PoolClient } from "pg"
+
+import { baseQuery } from "./baseQuery"
 import { resExists } from "./resExists"
 import { EXISTS_COLUMN } from "../../sql"
 
-const existsQuery = ({
-	table,
-	value,
-	column,
-}: {
-	value: string,
-	table: string,
-	column: string,
-}) =>
-	query({
-		sql: EXISTS_COLUMN,
-		parse: resExists,
-		variables: [{
-			value,
-			key: "value",
-			parameterized: true,
-		},{
-			key: "table",
-			value: table,
-			string: false,
-		},{
-			key: "column",
-			value: column,
-			string: false,
-		}],
-	})
-
-export const exists = ({ value, ...input }: {
+interface ExistsInput {
 	table: string,
 	column: string,
 	value: string | string[],
-}) =>
-	new Promise<boolean>(
-		(resolve, reject) => {
+}
+
+interface ExistsQueryInput extends Omit<ExistsInput, "value"> {
+	value: string,
+}
+
+const query =
+	(client: PoolClient) =>
+		({ table, column, value }: ExistsQueryInput) =>
+			baseQuery(client)<boolean>({
+				sql: EXISTS_COLUMN,
+				parse: resExists,
+				variables: [{
+					value,
+					key: "value",
+					parameterized: true,
+				},{
+					key: "table",
+					value: table,
+					string: false,
+				},{
+					key: "column",
+					value: column,
+					string: false,
+				}],
+			})
+
+export const exists =
+	(client: PoolClient) =>
+		async ({ value, ...input }: ExistsInput) => {
 			if (Array.isArray(value)) {
-				Promise
-					.all(value.map(val => existsQuery({ ...input, value: val })))
-					.then(res => res.every(Boolean))
-					.then(resolve)
-					.catch(reject)
+				const res = await Promise.all(value.map(val => query(client)({ ...input, value: val })))
+				return res.every(Boolean)
 			} else {
-				existsQuery({ ...input, value })
-					.then(resolve)
-					.catch(reject)
+				return query(client)({ ...input, value })
 			}
-		},
-	)
+		}

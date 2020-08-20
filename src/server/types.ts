@@ -76,7 +76,9 @@ export interface Playlist extends UserDocBase, PlaylistBase {
 }
 
 export interface Album extends UserDocBase, AlbumBase {}
+
 export interface Genre extends UserDocBase, GenreBase {}
+
 export interface Artist extends UserDocBase, ArtistBase {}
 
 export interface Queue {

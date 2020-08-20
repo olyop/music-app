@@ -2,28 +2,28 @@ import { createElement, FC } from "react"
 
 import Button from "@material-ui/core/Button"
 import withStyles from "@material-ui/core/styles/withStyles"
+import { StyledComponentProps } from "@material-ui/core/styles"
 
 import { useStateContext } from "../context"
 
-const SubmitButton =
-	withStyles(theme => ({
+const Root =
+	withStyles({
 		root: {
-			width: "100vw",
 			borderRadius: 0,
 			display: "block",
-			height: theme.spacing(7),
 		},
-	}))(Button)
+	})(Button)
 
-const Main: FC = () => {
+const Submit: FC<StyledComponentProps> = ({ classes }) => {
 	const { handleSubmit } = useStateContext()
 	return (
-		<SubmitButton
+		<Root
 			children="Submit"
+			classes={classes}
 			variant="contained"
 			onClick={handleSubmit}
 		/>
 	)
 }
 
-export default Main
+export default Submit

@@ -1,0 +1,13 @@
+type Artist {
+  name: String!
+  artistId: Uuid!
+  numOfPlays: Int!,
+  numOfSongs: NonNegativeInt!
+  numOfAlbums: NonNegativeInt!
+  plays(userId: Uuid!): [Play!]
+  inLibrary(userId: Uuid!): Boolean!
+  dateAdded(userId: Uuid!): PositiveInt
+  photo(size: ArtistPhotoSize! = HALF): Url!
+  songs(orderBy: SongOrderByInput!): [Song!]!
+  albums(orderBy: AlbumOrderByInput!): [Album!]!
+}

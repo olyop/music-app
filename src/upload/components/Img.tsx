@@ -42,13 +42,16 @@ const Img: FC<PropTypes> = ({ img, onChange, title, children, className }) => {
 	const handleChange: ChangeEventHandler<HTMLInputElement> = event =>
 		onChange(event.target.files![0])
 	useEffect(() => {
-		const element = document.querySelector<HTMLImageElement>(`#${camelCase(title)}`)!
+		const element = document.querySelector<HTMLDivElement>(`#${camelCase(title)}`)!
 		const url = img ? URL.createObjectURL(img) : "null"
 		element.style.backgroundImage = `url(${url})`
 		return () => URL.revokeObjectURL(url)
 	})
 	return (
-		<Root className={className} title={title}>
+		<Root
+			title={title}
+			className={className}
+		>
 			<Input
 				type="file"
 				onChange={handleChange}

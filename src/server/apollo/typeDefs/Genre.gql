@@ -1,7 +1,0 @@
-type Genre {
-  name: String!
-  genreId: Uuid!
-  numOfSongs: NonNegativeInt!
-  plays(userId: Uuid!): [Play!]
-  songs(orderBy: SongOrderByInput!): [Song!]!
-}

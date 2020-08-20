@@ -5,8 +5,8 @@ import Box from "@material-ui/core/Box"
 import Card from "@material-ui/core/Card"
 import styled from "@material-ui/core/styles/styled"
 import Typography from "@material-ui/core/Typography"
-import CardContent from "@material-ui/core/CardContent"
 import { StyledProps } from "@material-ui/core/styles"
+import CardContent from "@material-ui/core/CardContent"
 import withStyles from "@material-ui/core/styles/withStyles"
 import CardActionArea from "@material-ui/core/CardActionArea"
 
@@ -32,6 +32,22 @@ const Artist =
 		},
 	}))(Card)
 
+const ArtistContent =
+	withStyles({
+		root: {
+			padding: 0,
+			paddingBottom: "0 !important",
+		},
+	})(CardContent)
+
+const ArtistName =
+	withStyles(theme => ({
+		root: {
+			padding: theme.spacing(1.5),
+			...theme.typography.subtitle2,
+		},
+	}))(Typography)
+
 const Photo =
 	styled(Img)(({
 		height: 200,
@@ -46,20 +62,18 @@ const Artists: FC<StyledProps> = ({ className }) => {
 			{orderBy(artists, "name").map(
 				artist => (
 					<Artist key={artist.name}>
-						<CardActionArea>
-							<Photo
-								img={artist.photo}
-								title={artist.name}
-								onChange={handleArtistPhotoChange(artist.artistId)}
-							/>
-							<CardContent>
-								<Typography
-									component="h2"
-									variant="subtitle1"
-									children={artist.name}
+						<ArtistContent>
+							<CardActionArea>
+								<Photo
+									img={artist.photo}
+									title={artist.name}
+									onChange={handleArtistPhotoChange(artist.artistId)}
 								/>
-							</CardContent>
-						</CardActionArea>
+							</CardActionArea>
+							<ArtistName>
+								{artist.name}
+							</ArtistName>
+						</ArtistContent>
 					</Artist>
 				),
 			)}

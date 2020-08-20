@@ -71,8 +71,8 @@ const normalizeInput = <TReturn>(input: string | SQLConfig<TReturn>) =>
 	} : input)
 
 export const baseQuery =
-	<TReturn>(client: Pool | PoolClient) =>
-		(input: string | SQLConfig<TReturn>) =>
+	(client: Pool | PoolClient) =>
+		<TReturn>(input: string | SQLConfig<TReturn>) =>
 			new Promise<TReturn>(
 				(resolve, reject) => {
 					const { sql, log, parse, variables = [] } = normalizeInput(input)

@@ -10,7 +10,7 @@ import {
 
 import {
 	uploadFileFromClient,
-} from "../../../../helpers"
+} from "../../../helpers"
 
 const receiveSong = async ({ audio, ...song }: SongInput): Promise<SongUpload> => ({
 	...song,

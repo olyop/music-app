@@ -1,7 +1,7 @@
+import { QueryResult } from "pg"
 import { uniq, identity, isString } from "lodash"
-import { Pool, PoolClient, QueryResult } from "pg"
 
-import { SQLConfig, SQLVariable } from "../../types"
+import { Client, SQLConfig, SQLVariable } from "../../types"
 
 export const getVariableKeys = (sql: string) => {
 	const keys: string[] = []
@@ -71,7 +71,7 @@ const normalizeInput = <TReturn>(input: string | SQLConfig<TReturn>) =>
 	} : input)
 
 export const baseQuery =
-	(client: Pool | PoolClient) =>
+	(client: Client) =>
 		<TReturn>(input: string | SQLConfig<TReturn>) =>
 			new Promise<TReturn>(
 				(resolve, reject) => {
@@ -85,11 +85,11 @@ export const baseQuery =
 					} else {
 						const params: string[] = []
 						const sqlWithValues = replaceSqlWithValues(sql, variables, params)
-						if (log) console.log(sqlWithValues)
+						if (log) console.log(sqlWithValues, params)
 						client.query(sqlWithValues, params)
-							.then(parse)
-							.then(resolve)
-							.catch(reject)
+									.then(parse)
+									.then(resolve)
+									.catch(reject)
 					}
 				},
 			)

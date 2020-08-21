@@ -52,7 +52,7 @@ const albumsToSongUploads =
 			[],
 		)
 
-export const upload =
+export const submit =
 	(client: Client) =>
 		async (artists: Artist[], genres: Genre[], albums: Album[]) =>
 			client.mutate({

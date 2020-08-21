@@ -26,6 +26,7 @@ const Submit =
 	withStyles(theme => ({
 		root: {
 			width: "100%",
+			boxShadow: "none",
 			height: theme.spacing(7),
 		},
 	}))(_Submit)

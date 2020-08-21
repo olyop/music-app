@@ -1,6 +1,5 @@
-import { PoolClient } from "pg"
-
 import { exists } from "./exists"
+import { Client } from "../../types"
 
 interface UniqueInput {
 	value: string,
@@ -9,7 +8,7 @@ interface UniqueInput {
 }
 
 export const unique =
-	(client: PoolClient) =>
+	(client: Client) =>
 		async ({ value, table, column }: UniqueInput) => {
 			const res = await exists(client)({ table, value, column })
 			return !res

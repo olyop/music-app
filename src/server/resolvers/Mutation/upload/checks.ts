@@ -35,7 +35,8 @@ export const albumChecks = (client: PoolClient) => (album: AlbumUpload): Check[]
 			column: "title",
 			value: album.title,
 		}),
-	},{
+	},
+	{
 		name: "doArtistsExist",
 		check: sql.exists(client)({
 			table: "artists",

@@ -1,10 +1,12 @@
+import { v4 as uuid } from "uuid"
+
 import {
 	Song,
 	Genre,
 	Album,
 	Artist,
 	SQLConfig,
-} from "../../../../types"
+} from "../../../types"
 
 import {
 	SongUpload,
@@ -23,17 +25,18 @@ import {
 	INSERT_SONG_ARTIST,
 	INSERT_SONG_REMIXER,
 	INSERT_ALBUM_ARTIST,
-} from "../../../../sql"
+} from "../../../sql"
 
-import { sql } from "../../../../helpers"
-import { COLUMN_NAMES } from "../../../../globals"
+import { sql } from "../../../helpers"
+import { COLUMN_NAMES } from "../../../globals"
 
-export const insertGenre = (genreId: string, genre: GenreInput): SQLConfig<Genre> => ({
+export const insertGenre = (genre: GenreInput): SQLConfig<Genre> => ({
+	log: true,
 	sql: INSERT_GENRE,
 	parse: sql.parseRow(),
 	variables: [{
+		value: uuid(),
 		key: "genreId",
-		value: genreId,
 	},{
 		key: "name",
 		value: genre.name,
@@ -45,12 +48,13 @@ export const insertGenre = (genreId: string, genre: GenreInput): SQLConfig<Genre
 	}],
 })
 
-export const insertArtist = (artistId: string, artist: ArtistUpload): SQLConfig<Artist> => ({
+export const insertArtist = (artist: ArtistUpload): SQLConfig<Artist> => ({
+	log: true,
 	sql: INSERT_ARTIST,
 	parse: sql.parseRow(),
 	variables: [{
+		value: uuid(),
 		key: "artistId",
-		value: artistId,
 	},{
 		key: "name",
 		value: artist.name,
@@ -62,30 +66,32 @@ export const insertArtist = (artistId: string, artist: ArtistUpload): SQLConfig<
 	}],
 })
 
-export const insertAlbum = (albumId: string, album: AlbumUpload): SQLConfig<Album> => ({
+export const insertAlbum = (album: AlbumUpload): SQLConfig<Album> => ({
+	log: true,
 	sql: INSERT_ALBUM,
 	parse: sql.parseRow(),
 	variables: [{
+		value: uuid(),
 		key: "albumId",
-		value: albumId,
 	},{
 		key: "title",
 		value: album.title,
 		parameterized: true,
 	},{
 		string: false,
-		key: "columnNames",
-		value: sql.join(COLUMN_NAMES.ALBUM),
-	},{
-		string: false,
 		key: "released",
 		value: album.released.toString(),
+	},{
+		string: false,
+		key: "columnNames",
+		value: sql.join(COLUMN_NAMES.ALBUM),
 	}],
 })
 
 export const insertAlbumArtist =
 	(albumId: string) =>
 		(artistId: string, index: number): SQLConfig<Artist> => ({
+			log: true,
 			sql: INSERT_ALBUM_ARTIST,
 			variables: [{
 				key: "albumId",
@@ -101,7 +107,8 @@ export const insertAlbumArtist =
 		})
 
 export const insertSong =
-	(songId: string, duration: number, song: SongUpload): SQLConfig<Song> => ({
+	(song: SongUpload, duration: number): SQLConfig<Song> => ({
+		log: true,
 		sql: INSERT_SONG,
 		parse: sql.parseRow(),
 		variables: [{
@@ -114,7 +121,7 @@ export const insertSong =
 			parameterized: true,
 		},{
 			key: "songId",
-			value: songId,
+			value: uuid(),
 		},{
 			key: "albumId",
 			value: song.album,
@@ -139,6 +146,7 @@ export const insertSong =
 
 export const insertSongGenre =
 	(songId: string) => (genreId: string, index: number): SQLConfig<Genre> => ({
+		log: true,
 		sql: INSERT_SONG_GENRE,
 		variables: [{
 			key: "songId",
@@ -155,6 +163,7 @@ export const insertSongGenre =
 
 export const insertSongArtist =
 	(songId: string) => (artistId: string, index: number): SQLConfig<Artist> => ({
+		log: true,
 		sql: INSERT_SONG_ARTIST,
 		variables: [{
 			key: "songId",
@@ -171,6 +180,7 @@ export const insertSongArtist =
 
 export const insertSongRemixer =
 	(songId: string) => (artistId: string, index: number): SQLConfig<Artist> => ({
+		log: true,
 		sql: INSERT_SONG_REMIXER,
 		variables: [{
 			key: "songId",
@@ -187,6 +197,7 @@ export const insertSongRemixer =
 
 export const insertSongFeaturer =
 	(songId: string) => (artistId: string, index: number): SQLConfig<Artist> => ({
+		log: true,
 		sql: INSERT_SONG_FEAT,
 		variables: [{
 			key: "songId",

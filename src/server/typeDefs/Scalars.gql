@@ -1,6 +1,5 @@
 scalar Url
 scalar Uuid
-scalar Email
 scalar Upload
 scalar PositiveInt
 scalar NonNegativeInt

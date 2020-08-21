@@ -4,7 +4,7 @@ import { importFile } from "../helpers"
 import { SERVER_PATH } from "../globals"
 
 const importSchema = (filename: string) =>
-	`${importFile(path.join(SERVER_PATH, "apollo", "typeDefs", `${filename}.gql`))}`
+	`${importFile(path.join(SERVER_PATH, "typeDefs", `${filename}.gql`))}`
 
 const typeDefs = `
 	${importSchema("Scalars")}

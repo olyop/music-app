@@ -1,4 +1,4 @@
-import { QueryResult } from "pg"
+import { Pool, PoolClient, QueryResult } from "pg"
 
 import {
 	UserBase,
@@ -45,6 +45,8 @@ export type Check = {
 	name: string,
 	check: Promise<boolean>,
 }
+
+export type Client = Pool | PoolClient
 
 export type ImgDim = [
 	number,

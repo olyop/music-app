@@ -1,8 +1,8 @@
 import { QueryResult } from "pg"
 
-interface Row {
+interface ExistsRow {
 	exists: boolean,
 }
 
-export const resExists = ({ rows }: QueryResult<Row>) =>
+export const resExists = ({ rows }: QueryResult<ExistsRow>) =>
 	rows[0].exists

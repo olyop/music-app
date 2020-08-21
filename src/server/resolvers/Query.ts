@@ -16,7 +16,6 @@ import {
 	SELECT_ALBUM,
 	SELECT_GENRE,
 	SELECT_SONGS,
-	SELECT_SEARCH,
 	SELECT_ALBUMS,
 	SELECT_ARTIST,
 	SELECT_ARTISTS,
@@ -26,6 +25,7 @@ import {
 	SELECT_TOP_TEN_SONGS,
 } from "../sql"
 
+import { pg } from "../services"
 import { COLUMN_NAMES } from "../globals"
 import { sql, createResolver } from "../helpers"
 
@@ -262,42 +262,6 @@ export const topTenSongs =
 		),
 	)
 
-interface DocSearchOptions {
-	query: string,
-	exact: boolean,
-	tableName: string,
-	columnName: string,
-	columnNames: string[],
-}
-
-const docSearch =
-	<T>({ query, exact, tableName, columnName, columnNames }: DocSearchOptions) =>
-		sql.query({
-			sql: SELECT_SEARCH,
-			parse: sql.parseTable<T>(),
-			variables: [{
-				string: false,
-				key: "tableName",
-				value: tableName,
-			},{
-				string: false,
-				key: "sqlSearchType",
-				value: exact ? "=" : "LIKE",
-			},{
-				string: false,
-				key: "columnNames",
-				value: sql.join(columnNames),
-			},{
-				string: false,
-				key: "columnName",
-				value: exact ? columnName : `lower(${columnName})`,
-			},{
-				key: "query",
-				parameterized: true,
-				value: exact ? query : `%${query.toLowerCase()}%`,
-			}],
-		})
-
 interface SearchArgs {
 	query: string,
 	exact: boolean,
@@ -306,7 +270,7 @@ interface SearchArgs {
 export const artistSearch =
 	resolver<Artist[], SearchArgs>(
 		({ args }) => (
-			docSearch({
+			sql.search(pg)({
 				...args,
 				columnName: "name",
 				tableName: "artists",
@@ -318,7 +282,7 @@ export const artistSearch =
 export const albumSearch =
 	resolver<Album[], SearchArgs>(
 		({ args }) => (
-			docSearch({
+			sql.search(pg)({
 				...args,
 				tableName: "albums",
 				columnName: "title",
@@ -330,7 +294,7 @@ export const albumSearch =
 export const genreSearch =
 	resolver<Genre[], SearchArgs>(
 		({ args }) => (
-			docSearch({
+			sql.search(pg)({
 				...args,
 				columnName: "name",
 				tableName: "genres",

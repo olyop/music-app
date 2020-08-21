@@ -7,4 +7,4 @@ WHERE
 ORDER BY
   {{ columnName }} ASC
 LIMIT
-  10;
+  {{ limit }};

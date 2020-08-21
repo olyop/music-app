@@ -35,6 +35,7 @@
 		"dev": "clear && npm run delete-build && npm run build-server && npm run build-watch && npx concurrently \"npm:dev-watch\" \"npm:dev-server\" \"npm:dev-client\" \"npm:dev-upload\" \"npm:dev-nodemon\"",
 		"client-dev": "clear && npm run delete-build && npm run build-server && npm run build-watch && npx concurrently \"npm:dev-watch\" \"npm:dev-server\" \"npm:dev-client\" \"npm:dev-nodemon\"",
 		"upload-dev": "clear && npm run delete-build && npm run build-server && npm run build-watch && npx concurrently \"npm:dev-watch\" \"npm:dev-server\" \"npm:dev-upload\" \"npm:dev-nodemon\"",
+		"server-dev": "clear && npm run delete-build && npm run build-server && npm run build-watch && npx concurrently \"npm:dev-watch\" \"npm:dev-server\" \"npm:dev-nodemon\"",
 		"dev-nodemon": "npx nodemon -r dotenv/config dist/index.js",
 		"dev-server": "npx tsc --project tsconfig.server.json --watch",
 		"dev-watch": "npx babel src/server --out-dir dist --copy-files --watch --ignore \"src/**/*.ts\"",

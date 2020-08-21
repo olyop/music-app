@@ -22,9 +22,8 @@ export const ALBUM = [
 export const USER = [
 	"user_id",
 	"name",
-	"email",
 	"current",
-	"date_created",
+	"date_joined",
 ]
 
 export const SONG = [

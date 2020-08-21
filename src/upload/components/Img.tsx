@@ -39,10 +39,12 @@ const Inner =
 	})
 
 const Img: FC<PropTypes> = ({ img, onChange, title, children, className }) => {
+	const id =
+		camelCase(title.toLocaleLowerCase()).replace(/[0-9]/g, "")
 	const handleChange: ChangeEventHandler<HTMLInputElement> = event =>
 		onChange(event.target.files![0])
 	useEffect(() => {
-		const element = document.querySelector<HTMLDivElement>(`#${camelCase(title)}`)!
+		const element = document.querySelector<HTMLDivElement>(`#${id}`)!
 		const url = img ? URL.createObjectURL(img) : "null"
 		element.style.backgroundImage = `url(${url})`
 		return () => URL.revokeObjectURL(url)
@@ -58,7 +60,7 @@ const Img: FC<PropTypes> = ({ img, onChange, title, children, className }) => {
 			/>
 			<Inner
 				className="img"
-				id={camelCase(title)}
+				id={id}
 			/>
 			{children}
 		</Root>

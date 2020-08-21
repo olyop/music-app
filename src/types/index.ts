@@ -1,6 +1,5 @@
 export interface UserBase {
 	name: string,
-	email: string,
 	userId: string,
 	dateJoined: number,
 }

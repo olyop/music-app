@@ -1,7 +1,6 @@
 import {
 	URLResolver as Url,
 	GUIDResolver as Uuid,
-	EmailAddressResolver as Email,
 	PositiveIntResolver as PositiveInt,
 	NonNegativeIntResolver as NonNegativeInt,
 } from "graphql-scalars"
@@ -25,7 +24,6 @@ const resolvers = {
 	Play,
 	User,
 	Song,
-	Email,
 	Query,
 	Genre,
 	Album,

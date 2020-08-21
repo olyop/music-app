@@ -1,6 +1,5 @@
 type User {
   userId: Uuid!
-  email: Email!
   name: String!
   current: Song
   prev: [Song!]!

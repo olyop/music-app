@@ -6,7 +6,7 @@ import { useApolloClient } from "@apollo/client"
 import { FC, useState, useEffect, createElement } from "react"
 
 import {
-	upload,
+	submit,
 	canSubmit,
 	parseFiles,
 	getGenresToAdd,
@@ -95,7 +95,7 @@ const Application: FC = () => {
 		if (canSubmit(artists, genres, albums)) {
 			setLoading(true)
 			try {
-				await upload(client)(artists, genres, albums)
+				await submit(client)(artists, genres, albums)
 			} catch (error) {
 				console.error(error)
 			} finally {

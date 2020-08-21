@@ -1,8 +1,7 @@
 CREATE TABLE IF NOT EXISTS users (
 	user_id uuid,
 	name text NOT NULL,
-	current uuid,
-	email text NOT NULL,
+	current uuid DEFAULT NULL,
   date_joined integer NOT NULL DEFAULT date_part('epoch', now()),
 	CONSTRAINT users_pk
 		PRIMARY KEY (user_id),

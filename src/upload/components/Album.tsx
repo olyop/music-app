@@ -1,7 +1,10 @@
+import { useApolloClient } from "@apollo/client"
 import { createElement, FC, ChangeEventHandler } from "react"
 
 import Box from "@material-ui/core/Box"
 import Input from "@material-ui/core/Input"
+import Button from "@material-ui/core/Button"
+import SearchIcon from "@material-ui/icons/Search"
 import styled from "@material-ui/core/styles/styled"
 import { StyledProps } from "@material-ui/core/styles"
 import withStyles from "@material-ui/core/styles/withStyles"
@@ -12,6 +15,7 @@ import Songs from "./Songs"
 import { Album } from "../types"
 import AlbumArtists from "./AlbumArtists"
 import { useStateContext } from "../context"
+import ALBUM_RELEASED_SEARCH from "../graphql/albumReleasedSearch.gql"
 
 const Root =
 	styled(Box)(({ theme }) => ({
@@ -44,7 +48,7 @@ const Info =
 		alignItems: "center",
 		gridGap: theme.spacing(2),
 		marginBottom: theme.spacing(1),
-		gridTemplateColumns: "auto 114px",
+		gridTemplateColumns: "auto 114px 200px",
 	}))
 
 const Artists =
@@ -54,15 +58,26 @@ const Artists =
 	}))
 
 const Released =
-	styled(DatePicker)({
-		width: 114,
-		display: "block",
-	})
+	withStyles({
+		root: {
+			width: 114,
+			display: "block",
+		},
+	})(DatePicker)
 
-const Album: FC<PropTypes> = ({
-	className,
-	album: { albumId, title, artists, cover, songs, released },
-}) => {
+const SearchButton =
+	withStyles({
+		root: {
+			height: 56,
+			width: "100%",
+		},
+	})(Button)
+
+const Album: FC<PropTypes> = ({ album, className }) => {
+	const client =
+		useApolloClient()
+	const { albumId, title, artists, cover, songs, released } =
+		album
 	const { handleAlbumChange } =
 		useStateContext()
 	const handleTitleChange: ChangeEventHandler<HTMLInputElement> = event =>
@@ -73,6 +88,15 @@ const Album: FC<PropTypes> = ({
 		handleAlbumChange(albumId, val, "artists")
 	const handleCoverChange = (img: Blob) =>
 		handleAlbumChange(albumId, img, "cover")
+	const handleSearchClick = async () =>
+		console.log((await client.query<SearchRes>({
+			query: ALBUM_RELEASED_SEARCH,
+			variables: { title, artists },
+		})).data!.albumReleasedSearch)
+		// handleAlbumChange(albumId, (await client.query<SearchRes>({
+		// 	query: ALBUM_RELEASED_SEARCH,
+		// 	variables: { title, artists },
+		// })).data!.albumReleasedSearch || 18000, "released")
 	return (
 		<Root className={className}>
 			<Cover
@@ -99,6 +123,13 @@ const Album: FC<PropTypes> = ({
 						value={released * 86400 * 1000}
 						onChange={handleReleasedChange}
 					/>
+					<SearchButton
+						size="large"
+						variant="outlined"
+						children="Search Google"
+						startIcon={<SearchIcon/>}
+						onClick={handleSearchClick}
+					/>
 				</Info>
 				<Songs
 					songs={songs}
@@ -107,6 +138,10 @@ const Album: FC<PropTypes> = ({
 			</Box>
 		</Root>
 	)
+}
+
+interface SearchRes {
+	albumReleasedSearch: number | null,
 }
 
 interface PropTypes extends StyledProps {

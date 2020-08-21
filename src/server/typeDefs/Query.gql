@@ -12,13 +12,15 @@ type Query {
   artists(orderBy: ArtistOrderByInput!): [Artist!]!
   playlists(orderBy: PlaylistOrderByInput!): [Playlist!]!
 
-  # misc queries
+  # advanced queries
   newAlbums: [Album!]!
   topTenSongs: [Song!]!
   
-  # search
-  # songSearch(query: String!, exact: Boolean = false): [Song!]!
+  # searches
   albumSearch(query: String!, exact: Boolean!): [Album!]!
   genreSearch(query: String!, exact: Boolean!): [Genre!]!
   artistSearch(query: String!, exact: Boolean!): [Artist!]!
+
+  # misc queries
+  albumReleasedSearch(title: String!, artists: [String!]!): String
 }

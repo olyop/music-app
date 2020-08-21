@@ -1,3 +1,6 @@
+import cheerio from "cheerio"
+import fetch from "node-fetch"
+
 import {
 	User,
 	Song,
@@ -301,4 +304,23 @@ export const genreSearch =
 				columnNames: COLUMN_NAMES.GENRE,
 			})
 		),
+	)
+
+const urlStart = "https://www.google.com/search"
+
+interface AlbumReleasedSearchArgs {
+	title: string,
+	artists: string[],
+}
+
+export const albumReleasedSearch =
+	resolver<string, AlbumReleasedSearchArgs>(
+		async () => {
+			const search = "higher+ground+diplo+release+date"
+			const url = `${urlStart}?q=${search}`
+			const response = await fetch(url)
+			const html = await response.text()
+			const $ = cheerio.load(html)
+			return $("div[data-tts=answers]").html() || "err"
+		},
 	)

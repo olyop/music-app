@@ -31,7 +31,6 @@ import { sql } from "../../../helpers"
 import { COLUMN_NAMES } from "../../../globals"
 
 export const insertGenre = (genre: GenreInput): SQLConfig<Genre> => ({
-	log: true,
 	sql: INSERT_GENRE,
 	parse: sql.parseRow(),
 	variables: [{
@@ -49,7 +48,6 @@ export const insertGenre = (genre: GenreInput): SQLConfig<Genre> => ({
 })
 
 export const insertArtist = (artist: ArtistUpload): SQLConfig<Artist> => ({
-	log: true,
 	sql: INSERT_ARTIST,
 	parse: sql.parseRow(),
 	variables: [{
@@ -67,7 +65,6 @@ export const insertArtist = (artist: ArtistUpload): SQLConfig<Artist> => ({
 })
 
 export const insertAlbum = (album: AlbumUpload): SQLConfig<Album> => ({
-	log: true,
 	sql: INSERT_ALBUM,
 	parse: sql.parseRow(),
 	variables: [{
@@ -91,7 +88,6 @@ export const insertAlbum = (album: AlbumUpload): SQLConfig<Album> => ({
 export const insertAlbumArtist =
 	(albumId: string) =>
 		(artistId: string, index: number): SQLConfig<Artist> => ({
-			log: true,
 			sql: INSERT_ALBUM_ARTIST,
 			variables: [{
 				key: "albumId",
@@ -108,7 +104,6 @@ export const insertAlbumArtist =
 
 export const insertSong =
 	(song: SongUpload, duration: number): SQLConfig<Song> => ({
-		log: true,
 		sql: INSERT_SONG,
 		parse: sql.parseRow(),
 		variables: [{
@@ -146,7 +141,6 @@ export const insertSong =
 
 export const insertSongGenre =
 	(songId: string) => (genreId: string, index: number): SQLConfig<Genre> => ({
-		log: true,
 		sql: INSERT_SONG_GENRE,
 		variables: [{
 			key: "songId",
@@ -163,7 +157,6 @@ export const insertSongGenre =
 
 export const insertSongArtist =
 	(songId: string) => (artistId: string, index: number): SQLConfig<Artist> => ({
-		log: true,
 		sql: INSERT_SONG_ARTIST,
 		variables: [{
 			key: "songId",
@@ -180,7 +173,6 @@ export const insertSongArtist =
 
 export const insertSongRemixer =
 	(songId: string) => (artistId: string, index: number): SQLConfig<Artist> => ({
-		log: true,
 		sql: INSERT_SONG_REMIXER,
 		variables: [{
 			key: "songId",
@@ -197,7 +189,6 @@ export const insertSongRemixer =
 
 export const insertSongFeaturer =
 	(songId: string) => (artistId: string, index: number): SQLConfig<Artist> => ({
-		log: true,
 		sql: INSERT_SONG_FEAT,
 		variables: [{
 			key: "songId",

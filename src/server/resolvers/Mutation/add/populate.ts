@@ -2,7 +2,7 @@
 import { sql } from "../../../helpers"
 import { COLUMN_NAMES } from "../../../globals"
 import { AlbumUpload, SongUpload } from "./types"
-import { Client, Album, Genre, Artist } from "../../../types"
+import { Client, Genre, Artist } from "../../../types"
 
 interface GetDocInputBase<T> {
 	key: keyof T,
@@ -48,15 +48,9 @@ export const populateAlbum =
 	})
 
 export const populateSong =
-	(client: Client) => async (song: SongUpload): Promise<SongUpload> => ({
+	(client: Client) => async (album: string, song: SongUpload): Promise<SongUpload> => ({
 		...song,
-		album: await getDoc(client)<Album>({
-			key: "albumId",
-			query: song.album,
-			tableName: "albums",
-			columnName: "title",
-			columnNames: COLUMN_NAMES.ALBUM,
-		}),
+		album,
 		genres: await getDocs(client)<Genre>({
 			key: "genreId",
 			docs: song.genres,

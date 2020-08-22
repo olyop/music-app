@@ -12,11 +12,11 @@ input AlbumInput {
 	cover: Upload!
 	released: Int!
 	artists: [String!]!
+	songs: [SongInput!]!
 }
 
 input SongInput {
 	mix: String!
-	album: String!
 	title: String!
 	audio: Upload!
 	genres: [String!]!

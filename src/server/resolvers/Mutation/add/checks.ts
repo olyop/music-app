@@ -1,7 +1,7 @@
 import { PoolClient } from "pg"
 
+import { Check } from "./types"
 import { sql } from "../../../helpers"
-import { Check } from "../../../types"
 import { EXISTS_ALBUM_SONG } from "../../../sql"
 import { SongUpload, GenreInput, AlbumUpload, ArtistUpload } from "./types"
 
@@ -29,14 +29,6 @@ export const artistChecks = (client: PoolClient) => (artist: ArtistUpload): Chec
 
 export const albumChecks = (client: PoolClient) => (album: AlbumUpload): Check[] => [
 	{
-		name: "isAlbumUnique",
-		check: sql.unique(client)({
-			table: "albums",
-			column: "title",
-			value: album.title,
-		}),
-	},
-	{
 		name: "doArtistsExist",
 		check: sql.exists(client)({
 			table: "artists",
@@ -47,25 +39,6 @@ export const albumChecks = (client: PoolClient) => (album: AlbumUpload): Check[]
 ]
 
 export const songChecks = (client: PoolClient) => (song: SongUpload): Check[] => [
-	{
-		name: "isUniqueAlbumSong",
-		check: sql.baseQuery(client)({
-			sql: EXISTS_ALBUM_SONG,
-			parse: res => !sql.resExists(res),
-			variables: [{
-				key: "albumId",
-				value: song.album,
-			},{
-				string: false,
-				key: "discNumber",
-				value: song.discNumber.toString(),
-			},{
-				string: false,
-				key: "trackNumber",
-				value: song.trackNumber.toString(),
-			}],
-		}),
-	},
 	{
 		name: "doGenresExist",
 		check: sql.exists(client)({
@@ -104,6 +77,25 @@ export const songChecks = (client: PoolClient) => (song: SongUpload): Check[] =>
 			table: "artists",
 			column: "artist_id",
 			value: song.featuring,
+		}),
+	},
+	{
+		name: "isUniqueAlbumSong",
+		check: sql.baseQuery(client)({
+			sql: EXISTS_ALBUM_SONG,
+			parse: res => !sql.resExists(res),
+			variables: [{
+				key: "albumId",
+				value: song.album,
+			},{
+				string: false,
+				key: "discNumber",
+				value: song.discNumber.toString(),
+			},{
+				string: false,
+				key: "trackNumber",
+				value: song.trackNumber.toString(),
+			}],
 		}),
 	},
 ]

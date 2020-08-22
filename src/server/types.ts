@@ -41,11 +41,6 @@ export type S3Upload = {
 	data: Buffer,
 }
 
-export type Check = {
-	name: string,
-	check: Promise<boolean>,
-}
-
 export type Client = Pool | PoolClient
 
 export type ImgDim = [

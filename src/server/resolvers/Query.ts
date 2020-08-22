@@ -1,5 +1,6 @@
-import cheerio from "cheerio"
+/* eslint-disable max-len, quote-props */
 import fetch from "node-fetch"
+import { isEmpty } from "lodash"
 
 import {
 	User,
@@ -313,14 +314,42 @@ interface AlbumReleasedSearchArgs {
 	artists: string[],
 }
 
+const monthLookupIndex: Record<string, number> = {
+	"Jan": 0,
+	"Feb": 1,
+	"Mar": 2,
+	"Apr": 3,
+	"May": 4,
+	"Jun": 5,
+	"Jul": 6,
+	"Aug": 7,
+	"Sep": 8,
+	"Oct": 9,
+	"Nov": 10,
+	"Dec": 11,
+}
+
+const regEx = /(Jan|Feb|Mar|Apr|May|June|Jul|Aug|Sep|Oct|Nov|Dec) (1|2|3|4|5|6|7|8|9|10|11|12|13|14|15|16|17|18|19|20|21|22|23|24|25|26|27|28|29|30|31), [1970-2020]{4}/gi
+
 export const albumReleasedSearch =
-	resolver<string, AlbumReleasedSearchArgs>(
-		async () => {
-			const search = "higher+ground+diplo+release+date"
+	resolver<number | null, AlbumReleasedSearchArgs>(
+		async ({ args }) => {
+			const titleSearch = args.title.toLowerCase().replace(" ", "+")
+			const artistsSearch = args.artists.join(" ").toLowerCase().replace(" ", "+")
+			const search = `${titleSearch}+${artistsSearch}+release+date`
 			const url = `${urlStart}?q=${search}`
 			const response = await fetch(url)
 			const html = await response.text()
-			const $ = cheerio.load(html)
-			return $("div[data-tts=answers]").html() || "err"
+			const res = html.match(regEx)
+			const dateString = res ? res[0] : ""
+			if (!isEmpty(dateString)) {
+				const year = parseInt(dateString.match(/[1970-2020]{4}/ig)![0])
+				const date = parseInt(dateString.match(/(1|2|3|4|5|6|7|8|9|10|11|12|13|14|15|16|17|18|19|20|21|22|23|24|25|26|27|28|29|30|31)/ig)![0])
+				const month = dateString.match(/(Jan|Feb|Mar|Apr|May|June|Jul|Aug|Sep|Oct|Nov|Dec)/ig)![0]
+				const monthIndex = monthLookupIndex[month]
+				return Math.floor((new Date(year, monthIndex, date)).valueOf() / 1000 / 86400)
+			} else {
+				return null
+			}
 		},
 	)

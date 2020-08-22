@@ -1,11 +1,9 @@
-mutation upload(
-  $songs: [SongInput!]!
+mutation add(
   $genres: [GenreInput!]!
   $albums: [AlbumInput!]!
   $artists: [ArtistInput!]!
 ) {
-  upload(
-    songs: $songs
+  add(
     genres: $genres
     albums: $albums
     artists: $artists

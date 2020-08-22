@@ -1,4 +1,5 @@
-import { s3, resize } from "../../../helpers"
+import { resize } from "./helpers"
+import { s3 } from "../../../helpers"
 import { IMAGE_SIZES } from "../../../globals"
 import { ImgFormat, ImgSizeEnum } from "../../../types"
 

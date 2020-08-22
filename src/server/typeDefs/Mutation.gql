@@ -48,8 +48,7 @@ type Mutation {
   addUser(
     user: UserInput!
   ): User!
-  upload(
-    songs: [SongInput!]!
+  add(
     genres: [GenreInput!]!
     albums: [AlbumInput!]!
     artists: [ArtistInput!]!

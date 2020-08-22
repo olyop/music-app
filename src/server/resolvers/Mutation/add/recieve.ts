@@ -1,5 +1,6 @@
 import {
 	Input,
+	Upload,
 	SongInput,
 	SongUpload,
 	AlbumInput,
@@ -8,18 +9,17 @@ import {
 	ArtistUpload,
 } from "./types"
 
-import {
-	uploadFileFromClient,
-} from "../../../helpers"
+import { uploadFileFromClient } from "./helpers"
 
 const receiveSong = async ({ audio, ...song }: SongInput): Promise<SongUpload> => ({
 	...song,
 	audio: await uploadFileFromClient(audio),
 })
 
-const receiveAlbum = async ({ cover, ...album }: AlbumInput): Promise<AlbumUpload> => ({
+const receiveAlbum = async ({ cover, songs, ...album }: AlbumInput): Promise<AlbumUpload> => ({
 	...album,
 	cover: await uploadFileFromClient(cover),
+	songs: await Promise.all(songs.map(receiveSong)),
 })
 
 const receiveArtist = async ({ photo, ...artist }: ArtistInput): Promise<ArtistUpload> => ({
@@ -27,11 +27,10 @@ const receiveArtist = async ({ photo, ...artist }: ArtistInput): Promise<ArtistU
 	photo: await uploadFileFromClient(photo),
 })
 
-const receive = async (args: Input) => ({
+const recieve = async (args: Input): Promise<Upload> => ({
 	genres: args.genres,
-	songs: await Promise.all(args.songs.map(receiveSong)),
 	albums: await Promise.all(args.albums.map(receiveAlbum)),
 	artists: await Promise.all(args.artists.map(receiveArtist)),
 })
 
-export default receive
+export default recieve

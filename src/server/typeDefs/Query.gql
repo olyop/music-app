@@ -22,5 +22,5 @@ type Query {
   artistSearch(query: String!, exact: Boolean!): [Artist!]!
 
   # misc queries
-  albumReleasedSearch(title: String!, artists: [String!]!): String
+  albumReleasedSearch(title: String!, artists: [String!]!): NonNegativeInt
 }

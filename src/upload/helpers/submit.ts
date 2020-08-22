@@ -1,18 +1,17 @@
 import type { ApolloClient } from "@apollo/client"
 
-import UPLOAD from "../graphql/upload.gql"
+import ADD from "../graphql/add.gql"
 import { Song, Genre, Album, Artist } from "../types"
 
 type Client = ApolloClient<unknown>
 
-interface SongUpload extends Omit<Song, "songId" | "duration"> {
-	album: string,
-}
+type SongUpload = Omit<Song, "songId" | "duration">
 
 type GenreUpload = Omit<Genre, "genreId">
 
 interface AlbumUpload extends Omit<Album, "albumId" | "songs"> {
 	cover: Blob,
+	songs: SongUpload[],
 }
 
 interface ArtistUpload extends Omit<Artist, "artistId"> {
@@ -30,37 +29,30 @@ const artistToUpload =
 		photo: photo!,
 	})
 
+const songToUpload =
+	({ songId, duration, ...song }: Song): SongUpload => song
+
 const albumToUpload =
 	({ albumId, songs, cover, ...album }: Album): AlbumUpload => ({
 		...album,
 		cover: cover!,
+		songs: songs.map(songToUpload),
 	})
 
-const songToUpload =
-	(album: string) => ({ songId, duration, ...song }: Song): SongUpload => ({
-		...song,
-		album,
-	})
-
-const albumsToSongUploads =
-	(albums: Album[]) =>
-		albums.reduce<SongUpload[]>(
-			(songs, album) => [
-				...songs,
-				...album.songs.map(songToUpload(album.title)),
-			],
-			[],
-		)
+interface SubmitVariables {
+	genres: GenreUpload[],
+	albums: AlbumUpload[],
+	artists: ArtistUpload[],
+}
 
 export const submit =
 	(client: Client) =>
 		async (artists: Artist[], genres: Genre[], albums: Album[]) =>
-			client.mutate({
-				mutation: UPLOAD,
+			client.mutate<string, SubmitVariables>({
+				mutation: ADD,
 				variables: {
 					genres: genres.map(genreToUpload),
 					albums: albums.map(albumToUpload),
-					songs: albumsToSongUploads(albums),
 					artists: artists.map(artistToUpload),
 				},
 			})

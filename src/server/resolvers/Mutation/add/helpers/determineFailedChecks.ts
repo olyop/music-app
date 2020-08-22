@@ -1,11 +1,6 @@
 import pipe from "@oly_op/pipe"
 
-import { Check } from "../../types"
-
-interface CheckRes {
-	name: string,
-	check: boolean,
-}
+import { Check, CheckRes } from "../types"
 
 const addNames = (checks: Check[]) => (results: boolean[]) =>
 	results.map((check, index) => ({

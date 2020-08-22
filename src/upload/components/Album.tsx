@@ -89,14 +89,10 @@ const Album: FC<PropTypes> = ({ album, className }) => {
 	const handleCoverChange = (img: Blob) =>
 		handleAlbumChange(albumId, img, "cover")
 	const handleSearchClick = async () =>
-		console.log((await client.query<SearchRes>({
+		handleAlbumChange(albumId, (await client.query<SearchRes>({
 			query: ALBUM_RELEASED_SEARCH,
 			variables: { title, artists },
-		})).data!.albumReleasedSearch)
-		// handleAlbumChange(albumId, (await client.query<SearchRes>({
-		// 	query: ALBUM_RELEASED_SEARCH,
-		// 	variables: { title, artists },
-		// })).data!.albumReleasedSearch || 18000, "released")
+		})).data!.albumReleasedSearch || released, "released")
 	return (
 		<Root className={className}>
 			<Cover

@@ -2,7 +2,7 @@ CREATE TABLE IF NOT EXISTS users_artists (
   user_id uuid,
   artist_id uuid,
   in_library boolean NOT NULL,
-  date_added integer NOT NULL DEFAULT date_part('epoch', now()),
+  date_added timestamp with time zone NOT NULL DEFAULT current_timestamp,
   CONSTRAINT users_artists_pk
     PRIMARY KEY (user_id, artist_id),
   CONSTRAINT users_artists_fk_artist_id
@@ -16,5 +16,5 @@ CREATE TABLE IF NOT EXISTS users_artists (
     ON UPDATE CASCADE
     ON DELETE CASCADE,
   CONSTRAINT users_artists_check_date_added
-    CHECK (date_added >= 1)
+    CHECK (date_added <= current_timestamp)
 );

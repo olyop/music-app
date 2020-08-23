@@ -1,12 +1,12 @@
 INSERT INTO albums_artists
   (
+    index,
     album_id,
-    artist_id,
-    index
+    artist_id
   )
 VALUES
   (
+    {{ index }},
     {{ albumId }},
-    {{ artistId }},
-    {{ index }}
+    {{ artistId }}
   );

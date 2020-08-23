@@ -1,14 +1,17 @@
 INSERT INTO users
   (
-    user_id,
-    name
+		name,
+		email,
+    user_id
   )
 VALUES
   (
-    '',
-    'Oliver'
+    'Oliver',
+		'oliver.plummer@outlook.com',
+		''
   )
 RETURNING
+	name,
+	email,
   user_id,
-  name,
-  date_created;
+  date_joined

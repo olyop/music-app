@@ -1,9 +1,8 @@
 import { PoolClient } from "pg"
 
-import { Check } from "./types"
 import { sql } from "../../../helpers"
 import { EXISTS_ALBUM_SONG } from "../../../sql"
-import { SongUpload, GenreInput, AlbumUpload, ArtistUpload } from "./types"
+import { Check, SongUpload, GenreInput, AlbumUpload, ArtistUpload } from "./types"
 
 export const genreChecks = (client: PoolClient) => (genre: GenreInput): Check[] => [
 	{

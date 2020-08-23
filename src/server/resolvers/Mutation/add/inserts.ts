@@ -77,7 +77,7 @@ export const insertAlbum = (album: AlbumUpload): SQLConfig<Album> => ({
 	},{
 		string: false,
 		key: "released",
-		value: album.released.toString(),
+		value: album.released,
 	},{
 		string: false,
 		key: "columnNames",

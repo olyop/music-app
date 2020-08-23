@@ -1,6 +1,7 @@
 /* eslint-disable max-len, quote-props */
 import fetch from "node-fetch"
-import { isEmpty } from "lodash"
+import { random, isEmpty } from "lodash"
+import bufferToDataUrl from "@oly_op/music-app-common/bufferToDataUrl"
 
 import {
 	User,
@@ -30,8 +31,8 @@ import {
 } from "../sql"
 
 import { pg } from "../services"
-import { COLUMN_NAMES } from "../globals"
 import { sql, createResolver } from "../helpers"
+import { COLUMN_NAMES, SERP_API_KEY } from "../globals"
 
 const resolver =
 	createResolver()
@@ -307,7 +308,7 @@ export const genreSearch =
 		),
 	)
 
-const urlStart = "https://www.google.com/search"
+const albumReleasedSearchUrl = "https://www.google.com/search"
 
 interface AlbumReleasedSearchArgs {
 	title: string,
@@ -332,12 +333,12 @@ const monthLookupIndex: Record<string, number> = {
 const regEx = /(Jan|Feb|Mar|Apr|May|June|Jul|Aug|Sep|Oct|Nov|Dec) (1|2|3|4|5|6|7|8|9|10|11|12|13|14|15|16|17|18|19|20|21|22|23|24|25|26|27|28|29|30|31), [1970-2020]{4}/gi
 
 export const albumReleasedSearch =
-	resolver<number | null, AlbumReleasedSearchArgs>(
+	resolver<string | null, AlbumReleasedSearchArgs>(
 		async ({ args }) => {
 			const titleSearch = args.title.toLowerCase().replace(" ", "+")
 			const artistsSearch = args.artists.join(" ").toLowerCase().replace(" ", "+")
 			const search = `${titleSearch}+${artistsSearch}+release+date`
-			const url = `${urlStart}?q=${search}`
+			const url = `${albumReleasedSearchUrl}?q=${search}`
 			const response = await fetch(url)
 			const html = await response.text()
 			const res = html.match(regEx)
@@ -347,9 +348,43 @@ export const albumReleasedSearch =
 				const date = parseInt(dateString.match(/(1|2|3|4|5|6|7|8|9|10|11|12|13|14|15|16|17|18|19|20|21|22|23|24|25|26|27|28|29|30|31)/ig)![0])
 				const month = dateString.match(/(Jan|Feb|Mar|Apr|May|June|Jul|Aug|Sep|Oct|Nov|Dec)/ig)![0]
 				const monthIndex = monthLookupIndex[month]
-				return Math.floor((new Date(year, monthIndex, date)).valueOf() / 1000 / 86400)
+				return (new Date(year, monthIndex, date)).toISOString()
 			} else {
 				return null
 			}
+		},
+	)
+
+interface PhotoSearchArgs {
+	name: string,
+}
+
+interface PhotoSearchResult {
+	original: string,
+}
+
+interface PhotoSearchResults {
+	images_results: PhotoSearchResult[],
+}
+
+const photoSearchUrlBase = "https://serpapi.com/search.json"
+
+export const photoSearch =
+	resolver<string, PhotoSearchArgs>(
+		async ({ args }) => {
+			const params = new URLSearchParams()
+			params.set("num", "10")
+			params.set("tbm", "isch")
+			params.set("engine", "google")
+			params.set("api_key", SERP_API_KEY)
+			params.set("google_domain", "google.com")
+			params.set("q", args.name.toLowerCase().replace(" ", "+"))
+			const apiRes = await fetch(`${photoSearchUrlBase}?${params.toString()}`)
+			const apiJson = await apiRes.json() as PhotoSearchResults
+			console.log(apiJson)
+			const url = apiJson.images_results[random(0, 9)].original
+			const imgRes = await fetch(url)
+			const buffer = await imgRes.buffer()
+			return bufferToDataUrl(buffer)
 		},
 	)

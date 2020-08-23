@@ -1,10 +1,12 @@
 INSERT INTO users
   (
-    user_id,
-    name
+    name,
+    email,
+    user_id
   )
 VALUES
   (
-    {{ userId }},
-    {{ name }}
+    {{ name }},
+    {{ email }},
+    {{ userId }}
   );

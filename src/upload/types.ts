@@ -5,8 +5,9 @@ export interface Artist extends ArtistBase {
 	photo: Blob | null,
 }
 
-export interface Album extends AlbumBase {
+export interface Album extends Omit<AlbumBase, "released"> {
 	songs: Song[],
+	released: Date,
 	artists: string[],
 	cover: Blob | null,
 }

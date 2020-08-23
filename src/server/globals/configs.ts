@@ -6,7 +6,6 @@ import { ApolloServerExpressConfig, GetMiddlewareOptions } from "apollo-server-e
 import {
 	HOST,
 	PORT,
-	NODE_ENV,
 	APOLLO_KEY,
 	AWS_RDS_DB,
 	AWS_RDS_PORT,
@@ -18,7 +17,7 @@ import {
 } from "./environment"
 
 export const CORS_CONFIG: CorsOptions = {
-	origin: NODE_ENV === "production" ? `http://${HOST}:${PORT}/` : "*",
+	origin: `http://${HOST}:${PORT}/`,
 }
 
 export const PG_POOL_CONFIG: PoolConfig = {

@@ -1,7 +1,7 @@
 CREATE TABLE IF NOT EXISTS songs (
   song_id uuid,
-  title text NOT NULL,
   mix text NOT NULL,
+  title text NOT NULL,
   album_id uuid NOT NULL,
   duration smallint NOT NULL,
   disc_number smallint NOT NULL,

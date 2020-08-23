@@ -55,7 +55,8 @@ const Photo =
 	}))
 
 const Artists: FC<StyledProps> = ({ className }) => {
-	const { artists, handleArtistPhotoChange } = useStateContext()
+	const { artists, handleArtistPhotoChange } =
+		useStateContext()
 	return (
 		<Box className={className}>
 			<Header variant="h6">Artists</Header>

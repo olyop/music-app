@@ -14,7 +14,7 @@ const importFileCheck = (file: string) => importFile(sqlPath("checks", file))
 const importFileExists = (file: string) => importFile(sqlPath("exists", file))
 const importFileSelect = (file: string) => importFile(sqlPath("selects", file))
 const importFileInsert = (file: string) => importFile(sqlPath("inserts", file))
-const importFileUpdate = (file: string) => importFile(sqlPath("updateS", file))
+const importFileUpdate = (file: string) => importFile(sqlPath("updates", file))
 
 export const INSERT_USER = importFileInsert("user")
 export const INSERT_SONG = importFileInsert("song")
@@ -97,7 +97,7 @@ export const TABLE_PLAYLISTS_SONGS = importFileTable("playlistsSongs")
 export const TABLE_USERS_PLAYLISTS = importFileTable("usersPlaylists")
 export const TABLE_SONGS_FEATURINGS = importFileTable("songsFeaturings")
 
-export const TABLES = [
+export const INIT = [
 	TABLE_ARTISTS,
 	TABLE_GENRES,
 	TABLE_ALBUMS,

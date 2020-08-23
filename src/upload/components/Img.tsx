@@ -1,8 +1,12 @@
 import camelCase from "lodash/camelCase"
-import { useEffect, createElement, FC, ChangeEventHandler } from "react"
+import { useApolloClient } from "@apollo/client"
+import { useEffect, createElement, FC } from "react"
 
 import Box from "@material-ui/core/Box"
 import styled from "@material-ui/core/styles/styled"
+
+import { dataUrlToBlob } from "../helpers"
+import PHOTO_SEARCH from "../graphql/photoSearch.gql"
 
 const Root =
 	styled(Box)({
@@ -13,18 +17,6 @@ const Root =
 			display: "block",
 			paddingTop: "100%",
 		},
-	})
-
-const Input =
-	styled("input")({
-		top: 0,
-		left: 0,
-		zIndex: 2,
-		opacity: 0,
-		width: "100%",
-		height: "100%",
-		cursor: "pointer",
-		position: "absolute",
 	})
 
 const Inner =
@@ -39,10 +31,16 @@ const Inner =
 	})
 
 const Img: FC<PropTypes> = ({ img, onChange, title, children, className }) => {
+	const client =
+		useApolloClient()
 	const id =
 		camelCase(title.toLocaleLowerCase()).replace(/[0-9]/g, "")
-	const handleChange: ChangeEventHandler<HTMLInputElement> = event =>
-		onChange(event.target.files![0])
+	const handleClick = async () =>
+		onChange(dataUrlToBlob((await client.query<PhotoSearchRes>({
+			query: PHOTO_SEARCH,
+			fetchPolicy: "no-cache",
+			variables: { name: title },
+		})).data!.photoSearch))
 	useEffect(() => {
 		const element = document.querySelector<HTMLDivElement>(`#${id}`)!
 		const url = img ? URL.createObjectURL(img) : "null"
@@ -52,12 +50,9 @@ const Img: FC<PropTypes> = ({ img, onChange, title, children, className }) => {
 	return (
 		<Root
 			title={title}
+			onClick={handleClick}
 			className={className}
 		>
-			<Input
-				type="file"
-				onChange={handleChange}
-			/>
 			<Inner
 				className="img"
 				id={id}
@@ -65,6 +60,10 @@ const Img: FC<PropTypes> = ({ img, onChange, title, children, className }) => {
 			{children}
 		</Root>
 	)
+}
+
+interface PhotoSearchRes {
+	photoSearch: string,
 }
 
 interface PropTypes {

@@ -2,7 +2,7 @@ CREATE TABLE IF NOT EXISTS users_songs (
   user_id uuid,
   song_id uuid,
   in_library boolean NOT NULL,
-  date_added integer NOT NULL DEFAULT date_part('epoch', now()),
+  date_added timestamp with time zone NOT NULL DEFAULT current_timestamp,
   CONSTRAINT users_songs_pk
     PRIMARY KEY (user_id, song_id),
   CONSTRAINT users_songs_fk_song_id
@@ -16,5 +16,5 @@ CREATE TABLE IF NOT EXISTS users_songs (
     ON UPDATE CASCADE
     ON DELETE CASCADE,
   CONSTRAINT users_songs_check_fk_date_added
-    CHECK (date_added >= 1)
+    CHECK (date_added <= current_timestamp)
 );

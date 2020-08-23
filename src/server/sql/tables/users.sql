@@ -1,8 +1,9 @@
 CREATE TABLE IF NOT EXISTS users (
 	user_id uuid,
 	name text NOT NULL,
+	email text NOT NULL,
 	current uuid DEFAULT NULL,
-  date_joined integer NOT NULL DEFAULT date_part('epoch', now()),
+  date_joined timestamp with time zone NOT NULL DEFAULT current_timestamp,
 	CONSTRAINT users_pk
 		PRIMARY KEY (user_id),
 	CONSTRAINT users_fk_current
@@ -11,5 +12,5 @@ CREATE TABLE IF NOT EXISTS users (
 		ON UPDATE CASCADE
 		ON DELETE CASCADE,
 	CONSTRAINT users_check_date_joined
-		CHECK (date_joined >= 1)
+		CHECK (date_joined <= current_timestamp)
 );

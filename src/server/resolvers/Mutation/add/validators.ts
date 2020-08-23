@@ -13,6 +13,9 @@ const isText = (text: string, canBeEmpty = false) => (
 	text.length <= 2048
 )
 
+const isDate = (text: string) =>
+	!isNaN(Date.parse(text))
+
 const isArrayOfText = (arr: string[]) =>
 	map(arr, isText).every(Boolean)
 
@@ -56,8 +59,7 @@ export const isAlbum = ({
 }: AlbumUpload) => (
 	isImg(cover) &&
 	isText(title) &&
-	isInteger(released) &&
-	released >= 1 &&
+	isDate(released) &&
 	isArrayOfText(artists)
 )
 

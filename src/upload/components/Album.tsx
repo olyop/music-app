@@ -83,16 +83,16 @@ const Album: FC<PropTypes> = ({ album, className }) => {
 	const handleTitleChange: ChangeEventHandler<HTMLInputElement> = event =>
 		handleAlbumChange(albumId, event.target.value, "title")
 	const handleReleasedChange: DatePickerProps["onChange"] = date =>
-		handleAlbumChange(albumId, Math.floor(Math.floor(date!.valueOf() / 1000) / 86400), "released")
+		handleAlbumChange(albumId, date || released, "released")
 	const handleArtistsChange = (val: string[]) =>
 		handleAlbumChange(albumId, val, "artists")
 	const handleCoverChange = (img: Blob) =>
 		handleAlbumChange(albumId, img, "cover")
 	const handleSearchClick = async () =>
-		handleAlbumChange(albumId, (await client.query<SearchRes>({
+		handleAlbumChange(albumId, new Date((await client.query<SearchRes>({
 			query: ALBUM_RELEASED_SEARCH,
 			variables: { title, artists },
-		})).data!.albumReleasedSearch || released, "released")
+		})).data!.albumReleasedSearch || released) , "released")
 	return (
 		<Root className={className}>
 			<Cover
@@ -114,9 +114,9 @@ const Album: FC<PropTypes> = ({ album, className }) => {
 						minDate={1}
 						disableFuture
 						label="Released"
-						format="dd/MM/yyyy"
+						value={released}
+						format="yyyy-MM-dd"
 						inputVariant="outlined"
-						value={released * 86400 * 1000}
 						onChange={handleReleasedChange}
 					/>
 					<SearchButton
@@ -137,7 +137,7 @@ const Album: FC<PropTypes> = ({ album, className }) => {
 }
 
 interface SearchRes {
-	albumReleasedSearch: number | null,
+	albumReleasedSearch: string | null,
 }
 
 interface PropTypes extends StyledProps {

@@ -5,7 +5,6 @@ import Item from "../Item"
 import Cover from "../Cover"
 import DocLink from "../DocLink"
 import DocLinks from "../DocLinks"
-import { deserializeDate } from "../../helpers"
 import { useSettingsContext } from "../../contexts/Settings"
 import { Album as AlbumType, ListStyle } from "../../types"
 
@@ -29,8 +28,8 @@ const Album: FC<PropTypes> = ({ album, className = null }) => {
 		<Item
 			doc={album}
 			imgDoc={album}
+			right={album.released}
 			upper={<DocLink doc={album}/>}
-			right={deserializeDate(album.released)}
 			lower={<DocLinks docs={album.artists}/>}
 			className={bem(className, "PaddingHalf", "ItemBorder", "Hover")}
 		/>

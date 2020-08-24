@@ -72,7 +72,9 @@ export interface Playlist extends UserDocBase, PlaylistBase {
 	userId: string,
 }
 
-export interface Album extends UserDocBase, AlbumBase {}
+export interface Album extends UserDocBase, AlbumBase {
+	released: Date,
+}
 
 export interface Genre extends UserDocBase, GenreBase {}
 

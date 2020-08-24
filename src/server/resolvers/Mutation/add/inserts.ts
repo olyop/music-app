@@ -75,9 +75,8 @@ export const insertAlbum = (album: AlbumUpload): SQLConfig<Album> => ({
 		value: album.title,
 		parameterized: true,
 	},{
-		string: false,
 		key: "released",
-		value: album.released,
+		value: album.released.toISOString().slice(0, 10),
 	},{
 		string: false,
 		key: "columnNames",
@@ -103,7 +102,7 @@ export const insertAlbumArtist =
 		})
 
 export const insertSong =
-	(song: SongUpload, duration: number): SQLConfig<Song> => ({
+	(song: SongUpload, albumId: string, duration: number): SQLConfig<Song> => ({
 		sql: INSERT_SONG,
 		parse: sql.parseRow(),
 		variables: [{
@@ -119,7 +118,7 @@ export const insertSong =
 			value: uuid(),
 		},{
 			key: "albumId",
-			value: song.album,
+			value: albumId,
 		},{
 			string: false,
 			key: "duration",

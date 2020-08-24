@@ -3,8 +3,8 @@ type Playlist {
   name: String!
   songs: [Song!]!
   playlistId: Uuid!
-  dateCreated: PositiveInt!
-  plays(userId: Uuid!): [Play!]
+  dateCreated: Timestamp!
+  plays(userId: Uuid!): [Play!]!
   inLibrary(userId: Uuid!): Boolean!
-  dateAdded(userId: Uuid!): PositiveInt
+  dateAdded(userId: Uuid!): Timestamp
 }

@@ -21,7 +21,6 @@ export interface ArtistBase {
 export interface AlbumBase {
 	title: string,
 	albumId: string,
-	released: string,
 }
 
 export interface GenreBase {

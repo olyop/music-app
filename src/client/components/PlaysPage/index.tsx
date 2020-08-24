@@ -17,7 +17,7 @@ const PlaysPage: FC = () => (
 					{song.plays.map(
 						play => (
 							<p key={play.playId}>
-								{deserializeDate(play.dateCreated / 86400)}
+								{deserializeDate(play.dateCreated)}
 							</p>
 						),
 					)}

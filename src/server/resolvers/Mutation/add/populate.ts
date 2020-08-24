@@ -48,9 +48,8 @@ export const populateAlbum =
 	})
 
 export const populateSong =
-	(client: Client) => async (album: string, song: SongUpload): Promise<SongUpload> => ({
+	(client: Client) => async (song: SongUpload): Promise<SongUpload> => ({
 		...song,
-		album,
 		genres: await getDocs(client)<Genre>({
 			key: "genreId",
 			docs: song.genres,

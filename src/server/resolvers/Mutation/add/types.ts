@@ -30,13 +30,13 @@ export interface ArtistInput extends Omit<ArtistBase, "artistId"> {
 export type GenreInput = Omit<GenreBase, "genreId">
 
 export interface AlbumInput extends Omit<AlbumBase, "albumId"> {
+	released: Date,
 	artists: string[],
 	songs: SongInput[],
 	cover: Promise<FileUpload>,
 }
 
 export interface SongInput extends Omit<SongBase, "songId" | "duration"> {
-	album: string,
 	genres: string[],
 	artists: string[],
 	remixers: string[],

@@ -4,10 +4,10 @@ type Artist {
   numOfPlays: Int!,
   numOfSongs: NonNegativeInt!
   numOfAlbums: NonNegativeInt!
-  plays(userId: Uuid!): [Play!]
+  plays(userId: Uuid!): [Play!]!
   inLibrary(userId: Uuid!): Boolean!
-  dateAdded(userId: Uuid!): PositiveInt
-  photo(size: ArtistPhotoSize! = HALF): Url!
+  photo(size: ArtistPhotoSize!): Url!
+  dateAdded(userId: Uuid!): Timestamp
   songs(orderBy: SongOrderByInput!): [Song!]!
   albums(orderBy: AlbumOrderByInput!): [Album!]!
 }

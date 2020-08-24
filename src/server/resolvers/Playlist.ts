@@ -19,6 +19,9 @@ import { userDocInLib, userDocDateAdded } from "./common"
 const resolver =
 	createResolver<Playlist>()
 
+export const dateCreated =
+	resolver<number>(({ parent }) => parent.dateCreated * 1000)
+
 export const user =
 	resolver<User>(
 		({ parent }) => (

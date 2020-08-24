@@ -1,5 +1,8 @@
 scalar Url
 scalar Uuid
+scalar Date
+scalar Email
 scalar Upload
+scalar Timestamp
 scalar PositiveInt
 scalar NonNegativeInt

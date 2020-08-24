@@ -9,8 +9,9 @@ type SongUpload = Omit<Song, "songId" | "duration">
 
 type GenreUpload = Omit<Genre, "genreId">
 
-interface AlbumUpload extends Omit<Album, "albumId" | "songs"> {
+interface AlbumUpload extends Omit<Album, "albumId" | "released" | "songs"> {
 	cover: Blob,
+	released: string,
 	songs: SongUpload[],
 }
 
@@ -33,10 +34,11 @@ const songToUpload =
 	({ songId, duration, ...song }: Song): SongUpload => song
 
 const albumToUpload =
-	({ albumId, songs, cover, ...album }: Album): AlbumUpload => ({
+	({ albumId, songs, cover, released, ...album }: Album): AlbumUpload => ({
 		...album,
 		cover: cover!,
 		songs: songs.map(songToUpload),
+		released: released.toISOString().slice(0, 10),
 	})
 
 interface SubmitVariables {

@@ -53,6 +53,9 @@ export const totalDuration =
 		reduce((total, duration) => total + duration, 0),
 	))
 
+export const released =
+	resolver<string>(({ parent }) => parent.released.toISOString().slice(0, 10))
+
 export const cover =
 	resolver<string, { size: ImgSizeEnum }>(
 		({ parent, args }) => (

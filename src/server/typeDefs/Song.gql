@@ -10,8 +10,8 @@ type Song {
   duration: PositiveInt!
   discNumber: PositiveInt!
   trackNumber: PositiveInt!
-  plays(userId: Uuid!): [Play!]
+  plays(userId: Uuid!): [Play!]!
   inLibrary(userId: Uuid!): Boolean!
-  dateAdded(userId: Uuid!): PositiveInt
-  dateAddedToPlaylist(playlistId: Uuid!): PositiveInt
+  dateAdded(userId: Uuid!): Timestamp
+  dateAddedToPlaylist(userId: Uuid!, playlistId: Uuid!): Timestamp
 }

@@ -11,10 +11,10 @@ import Button from "../Button"
 import QueryApi from "../QueryApi"
 import DocLinks from "../DocLinks"
 import { Album, UserVar } from "../../types"
+import { determineDiscs } from "../../helpers"
 import genresFromAlbum from "./genresFromAlbum"
 import InLibraryButton from "../InLibraryButton"
 import { useUserContext } from "../../contexts/User"
-import { determineDiscs, deserializeDate } from "../../helpers"
 import QUERY_ALBUM_PAGE from "../../graphql/queries/albumPage.gql"
 
 import "./index.scss"
@@ -72,7 +72,7 @@ const AlbumPage: FC = () => {
 								<p className={bem("footer-text")}>
 									{deserializeDuration(totalDuration, true)}
 									<Fragment> - </Fragment>
-									{deserializeDate(released)}
+									{released}
 								</p>
 							</div>
 						</Helmet>

@@ -1,4 +1,8 @@
-/* eslint-disable max-len, quote-props */
+/*
+	eslint-disable
+		prefer-destructuring,
+		@typescript-eslint/brace-style
+*/
 import fetch from "node-fetch"
 import { random, isEmpty } from "lodash"
 import bufferToDataUrl from "@oly_op/music-app-common/bufferToDataUrl"
@@ -13,6 +17,19 @@ import {
 	Playlist,
 	OrderByArgs,
 } from "../types"
+
+import {
+	sql,
+	yearRegEx,
+	dateRegEx,
+	googleRegEx,
+	createResolver,
+	wikipediaRegEx,
+	googleMonthRegEx,
+	wikipediaMonthRegEx,
+	googleMonthLookupIndex,
+	wikipediaMonthLookupIndex,
+} from "../helpers"
 
 import {
 	SELECT_USER,
@@ -31,7 +48,6 @@ import {
 } from "../sql"
 
 import { pg } from "../services"
-import { sql, createResolver } from "../helpers"
 import { COLUMN_NAMES, SERP_API_KEY } from "../globals"
 
 const resolver =
@@ -315,23 +331,6 @@ interface AlbumReleasedSearchArgs {
 	artists: string[],
 }
 
-const monthLookupIndex: Record<string, number> = {
-	"Jan": 0,
-	"Feb": 1,
-	"Mar": 2,
-	"Apr": 3,
-	"May": 4,
-	"Jun": 5,
-	"Jul": 6,
-	"Aug": 7,
-	"Sep": 8,
-	"Oct": 9,
-	"Nov": 10,
-	"Dec": 11,
-}
-
-const regEx = /(Jan|Feb|Mar|Apr|May|June|Jul|Aug|Sep|Oct|Nov|Dec) (1|2|3|4|5|6|7|8|9|10|11|12|13|14|15|16|17|18|19|20|21|22|23|24|25|26|27|28|29|30|31), [1970-2020]{4}/gi
-
 export const albumReleasedSearch =
 	resolver<string | null, AlbumReleasedSearchArgs>(
 		async ({ args }) => {
@@ -341,14 +340,32 @@ export const albumReleasedSearch =
 			const url = `${albumReleasedSearchUrl}?q=${search}`
 			const response = await fetch(url)
 			const html = await response.text()
-			const res = html.match(regEx)
-			const dateString = res ? res[0] : ""
+			const googleRes = html.match(googleRegEx)
+			const wikipediaRes = html.match(wikipediaRegEx)
+			let dateString: string
+			if (googleRes) { dateString = googleRes[0] }
+			else if (wikipediaRes) { dateString = wikipediaRes[0] }
+			else { dateString = "" }
 			if (!isEmpty(dateString)) {
-				const year = parseInt(dateString.match(/[1970-2020]{4}/ig)![0])
-				const date = parseInt(dateString.match(/(1|2|3|4|5|6|7|8|9|10|11|12|13|14|15|16|17|18|19|20|21|22|23|24|25|26|27|28|29|30|31)/ig)![0])
-				const month = dateString.match(/(Jan|Feb|Mar|Apr|May|June|Jul|Aug|Sep|Oct|Nov|Dec)/ig)![0]
-				const monthIndex = monthLookupIndex[month]
-				return (new Date(year, monthIndex, date)).toISOString()
+				const year = parseInt(dateString.match(yearRegEx)![0])
+				const date = parseInt(dateString.match(dateRegEx)![0])
+				const monthGoogleRes = dateString.match(googleMonthRegEx)
+				const monthWikipediaRes = dateString.match(wikipediaMonthRegEx)
+				console.log(
+					monthGoogleRes ? monthGoogleRes[0] : null,
+					monthWikipediaRes ? monthWikipediaRes[0] : null,
+				)
+				let month: string
+				let lookup: Record<string, number>
+				if (monthGoogleRes) {
+					month = monthGoogleRes[0]
+					lookup = googleMonthLookupIndex
+				} else {
+					month = monthWikipediaRes![0]
+					lookup = wikipediaMonthLookupIndex
+				}
+				const monthIndex = lookup[month]
+				return new Date(`${year}-${monthIndex}-${date + 1}`).toISOString().slice(0, 10)
 			} else {
 				return null
 			}
@@ -378,10 +395,9 @@ export const photoSearch =
 			params.set("engine", "google")
 			params.set("api_key", SERP_API_KEY)
 			params.set("google_domain", "google.com")
-			params.set("q", args.name.toLowerCase().replace(" ", "+"))
+			params.set("q", `${args.name.toLowerCase().replace(" ", "+")}+artist`)
 			const apiRes = await fetch(`${photoSearchUrlBase}?${params.toString()}`)
 			const apiJson = await apiRes.json() as PhotoSearchResults
-			console.log(apiJson)
 			const url = apiJson.images_results[random(0, 9)].original
 			const imgRes = await fetch(url)
 			const buffer = await imgRes.buffer()

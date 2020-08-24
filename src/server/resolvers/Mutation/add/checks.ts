@@ -37,7 +37,7 @@ export const albumChecks = (client: PoolClient) => (album: AlbumUpload): Check[]
 	},
 ]
 
-export const songChecks = (client: PoolClient) => (song: SongUpload): Check[] => [
+export const songChecks = (client: PoolClient) => (song: SongUpload, albumId: string): Check[] => [
 	{
 		name: "doGenresExist",
 		check: sql.exists(client)({
@@ -49,8 +49,8 @@ export const songChecks = (client: PoolClient) => (song: SongUpload): Check[] =>
 	{
 		name: "doesAlbumExist",
 		check: sql.exists(client)({
+			value: albumId,
 			table: "albums",
-			value: song.album,
 			column: "album_id",
 		}),
 	},
@@ -85,7 +85,7 @@ export const songChecks = (client: PoolClient) => (song: SongUpload): Check[] =>
 			parse: res => !sql.resExists(res),
 			variables: [{
 				key: "albumId",
-				value: song.album,
+				value: albumId,
 			},{
 				string: false,
 				key: "discNumber",

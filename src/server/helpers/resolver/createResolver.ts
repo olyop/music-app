@@ -1,5 +1,5 @@
 type Callback<P, R, A> =
-	(props: { args: A, parent: P }) => Promise<R>
+	(props: { args: A, parent: P }) => R | Promise<R>
 
 export const createResolver =
 	<P = undefined>() =>

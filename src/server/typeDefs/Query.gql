@@ -23,5 +23,5 @@ type Query {
 
   # misc queries
   photoSearch(name: String!): Url!
-  albumReleasedSearch(title: String!, artists: [String!]!): String
+  albumReleasedSearch(title: String!, artists: [String!]!): Date
 }

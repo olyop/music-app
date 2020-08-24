@@ -90,6 +90,7 @@ const Album: FC<PropTypes> = ({ album, className }) => {
 		handleAlbumChange(albumId, img, "cover")
 	const handleSearchClick = async () =>
 		handleAlbumChange(albumId, new Date((await client.query<SearchRes>({
+			fetchPolicy: "no-cache",
 			query: ALBUM_RELEASED_SEARCH,
 			variables: { title, artists },
 		})).data!.albumReleasedSearch || released) , "released")

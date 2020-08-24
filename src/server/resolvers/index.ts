@@ -1,6 +1,9 @@
 import {
 	URLResolver as Url,
 	GUIDResolver as Uuid,
+	DateResolver as Date,
+	EmailAddressResolver as Email,
+	TimestampResolver as Timestamp,
 	PositiveIntResolver as PositiveInt,
 	NonNegativeIntResolver as NonNegativeInt,
 } from "graphql-scalars"
@@ -20,6 +23,7 @@ import * as Mutation from "./Mutation"
 
 const resolvers = {
 	Url,
+	Date,
 	Uuid,
 	Play,
 	User,
@@ -27,10 +31,12 @@ const resolvers = {
 	Query,
 	Genre,
 	Album,
+	Email,
 	Upload,
 	Artist,
 	Mutation,
 	Playlist,
+	Timestamp,
 	PositiveInt,
 	NonNegativeInt,
 }

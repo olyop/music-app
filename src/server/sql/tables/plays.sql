@@ -2,7 +2,7 @@ CREATE TABLE IF NOT EXISTS plays (
   play_id uuid,
   user_id uuid NOT NULL,
   song_id uuid NOT NULL,
-  date_created timestamp with time zone NOT NULL DEFAULT current_timestamp,
+  date_created bigint NOT NULL DEFAULT cast(extract(epoch from now()) as bigint),
   CONSTRAINT plays_pk
     PRIMARY KEY (play_id),
   CONSTRAINT plays_fk_song_id
@@ -16,5 +16,5 @@ CREATE TABLE IF NOT EXISTS plays (
     ON UPDATE CASCADE
     ON DELETE CASCADE,
   CONSTRAINT plays_check_date_created
-    CHECK (date_created <= current_timestamp)
+    CHECK (date_created <= cast(extract(epoch from now()) as bigint))
 );

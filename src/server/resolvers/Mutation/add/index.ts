@@ -95,8 +95,8 @@ export const add =
 						const artistsConfig = albumPopulated.artists.map(insertAlbumArtist(albumId))
 						await Promise.all(artistsConfig.map(query))
 						for (const song of album.songs) {
-							const songPopulated = await populateSong(client)(albumId, song)
-							const checkss = songChecks(client)(songPopulated)
+							const songPopulated = await populateSong(client)(song)
+							const checkss = songChecks(client)(songPopulated, albumId)
 							const resultss = await determineChecksResults(checkss)
 							if (!results.every(Boolean)) {
 								throw new UserInputError(
@@ -105,7 +105,7 @@ export const add =
 								)
 							} else {
 								const duration = await getSongDuration(song)
-								const { songId } = await query(insertSong(songPopulated, duration))
+								const { songId } = await query(insertSong(songPopulated, albumId, duration))
 								const genresConfig = songPopulated.genres.map(insertSongGenre(songId))
 								const artistssConfig = songPopulated.artists.map(insertSongArtist(songId))
 								const remixersConfig = songPopulated.remixers.map(insertSongRemixer(songId))

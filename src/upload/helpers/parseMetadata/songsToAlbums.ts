@@ -6,8 +6,9 @@ import { Album } from "../../types"
 
 export const songsToAlbums = (songs: SongParsed[]) =>
 	songs.reduce<Album[]>(
-		(albums, song): Album[] => {
-			const { title } = song.album
+		(albums, songWithAlbum): Album[] => {
+			const { album: albumTemp, ...song } = songWithAlbum
+			const { title } = albumTemp
 			if (find(albums, { title })) {
 				return albums.map(
 					album => (
@@ -15,7 +16,10 @@ export const songsToAlbums = (songs: SongParsed[]) =>
 							...album,
 							songs: [
 								...album.songs,
-								{ ...song, songId: uniqueId() },
+								{
+									...song,
+									songId: uniqueId(),
+								},
 							],
 						} : album
 					),
@@ -24,7 +28,7 @@ export const songsToAlbums = (songs: SongParsed[]) =>
 				return [
 					...albums,
 					{
-						...song.album,
+						...albumTemp,
 						songs: [{
 							...song,
 							songId: uniqueId(),

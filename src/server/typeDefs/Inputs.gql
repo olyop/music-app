@@ -10,7 +10,7 @@ input GenreInput {
 input AlbumInput {
 	title: String!
 	cover: Upload!
-	released: String!
+	released: Date!
 	artists: [String!]!
 	songs: [SongInput!]!
 }

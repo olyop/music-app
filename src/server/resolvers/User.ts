@@ -24,6 +24,9 @@ import { sql, createResolver } from "../helpers"
 const resolver =
 	createResolver<User>()
 
+export const dateJoined =
+	resolver<number>(({ parent }) => parent.dateJoined * 1000)
+
 export const current =
 	resolver<Song | null>(
 		({ parent }) => (

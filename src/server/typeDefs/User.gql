@@ -2,11 +2,12 @@ type User {
   userId: Uuid!
   name: String!
   current: Song
+  email: Email!
   prev: [Song!]!
   next: [Song!]!
   queue: [Song!]!
   plays: [Play!]!
-  dateJoined: PositiveInt!
+  dateJoined: Timestamp!
   songs(orderBy: UserSongOrderByInput!): [Song!]!
   albums(orderBy: UserAlbumOrderByInput!): [Album!]!
   artists(orderBy: UserArtistOrderByInput!): [Artist!]!

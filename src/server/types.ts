@@ -29,7 +29,7 @@ export type SQLVariable = {
 	parameterized?: boolean,
 }
 
-export type SQLConfig<Return = unknown> = {
+export type SQLConfig<Return> = {
 	sql: string,
 	log?: boolean,
 	variables?: SQLVariable[],

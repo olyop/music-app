@@ -20,8 +20,8 @@ import {
 } from "../sql"
 
 import { COLUMN_NAMES } from "../globals"
-import { s3, sql, createResolver } from "../helpers"
 import { userDocInLib, userDocDateAdded } from "./common"
+import { s3, sql, fixDateType, createResolver } from "../helpers"
 
 const resolver =
 	createResolver<Album>()
@@ -54,7 +54,7 @@ export const totalDuration =
 	))
 
 export const released =
-	resolver<string>(({ parent }) => parent.released.toISOString().slice(0, 10))
+	resolver<Date>(({ parent }) => fixDateType(parent.released))
 
 export const cover =
 	resolver<string, { size: ImgSizeEnum }>(

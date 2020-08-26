@@ -24,12 +24,12 @@ interface AlbumReleasedSearchArgs {
 	artists: string[],
 }
 
-interface AnswerBox {
-	result: string,
+interface KnowledgeGraph {
+	release_date: string,
 }
 
 interface AlbumReleasedSearchRes {
-	answer_box: AnswerBox,
+	knowledge_graph: KnowledgeGraph,
 }
 
 export const albumReleasedSearch =
@@ -38,16 +38,18 @@ export const albumReleasedSearch =
 			const params = new URLSearchParams(serpApiBaseParams)
 			const tilte = args.title.toLowerCase()
 			const artists = args.artists.join(" ").toLowerCase()
-			params.set("q", `what is the release date of ${tilte} by ${artists}${encodeURI("?")}`)
-			console.log(params.toString())
+			params.set("q", (`${tilte} ${artists} release date`).replace(" ", "+"))
 			const res = await fetch(`${serpApiBaseUrl}?${params.toString()}`)
 			const json = await res.json() as AlbumReleasedSearchRes
-			if (json.answer_box) {
-				const date = json.answer_box.result
+			if (json.knowledge_graph) {
+				const date = json.knowledge_graph.release_date
 				if (isNaN(Date.parse(date))) {
 					return null
 				} else {
-					return Promise.resolve(new Date(json.answer_box.result).toISOString().slice(0, 10))
+					const temp = new Date(date).toISOString()
+					const temp1 = temp.slice(0, 7)
+					const temp2 = parseInt(temp.slice(8, 10), 10) + 1
+					return Promise.resolve(`${temp1}-${temp2}`)
 				}
 			} else {
 				return null
@@ -73,7 +75,7 @@ export const photoSearch =
 			const params = new URLSearchParams(serpApiBaseParams)
 			params.set("num", "10")
 			params.set("tbm", "isch")
-			params.set("q", `${args.name.toLowerCase().replace(" ", "+")}+artist`)
+			params.set("q", `${args.name.toLowerCase().replace(" ", "+")}+dj`)
 			const apiRes = await fetch(`${serpApiBaseUrl}?${params.toString()}`)
 			const apiJson = await apiRes.json() as PhotoSearchRes
 			const url = apiJson.images_results[random(0, 9)].original

@@ -30,59 +30,62 @@ import {
 import { sql } from "../../../helpers"
 import { COLUMN_NAMES } from "../../../globals"
 
-export const insertGenre = (genre: GenreInput): SQLConfig<Genre> => ({
-	sql: INSERT_GENRE,
-	parse: sql.parseRow(),
-	variables: [{
-		value: uuid(),
-		key: "genreId",
-	},{
-		key: "name",
-		value: genre.name,
-		parameterized: true,
-	},{
-		string: false,
-		key: "columnNames",
-		value: sql.join(COLUMN_NAMES.GENRE),
-	}],
-})
+export const insertGenre =
+	(genre: GenreInput): SQLConfig<Genre> => ({
+		sql: INSERT_GENRE,
+		parse: sql.parseRow(),
+		variables: [{
+			value: uuid(),
+			key: "genreId",
+		},{
+			key: "name",
+			value: genre.name,
+			parameterized: true,
+		},{
+			string: false,
+			key: "columnNames",
+			value: sql.join(COLUMN_NAMES.GENRE),
+		}],
+	})
 
-export const insertArtist = (artist: ArtistUpload): SQLConfig<Artist> => ({
-	sql: INSERT_ARTIST,
-	parse: sql.parseRow(),
-	variables: [{
-		value: uuid(),
-		key: "artistId",
-	},{
-		key: "name",
-		value: artist.name,
-		parameterized: true,
-	},{
-		string: false,
-		key: "columnNames",
-		value: sql.join(COLUMN_NAMES.ARTIST),
-	}],
-})
+export const insertArtist =
+	(artist: ArtistUpload): SQLConfig<Artist> => ({
+		sql: INSERT_ARTIST,
+		parse: sql.parseRow(),
+		variables: [{
+			value: uuid(),
+			key: "artistId",
+		},{
+			key: "name",
+			value: artist.name,
+			parameterized: true,
+		},{
+			string: false,
+			key: "columnNames",
+			value: sql.join(COLUMN_NAMES.ARTIST),
+		}],
+	})
 
-export const insertAlbum = (album: AlbumUpload): SQLConfig<Album> => ({
-	sql: INSERT_ALBUM,
-	parse: sql.parseRow(),
-	variables: [{
-		value: uuid(),
-		key: "albumId",
-	},{
-		key: "title",
-		value: album.title,
-		parameterized: true,
-	},{
-		key: "released",
-		value: album.released.toISOString().slice(0, 10),
-	},{
-		string: false,
-		key: "columnNames",
-		value: sql.join(COLUMN_NAMES.ALBUM),
-	}],
-})
+export const insertAlbum =
+	(album: AlbumUpload): SQLConfig<Album> => ({
+		sql: INSERT_ALBUM,
+		parse: sql.parseRow(),
+		variables: [{
+			value: uuid(),
+			key: "albumId",
+		},{
+			key: "title",
+			value: album.title,
+			parameterized: true,
+		},{
+			string: false,
+			key: "columnNames",
+			value: sql.join(COLUMN_NAMES.ALBUM),
+		},{
+			key: "released",
+			value: album.released.toISOString().slice(0, 10),
+		}],
+	})
 
 export const insertAlbumArtist =
 	(albumId: string) =>

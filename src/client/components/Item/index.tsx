@@ -25,6 +25,7 @@ const Item = <D extends Doc, I extends Doc = Doc>({
 	className,
 	infoClassName,
 	inLibClassName,
+	rightClassName,
 	showPlay = true,
 	showInLibrary = true,
 }: PropTypes<D, I>) => (
@@ -77,7 +78,7 @@ const Item = <D extends Doc, I extends Doc = Doc>({
 		{right && (
 			<p
 				children={right}
-				className={bem("right")}
+				className={bem(rightClassName, "right")}
 			/>
 		)}
 	</div>
@@ -95,6 +96,7 @@ interface PropTypes<Doc, ImgDoc> {
 	showInLibrary?: boolean,
 	infoClassName?: BemInput,
 	inLibClassName?: BemInput,
+	rightClassName?: BemInput,
 }
 
 export default Item

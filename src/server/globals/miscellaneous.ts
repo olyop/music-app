@@ -34,7 +34,7 @@ export const USER_QUEUE_SELECT = {
 export const IMAGE_SIZES = {
 	ALBUM: {
 		HALF: [400, 400] as ImgDim,
-		FULL: [800, 800] as ImgDim,
+		FULL: [1000, 1000] as ImgDim,
 	},
 	ARTIST: {
 		MINI: [640, 360] as ImgDim,

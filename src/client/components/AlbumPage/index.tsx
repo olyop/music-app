@@ -55,12 +55,12 @@ const AlbumPage: FC = () => {
 										className={bem("title-add")}
 									/>
 								</h1>
-								<h3 className={bem("genres")}>
-									<DocLinks docs={genresFromAlbum(album)}/>
-								</h3>
-								<h2 className={bem("artists", "MarginBottom")}>
+								<h2 className={bem("artists", "MarginBottomHalf")}>
 									<DocLinks docs={artists}/>
 								</h2>
+								<h3 className={bem("genres", "MarginBottom")}>
+									<DocLinks docs={genresFromAlbum(album)}/>
+								</h3>
 								<div className={bem("discs", "MarginBottom")}>
 									{discs.map(disc => (
 										<Disc

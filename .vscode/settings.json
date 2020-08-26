@@ -1,4 +1,16 @@
 {
+	"eslint.validate": [
+		"javascript",
+		"javascriptreact",
+		"typescript",
+		"typescriptreact"
+	],
+	"files.exclude": {
+		".env": true,
+		"dist": true,
+		".vscode/": true,
+		"node_modules/": true
+	},
 	"editor.tabSize": 2,
 	"git.enabled": false,
 	"editor.fontSize": 24,
@@ -59,16 +71,4 @@
 	"javascript.updateImportsOnFileMove.enabled": "never",
 	"terminal.integrated.fontFamily": "Liberation Mono, monospace",
 	"terminal.integrated.shell.windows": "C:\\Program Files\\Git\\bin\\bash.exe",
-	"eslint.validate": [
-		"javascript",
-		"javascriptreact",
-		"typescript",
-		"typescriptreact"
-	],
-	"files.exclude": {
-		".vscode/": true,
-		"node_modules/": true,
-		"dist": true,
-		".env": true
-	}
 }

@@ -21,10 +21,10 @@ import {
 	CORS_CONFIG,
 } from "./globals"
 
-// import { INIT } from "./sql"
 // import { sql } from "./helpers"
+// import SQL_INIT from "./sqlInit"
 
-// sql.transaction(INIT).catch(console.error)
+// sql.transaction(SQL_INIT).catch(console.error)
 
 const app = express()
 

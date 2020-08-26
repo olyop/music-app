@@ -48,24 +48,26 @@ const Player: FC<RouteComponentProps> = ({ history }) => (
 									/>
 								</Link>
 								<h1 className={bem("main-title", "main-text")}>
-									<SongTitle
-										showRemixers
-										song={res.user.current}
-									/>
+									<div>
+										<SongTitle
+											showRemixers
+											song={res.user.current}
+										/>
+									</div>
 									<InLibraryButton
 										doc={res.user.current}
 										className={bem("main-title-inLibrary")}
 									/>
 								</h1>
-								<h2 className={bem("main-album", "main-text")}>
-									<DocLink doc={res.user.current.album}/>
-								</h2>
 								<h3 className={bem("main-artists", "main-text")}>
 									<FeaturingArtists
 										artists={res.user.current.artists}
 										featuring={res.user.current.featuring}
 									/>
 								</h3>
+								<h2 className={bem("main-album", "main-text")}>
+									<DocLink doc={res.user.current.album}/>
+								</h2>
 								<Progress
 									className={bem("main-progreess")}
 								/>

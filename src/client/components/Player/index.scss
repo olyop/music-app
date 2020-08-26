@@ -42,9 +42,6 @@
 			align-items: center;
 			&-inLibrary {
 				margin-left: var(--space-half); } }
-		&-album {
-			font-size: 20rem;
-			font-weight: 500; }
 		&-progress {
 			background-color: #e0e0e0; }
 		&-controls {
@@ -58,5 +55,8 @@
 				color: var(--text-color); } }
 		&-artists {
 			font-size: 20rem;
-			font-weight: 400;
+			font-weight: 400; }
+		&-album {
+			font-size: 20rem;
+			font-weight: 500;
 			margin-bottom: calc(var(--space) * 2.25); } } }

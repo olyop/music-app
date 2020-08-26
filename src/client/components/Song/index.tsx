@@ -6,6 +6,7 @@ import Item from "../Item"
 import DocLinks from "../DocLinks"
 import { Song } from "../../types"
 import SongTitle from "../SongTitle"
+import FeaturingArtists from "../FeaturingArtists"
 import { useSettingsContext } from "../../contexts/Settings"
 
 const Song: FC<PropTypes> = ({
@@ -31,7 +32,10 @@ const Song: FC<PropTypes> = ({
 			right={showRight ? deserializeDuration(song.duration) : null}
 			lower={(
 				<Fragment>
-					<DocLinks ampersand docs={song.artists}/>
+					<FeaturingArtists
+						artists={song.artists}
+						featuring={song.featuring}
+					/>
 					{showGenres && (
 						<Fragment>
 							<Fragment> &#8226; </Fragment>

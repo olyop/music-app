@@ -154,7 +154,7 @@ export const album =
 		({ args }) => (
 			sql.query({
 				sql: SELECT_ALBUM,
-				parse: sql.parseRow(),
+				parse: sql.parseRow<Album>(),
 				variables: [{
 					key: "albumId",
 					value: args.albumId,

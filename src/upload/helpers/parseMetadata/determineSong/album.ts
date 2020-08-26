@@ -9,7 +9,7 @@ const getCurrentYear = () =>
 	(new Date()).getFullYear()
 
 const determineReleased = (year: number | undefined) =>
-	new Date(year || getCurrentYear(), 0, 1)
+	new Date(`${year || getCurrentYear()}-01-01T00:00:00+00:00`)
 
 export const determineAlbum = ({ album, albumartist, picture, year }: ICommonTagsResult): AlbumParsed => ({
 	title: album || "",

@@ -26,6 +26,7 @@ export const PG_POOL_CONFIG: PoolConfig = {
 	database: AWS_RDS_DB,
 	host: AWS_RDS_ENDPOINT,
 	password: AWS_RDS_PASSWORD,
+	parseInputDatesAsUTC: true,
 }
 
 export const APOLLO_MIDDLEWARE_CONFIG: GetMiddlewareOptions = {

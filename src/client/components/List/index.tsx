@@ -17,8 +17,8 @@ const List: FC<PropTypes> = ({ children, className }) => {
 }
 
 interface PropTypes {
+	children: ReactNode,
 	className?: BemInput,
-	children: ReactNode, // required prop as "FC" does not
 }
 
 export default List

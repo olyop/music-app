@@ -15,13 +15,13 @@ import { useUserContext } from "../../contexts/User"
 const bem = createBem("Queues")
 
 const Queues: FC = () => (
-	<QueueApi
+	<QueueApi<Res, Vars>
 		className={bem("")}
 		query={GET_USER_QUEUES}
 		variables={{ userId: useUserContext() }}
 		children={
-			({ user }: Data) => (
-				createQueuesArray(user).map(
+			res => res && (
+				createQueuesArray(res.user).map(
 					queue => (
 						<Fragment key={queue.id}>
 							{isNull(queue.songs[0]) || isEmpty(queue.songs) ? null : (
@@ -43,8 +43,12 @@ const Queues: FC = () => (
 	/>
 )
 
-interface Data {
+interface Res {
 	user: User,
+}
+
+interface Vars {
+	userId: string,
 }
 
 export default Queues

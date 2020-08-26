@@ -1,32 +1,34 @@
-import { QueryResult } from "pg"
+import {
+	Song,
+	Play,
+	Genre,
+	UserArgs,
+	DocsOrderBy,
+	OrderByArgs,
+} from "../types"
 
 import { COLUMN_NAMES } from "../globals"
 import { sql, createResolver } from "../helpers"
 import { SELECT_GENRE_SONGS, SELECT_USER_DOC_PLAYS } from "../sql"
-import { Song, Play, Genre, UserArgs, OrderBy, OrderByArgs } from "../types"
 
 const resolver =
 	createResolver<Genre>()
 
-const genreSongs = <T>(
-	genreId: string,
-	parse: (res: QueryResult) => T,
-	orderBy: OrderBy = { field: "TITLE", direction: "DESC" },
-) =>
+const genreSongs = <T>({ id, parse, orderBy }: DocsOrderBy<T>) =>
 	sql.query({
 		sql: SELECT_GENRE_SONGS,
 		parse,
 		variables: [{
+			value: id,
 			key: "genreId",
-			value: genreId,
 		},{
 			string: false,
 			key: "orderByField",
-			value: orderBy.field.toLowerCase(),
+			value: orderBy?.field || "title",
 		},{
 			string: false,
 			key: "orderByDirection",
-			value: orderBy.direction,
+			value: orderBy?.direction || "asc",
 		},{
 			string: false,
 			key: "columnNames",
@@ -37,21 +39,21 @@ const genreSongs = <T>(
 export const songs =
 	resolver<Song[], OrderByArgs>(
 		({ parent, args }) => (
-			genreSongs(
-				parent.genreId,
-				sql.parseTable(),
-				args.orderBy,
-			)
+			genreSongs({
+				id: parent.genreId,
+				orderBy: args.orderBy,
+				parse: sql.parseTable(),
+			})
 		),
 	)
 
 export const numOfSongs =
 	resolver<number>(
 		({ parent }) => (
-			genreSongs(
-				parent.genreId,
-				sql.rowCount,
-			)
+			genreSongs({
+				id: parent.genreId,
+				parse: sql.rowCount,
+			})
 		),
 	)
 

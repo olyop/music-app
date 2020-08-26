@@ -7,16 +7,16 @@
 	justify-content: center;
 	&__icon {
 		--height: 50rem;
+		user-select: none;
 		width: var(--height);
 		height: var(--height);
 		font-size: var(--height);
-		user-select: none;
 		color: var(--text-color);
-		margin-bottom: calc(var(--space) * 0.5);
+		margin-bottom: var(--space-half);
 		&:hover {
 			background-color: transparent !important; } }
 	&__title {
 		font-size: 25rem;
-		margin-bottom: calc(var(--space) * 0.75); }
+		margin-bottom: var(--space-three-quart); }
 	&__text {
 		font-size: 16rem; } }

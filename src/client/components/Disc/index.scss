@@ -1,9 +1,9 @@
 .Disc {
-	margin-bottom: calc(var(--space) * 0.75);
+	margin-bottom: var(--space-three-quart);
 	&:last-child {
 		margin-bottom: 0; }
 	&__number {
 		font-size: 15rem;
 		font-weight: 700;
 		text-transform: uppercase;
-		margin-bottom: calc(var(--space) * 0.5); } }
+		margin-bottom: var(--space-half); } }

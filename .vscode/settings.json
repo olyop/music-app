@@ -35,7 +35,6 @@
 	"editor.fontLigatures": false,
 	"javascript.showUnused": false,
 	"typescript.showUnused": false,
-	"typescript.unu"
 	"explorer.confirmDelete": false,
 	"editor.minimap.enabled": false,
   "eslint.alwaysShowStatus": true,
@@ -66,6 +65,7 @@
 	"terminal.integrated.confirmOnExit": true,
 	"terminal.integrated.rendererType": "dom",
 	"editor.find.autoFindInSelection": "never",
+	"terminal.integrated.windowsEnableConpty": false,
 	"editor.fontFamily": "Liberation Mono, monospace",
 	"typescript.tsdk": "./node_modules/typescript/lib",
 	"javascript.updateImportsOnFileMove.enabled": "never",

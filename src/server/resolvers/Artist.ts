@@ -10,6 +10,7 @@ import {
 	UserArgs,
 	ImgFormat,
 	ImgSizeEnum,
+	DocsOrderBy,
 	OrderByArgs,
 } from "../types"
 
@@ -54,25 +55,21 @@ export const numOfPlays =
 		),
 	)
 
-const artistSongs = <T>(
-	artistId: string,
-	parse: (res: QueryResult) => T,
-	orderBy: OrderBy = { field: "TITLE", direction: "DESC" },
-) =>
+const artistSongs = <T>({ id, parse, orderBy }: DocsOrderBy<T>) =>
 	sql.query({
 		sql: SELECT_ARTIST_SONGS,
 		parse,
 		variables: [{
+			value: id,
 			key: "artistId",
-			value: artistId,
 		},{
 			string: false,
 			key: "orderByField",
-			value: orderBy.field,
+			value: orderBy?.field || "title",
 		},{
 			string: false,
 			key: "orderByDirection",
-			value: orderBy.direction,
+			value: orderBy?.direction || "asc",
 		},{
 			string: false,
 			key: "columnNames",
@@ -83,21 +80,21 @@ const artistSongs = <T>(
 export const songs =
 	resolver<Song[], OrderByArgs>(
 		({ parent, args }) => (
-			artistSongs(
-				parent.artistId,
-				sql.parseTable(),
-				args.orderBy,
-			)
+			artistSongs({
+				id: parent.artistId,
+				orderBy: args.orderBy,
+				parse: sql.parseTable(),
+			})
 		),
 	)
 
 export const numOfSongs =
 	resolver<number>(
 		({ parent }) => (
-			artistSongs(
-				parent.artistId,
-				sql.rowCount,
-			)
+			artistSongs({
+				id: parent.artistId,
+				parse: sql.rowCount,
+			})
 		),
 	)
 

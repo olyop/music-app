@@ -36,7 +36,7 @@ const Progress: FC<PropTypes> = ({ className }) => {
 					return (
 						<Fragment>
 							<p
-								className="Text"
+								className={bem("text", "Text")}
 								children={deserializeDuration(current)}
 							/>
 							<input
@@ -49,7 +49,7 @@ const Progress: FC<PropTypes> = ({ className }) => {
 								className={bem("slider")}
 							/>
 							<p
-								className="Text"
+								className={bem("text", "Text")}
 								children={deserializeDuration(duration)}
 							/>
 						</Fragment>

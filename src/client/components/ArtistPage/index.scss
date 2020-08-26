@@ -10,7 +10,7 @@
 			bottom: 0;
 			z-index: 2;
 			position: absolute;
-			margin-bottom: calc(var(--space) * 0.2);
+			margin-bottom: var(--space-fifth);
 			&-add,
 			&-name,
 			&-text {
@@ -19,13 +19,13 @@
 				display: flex;
 				font-weight: 700;
 				align-items: center;
-				margin-bottom: calc(var(--space) * 0.25);
+				margin-bottom: var(--space-quart);
 				&-text {
 					font-size: 60rem; }
 				&-add {
 					font-size: 30rem;
 					margin-top: 7rem;
-					margin-left: calc(var(--space) * 0.5);
+					margin-left: var(--space-half);
 					background-color: transparent !important; } }
 			&-text {
 				font-size: 17rem; } }
@@ -41,4 +41,4 @@
 	&__heading {
 		font-size: 25rem;
 		margin-top: -3px;
-		margin-bottom: calc(var(--space) * 0.5); } }
+		margin-bottom: var(--space-half); } }

@@ -104,3 +104,9 @@ export interface OrderBy {
 export interface OrderByArgs {
 	orderBy: OrderBy,
 }
+
+export interface DocsOrderBy<T> {
+	id: string,
+	orderBy?: OrderBy,
+	parse: (res: QueryResult) => T,
+}

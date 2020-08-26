@@ -21,6 +21,7 @@ import { useUserContext } from "../../contexts/User"
 import GET_USER_CURRENT from "../../graphql/queries/userCurrent.gql"
 
 import "./index.scss"
+import DocLinks from "../DocLinks"
 
 const bem = createBem("Player")
 
@@ -35,48 +36,52 @@ const Player: FC<RouteComponentProps> = ({ history }) => (
 					<Icon
 						icon="close"
 						onClick={() => history.goBack()}
-						className={bem("close", "PaddingHalf")}
+						className={bem("close", "PaddingQuart")}
 					/>
-					{isUndefined(res) ? null : isNull(res.user.current) ? <Empty title="No Current Song"/> : (
-						<Helmet title={res.user.current.title}>
-							<div className={bem("main", "Padding")}>
-								<Link className={bem("main-cover")} to={determineDocPath(res.user.current.album)}>
-									<Img
-										url={res.user.current.album.cover}
-										title={res.user.current.album.title}
-										className={bem("Card", "Elevated")}
-									/>
-								</Link>
-								<h1 className={bem("main-title", "main-text")}>
-									<div>
-										<SongTitle
-											showRemixers
-											song={res.user.current}
+					{isUndefined(res) ? null : (
+						isNull(res.user.current) ? <Empty title="No Current Song"/> : (
+							<Helmet title="Now Playing">
+								<div className={bem("main")}>
+									<Link className={bem("main-cover")} to={determineDocPath(res.user.current.album)}>
+										<Img
+											url={res.user.current.album.cover}
+											title={res.user.current.album.title}
+											className={bem("Card", "Elevated")}
+										/>
+									</Link>
+									<div className={bem("main-title", "main-text")}>
+										<h1 className={bem("main-title-text")}>
+											<SongTitle
+												showRemixers
+												song={res.user.current}
+											/>
+										</h1>
+										<InLibraryButton
+											doc={res.user.current}
+											className={bem("main-title-inLibrary")}
 										/>
 									</div>
-									<InLibraryButton
-										doc={res.user.current}
-										className={bem("main-title-inLibrary")}
+									<h3 className={bem("main-artists", "main-text")}>
+										<FeaturingArtists
+											artists={res.user.current.artists}
+											featuring={res.user.current.featuring}
+										/>
+									</h3>
+									<h2 className={bem("main-album", "main-text")}>
+										<DocLink doc={res.user.current.album}/>
+										<Fragment> - </Fragment>
+										<DocLinks docs={res.user.current.genres}/>
+									</h2>
+									<Progress
+										className={bem("main-progreess")}
 									/>
-								</h1>
-								<h3 className={bem("main-artists", "main-text")}>
-									<FeaturingArtists
-										artists={res.user.current.artists}
-										featuring={res.user.current.featuring}
+									<UserControls
+										className={bem("main-controls")}
+										iconClassName={bem("main-controls-icon")}
 									/>
-								</h3>
-								<h2 className={bem("main-album", "main-text")}>
-									<DocLink doc={res.user.current.album}/>
-								</h2>
-								<Progress
-									className={bem("main-progreess")}
-								/>
-								<UserControls
-									className={bem("main-controls")}
-									iconClassName={bem("main-controls-icon")}
-								/>
-							</div>
-						</Helmet>
+								</div>
+							</Helmet>
+						)
 					)}
 				</Fragment>
 			)

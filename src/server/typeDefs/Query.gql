@@ -15,7 +15,6 @@ type Query {
   # advanced queries
   newAlbums: [Album!]!
   topTenSongs: [Song!]!
-  serverTimeZone: String!
   
   # searches
   albumSearch(query: String!, exact: Boolean!): [Album!]!

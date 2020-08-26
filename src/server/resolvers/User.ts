@@ -30,7 +30,7 @@ export const dateJoined =
 export const current =
 	resolver<Song | null>(
 		({ parent }) => (
-			isNull(parent.current) ? Promise.resolve(null) : (
+			isNull(parent.current) ? null : (
 				sql.query({
 					sql: SELECT_SONG,
 					parse: sql.parseRow(),
@@ -127,27 +127,22 @@ export const plays =
 		),
 	)
 
-const userDocs = <T>({
-	userId,
-	orderBy,
-	tableName,
-	columnName,
-	columnNames,
-	userTableName,
-}: {
-	userId: string,
+interface UserDocsInput {
+	id: string,
 	orderBy: OrderBy,
 	tableName: string,
 	columnName: string,
 	columnNames: string[],
 	userTableName: string,
-}) =>
+}
+
+const userDocs = <T>({ id, orderBy, tableName, columnName, columnNames, userTableName }: UserDocsInput) =>
 	sql.query<T[]>({
 		sql: SELECT_USER_DOCS,
 		parse: sql.parseTable(),
 		variables: [{
+			value: id,
 			key: "userId",
-			value: userId,
 		},{
 			string: false,
 			key: "tableName",
@@ -170,12 +165,12 @@ const userDocs = <T>({
 			value: orderBy.direction,
 		},{
 			string: false,
-			key: "orderByTableName",
-			value: orderBy.field === "DATE_ADDED" ? userTableName : tableName,
-		},{
-			string: false,
 			key: "columnNames",
 			value: sql.join(columnNames, tableName),
+		},{
+			string: false,
+			key: "orderByTableName",
+			value: orderBy.field === "DATE_ADDED" ? userTableName : tableName,
 		}],
 	})
 
@@ -183,10 +178,10 @@ export const songs =
 	resolver<Song[], OrderByArgs>(
 		({ parent, args }) => (
 			userDocs({
+				id: parent.userId,
 				tableName: "songs",
 				orderBy: args.orderBy,
 				columnName: "song_id",
-				userId: parent.userId,
 				userTableName: "users_songs",
 				columnNames: COLUMN_NAMES.SONG,
 			})
@@ -197,9 +192,9 @@ export const albums =
 	resolver<Album[], OrderByArgs>(
 		({ parent, args }) => (
 			userDocs({
+				id: parent.userId,
 				tableName: "albums",
 				orderBy: args.orderBy,
-				userId: parent.userId,
 				columnName: "album_id",
 				userTableName: "users_albums",
 				columnNames: COLUMN_NAMES.ALBUM,
@@ -211,9 +206,9 @@ export const artists =
 	resolver<Artist[], OrderByArgs>(
 		({ parent, args }) => (
 			userDocs({
+				id: parent.userId,
 				tableName: "artists",
 				orderBy: args.orderBy,
-				userId: parent.userId,
 				columnName: "artist_id",
 				userTableName: "users_artists",
 				columnNames: COLUMN_NAMES.ARTIST,
@@ -225,7 +220,7 @@ export const playlists =
 	resolver<Playlist[], OrderByArgs>(
 		({ parent, args }) => (
 			userDocs({
-				userId: parent.userId,
+				id: parent.userId,
 				orderBy: args.orderBy,
 				tableName: "playlists",
 				columnName: "playlist_id",

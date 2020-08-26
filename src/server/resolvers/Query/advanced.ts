@@ -1,13 +1,6 @@
-import pipe from "@oly_op/pipe"
-
-import {
-	SELECT_NEW_ALBUMS,
-	SELECT_TOP_TEN_SONGS,
-	ADMIN_SHOW_TIME_ZONE,
-} from "../../sql"
-
 import { Song, Album } from "../../types"
 import { sql, createResolver } from "../../helpers"
+import { SELECT_NEW_ALBUMS, SELECT_TOP_TEN_SONGS } from "../../sql"
 
 const resolver =
 	createResolver()
@@ -28,23 +21,6 @@ export const topTenSongs =
 			sql.query({
 				sql: SELECT_TOP_TEN_SONGS,
 				parse: sql.parseTable(),
-			})
-		),
-	)
-
-interface TimeZoneRow {
-	timeZone: string,
-}
-
-export const serverTimeZone =
-	resolver<string>(
-		() => (
-			sql.query({
-				sql: ADMIN_SHOW_TIME_ZONE,
-				parse: res => pipe(
-					sql.parseRow<TimeZoneRow>(),
-					({ timeZone }) => timeZone,
-				)(res),
 			})
 		),
 	)

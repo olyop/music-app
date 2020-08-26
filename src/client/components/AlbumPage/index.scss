@@ -1,6 +1,6 @@
 .AlbumPage {
 	display: grid;
-	gap: calc(var(--space) * 1.25);
+	gap: var(--space-one-quart);
 	grid-template-columns: 1fr 2fr;
 	@media (max-width: 1200px) {
 		grid-template-columns: 1fr 2fr; }
@@ -10,11 +10,11 @@
 		display: flex;
 		font-size: 33rem;
 		align-items: center;
-		margin-bottom: calc(var(--space) * 0.25 + 3px);
+		margin-bottom: calc(var(--space-quart) + 3px);
 		&-add {
 			display: inline-block;
 			color: var(--text-color);
-			margin-left: calc(var(--space) * 0.25); } }
+			margin-left: var(--space-quart); } }
 	&__artists {
 		font-size: 19rem;
 		font-weight: 500; }

@@ -61,6 +61,6 @@
 			width: var(--height);
 			height: var(--height);
 			font-size: var(--height);
-			margin-bottom: calc(var(--space) * 0.25);
+			margin-bottom: var(--space-quart);
 			&:hover {
 				background-color: transparent !important; } } } }

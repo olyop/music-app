@@ -25,7 +25,7 @@ const Header: FC = () => {
 					icon={sidebar ? "close" : "menu"}
 					className={bem("hamburger", "icon", "IconHover")}
 				/>
-				<div className={bem("right")}>
+				<div className="FlexList">
 					<NavLink
 						to="/search"
 						className={bem("link")}

@@ -5,6 +5,9 @@
 		0 0 8px rgba(#000, 0.2);
 	background-color: var(--elevated-color); }
 
+.PaddingQuart {
+	padding: calc(var(--space) * 0.25); }
+
 .PaddingHalf {
 	padding: calc(var(--space) * 0.5); }
 

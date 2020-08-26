@@ -2,8 +2,8 @@
 	top: 0;
 	left: 0;
 	z-index: 99;
-	width: 100vw;
-	height: 100vh;
+	width: 100%;
+	height: 100%;
 	position: absolute;
 	&__main,
 	&__spinner {
@@ -12,20 +12,19 @@
 		position: absolute;
 		transform: translate(-50%, -50%); }
 	&__close {
-		--font-size: 40rem;
-		--padding: calc(var(--space) * 0.5);
-		--height: calc(var(--font-size) + var(--padding) * 2);
-		top: 0;
-		left: 0;
+		--font-size: 36rem;
+		--padding: var(--space-quart);
+		--dim: calc(var(--font-size) + var(--padding) * 2);
+		top: 7rem;
+		left: 13rem;
+		width: var(--dim);
+		height: var(--dim);
 		position: absolute;
 		border-radius: 100%;
-		width: var(--height);
-		height: var(--height);
-		margin: var(--padding);
 		color: var(--text-color);
 		font-size: var(--font-size); }
 	&__main {
-		width: 50vw;
+		width: 50%;
 		display: flex;
 		align-items: center;
 		flex-direction: column;
@@ -37,9 +36,10 @@
 			margin-bottom: var(--space-half); }
 		&-title {
 			display: flex;
-			font-size: 30rem;
-			font-weight: 700;
 			align-items: center;
+			&-text {
+				font-size: 30rem;
+				font-weight: 700; }
 			&-inLibrary {
 				margin-left: var(--space-half); } }
 		&-progress {

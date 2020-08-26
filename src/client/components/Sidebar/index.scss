@@ -1,5 +1,5 @@
 .Sidebar {
-	--margin: calc(var(--space) * 0.75);
+	--margin: var(--space-three-quart);
 	width: 300px;
 	display: flex;
 	flex-direction: column;

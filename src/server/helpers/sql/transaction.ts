@@ -4,7 +4,6 @@ import { SQLConfig } from "../../types"
 import { baseQuery } from "./baseQuery"
 
 export const transaction = async (configs: (string | SQLConfig<unknown>)[]) => {
-	console.log(configs)
 	const client = await pg.connect()
 	try {
 		await client.query("BEGIN")

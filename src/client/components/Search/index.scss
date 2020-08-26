@@ -9,16 +9,16 @@
 	&__bar {
 		width: 600px;
 		margin: 0 auto;
-		margin-top: calc(var(--space) * 2);
+		margin-top: var(--space-double);
 		&-input {
 			border: 0;
 			width: 100%;
 			outline: none;
 			font-size: 20rem;
 			text-align: center;
+			padding: var(--space-half);
 			border-bottom: 2px solid #333;
-			background-color: transparent;
-			padding: calc(var(--space) * 0.5); } }
+			background-color: transparent; } }
 	&__content {
 		box-shadow: var(--box-shadow);
 		background-color: var(--text-color-white); } }

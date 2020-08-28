@@ -46,12 +46,11 @@ const InLibraryButton: FC<PropTypes> = ({ doc, className }) => {
 	const variables = { userId, [docKey]: docId }
 
 	const { data, loading: queryLoading } =
-		useQuery<Res>(QUERY, { variables })
+		useQuery<Res>(QUERY, { fetchPolicy: "cache-first", variables })
 
 	const inLibrary =
 		isUndefined(doc.inLibrary) ?
-			(isUndefined(data) ?
-				false : data[docName.toLowerCase()].inLibrary) : doc.inLibrary
+			(!data ? false : data[docName.toLowerCase()].inLibrary) : doc.inLibrary
 
 	const verb = inLibrary ? "rm" : "add"
 	const mutationName = `${verb}User${docName}`

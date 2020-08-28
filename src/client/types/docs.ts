@@ -8,22 +8,22 @@ import {
 	PlaylistBase,
 } from "@oly_op/music-app-types"
 
-export interface Doc {
-	__typename: string,
+export interface Doc<T = string> {
+	__typename: T,
 }
 
-export interface Play extends PlayBase, Doc {
+export interface Play extends PlayBase, Doc<"Play"> {
 	user: User,
 	song: Song,
 }
 
-export interface UserDoc extends Doc {
+export interface UserDoc<T = string> extends Doc<T> {
 	plays: Play[],
 	inLibrary: boolean,
 	dateAdded: number | null,
 }
 
-export interface Artist extends ArtistBase, UserDoc {
+export interface Artist extends ArtistBase, UserDoc<"Artist"> {
 	photo: string,
 	songs: Song[],
 	albums: Album[],
@@ -32,7 +32,7 @@ export interface Artist extends ArtistBase, UserDoc {
 	numOfAlbums?: number,
 }
 
-export interface Album extends AlbumBase, UserDoc {
+export interface Album extends AlbumBase, UserDoc<"Album"> {
 	cover: string,
 	songs: Song[],
 	released: string,
@@ -40,12 +40,12 @@ export interface Album extends AlbumBase, UserDoc {
 	totalDuration: number,
 }
 
-export interface Genre extends GenreBase, UserDoc {
+export interface Genre extends GenreBase, UserDoc<"Genre"> {
 	songs: Song[],
 	numOfSongs?: number,
 }
 
-export interface Song extends SongBase, UserDoc {
+export interface Song extends SongBase, UserDoc<"Song"> {
 	album: Album,
 	genres: Genre[],
 	artists: Artist[],
@@ -54,7 +54,7 @@ export interface Song extends SongBase, UserDoc {
 	dateAddedToPlaylist: number | null,
 }
 
-export interface User extends UserBase, Doc {
+export interface User extends UserBase, Doc<"User"> {
 	prev: Song[],
 	next: Song[],
 	queue: Song[],
@@ -66,7 +66,7 @@ export interface User extends UserBase, Doc {
 	playlists: Playlist[],
 }
 
-export interface Playlist extends PlaylistBase, UserDoc {
+export interface Playlist extends PlaylistBase, UserDoc<"Playlist"> {
 	user: User,
 	songs: Song[],
 }

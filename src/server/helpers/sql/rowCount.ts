@@ -1,4 +1,4 @@
-import { QueryResult } from "pg"
+import { SQLQueryResult } from "../../types"
 
-export const rowCount = (res: QueryResult) =>
+export const rowCount = (res: SQLQueryResult) =>
 	res.rowCount

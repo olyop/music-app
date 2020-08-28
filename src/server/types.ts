@@ -1,4 +1,4 @@
-import { Pool, PoolClient, QueryResult } from "pg"
+import { Pool, PoolClient, QueryResult, QueryResultRow } from "pg"
 
 import {
 	UserBase,
@@ -22,6 +22,8 @@ export enum ImgFormat {
 	MP3 = "MP3",
 }
 
+export type SQLQueryResult<T = QueryResultRow> = QueryResult<T>
+
 export type SQLVariable = {
 	key: string,
 	value: string,
@@ -33,7 +35,7 @@ export type SQLConfig<Return> = {
 	sql: string,
 	log?: boolean,
 	variables?: SQLVariable[],
-	parse?: (res: QueryResult) => Return,
+	parse?: (res: SQLQueryResult) => Return,
 }
 
 export type S3Upload = {
@@ -108,5 +110,5 @@ export interface OrderByArgs {
 export interface DocsOrderBy<T> {
 	id: string,
 	orderBy?: OrderBy,
-	parse: (res: QueryResult) => T,
+	parse: (res: SQLQueryResult) => T,
 }

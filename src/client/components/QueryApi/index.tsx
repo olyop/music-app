@@ -1,6 +1,5 @@
 import { useQuery } from "@apollo/client"
 import type { DocumentNode } from "graphql"
-import isUndefined from "lodash/isUndefined"
 import { createElement, useEffect, Fragment, ReactNode } from "react"
 
 import ApiError from "../ApiError"
@@ -19,7 +18,7 @@ const QueryApi = <Res, Vars = Record<string, unknown>>({
 	useEffect(() => {
 		setLoading(loading)
 	}, [loading, setLoading])
-	if (!isUndefined(error)) {
+	if (error !== undefined) {
 		return <ApiError error={error}/>
 	} else {
 		const render = children(data)

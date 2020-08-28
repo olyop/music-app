@@ -2,15 +2,37 @@ SELECT DISTINCT
   {{ columnNames }}
 FROM
   (
-    SELECT
+    SELECT DISTINCT
       album_id
     FROM
-      albums_artists
-    WHERE
-      artist_id = {{ artistId }}
-  ) AS artist_albums
+      (
+        SELECT
+          song_id
+        FROM
+          songs_artists
+        WHERE
+          artist_id = {{ artistId }}
+        UNION
+        SELECT
+          song_id
+        FROM
+          songs_remixers
+        WHERE
+          artist_id = {{ artistId }}
+        UNION
+        SELECT
+          song_id
+        FROM
+          songs_featurings
+        WHERE
+          artist_id = {{ artistId }}
+      ) AS artist_songs_ids
+    JOIN
+      songs
+        ON artist_songs_ids.song_id = songs.song_id
+  ) AS artist_albums_ids
 JOIN
    albums
-    ON artist_albums.album_id = albums.album_id
+    ON artist_albums_ids.album_id = albums.album_id
 ORDER BY
   albums.{{ orderByField }} {{ orderByDirection }};

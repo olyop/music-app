@@ -1,7 +1,6 @@
 import random from "lodash/random"
 import isEmpty from "lodash/isEmpty"
 import { createBem } from "@oly_op/bem"
-import isUndefined from "lodash/isUndefined"
 import { useParams } from "react-router-dom"
 import { createElement, Fragment, FC } from "react"
 
@@ -41,7 +40,7 @@ const ArtistPage: FC = () => {
 			query={GET_ARTIST_PAGE}
 			children={
 				res => {
-					if (isUndefined(res)) return null
+					if (!res) return null
 					const { artist } = res
 					const { name, photo, songs, albums } = artist
 					return (

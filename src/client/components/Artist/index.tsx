@@ -1,5 +1,4 @@
-import toString from "lodash/toString"
-import { createElement, FC } from "react"
+import { createElement, FC, Fragment } from "react"
 
 import Item from "../Item"
 import Cover from "../Cover"
@@ -8,11 +7,16 @@ import { determinePlural } from "../../helpers"
 import { useSettingsContext } from "../../contexts/Settings"
 import { Artist as ArtistType, ListStyle } from "../../types"
 
-const artistLower = ({ numOfSongs, numOfAlbums }: ArtistType) =>
-	(numOfSongs || numOfAlbums ? `
-		${numOfAlbums ? `${toString(numOfAlbums)} album${determinePlural(numOfAlbums)}, ` : ""}
-		${numOfSongs ? `${toString(numOfSongs)} song${determinePlural(numOfSongs)}` : ""}
-	` : null)
+const ArtistLower: FC<PropTypes> = ({ artist }) => {
+	const { numOfSongs, numOfAlbums } = artist
+	const albumsText = numOfAlbums ? `${numOfAlbums} album${determinePlural(numOfAlbums)}` : ""
+	const songsText = numOfSongs ? `${numOfSongs} song${determinePlural(numOfSongs)}` : ""
+	return (
+		<Fragment>
+			{(numOfSongs || numOfAlbums) && `${albumsText}, ${songsText}`}
+		</Fragment>
+	)
+}
 
 const Artist: FC<PropTypes> = ({ artist, className = null }) => {
 	const { settings: { listStyle } } = useSettingsContext()
@@ -25,16 +29,16 @@ const Artist: FC<PropTypes> = ({ artist, className = null }) => {
 			<Item
 				doc={artist}
 				className="PaddingHalf"
-				lower={artistLower(artist)}
 				upper={<DocLink doc={artist}/>}
+				lower={<ArtistLower artist={artist}/>}
 			/>
 		</div>
 	) : (
 		<Item
 			doc={artist}
 			imgDoc={artist}
-			lower={artistLower(artist)}
 			upper={<DocLink doc={artist}/>}
+			lower={<ArtistLower artist={artist}/>}
 			className={[ className, "PaddingHalf", "ItemBorder", "Hover" ].join(" ")}
 		/>
 	)

@@ -1,5 +1,4 @@
 import { createBem } from "@oly_op/bem"
-import isUndefined from "lodash/isUndefined"
 import { useParams } from "react-router-dom"
 import { createElement, Fragment, FC } from "react"
 import deserializeDuration from "@oly_op/music-app-common/deserializeDuration"
@@ -31,7 +30,7 @@ const AlbumPage: FC = () => {
 			variables={{ userId, ...params }}
 			children={
 				res => {
-					if (isUndefined(res)) return null
+					if (!res) return null
 					const { album } = res
 					const { title, songs, released, artists, totalDuration } = album
 					const discs = determineDiscs(songs)

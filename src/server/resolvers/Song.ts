@@ -1,6 +1,3 @@
-// import { isNull } from "lodash"
-// import { QueryResult } from "pg"
-
 import {
 	Song,
 	Play,

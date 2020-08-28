@@ -1,7 +1,5 @@
 .Item {
 	--gap: calc(var(--space) * 0.4);
-	display: flex;
-	align-items: center;
 	&__play {
 		--fix: -2rem;
 		margin-left: var(--fix);
@@ -25,11 +23,7 @@
 				overflow: hidden;
 				white-space: nowrap;
 				text-overflow: ellipsis; }
-			&-upper {
-				font-weight: 700;
-				font-size: 16rem; }
 			&-lower {
-				font-size: 15rem;
 				margin-top: 4rem; } }
 		&-in-lib {
 			width: auto;
@@ -43,7 +37,8 @@
 			transition-property: opacity, background-color !important; } }
 	&__left,
 	&__right {
-		font-size: 16rem; }
+		font-size: 16rem;
+		white-space: nowrap; }
 	&__left {
 		min-width: 18rem;
 		text-align: center;

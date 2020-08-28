@@ -1,6 +1,4 @@
-import isNull from "lodash/isNull"
 import { createElement, FC } from "react"
-import isUndefined from "lodash/isUndefined"
 import { createBem, BemInput } from "@oly_op/bem"
 import { useQuery, useMutation } from "@apollo/client"
 
@@ -22,10 +20,11 @@ const PlayButton: FC<PropTypes> = ({ doc, className }) => {
 	const { play, setPlay } = usePlayContext()
 
 	const { data } =
-		useQuery<UserCurrentRes>(
-			GET_USER_CURRENT,
-			{ variables: { userId } },
-		)
+		useQuery<UserCurrentRes>(GET_USER_CURRENT, {
+			query: GET_USER_CURRENT,
+			variables: { userId },
+			fetchPolicy: "cache-first",
+		})
 
 	const [ userPlay ] =
 		useMutation<UserPlayRes>(USER_PLAY, {
@@ -39,7 +38,7 @@ const PlayButton: FC<PropTypes> = ({ doc, className }) => {
 			} : undefined,
 		})
 
-	const isCurrent = isUndefined(data) || isNull(data.user.current) ?
+	const isCurrent = data === undefined || data.user.current === null ?
 		false : data.user.current.songId === docId
 
 	const handleClick = () => {

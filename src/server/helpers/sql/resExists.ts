@@ -1,8 +1,8 @@
-import { QueryResult } from "pg"
+import { SQLQueryResult } from "../../types"
 
 interface ExistsRow {
 	exists: boolean,
 }
 
-export const resExists = ({ rows }: QueryResult<ExistsRow>) =>
+export const resExists = ({ rows }: SQLQueryResult<ExistsRow>) =>
 	rows[0].exists

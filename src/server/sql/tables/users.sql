@@ -10,7 +10,5 @@ CREATE TABLE IF NOT EXISTS users (
 		FOREIGN KEY (current)
 		REFERENCES songs (song_id) MATCH FULL
 		ON UPDATE CASCADE
-		ON DELETE CASCADE,
-	CONSTRAINT users_check_date_joined
-		CHECK (date_joined <= cast(extract(epoch from now()) as bigint))
+		ON DELETE CASCADE
 );

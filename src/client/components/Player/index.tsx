@@ -1,6 +1,4 @@
-import isNull from "lodash/isNull"
 import { createBem } from "@oly_op/bem"
-import isUndefined from "lodash/isUndefined"
 import { createElement, FC, Fragment } from "react"
 import { Link, RouteComponentProps } from "react-router-dom"
 
@@ -38,8 +36,8 @@ const Player: FC<RouteComponentProps> = ({ history }) => (
 						onClick={() => history.goBack()}
 						className={bem("close", "PaddingQuart")}
 					/>
-					{isUndefined(res) ? null : (
-						isNull(res.user.current) ? <Empty title="No Current Song"/> : (
+					{!res ? null : (
+						!res.user.current ? <Empty title="No Current Song"/> : (
 							<Helmet title="Now Playing">
 								<div className={bem("main")}>
 									<Link className={bem("main-cover")} to={determineDocPath(res.user.current.album)}>

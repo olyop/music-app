@@ -29,7 +29,7 @@ const Item = <D extends Doc, I extends Doc = Doc>({
 	showPlay = true,
 	showInLibrary = true,
 }: PropTypes<D, I>) => (
-	<div className={bem(className, "")}>
+	<div className={bem(className, "", "FlexList")}>
 		{left && (
 			<p
 				children={left}
@@ -59,15 +59,21 @@ const Item = <D extends Doc, I extends Doc = Doc>({
 			<div className={bem("info-text")}>
 				<p
 					children={upper}
-					className={bem("info-text-upper")}
+					className={bem("Text2")}
 				/>
 				{lower ? (
 					<p
 						children={lower}
-						className={bem("info-text-lower")}
+						className={bem("info-text-lower", "Text")}
 					/>
 				) : null}
 			</div>
+			{right && (
+				<p
+					children={right}
+					className={bem(rightClassName, "right")}
+				/>
+			)}
 			{determineInLibrary(showInLibrary, doc) && (
 				<InLibraryButton
 					doc={doc}
@@ -75,12 +81,6 @@ const Item = <D extends Doc, I extends Doc = Doc>({
 				/>
 			)}
 		</div>
-		{right && (
-			<p
-				children={right}
-				className={bem(rightClassName, "right")}
-			/>
-		)}
 	</div>
 )
 

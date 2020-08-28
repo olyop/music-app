@@ -14,7 +14,5 @@ CREATE TABLE IF NOT EXISTS users_playlists (
     FOREIGN KEY (user_id)
     REFERENCES users (user_id) MATCH FULL
     ON UPDATE CASCADE
-    ON DELETE CASCADE,
-  CONSTRAINT users_playlists_check_date_added
-    CHECK (date_added <= cast(extract(epoch from now()) as bigint))
+    ON DELETE CASCADE
 );

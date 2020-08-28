@@ -8,8 +8,6 @@ import DocLinks from "../DocLinks"
 import { useSettingsContext } from "../../contexts/Settings"
 import { Album as AlbumType, ListStyle } from "../../types"
 
-import "./index.scss"
-
 const bem = createBem("Album")
 
 const Album: FC<PropTypes> = ({ album, className = null }) => {
@@ -31,7 +29,6 @@ const Album: FC<PropTypes> = ({ album, className = null }) => {
 			doc={album}
 			imgDoc={album}
 			right={album.released}
-			rightClassName={bem("")}
 			upper={<DocLink doc={album}/>}
 			lower={<DocLinks docs={album.artists}/>}
 			className={bem(className, "PaddingHalf", "ItemBorder", "Hover")}

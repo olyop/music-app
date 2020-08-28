@@ -1,7 +1,5 @@
-import { QueryResult } from "pg"
 import { uniq, identity, isString } from "lodash"
-
-import { Client, SQLConfig, SQLVariable } from "../../types"
+import { Client, SQLConfig, SQLQueryResult, SQLVariable } from "../../types"
 
 export const getVariableKeys = (sql: string) => {
 	const keys: string[] = []
@@ -67,7 +65,7 @@ const replaceSqlWithValues = (sql: string, variables: SQLVariable[], params: str
 const normalizeInput = <TReturn>(input: string | SQLConfig<TReturn>) =>
 	(isString(input) ? {
 		sql: input,
-		parse: identity as (x: QueryResult) => TReturn,
+		parse: identity as (x: SQLQueryResult) => TReturn,
 	} : input)
 
 export const baseQuery =

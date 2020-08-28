@@ -21,7 +21,7 @@ const OrderBy: FC<PropTypes> = ({ fieldOptions, settingsKey, className }) => {
 		<div className={className}>
 			<h1
 				children="Order By"
-				className="Text MarginBottomQuart"
+				className="Text2 MarginBottomQuart"
 			/>
 			<Select
 				options={fieldOptions}

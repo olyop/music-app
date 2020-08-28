@@ -1,4 +1,3 @@
-import { QueryResult } from "pg"
 import bufferToDataUrl from "@oly_op/music-app-common/bufferToDataUrl"
 
 import {
@@ -6,7 +5,6 @@ import {
 	Play,
 	Album,
 	Artist,
-	OrderBy,
 	UserArgs,
 	ImgFormat,
 	ImgSizeEnum,
@@ -98,25 +96,22 @@ export const numOfSongs =
 		),
 	)
 
-const artistAlbums = <T>(
-	artistId: string,
-	parse: (res: QueryResult) => T,
-	orderBy: OrderBy = { field: "RELEASED", direction: "DESC" },
-) =>
+const artistAlbums = <T>({ id, parse, orderBy }: DocsOrderBy<T>) =>
 	sql.query({
-		sql: SELECT_ARTIST_ALBUMS,
 		parse,
+		log: true,
+		sql: SELECT_ARTIST_ALBUMS,
 		variables: [{
+			value: id,
 			key: "artistId",
-			value: artistId,
 		},{
 			string: false,
 			key: "orderByField",
-			value: orderBy.field,
+			value: orderBy?.field || "released",
 		},{
 			string: false,
 			key: "orderByDirection",
-			value: orderBy.direction,
+			value: orderBy?.direction || "desc",
 		},{
 			string: false,
 			key: "columnNames",
@@ -127,21 +122,21 @@ const artistAlbums = <T>(
 export const albums =
 	resolver<Album[], OrderByArgs>(
 		({ parent, args }) => (
-			artistAlbums(
-				parent.artistId,
-				sql.parseTable(),
-				args.orderBy,
-			)
+			artistAlbums({
+				id: parent.artistId,
+				orderBy: args.orderBy,
+				parse: sql.parseTable(),
+			})
 		),
 	)
 
 export const numOfAlbums =
 	resolver<number>(
 		({ parent }) => (
-			artistAlbums(
-				parent.artistId,
-				sql.rowCount,
-			)
+			artistAlbums({
+				id: parent.artistId,
+				parse: sql.rowCount,
+			})
 		),
 	)
 

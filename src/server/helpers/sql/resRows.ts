@@ -1,3 +1,3 @@
-import { QueryResult } from "pg"
+import { SQLQueryResult } from "../../types"
 
-export const resRows = ({ rows }: QueryResult<Record<string, unknown>>) => rows
+export const resRows = ({ rows }: SQLQueryResult) => rows

@@ -35,6 +35,7 @@ const Albums =
 	styled(_Albums)(({ theme }) => ({
 		width: "85vw",
 		height: "100%",
+		overflow: "auto",
 		padding: theme.spacing(3),
 	}))
 

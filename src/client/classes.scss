@@ -20,23 +20,8 @@
 .Margin {
 	margin: var(--space); }
 
-.MarginTopOneAndHalf {
-	margin-top: calc(var(--space) * 1.5); }
-
-.MarginQuart {
-	margin: calc(var(--space) * 0.25); }
-
-.MarginTopHalf {
-	margin-top: calc(var(--space) * 0.5); }
-
-.MarginTopQuart {
-	margin-top: calc(var(--space) * 0.25); }
-
 .MarginBottom {
 	margin-bottom: var(--space); }
-
-.MarginBottomThreeQuart {
-	margin-bottom: calc(var(--space) * 0.75); }
 
 .MarginBottomHalf {
 	margin-bottom: calc(var(--space) * 0.5); }
@@ -84,4 +69,8 @@
 		border-bottom: 0; } }
 
 .Text {
-	font-size: 16rem; }
+	font-size: 15rem; }
+
+.Text2 {
+	font-size: 16rem;
+	font-weight: 700; }

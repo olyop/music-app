@@ -24,62 +24,69 @@ import DocLinks from "../DocLinks"
 const bem = createBem("Player")
 
 const Player: FC<RouteComponentProps> = ({ history }) => (
-	<QueryApi<Res, UserVar>
+	<QueryApi<Data, UserVar>
 		query={GET_USER_CURRENT}
 		className={bem("", "Elevated")}
 		variables={{ userId: useUserContext() }}
 		children={
-			res => (
+			({ data }) => (
 				<Fragment>
 					<Icon
 						icon="close"
 						onClick={() => history.goBack()}
 						className={bem("close", "PaddingQuart")}
 					/>
-					{!res ? null : (
-						!res.user.current ? <Empty title="No Current Song"/> : (
-							<Helmet title="Now Playing">
-								<div className={bem("main")}>
-									<Link className={bem("main-cover")} to={determineDocPath(res.user.current.album)}>
-										<Img
-											url={res.user.current.album.cover}
-											title={res.user.current.album.title}
-											className={bem("Card", "Elevated")}
-										/>
-									</Link>
-									<div className={bem("main-title", "main-text")}>
-										<h1 className={bem("main-title-text")}>
-											<SongTitle
-												showRemixers
-												song={res.user.current}
+					{data && (
+						<Fragment>
+							{data.user.current ? (
+								<Helmet title="Now Playing">
+									<div className={bem("main")}>
+										<Link
+											className={bem("main-cover")}
+											to={determineDocPath(data.user.current.album)}
+										>
+											<Img
+												url={data.user.current.album.cover}
+												title={data.user.current.album.title}
+												className={bem("Card", "Elevated")}
 											/>
-										</h1>
-										<InLibraryButton
-											doc={res.user.current}
-											className={bem("main-title-inLibrary")}
+										</Link>
+										<div className={bem("main-title", "main-text")}>
+											<h1 className={bem("main-title-text")}>
+												<SongTitle
+													showRemixers
+													song={data.user.current}
+												/>
+											</h1>
+											<InLibraryButton
+												doc={data.user.current}
+												className={bem("main-title-inLibrary")}
+											/>
+										</div>
+										<h3 className={bem("main-artists", "main-text")}>
+											<FeaturingArtists
+												artists={data.user.current.artists}
+												featuring={data.user.current.featuring}
+											/>
+										</h3>
+										<h2 className={bem("main-album", "main-text")}>
+											<DocLink doc={data.user.current.album}/>
+											<Fragment> - </Fragment>
+											<DocLinks docs={data.user.current.genres}/>
+										</h2>
+										<Progress
+											className={bem("main-progreess")}
+										/>
+										<UserControls
+											className={bem("main-controls")}
+											iconClassName={bem("main-controls-icon")}
 										/>
 									</div>
-									<h3 className={bem("main-artists", "main-text")}>
-										<FeaturingArtists
-											artists={res.user.current.artists}
-											featuring={res.user.current.featuring}
-										/>
-									</h3>
-									<h2 className={bem("main-album", "main-text")}>
-										<DocLink doc={res.user.current.album}/>
-										<Fragment> - </Fragment>
-										<DocLinks docs={res.user.current.genres}/>
-									</h2>
-									<Progress
-										className={bem("main-progreess")}
-									/>
-									<UserControls
-										className={bem("main-controls")}
-										iconClassName={bem("main-controls-icon")}
-									/>
-								</div>
-							</Helmet>
-						)
+								</Helmet>
+							) : (
+								<Empty title="No current song playing."/>
+							)}
+						</Fragment>
 					)}
 				</Fragment>
 			)
@@ -87,7 +94,7 @@ const Player: FC<RouteComponentProps> = ({ history }) => (
 	/>
 )
 
-interface Res {
+interface Data {
 	user: User,
 }
 

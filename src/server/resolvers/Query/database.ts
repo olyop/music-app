@@ -29,8 +29,12 @@ import { sql, createResolver } from "../../helpers"
 const resolver =
 	createResolver()
 
+interface PageArgs {
+	page: number,
+}
+
 export const songs =
-	resolver<Song[], OrderByArgs>(
+	resolver<Song[], PageArgs & OrderByArgs>(
 		({ args }) => (
 			sql.query({
 				sql: SELECT_SONGS,
@@ -39,6 +43,10 @@ export const songs =
 					string: false,
 					key: "orderByField",
 					value: args.orderBy.field,
+				},{
+					key: "offset",
+					string: false,
+					value: (args.page * 30 - 30).toString(),
 				},{
 					string: false,
 					key: "orderByDirection",
@@ -53,7 +61,7 @@ export const songs =
 	)
 
 export const albums =
-	resolver<Album[], OrderByArgs>(
+	resolver<Album[], PageArgs & OrderByArgs>(
 		({ args }) => (
 			sql.query({
 				sql: SELECT_ALBUMS,
@@ -62,6 +70,10 @@ export const albums =
 					string: false,
 					key: "orderByField",
 					value: args.orderBy.field,
+				},{
+					key: "offset",
+					string: false,
+					value: (args.page * 30 - 30).toString(),
 				},{
 					string: false,
 					key: "orderByDirection",
@@ -76,7 +88,7 @@ export const albums =
 	)
 
 export const artists =
-	resolver<Artist[], OrderByArgs>(
+	resolver<Artist[], PageArgs & OrderByArgs>(
 		({ args }) => (
 			sql.query({
 				sql: SELECT_ARTISTS,
@@ -85,6 +97,10 @@ export const artists =
 					string: false,
 					key: "orderByField",
 					value: args.orderBy.field,
+				},{
+					key: "offset",
+					string: false,
+					value: (args.page * 30 - 30).toString(),
 				},{
 					string: false,
 					key: "orderByDirection",

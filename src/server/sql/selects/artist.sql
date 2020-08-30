@@ -5,4 +5,6 @@ FROM
 WHERE
   artist_id = {{ artistId }}
 LIMIT
-  1;
+  30
+OFFSET
+  {{ offset }};

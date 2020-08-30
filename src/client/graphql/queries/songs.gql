@@ -1,8 +1,12 @@
 query songs(
   $userId: Uuid!
+  $page: PositiveInt!
   $orderBy: SongOrderByInput!
 ) {
-  songs(orderBy: $orderBy) {
+  songs(
+    page: $page
+    orderBy: $orderBy
+  ) {
     mix
     title
     songId

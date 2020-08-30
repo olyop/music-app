@@ -19,14 +19,14 @@ const LibraryAlbums: FC = () => {
 	const { settings: { userAlbumsOrderBy } } = useSettingsContext()
 	return (
 		<Helmet title="Library Albums">
-			<QueryApi<Res, Vars>
+			<QueryApi<Data, Vars>
 				query={GET_USER_ALBUMS}
 				variables={{ userId, orderBy: userAlbumsOrderBy }}
 				children={
-					res => (
+					({ data }) => (
 						<Albums
 							orderByKey="userAlbumsOrderBy"
-							albums={res ? res.user.albums : []}
+							albums={data?.user.albums || []}
 							orderByFields={Object.keys(UserAlbumOrderByField)}
 						/>
 					)
@@ -36,7 +36,7 @@ const LibraryAlbums: FC = () => {
 	)
 }
 
-interface Res {
+interface Data {
 	user: User,
 }
 

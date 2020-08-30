@@ -1,3 +1,4 @@
-import { SQLQueryResult } from "../../types"
+import { SQLQueryRes } from "../../types"
 
-export const resRows = ({ rows }: SQLQueryResult) => rows
+export const resRows = ({ rows }: SQLQueryRes) =>
+	rows

@@ -2,13 +2,13 @@ import pipe from "@oly_op/pipe"
 import { isUndefined } from "lodash"
 
 import { resRows } from "./resRows"
-import { SQLQueryResult } from "../../types"
+import { SQLQueryRes } from "../../types"
 import { convertToCamelCase } from "../resolver"
 
-const checkForNullResult = <T>(res: T[]) =>
+const checkForNullResult = (res: Record<string, unknown>[]) =>
 	(isUndefined(res) ? [] : res)
 
-export const parseRow = <T>() => (res: SQLQueryResult) =>
+export const parseRow = <T>() => (res: SQLQueryRes) =>
 	pipe(
 		resRows,
 		checkForNullResult,

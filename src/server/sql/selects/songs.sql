@@ -3,4 +3,8 @@ SELECT
 FROM
   songs
 ORDER BY
-  {{ orderByField }} {{ orderByDirection }};
+  {{ orderByField }} {{ orderByDirection }}
+LIMIT
+  30
+OFFSET
+  {{ offset }};

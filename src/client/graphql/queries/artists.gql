@@ -1,8 +1,12 @@
 query artists(
   $userId: Uuid!
+  $page: PositiveInt!
   $orderBy: ArtistOrderByInput!
 ) {
-  artists(orderBy: $orderBy) {
+  artists(
+    page: $page
+    orderBy: $orderBy
+  ) {
     name
     artistId
     numOfSongs

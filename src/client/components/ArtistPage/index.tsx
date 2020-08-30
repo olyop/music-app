@@ -34,14 +34,14 @@ const ArtistPage: FC = () => {
 	const { settings: { songsOrderBy, albumsOrderBy } } = useSettingsContext()
 	const variables = { userId, songsOrderBy, albumsOrderBy, ...params }
 	return (
-		<QueryApi<Res, Vars>
+		<QueryApi<Data, Vars>
 			className={bem("")}
 			variables={variables}
 			query={GET_ARTIST_PAGE}
 			children={
-				res => {
-					if (!res) return null
-					const { artist } = res
+				({ data }) => {
+					if (!data) return null
+					const { artist } = data
 					const { name, photo, songs, albums } = artist
 					return (
 						<Helmet title={name}>
@@ -111,7 +111,7 @@ const ArtistPage: FC = () => {
 	)
 }
 
-interface Res {
+interface Data {
 	artist: Artist,
 }
 

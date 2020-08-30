@@ -23,10 +23,10 @@ const BrowseArtists: FC = () => {
 				query={GET_ARTISTS}
 				variables={{ userId, orderBy: artistsOrderBy }}
 				children={
-					res => (
+					({ data }) => (
 						<Artists
 							orderByKey="artistsOrderBy"
-							artists={res ? res.artists : []}
+							artists={data?.artists || []}
 							orderByFields={Object.keys(ArtistOrderByField)}
 						/>
 					)

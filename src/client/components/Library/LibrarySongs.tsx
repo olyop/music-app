@@ -18,14 +18,14 @@ const LibrarySongs: FC = () => {
 	const { settings: { userSongsOrderBy } } = useSettingsContext()
 	return (
 		<Helmet title="Library Songs">
-			<QueryApi<Res, Vars>
+			<QueryApi<Data, Vars>
 				query={GET_USER_SONGS}
 				variables={{ userId: useUserContext(), orderBy: userSongsOrderBy }}
 				children={
-					res => (
+					({ data }) => (
 						<Songs
 							orderByKey="userSongsOrderBy"
-							songs={res ? res.user.songs : []}
+							songs={data?.user.songs || []}
 							orderByFields={Object.keys(UserSongOrderByField)}
 						/>
 					)
@@ -35,7 +35,7 @@ const LibrarySongs: FC = () => {
 	)
 }
 
-interface Res {
+interface Data {
 	user: User,
 }
 

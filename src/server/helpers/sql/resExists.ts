@@ -1,8 +1,4 @@
-import { SQLQueryResult } from "../../types"
+import { SQLQueryRes } from "../../types"
 
-interface ExistsRow {
-	exists: boolean,
-}
-
-export const resExists = ({ rows }: SQLQueryResult<ExistsRow>) =>
-	rows[0].exists
+export const resExists = ({ rows }: SQLQueryRes) =>
+	rows[0].exists as boolean

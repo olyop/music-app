@@ -8,13 +8,13 @@ import GET_SONG_PLAYS from "../../graphql/queries/songPlays.gql"
 import "./index.scss"
 
 const PlaysPage: FC = () => (
-	<QueryApi
+	<QueryApi<Data>
 		className="PlaysPage"
 		query={GET_SONG_PLAYS}
 		children={
-			({ song }: Data) => (
+			({ data }) => data && (
 				<Fragment>
-					{song.plays.map(
+					{data.song.plays.map(
 						play => (
 							<p key={play.playId}>
 								{deserializeDate(play.dateCreated)}

@@ -7,22 +7,35 @@ import {
 	FieldMergeFunction,
 } from "@apollo/client"
 
+import { concatPagination } from "@apollo/client/utilities"
+
 import isEmpty from "lodash/isEmpty"
 
 import { Song, Album, Artist } from "./types"
 
-const merge: FieldMergeFunction =
+const userMerge: FieldMergeFunction =
 	<E, I>(existing: E[] = [], incoming: I[]) =>
 		(isEmpty(incoming) && existing.length !== 1 ? existing : incoming)
 
-const songs: FieldPolicy<Song[]> = ({ merge })
-const albums: FieldPolicy<Album[]> = ({ merge })
-const artists: FieldPolicy<Artist[]> = ({ merge })
+const userSongs: FieldPolicy<Song[]> = ({ merge: userMerge })
+const userAlbums: FieldPolicy<Album[]> = ({ merge: userMerge })
+const userArtists: FieldPolicy<Artist[]> = ({ merge: userMerge })
 
 const typePolicies: TypePolicies = {
 	User: {
+		fields: {
+			songs: userSongs,
+			albums: userAlbums,
+			artists: userArtists,
+		},
 		keyFields: ["userId"],
-		fields: { songs, albums, artists },
+	},
+	Query: {
+		fields: {
+			songs: concatPagination<Song>(),
+			albums: concatPagination<Album>(),
+			artists: concatPagination<Artist>(),
+		},
 	},
 	Song: { keyFields: ["songId"] },
 	Play: { keyFields: ["playId"] },

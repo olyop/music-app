@@ -36,10 +36,10 @@ const UserPage: FC = () => {
 			variables={{ userId }}
 			className={bem("", "Padding")}
 			children={
-				res => res && (
-					<Helmet title={res.user.name}>
+				({ data }) => data && (
+					<Helmet title={data.user.name}>
 						<h1 className={bem("name", "MarginBottom")}>
-							{res.user.name}
+							{data.user.name}
 						</h1>
 						<h3 className={bem("option-text")}>
 							List Style

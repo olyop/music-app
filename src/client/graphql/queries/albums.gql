@@ -1,8 +1,12 @@
 query albums(
   $userId: Uuid!
+  $page: PositiveInt!
   $orderBy: AlbumOrderByInput!
 ) {
-  albums(orderBy: $orderBy) {
+  albums(
+    page: $page
+    orderBy: $orderBy
+  ) {
     albumId
     title
     released

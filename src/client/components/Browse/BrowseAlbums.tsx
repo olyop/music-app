@@ -7,6 +7,7 @@ import {
 	AlbumOrderByField,
 } from "../../types"
 
+// import Feed from "../Feed"
 import Albums from "../Albums"
 import Helmet from "../Helmet"
 import QueryApi from "../QueryApi"
@@ -23,10 +24,10 @@ const BrowseAlbums: FC = () => {
 				query={GET_ALBUMS}
 				variables={{ userId, orderBy: albumsOrderBy }}
 				children={
-					res => (
+					({ data }) => (
 						<Albums
 							orderByKey="albumsOrderBy"
-							albums={res ? res.albums : []}
+							albums={data?.albums || []}
 							orderByFields={Object.keys(AlbumOrderByField)}
 						/>
 					)

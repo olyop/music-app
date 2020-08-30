@@ -26,12 +26,12 @@ const Progress: FC<PropTypes> = ({ className }) => {
 	const handleChange: ChangeEventHandler<HTMLInputElement> =
 		event => setCurrent(parseInt(event.target.value))
 	return (
-		<QueryApi
+		<QueryApi<Data>
 			variables={{ userId }}
 			query={GET_USER_CURRENT}
 			className={bem(className, "")}
 			children={
-				(data: Data | undefined) => {
+				({ data }) => {
 					const duration = determineDuration(data)
 					return (
 						<Fragment>

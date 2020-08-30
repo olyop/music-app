@@ -4,7 +4,7 @@ import { createBem } from "@oly_op/bem"
 import { createElement, FC, Fragment } from "react"
 
 import Song from "../Song"
-import QueueApi from "../QueryApi"
+import QueryApi from "../QueryApi"
 import { User } from "../../types"
 import { createQueuesArray } from "../../helpers"
 import GET_USER_QUEUES from "../../graphql/queries/userQueues.gql"
@@ -15,13 +15,13 @@ import { useUserContext } from "../../contexts/User"
 const bem = createBem("Queues")
 
 const Queues: FC = () => (
-	<QueueApi<Res, Vars>
+	<QueryApi<Data, Vars>
 		className={bem("")}
 		query={GET_USER_QUEUES}
 		variables={{ userId: useUserContext() }}
 		children={
-			res => res && (
-				createQueuesArray(res.user).map(
+			({ data }) => data && (
+				createQueuesArray(data.user).map(
 					queue => (
 						<Fragment key={queue.id}>
 							{isNull(queue.songs[0]) || isEmpty(queue.songs) ? null : (
@@ -43,7 +43,7 @@ const Queues: FC = () => (
 	/>
 )
 
-interface Res {
+interface Data {
 	user: User,
 }
 

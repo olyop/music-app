@@ -26,19 +26,19 @@ const GenrePage: FC = () => {
 	const { settings: { songsOrderBy } } = useSettingsContext()
 	const variables = { userId, songsOrderBy, ...params }
 	return (
-		<QueryApi<Res, Vars>
+		<QueryApi<Data, Vars>
 			variables={variables}
 			query={GET_GENRE_PAGE}
 			children={
-				res => res && (
-					<Helmet title={res.genre.name}>
+				({ data }) => data && (
+					<Helmet title={data.genre.name}>
 						<h1
-							children={res.genre.name}
+							children={data.genre.name}
 							className={bem("", "Elevated")}
 						/>
 						<Songs
 							className="Padding"
-							songs={res.genre.songs}
+							songs={data.genre.songs}
 							orderByKey="songsOrderBy"
 							orderByFields={Object.keys(SongOrderByField)}
 						/>
@@ -49,7 +49,7 @@ const GenrePage: FC = () => {
 	)
 }
 
-interface Res {
+interface Data {
 	genre: Genre,
 }
 

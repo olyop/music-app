@@ -7,27 +7,47 @@ import {
 	SongOrderByField,
 } from "../../types"
 
+import Feed from "../Feed"
 import Songs from "../Songs"
 import Helmet from "../Helmet"
 import QueryApi from "../QueryApi"
+import { usePage } from "../../helpers"
 import { useUserContext } from "../../contexts/User"
 import GET_SONGS from "../../graphql/queries/songs.gql"
 import { useSettingsContext } from "../../contexts/Settings"
 
 const BrowseSongs: FC = () => {
+	const page = usePage()
 	const userId = useUserContext()
-	const { settings: { songsOrderBy } } = useSettingsContext()
+	const { settings: { songsOrderBy: orderBy } } = useSettingsContext()
+	const baseVariables: BaseVars = { userId, orderBy }
 	return (
 		<Helmet title="Browse Songs">
-			<QueryApi<Res, Vars>
+			<QueryApi<Data, Vars>
 				query={GET_SONGS}
-				variables={{ userId, orderBy: songsOrderBy }}
+				variables={{
+					...baseVariables,
+					page: page.current,
+				}}
 				children={
-					res => (
-						<Songs
-							orderByKey="songsOrderBy"
-							songs={res ? res.songs : []}
-							orderByFields={Object.keys(SongOrderByField)}
+					({ data, fetchMore }) => data && (
+						<Feed
+							onLoadMore={() => {
+								page.current += 1
+								fetchMore({
+									variables: {
+										...baseVariables,
+										page: page.current,
+									},
+								})
+							}}
+							children={(
+								<Songs
+									songs={data.songs}
+									orderByKey="songsOrderBy"
+									orderByFields={Object.keys(SongOrderByField)}
+								/>
+							)}
 						/>
 					)
 				}
@@ -36,12 +56,16 @@ const BrowseSongs: FC = () => {
 	)
 }
 
-interface Res {
+interface Data {
 	songs: Song[],
 }
 
-interface Vars extends UserVar {
+interface BaseVars extends UserVar {
 	orderBy: SongOrderBy,
+}
+
+interface Vars extends BaseVars {
+	page: number,
 }
 
 export default BrowseSongs

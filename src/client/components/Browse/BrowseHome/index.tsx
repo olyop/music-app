@@ -15,17 +15,17 @@ import "./index.scss"
 const bem = createBem("BrowseHome")
 
 const BrowseHome: FC = () => (
-	<QueryApi
+	<QueryApi<Data>
 		className={bem("")}
 		query={QUERY_BROWSE}
 		variables={{ userId: useUserContext() }}
 		children={
-			({ newAlbums, topTenSongs }: Data) => (
+			({ data }) => data && (
 				<Helmet title="Browse">
 					<div className={bem("newAlbums")}>
 						<h2 className={bem("heading")}>New Albums</h2>
 						<List>
-							{newAlbums.map(
+							{data.newAlbums.map(
 								album => (
 									<Album
 										album={album}
@@ -37,7 +37,7 @@ const BrowseHome: FC = () => (
 					</div>
 					<div className={bem("topTen")}>
 						<h2 className={bem("heading")}>Top 10</h2>
-						{topTenSongs.map(
+						{data.topTenSongs.map(
 							song => (
 								<Song
 									song={song}

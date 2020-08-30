@@ -24,14 +24,14 @@ const AlbumPage: FC = () => {
 	const userId = useUserContext()
 	const params = useParams<Params>()
 	return (
-		<QueryApi<Res, Vars>
+		<QueryApi<Data, Vars>
 			query={QUERY_ALBUM_PAGE}
 			className={bem("", "Padding")}
 			variables={{ userId, ...params }}
 			children={
-				res => {
-					if (!res) return null
-					const { album } = res
+				({ data }) => {
+					if (!data) return null
+					const { album } = data
 					const { title, songs, released, artists, totalDuration } = album
 					const discs = determineDiscs(songs)
 					return (
@@ -82,7 +82,7 @@ const AlbumPage: FC = () => {
 	)
 }
 
-interface Res {
+interface Data {
 	album: Album,
 }
 

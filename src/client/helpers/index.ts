@@ -1,5 +1,6 @@
 export * from "./show"
 export * from "./isHex"
+export * from "./usePage"
 export * from "./isLength"
 export * from "./formatSize"
 export * from "./isTypeName"

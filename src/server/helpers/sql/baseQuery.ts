@@ -1,5 +1,5 @@
 import { uniq, identity, isString } from "lodash"
-import { Client, SQLConfig, SQLQueryResult, SQLVariable } from "../../types"
+import { Client, SQLConfig, SQLParse, SQLVariable } from "../../types"
 
 export const getVariableKeys = (sql: string) => {
 	const keys: string[] = []
@@ -65,7 +65,7 @@ const replaceSqlWithValues = (sql: string, variables: SQLVariable[], params: str
 const normalizeInput = <TReturn>(input: string | SQLConfig<TReturn>) =>
 	(isString(input) ? {
 		sql: input,
-		parse: identity as (x: SQLQueryResult) => TReturn,
+		parse: identity as SQLParse<TReturn>,
 	} : input)
 
 export const baseQuery =

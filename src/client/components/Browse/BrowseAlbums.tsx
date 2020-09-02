@@ -1,43 +1,37 @@
 import { createElement, FC } from "react"
 
-import {
-	Album,
-	UserVar,
-	AlbumOrderBy,
-	AlbumOrderByField,
-} from "../../types"
-
-// import Feed from "../Feed"
+import Feed from "../Feed"
 import Albums from "../Albums"
 import Helmet from "../Helmet"
-import QueryApi from "../QueryApi"
 import { useUserContext } from "../../contexts/User"
 import GET_ALBUMS from "../../graphql/queries/albums.gql"
 import { useSettingsContext } from "../../contexts/Settings"
+import { Album, UserVar, AlbumOrderBy, AlbumOrderByField } from "../../types"
 
 const BrowseAlbums: FC = () => {
 	const userId = useUserContext()
-	const { settings: { albumsOrderBy } } = useSettingsContext()
+	const { settings } = useSettingsContext()
 	return (
-		<Helmet title="Browse Albums">
-			<QueryApi<Res, Vars>
+		<Helmet title="Browse Artists">
+			<Feed<Data, Vars>
+				dataKey="albums"
 				query={GET_ALBUMS}
-				variables={{ userId, orderBy: albumsOrderBy }}
-				children={
-					({ data }) => (
-						<Albums
-							orderByKey="albumsOrderBy"
-							albums={data?.albums || []}
-							orderByFields={Object.keys(AlbumOrderByField)}
-						/>
-					)
-				}
-			/>
+				parseData={({ albums }) => albums}
+				variables={{ userId, orderBy: settings.albumsOrderBy }}
+			>
+				{data => (
+					<Albums
+						orderByKey="albumsOrderBy"
+						albums={data?.albums || []}
+						orderByFields={Object.keys(AlbumOrderByField)}
+					/>
+				)}
+			</Feed>
 		</Helmet>
 	)
 }
 
-interface Res {
+interface Data {
 	albums: Album[],
 }
 

@@ -10,7 +10,7 @@ const List: FC<PropTypes> = ({ children, className }) => {
 	const { settings: { listStyle } } = useSettingsContext()
 	const listClassName = listStyle === ListStyle.GRID ? "Grid" : "Elevated"
 	return (
-		<div className={bem(listClassName, className, "")}>
+		<div className={bem(className, listClassName)}>
 			{children}
 		</div>
 	)

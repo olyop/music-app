@@ -50,13 +50,16 @@ export interface UserVar {
 	userId: string,
 }
 
-export interface Settings {
-	showGenres: boolean,
-	listStyle: ListStyle,
+export interface OrderBySettings {
 	songsOrderBy: SongOrderBy,
 	albumsOrderBy: AlbumOrderBy,
 	artistsOrderBy: ArtistOrderBy,
 	userSongsOrderBy: UserSongOrderBy,
 	userAlbumsOrderBy: UserAlbumOrderBy,
 	userArtistsOrderBy: UserArtistOrderBy,
+}
+
+export interface Settings extends OrderBySettings {
+	showGenres: boolean,
+	listStyle: ListStyle,
 }

@@ -99,7 +99,6 @@ export const numOfSongs =
 const artistAlbums = <T>({ id, parse, orderBy }: DocsOrderBy<T>) =>
 	sql.query({
 		parse,
-		log: true,
 		sql: SELECT_ARTIST_ALBUMS,
 		variables: [{
 			value: id,

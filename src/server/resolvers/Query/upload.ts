@@ -75,7 +75,7 @@ export const photoSearch =
 			const params = new URLSearchParams(serpApiBaseParams)
 			params.set("num", "10")
 			params.set("tbm", "isch")
-			params.set("q", `${args.name.toLowerCase().replace(" ", "+")}`)
+			params.set("q", `${args.name.toLowerCase().replace(" ", "+")}+artist`)
 			const apiRes = await fetch(`${serpApiBaseUrl}?${params.toString()}`)
 			const apiJson = await apiRes.json() as PhotoSearchRes
 			const url = apiJson.images_results[random(0, 9)].original

@@ -1,0 +1,6 @@
+query browseGenres {
+	genres {
+    name
+    genreId
+	}
+}

@@ -28,6 +28,7 @@ const Album: FC<PropTypes> = ({ album, className = null }) => {
 		<Item
 			doc={album}
 			imgDoc={album}
+			inLibrarySticky
 			right={album.released}
 			upper={<DocLink doc={album}/>}
 			lower={<DocLinks docs={album.artists}/>}

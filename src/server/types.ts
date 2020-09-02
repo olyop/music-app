@@ -24,8 +24,8 @@ export enum ImgFormat {
 
 export type SQLVariable = {
 	key: string,
-	value: string,
 	string?: boolean,
+	value: string | number,
 	parameterized?: boolean,
 }
 

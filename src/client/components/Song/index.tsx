@@ -23,6 +23,7 @@ const Song: FC<PropTypes> = ({
 	return (
 		<Item
 			doc={song}
+			inLibrarySticky
 			showPlay={showPlay}
 			className={className}
 			inLibClassName={inLibClassName}

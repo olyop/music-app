@@ -3,13 +3,16 @@ import { createBem, BemInput } from "@oly_op/bem"
 import { useQuery, useMutation } from "@apollo/client"
 
 import Icon from "../Icon"
-import { User, UserDoc } from "../../types"
+import { determineDocId } from "../../helpers"
+import { User, UserDoc, Song } from "../../types"
 import { useUserContext } from "../../contexts/User"
 import { usePlayContext } from "../../contexts/Play"
-import { isSong, determineDocId } from "../../helpers"
 import { useCurrentContext } from "../../contexts/Current"
 import USER_PLAY from "../../graphql/mutations/userPlay.gql"
 import GET_USER_CURRENT from "../../graphql/queries/userCurrent.gql"
+
+const isSong = (doc: UserDoc): doc is Song =>
+	doc.__typename === "Song"
 
 const bem = createBem("PlayButton")
 
@@ -21,7 +24,6 @@ const PlayButton: FC<PropTypes> = ({ doc, className }) => {
 
 	const { data } =
 		useQuery<UserCurrentRes>(GET_USER_CURRENT, {
-			query: GET_USER_CURRENT,
 			variables: { userId },
 			fetchPolicy: "cache-first",
 		})

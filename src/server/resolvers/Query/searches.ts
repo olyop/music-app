@@ -1,7 +1,7 @@
 import { pg } from "../../services"
 import { COLUMN_NAMES } from "../../globals"
-import { Album, Genre, Artist } from "../../types"
 import { sql, createResolver } from "../../helpers"
+import { Song, Album, Genre, Artist } from "../../types"
 
 const resolver =
 	createResolver()
@@ -43,6 +43,18 @@ export const genreSearch =
 				columnName: "name",
 				tableName: "genres",
 				columnNames: COLUMN_NAMES.GENRE,
+			})
+		),
+	)
+
+export const songSearch =
+	resolver<Song[], SearchArgs>(
+		({ args }) => (
+			sql.search(pg)({
+				...args,
+				tableName: "songs",
+				columnName: "title",
+				columnNames: COLUMN_NAMES.SONG,
 			})
 		),
 	)

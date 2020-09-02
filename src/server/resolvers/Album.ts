@@ -7,6 +7,7 @@ import {
 	Song,
 	Play,
 	Album,
+	Genre,
 	Artist,
 	UserArgs,
 	ImgFormat,
@@ -15,6 +16,7 @@ import {
 
 import {
 	SELECT_ALBUM_SONGS,
+	SELECT_ALBUM_GENRES,
 	SELECT_ALBUM_ARTISTS,
 	SELECT_USER_ALBUM_PLAYS,
 } from "../sql"
@@ -83,6 +85,24 @@ export const artists =
 					string: false,
 					key: "columnNames",
 					value: sql.join(COLUMN_NAMES.ARTIST, "artists"),
+				}],
+			})
+		),
+	)
+
+export const genres =
+	resolver<Genre[]>(
+		({ parent }) => (
+			sql.query({
+				sql: SELECT_ALBUM_GENRES,
+				parse: sql.parseTable(),
+				variables: [{
+					key: "albumId",
+					value: parent.albumId,
+				},{
+					string: false,
+					key: "columnNames",
+					value: sql.join(COLUMN_NAMES.GENRE, "genres"),
 				}],
 			})
 		),

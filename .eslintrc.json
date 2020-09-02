@@ -43,6 +43,7 @@
 		"no-nested-ternary": "off",
 		"object-curly-newline": "off",
 		"node/no-process-env": "error",
+		"jsx-a11y/no-autofocus": "off",
 		"no-restricted-globals": "off",
 		"array-bracket-spacing": "off",
 		"node/no-missing-import": "off",

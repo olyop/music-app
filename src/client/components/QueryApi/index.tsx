@@ -1,6 +1,6 @@
 import type { DocumentNode } from "graphql"
-import { useQuery, QueryResult } from "@apollo/client"
 import { createElement, useEffect, Fragment, ReactNode } from "react"
+import { useQuery, QueryResult, WatchQueryFetchPolicy } from "@apollo/client"
 
 import ApiError from "../ApiError"
 import { useLoadingContext } from "../../contexts/Loading"
@@ -9,11 +9,16 @@ const QueryApi = <Data, Vars = Record<string, unknown>>({
 	query,
 	children,
 	className,
+	fetchPolicy,
 	variables = {} as Vars,
 }: PropTypes<Data, Vars>) => {
-	const { setLoading } = useLoadingContext()
-	const { error, loading, ...res } = useQuery<Data, Vars>(query, { variables })
+	const { setLoading } =
+		useLoadingContext()
+	const { error, loading, ...res } =
+		useQuery<Data, Vars>(query, { variables, fetchPolicy })
+
 	useEffect(() => { setLoading(loading) }, [loading, setLoading])
+
 	if (error !== undefined) {
 		return <ApiError error={error}/>
 	} else {
@@ -30,6 +35,7 @@ interface PropTypes<Data, Vars> {
 	variables?: Vars,
 	className?: string,
 	query: DocumentNode,
+	fetchPolicy?: WatchQueryFetchPolicy,
 	children(res: QueryResult<Data, Vars>): ReactNode,
 }
 

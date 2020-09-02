@@ -7,36 +7,39 @@ import {
 	FieldMergeFunction,
 } from "@apollo/client"
 
-import { concatPagination } from "@apollo/client/utilities"
-
 import isEmpty from "lodash/isEmpty"
 
 import { Song, Album, Artist } from "./types"
 
-const userMerge: FieldMergeFunction =
-	<E, I>(existing: E[] = [], incoming: I[]) =>
-		(isEmpty(incoming) && existing.length !== 1 ? existing : incoming)
+const userMerge = <T>(): FieldMergeFunction<T[]> =>
+	(existing, incoming) =>
+		(existing && isEmpty(incoming) && existing.length !== 1 ? existing : incoming)
 
-const userSongs: FieldPolicy<Song[]> = ({ merge: userMerge })
-const userAlbums: FieldPolicy<Album[]> = ({ merge: userMerge })
-const userArtists: FieldPolicy<Artist[]> = ({ merge: userMerge })
+// const feedMerge = <T>(): FieldMergeFunction<T[]> =>
+// 	(existing = [], incoming) => [...existing, ...incoming]
+
+const userDocs = <T>(): FieldPolicy<T[]> =>
+	({ merge: userMerge() })
+
+// const queryDocs = <T>(): FieldPolicy<T[]> =>
+// 	({ merge: feedMerge() })
 
 const typePolicies: TypePolicies = {
 	User: {
-		fields: {
-			songs: userSongs,
-			albums: userAlbums,
-			artists: userArtists,
-		},
 		keyFields: ["userId"],
-	},
-	Query: {
 		fields: {
-			songs: concatPagination<Song>(),
-			albums: concatPagination<Album>(),
-			artists: concatPagination<Artist>(),
+			songs: userDocs<Song>(),
+			albums: userDocs<Album>(),
+			artists: userDocs<Artist>(),
 		},
 	},
+	// Query: {
+	// 	fields: {
+	// 		songs: queryDocs<Song>(),
+	// 		albums: queryDocs<Album>(),
+	// 		artists: queryDocs<Artist>(),
+	// 	},
+	// },
 	Song: { keyFields: ["songId"] },
 	Play: { keyFields: ["playId"] },
 	Album: { keyFields: ["albumId"] },

@@ -16,6 +16,7 @@ import {
 	SELECT_ALBUM,
 	SELECT_GENRE,
 	SELECT_SONGS,
+	SELECT_GENRES,
 	SELECT_ALBUMS,
 	SELECT_ARTIST,
 	SELECT_ARTISTS,
@@ -33,20 +34,38 @@ interface PageArgs {
 	page: number,
 }
 
+export const genres =
+	resolver<Genre[]>(
+		() => (
+			sql.query({
+				sql: SELECT_GENRES,
+				parse: sql.parseTable(),
+				variables: [{
+					string: false,
+					key: "columnNames",
+					value: sql.join(COLUMN_NAMES.GENRE),
+				}],
+			})
+		),
+	)
+
 export const songs =
 	resolver<Song[], PageArgs & OrderByArgs>(
 		({ args }) => (
 			sql.query({
 				sql: SELECT_SONGS,
-				parse: sql.parseTable(),
+				parse: res => {
+					console.log(sql.parseTable<Song>()(res).map(({ songId }) => songId))
+					return sql.parseTable<Song>()(res)
+				},
 				variables: [{
+					key: "offset",
+					string: false,
+					value: args.page * 30,
+				},{
 					string: false,
 					key: "orderByField",
 					value: args.orderBy.field,
-				},{
-					key: "offset",
-					string: false,
-					value: (args.page * 30 - 30).toString(),
 				},{
 					string: false,
 					key: "orderByDirection",
@@ -67,13 +86,13 @@ export const albums =
 				sql: SELECT_ALBUMS,
 				parse: sql.parseTable(),
 				variables: [{
+					key: "offset",
+					string: false,
+					value: args.page * 30,
+				},{
 					string: false,
 					key: "orderByField",
 					value: args.orderBy.field,
-				},{
-					key: "offset",
-					string: false,
-					value: (args.page * 30 - 30).toString(),
 				},{
 					string: false,
 					key: "orderByDirection",
@@ -94,13 +113,13 @@ export const artists =
 				sql: SELECT_ARTISTS,
 				parse: sql.parseTable(),
 				variables: [{
+					key: "offset",
+					string: false,
+					value: args.page * 30,
+				},{
 					string: false,
 					key: "orderByField",
 					value: args.orderBy.field,
-				},{
-					key: "offset",
-					string: false,
-					value: (args.page * 30 - 30).toString(),
 				},{
 					string: false,
 					key: "orderByDirection",

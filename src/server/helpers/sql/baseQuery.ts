@@ -1,4 +1,4 @@
-import { uniq, identity, isString } from "lodash"
+import { uniq, identity, isString, isNumber } from "lodash"
 import { Client, SQLConfig, SQLParse, SQLVariable } from "../../types"
 
 export const getVariableKeys = (sql: string) => {
@@ -43,13 +43,14 @@ const determineReplaceValue = (
 	{ value, string = true, parameterized = false }: SQLVariable,
 	params: string[],
 ) => {
+	const val = isNumber(value) ? value.toString() : value
 	if (parameterized) {
-		params.push(value)
+		params.push(val)
 		return `$${params.length}`
 	} else if (string) {
-		return `'${value}'`
+		return `'${val}'`
 	} else {
-		return value
+		return val
 	}
 }
 

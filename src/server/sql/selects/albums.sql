@@ -7,4 +7,4 @@ ORDER BY
 LIMIT
   30
 OFFSET
-  {{ offset }};
+  {{ offset }}

@@ -5,13 +5,21 @@ import Album from "../Album"
 import OrderBy from "../OrderBy"
 import { Settings, Album as AlbumType } from "../../types"
 
-const Albums: FC<PropTypes> = ({ albums, orderByKey, orderByFields, className }) => (
+const Albums: FC<PropTypes> = ({
+	albums,
+	className,
+	orderByKey,
+	orderByFields,
+	hideOrderBy = false,
+}) => (
 	<div className={className}>
-		<OrderBy
-			className="MarginBottom"
-			settingsKey={orderByKey}
-			fieldOptions={orderByFields}
-		/>
+		{hideOrderBy || (
+			<OrderBy
+				className="MarginBottom"
+				settingsKey={orderByKey!}
+				fieldOptions={orderByFields!}
+			/>
+		)}
 		<List>
 			{albums.map(
 				album => (
@@ -28,8 +36,9 @@ const Albums: FC<PropTypes> = ({ albums, orderByKey, orderByFields, className })
 interface PropTypes {
 	className?: string,
 	albums: AlbumType[],
-	orderByFields: string[],
-	orderByKey: keyof Pick<Settings, "albumsOrderBy" | "userAlbumsOrderBy">,
+	hideOrderBy?: boolean,
+	orderByFields?: string[],
+	orderByKey?: keyof Pick<Settings, "albumsOrderBy" | "userAlbumsOrderBy">,
 }
 
 export default Albums

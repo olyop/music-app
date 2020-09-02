@@ -4,7 +4,11 @@
 	flex-direction: row;
 	height: var(--player-height);
 	&__icon {
-		color: var(--text-color); }
+		padding: 4rem;
+		font-size: 28rem;
+		color: var(--text-color);
+		width: var(--info-height);
+		height: var(--info-height); }
 	&__main,
 	&__controls {
 		padding: 0 var(--space); }
@@ -23,14 +27,9 @@
 			&-controls {
 				display: flex;
 				align-items: center;
+				margin-right: -9rem;
 				&-control {
-					margin-right: calc(var(--space) * 0.25);
-					&-volume {
-						--height: calc(var(--button-size) - 2px);
-						margin-right: -2px;
-						width: var(--height);
-						height: var(--height);
-						font-size: var(--height); } } }
+					margin-right: calc(var(--space) * 0.25); } }
 			&-current {
 				width: 100%;
 				margin-right: calc(var(--space) * 0.25); } } } }

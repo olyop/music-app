@@ -1,10 +1,8 @@
-import { createElement, FC } from "react"
 import isUndefined from "lodash/isUndefined"
 import { useQuery, useMutation } from "@apollo/client"
+import { createElement, FC, CSSProperties } from "react"
 
 import Icon from "../Icon"
-import Button from "../Button"
-import { isArtist } from "./isDoc"
 import { UserDoc } from "../../types"
 import { useUserContext } from "../../contexts/User"
 import { useSettingsContext } from "../../contexts/Settings"
@@ -26,7 +24,7 @@ import ADD_USER_SONG from "../../graphql/mutations/addUserSong.gql"
 import ADD_USER_ALBUM from "../../graphql/mutations/addUserAlbum.gql"
 import ADD_USER_ARTIST from "../../graphql/mutations/addUserArtist.gql"
 
-const InLibraryButton: FC<PropTypes> = ({ doc, className }) => {
+const InLibraryButton: FC<PropTypes> = ({ doc, style, className }) => {
 	const userId = useUserContext()
 	const docId = determineDocId(doc)
 	const dr = determineDocReturn(doc)
@@ -77,29 +75,20 @@ const InLibraryButton: FC<PropTypes> = ({ doc, className }) => {
 		})
 
 	const handleClick = () => {
-		if (!queryLoading && !mutationLoading) mutation()
+		if (!queryLoading && !mutationLoading) {
+			mutation().catch(console.error)
+		}
 	}
 
-	if (isArtist(doc)) {
-		return (
-			<Button
-				text="FOLLOW"
-				onClick={handleClick}
-				className={className}
-				icon={inLibrary ? "person" : "person_outline"}
-				title={`${inLibrary ? "Remove from" : "Add to"} Library`}
-			/>
-		)
-	} else {
-		return (
-			<Icon
-				onClick={handleClick}
-				className={className}
-				icon={inLibrary ? "done" : "add"}
-				title={`${inLibrary ? "Remove from" : "Add to"} Library`}
-			/>
-		)
-	}
+	return (
+		<Icon
+			style={style}
+			onClick={handleClick}
+			className={className}
+			icon={inLibrary ? "done" : "add"}
+			title={`${inLibrary ? "Remove from" : "Add to"} Library`}
+		/>
+	)
 }
 
 type Res = Record<string, UserDoc>
@@ -107,6 +96,7 @@ type Res = Record<string, UserDoc>
 interface PropTypes {
 	doc: UserDoc,
 	className?: string,
+	style?: CSSProperties,
 }
 
 export default InLibraryButton

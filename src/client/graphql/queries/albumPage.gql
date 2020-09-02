@@ -9,9 +9,13 @@ query albumPage(
     totalDuration
     cover(size: FULL)
     inLibrary(userId: $userId)
-    artists {
-      artistId
+    genres {
       name
+      genreId
+    }
+    artists {
+      name
+      artistId
     }
     songs {
       songId

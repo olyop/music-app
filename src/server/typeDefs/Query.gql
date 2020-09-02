@@ -1,5 +1,6 @@
 type Query {
   # database
+  genres: [Genre!]!,
   user(userId: Uuid!): User!
   play(playId: Uuid!): Play!
   song(songId: Uuid!): Song!
@@ -7,16 +8,17 @@ type Query {
   genre(genreId: Uuid!): Genre!
   artist(artistId: Uuid!): Artist!
   playlist(playlistId: Uuid!): Playlist!
-  songs(page: PositiveInt! orderBy: SongOrderByInput!): [Song!]!
-  albums(page: PositiveInt! orderBy: AlbumOrderByInput!): [Album!]!
-  artists(page: PositiveInt! orderBy: ArtistOrderByInput!): [Artist!]!
-  playlists(page: PositiveInt! orderBy: PlaylistOrderByInput!): [Playlist!]!
+  songs(page: NonNegativeInt! orderBy: SongOrderByInput!): [Song!]!
+  albums(page: NonNegativeInt! orderBy: AlbumOrderByInput!): [Album!]!
+  artists(page: NonNegativeInt! orderBy: ArtistOrderByInput!): [Artist!]!
+  playlists(page: NonNegativeInt! orderBy: PlaylistOrderByInput!): [Playlist!]!
 
   # advanced queries
   newAlbums: [Album!]!
   topTenSongs: [Song!]!
   
   # searches
+  songSearch(query: String!, exact: Boolean!): [Song!]!
   albumSearch(query: String!, exact: Boolean!): [Album!]!
   genreSearch(query: String!, exact: Boolean!): [Genre!]!
   artistSearch(query: String!, exact: Boolean!): [Artist!]!

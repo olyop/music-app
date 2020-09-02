@@ -1,5 +1,13 @@
 .Item {
 	--gap: calc(var(--space) * 0.4);
+	&:hover &__in-lib {
+		display: block; }
+	&__left {
+		width: 18rem;
+		text-align: center;
+		white-space: nowrap;
+		color: var(--text-color-light);
+		margin: 2rem var(--gap) 0 calc(var(--gap) - 5rem); }
 	&__play {
 		--fix: -2rem;
 		margin-left: var(--fix);
@@ -11,11 +19,10 @@
 		height: var(--info-height); }
 	&__info {
 		width: 100%;
-		display: flex;
 		overflow-x: hidden;
-		align-items: center;
 		height: var(--info-height);
-		&-text {
+		justify-content: space-between;
+		&-left {
 			width: 100%;
 			&-upper,
 			&-lower {
@@ -25,25 +32,16 @@
 				text-overflow: ellipsis; }
 			&-lower {
 				margin-top: 4rem; } }
-		&-in-lib {
-			width: auto;
-			outline: none;
-			padding: 4rem;
-			font-size: 28rem;
-			margin-left: var(--gap);
-			height: var(--info-height);
-			background-color: var(--color-elevated);
-			transition-duration: var(--transition-duration);
-			transition-property: opacity, background-color !important; } }
-	&__left,
-	&__right {
-		font-size: 16rem;
-		white-space: nowrap; }
-	&__left {
-		min-width: 18rem;
-		text-align: center;
-		margin: 0 var(--gap) 0 calc(var(--gap) - 5rem); }
-	&__right {
-		margin-top: 2px;
-		margin-left: var(--gap);
-		color: var(--text-color-light); } }
+		&-right {
+			margin-top: 3rem;
+			white-space: nowrap;
+			text-overflow: clip;
+			color: var(--text-color-light);
+			margin-right: var(--space-quart); } }
+	&__in-lib {
+		width: auto;
+		padding: 4rem;
+		display: none;
+		font-size: 28rem;
+		margin-right: -3rem;
+		height: var(--info-height); } }

@@ -55,7 +55,7 @@ export const addUserDoc = async <T>({
 				{
 					string: false,
 					key: "dateAdded",
-					value: Math.floor(Date.now() / 1000).toString(),
+					value: Math.floor(Date.now() / 1000),
 				},
 			],
 		})

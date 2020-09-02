@@ -28,12 +28,13 @@ const Item = <D extends Doc, I extends Doc = Doc>({
 	rightClassName,
 	showPlay = true,
 	showInLibrary = true,
+	inLibrarySticky = false,
 }: PropTypes<D, I>) => (
 	<div className={bem(className, "", "FlexList")}>
 		{left && (
 			<p
 				children={left}
-				className={bem("left")}
+				className={bem("left", "Text")}
 			/>
 		)}
 		{determineShowPlay(showPlay, doc) && (
@@ -55,32 +56,33 @@ const Item = <D extends Doc, I extends Doc = Doc>({
 				)}
 			/>
 		)}
-		<div className={bem(infoClassName, "info")}>
-			<div className={bem("info-text")}>
+		<div className={bem(infoClassName, "info", "FlexList")}>
+			<div className={bem("info-left")}>
 				<p
 					children={upper}
-					className={bem("Text2")}
+					className={bem("info-left-upper", "Text2")}
 				/>
 				{lower ? (
 					<p
 						children={lower}
-						className={bem("info-text-lower", "Text")}
+						className={bem("info-left-lower", "Text")}
 					/>
 				) : null}
 			</div>
 			{right && (
 				<p
 					children={right}
-					className={bem(rightClassName, "right")}
-				/>
-			)}
-			{determineInLibrary(showInLibrary, doc) && (
-				<InLibraryButton
-					doc={doc}
-					className={bem(inLibClassName, "info-in-lib")}
+					className={bem(rightClassName, "info-right", "Text")}
 				/>
 			)}
 		</div>
+		{determineInLibrary(showInLibrary, doc) && (
+			<InLibraryButton
+				doc={doc}
+				className={bem(inLibClassName, "in-lib")}
+				style={{ display: inLibrarySticky ? "block" : undefined }}
+			/>
+		)}
 	</div>
 )
 
@@ -97,6 +99,7 @@ interface PropTypes<Doc, ImgDoc> {
 	infoClassName?: BemInput,
 	inLibClassName?: BemInput,
 	rightClassName?: BemInput,
+	inLibrarySticky?: boolean,
 }
 
 export default Item

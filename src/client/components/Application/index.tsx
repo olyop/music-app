@@ -10,6 +10,7 @@ import { LoadingProvider } from "../../contexts/Loading"
 import { CurrentProvider } from "../../contexts/Current"
 import { SidebarProvider } from "../../contexts/Sidebar"
 import { SettingsProvider } from "../../contexts/Settings"
+import { ShowLoadingProvider } from "../../contexts/ShowLoading"
 
 import "./index.scss"
 
@@ -18,6 +19,7 @@ const Application: FC = () => {
 	const [ current, setCurrent ] = useState(0)
 	const [ sidebar, setSidebar ] = useState(false)
 	const [ loading, setLoading ] = useState(false)
+	const [ showLoading, setShowLoading ] = useState(false)
 	const [ settings, setSettings ] = useLocalStorage("settings", defaultSettings)
 
 	useEffect(() => {
@@ -34,9 +36,11 @@ const Application: FC = () => {
 				<LoadingProvider value={{ loading, setLoading }}>
 					<CurrentProvider value={{ current, setCurrent }}>
 						<SettingsProvider value={{ settings, setSettings }}>
-							<Header/>
-							<Pages/>
-							<PlayerBar/>
+							<ShowLoadingProvider value={{ showLoading, setShowLoading }}>
+								<Header/>
+								<Pages/>
+								<PlayerBar/>
+							</ShowLoadingProvider>
 						</SettingsProvider>
 					</CurrentProvider>
 				</LoadingProvider>

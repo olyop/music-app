@@ -4,13 +4,21 @@ import Song from "../Song"
 import OrderBy from "../OrderBy"
 import { Settings, Song as SongType } from "../../types"
 
-const Songs: FC<PropTypes> = ({ songs, orderByKey, orderByFields, className }) => (
+const Songs: FC<PropTypes> = ({
+	songs,
+	className,
+	orderByKey,
+	orderByFields,
+	hideOrderBy = false,
+}) => (
 	<div className={className}>
-		<OrderBy
-			className="MarginBottom"
-			settingsKey={orderByKey}
-			fieldOptions={orderByFields}
-		/>
+		{hideOrderBy || (
+			<OrderBy
+				className="MarginBottom"
+				settingsKey={orderByKey!}
+				fieldOptions={orderByFields!}
+			/>
+		)}
 		<div className="Elevated">
 			{songs.map(
 				song => (
@@ -28,8 +36,9 @@ const Songs: FC<PropTypes> = ({ songs, orderByKey, orderByFields, className }) =
 interface PropTypes {
 	songs: SongType[],
 	className?: string,
-	orderByFields: string[],
-	orderByKey: keyof Pick<Settings, "songsOrderBy" | "userSongsOrderBy">,
+	hideOrderBy?: boolean,
+	orderByFields?: string[],
+	orderByKey?: keyof Pick<Settings, "songsOrderBy" | "userSongsOrderBy">,
 }
 
 export default Songs

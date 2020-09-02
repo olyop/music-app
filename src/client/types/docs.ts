@@ -12,15 +12,32 @@ export interface Doc<T = string> {
 	__typename: T,
 }
 
+export interface UserDoc<T = string> extends Doc<T> {
+	plays: Play[],
+	inLibrary: boolean,
+	dateAdded: number | null,
+}
+
 export interface Play extends PlayBase, Doc<"Play"> {
 	user: User,
 	song: Song,
 }
 
-export interface UserDoc<T = string> extends Doc<T> {
-	plays: Play[],
-	inLibrary: boolean,
-	dateAdded: number | null,
+export interface Genre extends GenreBase, Doc<"Genre"> {
+	songs: Song[],
+	numOfSongs?: number,
+}
+
+export interface User extends UserBase, Doc<"User"> {
+	prev: Song[],
+	next: Song[],
+	queue: Song[],
+	songs: Song[],
+	genres: Genre[],
+	albums: Album[],
+	artists: Artist[],
+	current: Song | null,
+	playlists: Playlist[],
 }
 
 export interface Artist extends ArtistBase, UserDoc<"Artist"> {
@@ -40,11 +57,6 @@ export interface Album extends AlbumBase, UserDoc<"Album"> {
 	totalDuration: number,
 }
 
-export interface Genre extends GenreBase, UserDoc<"Genre"> {
-	songs: Song[],
-	numOfSongs?: number,
-}
-
 export interface Song extends SongBase, UserDoc<"Song"> {
 	album: Album,
 	genres: Genre[],
@@ -52,18 +64,6 @@ export interface Song extends SongBase, UserDoc<"Song"> {
 	remixers: Artist[],
 	featuring: Artist[],
 	dateAddedToPlaylist: number | null,
-}
-
-export interface User extends UserBase, Doc<"User"> {
-	prev: Song[],
-	next: Song[],
-	queue: Song[],
-	songs: Song[],
-	genres: Genre[],
-	albums: Album[],
-	artists: Artist[],
-	current: Song | null,
-	playlists: Playlist[],
 }
 
 export interface Playlist extends PlaylistBase, UserDoc<"Playlist"> {

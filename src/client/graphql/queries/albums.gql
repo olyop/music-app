@@ -1,6 +1,6 @@
 query albums(
   $userId: Uuid!
-  $page: PositiveInt!
+  $page: NonNegativeInt!
   $orderBy: AlbumOrderByInput!
 ) {
   albums(

@@ -1,5 +1,5 @@
 import { render } from "react-dom"
-import { createElement, FC, StrictMode } from "react"
+import { createElement, FC } from "react"
 import { BrowserRouter as ReactRouter } from "react-router-dom"
 
 import Application from "./components/Application"
@@ -13,9 +13,7 @@ const Index: FC = () => (
 	<ReactRouter>
 		<Authenticate>
 			<ApolloClient>
-				<StrictMode>
-					<Application/>
-				</StrictMode>
+				<Application/>
 			</ApolloClient>
 		</Authenticate>
 	</ReactRouter>

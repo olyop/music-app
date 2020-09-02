@@ -3,6 +3,7 @@ type Album {
   title: String!
   songs: [Song!]!
   released: Date!
+  genres: [Genre!]!
   artists: [Artist!]!
   totalDuration: PositiveInt!
   plays(userId: Uuid!): [Play!]!

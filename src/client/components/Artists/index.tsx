@@ -5,13 +5,21 @@ import Artist from "../Artist"
 import OrderBy from "../OrderBy"
 import { Settings, Artist as ArtistType } from "../../types"
 
-const Artists: FC<PropTypes> = ({ artists, orderByKey, orderByFields, className }) => (
+const Artists: FC<PropTypes> = ({
+	artists,
+	className,
+	orderByKey,
+	orderByFields,
+	hideOrderBy = false,
+}) => (
 	<div className={className}>
-		<OrderBy
-			className="MarginBottom"
-			settingsKey={orderByKey}
-			fieldOptions={orderByFields}
-		/>
+		{hideOrderBy || (
+			<OrderBy
+				className="MarginBottom"
+				settingsKey={orderByKey!}
+				fieldOptions={orderByFields!}
+			/>
+		)}
 		<List>
 			{artists.map(
 				artist => (
@@ -28,8 +36,9 @@ const Artists: FC<PropTypes> = ({ artists, orderByKey, orderByFields, className 
 interface PropTypes {
 	className?: string,
 	artists: ArtistType[],
-	orderByFields: string[],
-	orderByKey: keyof Pick<Settings, "artistsOrderBy" | "userArtistsOrderBy">,
+	hideOrderBy?: boolean,
+	orderByFields?: string[],
+	orderByKey?: keyof Pick<Settings, "artistsOrderBy" | "userArtistsOrderBy">,
 }
 
 export default Artists

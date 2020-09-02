@@ -1,0 +1,56 @@
+query search(
+	$userId: Uuid!
+	$query: String!
+) {
+	songSearch(query: $query, exact: false) {
+    mix
+    title
+    songId
+    duration
+    inLibrary(userId: $userId)
+    featuring {
+      name
+      artistId
+    }
+    remixers {
+      name
+      artistId
+    }
+    artists {
+      name
+      artistId
+    }
+    genres {
+      name
+      genreId
+    }
+    album {
+      title
+      albumId
+      cover(size: HALF)
+    }
+	}
+	genreSearch(query: $query, exact: false) {
+    name
+    genreId
+	}
+	albumSearch(query: $query, exact: false) {
+    albumId
+    title
+    released
+    cover(size: HALF)
+    inLibrary(userId: $userId)
+    artists {
+      artistId
+      name
+    }
+	}
+	artistSearch(query: $query, exact: false) {
+    name
+    artistId
+    numOfSongs
+    numOfAlbums
+    photo(size: MINI)
+    inLibrary(userId: $userId)
+	}
+}

@@ -99,8 +99,8 @@ export const insertAlbumArtist =
 				value: artistId,
 			},{
 				key: "index",
+				value: index,
 				string: false,
-				value: index.toString(),
 			}],
 		})
 
@@ -125,15 +125,15 @@ export const insertSong =
 		},{
 			string: false,
 			key: "duration",
-			value: duration.toString(),
+			value: duration,
 		},{
 			string: false,
 			key: "discNumber",
-			value: song.discNumber.toString(),
+			value: song.discNumber,
 		},{
 			string: false,
 			key: "trackNumber",
-			value: song.trackNumber.toString(),
+			value: song.trackNumber,
 		},{
 			string: false,
 			key: "columnNames",
@@ -152,8 +152,8 @@ export const insertSongGenre =
 			value: genreId,
 		},{
 			key: "index",
+			value: index,
 			string: false,
-			value: index.toString(),
 		}],
 	})
 
@@ -168,8 +168,8 @@ export const insertSongArtist =
 			value: artistId,
 		},{
 			key: "index",
+			value: index,
 			string: false,
-			value: index.toString(),
 		}],
 	})
 
@@ -184,8 +184,8 @@ export const insertSongRemixer =
 			value: artistId,
 		},{
 			key: "index",
+			value: index,
 			string: false,
-			value: index.toString(),
 		}],
 	})
 
@@ -200,7 +200,7 @@ export const insertSongFeaturer =
 			value: artistId,
 		},{
 			key: "index",
+			value: index,
 			string: false,
-			value: index.toString(),
 		}],
 	})

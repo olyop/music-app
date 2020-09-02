@@ -3,8 +3,4 @@ SELECT
 FROM
   artists
 WHERE
-  artist_id = {{ artistId }}
-LIMIT
-  30
-OFFSET
-  {{ offset }};
+  artist_id = {{ artistId }};

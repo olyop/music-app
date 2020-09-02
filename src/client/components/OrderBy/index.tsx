@@ -2,10 +2,10 @@ import { createElement, FC } from "react"
 
 import Select from "../Select"
 import { useSettingsContext } from "../../contexts/Settings"
-import { Settings, DocOrderBy, OrderByDirection } from "../../types"
+import { OrderBySettings, DocOrderBy, OrderByDirection } from "../../types"
 
 const OrderBy: FC<PropTypes> = ({ fieldOptions, settingsKey, className }) => {
-	const { setSettings, settings } =
+	const { settings, setSettings } =
 		useSettingsContext()
 	const handleChange =
 		(orderByKey: keyof DocOrderBy) =>
@@ -38,18 +38,10 @@ const OrderBy: FC<PropTypes> = ({ fieldOptions, settingsKey, className }) => {
 	)
 }
 
-type SettingsOrderByKey =
-	Pick<
-	Settings,
-	"songsOrderBy" | "userSongsOrderBy" |
-	"albumsOrderBy" | "userAlbumsOrderBy" |
-	"artistsOrderBy" | "userArtistsOrderBy"
-	>
-
 interface PropTypes {
 	className?: string,
 	fieldOptions: string[],
-	settingsKey: keyof SettingsOrderByKey,
+	settingsKey: keyof OrderBySettings,
 }
 
 export default OrderBy

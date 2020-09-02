@@ -89,11 +89,11 @@ export const songChecks = (client: PoolClient) => (song: SongUpload, albumId: st
 			},{
 				string: false,
 				key: "discNumber",
-				value: song.discNumber.toString(),
+				value: song.discNumber,
 			},{
 				string: false,
 				key: "trackNumber",
-				value: song.trackNumber.toString(),
+				value: song.trackNumber,
 			}],
 		}),
 	},

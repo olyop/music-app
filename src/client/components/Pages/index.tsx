@@ -4,7 +4,7 @@ import { Switch, Route } from "react-router-dom"
 
 import routes from "./routes"
 import Sidebar from "../Sidebar"
-import { useSidebarContext } from "../../contexts/Sidebar"
+import { useSidebarContext } from "../../contexts"
 
 import "./index.scss"
 
@@ -14,7 +14,7 @@ const Pages: FC = () => {
 	const { sidebar } = useSidebarContext()
 	return (
 		<main className={bem("")}>
-			{sidebar ? <Sidebar/> : null}
+			{sidebar && <Sidebar/>}
 			<div className={bem("content")}>
 				<Switch>
 					{routes.map(

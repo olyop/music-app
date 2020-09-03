@@ -1,12 +1,9 @@
-import { createElement } from "react"
-
 import uniqueId from "lodash/uniqueId"
 
-import Button from "../Button"
 import Queues from "../Queues"
 import Search from "../Search"
 import Player from "../Player"
-import Catalog from "../Catalog"
+import Browse from "../Browse"
 import Library from "../Library"
 import UserPage from "../UserPage"
 import PlaysPage from "../PlaysPage"
@@ -16,26 +13,11 @@ import ArtistPage from "../ArtistPage"
 
 import { Route } from "../../types"
 
-const Foo = () => (
-	<Button
-		icon="add"
-		text="Follow"
-		className="Foo Margin"
-		iconClassName="Foo__icon"
-		textClassName="Foo__text"
-	/>
-)
-
 const routes: Route[] = [
 	{
-		path: "/foo",
 		id: uniqueId(),
-		component: Foo,
-	},
-	{
-		id: uniqueId(),
-		path: "/catalog",
-		component: Catalog,
+		path: "/browse",
+		component: Browse,
 	},
 	{
 	  id: uniqueId(),

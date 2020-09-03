@@ -54,10 +54,7 @@ export const songs =
 		({ args }) => (
 			sql.query({
 				sql: SELECT_SONGS,
-				parse: res => {
-					console.log(sql.parseTable<Song>()(res).map(({ songId }) => songId))
-					return sql.parseTable<Song>()(res)
-				},
+				parse: sql.parseTable(),
 				variables: [{
 					key: "offset",
 					string: false,

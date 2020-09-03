@@ -1,13 +1,15 @@
 import {
 	FC,
-	Fragment,
+	useRef,
 	useState,
 	createElement,
 	ChangeEventHandler,
 } from "react"
 
 import isEmpty from "lodash/isEmpty"
+import debounce from "lodash/debounce"
 import { createBem } from "@oly_op/bem"
+import { useLazyQuery } from "@apollo/client"
 
 import {
 	Song,
@@ -21,21 +23,26 @@ import Songs from "../Songs"
 import Genres from "../Genres"
 import Albums from "../Albums"
 import Artists from "../Artists"
-import QueryApi from "../QueryApi"
-import { useUserContext } from "../../contexts/User"
+import { useUserContext } from "../../contexts"
 import GET_SEARCH from "../../graphql/queries/search.gql"
 
 import "./index.scss"
 
 const bem = createBem("Search")
 
+type HandleChange = ChangeEventHandler<HTMLInputElement>
+
 const Search: FC = () => {
-	const [ query, setQuery ] =
-		useState("")
-	const userId =
-		useUserContext()
-	const handleChange: ChangeEventHandler<HTMLInputElement> = event =>
-		setQuery(event.target.value)
+	const userId = useUserContext()
+	const [ query, setQuery ] = useState("")
+	const variables: Vars = { query, userId }
+	const [search, { data }] = useLazyQuery<Data, Vars>(GET_SEARCH, { variables })
+	const delayedQuery = useRef(debounce(x => search(x), 500)).current
+	const handleChange: HandleChange = ({ target }) => {
+		const { value } = target
+		setQuery(value)
+		delayedQuery(value)
+	}
 	return (
 		<div className={bem("")}>
 			<div className={bem("bar", "Padding")}>
@@ -47,37 +54,28 @@ const Search: FC = () => {
 					className={bem("bar-input")}
 				/>
 			</div>
-			{isEmpty(query) ? null : (
-				<QueryApi<Data, Vars>
-					query={GET_SEARCH}
-					className={bem("content", "Padding")}
-					variables={{ userId, query }}
-					children={
-						({ data }) => data && (
-							<Fragment>
-								<Songs
-									hideOrderBy
-									songs={data.songSearch}
-									className="MarginBottom"
-								/>
-								<Genres
-									className="MarginBottom"
-									genres={data.genreSearch}
-								/>
-								<Albums
-									hideOrderBy
-									className="MarginBottom"
-									albums={data.albumSearch}
-								/>
-								<Artists
-									hideOrderBy
-									className="MarginBottom"
-									artists={data.artistSearch}
-								/>
-							</Fragment>
-						)
-					}
-				/>
+			{isEmpty(query) ? null : data && (
+				<div className={bem("content", "Padding")}>
+					<Songs
+						hideOrderBy
+						className="MarginBottom"
+						songs={data.songSearch}
+					/>
+					<Genres
+						className="MarginBottom"
+						genres={data.genreSearch}
+					/>
+					<Albums
+						hideOrderBy
+						className="MarginBottom"
+						albums={data.albumSearch}
+					/>
+					<Artists
+						hideOrderBy
+						className="MarginBottom"
+						artists={data.artistSearch}
+					/>
+				</div>
 			)}
 		</div>
 	)

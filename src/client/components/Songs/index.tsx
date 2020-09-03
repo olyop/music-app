@@ -1,8 +1,11 @@
 import { createElement, FC } from "react"
+import { createBem, BemInput } from "@oly_op/bem"
 
 import Song from "../Song"
 import OrderBy from "../OrderBy"
 import { Settings, Song as SongType } from "../../types"
+
+const bem = createBem("Songs")
 
 const Songs: FC<PropTypes> = ({
 	songs,
@@ -11,31 +14,29 @@ const Songs: FC<PropTypes> = ({
 	orderByFields,
 	hideOrderBy = false,
 }) => (
-	<div className={className}>
+	<div className={bem(className, songs.length === 0 ? null : "Elevated")}>
 		{hideOrderBy || (
 			<OrderBy
-				className="MarginBottom"
 				settingsKey={orderByKey!}
 				fieldOptions={orderByFields!}
+				className="PaddingHalf ItemBorder"
 			/>
 		)}
-		<div className="Elevated">
-			{songs.map(
-				song => (
-					<Song
-						song={song}
-						key={song.songId}
-						className="PaddingHalf Hover ItemBorder"
-					/>
-				),
-			)}
-		</div>
+		{songs.map(
+			song => (
+				<Song
+					song={song}
+					key={song.songId}
+					className="PaddingHalf Hover ItemBorder"
+				/>
+			),
+		)}
 	</div>
 )
 
 interface PropTypes {
 	songs: SongType[],
-	className?: string,
+	className?: BemInput,
 	hideOrderBy?: boolean,
 	orderByFields?: string[],
 	orderByKey?: keyof Pick<Settings, "songsOrderBy" | "userSongsOrderBy">,

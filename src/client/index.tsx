@@ -6,9 +6,6 @@ import Application from "./components/Application"
 import ApolloClient from "./components/ApolloClient"
 import Authenticate from "./components/Authenticate"
 
-import "./index.scss"
-import "./classes.scss"
-
 const Index: FC = () => (
 	<ReactRouter>
 		<Authenticate>

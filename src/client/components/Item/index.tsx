@@ -3,6 +3,7 @@ import { createElement, ReactNode } from "react"
 import { createBem, BemInput } from "@oly_op/bem"
 
 import Img from "../Img"
+import Icon from "../Icon"
 import PlayButton from "../PlayButton"
 import { Doc, UserDoc } from "../../types"
 import InLibraryButton from "../InLibraryButton"
@@ -83,6 +84,11 @@ const Item = <D extends Doc, I extends Doc = Doc>({
 				style={{ display: inLibrarySticky ? "block" : undefined }}
 			/>
 		)}
+		<Icon
+			icon="more_vert"
+			className={bem(inLibClassName, "in-lib")}
+			style={{ display: inLibrarySticky ? "block" : undefined }}
+		/>
 	</div>
 )
 

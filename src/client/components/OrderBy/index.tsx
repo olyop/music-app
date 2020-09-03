@@ -1,8 +1,11 @@
 import { createElement, FC } from "react"
+import { createBem, BemInput } from "@oly_op/bem"
 
 import Select from "../Select"
 import { useSettingsContext } from "../../contexts/Settings"
 import { OrderBySettings, DocOrderBy, OrderByDirection } from "../../types"
+
+const bem = createBem("OrderBy")
 
 const OrderBy: FC<PropTypes> = ({ fieldOptions, settingsKey, className }) => {
 	const { settings, setSettings } =
@@ -18,28 +21,29 @@ const OrderBy: FC<PropTypes> = ({ fieldOptions, settingsKey, className }) => {
 					},
 				}))
 	return (
-		<div className={className}>
-			<h1
-				children="Order By"
-				className="Text2 MarginBottomQuart"
-			/>
+		<div className={bem(className, "FlexListRight")}>
 			<Select
-				options={fieldOptions}
-				className="MarginRightHalf"
-				onChange={handleChange("field")}
-				value={settings[settingsKey].field}
-			/>
-			<Select
+				className={bem("")}
 				onChange={handleChange("direction")}
 				value={settings[settingsKey].direction}
 				options={Object.keys(OrderByDirection)}
+			/>
+			<Select
+				options={fieldOptions}
+				className="MarginRightQuart"
+				onChange={handleChange("field")}
+				value={settings[settingsKey].field}
+			/>
+			<h1
+				children="Order By:"
+				className="Text2 MarginRightQuart"
 			/>
 		</div>
 	)
 }
 
 interface PropTypes {
-	className?: string,
+	className?: BemInput,
 	fieldOptions: string[],
 	settingsKey: keyof OrderBySettings,
 }

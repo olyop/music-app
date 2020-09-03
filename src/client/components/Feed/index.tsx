@@ -33,22 +33,26 @@ const Feed = <Data, Vars>({
 						{children(data)}
 						{data && (
 							<Waypoint
-								onEnter={() => {
+								onEnter={async () => {
 									if (parseData(data).length === (page.current * 30) + 30) {
 										page.current += 1
-										fetchMore({
-											variables: {
-												...variables,
-												page: page.current,
-											},
-											updateQuery: (prev: Data, { fetchMoreResult }) => ({
-												...prev,
-												[dataKey]: [
-													...parseData(prev),
-													...parseData(fetchMoreResult!),
-												],
-											}),
-										}).catch(console.error)
+										try {
+											await fetchMore({
+												variables: {
+													...variables,
+													page: page.current,
+												},
+												updateQuery: (prev: Data, { fetchMoreResult }) => ({
+													...prev,
+													[dataKey]: [
+														...parseData(prev),
+														...parseData(fetchMoreResult!),
+													],
+												}),
+											})
+										} catch (error) {
+											console.error(error)
+										}
 									}
 								}}
 							/>
@@ -63,6 +67,7 @@ const Feed = <Data, Vars>({
 export interface BaseVars {
 	page: number,
 }
+
 interface PropTypes<Data, Vars> {
 	variables?: Vars,
 	query: DocumentNode,

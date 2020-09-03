@@ -15,8 +15,8 @@ const Albums: FC<PropTypes> = ({
 	<div className={className}>
 		{hideOrderBy || (
 			<OrderBy
-				className="MarginBottom"
 				settingsKey={orderByKey!}
+				className="MarginBottomHalf"
 				fieldOptions={orderByFields!}
 			/>
 		)}

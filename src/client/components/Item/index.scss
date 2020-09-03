@@ -43,5 +43,6 @@
 		padding: 4rem;
 		display: none;
 		font-size: 28rem;
-		margin-right: -3rem;
-		height: var(--info-height); } }
+		height: var(--info-height);
+		&:last-child {
+			margin-right: -3rem; } } }

@@ -1,8 +1,9 @@
 import random from "lodash/random"
 import isEmpty from "lodash/isEmpty"
 import { createBem } from "@oly_op/bem"
+import { Waypoint } from "react-waypoint"
 import { useParams } from "react-router-dom"
-import { createElement, Fragment, FC } from "react"
+import { useState, createElement, Fragment, FC } from "react"
 
 import {
 	Artist,
@@ -31,8 +32,11 @@ const bem = createBem("ArtistPage")
 const ArtistPage: FC = () => {
 	const userId = useUserContext()
 	const params = useParams<Params>()
+	const [ showHeader, setShowHeader ] = useState(false)
+	const onLeave = () => setShowHeader(prevState => !prevState)
 	const { settings: { songsOrderBy, albumsOrderBy } } = useSettingsContext()
 	const variables = { userId, songsOrderBy, albumsOrderBy, ...params }
+	if (showHeader) console.log(showHeader)
 	return (
 		<QueryApi<Data, Vars>
 			className={bem("")}
@@ -50,32 +54,34 @@ const ArtistPage: FC = () => {
 								imgClassName={bem("cover-img")}
 								className={bem("cover", "Elevated")}
 							>
-								<div className={bem("cover-content", "Padding")}>
-									<h1 className={bem("cover-content-name")}>
-										<span className={bem("cover-content-name-text")}>{name}</span>
-										<InLibraryButton
-											doc={artist}
-											className={bem("cover-content-name-add")}
-										/>
-									</h1>
-									<p className={bem("cover-content-text", "MarginBottomHalf")}>
-										{songs.length}
-										<Fragment> song</Fragment>
-										{determinePlural(songs.length)}
-										{isEmpty(albums) ? null : (
-											<Fragment>
-												<Fragment>, </Fragment>
-												{albums.length}
-												<Fragment> album</Fragment>
-												{determinePlural(albums.length)}
-											</Fragment>
-										)}
-									</p>
-									<p className={bem("cover-content-text")}>
-										{random(0, 100000000).toLocaleString()}
-										<Fragment> plays</Fragment>
-									</p>
-								</div>
+								<Waypoint onLeave={onLeave}>
+									<div className={bem("cover-content", "Padding")}>
+										<h1 className={bem("cover-content-name")}>
+											<span className={bem("cover-content-name-text")}>{name}</span>
+											<InLibraryButton
+												doc={artist}
+												className={bem("cover-content-name-add")}
+											/>
+										</h1>
+										<p className={bem("cover-content-text", "MarginBottomHalf")}>
+											{songs.length}
+											<Fragment> song</Fragment>
+											{determinePlural(songs.length)}
+											{isEmpty(albums) ? null : (
+												<Fragment>
+													<Fragment>, </Fragment>
+													{albums.length}
+													<Fragment> album</Fragment>
+													{determinePlural(albums.length)}
+												</Fragment>
+											)}
+										</p>
+										<p className={bem("cover-content-text")}>
+											{random(0, 100000000).toLocaleString()}
+											<Fragment> plays</Fragment>
+										</p>
+									</div>
+								</Waypoint>
 								<div
 									className={bem("cover-black")}
 								/>

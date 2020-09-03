@@ -7,9 +7,10 @@ import Song from "../Song"
 import QueryApi from "../QueryApi"
 import Progress from "../Progress"
 import { User } from "../../types"
+import VolumeSlider from "../VolumeSlider"
 import UserControls from "../UserControls"
 import { useUserContext } from "../../contexts/User"
-import { useShowLoadingContext } from "../../contexts/ShowLoading"
+import { useShowVolumeContext } from "../../contexts/ShowVolume"
 import GET_USER_CURRENT from "../../graphql/queries/userCurrent.gql"
 
 import "./index.scss"
@@ -17,7 +18,7 @@ import "./index.scss"
 const bem = createBem("PlayerBar")
 
 const PlayerBar: FC = () => {
-	const { setShowLoading } = useShowLoadingContext()
+	const { showVolume, setShowVolume } = useShowVolumeContext()
 	return (
 		<footer className={bem("", "Elevated")}>
 			<UserControls
@@ -49,14 +50,15 @@ const PlayerBar: FC = () => {
 									</NavLink>
 									<Icon
 										title="Volume"
-										icon="volume_up"
-										onClick={() => setShowLoading(x => !x)}
+										icon={showVolume ? "close" : "volume_up"}
+										onClick={() => setShowVolume(prevState => !prevState)}
 										className={bem(
 											"main-info-controls-control",
 											"icon",
 											"IconHover",
 										)}
 									/>
+									{showVolume && <VolumeSlider/>}
 								</div>
 								{data && data.user.current && (
 									<Song

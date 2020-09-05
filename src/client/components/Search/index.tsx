@@ -23,7 +23,7 @@ import Songs from "../Songs"
 import Genres from "../Genres"
 import Albums from "../Albums"
 import Artists from "../Artists"
-import { useUserContext } from "../../contexts"
+import { useStateUserId } from "../../redux"
 import GET_SEARCH from "../../graphql/queries/search.gql"
 
 import "./index.scss"
@@ -33,7 +33,7 @@ const bem = createBem("Search")
 type HandleChange = ChangeEventHandler<HTMLInputElement>
 
 const Search: FC = () => {
-	const userId = useUserContext()
+	const userId = useStateUserId()
 	const [ query, setQuery ] = useState("")
 	const variables: Vars = { query, userId }
 	const [search, { data }] = useLazyQuery<Data, Vars>(GET_SEARCH, { variables })

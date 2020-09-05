@@ -1,49 +1,52 @@
 import { createElement, FC } from "react"
-import { createBem, BemInput } from "@oly_op/bem"
+import { createBem, BemPropTypes } from "@oly_op/bem"
+import { useDispatch, useSelector } from "react-redux"
+
+import {
+	DocOrderBy,
+	OrderBySettings,
+	OrderByDirection,
+} from "../../types"
 
 import Select from "../Select"
-import { useSettingsContext } from "../../contexts/Settings"
-import { OrderBySettings, DocOrderBy, OrderByDirection } from "../../types"
+import { State, Dispatch, updateOrderBy } from "../../redux"
 
 const bem = createBem("OrderBy")
 
-const OrderBy: FC<PropTypes> = ({ fieldOptions, settingsKey, className }) => {
-	const { settings, setSettings } =
-		useSettingsContext()
+const OrderBy: FC<PropTypes> = ({ className, settingsKey, fieldOptions }) => {
+	const dispatch =
+		useDispatch<Dispatch>()
+	const state =
+		useSelector<State, DocOrderBy>(
+			({ settings: { orderBy } }) => orderBy[settingsKey],
+		)
 	const handleChange =
-		(orderByKey: keyof DocOrderBy) =>
+		(key: keyof DocOrderBy) =>
 			(val: string) =>
-				setSettings(prevState => ({
-					...prevState,
-					[settingsKey]: {
-						...prevState[settingsKey],
-						[orderByKey]: val,
-					},
-				}))
+				dispatch(updateOrderBy({ key, val, settingsKey }))
 	return (
-		<div className={bem(className, "FlexListRight")}>
-			<Select
-				className={bem("")}
-				onChange={handleChange("direction")}
-				value={settings[settingsKey].direction}
-				options={Object.keys(OrderByDirection)}
-			/>
-			<Select
-				options={fieldOptions}
-				className="MarginRightQuart"
-				onChange={handleChange("field")}
-				value={settings[settingsKey].field}
-			/>
+		<div className={bem(className, "FlexList")}>
 			<h1
 				children="Order By:"
 				className="Text2 MarginRightQuart"
+			/>
+			<Select
+				value={state.field}
+				options={fieldOptions}
+				className="MarginRightQuart"
+				onChange={handleChange("field")}
+			/>
+			<Select
+				className={bem("")}
+				value={state.direction}
+				onChange={handleChange("direction")}
+				options={Object.keys(OrderByDirection)}
 			/>
 		</div>
 	)
 }
 
-interface PropTypes {
-	className?: BemInput,
+interface PropTypes extends BemPropTypes {
 	fieldOptions: string[],
 	settingsKey: keyof OrderBySettings,
 }

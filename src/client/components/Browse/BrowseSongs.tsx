@@ -3,30 +3,30 @@ import { createElement, FC } from "react"
 import Feed from "../Feed"
 import Songs from "../Songs"
 import Helmet from "../Helmet"
-import { useUserContext } from "../../contexts/User"
 import GET_SONGS from "../../graphql/queries/songs.gql"
-import { useSettingsContext } from "../../contexts/Settings"
-import { Song, UserVar, SongOrderBy, SongOrderByField } from "../../types"
+import { useStateUserId, useStateOrderBy } from "../../redux"
+import { Song, UserVar, SongsOrderBy, SongsOrderByField } from "../../types"
 
 const BrowseSongs: FC = () => {
-	const userId = useUserContext()
-	const { settings } = useSettingsContext()
+	const userId = useStateUserId()
+	const orderBy = useStateOrderBy<SongsOrderBy>("songs")
 	return (
 		<Helmet title="Browse Songs">
 			<Feed<Data, Vars>
 				dataKey="songs"
 				query={GET_SONGS}
+				variables={{ userId, orderBy }}
 				parseData={({ songs }) => songs}
-				variables={{ userId, orderBy: settings.songsOrderBy }}
-			>
-				{data => (
-					<Songs
-						songs={data?.songs || []}
-						orderByKey="songsOrderBy"
-						orderByFields={Object.keys(SongOrderByField)}
-					/>
-				)}
-			</Feed>
+				children={
+					data => (
+						<Songs
+							orderByKey="songs"
+							songs={data?.songs || []}
+							orderByFields={Object.keys(SongsOrderByField)}
+						/>
+					)
+				}
+			/>
 		</Helmet>
 	)
 }
@@ -36,7 +36,7 @@ interface Data {
 }
 
 interface Vars extends UserVar {
-	orderBy: SongOrderBy,
+	orderBy: SongsOrderBy,
 }
 
 export default BrowseSongs

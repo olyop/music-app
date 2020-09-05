@@ -2,6 +2,13 @@ import { createBem } from "@oly_op/bem"
 import { NavLink } from "react-router-dom"
 import { createElement, Fragment, FC } from "react"
 
+import {
+	useDispatch,
+	useStateUserId,
+	toggleShowVolume,
+	useStateShowVolume,
+} from "../../redux"
+
 import Icon from "../Icon"
 import Song from "../Song"
 import QueryApi from "../QueryApi"
@@ -9,8 +16,6 @@ import Progress from "../Progress"
 import { User } from "../../types"
 import VolumeSlider from "../VolumeSlider"
 import UserControls from "../UserControls"
-import { useUserContext } from "../../contexts/User"
-import { useShowVolumeContext } from "../../contexts/ShowVolume"
 import GET_USER_CURRENT from "../../graphql/queries/userCurrent.gql"
 
 import "./index.scss"
@@ -18,7 +23,11 @@ import "./index.scss"
 const bem = createBem("PlayerBar")
 
 const PlayerBar: FC = () => {
-	const { showVolume, setShowVolume } = useShowVolumeContext()
+	const dispatch = useDispatch()
+	const userId = useStateUserId()
+	const showVolume = useStateShowVolume()
+	const handleVolumeClick = () =>
+		dispatch(toggleShowVolume())
 	return (
 		<footer className={bem("", "Elevated")}>
 			<UserControls
@@ -27,9 +36,9 @@ const PlayerBar: FC = () => {
 			/>
 			<div className={bem("main")}>
 				<QueryApi<Data>
+					variables={{ userId }}
 					query={GET_USER_CURRENT}
 					className={bem("main-info")}
-					variables={{ userId: useUserContext() }}
 					children={
 						({ data }) => (
 							<Fragment>
@@ -50,8 +59,8 @@ const PlayerBar: FC = () => {
 									</NavLink>
 									<Icon
 										title="Volume"
+										onClick={handleVolumeClick}
 										icon={showVolume ? "close" : "volume_up"}
-										onClick={() => setShowVolume(prevState => !prevState)}
 										className={bem(
 											"main-info-controls-control",
 											"icon",

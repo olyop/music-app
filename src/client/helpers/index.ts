@@ -1,7 +1,6 @@
 export * from "./createContext"
 export * from "./determineDiscs"
 export * from "./determineDocId"
-export * from "./useLocalStorage"
 export * from "./deserializeDate"
 export * from "./determineConcat"
 export * from "./determinePlural"

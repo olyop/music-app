@@ -1,5 +1,5 @@
 import { createElement, FC } from "react"
-import { BemInput, createBem } from "@oly_op/bem"
+import { createBem, BemPropTypes } from "@oly_op/bem"
 
 import { Genre } from "../../types"
 
@@ -19,9 +19,8 @@ const Genres: FC<PropTypes> = ({ genres, className }) => (
 	</div>
 )
 
-interface PropTypes {
+interface PropTypes extends BemPropTypes {
 	genres: Genre[],
-	className?: BemInput,
 }
 
 export default Genres

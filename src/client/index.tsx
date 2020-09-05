@@ -2,18 +2,24 @@ import { render } from "react-dom"
 import { createElement, FC } from "react"
 import { BrowserRouter as ReactRouter } from "react-router-dom"
 
-import Application from "./components/Application"
-import ApolloClient from "./components/ApolloClient"
-import Authenticate from "./components/Authenticate"
+import { ReactRedux } from "./redux"
+import Pages from "./components/Pages"
+import Header from "./components/Header"
+import PlayerBar from "./components/PlayerBar"
+import { Provider as ApolloClient } from "./apollo"
+
+import "./index.scss"
 
 const Index: FC = () => (
-	<ReactRouter>
-		<Authenticate>
+	<ReactRedux>
+		<ReactRouter>
 			<ApolloClient>
-				<Application/>
+				<Header/>
+				<Pages/>
+				<PlayerBar/>
 			</ApolloClient>
-		</Authenticate>
-	</ReactRouter>
+		</ReactRouter>
+	</ReactRedux>
 )
 
 render(

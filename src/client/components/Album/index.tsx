@@ -5,17 +5,17 @@ import Item from "../Item"
 import Cover from "../Cover"
 import DocLink from "../DocLink"
 import DocLinks from "../DocLinks"
-import { useSettingsContext } from "../../contexts/Settings"
+import { useStateListStyle } from "../../redux"
 import { Album as AlbumType, ListStyle } from "../../types"
 
 const bem = createBem("Album")
 
-const Album: FC<PropTypes> = ({ album, className = null }) => {
-	const { settings: { listStyle } } = useSettingsContext()
-	return listStyle === ListStyle.GRID ? (
+const Album: FC<PropTypes> = ({ album, className }) => (
+	useStateListStyle() === ListStyle.GRID ? (
 		<div className={bem(className, "Card", "Elevated")}>
 			<Cover
 				url={album.cover}
+				link={`/album/${album.albumId}`}
 			/>
 			<Item
 				doc={album}
@@ -35,7 +35,7 @@ const Album: FC<PropTypes> = ({ album, className = null }) => {
 			className={bem(className, "PaddingHalf", "ItemBorder", "Hover")}
 		/>
 	)
-}
+)
 
 interface PropTypes {
 	album: AlbumType,

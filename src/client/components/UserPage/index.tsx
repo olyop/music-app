@@ -2,34 +2,34 @@ import { createBem } from "@oly_op/bem"
 import upperFirst from "lodash/upperFirst"
 import { createElement, FC, ChangeEventHandler } from "react"
 
+import {
+	useDispatch,
+	useStateUserId,
+	updateListStyle,
+	toggleShowGenres,
+	useStateSettings,
+} from "../../redux"
+
 import Helmet from "../Helmet"
 import QueryApi from "../QueryApi"
-import { useUserContext } from "../../contexts/User"
 import GET_USER from "../../graphql/queries/user.gql"
 import { ListStyle, User, UserVar } from "../../types"
-import { useSettingsContext } from "../../contexts/Settings"
 
 import "./index.scss"
 
 const bem = createBem("UserPage")
 
 const UserPage: FC = () => {
+	const dispatch =
+		useDispatch()
 	const userId =
-		useUserContext()
-	const { setSettings, settings: { showGenres, listStyle } } =
-		useSettingsContext()
+		useStateUserId()
+	const { showGenres, listStyle } =
+		useStateSettings()
+	const handleShowGenres =
+		() => dispatch(toggleShowGenres())
 	const handleListStyle: ChangeEventHandler<HTMLSelectElement> =
-		({ target: { value } }) =>
-			setSettings(prevState => ({
-				...prevState,
-				listStyle: value as ListStyle,
-			}))
-	const handleShowGenres: ChangeEventHandler<HTMLInputElement> =
-		({ target: { checked } }) =>
-			setSettings(prevState => ({
-				...prevState,
-				showGenres: checked,
-			}))
+		({ target: { value } }) => dispatch(updateListStyle(value as ListStyle))
 	return (
 		<QueryApi<Res, UserVar>
 			query={GET_USER}

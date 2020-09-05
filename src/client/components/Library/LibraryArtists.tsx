@@ -3,31 +3,30 @@ import { createElement, FC } from "react"
 import {
 	User,
 	UserVar,
-	UserArtistOrderBy,
-	UserArtistOrderByField,
+	UserArtistsOrderBy,
+	UserArtistsOrderByField,
 } from "../../types"
 
 import Helmet from "../Helmet"
 import Artists from "../Artists"
 import QueryApi from "../QueryApi"
-import { useUserContext } from "../../contexts/User"
-import { useSettingsContext } from "../../contexts/Settings"
+import { useStateUserId, useStateOrderBy } from "../../redux"
 import GET_USER_ARTISTS from "../../graphql/queries/userArtists.gql"
 
 const LibraryArtists: FC = () => {
-	const userId = useUserContext()
-	const { settings: { userArtistsOrderBy } } = useSettingsContext()
+	const userId = useStateUserId()
+	const orderBy = useStateOrderBy<UserArtistsOrderBy>("userArtists")
 	return (
 		<Helmet title="Library Artists">
 			<QueryApi<Res, Vars>
 				query={GET_USER_ARTISTS}
-				variables={{ userId, orderBy: userArtistsOrderBy }}
+				variables={{ userId, orderBy }}
 				children={
 					({ data }) => (
 						<Artists
-							orderByKey="userArtistsOrderBy"
+							orderByKey="userArtists"
 							artists={data?.user.artists || []}
-							orderByFields={Object.keys(UserArtistOrderByField)}
+							orderByFields={Object.keys(UserArtistsOrderByField)}
 						/>
 					)
 				}
@@ -41,7 +40,7 @@ interface Res {
 }
 
 interface Vars extends UserVar {
-	orderBy: UserArtistOrderBy,
+	orderBy: UserArtistsOrderBy,
 }
 
 export default LibraryArtists

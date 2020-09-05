@@ -3,7 +3,7 @@ import { createElement, useEffect, Fragment, ReactNode } from "react"
 import { useQuery, QueryResult, WatchQueryFetchPolicy } from "@apollo/client"
 
 import ApiError from "../ApiError"
-import { useLoadingContext } from "../../contexts/Loading"
+import { useDispatch, updateLoading } from "../../redux"
 
 const QueryApi = <Data, Vars = Record<string, unknown>>({
 	query,
@@ -12,12 +12,13 @@ const QueryApi = <Data, Vars = Record<string, unknown>>({
 	fetchPolicy,
 	variables = {} as Vars,
 }: PropTypes<Data, Vars>) => {
-	const { setLoading } =
-		useLoadingContext()
+	const dispatch =
+		useDispatch()
 	const { error, loading, ...res } =
 		useQuery<Data, Vars>(query, { variables, fetchPolicy })
 
-	useEffect(() => { setLoading(loading) }, [loading, setLoading])
+	// eslint-disable-next-line react-hooks/exhaustive-deps
+	useEffect(() => { dispatch(updateLoading(loading)) }, [loading])
 
 	if (error !== undefined) {
 		return <ApiError error={error}/>

@@ -1,13 +1,18 @@
 import { createElement, FC } from "react"
-import { createBem, BemInput } from "@oly_op/bem"
+import { createBem, BemPropTypes } from "@oly_op/bem"
 import { useQuery, useMutation } from "@apollo/client"
+
+import {
+	updatePlay,
+	useDispatch,
+	useStatePlay,
+	updateCurrent,
+	useStateUserId,
+} from "../../redux"
 
 import Icon from "../Icon"
 import { determineDocId } from "../../helpers"
 import { User, UserDoc, Song } from "../../types"
-import { useUserContext } from "../../contexts/User"
-import { usePlayContext } from "../../contexts/Play"
-import { useCurrentContext } from "../../contexts/Current"
 import USER_PLAY from "../../graphql/mutations/userPlay.gql"
 import GET_USER_CURRENT from "../../graphql/queries/userCurrent.gql"
 
@@ -17,10 +22,10 @@ const isSong = (doc: UserDoc): doc is Song =>
 const bem = createBem("PlayButton")
 
 const PlayButton: FC<PropTypes> = ({ doc, className }) => {
-	const userId = useUserContext()
+	const play = useStatePlay()
+	const dispatch = useDispatch()
+	const userId = useStateUserId()
 	const docId = determineDocId(doc)
-	const { setCurrent } = useCurrentContext()
-	const { play, setPlay } = usePlayContext()
 
 	const { data } =
 		useQuery<UserCurrentRes>(GET_USER_CURRENT, {
@@ -40,17 +45,20 @@ const PlayButton: FC<PropTypes> = ({ doc, className }) => {
 			} : undefined,
 		})
 
-	const isCurrent = data === undefined || data.user.current === null ?
-		false : data.user.current.songId === docId
+	const isCurrent = (
+		data &&
+		data.user.current &&
+		data.user.current.songId === docId
+	)
 
 	const handleClick = () => {
 		if (isSong(doc)) {
 			if (isCurrent) {
-				setPlay(prevState => !prevState)
+				dispatch(updatePlay(!isCurrent))
 			} else {
-				setCurrent(0)
-				setPlay(true)
-				userPlay()
+				dispatch(updateCurrent(0))
+				dispatch(updatePlay(true))
+				userPlay().catch(console.error)
 			}
 		}
 	}
@@ -73,9 +81,8 @@ interface UserCurrentRes {
 	user: User,
 }
 
-interface PropTypes {
+interface PropTypes extends BemPropTypes {
 	doc: UserDoc,
-	className?: BemInput,
 }
 
 export default PlayButton

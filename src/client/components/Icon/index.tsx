@@ -1,4 +1,4 @@
-import { createBem, BemInput } from "@oly_op/bem"
+import { createBem, BemPropTypes } from "@oly_op/bem"
 import { createElement, FC, CSSProperties } from "react"
 
 import "./index.scss"
@@ -20,10 +20,9 @@ const Icon: FC<PropTypes> = ({ icon, style, title, onClick, className }) => (
 	/>
 )
 
-interface PropTypes {
+interface PropTypes extends BemPropTypes {
 	icon: string,
 	title?: string,
-	className?: BemInput,
 	onClick?: () => void,
 	style?: CSSProperties,
 }

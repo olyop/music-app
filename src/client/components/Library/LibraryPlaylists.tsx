@@ -6,14 +6,14 @@ import Helmet from "../Helmet"
 import Playlist from "../Playlist"
 import QueryApi from "../QueryApi"
 import { User, UserVar } from "../../types"
-import { useUserContext } from "../../contexts/User"
+import { useStateUserId } from "../../redux"
 import GET_USER_PLAYLISTS from "../../graphql/queries/userPlaylists.gql"
 
 const LibraryPlaylists: FC = () => (
 	<Helmet title="Library Playlists">
 		<QueryApi<Data, UserVar>
 			query={GET_USER_PLAYLISTS}
-			variables={{ userId: useUserContext() }}
+			variables={{ userId: useStateUserId() }}
 			children={
 				({ data }) => (
 					<List>

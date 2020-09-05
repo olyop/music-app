@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom"
-import { createBem, BemInput } from "@oly_op/bem"
+import { createBem, BemPropTypes } from "@oly_op/bem"
 import { createElement, Fragment, FC } from "react"
 
 import Icon from "../Icon"
@@ -37,10 +37,9 @@ const Navigation: FC<PropTypes> = ({ path, routes, className }) => (
 	</nav>
 )
 
-interface PropTypes {
+interface PropTypes extends BemPropTypes {
 	path: string,
 	routes: Route[],
-	className?: BemInput,
 }
 
 export default Navigation

@@ -2,26 +2,37 @@ import { createBem } from "@oly_op/bem"
 import { NavLink } from "react-router-dom"
 import { createElement, FC, Fragment } from "react"
 
+import {
+	useDispatch,
+	toggleSidebar,
+	useStateLoading,
+	useStateSidebar,
+} from "../../redux"
+
 import Icon from "../Icon"
-import Loading from "../Loading"
-import { useSidebarContext } from "../../contexts/Sidebar"
-import { useLoadingContext } from "../../contexts/Loading"
 
 import "./index.scss"
 
 const bem = createBem("Header")
 
 const Header: FC = () => {
-	const { loading } = useLoadingContext()
-	const { sidebar, setSidebar } = useSidebarContext()
-	const toggleSidebar = () => setSidebar(prevState => !prevState)
+	const dispatch = useDispatch()
+	const loading = useStateLoading()
+	const sidebar = useStateSidebar()
+	const handleMenuClick = () => dispatch(toggleSidebar())
 	return (
 		<Fragment>
-			{loading ? <Loading/> : null}
+			{loading ? (
+				<div className={bem("loading")}>
+					<div className={bem("loading-line")}/>
+					<div className={bem("loading-subline", "loading-asc")}/>
+					<div className={bem("loading-subline", "loading-desc")}/>
+				</div>
+			) : null}
 			<header className={bem("", "Elevated")}>
 				<Icon
 					title="Menu"
-					onClick={toggleSidebar}
+					onClick={handleMenuClick}
 					icon={sidebar ? "close" : "menu"}
 					className={bem("hamburger", "icon", "IconHover")}
 				/>

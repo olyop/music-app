@@ -1,5 +1,5 @@
 import { createElement, FC } from "react"
-import { createBem, BemInput } from "@oly_op/bem"
+import { createBem, BemInput, BemPropTypes } from "@oly_op/bem"
 
 import "./index.scss"
 
@@ -15,10 +15,9 @@ const Img: FC<PropTypes> = ({ url, title, children, className, imgClassName }) =
 	</div>
 )
 
-interface PropTypes {
+interface PropTypes extends BemPropTypes {
 	url: string,
 	title?: string,
-	className?: BemInput,
 	imgClassName?: BemInput,
 }
 

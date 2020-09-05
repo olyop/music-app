@@ -1,20 +1,29 @@
 import { createBem } from "@oly_op/bem"
 import { createElement, ChangeEventHandler, Fragment } from "react"
 
+import {
+	useDispatch,
+	updateVolume,
+	useStateVolume,
+	toggleShowVolume,
+} from "../../redux"
+
 import Icon from "../Icon"
-import { useVolumeContext, useShowVolumeContext } from "../../contexts"
+import ModalClose from "../ModalClose"
 
 import "./index.scss"
 
 const bem = createBem("VolumeSlider")
 
 const VolumeSlider = () => {
-	const { volume, setVolume } =
-		useVolumeContext()
-	const { setShowVolume } =
-		useShowVolumeContext()
+	const dispatch =
+		useDispatch()
+	const volume =
+		useStateVolume()
+	const handleClose =
+		() => dispatch(toggleShowVolume())
 	const handleChange: ChangeEventHandler<HTMLInputElement> =
-		event => setVolume(parseInt(event.target.value))
+		event => dispatch(updateVolume(parseInt(event.target.value)))
 	return (
 		<Fragment>
 			<div className={bem("", "Elevated")}>
@@ -36,9 +45,8 @@ const VolumeSlider = () => {
 					className={bem("button")}
 				/>
 			</div>
-			<div
-				className={bem("close")}
-				onClick={() => setShowVolume(false)}
+			<ModalClose
+				onClick={handleClose}
 			/>
 		</Fragment>
 	)

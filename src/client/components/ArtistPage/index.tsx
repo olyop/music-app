@@ -1,17 +1,15 @@
 import random from "lodash/random"
-import isEmpty from "lodash/isEmpty"
 import { createBem } from "@oly_op/bem"
-import { Waypoint } from "react-waypoint"
 import { useParams } from "react-router-dom"
-import { useState, createElement, Fragment, FC } from "react"
+import { createElement, Fragment, FC } from "react"
 
 import {
 	Artist,
 	UserVar,
-	SongOrderBy,
-	AlbumOrderBy,
-	SongOrderByField,
-	AlbumOrderByField,
+	SongsOrderBy,
+	AlbumsOrderBy,
+	SongsOrderByField,
+	AlbumsOrderByField,
 } from "../../types"
 
 import Img from "../Img"
@@ -21,97 +19,99 @@ import Helmet from "../Helmet"
 import QueryApi from "../QueryApi"
 import { determinePlural } from "../../helpers"
 import InLibraryButton from "../InLibraryButton"
-import { useUserContext } from "../../contexts/User"
-import { useSettingsContext } from "../../contexts/Settings"
+import { useStateUserId, useStateOrderBy } from "../../redux"
 import GET_ARTIST_PAGE from "../../graphql/queries/artistPage.gql"
+import GET_ARTIST_PAGE_SONGS from "../../graphql/queries/artistSongs.gql"
+import GET_ARTIST_PAGE_ALBUMS from "../../graphql/queries/artistAlbums.gql"
 
 import "./index.scss"
 
 const bem = createBem("ArtistPage")
 
 const ArtistPage: FC = () => {
-	const userId = useUserContext()
+	const userId = useStateUserId()
 	const params = useParams<Params>()
-	const [ showHeader, setShowHeader ] = useState(false)
-	const onLeave = () => setShowHeader(prevState => !prevState)
-	const { settings: { songsOrderBy, albumsOrderBy } } = useSettingsContext()
-	const variables = { userId, songsOrderBy, albumsOrderBy, ...params }
-	if (showHeader) console.log(showHeader)
+	const songsOrderBy = useStateOrderBy<SongsOrderBy>("songs")
+	const albumsOrderBy = useStateOrderBy<AlbumsOrderBy>("albums")
+	const variables: Vars = { userId, ...params }
 	return (
 		<QueryApi<Data, Vars>
 			className={bem("")}
 			variables={variables}
 			query={GET_ARTIST_PAGE}
 			children={
-				({ data }) => {
-					if (!data) return null
-					const { artist } = data
-					const { name, photo, songs, albums } = artist
-					return (
-						<Helmet title={name}>
-							<Img
-								url={photo}
-								imgClassName={bem("cover-img")}
-								className={bem("cover", "Elevated")}
-							>
-								<Waypoint onLeave={onLeave}>
-									<div className={bem("cover-content", "Padding")}>
-										<h1 className={bem("cover-content-name")}>
-											<span className={bem("cover-content-name-text")}>{name}</span>
-											<InLibraryButton
-												doc={artist}
-												className={bem("cover-content-name-add")}
-											/>
-										</h1>
-										<p className={bem("cover-content-text", "MarginBottomHalf")}>
-											{songs.length}
-											<Fragment> song</Fragment>
-											{determinePlural(songs.length)}
-											{isEmpty(albums) ? null : (
-												<Fragment>
-													<Fragment>, </Fragment>
-													{albums.length}
-													<Fragment> album</Fragment>
-													{determinePlural(albums.length)}
-												</Fragment>
-											)}
-										</p>
-										<p className={bem("cover-content-text")}>
-											{random(0, 100000000).toLocaleString()}
-											<Fragment> plays</Fragment>
-										</p>
-									</div>
-								</Waypoint>
-								<div
-									className={bem("cover-black")}
-								/>
-							</Img>
-							<div className="Padding">
-								{isEmpty(albums) ? null : (
-									<Fragment>
-										<h2 className={bem("heading")}>Albums</h2>
-										<Albums
-											albums={albums}
-											className="MarginBottom"
-											orderByKey="albumsOrderBy"
-											orderByFields={Object.keys(AlbumOrderByField)}
-										/>
-									</Fragment>
-								)}
-								{isEmpty(songs) ? null : (
-									<Fragment>
-										<h2 className={bem("heading")}>Songs</h2>
-										<Songs
-											songs={songs}
-											orderByKey="songsOrderBy"
-											orderByFields={Object.keys(SongOrderByField)}
-										/>
-									</Fragment>
-								)}
+				({ data }) => data && (
+					<Helmet title={name}>
+						<Img
+							url={data.artist.photo}
+							imgClassName={bem("cover-img")}
+							className={bem("cover", "Elevated")}
+						>
+							<div className={bem("cover-content", "Padding")}>
+								<h1 className={bem("cover-content-name")}>
+									<span className={bem("cover-content-name-text")}>
+										{data.artist.name}
+									</span>
+									<InLibraryButton
+										doc={data.artist}
+										className={bem("cover-content-name-add")}
+									/>
+								</h1>
+								<p className={bem("cover-content-text", "MarginBottomHalf")}>
+									{data.artist.numOfSongs}
+									<Fragment> song</Fragment>
+									{determinePlural(data.artist.numOfSongs!)}
+									<Fragment>, </Fragment>
+									{data.artist.numOfAlbums}
+									<Fragment> album</Fragment>
+									{determinePlural(data.artist.numOfAlbums!)}
+								</p>
+								<p className={bem("cover-content-text")}>
+									{random(0, 10000000).toLocaleString()}
+									<Fragment> plays</Fragment>
+								</p>
 							</div>
-						</Helmet>
-					)
-				}
+							<div
+								className={bem("cover-black")}
+							/>
+						</Img>
+						<div className="Padding">
+							<h2 className={bem("heading")}>
+								Albums
+							</h2>
+							<QueryApi<Data, AlbumsVars>
+								query={GET_ARTIST_PAGE_ALBUMS}
+								variables={{ ...variables, albumsOrderBy }}
+								children={
+									({ data: albumData }) => (
+										<Albums
+											orderByKey="albums"
+											className="MarginBottom"
+											albums={albumData?.artist.albums || []}
+											orderByFields={Object.keys(AlbumsOrderByField)}
+										/>
+									)
+								}
+							/>
+							<h2 className={bem("heading")}>
+								Songs
+							</h2>
+							<QueryApi<Data, SongsVars>
+								query={GET_ARTIST_PAGE_SONGS}
+								variables={{ ...variables, songsOrderBy }}
+								children={
+									({ data: songData }) => (
+										<Songs
+											orderByKey="songs"
+											songs={songData?.artist.songs || []}
+											orderByFields={Object.keys(SongsOrderByField)}
+										/>
+									)
+								}
+							/>
+						</div>
+					</Helmet>
+				)
 			}
 		/>
 	)
@@ -125,9 +125,14 @@ interface Params {
 	artistId: string,
 }
 
-interface Vars extends UserVar, Params {
-	songsOrderBy: SongOrderBy,
-	albumsOrderBy: AlbumOrderBy,
+interface Vars extends UserVar, Params {}
+
+interface SongsVars extends Vars {
+	songsOrderBy: SongsOrderBy,
+}
+
+interface AlbumsVars extends Vars {
+	albumsOrderBy: AlbumsOrderBy,
 }
 
 export default ArtistPage

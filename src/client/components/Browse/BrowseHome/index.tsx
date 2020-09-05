@@ -6,7 +6,7 @@ import Song from "../../Song"
 import Album from "../../Album"
 import Helmet from "../../Helmet"
 import QueryApi from "../../QueryApi"
-import { useUserContext } from "../../../contexts/User"
+import { useStateUserId } from "../../../redux"
 import QUERY_BROWSE from "../../../graphql/queries/browse.gql"
 import { Album as AlbumType, Song as SongType } from "../../../types"
 
@@ -18,7 +18,7 @@ const BrowseHome: FC = () => (
 	<QueryApi<Data>
 		className={bem("")}
 		query={QUERY_BROWSE}
-		variables={{ userId: useUserContext() }}
+		variables={{ userId: useStateUserId() }}
 		children={
 			({ data }) => data && (
 				<Helmet title="Browse">

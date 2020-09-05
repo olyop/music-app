@@ -4,10 +4,10 @@ import Item from "../Item"
 import Cover from "../Cover"
 import DocLink from "../DocLink"
 import { determinePlural } from "../../helpers"
-import { useSettingsContext } from "../../contexts/Settings"
+import { useStateListStyle } from "../../redux"
 import { Artist as ArtistType, ListStyle } from "../../types"
 
-const ArtistLower: FC<PropTypes> = ({ artist }) => {
+const Lower: FC<PropTypes> = ({ artist }) => {
 	const { numOfSongs, numOfAlbums } = artist
 	const albumsText = numOfAlbums ? `${numOfAlbums} album${determinePlural(numOfAlbums)}` : ""
 	const songsText = numOfSongs ? `${numOfSongs} song${determinePlural(numOfSongs)}` : ""
@@ -19,18 +19,19 @@ const ArtistLower: FC<PropTypes> = ({ artist }) => {
 }
 
 const Artist: FC<PropTypes> = ({ artist, className = null }) => {
-	const { settings: { listStyle } } = useSettingsContext()
+	const listStyle = useStateListStyle()
 	return listStyle === ListStyle.GRID ? (
 		<div className={[ className, "Card", "Elevated" ].join(" ")}>
 			<Cover
 				landscape
 				url={artist.photo}
+				link={`/artist/${artist.artistId}`}
 			/>
 			<Item
 				doc={artist}
 				className="PaddingHalf"
 				upper={<DocLink doc={artist}/>}
-				lower={<ArtistLower artist={artist}/>}
+				lower={<Lower artist={artist}/>}
 			/>
 		</div>
 	) : (
@@ -38,7 +39,7 @@ const Artist: FC<PropTypes> = ({ artist, className = null }) => {
 			doc={artist}
 			imgDoc={artist}
 			upper={<DocLink doc={artist}/>}
-			lower={<ArtistLower artist={artist}/>}
+			lower={<Lower artist={artist}/>}
 			className={[ className, "PaddingHalf", "ItemBorder", "Hover" ].join(" ")}
 		/>
 	)

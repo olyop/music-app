@@ -1,5 +1,5 @@
 import startCase from "lodash/startCase"
-import { createBem, BemInput } from "@oly_op/bem"
+import { createBem, BemPropTypes } from "@oly_op/bem"
 import { createElement, FC, ChangeEventHandler } from "react"
 
 const bem = createBem("Select")
@@ -26,10 +26,9 @@ const Select: FC<PropTypes> = ({ value, options, onChange, className }) => {
 	)
 }
 
-interface PropTypes {
+interface PropTypes extends BemPropTypes {
 	value: string,
 	options: string[],
-	className?: BemInput,
 	onChange: (val: string) => void,
 }
 

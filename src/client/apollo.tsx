@@ -4,25 +4,21 @@ import {
 	ApolloClient,
 	TypePolicies,
 	InMemoryCache,
+	ApolloProvider,
 	FieldMergeFunction,
 } from "@apollo/client"
 
 import isEmpty from "lodash/isEmpty"
+import { createElement, FC } from "react"
 
 import { Song, Album, Artist } from "./types"
 
-const userMerge = <T>(): FieldMergeFunction<T[]> =>
+const userMerge = <T,>(): FieldMergeFunction<T[]> =>
 	(existing, incoming) =>
 		(existing && isEmpty(incoming) && existing.length !== 1 ? existing : incoming)
 
-// const feedMerge = <T>(): FieldMergeFunction<T[]> =>
-// 	(existing = [], incoming) => [...existing, ...incoming]
-
-const userDocs = <T>(): FieldPolicy<T[]> =>
+const userDocs = <T,>(): FieldPolicy<T[]> =>
 	({ merge: userMerge() })
-
-// const queryDocs = <T>(): FieldPolicy<T[]> =>
-// 	({ merge: feedMerge() })
 
 const typePolicies: TypePolicies = {
 	User: {
@@ -33,13 +29,6 @@ const typePolicies: TypePolicies = {
 			artists: userDocs<Artist>(),
 		},
 	},
-	// Query: {
-	// 	fields: {
-	// 		songs: queryDocs<Song>(),
-	// 		albums: queryDocs<Album>(),
-	// 		artists: queryDocs<Artist>(),
-	// 	},
-	// },
 	Song: { keyFields: ["songId"] },
 	Play: { keyFields: ["playId"] },
 	Album: { keyFields: ["albumId"] },
@@ -48,8 +37,12 @@ const typePolicies: TypePolicies = {
 	Playlist: { keyFields: ["playlistId"] },
 }
 
-const link = new HttpLink({ uri: "/graphql" })
-const cache = new InMemoryCache({ typePolicies })
-const client = new ApolloClient({ link, cache })
+export const link = new HttpLink({ uri: "/graphql" })
+export const cache = new InMemoryCache({ typePolicies })
+export const client = new ApolloClient({ link, cache })
 
-export default client
+export const Provider: FC = ({ children }) => (
+	<ApolloProvider client={client}>
+		{children}
+	</ApolloProvider>
+)

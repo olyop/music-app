@@ -4,8 +4,7 @@ import { createElement, FC, CSSProperties } from "react"
 
 import Icon from "../Icon"
 import { UserDoc } from "../../types"
-import { useUserContext } from "../../contexts/User"
-import { useSettingsContext } from "../../contexts/Settings"
+import { useStateUserId, useStateOrderBy } from "../../redux"
 import { determineDocReturn, determineDocId } from "../../helpers"
 
 import GET_USER_SONGS from "../../graphql/queries/userSongs.gql"
@@ -25,21 +24,22 @@ import ADD_USER_ALBUM from "../../graphql/mutations/addUserAlbum.gql"
 import ADD_USER_ARTIST from "../../graphql/mutations/addUserArtist.gql"
 
 const InLibraryButton: FC<PropTypes> = ({ doc, style, className }) => {
-	const userId = useUserContext()
-	const docId = determineDocId(doc)
-	const dr = determineDocReturn(doc)
-	const { settings } = useSettingsContext()
-
+	const dr =
+		determineDocReturn(doc)
 	const docName =
 		dr("Song", "Album", "Artist")
 	const docKey =
 		dr("songId", "albumId", "artistId")
 	const orderByKey =
-		dr("userSongsOrderBy", "userAlbumsOrderBy", "userArtistsOrderBy")
+		dr("userSongs", "userAlbums", "userArtists")
 	const QUERY =
 		dr(GET_SONG_IN_LIB, GET_ALBUM_IN_LIB, GET_ARTIST_IN_LIB)
 	const REFETCH_QUERY =
 		dr(GET_USER_SONGS, GET_USER_ALBUMS, GET_USER_ARTISTS)
+
+	const docId = determineDocId(doc)
+	const userId = useStateUserId()
+	const orderBy = useStateOrderBy(orderByKey)
 
 	const variables = { userId, [docKey]: docId }
 
@@ -62,7 +62,7 @@ const InLibraryButton: FC<PropTypes> = ({ doc, style, className }) => {
 			variables,
 			refetchQueries: [{
 				query: REFETCH_QUERY,
-				variables: { userId, orderBy: settings[orderByKey] },
+				variables: { userId, orderBy },
 			}],
 			optimisticResponse: {
 				[mutationName]: {

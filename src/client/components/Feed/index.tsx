@@ -10,6 +10,7 @@ import { Waypoint } from "react-waypoint"
 import type { DocumentNode } from "graphql"
 
 import QueryApi from "../QueryApi"
+import { useDispatch, updateLoading } from "../../redux"
 
 const Feed = <Data, Vars>({
 	query,
@@ -19,6 +20,7 @@ const Feed = <Data, Vars>({
 	variables = {} as Vars,
 }: PropTypes<Data, Vars>) => {
 	const page = useRef(0)
+	const dispatch = useDispatch()
 	useEffect(() => () => { page.current = 0 })
 	return (
 		<QueryApi<Data, BaseVars & Vars>
@@ -37,6 +39,7 @@ const Feed = <Data, Vars>({
 									if (parseData(data).length === (page.current * 30) + 30) {
 										page.current += 1
 										try {
+											dispatch(updateLoading(true))
 											await fetchMore({
 												variables: {
 													...variables,
@@ -52,6 +55,8 @@ const Feed = <Data, Vars>({
 											})
 										} catch (error) {
 											console.error(error)
+										} finally {
+											dispatch(updateLoading(false))
 										}
 									}
 								}}

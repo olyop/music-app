@@ -1,17 +1,7 @@
 import { FC } from "react"
 import { RouteComponentProps } from "react-router-dom"
 
-import {
-	SongOrderBy,
-	AlbumOrderBy,
-	ArtistOrderBy,
-	UserSongOrderBy,
-	UserAlbumOrderBy,
-	UserArtistOrderBy,
-} from "./orderBy"
-
 import { Song } from "./docs"
-import { ListStyle } from "./enums"
 
 export interface Disc {
 	songs: Song[],
@@ -48,18 +38,4 @@ export interface Queue {
 
 export interface UserVar {
 	userId: string,
-}
-
-export interface OrderBySettings {
-	songsOrderBy: SongOrderBy,
-	albumsOrderBy: AlbumOrderBy,
-	artistsOrderBy: ArtistOrderBy,
-	userSongsOrderBy: UserSongOrderBy,
-	userAlbumsOrderBy: UserAlbumOrderBy,
-	userArtistsOrderBy: UserArtistOrderBy,
-}
-
-export interface Settings extends OrderBySettings {
-	showGenres: boolean,
-	listStyle: ListStyle,
 }

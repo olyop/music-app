@@ -45,4 +45,10 @@
 		font-size: 28rem;
 		height: var(--info-height);
 		&:last-child {
-			margin-right: -3rem; } } }
+			margin-right: -3rem; } }
+	&__more {
+		right: 0;
+		z-index: 2;
+		width: 70rem;
+		height: 250rem;
+		position: fixed; } }

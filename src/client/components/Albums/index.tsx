@@ -3,7 +3,7 @@ import { createElement, FC } from "react"
 import List from "../List"
 import Album from "../Album"
 import OrderBy from "../OrderBy"
-import { Settings, Album as AlbumType } from "../../types"
+import { OrderBySettings, Album as AlbumType } from "../../types"
 
 const Albums: FC<PropTypes> = ({
 	albums,
@@ -38,7 +38,7 @@ interface PropTypes {
 	albums: AlbumType[],
 	hideOrderBy?: boolean,
 	orderByFields?: string[],
-	orderByKey?: keyof Pick<Settings, "albumsOrderBy" | "userAlbumsOrderBy">,
+	orderByKey?: keyof Pick<OrderBySettings, "albums" | "userAlbums">,
 }
 
 export default Albums

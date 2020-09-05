@@ -5,15 +5,14 @@ import { useParams } from "react-router-dom"
 import {
 	Genre,
 	UserVar,
-	SongOrderBy,
-	SongOrderByField,
+	SongsOrderBy,
+	SongsOrderByField,
 } from "../../types"
 
 import Songs from "../Songs"
 import Helmet from "../Helmet"
 import QueryApi from "../QueryApi"
-import { useUserContext } from "../../contexts/User"
-import { useSettingsContext } from "../../contexts/Settings"
+import { useStateUserId, useStateOrderBy } from "../../redux"
 import GET_GENRE_PAGE from "../../graphql/queries/genrePage.gql"
 
 import "./index.scss"
@@ -21,9 +20,9 @@ import "./index.scss"
 const bem = createBem("GenrePage")
 
 const GenrePage: FC = () => {
-	const userId = useUserContext()
+	const userId = useStateUserId()
 	const params = useParams<Params>()
-	const { settings: { songsOrderBy } } = useSettingsContext()
+	const songsOrderBy = useStateOrderBy<SongsOrderBy>("songs")
 	const variables = { userId, songsOrderBy, ...params }
 	return (
 		<QueryApi<Data, Vars>
@@ -38,9 +37,9 @@ const GenrePage: FC = () => {
 						/>
 						<Songs
 							className="Margin"
+							orderByKey="songs"
 							songs={data.genre.songs}
-							orderByKey="songsOrderBy"
-							orderByFields={Object.keys(SongOrderByField)}
+							orderByFields={Object.keys(SongsOrderByField)}
 						/>
 					</Helmet>
 				)
@@ -58,7 +57,7 @@ interface Params {
 }
 
 interface Vars extends UserVar, Params {
-	songsOrderBy: SongOrderBy,
+	songsOrderBy: SongsOrderBy,
 }
 
 export default GenrePage

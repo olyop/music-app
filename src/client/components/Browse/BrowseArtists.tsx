@@ -3,27 +3,26 @@ import { createElement, FC } from "react"
 import Feed from "../Feed"
 import Helmet from "../Helmet"
 import Artists from "../Artists"
-import { useUserContext } from "../../contexts/User"
 import GET_ARTISTS from "../../graphql/queries/artists.gql"
-import { useSettingsContext } from "../../contexts/Settings"
-import { Artist, UserVar, ArtistOrderBy, ArtistOrderByField } from "../../types"
+import { useStateUserId, useStateOrderBy } from "../../redux"
+import { Artist, UserVar, ArtistsOrderBy, ArtistsOrderByField } from "../../types"
 
 const BrowseArtists: FC = () => {
-	const userId = useUserContext()
-	const { settings } = useSettingsContext()
+	const userId = useStateUserId()
+	const orderBy = useStateOrderBy<ArtistsOrderBy>("artists")
 	return (
 		<Helmet title="Browse Artists">
 			<Feed<Data, Vars>
 				dataKey="artists"
 				query={GET_ARTISTS}
+				variables={{ userId, orderBy }}
 				parseData={({ artists }) => artists}
-				variables={{ userId, orderBy: settings.artistsOrderBy }}
 			>
 				{data => (
 					<Artists
-						orderByKey="artistsOrderBy"
+						orderByKey="artists"
 						artists={data?.artists || []}
-						orderByFields={Object.keys(ArtistOrderByField)}
+						orderByFields={Object.keys(ArtistsOrderByField)}
 					/>
 				)}
 			</Feed>
@@ -36,7 +35,7 @@ interface Data {
 }
 
 interface Vars extends UserVar {
-	orderBy: ArtistOrderBy,
+	orderBy: ArtistsOrderBy,
 }
 
 export default BrowseArtists

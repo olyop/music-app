@@ -6,11 +6,11 @@ import { createElement, FC, Fragment } from "react"
 import Song from "../Song"
 import QueryApi from "../QueryApi"
 import { User } from "../../types"
+import { useStateUserId } from "../../redux"
 import { createQueuesArray } from "../../helpers"
 import GET_USER_QUEUES from "../../graphql/queries/userQueues.gql"
 
 import "./index.scss"
-import { useUserContext } from "../../contexts/User"
 
 const bem = createBem("Queues")
 
@@ -18,7 +18,7 @@ const Queues: FC = () => (
 	<QueryApi<Data, Vars>
 		className={bem("")}
 		query={GET_USER_QUEUES}
-		variables={{ userId: useUserContext() }}
+		variables={{ userId: useStateUserId() }}
 		children={
 			({ data }) => data && (
 				createQueuesArray(data.user).map(

@@ -1,53 +1,14 @@
 query artistPage(
   $userId: Uuid!
   $artistId: Uuid!
-  $songsOrderBy: SongOrderByInput!
-  $albumsOrderBy: AlbumOrderByInput!
 ) {
   artist(artistId: $artistId) {
     artistId
     name
     numOfPlays
+    numOfSongs
+    numOfAlbums
     photo(size: FULL)
     inLibrary(userId: $userId)
-    songs(orderBy: $songsOrderBy) {
-      songId
-      mix
-      title
-      duration
-      inLibrary(userId: $userId)
-      featuring {
-        artistId
-        name
-      }
-      remixers {
-        artistId
-        name
-      }
-      artists {
-        artistId
-        name
-      }
-      genres {
-        genreId
-        name
-      }
-      album {
-        title
-        albumId
-        cover(size: HALF)
-      }
-    }
-    albums(orderBy: $albumsOrderBy) {
-      title
-      albumId
-      released
-      cover(size: HALF)
-      inLibrary(userId: $userId)
-      artists {
-        artistId
-        name
-      }
-    }
   }
 }

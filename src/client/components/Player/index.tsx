@@ -4,7 +4,6 @@ import { Link, RouteComponentProps } from "react-router-dom"
 
 import Img from "../Img"
 import Icon from "../Icon"
-import Empty from "../Empty"
 import Helmet from "../Helmet"
 import DocLink from "../DocLink"
 import QueryApi from "../QueryApi"
@@ -12,10 +11,10 @@ import Progress from "../Progress"
 import SongTitle from "../SongTitle"
 import UserControls from "../UserControls"
 import { User, UserVar } from "../../types"
+import { useStateUserId } from "../../redux"
 import InLibraryButton from "../InLibraryButton"
 import { determineDocPath } from "../../helpers"
 import FeaturingArtists from "../FeaturingArtists"
-import { useUserContext } from "../../contexts/User"
 import GET_USER_CURRENT from "../../graphql/queries/userCurrent.gql"
 
 import "./index.scss"
@@ -27,7 +26,7 @@ const Player: FC<RouteComponentProps> = ({ history }) => (
 	<QueryApi<Data, UserVar>
 		query={GET_USER_CURRENT}
 		className={bem("", "Elevated")}
-		variables={{ userId: useUserContext() }}
+		variables={{ userId: useStateUserId() }}
 		children={
 			({ data }) => (
 				<Fragment>
@@ -36,57 +35,51 @@ const Player: FC<RouteComponentProps> = ({ history }) => (
 						onClick={() => history.goBack()}
 						className={bem("close", "PaddingQuart")}
 					/>
-					{data && (
-						<Fragment>
-							{data.user.current ? (
-								<Helmet title="Now Playing">
-									<div className={bem("main")}>
-										<Link
-											className={bem("main-cover")}
-											to={determineDocPath(data.user.current.album)}
-										>
-											<Img
-												url={data.user.current.album.cover}
-												title={data.user.current.album.title}
-												className={bem("Card", "Elevated")}
-											/>
-										</Link>
-										<div className={bem("main-title", "main-text")}>
-											<h1 className={bem("main-title-text")}>
-												<SongTitle
-													showRemixers
-													song={data.user.current}
-												/>
-											</h1>
-											<InLibraryButton
-												doc={data.user.current}
-												className={bem("main-title-inLibrary")}
-											/>
-										</div>
-										<h3 className={bem("main-artists", "main-text")}>
-											<FeaturingArtists
-												artists={data.user.current.artists}
-												featuring={data.user.current.featuring}
-											/>
-										</h3>
-										<h2 className={bem("main-album", "main-text")}>
-											<DocLink doc={data.user.current.album}/>
-											<Fragment> - </Fragment>
-											<DocLinks docs={data.user.current.genres}/>
-										</h2>
-										<Progress
-											className={bem("main-progreess")}
+					{data && data.user.current && (
+						<Helmet title="Now Playing">
+							<div className={bem("main")}>
+								<Link
+									className={bem("main-cover")}
+									to={determineDocPath(data.user.current.album)}
+								>
+									<Img
+										url={data.user.current.album.cover}
+										title={data.user.current.album.title}
+										className={bem("Card", "Elevated")}
+									/>
+								</Link>
+								<div className={bem("main-title", "main-text")}>
+									<h1 className={bem("main-title-text")}>
+										<SongTitle
+											showRemixers
+											song={data.user.current}
 										/>
-										<UserControls
-											className={bem("main-controls")}
-											iconClassName={bem("main-controls-icon")}
-										/>
-									</div>
-								</Helmet>
-							) : (
-								<Empty title="No current song playing."/>
-							)}
-						</Fragment>
+									</h1>
+									<InLibraryButton
+										doc={data.user.current}
+										className={bem("main-title-inLibrary")}
+									/>
+								</div>
+								<h3 className={bem("main-artists", "main-text")}>
+									<FeaturingArtists
+										artists={data.user.current.artists}
+										featuring={data.user.current.featuring}
+									/>
+								</h3>
+								<h2 className={bem("main-album", "main-text")}>
+									<DocLink doc={data.user.current.album}/>
+									<Fragment> - </Fragment>
+									<DocLinks docs={data.user.current.genres}/>
+								</h2>
+								<Progress
+									className={bem("main-progreess")}
+								/>
+								<UserControls
+									className={bem("main-controls")}
+									iconClassName={bem("main-controls-icon")}
+								/>
+							</div>
+						</Helmet>
 					)}
 				</Fragment>
 			)

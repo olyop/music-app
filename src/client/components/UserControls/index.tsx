@@ -1,10 +1,15 @@
 import { createElement, FC } from "react"
 import { useMutation } from "@apollo/client"
-import { createBem, BemInput } from "@oly_op/bem"
+import { createBem, BemInput, BemPropTypes } from "@oly_op/bem"
+
+import {
+	togglePlay,
+	useDispatch,
+	useStatePlay,
+	useStateUserId,
+} from "../../redux"
 
 import Icon from "../Icon"
-import { useUserContext } from "../../contexts/User"
-import { usePlayContext } from "../../contexts/Play"
 import USER_PREV from "../../graphql/mutations/userPrev.gql"
 import USER_NEXT from "../../graphql/mutations/userNext.gql"
 
@@ -13,15 +18,16 @@ import "./index.scss"
 const bem = createBem("UserControls")
 
 const UserControls: FC<PropTypes> = ({ className, iconClassName }) => {
-	const userId = useUserContext()
-	const { play, setPlay } = usePlayContext()
+	const play = useStatePlay()
+	const dispatch = useDispatch()
+	const userId = useStateUserId()
 
 	const variables = { userId }
 	const [ userPrev ] = useMutation(USER_PREV, { variables })
 	const [ userNext ] = useMutation(USER_NEXT, { variables })
 
 	const handlePrevClick = () => userPrev()
-	const handlePlayClick = () => setPlay(prevState => !prevState)
+	const handlePlayClick = () => dispatch(togglePlay())
 	const handleNextClick = () => userNext()
 
 	return (
@@ -45,8 +51,7 @@ const UserControls: FC<PropTypes> = ({ className, iconClassName }) => {
 	)
 }
 
-interface PropTypes {
-	className?: BemInput,
+interface PropTypes extends BemPropTypes {
 	iconClassName?: BemInput,
 }
 

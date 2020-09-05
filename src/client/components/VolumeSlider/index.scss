@@ -11,15 +11,6 @@
 	bottom: var(--player-height);
 	justify-content: space-between;
 	border-radius: var(--border-radius);
-	&__close {
-		top: 0;
-		left: 0;
-		right: 0;
-		bottom: 0;
-		width: 100vw;
-		height: 100vh;
-		position: absolute;
-		background-color: transparent; }
 	&__button {
 		padding: 4rem;
 		font-size: 28rem;

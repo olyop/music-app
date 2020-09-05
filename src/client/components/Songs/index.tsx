@@ -1,9 +1,10 @@
+import isEmpty from "lodash/isEmpty"
 import { createElement, FC } from "react"
-import { createBem, BemInput } from "@oly_op/bem"
+import { createBem, BemPropTypes } from "@oly_op/bem"
 
 import Song from "../Song"
 import OrderBy from "../OrderBy"
-import { Settings, Song as SongType } from "../../types"
+import { OrderBySettings, Song as SongType } from "../../types"
 
 const bem = createBem("Songs")
 
@@ -14,7 +15,7 @@ const Songs: FC<PropTypes> = ({
 	orderByFields,
 	hideOrderBy = false,
 }) => (
-	<div className={bem(className, songs.length === 0 ? null : "Elevated")}>
+	<div className={bem(className, isEmpty(songs) ? null : "Elevated")}>
 		{hideOrderBy || (
 			<OrderBy
 				settingsKey={orderByKey!}
@@ -34,12 +35,11 @@ const Songs: FC<PropTypes> = ({
 	</div>
 )
 
-interface PropTypes {
+interface PropTypes extends BemPropTypes {
 	songs: SongType[],
-	className?: BemInput,
 	hideOrderBy?: boolean,
 	orderByFields?: string[],
-	orderByKey?: keyof Pick<Settings, "songsOrderBy" | "userSongsOrderBy">,
+	orderByKey?: keyof Pick<OrderBySettings, "songs" | "userSongs">,
 }
 
 export default Songs

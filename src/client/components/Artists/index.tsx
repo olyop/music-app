@@ -3,7 +3,7 @@ import { createElement, FC } from "react"
 import List from "../List"
 import Artist from "../Artist"
 import OrderBy from "../OrderBy"
-import { Settings, Artist as ArtistType } from "../../types"
+import { OrderBySettings, Artist as ArtistType } from "../../types"
 
 const Artists: FC<PropTypes> = ({
 	artists,
@@ -38,7 +38,7 @@ interface PropTypes {
 	artists: ArtistType[],
 	hideOrderBy?: boolean,
 	orderByFields?: string[],
-	orderByKey?: keyof Pick<Settings, "artistsOrderBy" | "userArtistsOrderBy">,
+	orderByKey?: keyof Pick<OrderBySettings, "artists" | "userArtists">,
 }
 
 export default Artists

@@ -41,8 +41,8 @@
 		"no-else-return": "off",
 		"react/prop-types": "off",
 		"no-nested-ternary": "off",
+		"node/no-process-env": "off",
 		"object-curly-newline": "off",
-		"node/no-process-env": "error",
 		"jsx-a11y/no-autofocus": "off",
 		"no-restricted-globals": "off",
 		"array-bracket-spacing": "off",
@@ -114,16 +114,16 @@
 			"error",
 			"double"
 		],
-		"react/jsx-no-duplicate-props": [
-			"error",
-			{
-				"ignoreCase": false
-			}
-		],
 		"@typescript-eslint/no-unused-vars": [
 			"error",
 			{
 				"args": "none"
+			}
+		],
+		"react/jsx-no-duplicate-props": [
+			"error",
+			{
+				"ignoreCase": false
 			}
 		],
 		"@typescript-eslint/naming-convention": [

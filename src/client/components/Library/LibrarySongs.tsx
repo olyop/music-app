@@ -1,32 +1,34 @@
+import isEmpty from "lodash/isEmpty"
 import { createElement, FC } from "react"
 
 import {
 	User,
 	UserVar,
-	UserSongOrderBy,
-	UserSongOrderByField,
+	UserSongsOrderBy,
+	UserSongsOrderByField,
 } from "../../types"
 
 import Songs from "../Songs"
 import Helmet from "../Helmet"
 import QueryApi from "../QueryApi"
-import { useUserContext } from "../../contexts/User"
-import { useSettingsContext } from "../../contexts/Settings"
+import { useStateUserId, useStateOrderBy } from "../../redux"
 import GET_USER_SONGS from "../../graphql/queries/userSongs.gql"
 
 const LibrarySongs: FC = () => {
-	const { settings: { userSongsOrderBy } } = useSettingsContext()
+	const userId = useStateUserId()
+	const orderBy = useStateOrderBy<UserSongsOrderBy>("userSongs")
 	return (
 		<Helmet title="Library Songs">
 			<QueryApi<Data, Vars>
 				query={GET_USER_SONGS}
-				variables={{ userId: useUserContext(), orderBy: userSongsOrderBy }}
+				variables={{ userId, orderBy }}
 				children={
 					({ data }) => (
 						<Songs
-							orderByKey="userSongsOrderBy"
+							orderByKey="userSongs"
 							songs={data?.user.songs || []}
-							orderByFields={Object.keys(UserSongOrderByField)}
+							hideOrderBy={isEmpty(data?.user.songs)}
+							orderByFields={Object.keys(UserSongsOrderByField)}
 						/>
 					)
 				}
@@ -40,7 +42,7 @@ interface Data {
 }
 
 interface Vars extends UserVar {
-	orderBy: UserSongOrderBy,
+	orderBy: UserSongsOrderBy,
 }
 
 export default LibrarySongs

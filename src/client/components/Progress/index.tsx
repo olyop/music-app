@@ -1,13 +1,18 @@
 import isNull from "lodash/isNull"
 import isUndefined from "lodash/isUndefined"
-import { createBem, BemInput } from "@oly_op/bem"
+import { createBem, BemPropTypes } from "@oly_op/bem"
 import { createElement, ChangeEventHandler, FC, Fragment } from "react"
 import deserializeDuration from "@oly_op/music-app-common/deserializeDuration"
 
+import {
+	useDispatch,
+	updateCurrent,
+	useStateUserId,
+	useStateCurrent,
+} from "../../redux"
+
 import QueryApi from "../QueryApi"
 import { User } from "../../types"
-import { useUserContext } from "../../contexts/User"
-import { useCurrentContext } from "../../contexts/Current"
 import GET_USER_CURRENT from "../../graphql/queries/userCurrent.gql"
 
 import "./index.scss"
@@ -18,13 +23,15 @@ const determineDuration = (data: Data | undefined) =>
 	(isUndefined(data) || isNull(data.user.current) ?
 		0 : data.user.current.duration)
 
-const Progress: FC<PropTypes> = ({ className }) => {
+const Progress: FC<BemPropTypes> = ({ className }) => {
+	const dispatch =
+		useDispatch()
 	const userId =
-		useUserContext()
-	const { current, setCurrent } =
-		useCurrentContext()
+		useStateUserId()
+	const current =
+		useStateCurrent()
 	const handleChange: ChangeEventHandler<HTMLInputElement> =
-		event => setCurrent(parseInt(event.target.value))
+		event => dispatch(updateCurrent(parseInt(event.target.value)))
 	return (
 		<QueryApi<Data>
 			variables={{ userId }}
@@ -62,10 +69,6 @@ const Progress: FC<PropTypes> = ({ className }) => {
 
 interface Data {
 	user: User,
-}
-
-interface PropTypes {
-	className?: BemInput,
 }
 
 export default Progress

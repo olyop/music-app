@@ -52,6 +52,7 @@ export interface Artist extends ArtistBase, UserDoc<"Artist"> {
 export interface Album extends AlbumBase, UserDoc<"Album"> {
 	cover: string,
 	songs: Song[],
+	genres: Genre[],
 	released: string,
 	artists: Artist[],
 	totalDuration: number,

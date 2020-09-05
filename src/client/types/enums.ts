@@ -8,33 +8,33 @@ export enum OrderByDirection {
 	DESC = "DESC",
 }
 
-export enum SongOrderByField {
+export enum SongsOrderByField {
 	TITLE = "TITLE",
 	DURATION = "DURATION",
 }
 
-export enum UserSongOrderByField {
+export enum UserSongsOrderByField {
 	TITLE = "TITLE",
 	DURATION = "DURATION",
 	DATE_ADDED = "DATE_ADDED",
 }
 
-export enum AlbumOrderByField {
+export enum AlbumsOrderByField {
 	TITLE = "TITLE",
 	RELEASED = "RELEASED",
 }
 
-export enum UserAlbumOrderByField {
+export enum UserAlbumsOrderByField {
 	TITLE = "TITLE",
 	RELEASED = "RELEASED",
 	DATE_ADDED = "DATE_ADDED",
 }
 
-export enum ArtistOrderByField {
+export enum ArtistsOrderByField {
 	NAME = "NAME",
 }
 
-export enum UserArtistOrderByField {
+export enum UserArtistsOrderByField {
 	NAME = "NAME",
 	DATE_ADDED = "DATE_ADDED",
 }

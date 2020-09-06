@@ -1,6 +1,6 @@
 import type { DocumentNode } from "graphql"
+import { useQuery, QueryResult } from "@apollo/client"
 import { createElement, useEffect, Fragment, ReactNode } from "react"
-import { useQuery, QueryResult, WatchQueryFetchPolicy } from "@apollo/client"
 
 import ApiError from "../ApiError"
 import { useDispatch, updateLoading } from "../../redux"
@@ -9,16 +9,19 @@ const QueryApi = <Data, Vars = Record<string, unknown>>({
 	query,
 	children,
 	className,
-	fetchPolicy,
+	hideLoading = false,
 	variables = {} as Vars,
 }: PropTypes<Data, Vars>) => {
 	const dispatch =
 		useDispatch()
 	const { error, loading, ...res } =
-		useQuery<Data, Vars>(query, { variables, fetchPolicy })
+		useQuery<Data, Vars>(query, { variables })
 
-	// eslint-disable-next-line react-hooks/exhaustive-deps
-	useEffect(() => { dispatch(updateLoading(loading)) }, [loading])
+	useEffect(() => {
+		if (!hideLoading) {
+			dispatch(updateLoading(loading))
+		}
+	}, [loading, dispatch, hideLoading])
 
 	if (error !== undefined) {
 		return <ApiError error={error}/>
@@ -36,7 +39,7 @@ interface PropTypes<Data, Vars> {
 	variables?: Vars,
 	className?: string,
 	query: DocumentNode,
-	fetchPolicy?: WatchQueryFetchPolicy,
+	hideLoading?: boolean,
 	children(res: QueryResult<Data, Vars>): ReactNode,
 }
 

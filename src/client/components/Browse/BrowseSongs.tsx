@@ -13,10 +13,16 @@ const BrowseSongs: FC = () => {
 	return (
 		<Helmet title="Browse Songs">
 			<Feed<Data, Vars>
-				dataKey="songs"
 				query={GET_SONGS}
 				variables={{ userId, orderBy }}
-				parseData={({ songs }) => songs}
+				dataToDocsLength={({ songs }) => songs.length}
+				updateQuery={(existing, incoming) => ({
+					...existing,
+					albums: [
+						...existing.songs,
+						...incoming.songs,
+					],
+				})}
 				children={
 					data => (
 						<Songs

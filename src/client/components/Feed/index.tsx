@@ -14,9 +14,9 @@ import { useDispatch, updateLoading } from "../../redux"
 
 const Feed = <Data, Vars>({
 	query,
-	dataKey,
 	children,
-	parseData,
+	updateQuery,
+	dataToDocsLength,
 	variables = {} as Vars,
 }: PropTypes<Data, Vars>) => {
 	const page = useRef(0)
@@ -36,7 +36,7 @@ const Feed = <Data, Vars>({
 						{data && (
 							<Waypoint
 								onEnter={async () => {
-									if (parseData(data).length === (page.current * 30) + 30) {
+									if (dataToDocsLength(data) === (page.current * 30) + 30) {
 										page.current += 1
 										try {
 											dispatch(updateLoading(true))
@@ -45,13 +45,8 @@ const Feed = <Data, Vars>({
 													...variables,
 													page: page.current,
 												},
-												updateQuery: (prev: Data, { fetchMoreResult }) => ({
-													...prev,
-													[dataKey]: [
-														...parseData(prev),
-														...parseData(fetchMoreResult!),
-													],
-												}),
+												updateQuery: (prev: Data, { fetchMoreResult }) =>
+													updateQuery(prev, fetchMoreResult!),
 											})
 										} catch (error) {
 											console.error(error)
@@ -76,9 +71,9 @@ export interface BaseVars {
 interface PropTypes<Data, Vars> {
 	variables?: Vars,
 	query: DocumentNode,
-	dataKey: keyof Data,
-	parseData: (data: Data) => unknown[],
+	dataToDocsLength: (data: Data) => number,
 	children: (data: Data | undefined) => ReactNode,
+	updateQuery: (existing: Data, incoming: Data) => Data,
 }
 
 export default Feed

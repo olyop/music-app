@@ -109,6 +109,12 @@ export interface OrderByArgs {
 	orderBy: OrderBy,
 }
 
+export interface PageArgs {
+	page: number,
+}
+
+export interface DocsArgs extends PageArgs, OrderByArgs {}
+
 export interface DocsOrderBy<T> {
 	id: string,
 	orderBy?: OrderBy,

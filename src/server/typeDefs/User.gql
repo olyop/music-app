@@ -8,8 +8,8 @@ type User {
   queue: [Song!]!
   plays: [Play!]!
   dateJoined: Timestamp!
-  songs(orderBy: UserSongOrderByInput!): [Song!]!
-  albums(orderBy: UserAlbumOrderByInput!): [Album!]!
-  artists(orderBy: UserArtistOrderByInput!): [Artist!]!
-  playlists(orderBy: UserPlaylistOrderByInput!): [Playlist!]!
+  songs(page: NonNegativeInt!, orderBy: UserSongOrderByInput!): [Song!]!
+  albums(page: NonNegativeInt!, orderBy: UserAlbumOrderByInput!): [Album!]!
+  artists(page: NonNegativeInt!, orderBy: UserArtistOrderByInput!): [Artist!]!
+  playlists(page: NonNegativeInt!, orderBy: UserPlaylistOrderByInput!): [Playlist!]!
 }

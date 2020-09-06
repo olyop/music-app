@@ -5,8 +5,8 @@ import {
 	Album,
 	Genre,
 	Artist,
+	DocsArgs,
 	Playlist,
-	OrderByArgs,
 } from "../../types"
 
 import {
@@ -30,10 +30,6 @@ import { sql, createResolver } from "../../helpers"
 const resolver =
 	createResolver()
 
-interface PageArgs {
-	page: number,
-}
-
 export const genres =
 	resolver<Genre[]>(
 		() => (
@@ -50,7 +46,7 @@ export const genres =
 	)
 
 export const songs =
-	resolver<Song[], PageArgs & OrderByArgs>(
+	resolver<Song[], DocsArgs>(
 		({ args }) => (
 			sql.query({
 				sql: SELECT_SONGS,
@@ -77,7 +73,7 @@ export const songs =
 	)
 
 export const albums =
-	resolver<Album[], PageArgs & OrderByArgs>(
+	resolver<Album[], DocsArgs>(
 		({ args }) => (
 			sql.query({
 				sql: SELECT_ALBUMS,
@@ -104,7 +100,7 @@ export const albums =
 	)
 
 export const artists =
-	resolver<Artist[], PageArgs & OrderByArgs>(
+	resolver<Artist[], DocsArgs>(
 		({ args }) => (
 			sql.query({
 				sql: SELECT_ARTISTS,

@@ -7,9 +7,9 @@ import {
 	UserAlbumsOrderByField,
 } from "../../types"
 
+import Feed from "../Feed"
 import Albums from "../Albums"
 import Helmet from "../Helmet"
-import QueryApi from "../QueryApi"
 import { useStateUserId, useStateOrderBy } from "../../redux"
 import GET_USER_ALBUMS from "../../graphql/queries/userAlbums.gql"
 
@@ -18,18 +18,27 @@ const LibraryAlbums: FC = () => {
 	const orderBy = useStateOrderBy<UserAlbumsOrderBy>("userAlbums")
 	return (
 		<Helmet title="Library Albums">
-			<QueryApi<Data, Vars>
+			<Feed<Data, Vars>
 				query={GET_USER_ALBUMS}
 				variables={{ userId, orderBy }}
-				children={
-					({ data }) => (
-						<Albums
-							orderByKey="userAlbums"
-							albums={data?.user.albums || []}
-							orderByFields={Object.keys(UserAlbumsOrderByField)}
-						/>
-					)
-				}
+				dataToDocsLength={({ user }) => user.albums.length}
+				updateQuery={(existing, incoming) => ({
+					...existing,
+					user: {
+						...existing.user,
+						albums: [
+							...existing.user.albums,
+							...incoming.user.albums,
+						],
+					},
+				})}
+				children={data => (
+					<Albums
+						orderByKey="userAlbums"
+						albums={data?.user.albums || []}
+						orderByFields={Object.keys(UserAlbumsOrderByField)}
+					/>
+				)}
 			/>
 		</Helmet>
 	)

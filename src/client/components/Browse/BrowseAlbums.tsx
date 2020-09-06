@@ -13,19 +13,24 @@ const BrowseAlbums: FC = () => {
 	return (
 		<Helmet title="Browse Artists">
 			<Feed<Data, Vars>
-				dataKey="albums"
 				query={GET_ALBUMS}
-				parseData={({ albums }) => albums}
 				variables={{ userId, orderBy }}
-			>
-				{data => (
+				dataToDocsLength={({ albums }) => albums.length}
+				updateQuery={(existing, incoming) => ({
+					...existing,
+					albums: [
+						...existing.albums,
+						...incoming.albums,
+					],
+				})}
+				children={data => (
 					<Albums
 						orderByKey="albums"
 						albums={data?.albums || []}
 						orderByFields={Object.keys(AlbumsOrderByField)}
 					/>
 				)}
-			</Feed>
+			/>
 		</Helmet>
 	)
 }

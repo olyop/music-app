@@ -7,8 +7,8 @@ import {
 	Album,
 	Artist,
 	OrderBy,
+	DocsArgs,
 	Playlist,
-	OrderByArgs,
 } from "../types"
 
 import {
@@ -129,6 +129,7 @@ export const plays =
 
 interface UserDocsInput {
 	id: string,
+	page: number,
 	orderBy: OrderBy,
 	tableName: string,
 	columnName: string,
@@ -136,7 +137,15 @@ interface UserDocsInput {
 	userTableName: string,
 }
 
-const userDocs = <T>({ id, orderBy, tableName, columnName, columnNames, userTableName }: UserDocsInput) =>
+const userDocs = <T>({
+	id,
+	page,
+	orderBy,
+	tableName,
+	columnName,
+	columnNames,
+	userTableName,
+}: UserDocsInput) =>
 	sql.query<T[]>({
 		sql: SELECT_USER_DOCS,
 		parse: sql.parseTable(),
@@ -160,6 +169,10 @@ const userDocs = <T>({ id, orderBy, tableName, columnName, columnNames, userTabl
 			key: "orderByField",
 			value: orderBy.field,
 		},{
+			key: "offset",
+			string: false,
+			value: page * 30,
+		},{
 			string: false,
 			key: "orderByDirection",
 			value: orderBy.direction,
@@ -175,9 +188,10 @@ const userDocs = <T>({ id, orderBy, tableName, columnName, columnNames, userTabl
 	})
 
 export const songs =
-	resolver<Song[], OrderByArgs>(
+	resolver<Song[], DocsArgs>(
 		({ parent, args }) => (
 			userDocs({
+				page: args.page,
 				id: parent.userId,
 				tableName: "songs",
 				orderBy: args.orderBy,
@@ -189,9 +203,10 @@ export const songs =
 	)
 
 export const albums =
-	resolver<Album[], OrderByArgs>(
+	resolver<Album[], DocsArgs>(
 		({ parent, args }) => (
 			userDocs({
+				page: args.page,
 				id: parent.userId,
 				tableName: "albums",
 				orderBy: args.orderBy,
@@ -203,9 +218,10 @@ export const albums =
 	)
 
 export const artists =
-	resolver<Artist[], OrderByArgs>(
+	resolver<Artist[], DocsArgs>(
 		({ parent, args }) => (
 			userDocs({
+				page: args.page,
 				id: parent.userId,
 				tableName: "artists",
 				orderBy: args.orderBy,
@@ -217,9 +233,10 @@ export const artists =
 	)
 
 export const playlists =
-	resolver<Playlist[], OrderByArgs>(
+	resolver<Playlist[], DocsArgs>(
 		({ parent, args }) => (
 			userDocs({
+				page: args.page,
 				id: parent.userId,
 				orderBy: args.orderBy,
 				tableName: "playlists",

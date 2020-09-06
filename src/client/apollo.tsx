@@ -21,6 +21,14 @@ const userDocs = <T,>(): FieldPolicy<T[]> =>
 	({ merge: userMerge() })
 
 const typePolicies: TypePolicies = {
+	Query: {
+		queryType: true,
+		fields: {
+			songs: { keyArgs: ["orderBy"] },
+			albums: { keyArgs: ["orderBy"] },
+			artists: { keyArgs: ["orderBy"] },
+		},
+	},
 	User: {
 		keyFields: ["userId"],
 		fields: {

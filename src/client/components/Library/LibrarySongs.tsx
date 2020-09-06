@@ -8,9 +8,9 @@ import {
 	UserSongsOrderByField,
 } from "../../types"
 
+import Feed from "../Feed"
 import Songs from "../Songs"
 import Helmet from "../Helmet"
-import QueryApi from "../QueryApi"
 import { useStateUserId, useStateOrderBy } from "../../redux"
 import GET_USER_SONGS from "../../graphql/queries/userSongs.gql"
 
@@ -19,19 +19,28 @@ const LibrarySongs: FC = () => {
 	const orderBy = useStateOrderBy<UserSongsOrderBy>("userSongs")
 	return (
 		<Helmet title="Library Songs">
-			<QueryApi<Data, Vars>
+			<Feed<Data, Vars>
 				query={GET_USER_SONGS}
 				variables={{ userId, orderBy }}
-				children={
-					({ data }) => (
-						<Songs
-							orderByKey="userSongs"
-							songs={data?.user.songs || []}
-							hideOrderBy={isEmpty(data?.user.songs)}
-							orderByFields={Object.keys(UserSongsOrderByField)}
-						/>
-					)
-				}
+				dataToDocsLength={({ user }) => user.songs.length}
+				updateQuery={(existing, incoming) => ({
+					...existing,
+					user: {
+						...existing.user,
+						songs: [
+							...existing.user.songs,
+							...incoming.user.songs,
+						],
+					},
+				})}
+				children={data => (
+					<Songs
+						orderByKey="userSongs"
+						songs={data?.user.songs || []}
+						hideOrderBy={isEmpty(data?.user.songs)}
+						orderByFields={Object.keys(UserSongsOrderByField)}
+					/>
+				)}
 			/>
 		</Helmet>
 	)

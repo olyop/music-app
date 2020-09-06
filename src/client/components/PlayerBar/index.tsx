@@ -36,6 +36,7 @@ const PlayerBar: FC = () => {
 			/>
 			<div className={bem("main")}>
 				<QueryApi<Data>
+					hideLoading
 					variables={{ userId }}
 					query={GET_USER_CURRENT}
 					className={bem("main-info")}

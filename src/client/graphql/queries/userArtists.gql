@@ -1,10 +1,11 @@
 query userArtists(
   $userId: Uuid!
+  $page: NonNegativeInt!
   $orderBy: UserArtistOrderByInput!
 ) {
   user(userId: $userId) {
     userId
-    artists(orderBy: $orderBy) {
+    artists(page: $page, orderBy: $orderBy) {
       artistId
       name
       photo(size: MINI)

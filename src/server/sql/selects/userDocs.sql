@@ -9,4 +9,8 @@ WHERE
 	in_library = true AND
 	user_id = {{ userId }}
 ORDER BY
-	{{ orderByTableName }}.{{ orderByField }} {{ orderByDirection }};
+	{{ orderByTableName }}.{{ orderByField }} {{ orderByDirection }}
+LIMIT
+  30
+OFFSET
+  {{ offset }};

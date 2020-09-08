@@ -18,7 +18,7 @@ const BrowseSongs: FC = () => {
 				dataToDocsLength={({ songs }) => songs.length}
 				updateQuery={(existing, incoming) => ({
 					...existing,
-					albums: [
+					songs: [
 						...existing.songs,
 						...incoming.songs,
 					],

@@ -7,8 +7,8 @@ import {
 	Album,
 	Artist,
 	OrderBy,
-	DocsArgs,
 	Playlist,
+	OrderByArgs,
 } from "../types"
 
 import {
@@ -129,7 +129,6 @@ export const plays =
 
 interface UserDocsInput {
 	id: string,
-	page: number,
 	orderBy: OrderBy,
 	tableName: string,
 	columnName: string,
@@ -139,7 +138,6 @@ interface UserDocsInput {
 
 const userDocs = <T>({
 	id,
-	page,
 	orderBy,
 	tableName,
 	columnName,
@@ -169,10 +167,6 @@ const userDocs = <T>({
 			key: "orderByField",
 			value: orderBy.field,
 		},{
-			key: "offset",
-			string: false,
-			value: page * 30,
-		},{
 			string: false,
 			key: "orderByDirection",
 			value: orderBy.direction,
@@ -188,10 +182,9 @@ const userDocs = <T>({
 	})
 
 export const songs =
-	resolver<Song[], DocsArgs>(
+	resolver<Song[], OrderByArgs>(
 		({ parent, args }) => (
 			userDocs({
-				page: args.page,
 				id: parent.userId,
 				tableName: "songs",
 				orderBy: args.orderBy,
@@ -203,10 +196,9 @@ export const songs =
 	)
 
 export const albums =
-	resolver<Album[], DocsArgs>(
+	resolver<Album[], OrderByArgs>(
 		({ parent, args }) => (
 			userDocs({
-				page: args.page,
 				id: parent.userId,
 				tableName: "albums",
 				orderBy: args.orderBy,
@@ -218,10 +210,9 @@ export const albums =
 	)
 
 export const artists =
-	resolver<Artist[], DocsArgs>(
+	resolver<Artist[], OrderByArgs>(
 		({ parent, args }) => (
 			userDocs({
-				page: args.page,
 				id: parent.userId,
 				tableName: "artists",
 				orderBy: args.orderBy,
@@ -233,10 +224,9 @@ export const artists =
 	)
 
 export const playlists =
-	resolver<Playlist[], DocsArgs>(
+	resolver<Playlist[], OrderByArgs>(
 		({ parent, args }) => (
 			userDocs({
-				page: args.page,
 				id: parent.userId,
 				orderBy: args.orderBy,
 				tableName: "playlists",

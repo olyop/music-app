@@ -6,11 +6,12 @@ import {
 	createElement,
 } from "react"
 
+import uniqueId from "lodash/uniqueId"
 import { Waypoint } from "react-waypoint"
 import type { DocumentNode } from "graphql"
 
 import QueryApi from "../QueryApi"
-import { useDispatch, updateLoading } from "../../redux"
+import { useDispatch, addLoading, removeLoading } from "../../redux"
 
 const Feed = <Data, Vars>({
 	query,
@@ -37,9 +38,10 @@ const Feed = <Data, Vars>({
 							<Waypoint
 								onEnter={async () => {
 									if (dataToDocsLength(data) === (page.current * 30) + 30) {
+										const queryId = uniqueId()
+										dispatch(addLoading(queryId))
 										page.current += 1
 										try {
-											dispatch(updateLoading(true))
 											await fetchMore({
 												variables: {
 													...variables,
@@ -51,7 +53,7 @@ const Feed = <Data, Vars>({
 										} catch (error) {
 											console.error(error)
 										} finally {
-											dispatch(updateLoading(false))
+											dispatch(removeLoading(queryId))
 										}
 									}
 								}}

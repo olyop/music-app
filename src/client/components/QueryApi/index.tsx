@@ -1,9 +1,17 @@
+import {
+	useRef,
+	Fragment,
+	useEffect,
+	ReactNode,
+	createElement,
+} from "react"
+
+import uniqueId from "lodash/uniqueId"
 import type { DocumentNode } from "graphql"
 import { useQuery, QueryResult } from "@apollo/client"
-import { createElement, useEffect, Fragment, ReactNode } from "react"
 
 import ApiError from "../ApiError"
-import { useDispatch, updateLoading } from "../../redux"
+import { useDispatch, addLoading, removeLoading } from "../../redux"
 
 const QueryApi = <Data, Vars = Record<string, unknown>>({
 	query,
@@ -12,21 +20,27 @@ const QueryApi = <Data, Vars = Record<string, unknown>>({
 	hideLoading = false,
 	variables = {} as Vars,
 }: PropTypes<Data, Vars>) => {
+	const queryId =
+		useRef(uniqueId())
 	const dispatch =
 		useDispatch()
-	const { error, loading, ...res } =
+	const { error, loading, data, ...res } =
 		useQuery<Data, Vars>(query, { variables })
 
 	useEffect(() => {
 		if (!hideLoading) {
-			dispatch(updateLoading(loading))
+			if (!data && loading) {
+				dispatch(addLoading(queryId.current))
+			} else {
+				dispatch(removeLoading(queryId.current))
+			}
 		}
-	}, [loading, dispatch, hideLoading])
+	}, [data, loading, dispatch, hideLoading])
 
 	if (error !== undefined) {
 		return <ApiError error={error}/>
 	} else {
-		const render = children({ error, loading, ...res })
+		const render = children({ error, loading, data, ...res })
 		if (className) {
 			return <div className={className}>{render}</div>
 		} else {

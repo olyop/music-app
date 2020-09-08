@@ -1,13 +1,19 @@
 import { useSelector } from "react-redux"
 
+import {
+	Settings,
+	ListStyle,
+	DocOrderBy,
+	OrderBySettings,
+} from "../types"
+
 import { State } from "./store"
-import { ListStyle, Settings, OrderBySettings } from "../types"
 
 export const useStatePlay = () =>
 	useSelector<State, boolean>(state => state.play)
 
 export const useStateLoading = () =>
-	useSelector<State, boolean>(state => state.loading)
+	useSelector<State, string[]>(state => state.loading)
 
 export const useStateSidebar = () =>
 	useSelector<State, boolean>(state => state.sidebar)
@@ -33,7 +39,7 @@ export const useStateListStyle = () =>
 export const useStateShowGenres = () =>
 	useSelector<State, boolean>(state => state.settings.showGenres)
 
-export const useStateOrderBy = <T>(key: keyof OrderBySettings) =>
+export const useStateOrderBy = <T = DocOrderBy>(key: keyof OrderBySettings) =>
 	useSelector<State, T>(
 		state => (state.settings.orderBy[key] as unknown) as T,
 	)

@@ -1,3 +1,4 @@
+import isEmpty from "lodash/isEmpty"
 import { createBem } from "@oly_op/bem"
 import { NavLink } from "react-router-dom"
 import { createElement, FC, Fragment } from "react"
@@ -22,7 +23,7 @@ const Header: FC = () => {
 	const handleMenuClick = () => dispatch(toggleSidebar())
 	return (
 		<Fragment>
-			{loading ? (
+			{!isEmpty(loading) ? (
 				<div className={bem("loading")}>
 					<div className={bem("loading-line")}/>
 					<div className={bem("loading-subline", "loading-asc")}/>

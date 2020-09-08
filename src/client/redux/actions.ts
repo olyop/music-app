@@ -16,8 +16,11 @@ export const toggleShowGenres =
 export const toggleShowVolume =
 	createAction("TOGGLE_SHOW_VOLUME")
 
-export const updateLoading =
-	createAction("TOGGLE_LOADING", withPayloadType<boolean>())
+export const addLoading =
+	createAction("ADD_LOADING", withPayloadType<string>())
+
+export const removeLoading =
+	createAction("REMOVE_LOADING", withPayloadType<string>())
 
 export const updatePlay =
 	createAction("UPDATE_PLAY", withPayloadType<boolean>())

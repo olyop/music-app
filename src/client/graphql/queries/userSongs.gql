@@ -1,11 +1,10 @@
 query userSongs(
   $userId: Uuid!
-  $page: NonNegativeInt!
   $orderBy: UserSongOrderByInput!
 ) {
   user(userId: $userId) {
     userId
-    songs(page: $page, orderBy: $orderBy) {
+    songs(orderBy: $orderBy) {
       songId
       title
       mix

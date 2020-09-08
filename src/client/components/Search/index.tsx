@@ -2,12 +2,14 @@ import {
 	FC,
 	useRef,
 	useState,
+	useEffect,
 	createElement,
 	ChangeEventHandler,
 } from "react"
 
 import isEmpty from "lodash/isEmpty"
 import debounce from "lodash/debounce"
+import uniqueId from "lodash/uniqueId"
 import { createBem } from "@oly_op/bem"
 import { useLazyQuery } from "@apollo/client"
 
@@ -19,30 +21,50 @@ import {
 	UserVar,
 } from "../../types"
 
+import {
+	addLoading,
+	useDispatch,
+	removeLoading,
+	useStateUserId,
+} from "../../redux"
+
 import Songs from "../Songs"
 import Genres from "../Genres"
 import Albums from "../Albums"
 import Artists from "../Artists"
-import { useStateUserId } from "../../redux"
 import GET_SEARCH from "../../graphql/queries/search.gql"
 
 import "./index.scss"
 
 const bem = createBem("Search")
 
-type HandleChange = ChangeEventHandler<HTMLInputElement>
-
 const Search: FC = () => {
-	const userId = useStateUserId()
-	const [ query, setQuery ] = useState("")
-	const variables: Vars = { query, userId }
-	const [search, { data }] = useLazyQuery<Data, Vars>(GET_SEARCH, { variables })
-	const delayedQuery = useRef(debounce(x => search(x), 500)).current
-	const handleChange: HandleChange = ({ target }) => {
-		const { value } = target
-		setQuery(value)
-		delayedQuery(value)
-	}
+	const dispatch =
+		useDispatch()
+	const userId =
+		useStateUserId()
+	const queryId =
+		useRef(uniqueId())
+	const [ query, setQuery ] =
+		useState("")
+	const variables: Vars =
+		{ query, userId }
+	const [ search, { data, loading } ] =
+		useLazyQuery<Data, Vars>(GET_SEARCH, { variables })
+	const delayedQuery =
+		useRef(debounce(x => search(x), 500)).current
+	const handleChange: ChangeEventHandler<HTMLInputElement> =
+		({ target: { value } }) => {
+			setQuery(value)
+			delayedQuery(value)
+		}
+	useEffect(() => {
+		if (!isEmpty(query) && !data && loading) {
+			dispatch(addLoading(queryId.current))
+		} else {
+			dispatch(removeLoading(queryId.current))
+		}
+	}, [data, query, loading, queryId, dispatch])
 	return (
 		<div className={bem("")}>
 			<div className={bem("bar", "Padding")}>

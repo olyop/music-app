@@ -18,20 +18,19 @@ const BrowseArtists: FC = () => {
 				dataToDocsLength={({ artists }) => artists.length}
 				updateQuery={(existing, incoming) => ({
 					...existing,
-					albums: [
+					artists: [
 						...existing.artists,
 						...incoming.artists,
 					],
 				})}
-			>
-				{data => (
+				children={data => (
 					<Artists
 						orderByKey="artists"
 						artists={data?.artists || []}
 						orderByFields={Object.keys(ArtistsOrderByField)}
 					/>
 				)}
-			</Feed>
+			/>
 		</Helmet>
 	)
 }

@@ -10,32 +10,37 @@ import { Album as AlbumType, ListStyle } from "../../types"
 
 const bem = createBem("Album")
 
-const Album: FC<PropTypes> = ({ album, className }) => (
-	useStateListStyle() === ListStyle.GRID ? (
-		<div className={bem(className, "Card", "Elevated")}>
-			<Cover
-				url={album.cover}
-				link={`/album/${album.albumId}`}
-			/>
+const Album: FC<PropTypes> = ({ album, className }) => {
+	const listStyle = useStateListStyle()
+	return (
+		listStyle === ListStyle.GRID ? (
+			<div className={bem(className, "Card", "Elevated")}>
+				<Cover
+					url={album.cover}
+					link={`/album/${album.albumId}`}
+				/>
+				<Item
+					doc={album}
+					hideInLibrary
+					className="PaddingHalf"
+					upper={<DocLink doc={album}/>}
+					lower={<DocLinks ampersand docs={album.artists}/>}
+				/>
+			</div>
+		) : (
 			<Item
 				doc={album}
-				className="PaddingHalf"
+				hideInLibrary
+				imgDoc={album}
+				right={album.released}
 				upper={<DocLink doc={album}/>}
-				lower={<DocLinks ampersand docs={album.artists}/>}
+				lower={<DocLinks docs={album.artists}/>}
+				inLibrarySticky={listStyle === ListStyle.LIST}
+				className={bem(className, "PaddingHalf", "ItemBorder", "Hover")}
 			/>
-		</div>
-	) : (
-		<Item
-			doc={album}
-			imgDoc={album}
-			inLibrarySticky
-			right={album.released}
-			upper={<DocLink doc={album}/>}
-			lower={<DocLinks docs={album.artists}/>}
-			className={bem(className, "PaddingHalf", "ItemBorder", "Hover")}
-		/>
+		)
 	)
-)
+}
 
 interface PropTypes {
 	album: AlbumType,

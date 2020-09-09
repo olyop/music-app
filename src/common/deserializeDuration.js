@@ -11,4 +11,3 @@ const deserializeDuration = (duration, wordFormat = false) => {
     }
 };
 exports.default = deserializeDuration;
-//# sourceMappingURL=deserializeDuration.js.map

@@ -1,6 +1,5 @@
 import {
 	Song,
-	Album,
 	Artist,
 	UserArgs,
 	AddRemoveInput,
@@ -8,7 +7,6 @@ import {
 
 import {
 	SELECT_SONG,
-	SELECT_ALBUM,
 	SELECT_ARTIST,
 } from "../../sql"
 
@@ -33,16 +31,6 @@ const userSongConfig: AddRemoveFunc =
 		columnNames: COLUMN_NAMES.SONG,
 	})
 
-const userAlbumConfig: AddRemoveFunc =
-	(docId, userId) => ({
-		docId,
-		userId,
-		query: SELECT_ALBUM,
-		columnName: "album_id",
-		userTableName: "users_albums",
-		columnNames: COLUMN_NAMES.ALBUM,
-	})
-
 const userArtistConfig: AddRemoveFunc =
 	(docId, userId) => ({
 		docId,
@@ -65,20 +53,6 @@ export const rmUserSong =
 export const addUserSong =
 	resolver<Song, SongArgs>(
 		({ args }) => addUserDoc(userSongConfig(args.songId, args.userId)),
-	)
-
-interface AlbumArgs extends UserArgs {
-	albumId: string,
-}
-
-export const rmUserAlbum =
-	resolver<Album, AlbumArgs>(
-		({ args }) => rmUserDoc(userAlbumConfig(args.albumId, args.userId)),
-	)
-
-export const addUserAlbum =
-	resolver<Album, AlbumArgs>(
-		({ args }) => addUserDoc(userAlbumConfig(args.albumId, args.userId)),
 	)
 
 interface ArtistArgs extends UserArgs {

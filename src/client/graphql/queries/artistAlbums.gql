@@ -1,5 +1,4 @@
 query artistAlbums(
-  $userId: Uuid!
   $artistId: Uuid!
   $albumsOrderBy: AlbumOrderByInput!
 ) {
@@ -10,7 +9,6 @@ query artistAlbums(
       albumId
       released
       cover(size: HALF)
-      inLibrary(userId: $userId)
       artists {
         artistId
         name

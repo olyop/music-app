@@ -9,7 +9,6 @@ type User {
   plays: [Play!]!
   dateJoined: Timestamp!
   songs(orderBy: UserSongOrderByInput!): [Song!]!
-  albums(orderBy: UserAlbumOrderByInput!): [Album!]!
   artists(orderBy: UserArtistOrderByInput!): [Artist!]!
   playlists(orderBy: UserPlaylistOrderByInput!): [Playlist!]!
 }

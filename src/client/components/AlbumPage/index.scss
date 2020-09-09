@@ -5,22 +5,28 @@
 	grid-template-columns: 300rem minmax(0, 1fr);
 	@media (max-width: 800px) {
 		display: block; }
+	&__cover {
+		cursor: zoom-in; }
 	&__title {
 		display: flex;
 		font-size: 33rem;
 		align-items: center;
-		margin-bottom: calc(var(--space-quart) + 3px);
-		&-add {
-			display: inline-block;
-			color: var(--text-color);
-			margin-left: var(--space-quart); } }
+		margin-bottom: calc(var(--space-quart) + 3px); }
 	&__artists {
 		font-size: 19rem;
 		font-weight: 500; }
 	&__genres {
 		font-size: 17rem;
 		font-weight: 400; }
+	&__footer-sum {
+		outline: none;
+		cursor: pointer;
+		display: inline;
+		user-select: none; }
 	&__footer-text {
 		font-size: 14rem;
 		text-transform: uppercase;
-		color: var(--text-color-light); } }
+		color: var(--text-color-light);
+		margin-bottom: var(--space-fifth);
+		&:last-child {
+			margin-bottom: 0; } } }

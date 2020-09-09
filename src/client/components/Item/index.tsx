@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom"
+import { createElement, ReactNode, useState } from "react"
 import { createBem, BemInput, BemPropTypes } from "@oly_op/bem"
-import { createElement, ReactNode, useState, Fragment } from "react"
 
 import {
 	determineDocPath,
@@ -17,8 +17,10 @@ import InLibraryButton from "../InLibraryButton"
 
 import "./index.scss"
 
-const determineInLibrary = (inLib: boolean, _: Doc): _ is UserDoc => inLib
-const determineShowPlay = (showPlay: boolean, _: Doc): _ is UserDoc => showPlay
+const showInLibrary =
+	(hideInLibrary: boolean, doc: Doc): doc is UserDoc => !hideInLibrary
+const determineShowPlay =
+	(showPlay: boolean, doc: Doc): doc is UserDoc => showPlay
 
 const bem = createBem("Item")
 
@@ -34,7 +36,7 @@ const Item = <D extends Doc, I extends Doc = Doc>({
 	inLibClassName,
 	rightClassName,
 	showPlay = true,
-	showInLibrary = true,
+	hideInLibrary = false,
 	inLibrarySticky = false,
 }: PropTypes<D, I>) => {
 	const [ more, setMore ] = useState(false)
@@ -85,7 +87,7 @@ const Item = <D extends Doc, I extends Doc = Doc>({
 					/>
 				)}
 			</div>
-			{determineInLibrary(showInLibrary, doc) && (
+			{showInLibrary(hideInLibrary, doc) && (
 				<InLibraryButton
 					doc={doc}
 					className={bem(inLibClassName, "in-lib")}
@@ -99,14 +101,14 @@ const Item = <D extends Doc, I extends Doc = Doc>({
 				style={{ display: inLibrarySticky ? "block" : undefined }}
 			/>
 			{more && (
-				<Fragment>
+				<div>
 					<div className={bem("more", "Elevated")}>
 						Test
 					</div>
 					<ModalClose
 						onClick={() => setMore(false)}
 					/>
-				</Fragment>
+				</div>
 			)}
 		</div>
 	)
@@ -120,7 +122,7 @@ interface PropTypes<Doc, ImgDoc> extends BemPropTypes {
 	lower?: ReactNode,
 	right?: ReactNode,
 	showPlay?: boolean,
-	showInLibrary?: boolean,
+	hideInLibrary?: boolean,
 	infoClassName?: BemInput,
 	inLibClassName?: BemInput,
 	rightClassName?: BemInput,

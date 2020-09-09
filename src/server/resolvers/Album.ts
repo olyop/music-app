@@ -22,7 +22,6 @@ import {
 } from "../sql"
 
 import { COLUMN_NAMES } from "../globals"
-import { userDocInLib, userDocDateAdded } from "./common"
 import { s3, sql, fixDateType, createResolver } from "../helpers"
 
 const resolver =
@@ -125,30 +124,6 @@ export const plays =
 					key: "columnNames",
 					value: sql.join(COLUMN_NAMES.PLAY),
 				}],
-			})
-		),
-	)
-
-export const dateAdded =
-	resolver<number, UserArgs>(
-		({ parent, args }) => (
-			userDocDateAdded({
-				userId: args.userId,
-				docId: parent.albumId,
-				columnName: "album_id",
-				userDocTable: "users_albums",
-			})
-		),
-	)
-
-export const inLibrary =
-	resolver<boolean, UserArgs>(
-		({ parent, args }) => (
-			userDocInLib({
-				userId: args.userId,
-				docId: parent.albumId,
-				columnName: "album_id",
-				userDocTable: "users_albums",
 			})
 		),
 	)

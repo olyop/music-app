@@ -6,14 +6,14 @@ import { useStateListStyle } from "../../redux"
 
 const bem = createBem("List")
 
-const List: FC<BemPropTypes> = ({ children, className }) => {
-	const listStyle = useStateListStyle()
-	const listClassName = listStyle === ListStyle.GRID ? "Grid" : "Elevated"
-	return (
-		<div className={bem(className, listClassName)}>
-			{children}
-		</div>
-	)
-}
+const List: FC<BemPropTypes> = ({ children, className }) => (
+	<div
+		className={bem(
+			className,
+			useStateListStyle() === ListStyle.GRID ? "Grid" : "Elevated",
+		)}
+		children={children}
+	/>
+)
 
 export default List

@@ -1,9 +1,0 @@
-query getAlbumInLib(
-  $userId: Uuid!
-  $albumId: Uuid!
-) {
-  album(albumId: $albumId) {
-    albumId
-    inLibrary(userId: $userId)
-  }
-}

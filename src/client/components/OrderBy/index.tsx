@@ -25,7 +25,7 @@ const OrderBy: FC<PropTypes> = ({ className, settingsKey, fieldOptions }) => {
 			(val: string) =>
 				dispatch(updateOrderBy({ key, val, settingsKey }))
 	return (
-		<div className={bem(className, "FlexList")}>
+		<div className={bem(className, "FlexListCenter")}>
 			<h1
 				children="Order By:"
 				className="Text2 MarginRightQuart"

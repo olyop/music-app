@@ -4,6 +4,8 @@ node_modules/
 
 # files
 .env
+src/common/dataUrlToBlob.js
+src/common/dataUrlToBlob.d.ts
 src/common/bufferToDataUrl.js
 src/common/bufferToDataUrl.d.ts
 src/common/deserializeDuration.js

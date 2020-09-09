@@ -7,6 +7,7 @@
 		"outDir": "src/common"
 	},
 	"files": [
+		"src/common/src/dataUrlToBlob.ts",
 		"src/common/src/bufferToDataUrl.ts",
 		"src/common/src/deserializeDuration.ts"
 	]

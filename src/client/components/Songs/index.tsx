@@ -15,7 +15,7 @@ const Songs: FC<PropTypes> = ({
 	orderByFields,
 	hideOrderBy = false,
 }) => (
-	<div className={bem(className, isEmpty(songs) ? null : "Elevated")}>
+	<div className={bem(className, isEmpty(songs) ? null : "Elevated Content")}>
 		{hideOrderBy || (
 			<OrderBy
 				settingsKey={orderByKey!}

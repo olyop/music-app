@@ -3,7 +3,8 @@ import { createElement, FC } from "react"
 import List from "../List"
 import Album from "../Album"
 import OrderBy from "../OrderBy"
-import { OrderBySettings, Album as AlbumType } from "../../types"
+import { useStateListStyle } from "../../redux"
+import { OrderBySettings, Album as AlbumType, ListStyle } from "../../types"
 
 const Albums: FC<PropTypes> = ({
 	albums,
@@ -15,12 +16,12 @@ const Albums: FC<PropTypes> = ({
 	<div className={className}>
 		{hideOrderBy || (
 			<OrderBy
+				className="MarginBottom"
 				settingsKey={orderByKey!}
-				className="MarginBottomHalf"
 				fieldOptions={orderByFields!}
 			/>
 		)}
-		<List>
+		<List className={useStateListStyle() === ListStyle.LIST && "Content"}>
 			{albums.map(
 				album => (
 					<Album

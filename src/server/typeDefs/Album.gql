@@ -7,7 +7,5 @@ type Album {
   artists: [Artist!]!
   totalDuration: PositiveInt!
   plays(userId: Uuid!): [Play!]!
-  inLibrary(userId: Uuid!): Boolean!
   cover(size: AlbumCoverSize!): Url!
-  dateAdded(userId: Uuid!): Timestamp
 }

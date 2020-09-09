@@ -1,41 +1,56 @@
+import {
+	FC,
+	useRef,
+	useEffect,
+	createElement,
+	CSSProperties,
+} from "react"
+
+import uniqueId from "lodash/uniqueId"
 import isUndefined from "lodash/isUndefined"
 import { useQuery, useMutation } from "@apollo/client"
-import { createElement, FC, CSSProperties } from "react"
+
+import {
+	addLoading,
+	useDispatch,
+	removeLoading,
+	useStateUserId,
+	useStateOrderBy,
+} from "../../redux"
 
 import Icon from "../Icon"
 import { UserDoc } from "../../types"
-import { useStateUserId, useStateOrderBy } from "../../redux"
 import { determineDocReturn, determineDocId } from "../../helpers"
 
 import GET_USER_SONGS from "../../graphql/queries/userSongs.gql"
-import GET_USER_ALBUMS from "../../graphql/queries/userAlbums.gql"
 import GET_USER_ARTISTS from "../../graphql/queries/userArtists.gql"
 
 import GET_SONG_IN_LIB from "../../graphql/queries/songInLib.gql"
-import GET_ALBUM_IN_LIB from "../../graphql/queries/albumInLib.gql"
 import GET_ARTIST_IN_LIB from "../../graphql/queries/artistInLib.gql"
 
 import RM_USER_SONG from "../../graphql/mutations/rmUserSong.gql"
-import RM_USER_ALBUM from "../../graphql/mutations/rmUserAlbum.gql"
 import RM_USER_ARTIST from "../../graphql/mutations/rmUserArtist.gql"
 
 import ADD_USER_SONG from "../../graphql/mutations/addUserSong.gql"
-import ADD_USER_ALBUM from "../../graphql/mutations/addUserAlbum.gql"
 import ADD_USER_ARTIST from "../../graphql/mutations/addUserArtist.gql"
 
 const InLibraryButton: FC<PropTypes> = ({ doc, style, className }) => {
+	const dispatch =
+		useDispatch()
+	const queryId =
+		useRef(uniqueId())
 	const dr =
 		determineDocReturn(doc)
 	const docName =
-		dr("Song", "Album", "Artist")
+		dr("Song", "Artist")
 	const docKey =
-		dr("songId", "albumId", "artistId")
+		dr("songId", "artistId")
 	const orderByKey =
-		dr("userSongs", "userAlbums", "userArtists")
+		dr("userSongs", "userArtists")
 	const QUERY =
-		dr(GET_SONG_IN_LIB, GET_ALBUM_IN_LIB, GET_ARTIST_IN_LIB)
+		dr(GET_SONG_IN_LIB, GET_ARTIST_IN_LIB)
 	const REFETCH_QUERY =
-		dr(GET_USER_SONGS, GET_USER_ALBUMS, GET_USER_ARTISTS)
+		dr(GET_USER_SONGS, GET_USER_ARTISTS)
 
 	const docId = determineDocId(doc)
 	const userId = useStateUserId()
@@ -54,8 +69,8 @@ const InLibraryButton: FC<PropTypes> = ({ doc, style, className }) => {
 	const mutationName = `${verb}User${docName}`
 
 	const MUTATION = inLibrary ?
-		dr(RM_USER_SONG, RM_USER_ALBUM, RM_USER_ARTIST) :
-		dr(ADD_USER_SONG, ADD_USER_ALBUM, ADD_USER_ARTIST)
+		dr(RM_USER_SONG, RM_USER_ARTIST) :
+		dr(ADD_USER_SONG, ADD_USER_ARTIST)
 
 	const [ mutation, { loading: mutationLoading } ] =
 		useMutation<Res>(MUTATION, {
@@ -79,6 +94,14 @@ const InLibraryButton: FC<PropTypes> = ({ doc, style, className }) => {
 			mutation().catch(console.error)
 		}
 	}
+
+	useEffect(() => {
+		if (mutationLoading) {
+			dispatch(addLoading(queryId.current))
+		} else {
+			dispatch(removeLoading(queryId.current))
+		}
+	}, [dispatch, mutationLoading])
 
 	return (
 		<Icon

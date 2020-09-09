@@ -36,9 +36,9 @@ const ArtistPage: FC = () => {
 	const variables: Vars = { userId, ...params }
 	return (
 		<QueryApi<Data, Vars>
-			className={bem("")}
 			variables={variables}
 			query={GET_ARTIST_PAGE}
+			className={bem("", "Content")}
 			children={
 				({ data }) => data && (
 					<Helmet title={name}>
@@ -75,41 +75,39 @@ const ArtistPage: FC = () => {
 								className={bem("cover-black")}
 							/>
 						</Img>
-						<div className="Padding">
-							<h2 className={bem("heading")}>
-								Albums
-							</h2>
-							<QueryApi<Data, AlbumsVars>
-								query={GET_ARTIST_PAGE_ALBUMS}
-								variables={{ ...variables, albumsOrderBy }}
-								children={
-									({ data: albumData }) => (
-										<Albums
-											orderByKey="albums"
-											className="MarginBottom"
-											albums={albumData?.artist.albums || []}
-											orderByFields={Object.keys(AlbumsOrderByField)}
-										/>
-									)
-								}
-							/>
-							<h2 className={bem("heading")}>
-								Songs
-							</h2>
-							<QueryApi<Data, SongsVars>
-								query={GET_ARTIST_PAGE_SONGS}
-								variables={{ ...variables, songsOrderBy }}
-								children={
-									({ data: songData }) => (
-										<Songs
-											orderByKey="songs"
-											songs={songData?.artist.songs || []}
-											orderByFields={Object.keys(SongsOrderByField)}
-										/>
-									)
-								}
-							/>
-						</div>
+						<h2 className={bem("heading")}>
+							Albums
+						</h2>
+						<QueryApi<Data, AlbumsVars>
+							query={GET_ARTIST_PAGE_ALBUMS}
+							variables={{ ...variables, albumsOrderBy }}
+							children={
+								({ data: albumData }) => (
+									<Albums
+										orderByKey="albums"
+										className="MarginBottom"
+										albums={albumData?.artist.albums || []}
+										orderByFields={Object.keys(AlbumsOrderByField)}
+									/>
+								)
+							}
+						/>
+						<h2 className={bem("heading")}>
+							Songs
+						</h2>
+						<QueryApi<Data, SongsVars>
+							query={GET_ARTIST_PAGE_SONGS}
+							variables={{ ...variables, songsOrderBy }}
+							children={
+								({ data: songData }) => (
+									<Songs
+										orderByKey="songs"
+										songs={songData?.artist.songs || []}
+										orderByFields={Object.keys(SongsOrderByField)}
+									/>
+								)
+							}
+						/>
 					</Helmet>
 				)
 			}

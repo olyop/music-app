@@ -4,7 +4,6 @@ import {
 	Song,
 	Play,
 	User,
-	Album,
 	Artist,
 	OrderBy,
 	Playlist,
@@ -191,20 +190,6 @@ export const songs =
 				columnName: "song_id",
 				userTableName: "users_songs",
 				columnNames: COLUMN_NAMES.SONG,
-			})
-		),
-	)
-
-export const albums =
-	resolver<Album[], OrderByArgs>(
-		({ parent, args }) => (
-			userDocs({
-				id: parent.userId,
-				tableName: "albums",
-				orderBy: args.orderBy,
-				columnName: "album_id",
-				userTableName: "users_albums",
-				columnNames: COLUMN_NAMES.ALBUM,
 			})
 		),
 	)

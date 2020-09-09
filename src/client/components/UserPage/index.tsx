@@ -31,44 +31,49 @@ const UserPage: FC = () => {
 	const handleListStyle: ChangeEventHandler<HTMLSelectElement> =
 		({ target: { value } }) => dispatch(updateListStyle(value as ListStyle))
 	return (
-		<QueryApi<Res, UserVar>
+		<QueryApi<Data, UserVar>
 			query={GET_USER}
 			variables={{ userId }}
-			className={bem("", "Padding")}
+			className={bem("", "Padding", "Content")}
 			children={
 				({ data }) => data && (
 					<Helmet title={data.user.name}>
 						<h1 className={bem("name", "MarginBottom")}>
 							{data.user.name}
 						</h1>
-						<h3 className={bem("option-text")}>
-							List Style
-						</h3>
-						<select
-							value={listStyle}
-							onChange={handleListStyle}
-							className="Text MarginBottomHalf"
-						>
-							<option
-								value={ListStyle.GRID}
-								className={bem("select-option")}
-								children={upperFirst(ListStyle.GRID.toLowerCase())}
+						<details open>
+							<summary className="Text2 MarginBottomHalf">
+								Settings
+							</summary>
+							<h3 className="Text2 MarginBottomFifth">
+								List Style
+							</h3>
+							<select
+								value={listStyle}
+								onChange={handleListStyle}
+								className="Text MarginBottomHalf"
+							>
+								<option
+									value={ListStyle.GRID}
+									className={bem("select-option")}
+									children={upperFirst(ListStyle.GRID.toLowerCase())}
+								/>
+								<option
+									value={ListStyle.LIST}
+									className={bem("select-option")}
+									children={upperFirst(ListStyle.LIST.toLowerCase())}
+								/>
+							</select>
+							<h3 className="Text2 MarginBottomHalf">
+								Show Genres
+							</h3>
+							<input
+								type="checkbox"
+								className="Text"
+								checked={showGenres}
+								onChange={handleShowGenres}
 							/>
-							<option
-								value={ListStyle.LIST}
-								className={bem("select-option")}
-								children={upperFirst(ListStyle.LIST.toLowerCase())}
-							/>
-						</select>
-						<h3 className={bem("option-text")}>
-							Show Genres
-						</h3>
-						<input
-							type="checkbox"
-							className="Text"
-							checked={showGenres}
-							onChange={handleShowGenres}
-						/>
+						</details>
 					</Helmet>
 				)
 			}
@@ -76,7 +81,7 @@ const UserPage: FC = () => {
 	)
 }
 
-interface Res {
+interface Data {
 	user: User,
 }
 

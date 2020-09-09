@@ -8,7 +8,6 @@ query albumPage(
     released
     totalDuration
     cover(size: FULL)
-    inLibrary(userId: $userId)
     genres {
       name
       genreId

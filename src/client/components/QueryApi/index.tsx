@@ -37,6 +37,10 @@ const QueryApi = <Data, Vars = Record<string, unknown>>({
 		}
 	}, [data, loading, dispatch, hideLoading])
 
+	useEffect(() => () => {
+		dispatch(removeLoading(queryId.current))
+	})
+
 	if (error !== undefined) {
 		return <ApiError error={error}/>
 	} else {

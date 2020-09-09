@@ -25,10 +25,6 @@ type Mutation {
     userId: Uuid!
     songId: Uuid!
   ): Song!
-  addUserAlbum(
-    userId: Uuid!
-    albumId: Uuid!
-  ): Album!
   addUserArtist(
     userId: Uuid!
     artistId: Uuid!
@@ -37,10 +33,6 @@ type Mutation {
     userId: Uuid!
     songId: Uuid!
   ): Song!
-  rmUserAlbum(
-    userId: Uuid!
-    albumId: Uuid!
-  ): Album!
   rmUserArtist(
     userId: Uuid!
     artistId: Uuid!

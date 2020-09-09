@@ -59,12 +59,12 @@ const Search: FC = () => {
 			delayedQuery(value)
 		}
 	useEffect(() => {
-		if (!isEmpty(query) && !data && loading) {
+		if (loading) {
 			dispatch(addLoading(queryId.current))
 		} else {
 			dispatch(removeLoading(queryId.current))
 		}
-	}, [data, query, loading, queryId, dispatch])
+	}, [loading, queryId, dispatch])
 	return (
 		<div className={bem("")}>
 			<div className={bem("bar", "Padding")}>
@@ -83,10 +83,6 @@ const Search: FC = () => {
 						className="MarginBottom"
 						songs={data.songSearch}
 					/>
-					<Genres
-						className="MarginBottom"
-						genres={data.genreSearch}
-					/>
 					<Albums
 						hideOrderBy
 						className="MarginBottom"
@@ -96,6 +92,9 @@ const Search: FC = () => {
 						hideOrderBy
 						className="MarginBottom"
 						artists={data.artistSearch}
+					/>
+					<Genres
+						genres={data.genreSearch}
 					/>
 				</div>
 			)}

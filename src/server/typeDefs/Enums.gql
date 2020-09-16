@@ -39,12 +39,6 @@ enum AlbumOrderByField {
   RELEASED
 }
 
-enum UserAlbumOrderByField {
-  TITLE
-  RELEASED
-  DATE_ADDED
-}
-
 enum PlaylistOrderByField {
   NAME
 }

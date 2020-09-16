@@ -1,4 +1,4 @@
-import { createElement, FC } from "react"
+import { FC, createElement } from "react"
 import { createBem, BemPropTypes } from "@oly_op/bem"
 import { useQuery, useMutation } from "@apollo/client"
 

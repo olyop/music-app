@@ -64,7 +64,7 @@ const UserPage: FC = () => {
 									children={upperFirst(ListStyle.LIST.toLowerCase())}
 								/>
 							</select>
-							<h3 className="Text2 MarginBottomHalf">
+							<h3 className="Text2 MarginBottomFifth">
 								Show Genres
 							</h3>
 							<input

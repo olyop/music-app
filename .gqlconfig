@@ -1,6 +1,6 @@
 {
 	schema: {
-		files: 'src/server/apollo/typeDefs/*.gql',
+		files: 'src/server/typeDefs/*.gql',
 	},
 	query: {
 		files: [
@@ -10,11 +10,7 @@
 			},
 			{
 				parser: 'QueryParser',
-				match: 'src/client/graphql/queries/*.gql',
-			},
-			{
-				parser: 'QueryParser',
-				match: 'src/client/graphql/mutations/*.gql',
+				match: 'src/client/graphql/**/*.gql',
 			}
 		]
 	}

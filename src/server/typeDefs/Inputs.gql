@@ -62,11 +62,6 @@ input AlbumOrderByInput {
 	direction: OrderByDirection!
 }
 
-input UserAlbumOrderByInput {
-	direction: OrderByDirection!
-	field: UserAlbumOrderByField!
-}
-
 input PlaylistOrderByInput {
 	field: PlaylistOrderByField!
 	direction: OrderByDirection!

@@ -44,6 +44,7 @@ export interface Artist extends ArtistBase, UserDoc<"Artist"> {
 	photo: string,
 	songs: Song[],
 	albums: Album[],
+	allPlays: number,
 	numOfSongs?: number,
 	numOfPlays?: number,
 	numOfAlbums?: number,

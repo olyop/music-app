@@ -6,9 +6,14 @@ import {
 	createElement,
 } from "react"
 
+import {
+	useQuery,
+	QueryResult,
+	WatchQueryFetchPolicy,
+} from "@apollo/client"
+
 import uniqueId from "lodash/uniqueId"
 import type { DocumentNode } from "graphql"
-import { useQuery, QueryResult } from "@apollo/client"
 
 import ApiError from "../ApiError"
 import { useDispatch, addLoading, removeLoading } from "../../redux"
@@ -17,6 +22,7 @@ const QueryApi = <Data, Vars = Record<string, unknown>>({
 	query,
 	children,
 	className,
+	fetchPolicy,
 	hideLoading = false,
 	variables = {} as Vars,
 }: PropTypes<Data, Vars>) => {
@@ -25,7 +31,7 @@ const QueryApi = <Data, Vars = Record<string, unknown>>({
 	const dispatch =
 		useDispatch()
 	const { error, loading, data, ...res } =
-		useQuery<Data, Vars>(query, { variables })
+		useQuery<Data, Vars>(query, { variables, fetchPolicy })
 
 	useEffect(() => {
 		if (!hideLoading) {
@@ -41,15 +47,16 @@ const QueryApi = <Data, Vars = Record<string, unknown>>({
 		dispatch(removeLoading(queryId.current))
 	})
 
-	if (error !== undefined) {
+	if (error) {
 		return <ApiError error={error}/>
+	}
+
+	const render = children({ error, loading, data, ...res })
+
+	if (className) {
+		return <div className={className}>{render}</div>
 	} else {
-		const render = children({ error, loading, data, ...res })
-		if (className) {
-			return <div className={className}>{render}</div>
-		} else {
-			return <Fragment>{render}</Fragment>
-		}
+		return <Fragment>{render}</Fragment>
 	}
 }
 
@@ -58,6 +65,7 @@ interface PropTypes<Data, Vars> {
 	className?: string,
 	query: DocumentNode,
 	hideLoading?: boolean,
+	fetchPolicy?: WatchQueryFetchPolicy,
 	children(res: QueryResult<Data, Vars>): ReactNode,
 }
 

@@ -1,6 +1,7 @@
 .AlbumPage {
 	display: grid;
 	align-items: flex-start;
+	padding: var(--space) 0;
 	gap: var(--space-one-quart);
 	grid-template-columns: 300rem minmax(0, 1fr);
 	@media (max-width: 800px) {

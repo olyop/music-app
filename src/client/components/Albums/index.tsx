@@ -1,10 +1,14 @@
+import isEmpty from "lodash/isEmpty"
+import { createBem } from "@oly_op/bem"
 import { createElement, FC } from "react"
 
 import List from "../List"
 import Album from "../Album"
 import OrderBy from "../OrderBy"
 import { useStateListStyle } from "../../redux"
-import { OrderBySettings, Album as AlbumType, ListStyle } from "../../types"
+import { OrderBySettings, ListStyle, Album as TAlbum } from "../../types"
+
+const bem = createBem("")
 
 const Albums: FC<PropTypes> = ({
 	albums,
@@ -12,31 +16,39 @@ const Albums: FC<PropTypes> = ({
 	orderByKey,
 	orderByFields,
 	hideOrderBy = false,
-}) => (
-	<div className={className}>
-		{hideOrderBy || (
-			<OrderBy
-				className="MarginBottom"
-				settingsKey={orderByKey!}
-				fieldOptions={orderByFields!}
-			/>
-		)}
-		<List className={useStateListStyle() === ListStyle.LIST && "Content"}>
-			{albums.map(
-				album => (
-					<Album
-						album={album}
-						key={album.albumId}
-					/>
-				),
+}) => {
+	const listStyle = useStateListStyle()
+	const isList = listStyle === ListStyle.LIST
+	const empty = isEmpty(albums)
+	return (
+		<div className={bem(className, isList && !empty && "Elevated")}>
+			{hideOrderBy || (
+				<OrderBy
+					settingsKey={orderByKey!}
+					fieldOptions={orderByFields!}
+					className={bem(
+						isList && !empty && "ItemBorder",
+						isList ? "PaddingHalf FlexListRight" : "Content MarginBottomThreeQuart",
+					)}
+				/>
 			)}
-		</List>
-	</div>
-)
+			<List>
+				{albums.map(
+					album => (
+						<Album
+							album={album}
+							key={album.albumId}
+						/>
+					),
+				)}
+			</List>
+		</div>
+	)
+}
 
 interface PropTypes {
+	albums: TAlbum[],
 	className?: string,
-	albums: AlbumType[],
 	hideOrderBy?: boolean,
 	orderByFields?: string[],
 	orderByKey?: keyof Pick<OrderBySettings, "albums" | "userAlbums">,

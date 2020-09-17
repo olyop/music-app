@@ -1,9 +1,9 @@
 .Sidebar {
 	--margin: var(--space-three-quart);
-	width: 300px;
 	display: flex;
 	flex-direction: column;
 	margin: var(--margin) 0;
+	width: var(--sidebar-width);
 	border-right: 1px solid var(--border-color);
 	height: calc(100vh - var(--header-height) - var(--player-height) - var(--margin) * 2);
 	&__route {

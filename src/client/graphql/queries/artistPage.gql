@@ -3,8 +3,9 @@ query artistPage(
   $artistId: Uuid!
 ) {
   artist(artistId: $artistId) {
-    artistId
     name
+    artistId
+    allPlays
     numOfPlays
     numOfSongs
     numOfAlbums

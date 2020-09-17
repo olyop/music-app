@@ -5,25 +5,6 @@
 	height: var(--header-height);
 	padding: 0 var(--space-half);
 	justify-content: space-between;
-	&__loading {
-		height: 5rem;
-		width: 100vw;
-		position: absolute;
-		overflow-x: hidden;
-		&-line {
-			width: 150%;
-			opacity: 0.4;
-			height: 5rem;
-			position: absolute;
-			background: #4a8df8; }
-		&-subline {
-			height: 5rem;
-			position: absolute;
-			background: #4a8df8; }
-		&-asc {
-			animation: increase 2s infinite; }
-		&-desc {
-			animation: decrease 2s 0.5s infinite; } }
 	&__link {
 		text-decoration: none;
 		&:hover,
@@ -40,25 +21,3 @@
 		margin-left: 3px; }
 	&__search {
 		margin-right: 4px; } }
-
-@keyframes increase {
-	from {
-		left: -5%;
-		width: 5%;
-	}
-	to {
-		left: 130%;
-		width: 100%;
-	}
-}
-
-@keyframes decrease {
-	from {
-		left: -80%;
-		width: 80%;
-	}
-	to {
-		left: 110%;
-		width: 10%;
-	}
-}

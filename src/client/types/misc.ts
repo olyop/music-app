@@ -6,6 +6,7 @@ import { Song } from "./docs"
 export interface Disc {
 	songs: Song[],
 	number: number,
+	hideLabel: boolean,
 }
 
 export interface Route {

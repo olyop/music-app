@@ -23,6 +23,7 @@ const LibraryArtists: FC = () => {
 				variables={{ userId, orderBy }}
 				children={({ data }) => (
 					<Artists
+						className="Content"
 						orderByKey="userArtists"
 						artists={data?.user.artists || []}
 						orderByFields={Object.keys(UserArtistsOrderByField)}

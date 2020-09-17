@@ -1,3 +1,4 @@
+import random from "lodash/random"
 import bufferToDataUrl from "@oly_op/music-app-common/bufferToDataUrl"
 
 import {
@@ -52,6 +53,9 @@ export const numOfPlays =
 			})
 		),
 	)
+
+export const allPlays =
+	resolver<number>(() => random(1, 10000000))
 
 const artistSongs = <T>({ id, parse, orderBy }: DocsOrderBy<T>) =>
 	sql.query({

@@ -13,6 +13,8 @@ import type { DocumentNode } from "graphql"
 import QueryApi from "../QueryApi"
 import { useDispatch, addLoading, removeLoading } from "../../redux"
 
+const PAGINATION_NUM = parseInt(process.env.PAGINATION_NUM!)
+
 const Feed = <Data, Vars>({
 	query,
 	children,
@@ -37,10 +39,10 @@ const Feed = <Data, Vars>({
 						{data && (
 							<Waypoint
 								onEnter={async () => {
-									if (dataToDocsLength(data) === (page.current * 30) + 30) {
+									if (dataToDocsLength(data) === (page.current * PAGINATION_NUM) + PAGINATION_NUM) {
 										const queryId = uniqueId()
-										dispatch(addLoading(queryId))
 										page.current += 1
+										dispatch(addLoading(queryId))
 										try {
 											await fetchMore({
 												variables: {

@@ -52,8 +52,8 @@ const InLibraryButton: FC<PropTypes> = ({ doc, style, className }) => {
 	const REFETCH_QUERY =
 		dr(GET_USER_SONGS, GET_USER_ARTISTS)
 
-	const docId = determineDocId(doc)
 	const userId = useStateUserId()
+	const docId = determineDocId(doc)
 	const orderBy = useStateOrderBy(orderByKey)
 
 	const variables = { userId, [docKey]: docId }

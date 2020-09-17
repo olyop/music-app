@@ -5,6 +5,6 @@ FROM
 ORDER BY
   {{ orderByField }} {{ orderByDirection }}
 LIMIT
-  30
+  {{ paginationNum }}
 OFFSET
   {{ offset }};

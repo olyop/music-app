@@ -5,15 +5,17 @@ import { BrowserRouter as ReactRouter } from "react-router-dom"
 import { ReactRedux } from "./redux"
 import Pages from "./components/Pages"
 import Header from "./components/Header"
+import Loading from "./components/Loading"
 import PlayerBar from "./components/PlayerBar"
 import { Provider as ApolloClient } from "./apollo"
 
 import "./index.scss"
 
-const Index: FC = () => (
+const Application: FC = () => (
 	<ReactRedux>
 		<ReactRouter>
 			<ApolloClient>
+				<Loading/>
 				<Header/>
 				<Pages/>
 				<PlayerBar/>
@@ -23,6 +25,6 @@ const Index: FC = () => (
 )
 
 render(
-	<Index/>,
+	<Application/>,
 	document.getElementById("Application"),
 )

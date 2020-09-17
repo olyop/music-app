@@ -1,25 +1,16 @@
-import { createElement, FC, Fragment } from "react"
+import { createElement, FC } from "react"
 
 import Item from "../Item"
 import Cover from "../Cover"
 import DocLink from "../DocLink"
-import { determinePlural } from "../../helpers"
+import { artistLower } from "../../helpers"
 import { useStateListStyle } from "../../redux"
 import { Artist as ArtistType, ListStyle } from "../../types"
 
-const Lower: FC<PropTypes> = ({ artist }) => {
-	const { numOfSongs, numOfAlbums } = artist
-	const albumsText = numOfAlbums ? `${numOfAlbums} album${determinePlural(numOfAlbums)}` : ""
-	const songsText = numOfSongs ? `${numOfSongs} song${determinePlural(numOfSongs)}` : ""
-	return (
-		<Fragment>
-			{(numOfSongs || numOfAlbums) && `${albumsText}, ${songsText}`}
-		</Fragment>
-	)
-}
-
-const Artist: FC<PropTypes> = ({ artist, className = null }) => {
+const Artist: FC<PropTypes> = ({ artist, className }) => {
 	const listStyle = useStateListStyle()
+	const upper = <DocLink doc={artist}/>
+	const lower = artistLower(artist)
 	return listStyle === ListStyle.GRID ? (
 		<div className={[ className, "Card", "Elevated" ].join(" ")}>
 			<Cover
@@ -29,17 +20,17 @@ const Artist: FC<PropTypes> = ({ artist, className = null }) => {
 			/>
 			<Item
 				doc={artist}
+				upper={upper}
+				lower={lower}
 				className="PaddingHalf"
-				upper={<DocLink doc={artist}/>}
-				lower={<Lower artist={artist}/>}
 			/>
 		</div>
 	) : (
 		<Item
 			doc={artist}
+			upper={upper}
+			lower={lower}
 			imgDoc={artist}
-			upper={<DocLink doc={artist}/>}
-			lower={<Lower artist={artist}/>}
 			className={[ className, "PaddingHalf", "ItemBorder", "Hover" ].join(" ")}
 		/>
 	)

@@ -24,6 +24,7 @@ const LibrarySongs: FC = () => {
 				variables={{ userId, orderBy }}
 				children={({ data }) => (
 					<Songs
+						className="Content"
 						orderByKey="userSongs"
 						songs={data?.user.songs || []}
 						hideOrderBy={isEmpty(data?.user.songs)}

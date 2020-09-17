@@ -15,12 +15,12 @@ const Songs: FC<PropTypes> = ({
 	orderByFields,
 	hideOrderBy = false,
 }) => (
-	<div className={bem(className, isEmpty(songs) ? null : "Elevated Content")}>
+	<div className={bem(className, isEmpty(songs) || "Elevated")}>
 		{hideOrderBy || (
 			<OrderBy
 				settingsKey={orderByKey!}
 				fieldOptions={orderByFields!}
-				className="PaddingHalf ItemBorder"
+				className="PaddingHalf ItemBorder FlexListRight"
 			/>
 		)}
 		{songs.map(

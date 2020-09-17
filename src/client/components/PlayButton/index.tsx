@@ -1,12 +1,21 @@
-import { FC, createElement } from "react"
+import {
+	FC,
+	useRef,
+	useEffect,
+	createElement,
+} from "react"
+
+import uniqueId from "lodash/uniqueId"
 import { createBem, BemPropTypes } from "@oly_op/bem"
 import { useQuery, useMutation } from "@apollo/client"
 
 import {
 	updatePlay,
+	addLoading,
 	useDispatch,
 	useStatePlay,
 	updateCurrent,
+	removeLoading,
 	useStateUserId,
 } from "../../redux"
 
@@ -26,6 +35,7 @@ const PlayButton: FC<PropTypes> = ({ doc, className }) => {
 	const dispatch = useDispatch()
 	const userId = useStateUserId()
 	const docId = determineDocId(doc)
+	const queryId = useRef(uniqueId())
 
 	const { data } =
 		useQuery<UserCurrentRes>(GET_USER_CURRENT, {
@@ -33,7 +43,7 @@ const PlayButton: FC<PropTypes> = ({ doc, className }) => {
 			fetchPolicy: "cache-first",
 		})
 
-	const [ userPlay ] =
+	const [ userPlay, { loading } ] =
 		useMutation<UserPlayRes>(USER_PLAY, {
 			variables: { docId, userId },
 			optimisticResponse: isSong(doc) ? {
@@ -54,7 +64,7 @@ const PlayButton: FC<PropTypes> = ({ doc, className }) => {
 	const handleClick = () => {
 		if (isSong(doc)) {
 			if (isCurrent) {
-				dispatch(updatePlay(!isCurrent))
+				dispatch(updatePlay(!play))
 			} else {
 				dispatch(updateCurrent(0))
 				dispatch(updatePlay(true))
@@ -62,6 +72,14 @@ const PlayButton: FC<PropTypes> = ({ doc, className }) => {
 			}
 		}
 	}
+
+	useEffect(() => {
+		if (loading) {
+			dispatch(addLoading(queryId.current))
+		} else {
+			dispatch(removeLoading(queryId.current))
+		}
+	}, [dispatch, loading])
 
 	return (
 		<Icon

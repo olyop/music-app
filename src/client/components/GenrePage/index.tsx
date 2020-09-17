@@ -12,6 +12,7 @@ import {
 import Songs from "../Songs"
 import Helmet from "../Helmet"
 import QueryApi from "../QueryApi"
+import { uuidAddDashes } from "../../helpers"
 import { useStateUserId, useStateOrderBy } from "../../redux"
 import GET_GENRE_PAGE from "../../graphql/queries/genrePage.gql"
 
@@ -22,11 +23,11 @@ const bem = createBem("GenrePage")
 const GenrePage: FC = () => {
 	const userId = useStateUserId()
 	const params = useParams<Params>()
+	const genreId = uuidAddDashes(params.genreId)
 	const songsOrderBy = useStateOrderBy<SongsOrderBy>("songs")
-	const variables = { userId, songsOrderBy, ...params }
 	return (
 		<QueryApi<Data, Vars>
-			variables={variables}
+			variables={{ userId, songsOrderBy, genreId }}
 			query={GET_GENRE_PAGE}
 			children={
 				({ data }) => data && (

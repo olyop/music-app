@@ -9,6 +9,7 @@ import BROWSE_GENRES from "../../graphql/queries/genres.gql"
 const BrowseGenres: FC = () => (
 	<Helmet title="Browse Genres">
 		<QueryApi<Data>
+			className="Content"
 			query={BROWSE_GENRES}
 			children={({ data }) => <Genres genres={data?.genres || []}/>}
 		/>

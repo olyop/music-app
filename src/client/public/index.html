@@ -121,6 +121,9 @@
 			.MarginBottom {
 				margin-bottom: var(--space); }
 
+			.MarginBottomOneHalf {
+				margin-bottom: var(--space-one-half); }
+
 			.MarginBottomHalf {
 				margin-bottom: var(--space-half); }
 
@@ -148,6 +151,11 @@
 				align-items: center;
 				justify-content: center; }
 
+			.FlexListRight {
+				display: flex;
+				align-items: center;
+				justify-content: flex-end; }
+
 			.Grid {
 				display: grid;
 				gap: var(--space);
@@ -155,7 +163,8 @@
 
 			.Content {
 				width: 1300rem;
-				margin: 0 auto; }
+				margin-left: auto;
+				margin-right: auto; }
 
 			.Card {
 				overflow: hidden;
@@ -169,6 +178,7 @@
 					0 0 5px -1px rgba(0, 0, 0, 0.2); }
 
 			.Hover {
+				cursor: pointer;
 				transition-property: background-color;
 				transition-duration: var(--transition-duration); }
 			.Hover:hover {

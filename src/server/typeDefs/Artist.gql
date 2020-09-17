@@ -2,6 +2,7 @@ type Artist {
   name: String!
   artistId: Uuid!
   numOfPlays: Int!,
+  allPlays: PositiveInt!
   numOfSongs: NonNegativeInt!
   numOfAlbums: NonNegativeInt!
   plays(userId: Uuid!): [Play!]!

@@ -70,7 +70,7 @@ const PlayerBar: FC = () => {
 									/>
 									{showVolume && <VolumeSlider/>}
 								</div>
-								{data && data.user.current && (
+								{data?.user.current && (
 									<Song
 										showPlay={false}
 										showRight={false}

@@ -1,19 +1,21 @@
 import { createBem } from "@oly_op/bem"
 import { createElement, FC } from "react"
 
-import Song from "../Song"
-import { Disc } from "../../types"
+import Song from "../../Song"
+import { Disc } from "../../../types"
 
 import "./index.scss"
 
 const bem = createBem("Disc")
 
-const Disc: FC<PropTypes> = ({ disc: { songs, number } }) => (
+const Disc: FC<PropTypes> = ({ disc: { songs, number, hideLabel } }) => (
 	<div className={bem("")}>
-		<h4
-			className={bem("number")}
-			children={`Disc ${number}`}
-		/>
+		{hideLabel || (
+			<h4
+				className={bem("number")}
+				children={`Disc ${number}`}
+			/>
+		)}
 		<div className="Elevated">
 			{songs.map(
 				song => (

@@ -27,6 +27,8 @@ import {
 import { COLUMN_NAMES } from "../../globals"
 import { sql, createResolver } from "../../helpers"
 
+const PAGINATION_NUM = parseInt(process.env.PAGINATION_NUM!)
+
 const resolver =
 	createResolver()
 
@@ -52,9 +54,13 @@ export const songs =
 				sql: SELECT_SONGS,
 				parse: sql.parseTable(),
 				variables: [{
+					string: false,
+					key: "paginationNum",
+					value: PAGINATION_NUM,
+				},{
 					key: "offset",
 					string: false,
-					value: args.page * 30,
+					value: args.page * PAGINATION_NUM,
 				},{
 					string: false,
 					key: "orderByField",
@@ -79,9 +85,13 @@ export const albums =
 				sql: SELECT_ALBUMS,
 				parse: sql.parseTable(),
 				variables: [{
+					string: false,
+					key: "paginationNum",
+					value: PAGINATION_NUM,
+				},{
 					key: "offset",
 					string: false,
-					value: args.page * 30,
+					value: args.page * PAGINATION_NUM,
 				},{
 					string: false,
 					key: "orderByField",
@@ -106,9 +116,13 @@ export const artists =
 				sql: SELECT_ARTISTS,
 				parse: sql.parseTable(),
 				variables: [{
+					string: false,
+					key: "paginationNum",
+					value: PAGINATION_NUM,
+				},{
 					key: "offset",
 					string: false,
-					value: args.page * 30,
+					value: args.page * PAGINATION_NUM,
 				},{
 					string: false,
 					key: "orderByField",

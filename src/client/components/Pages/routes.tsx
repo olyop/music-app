@@ -6,7 +6,7 @@ import Player from "../Player"
 import Browse from "../Browse"
 import Library from "../Library"
 import UserPage from "../UserPage"
-import PlaysPage from "../PlaysPage"
+import SongsPage from "../SongPage"
 import GenrePage from "../GenrePage"
 import AlbumPage from "../AlbumPage"
 import ArtistPage from "../ArtistPage"
@@ -43,8 +43,8 @@ const routes: Route[] = [{
 	component: UserPage,
 },{
 	id: uniqueId(),
-	component: PlaysPage,
-	path: "/plays/:songId",
+	component: SongsPage,
+	path: "/song/:songId",
 },{
 	ignore: true,
 	id: uniqueId(),

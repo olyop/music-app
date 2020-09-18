@@ -12,7 +12,7 @@ const Genres: FC<PropTypes> = ({ genres, className }) => (
 				<p
 					key={genreId}
 					children={name}
-					className={bem("PaddingHalf", "Card", "Elevated", "Text", "MarginBottomHalf")}
+					className={bem("PaddingHalf Card Elevated Text MarginBottomHalf")}
 				/>
 			),
 		)}

@@ -1,0 +1,36 @@
+query song(
+  $userId: Uuid!
+  $songId: Uuid!
+) {
+  song(songId: $songId) {
+    title
+    songId
+    duration
+    inLibrary(userId: $userId)
+    featuring {
+      name
+      artistId
+    }
+    remixers {
+      name
+      artistId
+    }
+    artists {
+      name
+      artistId
+    }
+    genres {
+      name
+      genreId
+    }
+    album {
+      title
+      albumId
+      cover(size: HALF)
+    }
+    plays(userId: $userId) {
+      playId
+      dateCreated
+    }
+  }
+}

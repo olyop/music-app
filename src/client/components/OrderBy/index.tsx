@@ -1,6 +1,6 @@
+import { useSelector } from "react-redux"
 import { createElement, FC } from "react"
 import { createBem, BemPropTypes } from "@oly_op/bem"
-import { useDispatch, useSelector } from "react-redux"
 
 import {
 	DocOrderBy,
@@ -9,13 +9,13 @@ import {
 } from "../../types"
 
 import Select from "../Select"
-import { State, Dispatch, updateOrderBy } from "../../redux"
+import { useDispatch, State, updateOrderBy } from "../../redux"
 
 const bem = createBem("OrderBy")
 
 const OrderBy: FC<PropTypes> = ({ className, settingsKey, fieldOptions }) => {
 	const dispatch =
-		useDispatch<Dispatch>()
+		useDispatch()
 	const state =
 		useSelector<State, DocOrderBy>(
 			({ settings: { orderBy } }) => orderBy[settingsKey],

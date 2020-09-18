@@ -10,8 +10,14 @@ import uniqueId from "lodash/uniqueId"
 import { Waypoint } from "react-waypoint"
 import type { DocumentNode } from "graphql"
 
+import {
+	Dispatch,
+	useDispatch,
+	addLoading,
+	removeLoading,
+} from "../../redux"
+
 import QueryApi from "../QueryApi"
-import { useDispatch, addLoading, removeLoading } from "../../redux"
 
 const PAGINATION_NUM = parseInt(process.env.PAGINATION_NUM!)
 

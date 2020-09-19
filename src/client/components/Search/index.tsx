@@ -11,6 +11,7 @@ import isEmpty from "lodash/isEmpty"
 import debounce from "lodash/debounce"
 import uniqueId from "lodash/uniqueId"
 import { createBem } from "@oly_op/bem"
+import { useParams } from "react-router-dom"
 import { useLazyQuery } from "@apollo/client"
 
 import {
@@ -39,25 +40,30 @@ import "./index.scss"
 const bem = createBem("Search")
 
 const Search: FC = () => {
-	const dispatch =
-		useDispatch()
-	const userId =
-		useStateUserId()
-	const queryId =
-		useRef(uniqueId())
-	const [ query, setQuery ] =
-		useState("")
-	const variables: Vars =
-		{ query, userId }
+	const dispatch = useDispatch()
+	const userId = useStateUserId()
+	const queryId = useRef(uniqueId())
+	const params = useParams<Params>()
+	const urlParams = params.query ?? ""
+	const [ query, setQuery ] = useState(urlParams)
+
+	const variables: Vars = { query, userId }
+
 	const [ search, { data, loading } ] =
 		useLazyQuery<Data, Vars>(GET_SEARCH, { variables })
 	const delayedQuery =
 		useRef(debounce(x => search(x), 500)).current
+
 	const handleChange: ChangeEventHandler<HTMLInputElement> =
 		({ target: { value } }) => {
 			setQuery(value)
 			delayedQuery(value)
 		}
+
+	useEffect(() => {
+		delayedQuery(urlParams)
+	}, [delayedQuery, urlParams])
+
 	useEffect(() => {
 		if (loading) {
 			dispatch(addLoading(queryId.current))
@@ -65,6 +71,7 @@ const Search: FC = () => {
 			dispatch(removeLoading(queryId.current))
 		}
 	}, [loading, queryId, dispatch])
+
 	return (
 		<div className={bem("")}>
 			<div className={bem("bar", "Padding")}>
@@ -100,6 +107,10 @@ const Search: FC = () => {
 			)}
 		</div>
 	)
+}
+
+interface Params {
+	query?: string,
 }
 
 interface Vars extends UserVar {

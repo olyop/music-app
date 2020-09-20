@@ -27,6 +27,11 @@ const routes: Route[] = [{
 	path: "/player",
 	component: Player,
 },{
+	id: uniqueId(),
+	name: "Search",
+	path: "/search",
+	component: Search,
+},{
 	ignore: true,
 	id: uniqueId(),
 	name: "Queues",
@@ -55,11 +60,6 @@ const routes: Route[] = [{
 	id: uniqueId(),
 	component: GenrePage,
 	path: "/genre/:genreId",
-},{
-	id: uniqueId(),
-	name: "Search",
-	component: Search,
-	path: "/search/:query",
 }]
 
 export default routes

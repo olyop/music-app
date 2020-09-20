@@ -7,9 +7,9 @@ import Icon from "../Icon"
 import Helmet from "../Helmet"
 import DocLink from "../DocLink"
 import QueryApi from "../QueryApi"
+import Controls from "../Controls"
 import Progress from "../Progress"
 import SongTitle from "../SongTitle"
-import UserControls from "../UserControls"
 import { User, UserVar } from "../../types"
 import { useStateUserId } from "../../redux"
 import InLibraryButton from "../InLibraryButton"
@@ -35,7 +35,7 @@ const Player: FC<RouteComponentProps> = ({ history }) => (
 						onClick={() => history.goBack()}
 						className={bem("close", "PaddingQuart")}
 					/>
-					{data && data.user.current && (
+					{data?.user.current && (
 						<Helmet title="Now Playing">
 							<div className={bem("main")}>
 								<Link
@@ -74,7 +74,7 @@ const Player: FC<RouteComponentProps> = ({ history }) => (
 								<Progress
 									className={bem("main-progreess")}
 								/>
-								<UserControls
+								<Controls
 									className={bem("main-controls")}
 									iconClassName={bem("main-controls-icon")}
 								/>

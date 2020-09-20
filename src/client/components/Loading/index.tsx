@@ -10,13 +10,13 @@ const bem = createBem("Loading")
 
 const Loading: FC = () => {
 	const loading = useStateLoading()
-	return !isEmpty(loading) ? (
+	return isEmpty(loading) ? null : (
 		<div className={bem("")}>
 			<div className={bem("line")}/>
 			<div className={bem("subline", "asc")}/>
 			<div className={bem("subline", "desc")}/>
 		</div>
-	) : null
+	)
 }
 
 export default Loading

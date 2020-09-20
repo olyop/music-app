@@ -2,54 +2,56 @@ query search(
 	$userId: Uuid!
 	$query: String!
 ) {
-	songSearch(query: $query, exact: false) {
-    mix
-    title
-    songId
-    duration
-    inLibrary(userId: $userId)
-    featuring {
-      name
-      artistId
+  search(query: $query) {
+    ...on Song {
+      mix
+      title
+      songId
+      duration
+      inLibrary(userId: $userId)
+      featuring {
+        name
+        artistId
+      }
+      remixers {
+        name
+        artistId
+      }
+      artists {
+        name
+        artistId
+      }
+      genres {
+        name
+        genreId
+      }
+      album {
+        title
+        albumId
+        cover(size: HALF)
+      }
     }
-    remixers {
-      name
-      artistId
-    }
-    artists {
-      name
-      artistId
-    }
-    genres {
+    ...on Genre {
       name
       genreId
     }
-    album {
-      title
+    ...on Album {
       albumId
+      title
+      released
       cover(size: HALF)
+      artists {
+        artistId
+        name
+      }
     }
-	}
-	genreSearch(query: $query, exact: false) {
-    name
-    genreId
-	}
-	albumSearch(query: $query, exact: false) {
-    albumId
-    title
-    released
-    cover(size: HALF)
-    artists {
-      artistId
+    ...on Artist {
       name
+      artistId
+      numOfSongs
+      numOfAlbums
+      photo(size: MINI)
+      inLibrary(userId: $userId)
     }
-	}
-	artistSearch(query: $query, exact: false) {
-    name
-    artistId
-    numOfSongs
-    numOfAlbums
-    photo(size: MINI)
-    inLibrary(userId: $userId)
-	}
+  }
 }

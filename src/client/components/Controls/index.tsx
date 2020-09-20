@@ -15,9 +15,9 @@ import USER_NEXT from "../../graphql/mutations/userNext.gql"
 
 import "./index.scss"
 
-const bem = createBem("UserControls")
+const bem = createBem("Controls")
 
-const UserControls: FC<PropTypes> = ({ className, iconClassName }) => {
+const Controls: FC<PropTypes> = ({ className, iconClassName }) => {
 	const play = useStatePlay()
 	const dispatch = useDispatch()
 	const userId = useStateUserId()
@@ -55,4 +55,4 @@ interface PropTypes extends BemPropTypes {
 	iconClassName?: BemInput,
 }
 
-export default UserControls
+export default Controls

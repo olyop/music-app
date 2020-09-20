@@ -11,16 +11,8 @@ import isEmpty from "lodash/isEmpty"
 import debounce from "lodash/debounce"
 import uniqueId from "lodash/uniqueId"
 import { createBem } from "@oly_op/bem"
-import { useParams } from "react-router-dom"
 import { useLazyQuery } from "@apollo/client"
-
-import {
-	Song,
-	Genre,
-	Album,
-	Artist,
-	UserVar,
-} from "../../types"
+import { useHistory, useLocation } from "react-router-dom"
 
 import {
 	addLoading,
@@ -29,10 +21,14 @@ import {
 	useStateUserId,
 } from "../../redux"
 
-import Songs from "../Songs"
-import Genres from "../Genres"
-import Albums from "../Albums"
-import Artists from "../Artists"
+import Song from "../Song"
+import Genre from "../Genre"
+import Album from "../Album"
+import Artist from "../Artist"
+import { Data } from "./types"
+import { UserVar } from "../../types"
+import reduceResults from "./reduceResults"
+import { isSong, isGenre, isAlbum } from "./isDoc"
 import GET_SEARCH from "../../graphql/queries/search.gql"
 
 import "./index.scss"
@@ -40,29 +36,40 @@ import "./index.scss"
 const bem = createBem("Search")
 
 const Search: FC = () => {
+	const history = useHistory()
+	const location = useLocation()
 	const dispatch = useDispatch()
 	const userId = useStateUserId()
 	const queryId = useRef(uniqueId())
-	const params = useParams<Params>()
-	const urlParams = params.query ?? ""
-	const [ query, setQuery ] = useState(urlParams)
-
-	const variables: Vars = { query, userId }
+	const params = new URLSearchParams(location.search)
+	const initQuery = params.get("query") ?? ""
+	const [ input, setInput ] = useState(initQuery)
 
 	const [ search, { data, loading } ] =
-		useLazyQuery<Data, Vars>(GET_SEARCH, { variables })
+		useLazyQuery<Data, Vars>(GET_SEARCH)
+
 	const delayedQuery =
-		useRef(debounce(x => search(x), 500)).current
+		useRef(debounce<DelayedQuery>(query => search({ variables: {
+			query,
+			userId,
+		} }), 500)).current
 
 	const handleChange: ChangeEventHandler<HTMLInputElement> =
 		({ target: { value } }) => {
-			setQuery(value)
+			setInput(value)
 			delayedQuery(value)
 		}
 
 	useEffect(() => {
-		delayedQuery(urlParams)
-	}, [delayedQuery, urlParams])
+		delayedQuery(initQuery)
+	}, [delayedQuery, initQuery])
+
+	useEffect(() => {
+		if (!isEmpty(input)) {
+			const newParams = new URLSearchParams({ query: input })
+			history.push({ search: newParams.toString() })
+		}
+	}, [input, history])
 
 	useEffect(() => {
 		if (loading) {
@@ -72,37 +79,56 @@ const Search: FC = () => {
 		}
 	}, [loading, queryId, dispatch])
 
+	const docClassName = "PaddingHalf Hover ItemBorder"
+
 	return (
 		<div className={bem("")}>
 			<div className={bem("bar", "Padding")}>
 				<input
 					autoFocus
-					value={query}
+					value={input}
 					placeholder="Search..."
 					onChange={handleChange}
 					className={bem("bar-input")}
 				/>
 			</div>
-			{isEmpty(query) ? null : data && (
-				<div className={bem("content", "Padding")}>
-					<Songs
-						hideOrderBy
-						className="MarginBottom"
-						songs={data.songSearch}
-					/>
-					<Albums
-						hideOrderBy
-						className="MarginBottom"
-						albums={data.albumSearch}
-					/>
-					<Artists
-						hideOrderBy
-						className="MarginBottom"
-						artists={data.artistSearch}
-					/>
-					<Genres
-						genres={data.genreSearch}
-					/>
+			{!isEmpty(input) && data && (
+				<div className={bem("content", "Content Elevated")}>
+					{reduceResults(data, input).map(doc => {
+						if (isSong(doc)) {
+							return (
+								<Song
+									song={doc}
+									key={doc.songId}
+									className={docClassName}
+								/>
+							)
+						} else if (isGenre(doc)) {
+							return (
+								<Genre
+									genre={doc}
+									key={doc.genreId}
+									className={docClassName}
+								/>
+							)
+						} else if (isAlbum(doc)) {
+							return (
+								<Album
+									album={doc}
+									key={doc.albumId}
+									className={docClassName}
+								/>
+							)
+						} else {
+							return (
+								<Artist
+									artist={doc}
+									key={doc.artistId}
+									className={docClassName}
+								/>
+							)
+						}
+					})}
 				</div>
 			)}
 		</div>
@@ -117,11 +143,6 @@ interface Vars extends UserVar {
 	query: string,
 }
 
-interface Data {
-	songSearch: Song[],
-	genreSearch: Genre[],
-	albumSearch: Album[],
-	artistSearch: Artist[],
-}
+type DelayedQuery = (x: string) => void
 
 export default Search

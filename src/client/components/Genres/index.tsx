@@ -1,18 +1,18 @@
 import { createElement, FC } from "react"
 import { createBem, BemPropTypes } from "@oly_op/bem"
 
-import { Genre } from "../../types"
+import Genre from "../Genre"
+import { Genre as TGenre } from "../../types"
 
 const bem = createBem("Genre")
 
 const Genres: FC<PropTypes> = ({ genres, className }) => (
-	<div className={bem(className)}>
+	<div className={bem(className, "Elevated")}>
 		{genres.map(
-			({ genreId, name }) => (
-				<p
-					key={genreId}
-					children={name}
-					className={bem("PaddingHalf Card Elevated Text MarginBottomHalf")}
+			genre => (
+				<Genre
+					genre={genre}
+					key={genre.genreId}
 				/>
 			),
 		)}
@@ -20,7 +20,7 @@ const Genres: FC<PropTypes> = ({ genres, className }) => (
 )
 
 interface PropTypes extends BemPropTypes {
-	genres: Genre[],
+	genres: TGenre[],
 }
 
 export default Genres

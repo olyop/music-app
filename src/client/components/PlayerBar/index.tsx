@@ -13,9 +13,9 @@ import Icon from "../Icon"
 import Song from "../Song"
 import QueryApi from "../QueryApi"
 import Progress from "../Progress"
+import Controls from "../Controls"
 import { User } from "../../types"
 import VolumeSlider from "../VolumeSlider"
-import UserControls from "../UserControls"
 import GET_USER_CURRENT from "../../graphql/queries/userCurrent.gql"
 
 import "./index.scss"
@@ -30,13 +30,12 @@ const PlayerBar: FC = () => {
 		dispatch(toggleShowVolume())
 	return (
 		<footer className={bem("", "Elevated")}>
-			<UserControls
+			<Controls
 				className={bem("controls")}
 				iconClassName={bem("icon")}
 			/>
 			<div className={bem("main")}>
 				<QueryApi<Data>
-					hideLoading
 					variables={{ userId }}
 					query={GET_USER_CURRENT}
 					className={bem("main-info")}

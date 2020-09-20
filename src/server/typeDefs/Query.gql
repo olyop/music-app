@@ -18,6 +18,7 @@ type Query {
   topTenSongs: [Song!]!
   
   # searches
+  search(query: String!): [SearchResult!]!
   songSearch(query: String!, exact: Boolean!): [Song!]!
   albumSearch(query: String!, exact: Boolean!): [Album!]!
   genreSearch(query: String!, exact: Boolean!): [Genre!]!

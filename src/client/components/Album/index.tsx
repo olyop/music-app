@@ -6,18 +6,34 @@ import Cover from "../Cover"
 import DocLink from "../DocLink"
 import DocLinks from "../DocLinks"
 import { useStateListStyle } from "../../redux"
+import { uuidRemoveDashes } from "../../helpers"
 import { Album as AlbumType, ListStyle } from "../../types"
 
 const bem = createBem("Album")
 
-const Album: FC<PropTypes> = ({ album, className }) => {
+const Album: FC<PropTypes> = ({
+	album,
+	className,
+	alwaysList = false,
+	hideReleased = false,
+}) => {
 	const listStyle = useStateListStyle()
 	return (
-		listStyle === ListStyle.GRID ? (
-			<div className={bem(className, "Card", "Elevated")}>
+		listStyle === ListStyle.LIST || alwaysList ? (
+			<Item
+				doc={album}
+				hideInLibrary
+				imgDoc={album}
+				upper={<DocLink doc={album}/>}
+				lower={<DocLinks docs={album.artists}/>}
+				right={hideReleased ? undefined : album.released}
+				className={bem(className, "PaddingHalf ItemBorder Hover")}
+			/>
+		) : (
+			<div className={bem(className, "Card Elevated")}>
 				<Cover
 					url={album.cover}
-					link={`/album/${album.albumId}`}
+					link={`/album/${uuidRemoveDashes(album.albumId)}`}
 				/>
 				<Item
 					doc={album}
@@ -27,17 +43,6 @@ const Album: FC<PropTypes> = ({ album, className }) => {
 					lower={<DocLinks ampersand docs={album.artists}/>}
 				/>
 			</div>
-		) : (
-			<Item
-				doc={album}
-				hideInLibrary
-				imgDoc={album}
-				right={album.released}
-				upper={<DocLink doc={album}/>}
-				lower={<DocLinks docs={album.artists}/>}
-				inLibrarySticky={listStyle === ListStyle.LIST}
-				className={bem(className, "PaddingHalf", "ItemBorder", "Hover")}
-			/>
 		)
 	)
 }
@@ -45,6 +50,8 @@ const Album: FC<PropTypes> = ({ album, className }) => {
 interface PropTypes {
 	album: AlbumType,
 	className?: string,
+	alwaysList?: boolean,
+	hideReleased?: boolean,
 }
 
 export default Album

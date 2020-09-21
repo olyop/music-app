@@ -46,9 +46,18 @@
 		height: var(--info-height);
 		&:last-child {
 			margin-right: -3rem; } }
-	&__more {
-		right: 0;
-		z-index: 2;
-		width: 70rem;
-		height: 250rem;
-		position: fixed; } }
+	&__modal {
+		overflow: hidden;
+		&-button {
+			border: 0;
+			width: 100%;
+			outline: none;
+			display: block;
+			cursor: pointer;
+			background-color: transparent;
+			transition: 0.2s background-color;
+			border-bottom: 1px solid var(--border-color);
+			&:hover {
+				background-color: var(--hover-color); }
+			&:last-child {
+				border-bottom: 0; } } } }

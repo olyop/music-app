@@ -124,7 +124,9 @@ const Search: FC = () => {
 						} else if (isAlbum(doc)) {
 							return (
 								<Album
+									alwaysList
 									album={doc}
+									hideReleased
 									key={doc.albumId}
 									className={docClassName}
 								/>
@@ -132,6 +134,7 @@ const Search: FC = () => {
 						} else if (isArtist(doc)) {
 							return (
 								<Artist
+									alwaysList
 									artist={doc}
 									key={doc.artistId}
 									className={docClassName}

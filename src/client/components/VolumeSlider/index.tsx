@@ -9,7 +9,7 @@ import {
 } from "../../redux"
 
 import Icon from "../Icon"
-import ModalClose from "../ModalClose"
+import Modal from "../Modal"
 
 import "./index.scss"
 
@@ -45,7 +45,7 @@ const VolumeSlider = () => {
 					className={bem("button")}
 				/>
 			</div>
-			<ModalClose
+			<Modal
 				onClick={handleClose}
 			/>
 		</Fragment>

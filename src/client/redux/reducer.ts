@@ -27,8 +27,6 @@ import {
 	UserArtistsOrderByField,
 } from "../types"
 
-const toggle = (x: boolean) => !x
-
 const userId =
 	createReducer(process.env.USER_ID!, {})
 
@@ -45,13 +43,13 @@ const current =
 const play =
 	createReducer(false, builder =>
 		builder
-			.addCase(togglePlay, toggle)
+			.addCase(togglePlay, (state: boolean) => !state)
 			.addCase(updatePlay, (state, { payload }) => payload))
 
 const sidebar =
 	createReducer(false, builder =>
 		builder
-			.addCase(toggleSidebar, toggle))
+			.addCase(toggleSidebar, (state: boolean) => !state))
 
 const errors =
 	createReducer<Error[]>([], builder =>
@@ -61,12 +59,17 @@ const errors =
 const loading =
 	createReducer<string[]>([], builder =>
 		builder
-			.addCase(addLoading, (state, { payload }) => [...state, payload])
-			.addCase(removeLoading, (state, { payload }) => state.filter(x => x !== payload)))
+			.addCase(addLoading, (state, { payload }) => [
+				...state,
+				payload,
+			])
+			.addCase(removeLoading, (state, { payload }) => (
+				state.filter(x => x !== payload)
+			)))
 
 const showVolume =
 	createReducer(false, builder =>
-		builder.addCase(toggleShowVolume, toggle))
+		builder.addCase(toggleShowVolume, (state: boolean) => !state))
 
 const defaultSettings: Settings = {
 	showGenres: false,

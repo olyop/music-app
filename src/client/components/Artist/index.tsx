@@ -7,11 +7,19 @@ import { useStateListStyle } from "../../redux"
 import { artistLower, uuidRemoveDashes } from "../../helpers"
 import { Artist as ArtistType, ListStyle } from "../../types"
 
-const Artist: FC<PropTypes> = ({ artist, className }) => {
+const Artist: FC<PropTypes> = ({ artist, className, alwaysList = false }) => {
 	const listStyle = useStateListStyle()
 	const upper = <DocLink doc={artist}/>
 	const lower = artistLower(artist)
-	return listStyle === ListStyle.GRID ? (
+	return listStyle === ListStyle.LIST || alwaysList ? (
+		<Item
+			doc={artist}
+			upper={upper}
+			lower={lower}
+			imgDoc={artist}
+			className={[ className, "PaddingHalf", "ItemBorder", "Hover" ].join(" ")}
+		/>
+	) : (
 		<div className={[ className, "Card", "Elevated" ].join(" ")}>
 			<Cover
 				landscape
@@ -25,20 +33,13 @@ const Artist: FC<PropTypes> = ({ artist, className }) => {
 				className="PaddingHalf"
 			/>
 		</div>
-	) : (
-		<Item
-			doc={artist}
-			upper={upper}
-			lower={lower}
-			imgDoc={artist}
-			className={[ className, "PaddingHalf", "ItemBorder", "Hover" ].join(" ")}
-		/>
 	)
 }
 
 interface PropTypes {
 	artist: ArtistType,
 	className?: string,
+	alwaysList?: boolean,
 }
 
 export default Artist

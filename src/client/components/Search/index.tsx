@@ -15,6 +15,15 @@ import { useLazyQuery } from "@apollo/client"
 import { useHistory, useLocation } from "react-router-dom"
 
 import {
+	UserVar,
+	Song as TSong,
+	Genre as TGenre,
+	Album as TAlbum,
+	Artist as TArtist,
+} from "../../types"
+
+import {
+	addError,
 	addLoading,
 	useDispatch,
 	removeLoading,
@@ -25,10 +34,7 @@ import Song from "../Song"
 import Genre from "../Genre"
 import Album from "../Album"
 import Artist from "../Artist"
-import { Data } from "./types"
-import { UserVar } from "../../types"
-import reduceResults from "./reduceResults"
-import { isSong, isGenre, isAlbum } from "./isDoc"
+import { isSong, isGenre, isAlbum, isArtist } from "./isDoc"
 import GET_SEARCH from "../../graphql/queries/search.gql"
 
 import "./index.scss"
@@ -45,7 +51,7 @@ const Search: FC = () => {
 	const initQuery = params.get("query") ?? ""
 	const [ input, setInput ] = useState(initQuery)
 
-	const [ search, { data, loading } ] =
+	const [ search, { data, error, loading } ] =
 		useLazyQuery<Data, Vars>(GET_SEARCH)
 
 	const delayedQuery =
@@ -65,10 +71,8 @@ const Search: FC = () => {
 	}, [delayedQuery, initQuery])
 
 	useEffect(() => {
-		if (!isEmpty(input)) {
-			const newParams = new URLSearchParams({ query: input })
-			history.push({ search: newParams.toString() })
-		}
+		const newParams = new URLSearchParams({ query: input })
+		history.push({ search: newParams.toString() })
 	}, [input, history])
 
 	useEffect(() => {
@@ -78,6 +82,12 @@ const Search: FC = () => {
 			dispatch(removeLoading(queryId.current))
 		}
 	}, [loading, queryId, dispatch])
+
+	useEffect(() => {
+		if (error) {
+			dispatch(addError(error))
+		}
+	})
 
 	const docClassName = "PaddingHalf Hover ItemBorder"
 
@@ -94,7 +104,7 @@ const Search: FC = () => {
 			</div>
 			{!isEmpty(input) && data && (
 				<div className={bem("content", "Content Elevated")}>
-					{reduceResults(data, input).map(doc => {
+					{data.search.map(doc => {
 						if (isSong(doc)) {
 							return (
 								<Song
@@ -119,7 +129,7 @@ const Search: FC = () => {
 									className={docClassName}
 								/>
 							)
-						} else {
+						} else if (isArtist(doc)) {
 							return (
 								<Artist
 									artist={doc}
@@ -127,6 +137,8 @@ const Search: FC = () => {
 									className={docClassName}
 								/>
 							)
+						} else {
+							return null
 						}
 					})}
 				</div>
@@ -144,5 +156,9 @@ interface Vars extends UserVar {
 }
 
 type DelayedQuery = (x: string) => void
+
+export interface Data {
+	search: (TSong | TGenre | TAlbum | TArtist)[],
+}
 
 export default Search

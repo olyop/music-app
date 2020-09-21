@@ -15,8 +15,12 @@ import {
 import uniqueId from "lodash/uniqueId"
 import type { DocumentNode } from "graphql"
 
-import ApiError from "../ApiError"
-import { useDispatch, addLoading, removeLoading } from "../../redux"
+import {
+	addError,
+	addLoading,
+	useDispatch,
+	removeLoading,
+} from "../../redux"
 
 const QueryApi = <Data, Vars = Record<string, unknown>>({
 	query,
@@ -43,13 +47,15 @@ const QueryApi = <Data, Vars = Record<string, unknown>>({
 		}
 	}, [data, loading, dispatch, hideLoading])
 
+	useEffect(() => {
+		if (error) {
+			dispatch(addError(error))
+		}
+	}, [error, dispatch])
+
 	useEffect(() => () => {
 		dispatch(removeLoading(queryId.current))
 	})
-
-	if (error) {
-		return <ApiError error={error}/>
-	}
 
 	const render = children({ error, loading, data, ...res })
 

@@ -4,5 +4,14 @@ import { resRows } from "./resRows"
 import { SQLQueryRes } from "../../types"
 import { convertToCamelCase } from "../resolver"
 
-export const parseTable = <T>() => (res: SQLQueryRes): T[] =>
-	pipe(resRows, map(convertToCamelCase<T>()))(res)
+export const parseTable =
+	<T>(log = false) =>
+		(res: SQLQueryRes): T[] =>
+			pipe(
+				resRows,
+				map(convertToCamelCase<T>()),
+				rows => {
+					if (log) console.log(rows)
+					return rows
+				},
+			)(res)

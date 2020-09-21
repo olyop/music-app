@@ -6,6 +6,7 @@ import { ReactRedux } from "./redux"
 import Pages from "./components/Pages"
 import Header from "./components/Header"
 import Loading from "./components/Loading"
+import ApiError from "./components/ApiError"
 import PlayerBar from "./components/PlayerBar"
 import { Provider as ApolloClient } from "./apollo"
 
@@ -15,6 +16,7 @@ const Application: FC = () => (
 	<ReactRedux>
 		<ReactRouter>
 			<ApolloClient>
+				<ApiError/>
 				<Loading/>
 				<Header/>
 				<Pages/>

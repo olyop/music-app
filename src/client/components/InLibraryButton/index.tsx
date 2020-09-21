@@ -11,19 +11,16 @@ import isUndefined from "lodash/isUndefined"
 import { useQuery, useMutation } from "@apollo/client"
 
 import {
+	addError,
 	addLoading,
 	useDispatch,
 	removeLoading,
 	useStateUserId,
-	useStateOrderBy,
 } from "../../redux"
 
 import Icon from "../Icon"
 import { UserDoc } from "../../types"
 import { determineDocReturn, determineDocId } from "../../helpers"
-
-import GET_USER_SONGS from "../../graphql/queries/userSongs.gql"
-import GET_USER_ARTISTS from "../../graphql/queries/userArtists.gql"
 
 import GET_SONG_IN_LIB from "../../graphql/queries/songInLib.gql"
 import GET_ARTIST_IN_LIB from "../../graphql/queries/artistInLib.gql"
@@ -45,16 +42,11 @@ const InLibraryButton: FC<PropTypes> = ({ doc, style, className }) => {
 		dr("Song", "Artist")
 	const docKey =
 		dr("songId", "artistId")
-	const orderByKey =
-		dr("userSongs", "userArtists")
 	const QUERY =
 		dr(GET_SONG_IN_LIB, GET_ARTIST_IN_LIB)
-	const REFETCH_QUERY =
-		dr(GET_USER_SONGS, GET_USER_ARTISTS)
 
 	const userId = useStateUserId()
 	const docId = determineDocId(doc)
-	const orderBy = useStateOrderBy(orderByKey)
 
 	const variables = { userId, [docKey]: docId }
 
@@ -72,13 +64,9 @@ const InLibraryButton: FC<PropTypes> = ({ doc, style, className }) => {
 		dr(RM_USER_SONG, RM_USER_ARTIST) :
 		dr(ADD_USER_SONG, ADD_USER_ARTIST)
 
-	const [ mutation, { loading: mutationLoading } ] =
+	const [ mutation, { error, loading: mutationLoading } ] =
 		useMutation<Res>(MUTATION, {
 			variables,
-			refetchQueries: [{
-				query: REFETCH_QUERY,
-				variables: { userId, orderBy },
-			}],
 			optimisticResponse: {
 				[mutationName]: {
 					...doc,
@@ -102,6 +90,12 @@ const InLibraryButton: FC<PropTypes> = ({ doc, style, className }) => {
 			dispatch(removeLoading(queryId.current))
 		}
 	}, [dispatch, mutationLoading])
+
+	useEffect(() => {
+		if (error) {
+			dispatch(addError(error))
+		}
+	}, [error, dispatch])
 
 	return (
 		<Icon

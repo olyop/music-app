@@ -1,6 +1,7 @@
 import { createReducer, combineReducers } from "@reduxjs/toolkit"
 
 import {
+	addError,
 	addLoading,
 	updatePlay,
 	togglePlay,
@@ -51,6 +52,11 @@ const sidebar =
 	createReducer(false, builder =>
 		builder
 			.addCase(toggleSidebar, toggle))
+
+const errors =
+	createReducer<Error[]>([], builder =>
+		builder
+			.addCase(addError, (state, { payload }) => [...state, payload]))
 
 const loading =
 	createReducer<string[]>([], builder =>
@@ -119,6 +125,7 @@ const reducer = combineReducers({
 	play,
 	userId,
 	volume,
+	errors,
 	current,
 	sidebar,
 	loading,

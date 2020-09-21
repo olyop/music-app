@@ -16,6 +16,9 @@ export const toggleShowGenres =
 export const toggleShowVolume =
 	createAction("TOGGLE_SHOW_VOLUME")
 
+export const addError =
+	createAction("ADD_ERROR", withPayloadType<Error>())
+
 export const addLoading =
 	createAction("ADD_LOADING", withPayloadType<string>())
 

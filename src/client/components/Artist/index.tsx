@@ -3,8 +3,8 @@ import { createElement, FC } from "react"
 import Item from "../Item"
 import Cover from "../Cover"
 import DocLink from "../DocLink"
-import { artistLower } from "../../helpers"
 import { useStateListStyle } from "../../redux"
+import { artistLower, uuidRemoveDashes } from "../../helpers"
 import { Artist as ArtistType, ListStyle } from "../../types"
 
 const Artist: FC<PropTypes> = ({ artist, className }) => {
@@ -16,7 +16,7 @@ const Artist: FC<PropTypes> = ({ artist, className }) => {
 			<Cover
 				landscape
 				url={artist.photo}
-				link={`/artist/${artist.artistId}`}
+				link={`/artist/${uuidRemoveDashes(artist.artistId)}`}
 			/>
 			<Item
 				doc={artist}

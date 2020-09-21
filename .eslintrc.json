@@ -152,7 +152,7 @@
 		],
 		"no-underscore-dangle": [
 			"error",
-			{ "allow": ["__typename"] }
+			{ "allow": ["__typename", "__resolveType"] }
 		],
 		"max-len": [
 			"error",

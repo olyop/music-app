@@ -10,6 +10,7 @@ const typeDefs = `
 	${importSchema("Scalars")}
 	${importSchema("Enums")}
 	${importSchema("Inputs")}
+	${importSchema("Unions")}
 	${importSchema("Query")}
 	${importSchema("Mutation")}
 	${importSchema("User")}

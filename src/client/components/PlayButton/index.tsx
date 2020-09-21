@@ -10,6 +10,7 @@ import { createBem, BemPropTypes } from "@oly_op/bem"
 import { useQuery, useMutation } from "@apollo/client"
 
 import {
+	addError,
 	updatePlay,
 	addLoading,
 	useDispatch,
@@ -43,7 +44,7 @@ const PlayButton: FC<PropTypes> = ({ doc, className }) => {
 			fetchPolicy: "cache-first",
 		})
 
-	const [ userPlay, { loading } ] =
+	const [ userPlay, { error, loading } ] =
 		useMutation<UserPlayRes>(USER_PLAY, {
 			variables: { docId, userId },
 			optimisticResponse: isSong(doc) ? {
@@ -80,6 +81,12 @@ const PlayButton: FC<PropTypes> = ({ doc, className }) => {
 			dispatch(removeLoading(queryId.current))
 		}
 	}, [dispatch, loading])
+
+	useEffect(() => {
+		if (error) {
+			dispatch(addError(error))
+		}
+	}, [error, dispatch])
 
 	return (
 		<Icon

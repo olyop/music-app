@@ -120,3 +120,5 @@ export interface DocsOrderBy<T> {
 	orderBy?: OrderBy,
 	parse: SQLParse<T>,
 }
+
+export type Search = Song | Genre | Album | Artist

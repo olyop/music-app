@@ -15,6 +15,7 @@ import * as User from "./User"
 import * as Song from "./Song"
 import * as Genre from "./Genre"
 import * as Album from "./Album"
+import * as Search from "./Search"
 import * as Artist from "./Artist"
 import * as Playlist from "./Playlist"
 
@@ -32,6 +33,7 @@ const resolvers = {
 	Genre,
 	Album,
 	Email,
+	Search,
 	Upload,
 	Artist,
 	Mutation,

@@ -12,6 +12,9 @@ import { State } from "./store"
 export const useStatePlay = () =>
 	useSelector<State, boolean>(state => state.play)
 
+export const useStateError = () =>
+	useSelector<State, Error[]>(state => state.errors)
+
 export const useStateLoading = () =>
 	useSelector<State, string[]>(state => state.loading)
 

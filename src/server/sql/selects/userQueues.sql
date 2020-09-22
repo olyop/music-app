@@ -1,8 +1,8 @@
 SELECT
 	{{ columnNames }}
 FROM
-	users
+	users_queues
 WHERE
 	user_id = {{ userId }}
-LIMIT
-	1;
+ORDER BY
+	index ASC;

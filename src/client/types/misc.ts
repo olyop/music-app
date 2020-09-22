@@ -40,3 +40,8 @@ export interface Queue {
 export interface UserVar {
 	userId: string,
 }
+
+export interface ModalButton {
+	text: string,
+	handler: () => void,
+}

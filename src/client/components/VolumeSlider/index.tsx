@@ -46,7 +46,7 @@ const VolumeSlider = () => {
 				/>
 			</div>
 			<Modal
-				onClick={handleClose}
+				onClose={handleClose}
 			/>
 		</Fragment>
 	)

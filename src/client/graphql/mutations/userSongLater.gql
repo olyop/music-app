@@ -1,8 +1,8 @@
-mutation userAddSongLater(
+mutation userSongLater(
   $userId: Uuid!
   $songId: Uuid!
 ) {
-  userAddSongLater(
+  userSongLater(
     userId: $userId
     songId: $songId
   ) {

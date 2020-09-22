@@ -1,4 +1,4 @@
-import { SQLQueryRes } from "../../types"
+import { SqlQueryRes } from "../../types"
 
-export const rowCount = (res: SQLQueryRes) =>
+export const rowCount = (res: SqlQueryRes) =>
 	res.rowCount

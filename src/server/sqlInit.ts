@@ -1,5 +1,4 @@
 import {
-	ADMIN_SET_TIME_ZONE,
 	TABLE_ARTISTS,
 	TABLE_GENRES,
 	TABLE_ALBUMS,
@@ -22,7 +21,6 @@ import {
 } from "./sql"
 
 const SQL_INIT = [
-	ADMIN_SET_TIME_ZONE,
 	TABLE_ARTISTS,
 	TABLE_GENRES,
 	TABLE_ALBUMS,

@@ -9,15 +9,15 @@ type Mutation {
   userNext(
     userId: Uuid!
   ): User!
-  userAddSongNext(
+  userSongNext(
     userId: Uuid!
     songId: Uuid!
   ): User!
-  userAddSongLater(
+  userSongLater(
     userId: Uuid!
     songId: Uuid!
   ): User!
-  userAddSongQueue(
+  userSongQueue(
     userId: Uuid!
     songId: Uuid!
   ): User!

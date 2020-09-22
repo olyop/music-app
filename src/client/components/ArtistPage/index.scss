@@ -13,6 +13,8 @@
 			z-index: 2;
 			position: absolute;
 			transform: translateX(-50%);
+			@media (max-width: 1360px) {
+				width: 100%; }
 			&-add,
 			&-name,
 			&-text {

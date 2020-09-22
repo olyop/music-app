@@ -25,14 +25,17 @@ const Queues: FC = () => (
 					queue => (
 						<Fragment key={queue.id}>
 							{isNull(queue.songs[0]) || isEmpty(queue.songs) ? null : (
-								<div className={bem("section", queue.key)}>
+								<div className={bem("section", "Elevated Padding")}>
 									<p className={bem("section-text")}>{queue.name}</p>
-									{queue.songs.map(song => (
-										<Song
-											song={song}
-											key={song.songId}
-										/>
-									))}
+									{queue.songs.map(
+										(song, index) => (
+											<Song
+												song={song}
+												key={song.songId + index.toString()}
+												className={bem("section-song", "ItemBorder")}
+											/>
+										),
+									)}
 								</div>
 							)}
 						</Fragment>

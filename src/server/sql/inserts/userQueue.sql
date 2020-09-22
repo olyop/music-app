@@ -1,12 +1,12 @@
 INSERT INTO {{ tableName }}
 	(
 		user_id,
-		{{ columnName }},
-		in_library
+		song_id,
+		index
 	)
 VALUES
 	(
 		{{ userId }},
-		{{ docId }},
-		true
+		{{ songId }},
+		{{ index }}
 	);

@@ -1,10 +1,23 @@
+import {
+	UPDATE_USER_PLAY,
+} from "../../sql"
+
 import { COLUMN_NAMES } from "../../globals"
 import { User, UserArgs } from "../../types"
-import { UPDATE_USER_PLAY } from "../../sql"
 import { sql, createResolver } from "../../helpers"
 
 const resolver =
 	createResolver()
+
+interface Args extends UserArgs {
+	docId: string,
+}
+
+export const userPrev =
+	resolver<string>(() => "userPrev")
+
+export const userNext =
+	resolver<string>(() => "userNext")
 
 export const userPlay =
 	resolver<User, Args>(
@@ -13,11 +26,11 @@ export const userPlay =
 				sql: UPDATE_USER_PLAY,
 				parse: sql.parseRow(),
 				variables: [{
-					key: "userId",
-					value: args.userId,
-				},{
 					key: "songId",
 					value: args.docId,
+				},{
+					key: "userId",
+					value: args.userId,
 				},{
 					string: false,
 					key: "columnNames",
@@ -26,7 +39,3 @@ export const userPlay =
 			})
 		),
 	)
-
-interface Args extends UserArgs {
-	docId: string,
-}

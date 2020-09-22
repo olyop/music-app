@@ -12,9 +12,9 @@ import {
 
 import {
 	SELECT_SONG,
-	SELECT_SONGS_IN,
 	SELECT_USER_DOCS,
 	SELECT_USER_PLAYS,
+	SELECT_USER_QUEUE,
 } from "../sql"
 
 import { COLUMN_NAMES } from "../globals"
@@ -30,7 +30,7 @@ export const current =
 	resolver<Song | null>(
 		({ parent }) => (
 			isNull(parent.current) ? null : (
-				sql.query({
+				sql.query<Song>({
 					sql: SELECT_SONG,
 					parse: sql.parseRow(),
 					variables: [{
@@ -50,7 +50,7 @@ export const prev =
 	resolver<Song[]>(
 		({ parent }) => (
 			sql.query({
-				sql: SELECT_SONGS_IN,
+				sql: SELECT_USER_QUEUE,
 				parse: sql.parseTable(),
 				variables: [{
 					key: "userId",
@@ -62,7 +62,7 @@ export const prev =
 				},{
 					string: false,
 					key: "columnNames",
-					value: sql.join(COLUMN_NAMES.SONG),
+					value: sql.join(COLUMN_NAMES.SONG, "songs"),
 				}],
 			})
 		),
@@ -72,7 +72,7 @@ export const next =
 	resolver<Song[]>(
 		({ parent }) => (
 			sql.query({
-				sql: SELECT_SONGS_IN,
+				sql: SELECT_USER_QUEUE,
 				parse: sql.parseTable(),
 				variables: [{
 					key: "userId",
@@ -84,7 +84,7 @@ export const next =
 				},{
 					string: false,
 					key: "columnNames",
-					value: sql.join(COLUMN_NAMES.SONG),
+					value: sql.join(COLUMN_NAMES.SONG, "songs"),
 				}],
 			})
 		),
@@ -94,7 +94,7 @@ export const queue =
 	resolver<Song[]>(
 		({ parent }) => (
 			sql.query({
-				sql: SELECT_SONGS_IN,
+				sql: SELECT_USER_QUEUE,
 				parse: sql.parseTable(),
 				variables: [{
 					key: "userId",
@@ -106,7 +106,7 @@ export const queue =
 				},{
 					string: false,
 					key: "columnNames",
-					value: sql.join(COLUMN_NAMES.SONG),
+					value: sql.join(COLUMN_NAMES.SONG, "songs"),
 				}],
 			})
 		),

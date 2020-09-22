@@ -1,8 +1,13 @@
 import { createElement } from "react"
 import { Link } from "react-router-dom"
 
+import {
+	determineDocId,
+	determineDocPath,
+	determineDocName,
+} from "../../helpers"
+
 import { Doc } from "../../types"
-import { determineDocPath, determineDocName } from "../../helpers"
 
 import "./index.scss"
 
@@ -17,6 +22,7 @@ const DocLink = <T extends Doc,>({ doc }: PropTypes<T>) => {
 			title={text}
 			children={text}
 			className="DocLink"
+			id={determineDocId(doc)}
 			to={determineDocPath(doc)}
 		/>
 	)

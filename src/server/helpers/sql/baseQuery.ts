@@ -1,5 +1,6 @@
-import { uniq, identity, isString, isNumber } from "lodash"
-import { Client, SQLConfig, SQLParse, SQLVariable } from "../../types"
+import { uniq, identity, isString, isNumber, isEmpty } from "lodash"
+
+import { Client, SqlConfig, SqlParse, SqlVariable } from "../../types"
 
 export const getVariableKeys = (sql: string) => {
 	const keys: string[] = []
@@ -34,13 +35,13 @@ export const getVariableKeys = (sql: string) => {
 	return uniq(keys)
 }
 
-const areVariablesProvided = (variableKeys: string[], variables: SQLVariable[]) =>
+const areVariablesProvided = (variableKeys: string[], variables: SqlVariable[]) =>
 	variables
 		.map(({ key }) => variableKeys.includes(key))
 		.every(Boolean)
 
 const determineReplaceValue = (
-	{ value, string = true, parameterized = false }: SQLVariable,
+	{ value, string = true, parameterized = false }: SqlVariable,
 	params: string[],
 ) => {
 	const val = isNumber(value) ? value.toString() : value
@@ -54,7 +55,7 @@ const determineReplaceValue = (
 	}
 }
 
-const replaceSqlWithValues = (sql: string, variables: SQLVariable[], params: string[]) =>
+const replaceSqlWithValues = (sql: string, variables: SqlVariable[], params: string[]) =>
 	variables.reduce(
 		(query, variable) => query.replace(
 			new RegExp(`{{ ${variable.key} }}`, "gi"),
@@ -63,18 +64,19 @@ const replaceSqlWithValues = (sql: string, variables: SQLVariable[], params: str
 		sql,
 	)
 
-const normalizeInput = <TReturn>(input: string | SQLConfig<TReturn>) =>
+const normalizeInput = <TReturn>(input: string | SqlConfig<TReturn>) =>
 	(isString(input) ? {
 		sql: input,
-		parse: identity as SQLParse<TReturn>,
+		parse: identity as SqlParse<TReturn>,
 	} : input)
 
 export const baseQuery =
 	(client: Client) =>
-		<TReturn>(input: string | SQLConfig<TReturn>) =>
+		<TReturn>(input: string | SqlConfig<TReturn>) =>
 			new Promise<TReturn>(
 				(resolve, reject) => {
-					const { sql, log, parse, variables = [] } = normalizeInput(input)
+					const { sql, logSql, logRes, parse, variables = [] } =
+						normalizeInput(input)
 					const variableKeys = getVariableKeys(sql)
 					if (!areVariablesProvided(variableKeys, variables)) {
 						// eslint-disable-next-line max-len
@@ -84,8 +86,12 @@ export const baseQuery =
 					} else {
 						const params: string[] = []
 						const sqlWithValues = replaceSqlWithValues(sql, variables, params)
-						if (log) console.log(sqlWithValues, params)
-						client.query(sqlWithValues, params)
+						if (logSql) console.log(sqlWithValues)
+						client.query(sqlWithValues, isEmpty(params) ? undefined : params)
+									.then(res => {
+										if (logRes) console.log(res.rows[0])
+										return res
+									})
 									.then(parse)
 									.then(resolve)
 									.catch(reject)

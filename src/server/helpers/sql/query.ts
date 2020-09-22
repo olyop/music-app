@@ -1,6 +1,6 @@
 import { pg } from "../../services"
 import { baseQuery } from "./baseQuery"
-import { SQLConfig } from "../../types"
+import { SqlConfig } from "../../types"
 
-export const query = <TReturn>(config: SQLConfig<TReturn>): Promise<TReturn> =>
+export const query = <TReturn>(config: SqlConfig<TReturn>): Promise<TReturn> =>
 	baseQuery(pg)<TReturn>(config)

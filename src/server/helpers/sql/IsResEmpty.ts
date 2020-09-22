@@ -2,7 +2,7 @@ import pipe from "@oly_op/pipe"
 import { isEmpty } from "lodash"
 
 import { resRows } from "./resRows"
-import { SQLQueryRes } from "../../types"
+import { SqlQueryRes } from "../../types"
 
-export const isResEmpty = (res: SQLQueryRes) =>
+export const isResEmpty = (res: SqlQueryRes) =>
 	pipe(resRows, isEmpty)(res)

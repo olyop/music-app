@@ -5,7 +5,7 @@ import {
 	Genre,
 	Album,
 	Artist,
-	SQLConfig,
+	SqlConfig,
 } from "../../../types"
 
 import {
@@ -31,7 +31,7 @@ import { sql } from "../../../helpers"
 import { COLUMN_NAMES } from "../../../globals"
 
 export const insertGenre =
-	(genre: GenreInput): SQLConfig<Genre> => ({
+	(genre: GenreInput): SqlConfig<Genre> => ({
 		sql: INSERT_GENRE,
 		parse: sql.parseRow(),
 		variables: [{
@@ -49,7 +49,7 @@ export const insertGenre =
 	})
 
 export const insertArtist =
-	(artist: ArtistUpload): SQLConfig<Artist> => ({
+	(artist: ArtistUpload): SqlConfig<Artist> => ({
 		sql: INSERT_ARTIST,
 		parse: sql.parseRow(),
 		variables: [{
@@ -67,7 +67,7 @@ export const insertArtist =
 	})
 
 export const insertAlbum =
-	(album: AlbumUpload): SQLConfig<Album> => ({
+	(album: AlbumUpload): SqlConfig<Album> => ({
 		sql: INSERT_ALBUM,
 		parse: sql.parseRow(),
 		variables: [{
@@ -89,7 +89,7 @@ export const insertAlbum =
 
 export const insertAlbumArtist =
 	(albumId: string) =>
-		(artistId: string, index: number): SQLConfig<Artist> => ({
+		(artistId: string, index: number): SqlConfig<Artist> => ({
 			sql: INSERT_ALBUM_ARTIST,
 			variables: [{
 				key: "albumId",
@@ -105,7 +105,7 @@ export const insertAlbumArtist =
 		})
 
 export const insertSong =
-	(song: SongUpload, albumId: string, duration: number): SQLConfig<Song> => ({
+	(song: SongUpload, albumId: string, duration: number): SqlConfig<Song> => ({
 		sql: INSERT_SONG,
 		parse: sql.parseRow(),
 		variables: [{
@@ -142,7 +142,7 @@ export const insertSong =
 	})
 
 export const insertSongGenre =
-	(songId: string) => (genreId: string, index: number): SQLConfig<Genre> => ({
+	(songId: string) => (genreId: string, index: number): SqlConfig<Genre> => ({
 		sql: INSERT_SONG_GENRE,
 		variables: [{
 			key: "songId",
@@ -158,7 +158,7 @@ export const insertSongGenre =
 	})
 
 export const insertSongArtist =
-	(songId: string) => (artistId: string, index: number): SQLConfig<Artist> => ({
+	(songId: string) => (artistId: string, index: number): SqlConfig<Artist> => ({
 		sql: INSERT_SONG_ARTIST,
 		variables: [{
 			key: "songId",
@@ -174,7 +174,7 @@ export const insertSongArtist =
 	})
 
 export const insertSongRemixer =
-	(songId: string) => (artistId: string, index: number): SQLConfig<Artist> => ({
+	(songId: string) => (artistId: string, index: number): SqlConfig<Artist> => ({
 		sql: INSERT_SONG_REMIXER,
 		variables: [{
 			key: "songId",
@@ -190,7 +190,7 @@ export const insertSongRemixer =
 	})
 
 export const insertSongFeaturer =
-	(songId: string) => (artistId: string, index: number): SQLConfig<Artist> => ({
+	(songId: string) => (artistId: string, index: number): SqlConfig<Artist> => ({
 		sql: INSERT_SONG_FEAT,
 		variables: [{
 			key: "songId",

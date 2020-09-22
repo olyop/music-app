@@ -1,4 +1,4 @@
-import { SQLQueryRes } from "../../types"
+import { SqlQueryRes } from "../../types"
 
-export const resExists = ({ rows }: SQLQueryRes) =>
+export const resExists = ({ rows }: SqlQueryRes) =>
 	rows[0].exists as boolean

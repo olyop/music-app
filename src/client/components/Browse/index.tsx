@@ -7,7 +7,7 @@ import Navigation from "../Navigation"
 
 const Browse: FC<RouteComponentProps> = ({ match }) => (
 	<Helmet title="Browse">
-		<div className="Padding">
+		<div className="PaddingTop PaddingBottom">
 			<Navigation
 				routes={routes}
 				path={match.path}

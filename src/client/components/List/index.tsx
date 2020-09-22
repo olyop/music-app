@@ -4,6 +4,8 @@ import { createBem, BemPropTypes } from "@oly_op/bem"
 import { ListStyle } from "../../types"
 import { useStateListStyle } from "../../redux"
 
+import "./index.scss"
+
 const bem = createBem("List")
 
 const List: FC<BemPropTypes> = ({ children, className }) => {
@@ -12,7 +14,7 @@ const List: FC<BemPropTypes> = ({ children, className }) => {
 	return (
 		<div
 			children={children}
-			className={bem(className, isGrid && "Grid")}
+			className={bem(className, isGrid && "grid")}
 		/>
 	)
 }

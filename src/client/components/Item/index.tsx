@@ -12,8 +12,8 @@ import Img from "../Img"
 import Icon from "../Icon"
 import Modal from "../Modal"
 import PlayButton from "../PlayButton"
-import { Doc, UserDoc } from "../../types"
 import InLibraryButton from "../InLibraryButton"
+import { Doc, UserDoc, ModalButton } from "../../types"
 
 import "./index.scss"
 
@@ -32,6 +32,7 @@ const Item = <D extends Doc, I extends Doc = Doc>({
 	upper,
 	imgDoc,
 	className,
+	modalButtons,
 	infoClassName,
 	inLibClassName,
 	rightClassName,
@@ -39,9 +40,9 @@ const Item = <D extends Doc, I extends Doc = Doc>({
 	hideInLibrary = false,
 	inLibrarySticky = false,
 }: PropTypes<D, I>) => {
-	const [ more, setMore ] = useState(false)
-	const openMore = () => setMore(true)
-	const closeMore = () => setMore(false)
+	const [ modal, setModal ] = useState(false)
+	const openMore = () => setModal(true)
+	const closeMore = () => setModal(false)
 	return (
 		<Fragment>
 			<div className={bem(className, "", "FlexList")}>
@@ -104,32 +105,12 @@ const Item = <D extends Doc, I extends Doc = Doc>({
 					style={{ display: inLibrarySticky ? "block" : undefined }}
 				/>
 			</div>
-			{more && (
+			{modal && modalButtons && (
 				<Modal
-					onClick={closeMore}
+					onClose={closeMore}
+					buttons={modalButtons}
 					className={bem("modal")}
-				>
-					<button
-						type="button"
-						children="Next"
-						className={bem("modal-button", "PaddingHalf Text2")}
-					/>
-					<button
-						type="button"
-						children="Later"
-						className={bem("modal-button", "PaddingHalf Text2")}
-					/>
-					<button
-						type="button"
-						children="Queue"
-						className={bem("modal-button", "PaddingHalf Text2")}
-					/>
-					<button
-						type="button"
-						children="Shuffle"
-						className={bem("modal-button", "PaddingHalf Text2")}
-					/>
-				</Modal>
+				/>
 			)}
 		</Fragment>
 	)
@@ -148,6 +129,7 @@ interface PropTypes<Doc, ImgDoc> extends BemPropTypes {
 	inLibClassName?: BemInput,
 	rightClassName?: BemInput,
 	inLibrarySticky?: boolean,
+	modalButtons?: ModalButton[],
 }
 
 export default Item

@@ -24,7 +24,8 @@ import { COLUMN_NAMES } from "../globals"
 import { s3, sql, createResolver } from "../helpers"
 import { userDocInLib, userDocDateAdded } from "./common"
 
-const resolver = createResolver<Artist>()
+const resolver =
+	createResolver<Artist>()
 
 export const photo =
 	resolver<string, { size: ImgSizeEnum }>(

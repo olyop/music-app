@@ -15,7 +15,6 @@ import QueryApi from "../QueryApi"
 import Progress from "../Progress"
 import Controls from "../Controls"
 import { User } from "../../types"
-import VolumeSlider from "../VolumeSlider"
 import GET_USER_CURRENT from "../../graphql/queries/userCurrent.gql"
 
 import "./index.scss"
@@ -67,7 +66,6 @@ const PlayerBar: FC = () => {
 											"IconHover",
 										)}
 									/>
-									{showVolume && <VolumeSlider/>}
 								</div>
 								{data?.user.current && (
 									<Song

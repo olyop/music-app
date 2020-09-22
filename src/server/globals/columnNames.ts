@@ -70,3 +70,9 @@ export const USER_ARTIST = [
 	"in_library",
 	"date_added",
 ]
+
+export const USER_QUEUE = [
+	"user_id",
+	"song_id",
+	"index",
+]

@@ -1,6 +1,4 @@
-export * from "./admin"
 export * from "./exists"
-export * from "./checks"
 export * from "./inserts"
 export * from "./selects"
 export * from "./tables"

@@ -22,22 +22,23 @@ export enum ImgFormat {
 	MP3 = "MP3",
 }
 
-export type SQLVariable = {
+export type SqlVariable = {
 	key: string,
 	string?: boolean,
 	value: string | number,
 	parameterized?: boolean,
 }
 
-export type SQLQueryRes<T = Record<string, unknown>> = QueryResult<T>
+export type SqlQueryRes<T = Record<string, unknown>> = QueryResult<T>
 
-export type SQLParse<T> = (res: SQLQueryRes) => T
+export type SqlParse<T> = (res: SqlQueryRes) => T
 
-export type SQLConfig<Return> = {
+export type SqlConfig<Return> = {
 	sql: string,
-	log?: boolean,
-	parse?: SQLParse<Return>,
-	variables?: SQLVariable[],
+	logSql?: boolean,
+	logRes?: boolean,
+	parse?: SqlParse<Return>,
+	variables?: SqlVariable[],
 }
 
 export type S3Upload = {
@@ -57,7 +58,7 @@ export type UserArgs = {
 }
 
 export interface User extends UserBase {
-	current: string,
+	current: string | null,
 }
 
 export type UserDoc = UserDocBase
@@ -91,13 +92,10 @@ export interface Queue {
 	queue: Song[],
 }
 
-export interface AddRemoveInput {
-	query: string,
-	docId: string,
+export interface UserQueue {
+	index: number,
 	userId: string,
-	columnName: string,
-	columnNames: string[],
-	userTableName: string,
+	songId: string,
 }
 
 export interface OrderBy {
@@ -113,12 +111,16 @@ export interface PageArgs {
 	page: number,
 }
 
+export interface UserQueuesArgs extends UserArgs {
+	songId: string,
+}
+
 export interface DocsArgs extends PageArgs, OrderByArgs {}
 
 export interface DocsOrderBy<T> {
 	id: string,
 	orderBy?: OrderBy,
-	parse: SQLParse<T>,
+	parse: SqlParse<T>,
 }
 
 export type Search = Song | Genre | Album | Artist

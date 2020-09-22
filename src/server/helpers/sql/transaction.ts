@@ -1,9 +1,11 @@
 /* eslint-disable no-restricted-syntax */
 import { pg } from "../../services"
-import { SQLConfig } from "../../types"
+import { SqlConfig } from "../../types"
 import { baseQuery } from "./baseQuery"
 
-export const transaction = async (configs: (string | SQLConfig<unknown>)[]) => {
+type Input = (string | SqlConfig<unknown>)[]
+
+export const transaction = async (configs: Input) => {
 	const client = await pg.connect()
 	try {
 		await client.query("BEGIN")

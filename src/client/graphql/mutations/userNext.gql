@@ -82,7 +82,7 @@ mutation userNext($userId: Uuid!) {
         cover(size: HALF)
       }
     }
-    queue {
+    later {
       songId
       title
       mix

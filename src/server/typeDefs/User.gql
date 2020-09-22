@@ -1,14 +1,14 @@
 type User {
-  userId: Uuid!
-  name: String!
-  current: Song
-  email: Email!
-  prev: [Song!]!
-  next: [Song!]!
-  queue: [Song!]!
-  plays: [Play!]!
-  dateJoined: Timestamp!
-  songs(orderBy: UserSongOrderByInput!): [Song!]!
-  artists(orderBy: UserArtistOrderByInput!): [Artist!]!
-  playlists(orderBy: UserPlaylistOrderByInput!): [Playlist!]!
+	userId: Uuid!
+	name: String!
+	current: Song
+	email: Email!
+	prev: [Song!]!
+	next: [Song!]!
+	later: [Song!]!
+	plays: [Play!]!
+	dateJoined: Timestamp!
+	songs(orderBy: UserSongOrderByInput!): [Song!]!
+	artists(orderBy: UserArtistOrderByInput!): [Artist!]!
+	playlists(orderBy: UserPlaylistOrderByInput!): [Playlist!]!
 }

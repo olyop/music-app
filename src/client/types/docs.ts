@@ -31,7 +31,7 @@ export interface Genre extends GenreBase, Doc<"Genre"> {
 export interface User extends UserBase, Doc<"User"> {
 	prev: Song[],
 	next: Song[],
-	queue: Song[],
+	later: Song[],
 	songs: Song[],
 	genres: Genre[],
 	albums: Album[],

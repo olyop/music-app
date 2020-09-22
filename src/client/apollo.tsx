@@ -32,6 +32,9 @@ const typePolicies: TypePolicies = {
 	User: {
 		keyFields: ["userId"],
 		fields: {
+			prevs: userDocs<Song>(),
+			nexts: userDocs<Song>(),
+			afters: userDocs<Song>(),
 			songs: userDocs<Song>(),
 			albums: userDocs<Album>(),
 			artists: userDocs<Artist>(),

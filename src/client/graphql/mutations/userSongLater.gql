@@ -7,7 +7,7 @@ mutation userSongLater(
     songId: $songId
   ) {
     userId
-    next {
+    later {
       songId
       mix
       title

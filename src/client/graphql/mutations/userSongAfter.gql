@@ -1,13 +1,13 @@
-mutation userSongQueue(
+mutation userSongAfter(
   $userId: Uuid!
   $songId: Uuid!
 ) {
-  userSongQueue(
+  userSongAfter(
     userId: $userId
     songId: $songId
   ) {
     userId
-    queue {
+    next {
       songId
       mix
       title

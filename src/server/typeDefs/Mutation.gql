@@ -3,7 +3,7 @@ type Mutation {
     userId: Uuid!
   ): User!
   userPlay(
-    docId: Uuid!
+    songId: Uuid!
     userId: Uuid!
   ): User!
   userNext(
@@ -13,15 +13,23 @@ type Mutation {
     userId: Uuid!
     songId: Uuid!
   ): User!
+  userSongAfter(
+    userId: Uuid!
+    songId: Uuid!
+  ): User!
   userSongLater(
     userId: Uuid!
     songId: Uuid!
   ): User!
-  userSongQueue(
+  userClearQueue(
+    userId: Uuid!
+  ): User!
+
+  addUserSong(
     userId: Uuid!
     songId: Uuid!
-  ): User!
-  addUserSong(
+  ): Song!
+  rmUserSong(
     userId: Uuid!
     songId: Uuid!
   ): Song!
@@ -29,14 +37,11 @@ type Mutation {
     userId: Uuid!
     artistId: Uuid!
   ): Artist!
-  rmUserSong(
-    userId: Uuid!
-    songId: Uuid!
-  ): Song!
   rmUserArtist(
     userId: Uuid!
     artistId: Uuid!
   ): Artist!
+
   addUser(
     user: UserInput!
   ): User!

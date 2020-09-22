@@ -10,8 +10,8 @@ import { Song, User, UserVar } from "../../types"
 import FeaturingArtists from "../FeaturingArtists"
 import { useStateShowGenres, useStateUserId } from "../../redux"
 import USER_SONG_NEXT from "../../graphql/mutations/userSongNext.gql"
+import USER_SONG_AFTER from "../../graphql/mutations/userSongAfter.gql"
 import USER_SONG_LATER from "../../graphql/mutations/userSongLater.gql"
-import USER_SONG_QUEUE from "../../graphql/mutations/userSongQueue.gql"
 
 const Song: FC<PropTypes> = ({
 	song,
@@ -27,8 +27,8 @@ const Song: FC<PropTypes> = ({
 	const variables = { userId, songId }
 	const showGenres = useStateShowGenres()
 	const [ next ] = useMutation<Data, Vars>(USER_SONG_NEXT, { variables })
+	const [ after ] = useMutation<Data, Vars>(USER_SONG_AFTER, { variables })
 	const [ later ] = useMutation<Data, Vars>(USER_SONG_LATER, { variables })
-	const [ queue ] = useMutation<Data, Vars>(USER_SONG_QUEUE, { variables })
 	return (
 		<Item
 			doc={song}
@@ -40,16 +40,11 @@ const Song: FC<PropTypes> = ({
 			imgDoc={showCover ? song.album : undefined}
 			left={showTrackNumber ? song.trackNumber : null}
 			right={showRight ? deserializeDuration(song.duration) : null}
-			modalButtons={[{
-				text: "Next",
-				handler: () => next(),
-			},{
-				text: "Later",
-				handler: () => later(),
-			},{
-				text: "Queue",
-				handler: () => queue(),
-			}]}
+			modalButtons={[
+				{ text: "Next", handler: next },
+				{ text: "After", handler: after },
+				{ text: "Later", handler: later },
+			]}
 			lower={(
 				<Fragment>
 					<FeaturingArtists

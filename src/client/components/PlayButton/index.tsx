@@ -35,7 +35,7 @@ const PlayButton: FC<PropTypes> = ({ doc, className }) => {
 	const play = useStatePlay()
 	const dispatch = useDispatch()
 	const userId = useStateUserId()
-	const docId = determineDocId(doc)
+	const songId = determineDocId(doc)
 	const queryId = useRef(uniqueId())
 
 	const { data } =
@@ -46,7 +46,7 @@ const PlayButton: FC<PropTypes> = ({ doc, className }) => {
 
 	const [ userPlay, { error, loading } ] =
 		useMutation<UserPlayRes>(USER_PLAY, {
-			variables: { docId, userId },
+			variables: { songId, userId },
 			optimisticResponse: isSong(doc) ? {
 				userPlay: {
 					userId,
@@ -59,7 +59,7 @@ const PlayButton: FC<PropTypes> = ({ doc, className }) => {
 	const isCurrent = (
 		data &&
 		data.user.current &&
-		data.user.current.songId === docId
+		data.user.current.songId === songId
 	)
 
 	const handleClick = () => {

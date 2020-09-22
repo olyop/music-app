@@ -14,7 +14,7 @@ import {
 	SELECT_SONG,
 	SELECT_USER_DOCS,
 	SELECT_USER_PLAYS,
-	SELECT_USER_QUEUE,
+	SELECT_USER_QUEUE_SONGS,
 } from "../sql"
 
 import { COLUMN_NAMES } from "../globals"
@@ -50,7 +50,7 @@ export const prev =
 	resolver<Song[]>(
 		({ parent }) => (
 			sql.query({
-				sql: SELECT_USER_QUEUE,
+				sql: SELECT_USER_QUEUE_SONGS,
 				parse: sql.parseTable(),
 				variables: [{
 					key: "userId",
@@ -72,7 +72,7 @@ export const next =
 	resolver<Song[]>(
 		({ parent }) => (
 			sql.query({
-				sql: SELECT_USER_QUEUE,
+				sql: SELECT_USER_QUEUE_SONGS,
 				parse: sql.parseTable(),
 				variables: [{
 					key: "userId",
@@ -90,11 +90,11 @@ export const next =
 		),
 	)
 
-export const queue =
+export const later =
 	resolver<Song[]>(
 		({ parent }) => (
 			sql.query({
-				sql: SELECT_USER_QUEUE,
+				sql: SELECT_USER_QUEUE_SONGS,
 				parse: sql.parseTable(),
 				variables: [{
 					key: "userId",
@@ -102,7 +102,7 @@ export const queue =
 				},{
 					string: false,
 					key: "tableName",
-					value: "users_queues",
+					value: "users_laters",
 				},{
 					string: false,
 					key: "columnNames",

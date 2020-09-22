@@ -26,7 +26,7 @@ export interface ClassType {
 export interface DataUserPlay {
 	prev: Song[],
 	next: Song[],
-	queue: Song[],
+	after: Song[],
 	current: Song,
 }
 
@@ -34,7 +34,7 @@ export interface Queue {
 	id: string,
 	name: string,
 	songs: Song[],
-	key: "prev" | "next" | "queue" | "current",
+	key: "prev" | "next" | "after" | "current",
 }
 
 export interface UserVar {

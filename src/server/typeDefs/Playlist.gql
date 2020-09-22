@@ -1,10 +1,10 @@
 type Playlist {
-  user: User!
-  name: String!
-  songs: [Song!]!
-  playlistId: Uuid!
-  dateCreated: Timestamp!
-  plays(userId: Uuid!): [Play!]!
-  inLibrary(userId: Uuid!): Boolean!
-  dateAdded(userId: Uuid!): Timestamp
+	user: User!
+	name: String!
+	songs: [Song!]!
+	playlistId: Uuid!
+	dateCreated: Timestamp!
+	plays(userId: Uuid!): [Play!]!
+	inLibrary(userId: Uuid!): Boolean!
+	dateAdded(userId: Uuid!): Timestamp
 }

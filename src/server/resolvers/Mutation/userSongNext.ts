@@ -1,6 +1,7 @@
+/* eslint-disable no-await-in-loop, no-restricted-syntax */
 import {
 	SELECT_USER,
-	SELECT_USER_NEXTS,
+	SELECT_USER_QUEUE,
 	INSERT_USER_QUEUE,
 	UPDATE_USER_QUEUE,
 } from "../../sql"
@@ -17,15 +18,20 @@ export const userSongNext =
 	resolver<User, UserQueuesArgs>(
 		async ({ args }) => {
 			const client = await pg.connect()
+			const query = sql.baseQuery(client)
 			try {
 				await client.query("BEGIN")
 
-				const nexts = await sql.baseQuery(client)<UserQueue[]>({
-					sql: SELECT_USER_NEXTS,
+				const nexts = await query<UserQueue[]>({
+					sql: SELECT_USER_QUEUE,
 					parse: sql.parseTable(),
 					variables: [{
 						key: "userId",
 						value: args.userId,
+					},{
+						string: false,
+						key: "tableName",
+						value: "users_nexts",
 					},{
 						string: false,
 						key: "columnNames",
@@ -33,8 +39,8 @@ export const userSongNext =
 					}],
 				})
 
-				await Promise.all(nexts.map(next => (
-					sql.baseQuery(client)({
+				for (const next of nexts) {
+					await query({
 						sql: UPDATE_USER_QUEUE,
 						variables: [{
 							key: "userId",
@@ -49,22 +55,9 @@ export const userSongNext =
 							value: "users_nexts",
 						}],
 					})
-				)))
+				}
 
-				console.log(await sql.baseQuery(client)<UserQueue[]>({
-					sql: SELECT_USER_NEXTS,
-					parse: sql.parseTable(),
-					variables: [{
-						key: "userId",
-						value: args.userId,
-					},{
-						string: false,
-						key: "columnNames",
-						value: sql.join(COLUMN_NAMES.USER_QUEUE),
-					}],
-				}))
-
-				await sql.baseQuery(client)({
+				await query({
 					sql: INSERT_USER_QUEUE,
 					variables: [{
 						value: 0,

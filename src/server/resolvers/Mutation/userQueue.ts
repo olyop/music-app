@@ -1,16 +1,19 @@
 import {
+	SELECT_USER,
 	UPDATE_USER_PLAY,
+	DELETE_USER_NEXT,
+	DELETE_USER_LATER,
 } from "../../sql"
 
 import { COLUMN_NAMES } from "../../globals"
-import { User, UserArgs } from "../../types"
 import { sql, createResolver } from "../../helpers"
+import { User, UserArgs, SqlVariable } from "../../types"
 
 const resolver =
 	createResolver()
 
 interface Args extends UserArgs {
-	docId: string,
+	songId: string,
 }
 
 export const userPrev =
@@ -27,7 +30,7 @@ export const userPlay =
 				parse: sql.parseRow(),
 				variables: [{
 					key: "songId",
-					value: args.docId,
+					value: args.songId,
 				},{
 					key: "userId",
 					value: args.userId,
@@ -38,4 +41,34 @@ export const userPlay =
 				}],
 			})
 		),
+	)
+
+export const userClearQueue =
+	resolver<User, UserArgs>(
+		async ({ args }) => {
+			const variables: SqlVariable[] = [{
+				key: "userId",
+				value: args.userId,
+			}]
+			await sql.query({
+				sql: DELETE_USER_NEXT,
+				variables,
+			})
+			await sql.query({
+				sql: DELETE_USER_LATER,
+				variables,
+			})
+			return sql.query<User>({
+				sql: SELECT_USER,
+				parse: sql.parseRow(),
+				variables: [{
+					key: "userId",
+					value: args.userId,
+				},{
+					string: false,
+					key: "columnNames",
+					value: sql.join(COLUMN_NAMES.USER),
+				}],
+			})
+		},
 	)

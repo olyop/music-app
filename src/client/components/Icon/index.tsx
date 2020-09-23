@@ -13,7 +13,7 @@ const Icon: FC<PropTypes> = ({ icon, style, title, onClick, className }) => (
 		onClick={onClick}
 		className={bem(
 			className,
-			"ButtonHover",
+			"Hover",
 			"",
 			{ ignore: true, className: "material-icons" },
 		)}

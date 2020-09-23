@@ -25,8 +25,8 @@ export enum ImgFormat {
 export type SqlVariable = {
 	key: string,
 	string?: boolean,
-	value: string | number,
 	parameterized?: boolean,
+	value: string | number | boolean,
 }
 
 export type SqlQueryRes<T = Record<string, unknown>> = QueryResult<T>
@@ -35,8 +35,7 @@ export type SqlParse<T> = (res: SqlQueryRes) => T
 
 export type SqlConfig<Return> = {
 	sql: string,
-	logSql?: boolean,
-	logRes?: boolean,
+	log?: boolean,
 	parse?: SqlParse<Return>,
 	variables?: SqlVariable[],
 }

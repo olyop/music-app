@@ -1,7 +1,5 @@
 .Queues {
-	padding: var(--space);
 	&__section {
-		width: 500px;
 		margin-bottom: 12px;
 		border-radius: var(--border-radius);
 		@media (max-width: 640px) {

@@ -1,4 +1,4 @@
-import { uniq, identity, isString, isNumber, isEmpty } from "lodash"
+import { uniq, identity, isString, isEmpty } from "lodash"
 
 import { Client, SqlConfig, SqlParse, SqlVariable } from "../../types"
 
@@ -44,7 +44,7 @@ const determineReplaceValue = (
 	{ value, string = true, parameterized = false }: SqlVariable,
 	params: string[],
 ) => {
-	const val = isNumber(value) ? value.toString() : value
+	const val = value.toString()
 	if (parameterized) {
 		params.push(val)
 		return `$${params.length}`
@@ -75,7 +75,7 @@ export const baseQuery =
 		<TReturn>(input: string | SqlConfig<TReturn>) =>
 			new Promise<TReturn>(
 				(resolve, reject) => {
-					const { sql, logSql, logRes, parse, variables = [] } =
+					const { sql, log, parse, variables = [] } =
 						normalizeInput(input)
 					const variableKeys = getVariableKeys(sql)
 					if (!areVariablesProvided(variableKeys, variables)) {
@@ -86,12 +86,8 @@ export const baseQuery =
 					} else {
 						const params: string[] = []
 						const sqlWithValues = replaceSqlWithValues(sql, variables, params)
-						if (logSql) console.log(sqlWithValues)
+						if (log) console.log(sqlWithValues)
 						client.query(sqlWithValues, isEmpty(params) ? undefined : params)
-									.then(res => {
-										if (logRes) console.log(res.rows[0])
-										return res
-									})
 									.then(parse)
 									.then(resolve)
 									.catch(reject)

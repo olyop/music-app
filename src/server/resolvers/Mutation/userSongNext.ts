@@ -3,7 +3,7 @@ import {
 	SELECT_USER,
 	SELECT_USER_QUEUE,
 	INSERT_USER_QUEUE,
-	UPDATE_USER_QUEUE,
+	UPDATE_USER_QUEUE_SONG,
 } from "../../sql"
 
 import { pg } from "../../services"
@@ -41,8 +41,12 @@ export const userSongNext =
 
 				for (const next of nexts) {
 					await query({
-						sql: UPDATE_USER_QUEUE,
+						sql: UPDATE_USER_QUEUE_SONG,
 						variables: [{
+							value: "+",
+							string: false,
+							key: "addSubtract",
+						},{
 							key: "userId",
 							value: args.userId,
 						},{

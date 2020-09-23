@@ -45,7 +45,7 @@ export const userSongAfter =
 				},{
 					key: "index",
 					string: false,
-					value: nexts.length + 1,
+					value: nexts.length,
 				}],
 			})
 			return sql.query<User>({

@@ -11,9 +11,8 @@ import { Waypoint } from "react-waypoint"
 import type { DocumentNode } from "graphql"
 
 import {
-	Dispatch,
-	useDispatch,
 	addLoading,
+	useDispatch,
 	removeLoading,
 } from "../../redux"
 

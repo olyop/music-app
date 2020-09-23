@@ -10,8 +10,4 @@ export const parseTable =
 			pipe(
 				resRows,
 				map(convertToCamelCase<T>()),
-				rows => {
-					if (log) console.log(rows)
-					return rows
-				},
 			)(res)

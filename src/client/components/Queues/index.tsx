@@ -22,38 +22,36 @@ const Queues: FC = () => {
 	const [ clearQueues ] = useMutation(CLEAR_USER_QUEUES, { variables })
 	return (
 		<QueryApi<Data, Vars>
-			className={bem("")}
+			className={bem("", "Content PaddingTop PaddingBottom")}
 			variables={variables}
 			query={GET_USER_QUEUES}
 			children={
-				({ data }) => (
+				({ data }) => data && (
 					<Fragment>
-						{data && (
-							createQueuesArray(data.user).map(
-								queue => (
-									<Fragment key={queue.id}>
-										{isEmpty(queue.songs) ? null : (
-											<div className={bem("section", "Elevated Padding")}>
-												<p className={bem("section-text")}>
-													{queue.name}
-												</p>
-												{queue.songs.map(
-													(song, index) => (
-														<Song
-															song={song}
-															key={song.songId + index.toString()}
-															className={bem("section-song", "ItemBorder")}
-														/>
-													),
-												)}
-											</div>
-										)}
-									</Fragment>
-								),
-							)
+						{createQueuesArray(data.user).map(
+							queue => (
+								<Fragment key={queue.id}>
+									{isEmpty(queue.songs) ? null : (
+										<div className={bem("section", "Elevated Padding")}>
+											<p className={bem("section-text")}>
+												{queue.name}
+											</p>
+											{queue.songs.map(
+												(song, index) => (
+													<Song
+														song={song}
+														key={song.songId + index.toString()}
+														className={bem("section-song", "ItemBorder")}
+													/>
+												),
+											)}
+										</div>
+									)}
+								</Fragment>
+							),
 						)}
 						<Icon
-							icon="clear_all"
+							icon="close"
 							onClick={() => clearQueues()}
 						/>
 					</Fragment>

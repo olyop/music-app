@@ -1,7 +1,7 @@
 UPDATE
   {{ tableName }}
 SET
-  index = index + 1
+  index = index {{ addSubtract }} 1
 WHERE
   user_id = {{ userId }} AND
   index = {{ index }}

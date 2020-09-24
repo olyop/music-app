@@ -20,7 +20,7 @@ import {
 
 import { COLUMN_NAMES } from "../globals"
 import { sql, createResolver, s3 } from "../helpers"
-import { userDocInLib, userDocDateAdded } from "./common"
+import { userDocInLib, userDocDateAdded } from "./getUserDoc"
 
 const resolver =
 	createResolver<Song>()
@@ -130,11 +130,11 @@ export const size =
 	)
 
 export const totalPlays =
-	resolver<Play[]>(
+	resolver<number | null>(
 		({ parent }) => (
 			sql.query({
 				sql: SELECT_SONG_PLAYS,
-				parse: sql.parseTable(),
+				parse: sql.rowCountOrNull,
 				variables: [{
 					key: "songId",
 					value: parent.songId,
@@ -169,7 +169,7 @@ export const plays =
 	)
 
 export const dateAdded =
-	resolver<number, UserArgs>(
+	resolver<number | null, UserArgs>(
 		({ parent, args }) => (
 			userDocDateAdded({
 				userId: args.userId,

@@ -7,13 +7,14 @@ import {
 	Album,
 	Artist,
 	UserArgs,
+	SqlParse,
 	ImgSizeEnum,
 	DocsOrderBy,
 	OrderByArgs,
 } from "../types"
 
 import {
-	SELECT_ARTIST_PLAYS,
+	// SELECT_ARTIST_PLAYS,
 	SELECT_ARTIST_SONGS,
 	SELECT_ARTIST_ALBUMS,
 	SELECT_USER_DOC_PLAYS,
@@ -21,68 +22,62 @@ import {
 
 import { COLUMN_NAMES } from "../globals"
 import { s3, sql, createResolver } from "../helpers"
-import { userDocInLib, userDocDateAdded } from "./common"
+import { userDocInLib, userDocDateAdded } from "./getUserDoc"
 
 const resolver =
 	createResolver<Artist>()
 
-export const photo =
-	resolver<string, { size: ImgSizeEnum }>(
-		({ parent, args }) => (
-			s3.getObject({
-				parse: bufferToDataUrl,
-				key: s3.catalogObjectKey({
-					format: "jpg",
-					size: args.size,
-					id: parent.artistId,
-				}),
-			})
-		),
-	)
+// const getArtistPlays =
+// 	<T>(artistId: string, parse: SqlParse<T>) =>
+// 		sql.query({
+// 			sql: SELECT_ARTIST_PLAYS,
+// 			parse,
+// 			variables: [{
+// 				key: "artistId",
+// 				value: artistId,
+// 			}],
+// 		})
 
-export const numOfPlays =
-	resolver<number>(
-		({ parent }) => (
-			sql.query({
-				parse: sql.rowCount,
-				sql: SELECT_ARTIST_PLAYS,
-				variables: [{
-					key: "artistId",
-					value: parent.artistId,
-				}],
-			})
-		),
-	)
+// export const playsTotal =
+// 	resolver<number>(
+// 		({ parent }) => (
+// 			getArtistPlays(
+// 				parent.artistId,
+// 				sql.rowCount,
+// 			)
+// 		),
+// 	)
 
-export const allPlays =
+export const playsTotal =
 	resolver<number>(() => random(1, 10000000))
 
-const artistSongs = <T>({ id, parse, orderBy }: DocsOrderBy<T>) =>
-	sql.query({
-		sql: SELECT_ARTIST_SONGS,
-		parse,
-		variables: [{
-			value: id,
-			key: "artistId",
-		},{
-			string: false,
-			key: "orderByField",
-			value: orderBy?.field || "title",
-		},{
-			string: false,
-			key: "orderByDirection",
-			value: orderBy?.direction || "asc",
-		},{
-			string: false,
-			key: "columnNames",
-			value: sql.join(COLUMN_NAMES.SONG, "songs"),
-		}],
-	})
+const getArtistSongs =
+	<T>({ id, parse, orderBy }: DocsOrderBy<T>) =>
+		sql.query({
+			sql: SELECT_ARTIST_SONGS,
+			parse,
+			variables: [{
+				value: id,
+				key: "artistId",
+			},{
+				string: false,
+				key: "orderByField",
+				value: orderBy?.field || "title",
+			},{
+				string: false,
+				key: "orderByDirection",
+				value: orderBy?.direction || "asc",
+			},{
+				string: false,
+				key: "columnNames",
+				value: sql.join(COLUMN_NAMES.SONG, "songs"),
+			}],
+		})
 
 export const songs =
 	resolver<Song[], OrderByArgs>(
 		({ parent, args }) => (
-			artistSongs({
+			getArtistSongs({
 				id: parent.artistId,
 				orderBy: args.orderBy,
 				parse: sql.parseTable(),
@@ -90,17 +85,17 @@ export const songs =
 		),
 	)
 
-export const numOfSongs =
+export const songsTotal =
 	resolver<number>(
 		({ parent }) => (
-			artistSongs({
+			getArtistSongs({
 				id: parent.artistId,
 				parse: sql.rowCount,
 			})
 		),
 	)
 
-const artistAlbums = <T>({ id, parse, orderBy }: DocsOrderBy<T>) =>
+const getArtistAlbums = <T>({ id, parse, orderBy }: DocsOrderBy<T>) =>
 	sql.query({
 		parse,
 		sql: SELECT_ARTIST_ALBUMS,
@@ -125,7 +120,7 @@ const artistAlbums = <T>({ id, parse, orderBy }: DocsOrderBy<T>) =>
 export const albums =
 	resolver<Album[], OrderByArgs>(
 		({ parent, args }) => (
-			artistAlbums({
+			getArtistAlbums({
 				id: parent.artistId,
 				orderBy: args.orderBy,
 				parse: sql.parseTable(),
@@ -133,39 +128,72 @@ export const albums =
 		),
 	)
 
-export const numOfAlbums =
+export const albumsTotal =
 	resolver<number>(
 		({ parent }) => (
-			artistAlbums({
+			getArtistAlbums({
 				id: parent.artistId,
 				parse: sql.rowCount,
 			})
 		),
 	)
 
-export const plays =
+const getUserArtistPlays =
+	<T>(userId: string, artistId: string, parse: SqlParse<T>) =>
+		sql.query({
+			sql: SELECT_USER_DOC_PLAYS,
+			parse,
+			variables: [{
+				key: "userId",
+				value: userId,
+			},{
+				key: "artistId",
+				value: artistId,
+			},{
+				string: false,
+				key: "columnNames",
+				value: sql.join(COLUMN_NAMES.PLAY),
+			}],
+		})
+
+export const userPlays =
 	resolver<Play[], UserArgs>(
 		({ parent, args }) => (
-			sql.query({
-				sql: SELECT_USER_DOC_PLAYS,
-				parse: sql.parseTable(),
-				variables: [{
-					key: "userId",
-					value: args.userId,
-				},{
-					key: "artistId",
-					value: parent.artistId,
-				},{
-					string: false,
-					key: "columnNames",
-					value: sql.join(COLUMN_NAMES.PLAY),
-				}],
+			getUserArtistPlays(
+				args.userId,
+				parent.artistId,
+				sql.parseTable(),
+			)
+		),
+	)
+
+export const userPlaysTotal =
+	resolver<number, UserArgs>(
+		({ parent, args }) => (
+			getUserArtistPlays(
+				args.userId,
+				parent.artistId,
+				sql.rowCount,
+			)
+		),
+	)
+
+export const photo =
+	resolver<string, { size: ImgSizeEnum }>(
+		({ parent, args }) => (
+			s3.getObject({
+				parse: bufferToDataUrl,
+				key: s3.catalogObjectKey({
+					format: "jpg",
+					size: args.size,
+					id: parent.artistId,
+				}),
 			})
 		),
 	)
 
 export const dateAdded =
-	resolver<number, UserArgs>(
+	resolver<number | null, UserArgs>(
 		({ parent, args }) => (
 			userDocDateAdded({
 				userId: args.userId,

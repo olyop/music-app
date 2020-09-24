@@ -1,6 +1,6 @@
+import { sum } from "lodash"
 import pipe from "@oly_op/pipe"
-import { identity } from "lodash"
-import { map, reduce } from "lodash/fp"
+import { map } from "lodash/fp"
 import bufferToDataUrl from "@oly_op/music-app-common/bufferToDataUrl"
 
 import {
@@ -9,6 +9,7 @@ import {
 	Album,
 	Genre,
 	Artist,
+	SqlParse,
 	UserArgs,
 	ImgSizeEnum,
 } from "../types"
@@ -26,32 +27,54 @@ import { s3, sql, fixDateType, createResolver } from "../helpers"
 const resolver =
 	createResolver<Album>()
 
-const albumSongs = <T = Song[]>(parse: (songs: Song[]) => T = identity) =>
-	resolver<T>(
+const getAlbumSongs =
+	<T>(albumId: string, parse: SqlParse<T>) =>
+		sql.query({
+			sql: SELECT_ALBUM_SONGS,
+			parse,
+			variables: [{
+				key: "albumId",
+				value: albumId,
+			},{
+				string: false,
+				key: "columnNames",
+				value: sql.join(COLUMN_NAMES.SONG),
+			}],
+		})
+
+export const songs =
+	resolver<Song[]>(
 		({ parent }) => (
-			sql.query({
-				sql: SELECT_ALBUM_SONGS,
-				parse: pipe(sql.parseTable(), parse),
-				variables: [{
-					key: "albumId",
-					value: parent.albumId,
-				},{
-					string: false,
-					key: "columnNames",
-					value: sql.join(COLUMN_NAMES.SONG),
-				}],
-			})
+			getAlbumSongs(
+				parent.albumId,
+				sql.parseTable(),
+			)
 		),
 	)
 
-export const songs =
-	albumSongs()
+export const songsTotal =
+	resolver<number>(
+		({ parent }) => (
+			getAlbumSongs(
+				parent.albumId,
+				sql.rowCount,
+			)
+		),
+	)
 
-export const totalDuration =
-	albumSongs<number>(pipe(
-		map(({ duration }) => duration),
-		reduce((total, duration) => total + duration, 0),
-	))
+export const duration =
+	resolver<number>(
+		({ parent }) => (
+			getAlbumSongs<number>(
+				parent.albumId,
+				pipe(
+					sql.parseTable<Song>(),
+					map(song => song.duration),
+					sum,
+				),
+			)
+		),
+	)
 
 export const released =
 	resolver<Date>(({ parent }) => fixDateType(parent.released))
@@ -106,23 +129,42 @@ export const genres =
 		),
 	)
 
-export const plays =
+const getUserAlbumPlays =
+	<T>(userId: string, albumId: string, parse: SqlParse<T>) =>
+		sql.query({
+			sql: SELECT_USER_ALBUM_PLAYS,
+			parse,
+			variables: [{
+				key: "userId",
+				value: userId,
+			},{
+				key: "docId",
+				value: albumId,
+			},{
+				string: false,
+				key: "columnNames",
+				value: sql.join(COLUMN_NAMES.PLAY),
+			}],
+		})
+
+export const userPlays =
 	resolver<Play[], UserArgs>(
 		({ parent, args }) => (
-			sql.query({
-				sql: SELECT_USER_ALBUM_PLAYS,
-				parse: sql.parseTable(),
-				variables: [{
-					key: "userId",
-					value: args.userId,
-				},{
-					key: "docId",
-					value: parent.albumId,
-				},{
-					string: false,
-					key: "columnNames",
-					value: sql.join(COLUMN_NAMES.PLAY),
-				}],
-			})
+			getUserAlbumPlays(
+				args.userId,
+				parent.albumId,
+				sql.parseTable(),
+			)
+		),
+	)
+
+export const userPlaysTotal =
+	resolver<number, UserArgs>(
+		({ parent, args }) => (
+			getUserAlbumPlays(
+				args.userId,
+				parent.albumId,
+				sql.rowCount,
+			)
 		),
 	)

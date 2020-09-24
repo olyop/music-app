@@ -4,6 +4,7 @@ import {
 	Play,
 	Playlist,
 	UserArgs,
+	SqlParse,
 } from "../types"
 
 import {
@@ -14,7 +15,7 @@ import {
 
 import { COLUMN_NAMES } from "../globals"
 import { sql, createResolver } from "../helpers"
-import { userDocInLib, userDocDateAdded } from "./common"
+import { userDocInLib, userDocDateAdded } from "./getUserDoc"
 
 const resolver =
 	createResolver<Playlist>()
@@ -40,21 +41,38 @@ export const user =
 		),
 	)
 
+const getPlaylistSongs =
+	<T>(playlistId: string, parse: SqlParse<T>) =>
+		sql.query({
+			sql: SELECT_PLAYLIST_SONGS,
+			parse,
+			variables: [{
+				key: "playlistId",
+				value: playlistId,
+			},{
+				string: false,
+				key: "columnNames",
+				value: sql.join(COLUMN_NAMES.SONG),
+			}],
+		})
+
 export const songs =
 	resolver<Song[]>(
 		({ parent }) => (
-			sql.query({
-				sql: SELECT_PLAYLIST_SONGS,
-				parse: sql.parseTable(),
-				variables: [{
-					key: "playlistId",
-					value: parent.playlistId,
-				},{
-					string: false,
-					key: "columnNames",
-					value: sql.join(COLUMN_NAMES.SONG),
-				}],
-			})
+			getPlaylistSongs(
+				parent.playlistId,
+				sql.parseTable(),
+			)
+		),
+	)
+
+export const songsTotal =
+	resolver<number | null>(
+		({ parent }) => (
+			getPlaylistSongs(
+				parent.playlistId,
+				sql.rowCountOrNull,
+			)
 		),
 	)
 
@@ -80,7 +98,7 @@ export const plays =
 	)
 
 export const dateAdded =
-	resolver<number, UserArgs>(
+	resolver<number | null, UserArgs>(
 		({ parent, args }) => (
 			userDocDateAdded({
 				userId: args.userId,

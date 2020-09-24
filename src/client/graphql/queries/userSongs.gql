@@ -32,7 +32,7 @@ query userSongs(
         albumId
         cover(size: HALF)
       }
-      plays(userId: $userId) {
+      userPlays(userId: $userId) {
         playId
         dateCreated
       }

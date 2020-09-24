@@ -5,8 +5,9 @@ type Album {
 	songs: [Song!]!
 	genres: [Genre!]!
 	artists: [Artist!]!
-	totalPlays: NonNegativeInt!
-	totalDuration: PositiveInt!
+	duration: PositiveInt!
+	songsTotal: NonNegativeInt!
+	playsTotal: NonNegativeInt!
 	userPlays(userId: Uuid!): [Play!]!
 	cover(size: AlbumCoverSize!): Url!
 	userPlaysTotal(userId: Uuid!): NonNegativeInt!

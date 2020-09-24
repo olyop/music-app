@@ -6,31 +6,60 @@ import {
 	GenreBase,
 	ArtistBase,
 	PlaylistBase,
-} from "@oly_op/music-app-types"
+} from "@oly_op/music-app-common/types"
 
 export interface Doc<T = string> {
 	__typename: T,
 }
 
-export interface UserDoc<T = string> extends Doc<T> {
-	plays: Play[],
+export interface LibraryDoc<T> extends Doc<T> {
+	userPlays: Play[],
+	playsTotal: number | null,
+	userPlaysTotal: number | null,
+}
+
+export interface UserDoc<T> extends LibraryDoc<T> {
 	inLibrary: boolean,
 	dateAdded: number | null,
 }
 
-interface PlayDoc {
-	allPlays: Play[],
-	totalPlays: number,
-}
-
-export interface Play extends PlayBase, Doc<"Play"> {
-	user: User,
-	song: Song,
-}
-
-export interface Genre extends GenreBase, Doc<"Genre"> {
+export interface Artist extends ArtistBase, UserDoc<"Artist"> {
+	photo: string,
 	songs: Song[],
-	numOfSongs?: number,
+	albums: Album[],
+	songsTotal: number,
+	albumsTotal: number,
+}
+
+export interface Album extends AlbumBase, LibraryDoc<"Album"> {
+	cover: string,
+	songs: Song[],
+	genres: Genre[],
+	duration: number,
+	released: string,
+	artists: Artist[],
+	songsTotal: number,
+}
+
+export interface Genre extends GenreBase, LibraryDoc<"Genre"> {
+	songs: Song[],
+	songsTotal: number | null,
+	albumsTotal: number | null,
+}
+
+export interface Song extends SongBase, UserDoc<"Song"> {
+	size: number,
+	album: Album,
+	genres: Genre[],
+	artists: Artist[],
+	remixers: Artist[],
+	featuring: Artist[],
+	dateAddedToPlaylist: number | null,
+}
+
+export interface Playlist extends PlaylistBase, UserDoc<"Playlist"> {
+	user: User,
+	songs: Song[],
 }
 
 export interface User extends UserBase, Doc<"User"> {
@@ -45,35 +74,7 @@ export interface User extends UserBase, Doc<"User"> {
 	playlists: Playlist[],
 }
 
-export interface Artist extends ArtistBase, PlayDoc, UserDoc<"Artist"> {
-	photo: string,
-	songs: Song[],
-	albums: Album[],
-	numOfSongs?: number,
-	numOfPlays?: number,
-	numOfAlbums?: number,
-}
-
-export interface Album extends AlbumBase, PlayDoc, UserDoc<"Album"> {
-	cover: string,
-	songs: Song[],
-	genres: Genre[],
-	released: string,
-	artists: Artist[],
-	totalDuration: number,
-}
-
-export interface Song extends SongBase, PlayDoc, UserDoc<"Song"> {
-	size: number,
-	album: Album,
-	genres: Genre[],
-	artists: Artist[],
-	remixers: Artist[],
-	featuring: Artist[],
-	dateAddedToPlaylist: number | null,
-}
-
-export interface Playlist extends PlaylistBase, UserDoc<"Playlist"> {
+export interface Play extends PlayBase, Doc<"Play"> {
 	user: User,
-	songs: Song[],
+	song: Song,
 }

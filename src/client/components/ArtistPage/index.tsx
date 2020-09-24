@@ -24,11 +24,11 @@ import Albums from "../Albums"
 import Helmet from "../Helmet"
 import QueryApi from "../QueryApi"
 import InLibraryButton from "../InLibraryButton"
-import { artistLower, uuidAddDashes } from "../../helpers"
 import { useStateUserId, useStateOrderBy } from "../../redux"
 import GET_ARTIST_PAGE from "../../graphql/queries/artistPage.gql"
 import GET_ARTIST_PAGE_SONGS from "../../graphql/queries/artistSongs.gql"
 import GET_ARTIST_PAGE_ALBUMS from "../../graphql/queries/artistAlbums.gql"
+import { artistLower, uuidAddDashes, determinePlural } from "../../helpers"
 
 import "./index.scss"
 
@@ -63,13 +63,16 @@ const ArtistPage: FC<RouteComponentProps> = ({ match }) => {
 									className={bem("cover-content-name-add")}
 								/>
 							</h1>
-							<p className={bem("cover-content-text", "MarginBottomHalf")}>
+							<p className={bem("cover-content-text")}>
 								{artistLower(data.artist)}
 							</p>
-							<p className={bem("cover-content-text")}>
-								{data.artist.totalPlays.toLocaleString()}
-								<Fragment> plays</Fragment>
-							</p>
+							{data.artist.playsTotal && (
+								<p className={bem("cover-content-text", "MarginTopHalf")}>
+									{data.artist.playsTotal.toLocaleString() ?? 0}
+									<Fragment> play</Fragment>
+									{determinePlural(data.artist.playsTotal)}
+								</p>
+							)}
 						</div>
 						<div
 							className={bem("cover-black")}

@@ -1,15 +1,14 @@
-query artistPage(
-  $userId: Uuid!
-  $artistId: Uuid!
+query getArtistPage(
+	$userId: Uuid!
+	$artistId: Uuid!
 ) {
-  artist(artistId: $artistId) {
-    name
-    artistId
-    allPlays
-    numOfPlays
-    numOfSongs
-    numOfAlbums
-    photo(size: FULL)
-    inLibrary(userId: $userId)
-  }
+	artist(artistId: $artistId) {
+		name
+		artistId
+		playsTotal
+		songsTotal
+		albumsTotal
+		photo(size: FULL)
+		inLibrary(userId: $userId)
+	}
 }

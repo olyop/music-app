@@ -39,10 +39,7 @@ const SongPage: FC = () => {
 							<SongTitle song={data.song}/>
 						</h1>
 						<h3 className="Text2 MarginBottomHalf">
-							<FeaturingArtists
-								artists={data.song.artists}
-								featuring={data.song.featuring}
-							/>
+							<FeaturingArtists song={data.song}/>
 						</h3>
 						<h3 className="Text2 MarginBottomHalf">
 							<DocLinks

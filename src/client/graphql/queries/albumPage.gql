@@ -1,4 +1,4 @@
-query albumPage(
+query getAlbumPage(
   $userId: Uuid!
   $albumId: Uuid!
 ) {
@@ -6,7 +6,7 @@ query albumPage(
     albumId
     title
     released
-    totalDuration
+    duration
     cover(size: FULL)
     genres {
       name

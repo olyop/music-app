@@ -10,7 +10,6 @@ import {
 	Genre,
 	Artist,
 	UserArgs,
-	ImgFormat,
 	ImgSizeEnum,
 } from "../types"
 
@@ -63,9 +62,9 @@ export const cover =
 			s3.getObject({
 				parse: bufferToDataUrl,
 				key: s3.catalogObjectKey({
+					format: "jpg",
 					size: args.size,
 					id: parent.albumId,
-					format: ImgFormat.JPG,
 				}),
 			})
 		),

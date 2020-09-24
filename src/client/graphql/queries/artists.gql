@@ -1,17 +1,17 @@
 query artists(
-  $userId: Uuid!
-  $page: NonNegativeInt!
-  $orderBy: ArtistOrderByInput!
+	$userId: Uuid!
+	$page: NonNegativeInt!
+	$orderBy: ArtistOrderByInput!
 ) {
-  artists(
-    page: $page
-    orderBy: $orderBy
-  ) {
-    name
-    artistId
-    numOfSongs
-    numOfAlbums
-    photo(size: MINI)
-    inLibrary(userId: $userId)
-  }
+	artists(
+		page: $page
+		orderBy: $orderBy
+	) {
+		name
+		artistId
+		songsTotal
+		albumsTotal
+		photo(size: MINI)
+		inLibrary(userId: $userId)
+	}
 }

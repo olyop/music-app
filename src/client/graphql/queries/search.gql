@@ -48,8 +48,8 @@ query search(
     ...on Artist {
       name
       artistId
-      numOfSongs
-      numOfAlbums
+      songsTotal
+      albumsTotal
       photo(size: MINI)
       inLibrary(userId: $userId)
     }

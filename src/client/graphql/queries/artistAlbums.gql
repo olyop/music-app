@@ -1,18 +1,18 @@
 query artistAlbums(
-  $artistId: Uuid!
-  $albumsOrderBy: AlbumOrderByInput!
+	$artistId: Uuid!
+	$albumsOrderBy: AlbumOrderByInput!
 ) {
-  artist(artistId: $artistId) {
-    artistId
-    albums(orderBy: $albumsOrderBy) {
-      title
-      albumId
-      released
-      cover(size: HALF)
-      artists {
-        artistId
-        name
-      }
-    }
-  }
+	artist(artistId: $artistId) {
+		artistId
+		albums(orderBy: $albumsOrderBy) {
+			title
+			albumId
+			released
+			cover(size: HALF)
+			artists {
+				artistId
+				name
+			}
+		}
+	}
 }

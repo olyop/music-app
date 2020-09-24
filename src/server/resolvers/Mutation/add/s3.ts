@@ -1,7 +1,7 @@
 import { resize } from "./helpers"
 import { s3 } from "../../../helpers"
+import { ImgSizeEnum } from "../../../types"
 import { IMAGE_SIZES } from "../../../globals"
-import { ImgFormat, ImgSizeEnum } from "../../../types"
 
 type UploadFunction = (id: string, file: Buffer) => Promise<unknown>
 
@@ -10,7 +10,7 @@ export const uploadArtistPhotos: UploadFunction = async (artistId, photo) =>
 		{
 			key: s3.catalogObjectKey({
 				id: artistId,
-				format: ImgFormat.JPG,
+				format: "jpg",
 				size: ImgSizeEnum.MINI,
 			}),
 			data: await resize({
@@ -21,7 +21,7 @@ export const uploadArtistPhotos: UploadFunction = async (artistId, photo) =>
 		{
 			key: s3.catalogObjectKey({
 				id: artistId,
-				format: ImgFormat.JPG,
+				format: "jpg",
 				size: ImgSizeEnum.HALF,
 			}),
 			data: await resize({
@@ -32,7 +32,7 @@ export const uploadArtistPhotos: UploadFunction = async (artistId, photo) =>
 		{
 			key: s3.catalogObjectKey({
 				id: artistId,
-				format: ImgFormat.JPG,
+				format: "jpg",
 				size: ImgSizeEnum.FULL,
 			}),
 			data: await resize({
@@ -47,7 +47,7 @@ export const uploadAlbumCovers: UploadFunction = async (albumId, cover) =>
 		{
 			key: s3.catalogObjectKey({
 				id: albumId,
-				format: ImgFormat.JPG,
+				format: "jpg",
 				size: ImgSizeEnum.HALF,
 			}),
 			data: await resize({
@@ -57,7 +57,7 @@ export const uploadAlbumCovers: UploadFunction = async (albumId, cover) =>
 		},{
 			key: s3.catalogObjectKey({
 				id: albumId,
-				format: ImgFormat.JPG,
+				format: "jpg",
 				size: ImgSizeEnum.FULL,
 			}),
 			data: await resize({
@@ -72,7 +72,7 @@ export const uploadSong: UploadFunction = async (songId, audio) =>
 		data: audio,
 		key: s3.catalogObjectKey({
 			id: songId,
-			format: ImgFormat.MP3,
+			format: "mp3",
 			size: ImgSizeEnum.FULL,
 		}),
 	})

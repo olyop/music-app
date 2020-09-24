@@ -5,12 +5,12 @@ import { s3 } from "../../services"
 import { bodyFromRes } from "./bodyFromRes"
 import { AWS_S3_BUCKET } from "../../globals"
 
-type TInput<T> = {
+interface Input<T> {
 	key: string,
 	parse: (res: Buffer) => T,
 }
 
-export const getObject = <T>(args: TInput<T>) =>
+export const getObject = <T>(args: Input<T>) =>
 	new Promise<T>(
 		(resolve, reject) => {
 			const parse = isUndefined(args.parse) ? identity : args.parse

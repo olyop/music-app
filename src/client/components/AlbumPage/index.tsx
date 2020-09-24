@@ -62,7 +62,7 @@ const AlbumPage: FC = () => {
 								</p>
 								<p className={bem("footer-text")}>
 									<Fragment>Duration: </Fragment>
-									{deserializeDuration(data.album.totalDuration, true)}
+									{deserializeDuration(data.album.duration, true)}
 								</p>
 							</details>
 						</div>

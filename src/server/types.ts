@@ -9,7 +9,7 @@ import {
 	ArtistBase,
 	UserDocBase,
 	PlaylistBase,
-} from "@oly_op/music-app-types"
+} from "@oly_op/music-app-common/types"
 
 export enum ImgSizeEnum {
 	MINI = "MINI",
@@ -17,12 +17,7 @@ export enum ImgSizeEnum {
 	FULL = "FULL",
 }
 
-export enum ImgFormat {
-	JPG = "JPG",
-	MP3 = "MP3",
-}
-
-export type SqlVariable = {
+export interface SqlVariable {
 	key: string,
 	string?: boolean,
 	parameterized?: boolean,
@@ -33,14 +28,14 @@ export type SqlQueryRes<T = Record<string, unknown>> = QueryResult<T>
 
 export type SqlParse<T> = (res: SqlQueryRes) => T
 
-export type SqlConfig<Return> = {
+export interface SqlConfig<Return> {
 	sql: string,
 	log?: boolean,
 	parse?: SqlParse<Return>,
 	variables?: SqlVariable[],
 }
 
-export type S3Upload = {
+export interface S3Upload {
 	key: string,
 	data: Buffer,
 }
@@ -52,7 +47,7 @@ export type ImgDim = [
 	number,
 ]
 
-export type UserArgs = {
+export interface UserArgs {
 	userId: string,
 }
 

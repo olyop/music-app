@@ -46,10 +46,7 @@ const Song: FC<PropTypes> = ({
 			]}
 			lower={(
 				<Fragment>
-					<FeaturingArtists
-						artists={song.artists}
-						featuring={song.featuring}
-					/>
+					<FeaturingArtists song={song}/>
 					{showGenres && (
 						<Fragment>
 							<Fragment> &#8226; </Fragment>

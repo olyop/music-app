@@ -61,10 +61,7 @@ const Player: FC<RouteComponentProps> = ({ history }) => (
 									/>
 								</div>
 								<h3 className={bem("main-artists", "main-text")}>
-									<FeaturingArtists
-										artists={data.user.current.artists}
-										featuring={data.user.current.featuring}
-									/>
+									<FeaturingArtists song={data.user.current}/>
 								</h3>
 								<h2 className={bem("main-album", "main-text")}>
 									<DocLink doc={data.user.current.album}/>

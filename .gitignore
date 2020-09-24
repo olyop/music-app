@@ -4,6 +4,8 @@ node_modules/
 
 # files
 .env
+src/common/types.js
+src/common/types.d.ts
 src/common/dataUrlToBlob.js
 src/common/dataUrlToBlob.d.ts
 src/common/bufferToDataUrl.js

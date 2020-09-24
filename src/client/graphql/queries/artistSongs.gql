@@ -1,37 +1,37 @@
 query artistSongs(
-  $userId: Uuid!
-  $artistId: Uuid!
-  $songsOrderBy: SongOrderByInput!
+	$userId: Uuid!
+	$artistId: Uuid!
+	$songsOrderBy: SongOrderByInput!
 ) {
-  artist(artistId: $artistId) {
-    artistId
-    songs(orderBy: $songsOrderBy) {
-      songId
-      mix
-      title
-      duration
-      inLibrary(userId: $userId)
-      featuring {
-        artistId
-        name
-      }
-      remixers {
-        artistId
-        name
-      }
-      artists {
-        artistId
-        name
-      }
-      genres {
-        genreId
-        name
-      }
-      album {
-        title
-        albumId
-        cover(size: HALF)
-      }
-    }
-  }
+	artist(artistId: $artistId) {
+		artistId
+		songs(orderBy: $songsOrderBy) {
+			songId
+			mix
+			title
+			duration
+			inLibrary(userId: $userId)
+			featuring {
+				artistId
+				name
+			}
+			remixers {
+				artistId
+				name
+			}
+			artists {
+				artistId
+				name
+			}
+			genres {
+				genreId
+				name
+			}
+			album {
+				title
+				albumId
+				cover(size: HALF)
+			}
+		}
+	}
 }

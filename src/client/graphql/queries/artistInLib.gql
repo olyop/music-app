@@ -1,9 +1,9 @@
 query getArtistInLib(
-  $userId: Uuid!
-  $artistId: Uuid!
+	$userId: Uuid!
+	$artistId: Uuid!
 ) {
-  artist(artistId: $artistId) {
-    artistId
-    inLibrary(userId: $userId)
-  }
+	artist(artistId: $artistId) {
+		artistId
+		inLibrary(userId: $userId)
+	}
 }

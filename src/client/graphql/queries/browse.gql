@@ -1,42 +1,42 @@
 query browse($userId: Uuid!) {
-  topTenSongs {
-    songId
-    mix
-    title
-    duration
-    featuring {
-      artistId
-      name
-    }
-    remixers {
-      artistId
-      name
-    }
-    artists {
-      artistId
-      name
-    }
-    genres {
-      genreId
-      name
-    }
-    album {
-      albumId
-      title
-      cover(size: HALF)
-    }
-    plays(userId: $userId) {
-      playId
-      dateCreated
-    }
-  }
-  newAlbums {
-    albumId
-    title
-    cover(size: HALF)
-    artists {
-      artistId
-      name
-    }
-  }
+	topTenSongs {
+		songId
+		mix
+		title
+		duration
+		featuring {
+			artistId
+			name
+		}
+		remixers {
+			artistId
+			name
+		}
+		artists {
+			artistId
+			name
+		}
+		genres {
+			genreId
+			name
+		}
+		album {
+			albumId
+			title
+			cover(size: HALF)
+		}
+		userPlays(userId: $userId) {
+			playId
+			dateCreated
+		}
+	}
+	newAlbums {
+		albumId
+		title
+		cover(size: HALF)
+		artists {
+			artistId
+			name
+		}
+	}
 }

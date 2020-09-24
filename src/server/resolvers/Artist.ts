@@ -7,7 +7,6 @@ import {
 	Album,
 	Artist,
 	UserArgs,
-	ImgFormat,
 	ImgSizeEnum,
 	DocsOrderBy,
 	OrderByArgs,
@@ -33,9 +32,9 @@ export const photo =
 			s3.getObject({
 				parse: bufferToDataUrl,
 				key: s3.catalogObjectKey({
+					format: "jpg",
 					size: args.size,
 					id: parent.artistId,
-					format: ImgFormat.JPG,
 				}),
 			})
 		),

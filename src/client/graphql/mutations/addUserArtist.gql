@@ -8,8 +8,8 @@ mutation addUserArtist(
   ) {
     artistId
     name
-    numOfSongs
-    numOfAlbums
+    songsTotal
+    albumsTotal
     photo(size: MINI)
     dateAdded(userId: $userId)
     inLibrary(userId: $userId)

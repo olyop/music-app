@@ -3,9 +3,9 @@ import isUndefined from "lodash/isUndefined"
 import { Artist } from "../types"
 import { determinePlural } from "./determinePlural"
 
-export const artistLower = ({ numOfSongs, numOfAlbums }: Artist) => {
-	if (isUndefined(numOfSongs) || isUndefined(numOfAlbums)) return undefined
-	const albumsText = `${numOfAlbums} album${determinePlural(numOfAlbums)}`
-	const songsText = `${numOfSongs} song${determinePlural(numOfSongs)}`
+export const artistLower = ({ songsTotal, albumsTotal }: Artist) => {
+	if (isUndefined(songsTotal) || isUndefined(albumsTotal)) return undefined
+	const albumsText = `${albumsTotal} album${determinePlural(albumsTotal)}`
+	const songsText = `${songsTotal} song${determinePlural(songsTotal)}`
 	return `${albumsText}, ${songsText}`
 }

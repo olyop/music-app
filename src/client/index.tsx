@@ -1,5 +1,5 @@
 import { render } from "react-dom"
-import { createElement, FC } from "react"
+import { createElement } from "react"
 import { BrowserRouter as ReactRouter } from "react-router-dom"
 
 import { ReactRedux } from "./redux"
@@ -10,9 +10,7 @@ import ApiError from "./components/ApiError"
 import PlayerBar from "./components/PlayerBar"
 import { Provider as ApolloClient } from "./apollo"
 
-import "./index.scss"
-
-const Application: FC = () => (
+render(
 	<ReactRedux>
 		<ReactRouter>
 			<ApolloClient>
@@ -23,10 +21,6 @@ const Application: FC = () => (
 				<PlayerBar/>
 			</ApolloClient>
 		</ReactRouter>
-	</ReactRedux>
-)
-
-render(
-	<Application/>,
+	</ReactRedux>,
 	document.getElementById("Application"),
 )

@@ -5,7 +5,6 @@ import {
 	Genre,
 	Artist,
 	UserArgs,
-	ImgFormat,
 	ImgSizeEnum,
 } from "../types"
 
@@ -122,8 +121,8 @@ export const size =
 			s3.getObject({
 				parse: ({ byteLength }) => byteLength,
 				key: s3.catalogObjectKey({
+					format: "mp3",
 					id: parent.songId,
-					format: ImgFormat.MP3,
 					size: ImgSizeEnum.FULL,
 				}),
 			})
@@ -155,11 +154,11 @@ export const plays =
 				sql: SELECT_USER_DOC_PLAYS,
 				parse: sql.parseTable(),
 				variables: [{
-					key: "songId",
-					value: parent.songId,
-				},{
 					key: "userId",
 					value: args.userId,
+				},{
+					key: "songId",
+					value: parent.songId,
 				},{
 					string: false,
 					key: "columnNames",

@@ -1,10 +1,15 @@
 .Icon {
+	padding: 3rem;
 	outline: none;
-	display: block;
 	cursor: pointer;
 	user-select: none;
 	border-radius: 100%;
-	width: var(--button-size);
-	height: var(--button-size);
-	font-size: var(--button-size);
-	color: var(--text-color-light); }
+	display: block !important;
+	overflow: hidden !important;
+	min-width: var(--info-height);
+	min-height: var(--info-height);
+	color: var(--text-color-light);
+	font-size: calc(var(--info-height) - 6rem);
+	transition: var(--transition-duration) background-color;
+	&:hover {
+		background-color: #e0e0e0; } }

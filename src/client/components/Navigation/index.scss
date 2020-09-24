@@ -18,8 +18,8 @@
 			font-size: var(--text-height); }
 		&-icon {
 			color: var(--text-color);
-			width: var(--text-height);
-			height: var(--text-height);
+			min-width: var(--text-height);
+			min-height: var(--text-height);
 			margin-right: var(--space-quart);
 			&:hover {
 				background-color: transparent !important; } }

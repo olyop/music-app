@@ -1,14 +1,15 @@
 type Artist {
-  name: String!
-  artistId: Uuid!
-  numOfPlays: Int!,
-  allPlays: PositiveInt!
-  numOfSongs: NonNegativeInt!
-  numOfAlbums: NonNegativeInt!
-  plays(userId: Uuid!): [Play!]!
-  inLibrary(userId: Uuid!): Boolean!
-  photo(size: ArtistPhotoSize!): Url!
-  dateAdded(userId: Uuid!): Timestamp
-  songs(orderBy: SongOrderByInput!): [Song!]!
-  albums(orderBy: AlbumOrderByInput!): [Album!]!
+	name: String!
+	artistId: Uuid!
+	numOfPlays: Int!,
+	totalPlays: NonNegativeInt!
+	numOfSongs: NonNegativeInt!
+	numOfAlbums: NonNegativeInt!
+	inLibrary(userId: Uuid!): Boolean!
+	userPlays(userId: Uuid!): [Play!]!
+	photo(size: ArtistPhotoSize!): Url!
+	dateAdded(userId: Uuid!): Timestamp
+	songs(orderBy: SongOrderByInput!): [Song!]!
+	albums(orderBy: AlbumOrderByInput!): [Album!]!
+	userPlaysTotal(userId: Uuid!): NonNegativeInt!
 }

@@ -11,6 +11,7 @@ const bem = createBem("Cover")
 const Cover: FC<PropTypes> = ({
 	url,
 	link,
+	title,
 	children,
 	className,
 	imgClassName,
@@ -18,6 +19,7 @@ const Cover: FC<PropTypes> = ({
 }) => (
 	<Img
 		url={url}
+		title={title}
 		imgClassName={bem(imgClassName, "img")}
 		className={bem(landscape ? "landscape" : null, className, "")}
 	>
@@ -32,6 +34,7 @@ const Cover: FC<PropTypes> = ({
 interface PropTypes extends BemPropTypes {
 	url: string,
 	link: string,
+	title?: string,
 	landscape?: boolean,
 	imgClassName?: BemInput,
 }

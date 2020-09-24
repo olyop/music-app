@@ -1,0 +1,7 @@
+.SongPage {
+	display: grid;
+	gap: var(--space);
+	grid-template-columns: 200rem 1fr;
+	&__content {
+		&-title {
+			font-size: 25rem; } } }

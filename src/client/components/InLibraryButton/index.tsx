@@ -3,7 +3,6 @@ import {
 	useRef,
 	useEffect,
 	createElement,
-	CSSProperties,
 } from "react"
 
 import uniqueId from "lodash/uniqueId"
@@ -31,7 +30,7 @@ import RM_USER_ARTIST from "../../graphql/mutations/rmUserArtist.gql"
 import ADD_USER_SONG from "../../graphql/mutations/addUserSong.gql"
 import ADD_USER_ARTIST from "../../graphql/mutations/addUserArtist.gql"
 
-const InLibraryButton: FC<PropTypes> = ({ doc, style, className }) => {
+const InLibraryButton: FC<PropTypes> = ({ doc, className }) => {
 	const dispatch =
 		useDispatch()
 	const queryId =
@@ -99,7 +98,6 @@ const InLibraryButton: FC<PropTypes> = ({ doc, style, className }) => {
 
 	return (
 		<Icon
-			style={style}
 			onClick={handleClick}
 			className={className}
 			icon={inLibrary ? "done" : "add"}
@@ -113,7 +111,6 @@ type Res = Record<string, UserDoc>
 interface PropTypes {
 	doc: UserDoc,
 	className?: string,
-	style?: CSSProperties,
 }
 
 export default InLibraryButton

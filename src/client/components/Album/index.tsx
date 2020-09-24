@@ -33,6 +33,7 @@ const Album: FC<PropTypes> = ({
 			<div className={bem(className, "Card Elevated")}>
 				<Cover
 					url={album.cover}
+					title={album.title}
 					link={`/album/${uuidRemoveDashes(album.albumId)}`}
 				/>
 				<Item

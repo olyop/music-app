@@ -6,11 +6,8 @@ import { Settings } from "../types"
 
 const loadState = () => {
 	const serializedState = localStorage.getItem("settings")
-	if (serializedState === null) {
-		return undefined
-	} else {
-		return JSON.parse(serializedState) as Settings
-	}
+	return serializedState === null ?
+		undefined : JSON.parse(serializedState) as Settings
 }
 
 const preloadedState = { settings: loadState() }

@@ -34,11 +34,10 @@ const Item = <D extends Doc, I extends Doc = Doc>({
 	className,
 	modalButtons,
 	infoClassName,
-	inLibClassName,
+	iconClassName,
 	rightClassName,
 	showPlay = true,
 	hideInLibrary = false,
-	inLibrarySticky = false,
 }: PropTypes<D, I>) => {
 	const [ modal, setModal ] = useState(false)
 	const openMore = () => setModal(true)
@@ -55,7 +54,7 @@ const Item = <D extends Doc, I extends Doc = Doc>({
 				{determineShowPlay(showPlay, doc) && (
 					<PlayButton
 						doc={doc}
-						className={bem("play")}
+						className={bem(iconClassName, "play")}
 					/>
 				)}
 				{imgDoc && (
@@ -94,15 +93,13 @@ const Item = <D extends Doc, I extends Doc = Doc>({
 				{showInLibrary(hideInLibrary, doc) && (
 					<InLibraryButton
 						doc={doc}
-						className={bem(inLibClassName, "in-lib")}
-						style={{ display: inLibrarySticky ? "block" : undefined }}
+						className={bem(iconClassName)}
 					/>
 				)}
 				<Icon
 					icon="more_vert"
 					onClick={openMore}
-					className={bem(inLibClassName, "in-lib")}
-					style={{ display: inLibrarySticky ? "block" : undefined }}
+					className={bem(iconClassName, "more")}
 				/>
 			</div>
 			{modal && modalButtons && (
@@ -126,9 +123,8 @@ interface PropTypes<Doc, ImgDoc> extends BemPropTypes {
 	showPlay?: boolean,
 	hideInLibrary?: boolean,
 	infoClassName?: BemInput,
-	inLibClassName?: BemInput,
+	iconClassName?: BemInput,
 	rightClassName?: BemInput,
-	inLibrarySticky?: boolean,
 	modalButtons?: ModalButton[],
 }
 

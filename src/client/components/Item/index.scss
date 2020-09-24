@@ -9,7 +9,7 @@
 		color: var(--text-color-light);
 		margin: 2rem var(--gap) 0 calc(var(--gap) - 5rem); }
 	&__play {
-		--fix: -2rem;
+		--fix: -3px;
 		margin-left: var(--fix);
 		margin-right: calc(var(--gap) + var(--fix)); }
 	&__img-link {
@@ -38,11 +38,5 @@
 			text-overflow: clip;
 			color: var(--text-color-light);
 			margin-right: var(--space-quart); } }
-	&__in-lib {
-		width: auto;
-		padding: 4rem;
-		display: none;
-		font-size: 28rem;
-		height: var(--info-height);
-		&:last-child {
-			margin-right: -3rem; } } }
+	&__more {
+		margin-right: -5px; } }

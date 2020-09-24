@@ -92,7 +92,7 @@ const PlayButton: FC<PropTypes> = ({ doc, className }) => {
 		<Icon
 			title="Play"
 			onClick={handleClick}
-			className={bem(className, "IconHover")}
+			className={bem(className, "Hover")}
 			icon={isCurrent && play ? "pause" : "play_arrow"}
 		/>
 	)

@@ -52,6 +52,7 @@ const Queues: FC = () => {
 						)}
 						<Icon
 							icon="close"
+							className={bem("close")}
 							onClick={() => clearQueues()}
 						/>
 					</Fragment>

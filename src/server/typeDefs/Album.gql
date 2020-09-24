@@ -1,11 +1,13 @@
 type Album {
-  albumId: Uuid!
-  title: String!
-  songs: [Song!]!
-  released: Date!
-  genres: [Genre!]!
-  artists: [Artist!]!
-  totalDuration: PositiveInt!
-  plays(userId: Uuid!): [Play!]!
-  cover(size: AlbumCoverSize!): Url!
+	albumId: Uuid!
+	title: String!
+	released: Date!
+	songs: [Song!]!
+	genres: [Genre!]!
+	artists: [Artist!]!
+	totalPlays: NonNegativeInt!
+	totalDuration: PositiveInt!
+	userPlays(userId: Uuid!): [Play!]!
+	cover(size: AlbumCoverSize!): Url!
+	userPlaysTotal(userId: Uuid!): NonNegativeInt!
 }

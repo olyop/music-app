@@ -4,7 +4,9 @@ type Playlist {
 	songs: [Song!]!
 	playlistId: Uuid!
 	dateCreated: Timestamp!
-	plays(userId: Uuid!): [Play!]!
+	playsTotal: NonNegativeInt!
+	userPlays(userId: Uuid!): [Play!]!
 	inLibrary(userId: Uuid!): Boolean!
 	dateAdded(userId: Uuid!): Timestamp
+	userPlaysTotal(userId: Uuid!): NonNegativeInt!
 }

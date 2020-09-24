@@ -1,3 +1,4 @@
+import { createBem } from "@oly_op/bem"
 import { createElement, FC } from "react"
 
 import Item from "../Item"
@@ -6,6 +7,8 @@ import DocLink from "../DocLink"
 import { useStateListStyle } from "../../redux"
 import { artistLower, uuidRemoveDashes } from "../../helpers"
 import { Artist as ArtistType, ListStyle } from "../../types"
+
+const bem = createBem("Artist")
 
 const Artist: FC<PropTypes> = ({ artist, className, alwaysList = false }) => {
 	const listStyle = useStateListStyle()
@@ -17,10 +20,10 @@ const Artist: FC<PropTypes> = ({ artist, className, alwaysList = false }) => {
 			upper={upper}
 			lower={lower}
 			imgDoc={artist}
-			className={[ className, "PaddingHalf", "ItemBorder", "Hover" ].join(" ")}
+			className={bem(className, "PaddingHalf ItemBorder Hover")}
 		/>
 	) : (
-		<div className={[ className, "Card", "Elevated" ].join(" ")}>
+		<div className={bem(className, "Card Elevated")}>
 			<Cover
 				landscape
 				url={artist.photo}

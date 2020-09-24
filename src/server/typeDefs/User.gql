@@ -8,6 +8,7 @@ type User {
 	later: [Song!]!
 	plays: [Play!]!
 	dateJoined: Timestamp!
+	playsTotal: NonNegativeInt!
 	songs(orderBy: UserSongOrderByInput!): [Song!]!
 	artists(orderBy: UserArtistOrderByInput!): [Artist!]!
 	playlists(orderBy: UserPlaylistOrderByInput!): [Playlist!]!

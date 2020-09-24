@@ -1,19 +1,21 @@
+import { createRipples } from "react-ripples"
+import { createElement, FC } from "react"
 import { createBem, BemPropTypes } from "@oly_op/bem"
-import { createElement, FC, CSSProperties } from "react"
 
 import "./index.scss"
 
 const bem = createBem("Icon")
 
-const Icon: FC<PropTypes> = ({ icon, style, title, onClick, className }) => (
-	<i
-		style={style}
+const Ripples = createRipples({ during: 700 })
+
+const Icon: FC<PropTypes> = ({ icon, title, onClick, className }) => (
+	<Ripples
+		// @ts-ignore
 		title={title}
 		children={icon}
 		onClick={onClick}
 		className={bem(
 			className,
-			"Hover",
 			"",
 			{ ignore: true, className: "material-icons" },
 		)}
@@ -24,7 +26,6 @@ interface PropTypes extends BemPropTypes {
 	icon: string,
 	title?: string,
 	onClick?: () => void,
-	style?: CSSProperties,
 }
 
 export default Icon

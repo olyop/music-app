@@ -3,6 +3,7 @@ query song(
   $songId: Uuid!
 ) {
   song(songId: $songId) {
+    size
     title
     songId
     duration
@@ -26,11 +27,15 @@ query song(
     album {
       title
       albumId
+      released
       cover(size: HALF)
     }
     plays(userId: $userId) {
       playId
       dateCreated
+    }
+    totalPlays {
+      playId
     }
   }
 }

@@ -16,7 +16,7 @@ import USER_SONG_LATER from "../../graphql/mutations/userSongLater.gql"
 const Song: FC<PropTypes> = ({
 	song,
 	className,
-	inLibClassName,
+	iconClassName,
 	showPlay = true,
 	showCover = true,
 	showRight = true,
@@ -32,10 +32,9 @@ const Song: FC<PropTypes> = ({
 	return (
 		<Item
 			doc={song}
-			inLibrarySticky
 			showPlay={showPlay}
 			className={className}
-			inLibClassName={inLibClassName}
+			iconClassName={iconClassName}
 			upper={<SongTitle song={song}/>}
 			imgDoc={showCover ? song.album : undefined}
 			left={showTrackNumber ? song.trackNumber : null}
@@ -76,7 +75,7 @@ interface PropTypes extends BemPropTypes {
 	showPlay?: boolean,
 	showCover?: boolean,
 	showRight?: boolean,
-	inLibClassName?: BemInput,
+	iconClassName?: BemInput,
 	showTrackNumber?: boolean,
 }
 

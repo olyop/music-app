@@ -18,6 +18,11 @@ export interface UserDoc<T = string> extends Doc<T> {
 	dateAdded: number | null,
 }
 
+interface PlayDoc {
+	allPlays: Play[],
+	totalPlays: number,
+}
+
 export interface Play extends PlayBase, Doc<"Play"> {
 	user: User,
 	song: Song,
@@ -40,17 +45,16 @@ export interface User extends UserBase, Doc<"User"> {
 	playlists: Playlist[],
 }
 
-export interface Artist extends ArtistBase, UserDoc<"Artist"> {
+export interface Artist extends ArtistBase, PlayDoc, UserDoc<"Artist"> {
 	photo: string,
 	songs: Song[],
 	albums: Album[],
-	allPlays: number,
 	numOfSongs?: number,
 	numOfPlays?: number,
 	numOfAlbums?: number,
 }
 
-export interface Album extends AlbumBase, UserDoc<"Album"> {
+export interface Album extends AlbumBase, PlayDoc, UserDoc<"Album"> {
 	cover: string,
 	songs: Song[],
 	genres: Genre[],
@@ -59,7 +63,8 @@ export interface Album extends AlbumBase, UserDoc<"Album"> {
 	totalDuration: number,
 }
 
-export interface Song extends SongBase, UserDoc<"Song"> {
+export interface Song extends SongBase, PlayDoc, UserDoc<"Song"> {
+	size: number,
 	album: Album,
 	genres: Genre[],
 	artists: Artist[],

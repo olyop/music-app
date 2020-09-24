@@ -4,11 +4,7 @@
 	flex-direction: row;
 	height: var(--player-height);
 	&__icon {
-		padding: 4rem;
-		font-size: 28rem;
-		color: var(--text-color);
-		width: var(--info-height);
-		height: var(--info-height); }
+		color: var(--text-color); }
 	&__main,
 	&__controls {
 		padding: 0 var(--space); }

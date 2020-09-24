@@ -5,20 +5,22 @@ import {
 	Genre,
 	Artist,
 	UserArgs,
+	ImgFormat,
+	ImgSizeEnum,
 } from "../types"
 
 import {
 	SELECT_ALBUM,
+	SELECT_SONG_PLAYS,
 	SELECT_SONG_GENRES,
 	SELECT_SONG_ARTISTS,
 	SELECT_SONG_REMIXERS,
 	SELECT_SONG_FEATURING,
 	SELECT_USER_DOC_PLAYS,
-	// CHECK_SONG_IS_CURRENT,
 } from "../sql"
 
 import { COLUMN_NAMES } from "../globals"
-import { sql, createResolver } from "../helpers"
+import { sql, createResolver, s3 } from "../helpers"
 import { userDocInLib, userDocDateAdded } from "./common"
 
 const resolver =
@@ -109,6 +111,38 @@ export const featuring =
 					string: false,
 					key: "columnNames",
 					value: sql.join(COLUMN_NAMES.ARTIST, "artists"),
+				}],
+			})
+		),
+	)
+
+export const size =
+	resolver<number>(
+		({ parent }) => (
+			s3.getObject({
+				parse: ({ byteLength }) => byteLength,
+				key: s3.catalogObjectKey({
+					id: parent.songId,
+					format: ImgFormat.MP3,
+					size: ImgSizeEnum.FULL,
+				}),
+			})
+		),
+	)
+
+export const totalPlays =
+	resolver<Play[]>(
+		({ parent }) => (
+			sql.query({
+				sql: SELECT_SONG_PLAYS,
+				parse: sql.parseTable(),
+				variables: [{
+					key: "songId",
+					value: parent.songId,
+				},{
+					string: false,
+					key: "columnNames",
+					value: sql.join(COLUMN_NAMES.PLAY),
 				}],
 			})
 		),

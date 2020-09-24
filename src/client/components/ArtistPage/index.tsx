@@ -67,7 +67,7 @@ const ArtistPage: FC<RouteComponentProps> = ({ match }) => {
 								{artistLower(data.artist)}
 							</p>
 							<p className={bem("cover-content-text")}>
-								{data.artist.allPlays.toLocaleString()}
+								{data.artist.totalPlays.toLocaleString()}
 								<Fragment> plays</Fragment>
 							</p>
 						</div>

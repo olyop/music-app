@@ -1,4 +1,4 @@
-query user($userId: Uuid!) {
+query getUserPage($userId: Uuid!) {
   user(userId: $userId) {
     userId
     name

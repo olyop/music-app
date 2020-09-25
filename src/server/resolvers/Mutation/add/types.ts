@@ -1,5 +1,5 @@
 import type { FileUpload } from "graphql-upload"
-import type { SongBase, AlbumBase, GenreBase, ArtistBase } from "@oly_op/music-app-types"
+import type { SongBase, AlbumBase, GenreBase, ArtistBase } from "@oly_op/music-app-common/types"
 
 export type Check = {
 	name: string,

@@ -45,8 +45,8 @@ export interface S3FileArgs {
 }
 
 export enum S3FileExt {
-	JPG = "jpg",
-	MP3 = "mp3",
+	JPG = "JPG",
+	MP3 = "MP3",
 }
 
 export type Client = Pool | PoolClient

@@ -16,7 +16,7 @@ import QueryApi from "../QueryApi"
 import DocLinks from "../DocLinks"
 import { Album, UserVar } from "../../types"
 import { useStateUserId } from "../../redux"
-import QUERY_ALBUM_PAGE from "../../graphql/queries/albumPage.gql"
+import GET_ALBUM_PAGE from "./getAlbumPage.gql"
 
 import "./index.scss"
 
@@ -28,7 +28,7 @@ const AlbumPage: FC = () => {
 	const albumId = uuidAddDashes(params.albumId)
 	return (
 		<QueryApi<Data, Vars>
-			query={QUERY_ALBUM_PAGE}
+			query={GET_ALBUM_PAGE}
 			className={bem("", "Content")}
 			variables={{ userId, albumId }}
 			children={({ data }) => data && (

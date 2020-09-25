@@ -9,8 +9,8 @@ import DocLinks from "../DocLinks"
 import SongTitle from "../SongTitle"
 import { Song, UserVar } from "../../types"
 import { useStateUserId } from "../../redux"
+import GET_SONG_PAGE from "./getSongPage.gql"
 import FeaturingArtists from "../FeaturingArtists"
-import GET_SONG from "../../graphql/queries/song.gql"
 import { uuidAddDashes, uuidRemoveDashes } from "../../helpers"
 
 import "./index.scss"
@@ -23,7 +23,7 @@ const SongPage: FC = () => {
 	const songId = uuidAddDashes(params.songId)
 	return (
 		<QueryApi<Data, Vars>
-			query={GET_SONG}
+			query={GET_SONG_PAGE}
 			variables={{ songId, userId }}
 			className={bem("", "Padding")}
 			children={({ data }) => data && (

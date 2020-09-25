@@ -6,8 +6,8 @@ import Song from "../../Song"
 import Album from "../../Album"
 import Helmet from "../../Helmet"
 import QueryApi from "../../QueryApi"
+import GET_BROWSE from "./getBrowse.gql"
 import { useStateUserId } from "../../../redux"
-import QUERY_BROWSE from "../../../graphql/queries/browse.gql"
 import { Album as AlbumType, Song as SongType } from "../../../types"
 
 import "./index.scss"
@@ -16,8 +16,8 @@ const bem = createBem("BrowseHome")
 
 const BrowseHome: FC = () => (
 	<QueryApi<Data>
+		query={GET_BROWSE}
 		className={bem("")}
-		query={QUERY_BROWSE}
 		variables={{ userId: useStateUserId() }}
 		children={
 			({ data }) => data && (

@@ -1,4 +1,4 @@
-export const NODE_ENV = process.env.NODE_ENV!
+export const IS_DEV = process.env.NODE_ENV! === "development"
 
 export const HOST = process.env.HOST!
 export const PORT = parseInt(process.env.SERVER_PORT!)

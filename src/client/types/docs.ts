@@ -12,13 +12,13 @@ export interface Doc<T = string> {
 	__typename: T,
 }
 
-export interface LibraryDoc<T> extends Doc<T> {
+export interface LibraryDoc<T = string> extends Doc<T> {
 	userPlays: Play[],
 	playsTotal: number | null,
 	userPlaysTotal: number | null,
 }
 
-export interface UserDoc<T> extends LibraryDoc<T> {
+export interface UserDoc<T = string> extends LibraryDoc<T> {
 	inLibrary: boolean,
 	dateAdded: number | null,
 }

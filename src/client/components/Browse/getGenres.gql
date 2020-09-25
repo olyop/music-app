@@ -1,4 +1,4 @@
-query browseGenres {
+query getGenres {
 	genres {
     name
     genreId

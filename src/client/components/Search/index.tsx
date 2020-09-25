@@ -34,8 +34,8 @@ import Song from "../Song"
 import Genre from "../Genre"
 import Album from "../Album"
 import Artist from "../Artist"
+import GET_SEARCH from "./getSearch.gql"
 import { isSong, isGenre, isAlbum, isArtist } from "./isDoc"
-import GET_SEARCH from "../../graphql/queries/search.gql"
 
 import "./index.scss"
 
@@ -148,10 +148,6 @@ const Search: FC = () => {
 			)}
 		</div>
 	)
-}
-
-interface Params {
-	query?: string,
 }
 
 interface Vars extends UserVar {

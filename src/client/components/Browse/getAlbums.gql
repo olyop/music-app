@@ -1,4 +1,4 @@
-query albums(
+query getAlbums(
   $page: NonNegativeInt!
   $orderBy: AlbumOrderByInput!
 ) {

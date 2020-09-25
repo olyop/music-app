@@ -1,4 +1,3 @@
-import cors from "cors"
 import logger from "morgan"
 import helmet from "helmet"
 import express from "express"
@@ -18,7 +17,6 @@ import {
 	PORT,
 	LOG_FORMAT,
 	BUILD_PATH,
-	CORS_CONFIG,
 } from "./globals"
 
 // import { sql } from "./helpers"
@@ -33,7 +31,6 @@ app.use(
 	logger(LOG_FORMAT),
 	helmet(),
 	compression(),
-	cors(CORS_CONFIG),
 	bodyParser.json(),
 	bodyParser.urlencoded({ extended: false }),
 	cookieParser(),

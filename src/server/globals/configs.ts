@@ -1,11 +1,11 @@
 import { PoolConfig } from "pg"
-import { CorsOptions } from "cors"
 import { ClientConfiguration } from "aws-sdk/clients/s3"
-import { ApolloServerExpressConfig } from "apollo-server-express"
+import { ApolloServerExpressConfig, GetMiddlewareOptions } from "apollo-server-express"
 
 import {
 	HOST,
 	PORT,
+	IS_DEV,
 	APOLLO_KEY,
 	AWS_RDS_DB,
 	AWS_RDS_PORT,
@@ -15,10 +15,6 @@ import {
 	AWS_ACCESS_KEY_ID,
 	AWS_SECRET_ACCESS_KEY,
 } from "./environment"
-
-export const CORS_CONFIG: CorsOptions = {
-	origin: `http://${HOST}:${PORT}/`,
-}
 
 export const PG_POOL_CONFIG: PoolConfig = {
 	port: AWS_RDS_PORT,
@@ -30,9 +26,11 @@ export const PG_POOL_CONFIG: PoolConfig = {
 }
 
 export const APOLLO_MIDDLEWARE_CONFIG: GetMiddlewareOptions = {
-	cors: false,
 	path: "/graphql",
 	bodyParserConfig: false,
+	cors: IS_DEV && {
+		origin: `http://${HOST}:${PORT}/`,
+	},
 }
 
 export const APOLLO_SERVER_CONFIG: ApolloServerExpressConfig = {

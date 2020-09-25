@@ -17,7 +17,7 @@ import {
 import Feed from "../Feed"
 import Albums from "../Albums"
 import Helmet from "../Helmet"
-import GET_ALBUMS from "../../graphql/queries/albums.gql"
+import GET_ALBUMS from "./getAlbums.gql"
 
 const BrowseAlbums: FC = () => {
 	const userId = useStateUserId()

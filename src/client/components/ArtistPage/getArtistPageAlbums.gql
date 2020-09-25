@@ -1,4 +1,4 @@
-query artistAlbums(
+query getArtistPageAlbums(
 	$artistId: Uuid!
 	$albumsOrderBy: AlbumOrderByInput!
 ) {

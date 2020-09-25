@@ -1,4 +1,4 @@
-query search(
+query getSearch(
 	$userId: Uuid!
 	$query: String!
 ) {

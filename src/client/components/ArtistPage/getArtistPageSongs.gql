@@ -1,4 +1,4 @@
-query artistSongs(
+query getArtistPageSongs(
 	$userId: Uuid!
 	$artistId: Uuid!
 	$songsOrderBy: SongOrderByInput!

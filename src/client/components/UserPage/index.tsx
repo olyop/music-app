@@ -12,7 +12,7 @@ import {
 
 import Helmet from "../Helmet"
 import QueryApi from "../QueryApi"
-import GET_USER from "../../graphql/queries/user.gql"
+import GET_USER_PAGE from "./getUserPage.gql"
 import { ListStyle, User, UserVar } from "../../types"
 
 import "./index.scss"
@@ -32,7 +32,7 @@ const UserPage: FC = () => {
 		({ target: { value } }) => dispatch(updateListStyle(value as ListStyle))
 	return (
 		<QueryApi<Data, UserVar>
-			query={GET_USER}
+			query={GET_USER_PAGE}
 			variables={{ userId }}
 			className={bem("", "Padding", "Content")}
 			children={

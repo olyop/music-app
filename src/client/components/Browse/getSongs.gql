@@ -1,13 +1,16 @@
-query song(
+query getSongs(
   $userId: Uuid!
-  $songId: Uuid!
+  $page: NonNegativeInt!
+  $orderBy: SongOrderByInput!
 ) {
-  song(songId: $songId) {
-    size
+  songs(
+    page: $page
+    orderBy: $orderBy
+  ) {
+    mix
     title
     songId
     duration
-    playsTotal
     inLibrary(userId: $userId)
     featuring {
       name
@@ -28,12 +31,7 @@ query song(
     album {
       title
       albumId
-      released
       cover(size: HALF)
-    }
-    userPlays(userId: $userId) {
-      playId
-      dateCreated
     }
   }
 }

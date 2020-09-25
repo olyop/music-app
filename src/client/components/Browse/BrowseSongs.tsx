@@ -3,7 +3,7 @@ import { createElement, FC } from "react"
 import Feed from "../Feed"
 import Songs from "../Songs"
 import Helmet from "../Helmet"
-import GET_SONGS from "../../graphql/queries/songs.gql"
+import GET_SONGS from "./getSongs.gql"
 import { useStateUserId, useStateOrderBy } from "../../redux"
 import { Song, UserVar, SongsOrderBy, SongsOrderByField } from "../../types"
 

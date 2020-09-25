@@ -1,4 +1,4 @@
-query getSongInLib(
+query getSongInLibrary(
   $userId: Uuid!
   $songId: Uuid!
 ) {

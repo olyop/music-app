@@ -21,8 +21,8 @@ import Icon from "../Icon"
 import { UserDoc } from "../../types"
 import { determineDocReturn, determineDocId } from "../../helpers"
 
-import GET_SONG_IN_LIB from "../../graphql/queries/songInLib.gql"
-import GET_ARTIST_IN_LIB from "../../graphql/queries/artistInLib.gql"
+import GET_SONG_IN_LIBRARY from "./getSongInLibrary.gql"
+import GET_ARTIST_IN_LIBRARY from "./getArtistInLibrary.gql"
 
 import RM_USER_SONG from "../../graphql/mutations/rmUserSong.gql"
 import RM_USER_ARTIST from "../../graphql/mutations/rmUserArtist.gql"
@@ -42,7 +42,7 @@ const InLibraryButton: FC<PropTypes> = ({ doc, className }) => {
 	const docKey =
 		dr("songId", "artistId")
 	const QUERY =
-		dr(GET_SONG_IN_LIB, GET_ARTIST_IN_LIB)
+		dr(GET_SONG_IN_LIBRARY, GET_ARTIST_IN_LIBRARY)
 
 	const userId = useStateUserId()
 	const docId = determineDocId(doc)

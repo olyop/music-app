@@ -1,4 +1,4 @@
-query artists(
+query getArtists(
 	$userId: Uuid!
 	$page: NonNegativeInt!
 	$orderBy: ArtistOrderByInput!

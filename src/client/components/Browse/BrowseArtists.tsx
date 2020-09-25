@@ -17,7 +17,7 @@ import {
 import Feed from "../Feed"
 import Helmet from "../Helmet"
 import Artists from "../Artists"
-import GET_ARTISTS from "../../graphql/queries/artists.gql"
+import GET_ARTISTS from "./getArtists.gql"
 
 const BrowseArtists: FC = () => {
 	const userId = useStateUserId()

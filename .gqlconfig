@@ -6,11 +6,11 @@
 		files: [
 			{
 				parser: 'QueryParser',
-				match: 'src/upload/graphql/*.gql',
+				match: 'src/upload/**/*.gql',
 			},
 			{
 				parser: 'QueryParser',
-				match: 'src/client/graphql/**/*.gql',
+				match: 'src/client/**/*.gql',
 			}
 		]
 	}

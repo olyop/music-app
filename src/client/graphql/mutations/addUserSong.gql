@@ -6,9 +6,9 @@ mutation addUserSong(
     userId: $userId
     songId: $songId
   ) {
-    songId
     mix
     title
+    songId
     duration
     dateAdded(userId: $userId)
     inLibrary(userId: $userId)

@@ -5,7 +5,9 @@ import {
 	Genre,
 	Artist,
 	UserArgs,
-	ImgSizeEnum,
+	S3FileExt,
+	S3FileType,
+	SqlParse,
 } from "../types"
 
 import {
@@ -20,7 +22,7 @@ import {
 
 import { COLUMN_NAMES } from "../globals"
 import { sql, createResolver, s3 } from "../helpers"
-import { userDocInLib, userDocDateAdded } from "./getUserDoc"
+import { getUserDocInLib, getUserDocDateAdded } from "./getUserDoc"
 
 const resolver =
 	createResolver<Song>()
@@ -119,17 +121,17 @@ export const size =
 	resolver<number>(
 		({ parent }) => (
 			s3.getObject({
-				parse: ({ byteLength }) => byteLength,
-				key: s3.catalogObjectKey({
-					format: "mp3",
-					id: parent.songId,
-					size: ImgSizeEnum.FULL,
-				}),
+				parse: ({ length }) => length,
+				key: s3.catalogObjectKey(
+					parent.songId,
+					S3FileType.FULL,
+					S3FileExt.MP3,
+				),
 			})
 		),
 	)
 
-export const totalPlays =
+export const playsTotal =
 	resolver<number | null>(
 		({ parent }) => (
 			sql.query({
@@ -147,31 +149,50 @@ export const totalPlays =
 		),
 	)
 
-export const plays =
+const getUserSongPlays =
+	<T>(userId: string, songId: string, parse: SqlParse<T>) =>
+		sql.query({
+			sql: SELECT_USER_DOC_PLAYS,
+			parse,
+			variables: [{
+				key: "userId",
+				value: userId,
+			},{
+				key: "songId",
+				value: songId,
+			},{
+				string: false,
+				key: "columnNames",
+				value: sql.join(COLUMN_NAMES.PLAY),
+			}],
+		})
+
+export const userPlays =
 	resolver<Play[], UserArgs>(
 		({ parent, args }) => (
-			sql.query({
-				sql: SELECT_USER_DOC_PLAYS,
-				parse: sql.parseTable(),
-				variables: [{
-					key: "userId",
-					value: args.userId,
-				},{
-					key: "songId",
-					value: parent.songId,
-				},{
-					string: false,
-					key: "columnNames",
-					value: sql.join(COLUMN_NAMES.PLAY),
-				}],
-			})
+			getUserSongPlays(
+				args.userId,
+				parent.songId,
+				sql.parseTable(),
+			)
+		),
+	)
+
+export const userPlaysTotal =
+	resolver<number | null, UserArgs>(
+		({ parent, args }) => (
+			getUserSongPlays(
+				args.userId,
+				parent.songId,
+				sql.rowCountOrNull,
+			)
 		),
 	)
 
 export const dateAdded =
 	resolver<number | null, UserArgs>(
 		({ parent, args }) => (
-			userDocDateAdded({
+			getUserDocDateAdded({
 				userId: args.userId,
 				docId: parent.songId,
 				columnName: "song_id",
@@ -183,7 +204,7 @@ export const dateAdded =
 export const inLibrary =
 	resolver<boolean, UserArgs>(
 		({ parent, args }) => (
-			userDocInLib({
+			getUserDocInLib({
 				userId: args.userId,
 				docId: parent.songId,
 				columnName: "song_id",

@@ -1,3 +1,7 @@
+import { sum } from "lodash"
+import pipe from "@oly_op/pipe"
+import { map } from "lodash/fp"
+
 import {
 	User,
 	Song,
@@ -15,7 +19,40 @@ import {
 
 import { COLUMN_NAMES } from "../globals"
 import { sql, createResolver } from "../helpers"
-import { userDocInLib, userDocDateAdded } from "./getUserDoc"
+import { getUserDocInLib, getUserDocDateAdded } from "./getUserDoc"
+
+const getPlaylistSongs =
+	<T>(playlistId: string, parse: SqlParse<T>) =>
+		sql.query({
+			sql: SELECT_PLAYLIST_SONGS,
+			parse,
+			variables: [{
+				key: "playlistId",
+				value: playlistId,
+			},{
+				string: false,
+				key: "columnNames",
+				value: sql.join(COLUMN_NAMES.SONG),
+			}],
+		})
+
+const getUserPlaylistPlays =
+	<T>(userId: string, playlistId: string, parse: SqlParse<T>) =>
+		sql.query({
+			sql: SELECT_USER_DOC_PLAYS,
+			parse,
+			variables: [{
+				key: "userId",
+				value: userId,
+			},{
+				key: "playlistId",
+				value: playlistId,
+			},{
+				string: false,
+				key: "columnNames",
+				value: sql.join(COLUMN_NAMES.PLAY),
+			}],
+		})
 
 const resolver =
 	createResolver<Playlist>()
@@ -41,21 +78,6 @@ export const user =
 		),
 	)
 
-const getPlaylistSongs =
-	<T>(playlistId: string, parse: SqlParse<T>) =>
-		sql.query({
-			sql: SELECT_PLAYLIST_SONGS,
-			parse,
-			variables: [{
-				key: "playlistId",
-				value: playlistId,
-			},{
-				string: false,
-				key: "columnNames",
-				value: sql.join(COLUMN_NAMES.SONG),
-			}],
-		})
-
 export const songs =
 	resolver<Song[]>(
 		({ parent }) => (
@@ -76,31 +98,46 @@ export const songsTotal =
 		),
 	)
 
-export const plays =
+export const duration =
+	resolver<number | null>(
+		({ parent }) => (
+			getPlaylistSongs(
+				parent.playlistId,
+				pipe(
+					sql.parseTable<Song>(),
+					map(song => song.duration),
+					sum,
+				),
+			)
+		),
+	)
+
+export const userPlays =
 	resolver<Play[], UserArgs>(
 		({ parent, args }) => (
-			sql.query({
-				sql: SELECT_USER_DOC_PLAYS,
-				parse: sql.parseTable(),
-				variables: [{
-					key: "userId",
-					value: args.userId,
-				},{
-					key: "playlistId",
-					value: parent.playlistId,
-				},{
-					string: false,
-					key: "columnNames",
-					value: sql.join(COLUMN_NAMES.PLAY),
-				}],
-			})
+			getUserPlaylistPlays(
+				args.userId,
+				parent.userId,
+				sql.parseTable(),
+			)
+		),
+	)
+
+export const userPlaysTotal =
+	resolver<number | null, UserArgs>(
+		({ parent, args }) => (
+			getUserPlaylistPlays(
+				args.userId,
+				parent.userId,
+				sql.rowCountOrNull,
+			)
 		),
 	)
 
 export const dateAdded =
 	resolver<number | null, UserArgs>(
 		({ parent, args }) => (
-			userDocDateAdded({
+			getUserDocDateAdded({
 				userId: args.userId,
 				docId: parent.playlistId,
 				columnName: "playlist_id",
@@ -112,7 +149,7 @@ export const dateAdded =
 export const inLibrary =
 	resolver<boolean, UserArgs>(
 		({ parent, args }) => (
-			userDocInLib({
+			getUserDocInLib({
 				userId: args.userId,
 				docId: parent.playlistId,
 				columnName: "playlist_id",

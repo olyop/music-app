@@ -1,7 +1,7 @@
 type Artist {
 	name: String!
 	artistId: Uuid!
-	playsTotal: NonNegativeInt
+	playsTotal: PositiveInt
 	songsTotal: NonNegativeInt!
 	albumsTotal: NonNegativeInt!
 	inLibrary(userId: Uuid!): Boolean!

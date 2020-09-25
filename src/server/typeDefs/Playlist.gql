@@ -3,6 +3,7 @@ type Playlist {
 	name: String!
 	songs: [Song!]!
 	playlistId: Uuid!
+	duration: PositiveInt
 	dateCreated: Timestamp!
 	songsTotal: NonNegativeInt
 	playsTotal: NonNegativeInt

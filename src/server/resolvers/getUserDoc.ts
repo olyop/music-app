@@ -13,7 +13,7 @@ interface Input {
 	userDocTable: string,
 }
 
-export const userDocInLib =
+export const getUserDocInLib =
 	({ docId, userId, columnName, userDocTable }: Input) =>
 		sql.query<boolean>({
 			sql: SELECT_USER_DOC_IN_LIB,
@@ -35,7 +35,7 @@ export const userDocInLib =
 			}],
 		})
 
-export const userDocDateAdded =
+export const getUserDocDateAdded =
 	<T extends UserDoc>({ docId, userId, columnName, userDocTable }: Input) =>
 		sql.query<number | null>({
 			sql: SELECT_USER_DOC_ADDED,

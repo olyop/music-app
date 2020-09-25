@@ -11,12 +11,6 @@ import {
 	PlaylistBase,
 } from "@oly_op/music-app-common/types"
 
-export enum ImgSizeEnum {
-	MINI = "MINI",
-	HALF = "HALF",
-	FULL = "FULL",
-}
-
 export interface SqlVariable {
 	key: string,
 	string?: boolean,
@@ -38,6 +32,21 @@ export interface SqlConfig<Return> {
 export interface S3Upload {
 	key: string,
 	data: Buffer,
+}
+
+export enum S3FileType {
+	MINI = "MINI",
+	HALF = "HALF",
+	FULL = "FULL",
+}
+
+export interface S3FileArgs {
+	size: S3FileType,
+}
+
+export enum S3FileExt {
+	JPG = "jpg",
+	MP3 = "mp3",
 }
 
 export type Client = Pool | PoolClient
@@ -79,13 +88,6 @@ export interface Genre extends UserDocBase, GenreBase {}
 
 export interface Artist extends UserDocBase, ArtistBase {}
 
-export interface Queue {
-	prev: Song[],
-	next: Song[],
-	current: Song,
-	queue: Song[],
-}
-
 export interface UserQueue {
 	index: number,
 	userId: string,
@@ -101,15 +103,9 @@ export interface OrderByArgs {
 	orderBy: OrderBy,
 }
 
-export interface PageArgs {
-	page: number,
-}
-
 export interface UserQueuesArgs extends UserArgs {
 	songId: string,
 }
-
-export interface DocsArgs extends PageArgs, OrderByArgs {}
 
 export interface DocsOrderBy<T> {
 	id: string,

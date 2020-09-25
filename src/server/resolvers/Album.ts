@@ -11,10 +11,12 @@ import {
 	Artist,
 	SqlParse,
 	UserArgs,
-	ImgSizeEnum,
+	S3FileExt,
+	S3FileArgs,
 } from "../types"
 
 import {
+	SELECT_ALBUM_PLAYS,
 	SELECT_ALBUM_SONGS,
 	SELECT_ALBUM_GENRES,
 	SELECT_ALBUM_ARTISTS,
@@ -23,9 +25,6 @@ import {
 
 import { COLUMN_NAMES } from "../globals"
 import { s3, sql, fixDateType, createResolver } from "../helpers"
-
-const resolver =
-	createResolver<Album>()
 
 const getAlbumSongs =
 	<T>(albumId: string, parse: SqlParse<T>) =>
@@ -41,6 +40,27 @@ const getAlbumSongs =
 				value: sql.join(COLUMN_NAMES.SONG),
 			}],
 		})
+
+const getUserAlbumPlays =
+	<T>(userId: string, albumId: string, parse: SqlParse<T>) =>
+		sql.query({
+			sql: SELECT_USER_ALBUM_PLAYS,
+			parse,
+			variables: [{
+				key: "userId",
+				value: userId,
+			},{
+				key: "docId",
+				value: albumId,
+			},{
+				string: false,
+				key: "columnNames",
+				value: sql.join(COLUMN_NAMES.PLAY),
+			}],
+		})
+
+const resolver =
+	createResolver<Album>()
 
 export const songs =
 	resolver<Song[]>(
@@ -80,15 +100,15 @@ export const released =
 	resolver<Date>(({ parent }) => fixDateType(parent.released))
 
 export const cover =
-	resolver<string, { size: ImgSizeEnum }>(
+	resolver<string, S3FileArgs>(
 		({ parent, args }) => (
 			s3.getObject({
 				parse: bufferToDataUrl,
-				key: s3.catalogObjectKey({
-					format: "jpg",
-					size: args.size,
-					id: parent.albumId,
-				}),
+				key: s3.catalogObjectKey(
+					parent.albumId,
+					args.size,
+					S3FileExt.JPG,
+				),
 			})
 		),
 	)
@@ -129,23 +149,19 @@ export const genres =
 		),
 	)
 
-const getUserAlbumPlays =
-	<T>(userId: string, albumId: string, parse: SqlParse<T>) =>
-		sql.query({
-			sql: SELECT_USER_ALBUM_PLAYS,
-			parse,
-			variables: [{
-				key: "userId",
-				value: userId,
-			},{
-				key: "docId",
-				value: albumId,
-			},{
-				string: false,
-				key: "columnNames",
-				value: sql.join(COLUMN_NAMES.PLAY),
-			}],
-		})
+export const playsTotal =
+	resolver<number | null>(
+		({ parent }) => (
+			sql.query({
+				sql: SELECT_ALBUM_PLAYS,
+				parse: sql.rowCountOrNull,
+				variables: [{
+					key: "albumId",
+					value: parent.albumId,
+				}],
+			})
+		),
+	)
 
 export const userPlays =
 	resolver<Play[], UserArgs>(

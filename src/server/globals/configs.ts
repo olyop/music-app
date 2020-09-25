@@ -1,7 +1,7 @@
 import { PoolConfig } from "pg"
 import { CorsOptions } from "cors"
 import { ClientConfiguration } from "aws-sdk/clients/s3"
-import { ApolloServerExpressConfig, GetMiddlewareOptions } from "apollo-server-express"
+import { ApolloServerExpressConfig } from "apollo-server-express"
 
 import {
 	HOST,

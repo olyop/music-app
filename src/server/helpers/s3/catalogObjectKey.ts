@@ -1,10 +1,5 @@
-import { ImgSizeEnum } from "../../types"
+import { S3FileType, S3FileExt } from "../../types"
 
-interface Input {
-	id: string,
-	size: ImgSizeEnum,
-	format: "jpg" | "mp3",
-}
-
-export const catalogObjectKey = ({ id, size, format }: Input) =>
-	`catalog/${id}/${ImgSizeEnum[size].toLowerCase()}.${format}`
+export const catalogObjectKey =
+	(id: string, type: S3FileType, ext: S3FileExt) =>
+		`catalog/${id}/${S3FileType[type]}.${S3FileExt[ext]}`

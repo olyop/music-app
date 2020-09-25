@@ -50,11 +50,11 @@ export const songs =
 	)
 
 export const songsTotal =
-	resolver<number>(
+	resolver<number | null>(
 		({ parent }) => (
 			getGenreSongs({
 				id: parent.genreId,
-				parse: sql.rowCount,
+				parse: sql.rowCountOrNull,
 			})
 		),
 	)
@@ -89,12 +89,12 @@ export const userPlays =
 	)
 
 export const userPlaysTotal =
-	resolver<number, UserArgs>(
+	resolver<number | null, UserArgs>(
 		({ parent, args }) => (
 			getUserGenrePlays(
 				args.userId,
 				parent.genreId,
-				sql.rowCount,
+				sql.rowCountOrNull,
 			)
 		),
 	)

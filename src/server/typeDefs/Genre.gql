@@ -1,7 +1,7 @@
 type Genre {
 	name: String!
 	genreId: Uuid!
-	songsTotal: NonNegativeInt
+	songsTotal: PositiveInt
 	userPlays(userId: Uuid!): [Play!]
 	songs(orderBy: SongOrderByInput!): [Song!]!
 	userPlaysTotal(userId: Uuid!): NonNegativeInt

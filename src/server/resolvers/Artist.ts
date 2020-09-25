@@ -1,4 +1,4 @@
-import random from "lodash/random"
+// import random from "lodash/random"
 import bufferToDataUrl from "@oly_op/music-app-common/bufferToDataUrl"
 
 import {
@@ -8,13 +8,14 @@ import {
 	Artist,
 	UserArgs,
 	SqlParse,
-	ImgSizeEnum,
+	S3FileExt,
+	S3FileArgs,
 	DocsOrderBy,
 	OrderByArgs,
 } from "../types"
 
 import {
-	// SELECT_ARTIST_PLAYS,
+	SELECT_ARTIST_PLAYS,
 	SELECT_ARTIST_SONGS,
 	SELECT_ARTIST_ALBUMS,
 	SELECT_USER_DOC_PLAYS,
@@ -22,34 +23,7 @@ import {
 
 import { COLUMN_NAMES } from "../globals"
 import { s3, sql, createResolver } from "../helpers"
-import { userDocInLib, userDocDateAdded } from "./getUserDoc"
-
-const resolver =
-	createResolver<Artist>()
-
-// const getArtistPlays =
-// 	<T>(artistId: string, parse: SqlParse<T>) =>
-// 		sql.query({
-// 			sql: SELECT_ARTIST_PLAYS,
-// 			parse,
-// 			variables: [{
-// 				key: "artistId",
-// 				value: artistId,
-// 			}],
-// 		})
-
-// export const playsTotal =
-// 	resolver<number>(
-// 		({ parent }) => (
-// 			getArtistPlays(
-// 				parent.artistId,
-// 				sql.rowCount,
-// 			)
-// 		),
-// 	)
-
-export const playsTotal =
-	resolver<number>(() => random(1, 10000000))
+import { getUserDocInLib, getUserDocDateAdded } from "./getUserDoc"
 
 const getArtistSongs =
 	<T>({ id, parse, orderBy }: DocsOrderBy<T>) =>
@@ -74,27 +48,6 @@ const getArtistSongs =
 			}],
 		})
 
-export const songs =
-	resolver<Song[], OrderByArgs>(
-		({ parent, args }) => (
-			getArtistSongs({
-				id: parent.artistId,
-				orderBy: args.orderBy,
-				parse: sql.parseTable(),
-			})
-		),
-	)
-
-export const songsTotal =
-	resolver<number>(
-		({ parent }) => (
-			getArtistSongs({
-				id: parent.artistId,
-				parse: sql.rowCount,
-			})
-		),
-	)
-
 const getArtistAlbums = <T>({ id, parse, orderBy }: DocsOrderBy<T>) =>
 	sql.query({
 		parse,
@@ -117,6 +70,62 @@ const getArtistAlbums = <T>({ id, parse, orderBy }: DocsOrderBy<T>) =>
 		}],
 	})
 
+const getUserArtistPlays =
+	<T>(userId: string, artistId: string, parse: SqlParse<T>) =>
+		sql.query({
+			sql: SELECT_USER_DOC_PLAYS,
+			parse,
+			variables: [{
+				key: "userId",
+				value: userId,
+			},{
+				key: "artistId",
+				value: artistId,
+			},{
+				string: false,
+				key: "columnNames",
+				value: sql.join(COLUMN_NAMES.PLAY),
+			}],
+		})
+
+const resolver =
+	createResolver<Artist>()
+
+export const playsTotal =
+	resolver<number | null>(
+		({ parent }) => (
+			sql.query({
+				sql: SELECT_ARTIST_PLAYS,
+				parse: sql.rowCountOrNull,
+				variables: [{
+					key: "artistId",
+					value: parent.artistId,
+				}],
+			})
+		),
+	)
+
+export const songs =
+	resolver<Song[], OrderByArgs>(
+		({ parent, args }) => (
+			getArtistSongs({
+				id: parent.artistId,
+				orderBy: args.orderBy,
+				parse: sql.parseTable(),
+			})
+		),
+	)
+
+export const songsTotal =
+	resolver<number>(
+		({ parent }) => (
+			getArtistSongs({
+				id: parent.artistId,
+				parse: sql.rowCount,
+			})
+		),
+	)
+
 export const albums =
 	resolver<Album[], OrderByArgs>(
 		({ parent, args }) => (
@@ -138,24 +147,6 @@ export const albumsTotal =
 		),
 	)
 
-const getUserArtistPlays =
-	<T>(userId: string, artistId: string, parse: SqlParse<T>) =>
-		sql.query({
-			sql: SELECT_USER_DOC_PLAYS,
-			parse,
-			variables: [{
-				key: "userId",
-				value: userId,
-			},{
-				key: "artistId",
-				value: artistId,
-			},{
-				string: false,
-				key: "columnNames",
-				value: sql.join(COLUMN_NAMES.PLAY),
-			}],
-		})
-
 export const userPlays =
 	resolver<Play[], UserArgs>(
 		({ parent, args }) => (
@@ -168,26 +159,26 @@ export const userPlays =
 	)
 
 export const userPlaysTotal =
-	resolver<number, UserArgs>(
+	resolver<number | null, UserArgs>(
 		({ parent, args }) => (
 			getUserArtistPlays(
 				args.userId,
 				parent.artistId,
-				sql.rowCount,
+				sql.rowCountOrNull,
 			)
 		),
 	)
 
 export const photo =
-	resolver<string, { size: ImgSizeEnum }>(
+	resolver<string, S3FileArgs>(
 		({ parent, args }) => (
 			s3.getObject({
 				parse: bufferToDataUrl,
-				key: s3.catalogObjectKey({
-					format: "jpg",
-					size: args.size,
-					id: parent.artistId,
-				}),
+				key: s3.catalogObjectKey(
+					parent.artistId,
+					args.size,
+					S3FileExt.JPG,
+				),
 			})
 		),
 	)
@@ -195,7 +186,7 @@ export const photo =
 export const dateAdded =
 	resolver<number | null, UserArgs>(
 		({ parent, args }) => (
-			userDocDateAdded({
+			getUserDocDateAdded({
 				userId: args.userId,
 				docId: parent.artistId,
 				columnName: "artist_id",
@@ -207,7 +198,7 @@ export const dateAdded =
 export const inLibrary =
 	resolver<boolean, UserArgs>(
 		({ parent, args }) => (
-			userDocInLib({
+			getUserDocInLib({
 				userId: args.userId,
 				docId: parent.artistId,
 				columnName: "artist_id",

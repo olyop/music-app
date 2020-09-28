@@ -10,7 +10,7 @@ interface Args extends UserArgs {
 	songId: string,
 }
 
-export const userPlay =
+export const updateUserCurrent =
 	resolver<User, Args>(
 		({ args }) => (
 			sql.query({

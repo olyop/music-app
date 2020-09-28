@@ -10,8 +10,8 @@ import {
 } from "../../redux"
 
 import Icon from "../Icon"
-import USER_PREV from "../../graphql/mutations/userPrev.gql"
-import USER_NEXT from "../../graphql/mutations/userNext.gql"
+import USER_PREV from "./userPrev.gql"
+import USER_NEXT from "./userNext.gql"
 
 import "./index.scss"
 

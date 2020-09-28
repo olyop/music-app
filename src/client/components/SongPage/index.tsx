@@ -4,6 +4,7 @@ import { createElement, FC, Fragment } from "react"
 import deserializeDuration from "@oly_op/music-app-common/deserializeDuration"
 
 import Cover from "../Cover"
+import Helmet from "../Helmet"
 import QueryApi from "../QueryApi"
 import DocLinks from "../DocLinks"
 import SongTitle from "../SongTitle"
@@ -27,7 +28,7 @@ const SongPage: FC = () => {
 			variables={{ songId, userId }}
 			className={bem("", "Padding")}
 			children={({ data }) => data && (
-				<Fragment>
+				<Helmet title={data.song.title}>
 					<Cover
 						className="Card Elevated"
 						url={data.song.album.cover}
@@ -63,7 +64,7 @@ const SongPage: FC = () => {
 							<Fragment> MB</Fragment>
 						</h4>
 					</div>
-				</Fragment>
+				</Helmet>
 			)}
 		/>
 	)

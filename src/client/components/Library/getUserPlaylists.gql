@@ -1,0 +1,14 @@
+query getUserPlaylists(
+	$userId: Uuid!
+	$orderBy: UserPlaylistOrderByInput!
+) {
+	user(userId: $userId) {
+		userId
+		playlists(orderBy: $orderBy) {
+			playlistId
+			name
+			dateAdded(userId: $userId)
+			inLibrary(userId: $userId)
+		}
+	}
+}

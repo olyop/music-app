@@ -1,0 +1,15 @@
+query getUserArtists(
+	$userId: Uuid!
+	$orderBy: UserArtistOrderByInput!
+) {
+	user(userId: $userId) {
+		userId
+		artists(orderBy: $orderBy) {
+			artistId
+			name
+			photo(size: MINI)
+			dateAdded(userId: $userId)
+			inLibrary(userId: $userId)
+		}
+	}
+}

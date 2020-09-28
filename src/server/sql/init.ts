@@ -19,6 +19,9 @@ import {
 	TABLE_USERS_PLAYLISTS,
 	TABLE_PLAYS,
 } from "./"
+ 
+import { sql } from "../helpers"
+import { IS_DEV } from "../globals"
 
 const SQL_INIT = [
 	TABLE_ARTISTS,
@@ -42,4 +45,14 @@ const SQL_INIT = [
 	TABLE_PLAYS,
 ]
 
-export default SQL_INIT
+const initializeSql = async () => {
+	if (!IS_DEV) {
+		try {
+			await sql.transaction(SQL_INIT)
+		} catch (error) {
+			console.error(error)
+		}
+	}
+}
+
+export default initializeSql

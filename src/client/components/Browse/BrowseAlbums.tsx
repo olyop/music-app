@@ -21,7 +21,7 @@ import GET_ALBUMS from "./getAlbums.gql"
 
 const BrowseAlbums: FC = () => {
 	const userId = useStateUserId()
-	const orderBy = useStateOrderBy<AlbumsOrderBy>("albums")
+	const orderBy = useStateOrderBy<AlbumsOrderByField>("albums")
 	const listStyle = useStateListStyle()
 	const isList = listStyle === ListStyle.LIST
 	return (

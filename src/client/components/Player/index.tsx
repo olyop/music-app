@@ -6,6 +6,7 @@ import Img from "../Img"
 import Icon from "../Icon"
 import Helmet from "../Helmet"
 import DocLink from "../DocLink"
+import DocLinks from "../DocLinks"
 import QueryApi from "../QueryApi"
 import Controls from "../Controls"
 import Progress from "../Progress"
@@ -15,10 +16,9 @@ import { useStateUserId } from "../../redux"
 import InLibraryButton from "../InLibraryButton"
 import { determineDocPath } from "../../helpers"
 import FeaturingArtists from "../FeaturingArtists"
-import GET_USER_CURRENT from "../../graphql/queries/userCurrent.gql"
+import GET_USER_CURRENT from "./getUserCurrent.gql"
 
 import "./index.scss"
-import DocLinks from "../DocLinks"
 
 const bem = createBem("Player")
 
@@ -27,60 +27,57 @@ const Player: FC<RouteComponentProps> = ({ history }) => (
 		query={GET_USER_CURRENT}
 		className={bem("", "Elevated")}
 		variables={{ userId: useStateUserId() }}
-		children={
-			({ data }) => (
-				<Fragment>
-					<Icon
-						icon="close"
-						onClick={() => history.goBack()}
-						className={bem("close", "PaddingQuart")}
-					/>
-					{data?.user.current && (
-						<Helmet title="Now Playing">
-							<div className={bem("main")}>
-								<Link
-									className={bem("main-cover")}
-									to={determineDocPath(data.user.current.album)}
-								>
-									<Img
-										url={data.user.current.album.cover}
-										title={data.user.current.album.title}
-										className={bem("Card", "Elevated")}
-									/>
-								</Link>
-								<div className={bem("main-title", "main-text")}>
-									<h1 className={bem("main-title-text")}>
-										<SongTitle
-											showRemixers
-											song={data.user.current}
-										/>
-									</h1>
-									<InLibraryButton
-										doc={data.user.current}
-										className={bem("main-title-inLibrary")}
-									/>
-								</div>
-								<h3 className={bem("main-artists", "main-text")}>
-									<FeaturingArtists song={data.user.current}/>
-								</h3>
-								<h2 className={bem("main-album", "main-text")}>
-									<DocLink doc={data.user.current.album}/>
-									<Fragment> - </Fragment>
-									<DocLinks docs={data.user.current.genres}/>
-								</h2>
-								<Progress
-									className={bem("main-progreess")}
+		children={({ data }) => (
+			<Helmet title="Now Playing">
+				<Icon
+					icon="close"
+					onClick={() => history.goBack()}
+					className={bem("close", "PaddingQuart")}
+				/>
+				{data?.user.current && (
+					<div className={bem("main")}>
+						<Link
+							className={bem("main-cover")}
+							to={determineDocPath(data.user.current.album)}
+						>
+							<Img
+								url={data.user.current.album.cover}
+								title={data.user.current.album.title}
+								className={bem("Card", "Elevated")}
+							/>
+						</Link>
+						<div className={bem("main-title", "main-text")}>
+							<h1 className={bem("main-title-text")}>
+								<SongTitle
+									showRemixers
+									song={data.user.current}
 								/>
-								<Controls
-									className={bem("main-controls")}
-									iconClassName={bem("main-controls-icon")}
-								/>
-							</div>
-						</Helmet>
-					)}
-				</Fragment>
-			)
-		}
+							</h1>
+							<InLibraryButton
+								doc={data.user.current}
+								className={bem("main-title-inLibrary")}
+							/>
+						</div>
+						<h3 className={bem("main-artists", "main-text")}>
+							<FeaturingArtists song={data.user.current}/>
+						</h3>
+						<h2 className={bem("main-album", "main-text")}>
+							<DocLink doc={data.user.current.album}/>
+							<Fragment> - </Fragment>
+							<DocLinks docs={data.user.current.genres}/>
+						</h2>
+						<Progress
+							className={bem("main-progreess")}
+							duration={data.user.current.duration}
+						/>
+						<Controls
+							className={bem("main-controls")}
+							iconClassName={bem("main-controls-icon")}
+						/>
+					</div>
+				)}
+			</Helmet>
+		)}
 	/>
 )
 

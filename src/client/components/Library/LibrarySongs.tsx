@@ -11,12 +11,12 @@ import {
 import Songs from "../Songs"
 import Helmet from "../Helmet"
 import QueryApi from "../QueryApi"
+import GET_USER_SONGS from "./getUserSongs.gql"
 import { useStateUserId, useStateOrderBy } from "../../redux"
-import GET_USER_SONGS from "../../graphql/queries/userSongs.gql"
 
 const LibrarySongs: FC = () => {
 	const userId = useStateUserId()
-	const orderBy = useStateOrderBy<UserSongsOrderBy>("userSongs")
+	const orderBy = useStateOrderBy<UserSongsOrderByField>("userSongs")
 	return (
 		<Helmet title="Library Songs">
 			<QueryApi<Data, Vars>

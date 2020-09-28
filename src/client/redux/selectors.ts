@@ -42,7 +42,7 @@ export const useStateListStyle = () =>
 export const useStateShowGenres = () =>
 	useSelector<State, boolean>(state => state.settings.showGenres)
 
-export const useStateOrderBy = <T = DocOrderBy>(key: keyof OrderBySettings) =>
-	useSelector<State, T>(
-		state => (state.settings.orderBy[key] as unknown) as T,
+export const useStateOrderBy = <T = string>(key: keyof OrderBySettings) =>
+	useSelector<State, DocOrderBy<T>>(
+		state => (state.settings.orderBy[key] as unknown) as DocOrderBy<T>,
 	)

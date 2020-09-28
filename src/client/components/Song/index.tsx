@@ -6,12 +6,12 @@ import deserializeDuration from "@oly_op/music-app-common/deserializeDuration"
 import Item from "../Item"
 import DocLinks from "../DocLinks"
 import SongTitle from "../SongTitle"
-import { Song, User, UserVar } from "../../types"
+import USER_SONG_NEXT from "./userSongNext.gql"
+import USER_SONG_AFTER from "./userSongAfter.gql"
+import USER_SONG_LATER from "./userSongLater.gql"
 import FeaturingArtists from "../FeaturingArtists"
+import { Song as TSong, User, UserVar } from "../../types"
 import { useStateShowGenres, useStateUserId } from "../../redux"
-import USER_SONG_NEXT from "../../graphql/mutations/userSongNext.gql"
-import USER_SONG_AFTER from "../../graphql/mutations/userSongAfter.gql"
-import USER_SONG_LATER from "../../graphql/mutations/userSongLater.gql"
 
 const Song: FC<PropTypes> = ({
 	song,
@@ -68,7 +68,7 @@ interface Vars extends UserVar {
 }
 
 interface PropTypes extends BemPropTypes {
-	song: Song,
+	song: TSong,
 	showPlay?: boolean,
 	showCover?: boolean,
 	showRight?: boolean,

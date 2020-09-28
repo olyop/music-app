@@ -1,17 +1,12 @@
-mutation userPlay(
-  $userId: Uuid!
-  $songId: Uuid!
-) {
-  userPlay(
-    userId: $userId
-    songId: $songId
-  ) {
+query getUserCurrent($userId: Uuid!) {
+  user(userId: $userId) {
     userId
     current {
       songId
       mix
       title
       duration
+      inLibrary(userId: $userId)
       featuring {
         artistId
         name
@@ -31,7 +26,7 @@ mutation userPlay(
       album {
         albumId
         title
-        cover(size: HALF)
+        cover(size: FULL)
       }
     }
   }

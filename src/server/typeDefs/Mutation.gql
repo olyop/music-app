@@ -2,7 +2,7 @@ type Mutation {
   userPrev(
     userId: Uuid!
   ): User!
-  userPlay(
+  updateUserCurrent(
     songId: Uuid!
     userId: Uuid!
   ): User!
@@ -21,7 +21,7 @@ type Mutation {
     userId: Uuid!
     songId: Uuid!
   ): User!
-  userClearQueue(
+  clearUserQueue(
     userId: Uuid!
   ): User!
 

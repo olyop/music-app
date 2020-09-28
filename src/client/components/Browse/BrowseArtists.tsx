@@ -21,7 +21,7 @@ import GET_ARTISTS from "./getArtists.gql"
 
 const BrowseArtists: FC = () => {
 	const userId = useStateUserId()
-	const orderBy = useStateOrderBy<ArtistsOrderBy>("artists")
+	const orderBy = useStateOrderBy<ArtistsOrderByField>("artists")
 	const listStyle = useStateListStyle()
 	const isList = listStyle === ListStyle.LIST
 	return (

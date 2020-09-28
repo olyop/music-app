@@ -15,9 +15,12 @@
 			background-color: var(--hover-color); }
 		&-icon {
 			font-size: 27rem;
+			margin-right: 4px;
 			color: var(--text-color);
-			margin-right: calc(var(--space) * 0.5); }
+			&:hover {
+				background-color: unset; } }
 		&-text {
 			font-size: 18rem;
 			font-weight: 600;
+			margin-bottom: 2rem;
 			text-transform: uppercase; } } }

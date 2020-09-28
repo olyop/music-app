@@ -9,7 +9,7 @@ import { Song, UserVar, SongsOrderBy, SongsOrderByField } from "../../types"
 
 const BrowseSongs: FC = () => {
 	const userId = useStateUserId()
-	const orderBy = useStateOrderBy<SongsOrderBy>("songs")
+	const orderBy = useStateOrderBy<SongsOrderByField>("songs")
 	return (
 		<Helmet title="Browse Songs">
 			<Feed<Data, Vars>

@@ -1,16 +1,17 @@
-query userSongs(
+mutation updateUserCurrent(
   $userId: Uuid!
-  $orderBy: UserSongOrderByInput!
+  $songId: Uuid!
 ) {
-  user(userId: $userId) {
+  updateUserCurrent(
+    userId: $userId
+    songId: $songId
+  ) {
     userId
-    songs(orderBy: $orderBy) {
+    current {
       songId
-      title
       mix
+      title
       duration
-      dateAdded(userId: $userId)
-      inLibrary(userId: $userId)
       featuring {
         artistId
         name
@@ -28,13 +29,9 @@ query userSongs(
         name
       }
       album {
-        title
         albumId
+        title
         cover(size: HALF)
-      }
-      userPlays(userId: $userId) {
-        playId
-        dateCreated
       }
     }
   }

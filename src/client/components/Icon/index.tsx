@@ -1,4 +1,3 @@
-import { createRipples } from "react-ripples"
 import { createElement, FC } from "react"
 import { createBem, BemPropTypes } from "@oly_op/bem"
 
@@ -6,11 +5,8 @@ import "./index.scss"
 
 const bem = createBem("Icon")
 
-const Ripples = createRipples({ during: 700 })
-
 const Icon: FC<PropTypes> = ({ icon, title, onClick, className }) => (
-	<Ripples
-		// @ts-ignore
+	<i
 		title={title}
 		children={icon}
 		onClick={onClick}

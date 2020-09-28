@@ -17,10 +17,11 @@
 		&-text {
 			font-size: var(--text-height); }
 		&-icon {
+			margin-left: -4px;
+			margin-right: 4px;
 			color: var(--text-color);
 			min-width: var(--text-height);
 			min-height: var(--text-height);
-			margin-right: var(--space-quart);
 			&:hover {
 				background-color: transparent !important; } }
 		&-text {

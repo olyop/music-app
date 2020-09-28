@@ -12,10 +12,9 @@ const List: FC<BemPropTypes> = ({ children, className }) => {
 	const listStyle = useStateListStyle()
 	const isGrid = listStyle === ListStyle.GRID
 	return (
-		<div
-			children={children}
-			className={bem(className, isGrid && "grid")}
-		/>
+		<div className={bem(className, isGrid && "grid")}>
+			{children}
+		</div>
 	)
 }
 

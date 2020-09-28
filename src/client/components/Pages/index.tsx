@@ -10,26 +10,23 @@ import "./index.scss"
 
 const bem = createBem("Pages")
 
-const Pages: FC = () => {
-	const sidebar = useStateSidebar()
-	return (
-		<main className={bem("")}>
-			{sidebar && <Sidebar/>}
-			<div className={bem("content")}>
-				<Switch>
-					{routes.map(
-						({ id, path, component }) => (
-							<Route
-								key={id}
-								path={path}
-								component={component}
-							/>
-						),
-					)}
-				</Switch>
-			</div>
-		</main>
-	)
-}
+const Pages: FC = () => (
+	<main className={bem("")}>
+		{useStateSidebar() && <Sidebar/>}
+		<div className={bem("content")}>
+			<Switch>
+				{routes.map(
+					({ id, path, component }) => (
+						<Route
+							key={id}
+							path={path}
+							component={component}
+						/>
+					),
+				)}
+			</Switch>
+		</div>
+	</main>
+)
 
 export default Pages

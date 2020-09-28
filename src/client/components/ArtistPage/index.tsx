@@ -37,8 +37,8 @@ const bem = createBem("ArtistPage")
 const ArtistPage: FC<RouteComponentProps> = ({ match }) => {
 	const userId = useStateUserId()
 	const params = useParams<Params>()
-	const songsOrderBy = useStateOrderBy<SongsOrderBy>("songs")
-	const albumsOrderBy = useStateOrderBy<AlbumsOrderBy>("albums")
+	const songsOrderBy = useStateOrderBy<SongsOrderByField>("songs")
+	const albumsOrderBy = useStateOrderBy<AlbumsOrderByField>("albums")
 	const artistId = uuidAddDashes(params.artistId)
 	const variables: Vars = { userId, artistId }
 	return (
@@ -130,15 +130,13 @@ const ArtistPage: FC<RouteComponentProps> = ({ match }) => {
 									<QueryApi<Data, AlbumsVars>
 										query={GET_ARTIST_PAGE_ALBUMS}
 										variables={{ ...variables, albumsOrderBy }}
-										children={
-											({ data: albumData }) => (
-												<Albums
-													orderByKey="albums"
-													albums={albumData?.artist.albums || []}
-													orderByFields={Object.keys(AlbumsOrderByField)}
-												/>
-											)
-										}
+										children={res => (
+											<Albums
+												orderByKey="albums"
+												albums={res.data?.artist.albums || []}
+												orderByFields={Object.keys(AlbumsOrderByField)}
+											/>
+										)}
 									/>
 								)}
 							/>
@@ -149,15 +147,13 @@ const ArtistPage: FC<RouteComponentProps> = ({ match }) => {
 									<QueryApi<Data, SongsVars>
 										query={GET_ARTIST_PAGE_SONGS}
 										variables={{ ...variables, songsOrderBy }}
-										children={
-											({ data: songData }) => (
-												<Songs
-													orderByKey="songs"
-													songs={songData?.artist.songs || []}
-													orderByFields={Object.keys(SongsOrderByField)}
-												/>
-											)
-										}
+										children={res => (
+											<Songs
+												orderByKey="songs"
+												songs={res.data?.artist.songs || []}
+												orderByFields={Object.keys(SongsOrderByField)}
+											/>
+										)}
 									/>
 								)}
 							/>

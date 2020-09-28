@@ -1,12 +1,11 @@
-mutation userClearQueue($userId: Uuid!) {
-	userClearQueue(userId: $userId) {
+query getUserQueues($userId: Uuid!) {
+  user(userId: $userId) {
     userId
     prev {
-      mix
-      title
       songId
+      title
+      mix
       duration
-			inLibrary(userId: $userId)
       featuring {
         artistId
         name
@@ -30,11 +29,10 @@ mutation userClearQueue($userId: Uuid!) {
       }
     }
     current {
-      mix
-      title
       songId
+      title
+      mix
       duration
-			inLibrary(userId: $userId)
       featuring {
         artistId
         name
@@ -58,11 +56,10 @@ mutation userClearQueue($userId: Uuid!) {
       }
     }
     next {
-      mix
-      title
       songId
+      title
+      mix
       duration
-			inLibrary(userId: $userId)
       featuring {
         artistId
         name
@@ -86,11 +83,10 @@ mutation userClearQueue($userId: Uuid!) {
       }
     }
     later {
-      mix
-      title
       songId
+      title
+      mix
       duration
-			inLibrary(userId: $userId)
       featuring {
         artistId
         name

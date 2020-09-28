@@ -17,12 +17,12 @@ import { Doc, UserDoc, ModalButton } from "../../types"
 
 import "./index.scss"
 
+const bem = createBem("Item")
+
 const showInLibrary =
 	(hideInLibrary: boolean, doc: Doc): doc is UserDoc => !hideInLibrary
 const determineShowPlay =
 	(showPlay: boolean, doc: Doc): doc is UserDoc => showPlay
-
-const bem = createBem("Item")
 
 const Item = <D extends Doc, I extends Doc = Doc>({
 	doc,

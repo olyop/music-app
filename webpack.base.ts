@@ -4,10 +4,10 @@ import DotenvPlugin from "dotenv-webpack"
 import WriteFilePlugin from "write-file-webpack-plugin"
 import CompressionPlugin from "compression-webpack-plugin"
 import MiniCssExtractPlugin from "mini-css-extract-plugin"
-import { BundleAnalyzerPlugin } from "webpack-bundle-analyzer"
+// import { BundleAnalyzerPlugin } from "webpack-bundle-analyzer"
 import OptimizeCssAssetsPlugin from "optimize-css-assets-webpack-plugin"
 
-const { HOST, NODE_ENV, SERVER_PORT } = dotenv.config().parsed!
+const { HOST, NODE_ENV, DEV_SERVER_PORT } = dotenv.config().parsed!
 const IS_DEV = NODE_ENV === "development"
 
 const config: Configuration = {
@@ -16,7 +16,6 @@ const config: Configuration = {
 		publicPath: "/",
 		filename: "[hash].js",
 	},
-	devtool: "inline-source-map",
 	devServer: {
 		hot: true,
 		host: HOST,
@@ -27,7 +26,7 @@ const config: Configuration = {
 		compress: true,
 		clientLogLevel: "error",
 		historyApiFallback: true,
-		proxy: { "/graphql": `http://${HOST}:${SERVER_PORT}` },
+		proxy: { "/graphql": `http://${HOST}:${DEV_SERVER_PORT}` },
 	},
 	resolve: {
 		symlinks: false,
@@ -57,21 +56,17 @@ const config: Configuration = {
 					onlyCompileBundledFiles: true,
 				},
 			},
-			{
-				test: /\.js$/,
-				enforce: "pre",
-				use: "source-map-loader",
-			},
 		],
 	},
 	plugins: [
 		new DotenvPlugin(),
-		new WriteFilePlugin(),
-		...(IS_DEV ? [] : [
+		...(IS_DEV ? [
+			new WriteFilePlugin(),
+		] : [
 			new CompressionPlugin(),
-			new BundleAnalyzerPlugin(),
 			new OptimizeCssAssetsPlugin(),
 			new MiniCssExtractPlugin({ filename: "[hash].css" }),
+			// new BundleAnalyzerPlugin({ analyzerMode: "static", defaultSizes: "gzip" }),
 		]),
 	],
 }

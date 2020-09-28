@@ -2,11 +2,13 @@ import path from "path"
 import dotenv from "dotenv"
 import { merge } from "webpack-merge"
 import { Configuration } from "webpack"
+import CopyPlugin from "copy-webpack-plugin"
 import HtmlWebpackPlugin from "html-webpack-plugin"
 
 import baseConfig from "./webpack.base"
 
-const { DEV_CLIENT_PORT } = dotenv.config().parsed!
+const { NODE_ENV, DEV_CLIENT_PORT } = dotenv.config().parsed!
+const IS_DEV = NODE_ENV === "development"
 
 const ROOT_PATH = __dirname
 const SRC_PATH = path.join(ROOT_PATH, "src")
@@ -27,7 +29,17 @@ const config: Configuration = {
 		contentBase: CLIENT_PUBLIC_PATH,
 	},
 	plugins: [
-		new HtmlWebpackPlugin({ template: CLIENT_INDEX_HTML }),
+		new HtmlWebpackPlugin({
+			template: CLIENT_INDEX_HTML,
+		}),
+		...(IS_DEV ? [] : [
+			new CopyPlugin({
+				patterns: [{
+					from: CLIENT_PUBLIC_PATH,
+					to: BUILD_PATH,
+				}],
+			}),
+		]),
 	],
 }
 

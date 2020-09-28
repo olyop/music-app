@@ -13,8 +13,8 @@ import Songs from "../Songs"
 import Helmet from "../Helmet"
 import QueryApi from "../QueryApi"
 import { uuidAddDashes } from "../../helpers"
+import GET_GENRE_PAGE from "./getGenrePage.gql"
 import { useStateUserId, useStateOrderBy } from "../../redux"
-import GET_GENRE_PAGE from "../../graphql/queries/genrePage.gql"
 
 import "./index.scss"
 
@@ -24,27 +24,25 @@ const GenrePage: FC = () => {
 	const userId = useStateUserId()
 	const params = useParams<Params>()
 	const genreId = uuidAddDashes(params.genreId)
-	const songsOrderBy = useStateOrderBy<SongsOrderBy>("songs")
+	const songsOrderBy = useStateOrderBy<SongsOrderByField>("songs")
 	return (
 		<QueryApi<Data, Vars>
 			variables={{ userId, songsOrderBy, genreId }}
 			query={GET_GENRE_PAGE}
-			children={
-				({ data }) => data && (
-					<Helmet title={data.genre.name}>
-						<h1
-							children={data.genre.name}
-							className={bem("", "Elevated")}
-						/>
-						<Songs
-							className="Margin"
-							orderByKey="songs"
-							songs={data.genre.songs}
-							orderByFields={Object.keys(SongsOrderByField)}
-						/>
-					</Helmet>
-				)
-			}
+			children={({ data }) => data && (
+				<Helmet title={data.genre.name}>
+					<h1
+						children={data.genre.name}
+						className={bem("", "Elevated")}
+					/>
+					<Songs
+						className="Margin"
+						orderByKey="songs"
+						songs={data.genre.songs}
+						orderByFields={Object.keys(SongsOrderByField)}
+					/>
+				</Helmet>
+			)}
 		/>
 	)
 }

@@ -7,7 +7,7 @@ import "./index.scss"
 
 const bem = createBem("Modal")
 
-const Modal: FC<PropTypes> = ({ onClose, className, buttons = [], children }) => (
+const Modal: FC<PropTypes> = ({ buttons = [], onClose, className, children }) => (
 	<div className={bem("")}>
 		<div className={bem("inner")}>
 			<div

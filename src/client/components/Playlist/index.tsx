@@ -2,7 +2,7 @@ import { createBem } from "@oly_op/bem"
 import { createElement, FC } from "react"
 
 import DocLink from "../DocLink"
-import { Playlist } from "../../types"
+import { Playlist as TPlaylist } from "../../types"
 
 import "./index.scss"
 
@@ -17,7 +17,7 @@ const Playlist: FC<PropTypes> = ({ playlist }) => (
 )
 
 interface PropTypes {
-	playlist: Playlist,
+	playlist: TPlaylist,
 }
 
 export default Playlist

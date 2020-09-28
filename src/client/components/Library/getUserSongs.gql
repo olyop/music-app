@@ -1,0 +1,41 @@
+query getUserSongs(
+	$userId: Uuid!
+	$orderBy: UserSongOrderByInput!
+) {
+	user(userId: $userId) {
+		userId
+		songs(orderBy: $orderBy) {
+			songId
+			title
+			mix
+			duration
+			dateAdded(userId: $userId)
+			inLibrary(userId: $userId)
+			featuring {
+				artistId
+				name
+			}
+			remixers {
+				artistId
+				name
+			}
+			artists {
+				artistId
+				name
+			}
+			genres {
+				genreId
+				name
+			}
+			album {
+				title
+				albumId
+				cover(size: HALF)
+			}
+			userPlays(userId: $userId) {
+				playId
+				dateCreated
+			}
+		}
+	}
+}

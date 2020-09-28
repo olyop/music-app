@@ -16,8 +16,8 @@ interface Args extends UserArgs {
 	songId: string,
 }
 
-export const userClearQueue =
-	resolver<User, UserArgs>(
+export const clearUserQueue =
+	resolver<User, Args>(
 		async ({ args }) => {
 			const variables: SqlVariable[] = [{
 				key: "userId",

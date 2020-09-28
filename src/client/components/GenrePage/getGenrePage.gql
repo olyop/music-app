@@ -1,4 +1,4 @@
-query genrePage(
+query getGenrePage(
   $userId: Uuid!
   $genreId: Uuid!
   $songsOrderBy: SongOrderByInput!

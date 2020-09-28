@@ -16,14 +16,11 @@ import "./index.scss"
 const bem = createBem("VolumeSlider")
 
 const VolumeSlider = () => {
-	const dispatch =
-		useDispatch()
-	const volume =
-		useStateVolume()
-	const handleClose =
-		() => dispatch(toggleShowVolume())
-	const handleChange: ChangeEventHandler<HTMLInputElement> =
-		event => dispatch(updateVolume(parseInt(event.target.value)))
+	const dispatch = useDispatch()
+	const volume = useStateVolume()
+	const handleClose = () => dispatch(toggleShowVolume())
+	const handleChange: HandleChange = event =>
+		dispatch(updateVolume(parseInt(event.target.value)))
 	return (
 		<Fragment>
 			<div className={bem("", "Elevated")}>
@@ -51,5 +48,7 @@ const VolumeSlider = () => {
 		</Fragment>
 	)
 }
+
+type HandleChange = ChangeEventHandler<HTMLInputElement>
 
 export default VolumeSlider

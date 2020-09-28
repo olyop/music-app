@@ -14,8 +14,8 @@ import Song from "../Song"
 import QueryApi from "../QueryApi"
 import Progress from "../Progress"
 import Controls from "../Controls"
-import { User } from "../../types"
-import GET_USER_CURRENT from "../../graphql/queries/userCurrent.gql"
+import { User, UserVar } from "../../types"
+import GET_USER_CURRENT from "./getUserCurrent.gql"
 
 import "./index.scss"
 
@@ -31,7 +31,7 @@ const PlayerBarVolume = () => {
 			onClick={handleVolumeClick}
 			icon={showVolume ? "close" : "volume_up"}
 			className={bem(
-				"main-info-controls-control",
+				"main-controls-control",
 				"icon",
 				"IconHover",
 			)}
@@ -45,46 +45,44 @@ const PlayerBar: FC = () => (
 			className={bem("controls")}
 			iconClassName={bem("icon")}
 		/>
-		<div className={bem("main")}>
-			<QueryApi<Data>
-				variables={{ userId: useStateUserId() }}
-				query={GET_USER_CURRENT}
-				className={bem("main-info")}
-				children={
-					({ data }) => (
-						<Fragment>
-							<div className={bem("main-info-controls")}>
-								<NavLink className={bem("main-info-controls-control")} to="/player">
-									<Icon
-										icon="fullscreen"
-										title="Fullscreen"
-										className={bem("icon", "IconHover")}
-									/>
-								</NavLink>
-								<NavLink className={bem("main-info-controls-control")} to="/queues">
-									<Icon
-										title="Queue"
-										icon="queue_music"
-										className={bem("icon", "IconHover")}
-									/>
-								</NavLink>
-								<PlayerBarVolume/>
-							</div>
-							{data?.user.current && (
-								<Song
-									showPlay={false}
-									showRight={false}
-									song={data.user.current}
-									iconClassName={bem("icon")}
-									className={bem("main-info-current")}
+		<QueryApi<Data, UserVar>
+			className={bem("main")}
+			query={GET_USER_CURRENT}
+			variables={{ userId: useStateUserId() }}
+			children={({ data }) => data?.user.current && (
+				<Fragment>
+					<div className={bem("main-content")}>
+						<div className={bem("main-content-controls")}>
+							<NavLink className={bem("main-content-controls-control")} to="/player">
+								<Icon
+									icon="fullscreen"
+									title="Fullscreen"
+									className={bem("icon", "IconHover")}
 								/>
-							)}
-						</Fragment>
-					)
-				}
-			/>
-			<Progress/>
-		</div>
+							</NavLink>
+							<NavLink className={bem("main-content-controls-control")} to="/queues">
+								<Icon
+									title="Queue"
+									icon="queue_music"
+									className={bem("icon", "IconHover")}
+								/>
+							</NavLink>
+							<PlayerBarVolume/>
+						</div>
+						<Song
+							showPlay={false}
+							showRight={false}
+							song={data.user.current}
+							iconClassName={bem("icon")}
+							className={bem("main-content-current")}
+						/>
+					</div>
+					<Progress
+						duration={data.user.current.duration}
+					/>
+				</Fragment>
+			)}
+		/>
 	</footer>
 )
 

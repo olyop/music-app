@@ -1,9 +1,8 @@
-import { Request, Response, NextFunction } from "express"
-
+import { RequestHandler } from "express"
 import { GLOBAL_HTTP_HEADERS } from "../globals"
 
-export const globalHeaders = () =>
-	(req: Request, res: Response, nxt: NextFunction): void => {
+export const globalHeaders = (): RequestHandler =>
+	(req, res, nxt) => {
 		res.set(GLOBAL_HTTP_HEADERS)
 		nxt()
 	}

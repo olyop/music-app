@@ -1,3 +1,5 @@
+import cors from "cors"
+import http from "http"
 import logger from "morgan"
 import helmet from "helmet"
 import express from "express"
@@ -8,7 +10,8 @@ import { graphqlUploadExpress } from "graphql-upload"
 
 import {
 	graphql,
-	sendIndex,
+	serveIndex,
+	serveStatic,
 	globalHeaders,
 } from "./middleware"
 
@@ -16,31 +19,31 @@ import {
 	HOST,
 	PORT,
 	LOG_FORMAT,
-	BUILD_PATH,
+	CORS_CONFIG,
+	HELMET_CONFIG,
 } from "./globals"
 
-// import { sql } from "./helpers"
-// import SQL_INIT from "./sqlInit"
+import initializeSql from "./sql/init"
 
-// sql.transaction(SQL_INIT).catch(console.error)
+initializeSql()
 
 const app = express()
 
 // middleware stack
 app.use(
 	logger(LOG_FORMAT),
-	helmet(),
+	helmet(HELMET_CONFIG),
+	cors(CORS_CONFIG),
+	globalHeaders(),
 	compression(),
 	bodyParser.json(),
 	bodyParser.urlencoded({ extended: false }),
 	cookieParser(),
-	globalHeaders(),
 	graphqlUploadExpress(),
 	graphql(),
-	express.static(BUILD_PATH),
+	serveStatic(),
 )
 
-// send index.html
-app.use("*", sendIndex())
+app.use("*", serveIndex())
 
-app.listen(PORT, HOST)
+http.createServer(app).listen(PORT, HOST)

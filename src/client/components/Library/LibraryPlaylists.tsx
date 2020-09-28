@@ -7,7 +7,7 @@ import Playlist from "../Playlist"
 import QueryApi from "../QueryApi"
 import { User, UserVar } from "../../types"
 import { useStateUserId } from "../../redux"
-import GET_USER_PLAYLISTS from "../../graphql/queries/userPlaylists.gql"
+import GET_USER_PLAYLISTS from "./getUserPlaylists.gql"
 
 const LibraryPlaylists: FC = () => (
 	<Helmet title="Library Playlists">

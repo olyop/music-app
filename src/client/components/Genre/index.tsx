@@ -3,7 +3,7 @@ import { BemPropTypes } from "@oly_op/bem"
 
 import Item from "../Item"
 import DocLink from "../DocLink"
-import { Genre } from "../../types"
+import { Genre as TGenre } from "../../types"
 
 const Genre: FC<PropTypes> = ({ genre }) => (
 	<Item
@@ -15,7 +15,7 @@ const Genre: FC<PropTypes> = ({ genre }) => (
 )
 
 interface PropTypes extends BemPropTypes {
-	genre: Genre,
+	genre: TGenre,
 }
 
 export default Genre

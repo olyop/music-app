@@ -1,6 +1,11 @@
-import { useSelector } from "react-redux"
 import { createElement, FC } from "react"
 import { createBem, BemPropTypes } from "@oly_op/bem"
+
+import {
+	useDispatch,
+	updateOrderBy,
+	useStateOrderBy,
+} from "../../redux"
 
 import {
 	DocOrderBy,
@@ -9,21 +14,14 @@ import {
 } from "../../types"
 
 import Select from "../Select"
-import { useDispatch, State, updateOrderBy } from "../../redux"
 
 const bem = createBem("OrderBy")
 
 const OrderBy: FC<PropTypes> = ({ className, settingsKey, fieldOptions }) => {
-	const dispatch =
-		useDispatch()
-	const state =
-		useSelector<State, DocOrderBy>(
-			({ settings: { orderBy } }) => orderBy[settingsKey],
-		)
-	const handleChange =
-		(key: keyof DocOrderBy) =>
-			(val: string) =>
-				dispatch(updateOrderBy({ key, val, settingsKey }))
+	const dispatch = useDispatch()
+	const state = useStateOrderBy(settingsKey)
+	const handleChange = (key: keyof DocOrderBy) => (val: string) =>
+		dispatch(updateOrderBy({ key, val, settingsKey }))
 	return (
 		<div className={bem(className, "FlexList")}>
 			<h1

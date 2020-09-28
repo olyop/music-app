@@ -23,8 +23,8 @@ import {
 import Icon from "../Icon"
 import { determineDocId } from "../../helpers"
 import { User, UserDoc, Song } from "../../types"
-import USER_PLAY from "../../graphql/mutations/userPlay.gql"
-import GET_USER_CURRENT from "../../graphql/queries/userCurrent.gql"
+import GET_USER_CURRENT from "./getUserCurrent.gql"
+import UPDATE_USER_PLAY from "./updateUserCurrent.gql"
 
 const isSong = (doc: UserDoc): doc is Song =>
 	doc.__typename === "Song"
@@ -45,7 +45,7 @@ const PlayButton: FC<PropTypes> = ({ doc, className }) => {
 		})
 
 	const [ userPlay, { error, loading } ] =
-		useMutation<UserPlayRes>(USER_PLAY, {
+		useMutation<UserPlayRes>(UPDATE_USER_PLAY, {
 			variables: { songId, userId },
 			optimisticResponse: isSong(doc) ? {
 				userPlay: {

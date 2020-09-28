@@ -20,7 +20,7 @@ export const userSongLater =
 			const client = await pg.connect()
 			const query = sql.baseQuery(client)
 			try {
-				await client.query("BEGIN")
+				await query("BEGIN")
 
 				const nexts = await query<UserQueue[]>({
 					sql: SELECT_USER_QUEUE,
@@ -80,9 +80,9 @@ export const userSongLater =
 					}],
 				})
 
-				await client.query("COMMIT")
+				await query("COMMIT")
 			} catch (error) {
-				await client.query("ROLLBACK")
+				await query("ROLLBACK")
 				throw error
 			} finally {
 				client.release()

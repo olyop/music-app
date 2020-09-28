@@ -8,5 +8,5 @@ VALUES
 	(
 		{{ userId }},
 		{{ docId }},
-		true
+		{{ inLibrary }}
 	);

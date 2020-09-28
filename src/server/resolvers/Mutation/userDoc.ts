@@ -8,15 +8,16 @@ import {
 	UPDATE_USER_DOC_IN_LIB,
 } from "../../sql"
 
+import { pg } from "../../services"
 import { COLUMN_NAMES } from "../../globals"
 import { sql, createResolver } from "../../helpers"
 import { Song, Artist, UserArgs, SqlVariable } from "../../types"
 
-interface AddRemoveInput {
-	query: string,
+interface AddRemove {
 	docId: string,
 	userId: string,
 	columnName: string,
+	returnQuery: string,
 	columnNames: string[],
 	userTableName: string,
 }
@@ -30,83 +31,25 @@ interface ArtistArgs extends UserArgs {
 }
 
 type AddRemoveFunc =
-	(docId: string, userId: string) => AddRemoveInput
+	(docId: string, userId: string) => AddRemove
 
 const addUserDoc = async <T>({
-	query,
 	docId,
 	userId,
 	columnName,
 	columnNames,
+	returnQuery,
 	userTableName,
-}: AddRemoveInput) => {
-	const variables: SqlVariable[] = [{
-		key: "docId",
-		value: docId,
-	},{
-		key: "userId",
-		value: userId,
-	},{
-		string: false,
-		key: "columnName",
-		value: columnName,
-	},{
-		string: false,
-		key: "tableName",
-		value: userTableName,
-	}]
+}: AddRemove) => {
+	const client = await pg.connect()
+	const query = sql.baseQuery(client)
 
-	const doesUserDocExist =
-		await sql.query({
-			sql: EXISTS_USER_DOC,
-			parse: sql.resExists,
-			variables,
-		})
+	let returnResult: T
 
-	const updateUserDocInLib =
-		sql.query({
-			sql: UPDATE_USER_DOC_IN_LIB,
-			parse: sql.parseRow(),
-			variables,
-		})
+	try {
+		await query("BEGIN")
 
-	const insertUserDoc =
-		sql.query({
-			sql: INSERT_USER_DOC,
-			variables,
-		})
-
-	const actionQuery =
-		doesUserDocExist ? updateUserDocInLib : insertUserDoc
-
-	const returnQuery =
-		sql.query<T>({
-			sql: query,
-			parse: sql.parseRow(),
-			variables: [{
-				value: docId,
-				key: camelCase(columnName),
-			},{
-				string: false,
-				key: "columnNames",
-				value: sql.join(columnNames),
-			}],
-		})
-
-	return (await Promise.all([ returnQuery, actionQuery ]))[0]
-}
-
-const rmUserDoc = async <T>({
-	query,
-	docId,
-	userId,
-	columnName,
-	columnNames,
-	userTableName,
-}: AddRemoveInput) => {
-	await sql.query({
-		sql: UPDATE_USER_DOC_IN_LIB,
-		variables: [{
+		const variables: SqlVariable[] = [{
 			key: "docId",
 			value: docId,
 		},{
@@ -120,29 +63,143 @@ const rmUserDoc = async <T>({
 			string: false,
 			key: "tableName",
 			value: userTableName,
-		}],
-	})
+		}]
 
-	return sql.query<T>({
-		sql: query,
-		parse: sql.parseRow(),
-		variables: [{
+		const doesUserDocExist =
+			await query({
+				sql: EXISTS_USER_DOC,
+				parse: sql.resExists,
+				variables,
+			})
+
+		if (doesUserDocExist) {
+			await query({
+				sql: UPDATE_USER_DOC_IN_LIB,
+				parse: sql.parseRow(),
+				variables,
+			})
+		} else {
+			await query({
+				sql: INSERT_USER_DOC,
+				variables: [...variables, {
+					value: true,
+					string: false,
+					key: "inLibrary",
+				}],
+			})
+		}
+
+		returnResult =
+			await query<T>({
+				sql: returnQuery,
+				parse: sql.parseRow(),
+				variables: [{
+					value: docId,
+					key: camelCase(columnName),
+				},{
+					string: false,
+					key: "columnNames",
+					value: sql.join(columnNames),
+				}],
+			})
+
+		await query("COMMIT")
+	} catch (error) {
+		await query("ROLLBACK")
+		throw error
+	} finally {
+		client.release()
+	}
+
+	return returnResult
+}
+
+const rmUserDoc = async <T>({
+	docId,
+	userId,
+	columnName,
+	columnNames,
+	returnQuery,
+	userTableName,
+}: AddRemove) => {
+	const client = await pg.connect()
+	const query = sql.baseQuery(client)
+
+	let returnResult: T
+
+	try {
+		await query("BEGIN")
+		const variables: SqlVariable[] = [{
+			key: "docId",
 			value: docId,
-			key: camelCase(columnName),
+		},{
+			key: "userId",
+			value: userId,
 		},{
 			string: false,
-			key: "columnNames",
-			value: sql.join(columnNames),
-		}],
-	})
+			key: "columnName",
+			value: columnName,
+		},{
+			string: false,
+			key: "tableName",
+			value: userTableName,
+		}]
+
+		const doesUserDocExist =
+			await query({
+				sql: EXISTS_USER_DOC,
+				parse: sql.resExists,
+				variables,
+			})
+
+		if (doesUserDocExist) {
+			await query({
+				sql: UPDATE_USER_DOC_IN_LIB,
+				parse: sql.parseRow(),
+				variables,
+			})
+		} else {
+			await query({
+				sql: INSERT_USER_DOC,
+				variables: [...variables, {
+					value: false,
+					string: false,
+					key: "inLibrary",
+				}],
+			})
+		}
+
+		returnResult =
+			await query<T>({
+				sql: returnQuery,
+				parse: sql.parseRow(),
+				variables: [{
+					value: docId,
+					key: camelCase(columnName),
+				},{
+					string: false,
+					key: "columnNames",
+					value: sql.join(columnNames),
+				}],
+			})
+
+		await query("COMMIT")
+	} catch (error) {
+		await query("ROLLBACK")
+		throw error
+	} finally {
+		client.release()
+	}
+
+	return returnResult
 }
 
 const songConfig: AddRemoveFunc =
 	(docId, userId) => ({
 		docId,
 		userId,
-		query: SELECT_SONG,
 		columnName: "song_id",
+		returnQuery: SELECT_SONG,
 		userTableName: "users_songs",
 		columnNames: COLUMN_NAMES.SONG,
 	})
@@ -151,8 +208,8 @@ const artistConfig: AddRemoveFunc =
 	(docId, userId) => ({
 		docId,
 		userId,
-		query: SELECT_ARTIST,
 		columnName: "artist_id",
+		returnQuery: SELECT_ARTIST,
 		userTableName: "users_artists",
 		columnNames: COLUMN_NAMES.ARTIST,
 	})

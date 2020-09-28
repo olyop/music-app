@@ -6,6 +6,7 @@ CREATE TABLE IF NOT EXISTS songs (
 	duration smallint NOT NULL,
 	disc_number smallint NOT NULL,
 	track_number smallint NOT NULL,
+	title_vector tsvector NOT NULL,
 	CONSTRAINT songs_pk
 		PRIMARY KEY (song_id),
 	CONSTRAINT songs_fk_album_id

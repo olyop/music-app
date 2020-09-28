@@ -4,7 +4,7 @@ import DotenvPlugin from "dotenv-webpack"
 import WriteFilePlugin from "write-file-webpack-plugin"
 import CompressionPlugin from "compression-webpack-plugin"
 import MiniCssExtractPlugin from "mini-css-extract-plugin"
-// import { BundleAnalyzerPlugin } from "webpack-bundle-analyzer"
+import { BundleAnalyzerPlugin } from "webpack-bundle-analyzer"
 import OptimizeCssAssetsPlugin from "optimize-css-assets-webpack-plugin"
 
 const { HOST, NODE_ENV, DEV_SERVER_PORT } = dotenv.config().parsed!
@@ -66,7 +66,7 @@ const config: Configuration = {
 			new CompressionPlugin(),
 			new OptimizeCssAssetsPlugin(),
 			new MiniCssExtractPlugin({ filename: "[hash].css" }),
-			// new BundleAnalyzerPlugin({ analyzerMode: "static", defaultSizes: "gzip" }),
+			new BundleAnalyzerPlugin({ analyzerMode: "static", defaultSizes: "gzip" }),
 		]),
 	],
 }

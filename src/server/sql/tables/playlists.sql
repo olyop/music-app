@@ -2,6 +2,7 @@ CREATE TABLE IF NOT EXISTS playlists (
 	playlist_id uuid,
 	name text NOT NULL,
 	user_id uuid NOT NULL,
+	name_vector tsvector NOT NULL,
 	date_created bigint NOT NULL DEFAULT cast(extract(epoch from now()) as bigint),
 	CONSTRAINT playlists_pk
 		PRIMARY KEY (playlist_id),

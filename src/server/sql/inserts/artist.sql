@@ -1,12 +1,12 @@
 INSERT INTO artists
-  (
-    name,
-    artist_id
-  )
+	(
+		name,
+		artist_id
+	)
 VALUES
-  (
-    {{ name }},
-    {{ artistId }}
-  )
+	(
+		{{ name }},
+		{{ artistId }}
+	)
 RETURNING
-  {{ columnNames }};
+	{{ columnNames }};

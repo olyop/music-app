@@ -1,12 +1,12 @@
 INSERT INTO genres
-  (
-    genre_id,
-    name
-  )
+	(
+		genre_id,
+		name
+	)
 VALUES
-  (
-    {{ genreId }},
-    {{ name }}
-  )
+	(
+		{{ genreId }},
+		{{ name }}
+	)
 RETURNING
-  {{ columnNames }};
+	{{ columnNames }};

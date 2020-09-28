@@ -1,6 +1,6 @@
 CREATE INDEX IF NOT EXISTS
-	songs_search_index
+	albums_search_index
 ON
-	songs
+	albums
 USING
 	gin(title_vector);

@@ -38,7 +38,7 @@ export interface SongBase {
 }
 
 export interface PlaylistBase {
-	name: string,
+	title: string,
 	playlistId: string,
 	dateCreated: number,
 }

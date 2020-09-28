@@ -6,8 +6,8 @@
 		"typescriptreact"
 	],
 	"files.exclude": {
-		// ".env": true,
-		// "dist": true,
+		".env": true,
+		"dist": true,
 		".vscode/": true,
 		"node_modules/": true
 	},

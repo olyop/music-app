@@ -23,9 +23,9 @@ import {
 	HELMET_CONFIG,
 } from "./globals"
 
-import initializeSql from "./sql/init"
+// import initializeSql from "./sql/init"
 
-initializeSql()
+// initializeSql()
 
 const app = express()
 

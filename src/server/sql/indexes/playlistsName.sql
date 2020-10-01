@@ -3,4 +3,4 @@ CREATE INDEX IF NOT EXISTS
 ON
 	playlists
 USING
-	gin(title_vector);
+	gin(name_vector);

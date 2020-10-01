@@ -67,7 +67,9 @@ const Search: FC = () => {
 		}
 
 	useEffect(() => {
-		delayedQuery(initQuery)
+		if (!isEmpty(initQuery)) {
+			delayedQuery(initQuery)
+		}
 	}, [delayedQuery, initQuery])
 
 	useEffect(() => {

@@ -1,7 +1,8 @@
 SELECT
-	{{ columnNames }},
-	ts_rank_cd({{ columnName }}_vector, plainto_tsquery({{ query }})) as rank
+	{{ columnNames }}
 FROM
 	{{ tableName }}
 WHERE
-	{{ columnName }}_vector @@ plainto_tsquery({{ query }});
+	{{ columnName }}_vector @@ plainto_tsquery({{ query }})
+order by
+	ts_rank({{ columnName }}_vector, plainto_tsquery({{ query }}));

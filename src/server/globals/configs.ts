@@ -8,6 +8,7 @@ import {
 	HOST,
 	PORT,
 	IS_DEV,
+	APOLLO_KEY,
 	AWS_RDS_DB,
 	AWS_RDS_PORT,
 	AWS_RDS_USER,
@@ -35,8 +36,8 @@ export const APOLLO_MIDDLEWARE_CONFIG: GetMiddlewareOptions = {
 export const APOLLO_SERVER_CONFIG: ApolloServerExpressConfig = {
 	uploads: false,
 	introspection: IS_DEV,
-	engine: { graphVariant: "current" },
 	playground: { settings: { "editor.theme": "light" } },
+	engine: { apiKey: APOLLO_KEY, graphVariant: "current" },
 }
 
 export const AWS_S3_CONFIG: ClientConfiguration = {

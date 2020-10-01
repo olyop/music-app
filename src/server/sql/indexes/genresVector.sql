@@ -1,5 +1,5 @@
 CREATE INDEX IF NOT EXISTS
-	genres_search_index
+	genres_vector_index
 ON
 	genres
 USING

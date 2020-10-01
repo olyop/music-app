@@ -1,5 +1,5 @@
 CREATE INDEX IF NOT EXISTS
-	songs_search_index
+	songs_vector_index
 ON
 	songs
 USING

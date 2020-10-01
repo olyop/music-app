@@ -1,6 +1,6 @@
 CREATE INDEX IF NOT EXISTS
-	albums_search_index
+	playlists_vector_index
 ON
-	albums
+	playlists
 USING
 	gin(title_vector);

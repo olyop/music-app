@@ -1,10 +1,10 @@
 SELECT
-  {{ columnNames }}
+	{{ columnNames }}
 FROM
-  songs
+	songs
 ORDER BY
-  {{ orderByField }} {{ orderByDirection }}
+	{{ orderByField }} {{ orderByDirection }}
 LIMIT
-  {{ paginationNum }}
+	{{ paginationNum }}
 OFFSET
-  {{ offset }};
+	{{ offset }};

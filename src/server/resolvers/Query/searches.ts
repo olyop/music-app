@@ -1,16 +1,10 @@
 import { orderBy } from "lodash"
 
-import {
-	SELECT_SONG_SEARCH,
-	SELECT_GENRE_SEARCH,
-	SELECT_ALBUM_SEARCH,
-	SELECT_ARTIST_SEARCH,
-} from "../../sql"
-
 import { pg } from "../../services"
 import { COLUMN_NAMES } from "../../globals"
+import { SELECT_SEARCH_DOC } from "../../sql"
 import { sql, createResolver } from "../../helpers"
-import { Search, Song, Album, Genre, Artist } from "../../types"
+import { Song, Album, Genre, Artist } from "../../types"
 
 const resolver =
 	createResolver()
@@ -23,15 +17,25 @@ interface DocSearchArgs extends SearchArgs {
 	exact: boolean,
 }
 
+type Search = Song | Genre | Album | Artist
+
 export const search =
 	resolver<Search[], SearchArgs>(
 		async ({ args }) => (
 			orderBy(
 				(await Promise.all([
 					sql.query<Song[]>({
-						sql: SELECT_SONG_SEARCH,
+						sql: SELECT_SEARCH_DOC,
 						parse: sql.parseTable(),
 						variables: [{
+							string: false,
+							value: "songs",
+							key: "tableName",
+						},{
+							value: "title",
+							string: false,
+							key: "columnName",
+						},{
 							key: "query",
 							value: args.query,
 							parameterized: true,
@@ -42,9 +46,17 @@ export const search =
 						}],
 					}),
 					sql.query<Genre[]>({
-						sql: SELECT_GENRE_SEARCH,
+						sql: SELECT_SEARCH_DOC,
 						parse: sql.parseTable(),
 						variables: [{
+							string: false,
+							value: "genres",
+							key: "tableName",
+						},{
+							value: "name",
+							string: false,
+							key: "columnName",
+						},{
 							key: "query",
 							value: args.query,
 							parameterized: true,
@@ -55,9 +67,17 @@ export const search =
 						}],
 					}),
 					sql.query<Album[]>({
-						sql: SELECT_ALBUM_SEARCH,
+						sql: SELECT_SEARCH_DOC,
 						parse: sql.parseTable(),
 						variables: [{
+							string: false,
+							value: "albums",
+							key: "tableName",
+						},{
+							value: "title",
+							string: false,
+							key: "columnName",
+						},{
 							key: "query",
 							value: args.query,
 							parameterized: true,
@@ -68,9 +88,17 @@ export const search =
 						}],
 					}),
 					sql.query<Artist[]>({
-						sql: SELECT_ARTIST_SEARCH,
+						sql: SELECT_SEARCH_DOC,
 						parse: sql.parseTable(),
 						variables: [{
+							string: false,
+							key: "tableName",
+							value: "artists",
+						},{
+							value: "name",
+							string: false,
+							key: "columnName",
+						},{
 							key: "query",
 							value: args.query,
 							parameterized: true,

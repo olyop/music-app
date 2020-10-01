@@ -1,4 +1,5 @@
 import {
+	SET_TIMEZONE,
 	TABLE_ARTISTS,
 	TABLE_GENRES,
 	TABLE_ALBUMS,
@@ -30,6 +31,7 @@ import { sql } from "../helpers"
 import { IS_DEV } from "../globals"
 
 const SQL_INIT = [
+	SET_TIMEZONE,
 	TABLE_ARTISTS,
 	TABLE_ALBUMS,
 	TABLE_ALBUMS_ARTISTS,

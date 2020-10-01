@@ -1,6 +1,6 @@
 CREATE INDEX IF NOT EXISTS
-	users_search_index
+	artists_vector_index
 ON
-	users
+	artists
 USING
 	gin(name_vector);

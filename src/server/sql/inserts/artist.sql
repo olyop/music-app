@@ -1,12 +1,14 @@
 INSERT INTO artists
 	(
 		name,
-		artist_id
+		artist_id,
+		name_vector
 	)
 VALUES
 	(
 		{{ name }},
-		{{ artistId }}
+		{{ artistId }},
+		to_tsvector({{ name }})
 	)
 RETURNING
 	{{ columnNames }};

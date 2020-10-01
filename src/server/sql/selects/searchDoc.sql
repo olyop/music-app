@@ -1,10 +1,7 @@
 SELECT
-  {{ columnNames }}
+	{{ columnNames }},
+	ts_rank_cd({{ columnName }}_vector, plainto_tsquery({{ query }})) as rank
 FROM
-  {{ tableName }}
+	{{ tableName }}
 WHERE
-  {{ columnName }} {{ sqlSearchType }} {{ query }}
-ORDER BY
-  {{ columnName }} ASC
-LIMIT
-  {{ limit }};
+	{{ columnName }}_vector @@ plainto_tsquery({{ query }});

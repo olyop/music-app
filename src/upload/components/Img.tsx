@@ -8,7 +8,7 @@ import {
 } from "react"
 
 import camelCase from "lodash/camelCase"
-import { useApolloClient } from "@apollo/client"
+import { useApolloClient, QueryOptions } from "@apollo/client"
 
 import Box from "@material-ui/core/Box"
 import styled from "@material-ui/core/styles/styled"
@@ -62,12 +62,15 @@ const Img: FC<PropTypes> = ({ img, onChange, title, children, className }) => {
 		handleCloseDialog()
 	}
 
+	const searchOptions: QueryOptions = {
+		query: PHOTO_SEARCH,
+		fetchPolicy: "no-cache",
+		variables: { name: title },
+	}
+
 	const handleSearchClick = async () => {
-		onChange(dataUrlToBlob((await client.query<PhotoSearchRes>({
-			query: PHOTO_SEARCH,
-			fetchPolicy: "no-cache",
-			variables: { name: title },
-		})).data!.photoSearch))
+		const res = await client.query<PhotoSearchRes>(searchOptions)
+		onChange(dataUrlToBlob(res.data.photoSearch))
 		handleCloseDialog()
 	}
 

@@ -1,11 +1,11 @@
 mutation add(
-  $genres: [GenreInput!]!
-  $albums: [AlbumInput!]!
-  $artists: [ArtistInput!]!
+	$genres: [GenreInput!]!
+	$albums: [AlbumInput!]!
+	$artists: [ArtistInput!]!
 ) {
-  add(
-    genres: $genres
-    albums: $albums
-    artists: $artists
-  )
+	add(
+		genres: $genres
+		albums: $albums
+		artists: $artists
+	)
 }

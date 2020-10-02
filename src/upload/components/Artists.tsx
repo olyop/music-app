@@ -11,7 +11,6 @@ import withStyles from "@material-ui/core/styles/withStyles"
 import CardActionArea from "@material-ui/core/CardActionArea"
 
 import Img from "./Img"
-import { Artist } from "../types"
 import { useStateContext } from "../context"
 
 const Header =

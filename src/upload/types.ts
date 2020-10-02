@@ -1,5 +1,11 @@
+import type {
+	SongBase,
+	AlbumBase,
+	GenreBase,
+	ArtistBase,
+} from "@oly_op/music-app-common/types"
+
 import type { IAudioMetadata } from "music-metadata-browser"
-import type { SongBase, AlbumBase, GenreBase, ArtistBase } from "@oly_op/music-app-types"
 
 export interface Artist extends ArtistBase {
 	photo: Blob | null,

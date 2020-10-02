@@ -11,8 +11,8 @@ import ListItem from "@material-ui/core/ListItem"
 import InputBase from "@material-ui/core/InputBase"
 import withStyles from "@material-ui/core/styles/withStyles"
 
-import { Artist } from "../types"
 import AutoComplete from "./AutoComplete"
+import { Artist as TArtist } from "../types"
 import { getSearchResults } from "../helpers"
 import ARTIST_SEARCH from "../graphql/artistSearch.gql"
 
@@ -68,7 +68,7 @@ const SongArtists: FC<PropTypes> = ({ artists, onChange }) => {
 			val={artists}
 			onChange={onChange}
 			getResults={(
-				query<Artist, Res, string>({
+				query<TArtist, Res, string>({
 					query: ARTIST_SEARCH,
 					parseDoc: ({ name }) => name,
 					parseRes: ({ artistSearch }) => artistSearch,
@@ -128,7 +128,7 @@ const SongArtists: FC<PropTypes> = ({ artists, onChange }) => {
 }
 
 interface Res {
-	artistSearch: Artist[],
+	artistSearch: TArtist[],
 }
 
 interface PropTypes {

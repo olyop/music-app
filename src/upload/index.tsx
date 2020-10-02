@@ -11,5 +11,5 @@ render(
 			<Application/>
 		</ApolloClient>
 	</MaterialUi>,
-	document.getElementById("Index"),
+	document.getElementById("Application"),
 )

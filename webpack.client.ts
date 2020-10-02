@@ -32,14 +32,14 @@ const config: Configuration = {
 		new HtmlWebpackPlugin({
 			template: CLIENT_INDEX_HTML,
 		}),
-		...(IS_DEV ? [] : [
+		...(IS_DEV ? [
 			new CopyPlugin({
 				patterns: [{
 					from: CLIENT_PUBLIC_PATH,
 					to: BUILD_PATH,
 				}],
 			}),
-		]),
+		] : []),
 	],
 }
 

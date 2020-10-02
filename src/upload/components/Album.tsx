@@ -1,5 +1,5 @@
-import { useApolloClient } from "@apollo/client"
 import { createElement, FC, ChangeEventHandler } from "react"
+import { useApolloClient, QueryOptions } from "@apollo/client"
 
 import Box from "@material-ui/core/Box"
 import Input from "@material-ui/core/Input"
@@ -12,8 +12,8 @@ import { DatePicker, DatePickerProps } from "@material-ui/pickers"
 
 import Img from "./Img"
 import Songs from "./Songs"
-import { Album } from "../types"
 import AlbumArtists from "./AlbumArtists"
+import { Album as TAlbum } from "../types"
 import { useStateContext } from "../context"
 import ALBUM_RELEASED_SEARCH from "../graphql/albumReleasedSearch.gql"
 
@@ -74,12 +74,16 @@ const SearchButton =
 	})(Button)
 
 const Album: FC<PropTypes> = ({ album, className }) => {
-	const client =
-		useApolloClient()
-	const { albumId, title, artists, cover, songs, released } =
-		album
-	const { handleAlbumChange } =
-		useStateContext()
+	const client = useApolloClient()
+	const { albumId, title, artists, cover, songs, released } = album
+	const { handleAlbumChange } = useStateContext()
+
+	const searchOptions: QueryOptions = {
+		fetchPolicy: "no-cache",
+		query: ALBUM_RELEASED_SEARCH,
+		variables: { title, artists },
+	}
+
 	const handleTitleChange: ChangeEventHandler<HTMLInputElement> = event =>
 		handleAlbumChange(albumId, event.target.value, "title")
 	const handleReleasedChange: DatePickerProps["onChange"] = date =>
@@ -88,12 +92,13 @@ const Album: FC<PropTypes> = ({ album, className }) => {
 		handleAlbumChange(albumId, val, "artists")
 	const handleCoverChange = (img: Blob) =>
 		handleAlbumChange(albumId, img, "cover")
-	const handleSearchClick = async () =>
-		handleAlbumChange(albumId, new Date((await client.query<SearchRes>({
-			fetchPolicy: "no-cache",
-			query: ALBUM_RELEASED_SEARCH,
-			variables: { title, artists },
-		})).data!.albumReleasedSearch || released) , "released")
+
+	const handleSearchClick = async () => {
+		const res = await client.query<SearchRes>(searchOptions)
+		const newDate = new Date(res.data?.albumReleasedSearch || released)
+		handleAlbumChange(albumId, newDate, "released")
+	}
+
 	return (
 		<Root className={className}>
 			<Cover
@@ -142,7 +147,7 @@ interface SearchRes {
 }
 
 interface PropTypes extends StyledProps {
-	album: Album,
+	album: TAlbum,
 }
 
 export default Album

@@ -1,10 +1,8 @@
 {
-	"extends": "./tsconfig.json",
-  "compilerOptions": {
-    "baseUrl": "./",
-    "sourceMap": false,
+	"compilerOptions": {
 		"target": "ESNEXT",
-    "module": "CommonJS",
-    "esModuleInterop": true
-  }
+		"sourceMap": false,
+		"module": "CommonJS",
+		"esModuleInterop": true
+	}
 }

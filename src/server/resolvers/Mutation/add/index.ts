@@ -1,4 +1,3 @@
-/* eslint-disable no-await-in-loop, no-restricted-syntax */
 import { UserInputError } from "apollo-server-express"
 
 import {

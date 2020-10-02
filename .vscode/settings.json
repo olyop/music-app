@@ -11,6 +11,9 @@
 		".vscode/": true,
 		"node_modules/": true
 	},
+	"files.associations": {
+    "*.env.*": "dotenv"
+  },
 	"editor.tabSize": 2,
 	"git.enabled": false,
 	"editor.fontSize": 24,

@@ -18,3 +18,6 @@ export const AWS_ACCESS_KEY_ID = process.env.AWS_ACCESS_KEY_ID!
 export const AWS_SECRET_ACCESS_KEY = process.env.AWS_SECRET_ACCESS_KEY!
 
 export const SERP_API_KEY = process.env.SERP_API_KEY!
+
+export const ALGOLIA_API_KEY = process.env.ALGOLIA_API_KEY!
+export const ALGOLIA_APPLICATION_ID = process.env.ALGOLIA_APPLICATION_ID!

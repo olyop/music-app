@@ -2,7 +2,7 @@ import { PoolConfig } from "pg"
 import { CorsOptions } from "cors"
 import { HelmetOptions } from "helmet"
 import { ClientConfiguration } from "aws-sdk/clients/s3"
-import { ApolloServerExpressConfig, GetMiddlewareOptions } from "apollo-server-express"
+import { ApolloServerExpressConfig } from "apollo-server-express"
 
 import {
 	HOST,
@@ -11,10 +11,12 @@ import {
 	AWS_RDS_DB,
 	AWS_RDS_PORT,
 	AWS_RDS_USER,
+	ALGOLIA_API_KEY,
 	AWS_RDS_ENDPOINT,
 	AWS_RDS_PASSWORD,
 	AWS_ACCESS_KEY_ID,
 	AWS_SECRET_ACCESS_KEY,
+	ALGOLIA_APPLICATION_ID,
 } from "./environment"
 
 export const PG_POOL_CONFIG: PoolConfig = {
@@ -26,13 +28,19 @@ export const PG_POOL_CONFIG: PoolConfig = {
 	parseInputDatesAsUTC: true,
 }
 
-export const APOLLO_MIDDLEWARE_CONFIG: GetMiddlewareOptions = {
+export const ALGOLIA_CONFIG: [string, string] = [
+	ALGOLIA_APPLICATION_ID,
+	ALGOLIA_API_KEY,
+]
+
+export const APOLLO_MIDDLEWARE_CONFIG = {
 	cors: false,
 	path: "/graphql",
 	bodyParserConfig: false,
 }
 
 export const APOLLO_SERVER_CONFIG: ApolloServerExpressConfig = {
+	debug: false,
 	uploads: false,
 	introspection: IS_DEV,
 	playground: { settings: { "editor.theme": "light" } },

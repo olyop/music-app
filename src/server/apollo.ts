@@ -1,4 +1,7 @@
-import { ApolloServer, makeExecutableSchema } from "apollo-server-express"
+import {
+	ApolloServer,
+	makeExecutableSchema,
+} from "apollo-server-express"
 
 import typeDefs from "./typeDefs"
 import resolvers from "./resolvers"

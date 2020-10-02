@@ -1,4 +1,3 @@
-/* eslint-disable no-await-in-loop, no-restricted-syntax */
 import {
 	SELECT_USER,
 	SELECT_USER_QUEUE,

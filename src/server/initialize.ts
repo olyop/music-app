@@ -25,10 +25,10 @@ import {
 	ALBUMS_TITLE_INDEX,
 	ARTISTS_NAME_INDEX,
 	PLAYLISTS_NAME_INDEX,
-} from "./"
- 
-import { sql } from "../helpers"
-import { IS_DEV } from "../globals"
+} from "./sql"
+
+import { pg } from "./services"
+import { IS_DEV } from "./globals"
 
 const SQL_INIT = [
 	SET_TIMEZONE,
@@ -59,14 +59,22 @@ const SQL_INIT = [
 	PLAYLISTS_NAME_INDEX,
 ]
 
-const initializeSql = async () => {
+const initialize = async () => {
 	if (!IS_DEV) {
+		const client = await pg.connect()
 		try {
-			await sql.transaction(SQL_INIT)
+			await client.query("BEGIN")
+
+			// initialize sql timezone, tables, and indexes
+			for (const query of SQL_INIT) await client.query(query)
+
+			await client.query("COMMIT")
 		} catch (error) {
-			console.error(error)
+			await client.query("ROLLBACK")
+		} finally {
+			client.release()
 		}
 	}
 }
 
-export default initializeSql
+export default initialize

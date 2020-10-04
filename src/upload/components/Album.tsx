@@ -95,7 +95,7 @@ const Album: FC<PropTypes> = ({ album, className }) => {
 
 	const handleSearchClick = async () => {
 		const res = await client.query<SearchRes>(searchOptions)
-		const newDate = new Date(res.data?.albumReleasedSearch || released)
+		const newDate = new Date(res.data.albumReleasedSearch || released)
 		handleAlbumChange(albumId, newDate, "released")
 	}
 

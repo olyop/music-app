@@ -11,11 +11,13 @@ const { HOST, NODE_ENV, DEV_SERVER_PORT } = dotenv.config().parsed!
 const IS_DEV = NODE_ENV === "development"
 
 const config: Configuration = {
+	stats: "errors-only",
 	mode: IS_DEV ? "development" : "production",
 	output: {
 		publicPath: "/",
 		filename: "[hash].js",
 	},
+	devtool: "inline-source-map",
 	devServer: {
 		hot: true,
 		host: HOST,
@@ -24,7 +26,7 @@ const config: Configuration = {
 		noInfo: true,
 		stats: "none",
 		compress: true,
-		clientLogLevel: "error",
+		clientLogLevel: "none",
 		historyApiFallback: true,
 		proxy: { "/graphql": `http://${HOST}:${DEV_SERVER_PORT}` },
 	},

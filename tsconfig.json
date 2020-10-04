@@ -2,8 +2,9 @@
 	"compilerOptions": {
 		"jsx": "react",
 		"outDir": "dist",
-		"target": "ESNEXT",
-		"sourceMap": false,
+		"sourceMap": true,
+		"module": "ESNext",
+		"target": "ES2017",
 		"alwaysStrict": true,
 		"noImplicitAny": true,
 		"noImplicitThis": true,

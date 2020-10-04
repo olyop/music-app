@@ -10,7 +10,6 @@ const typePolicies: TypePolicies = {
 
 const link = createUploadLink({ uri: "/graphql" })
 const cache = new InMemoryCache({ typePolicies })
-// @ts-ignore
 const client = new ApolloClient({ link, cache })
 
 export default client

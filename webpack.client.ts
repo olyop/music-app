@@ -2,6 +2,7 @@ import path from "path"
 import dotenv from "dotenv"
 import { merge } from "webpack-merge"
 import { Configuration } from "webpack"
+import DotenvPlugin from "dotenv-webpack"
 import CopyPlugin from "copy-webpack-plugin"
 import HtmlWebpackPlugin from "html-webpack-plugin"
 
@@ -29,9 +30,8 @@ const config: Configuration = {
 		contentBase: CLIENT_PUBLIC_PATH,
 	},
 	plugins: [
-		new HtmlWebpackPlugin({
-			template: CLIENT_INDEX_HTML,
-		}),
+		new DotenvPlugin(),
+		new HtmlWebpackPlugin({ template: CLIENT_INDEX_HTML }),
 		...(IS_DEV ? [
 			new CopyPlugin({
 				patterns: [{

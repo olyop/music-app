@@ -29,9 +29,7 @@ const config: Configuration = {
 		contentBase: UPLOAD_PUBLIC_PATH,
 	},
 	plugins: [
-		new HtmlWebpackPlugin({
-			template: UPLOAD_INDEX_HTML,
-		}),
+		new HtmlWebpackPlugin({ template: UPLOAD_INDEX_HTML }),
 		...(IS_DEV ? [
 			new CopyPlugin({
 				patterns: [{

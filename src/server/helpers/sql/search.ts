@@ -2,7 +2,7 @@ import { join } from "./join"
 import { Client } from "../../types"
 import { baseQuery } from "./baseQuery"
 import { parseTable } from "./parseTable"
-import { SELECT_SEARCH_DOC } from "../../sql"
+import { SELECT_DOC_SEARCH } from "../../sql"
 
 interface SearchInput {
 	query: string,
@@ -16,7 +16,7 @@ export const search =
 	(client: Client) =>
 		<T>({ query, exact, tableName, columnName, columnNames }: SearchInput) =>
 			baseQuery(client)({
-				sql: SELECT_SEARCH_DOC,
+				sql: SELECT_DOC_SEARCH,
 				parse: parseTable<T>(),
 				variables: [{
 					string: false,

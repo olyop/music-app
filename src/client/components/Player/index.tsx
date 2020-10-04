@@ -1,6 +1,6 @@
 import { createBem } from "@oly_op/bem"
-import { createElement, FC, Fragment } from "react"
-import { Link, RouteComponentProps } from "react-router-dom"
+import { FC, Fragment, createElement } from "react"
+import { RouteComponentProps } from "react-router-dom"
 
 import Img from "../Img"
 import Icon from "../Icon"
@@ -14,7 +14,6 @@ import SongTitle from "../SongTitle"
 import { User, UserVar } from "../../types"
 import { useStateUserId } from "../../redux"
 import InLibraryButton from "../InLibraryButton"
-import { determineDocPath } from "../../helpers"
 import FeaturingArtists from "../FeaturingArtists"
 import GET_USER_CURRENT from "./getUserCurrent.gql"
 
@@ -36,16 +35,11 @@ const Player: FC<RouteComponentProps> = ({ history }) => (
 				/>
 				{data?.user.current && (
 					<div className={bem("main")}>
-						<Link
-							className={bem("main-cover")}
-							to={determineDocPath(data.user.current.album)}
-						>
-							<Img
-								url={data.user.current.album.cover}
-								title={data.user.current.album.title}
-								className={bem("Card", "Elevated")}
-							/>
-						</Link>
+						<Img
+							url={data.user.current.album.cover}
+							title={data.user.current.album.title}
+							className={bem("main-cover", "Card Elevated")}
+						/>
 						<div className={bem("main-title", "main-text")}>
 							<h1 className={bem("main-title-text")}>
 								<SongTitle

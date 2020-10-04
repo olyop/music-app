@@ -2,7 +2,7 @@ import { orderBy } from "lodash"
 
 import { pg } from "../../services"
 import { COLUMN_NAMES } from "../../globals"
-import { SELECT_SEARCH_DOC } from "../../sql"
+import { SELECT_DOC_TEXT_SEARCH } from "../../sql"
 import { sql, createResolver } from "../../helpers"
 import { Song, Album, Genre, Artist } from "../../types"
 
@@ -25,7 +25,7 @@ export const search =
 			orderBy(
 				(await Promise.all([
 					sql.query<Song[]>({
-						sql: SELECT_SEARCH_DOC,
+						sql: SELECT_DOC_TEXT_SEARCH,
 						parse: sql.parseTable(),
 						variables: [{
 							string: false,
@@ -46,7 +46,7 @@ export const search =
 						}],
 					}),
 					sql.query<Genre[]>({
-						sql: SELECT_SEARCH_DOC,
+						sql: SELECT_DOC_TEXT_SEARCH,
 						parse: sql.parseTable(),
 						variables: [{
 							string: false,
@@ -67,7 +67,7 @@ export const search =
 						}],
 					}),
 					sql.query<Album[]>({
-						sql: SELECT_SEARCH_DOC,
+						sql: SELECT_DOC_TEXT_SEARCH,
 						parse: sql.parseTable(),
 						variables: [{
 							string: false,
@@ -88,7 +88,7 @@ export const search =
 						}],
 					}),
 					sql.query<Artist[]>({
-						sql: SELECT_SEARCH_DOC,
+						sql: SELECT_DOC_TEXT_SEARCH,
 						parse: sql.parseTable(),
 						variables: [{
 							string: false,

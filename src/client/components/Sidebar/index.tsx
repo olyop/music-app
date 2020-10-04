@@ -18,7 +18,7 @@ const Sidebar: FC = () => {
 				title="Browse"
 				to="/browse/songs"
 				className={bem("route")}
-				// onClick={handleRouteClick}
+				onClick={handleRouteClick}
 			>
 				<Icon className={bem("route-icon")} icon="view_list"/>
 				<p className={bem("route-text")}>Browse</p>
@@ -27,7 +27,7 @@ const Sidebar: FC = () => {
 				title="Library"
 				to="/library/songs"
 				className={bem("route")}
-				// onClick={handleRouteClick}
+				onClick={handleRouteClick}
 			>
 				<Icon className={bem("route-icon")} icon="library_music"/>
 				<p className={bem("route-text")}>Library</p>

@@ -1,6 +1,5 @@
 import dotenv from "dotenv"
 import { Configuration } from "webpack"
-import DotenvPlugin from "dotenv-webpack"
 import WriteFilePlugin from "write-file-webpack-plugin"
 import CompressionPlugin from "compression-webpack-plugin"
 import MiniCssExtractPlugin from "mini-css-extract-plugin"
@@ -60,16 +59,13 @@ const config: Configuration = {
 			},
 		],
 	},
-	plugins: [
-		new DotenvPlugin(),
-		...(IS_DEV ? [
-			new WriteFilePlugin(),
-		] : [
-			new CompressionPlugin(),
-			new OptimizeCssAssetsPlugin(),
-			new MiniCssExtractPlugin({ filename: "[hash].css" }),
-			new BundleAnalyzerPlugin({ analyzerMode: "static", defaultSizes: "gzip" }),
-		]),
+	plugins: IS_DEV ? [
+		new WriteFilePlugin(),
+	] : [
+		new CompressionPlugin(),
+		new OptimizeCssAssetsPlugin(),
+		new MiniCssExtractPlugin({ filename: "[hash].css" }),
+		new BundleAnalyzerPlugin({ analyzerMode: "static", defaultSizes: "gzip" }),
 	],
 }
 

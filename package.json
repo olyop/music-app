@@ -34,7 +34,7 @@
 	"scripts": {
 		"dev": "clear && npm run delete-build && npm run build-server && npm run build-copy && npx concurrently \"npm:dev-copy\" \"npm:dev-server\" \"npm:dev-nodemon\" \"npm:dev-client\" \"npm:dev-upload\"",
 		"client-dev": "npm run delete-build && npm run build-server && npm run build-copy && npx concurrently \"npm:dev-copy\" \"npm:dev-server\" \"npm:dev-nodemon\" \"npm:dev-client\"",
-		"upload-dev": "npm run delete-build && npm run build-server && npm run build-copy && npx concurrently \"npm:dev-copy\" \"npm:dev-server\" \"npm:dev-nodemon\" \"npm:dev-upload\" ",
+		"upload-dev": "npm run delete-build && npm run build-server && npm run build-copy && npx concurrently \"npm:dev-copy\" \"npm:dev-server\" \"npm:dev-nodemon\" \"npm:dev-upload\"",
 		"server-dev": "npm run delete-build && npm run build-server && npm run build-copy && npx concurrently \"npm:dev-copy\" \"npm:dev-server\" \"npm:dev-nodemon\"",
 		"dev-nodemon": "npx kill-port 3000 && npx nodemon -r dotenv/config dist",
 		"dev-server": "npx tsc --project tsconfig.server.json --watch",

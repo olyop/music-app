@@ -32,11 +32,12 @@
 		"eslint"
 	],
 	"scripts": {
-		"dev": "clear && npm run delete-build && npm run build-server && npm run build-copy && npx concurrently \"npm:dev-copy\" \"npm:dev-server\" \"npm:dev-nodemon\" \"npm:dev-client\" \"npm:dev-upload\"",
-		"client-dev": "npm run delete-build && npm run build-server && npm run build-copy && npx concurrently \"npm:dev-copy\" \"npm:dev-server\" \"npm:dev-nodemon\" \"npm:dev-client\"",
-		"upload-dev": "npm run delete-build && npm run build-server && npm run build-copy && npx concurrently \"npm:dev-copy\" \"npm:dev-server\" \"npm:dev-nodemon\" \"npm:dev-upload\"",
-		"server-dev": "npm run delete-build && npm run build-server && npm run build-copy && npx concurrently \"npm:dev-copy\" \"npm:dev-server\" \"npm:dev-nodemon\"",
-		"dev-nodemon": "npx kill-port 3000 && npx nodemon -r dotenv/config dist",
+		"dev": "npm run dev-init && npx concurrently \"npm:dev-copy\" \"npm:dev-server\" \"npm:dev-nodemon\" \"npm:dev-client\" \"npm:dev-upload\"",
+		"client-dev": "npm run dev-init && npx concurrently \"npm:dev-copy\" \"npm:dev-server\" \"npm:dev-nodemon\" \"npm:dev-client\"",
+		"upload-dev": "npm run dev-init && npx concurrently \"npm:dev-copy\" \"npm:dev-server\" \"npm:dev-nodemon\" \"npm:dev-upload\"",
+		"server-dev": "npm run dev-init && npx concurrently \"npm:dev-copy\" \"npm:dev-server\" \"npm:dev-nodemon\"",
+		"dev-init": "clear && npm run delete-build && npm run kill-port && npm run build-server && npm run build-copy",
+		"dev-nodemon": "npx nodemon -r dotenv/config dist",
 		"dev-server": "npx tsc --project tsconfig.server.json --watch",
 		"dev-copy": "npx babel src/server -d dist -D --quiet -w",
 		"dev-client": "npx cross-env TS_NODE_PROJECT=\"tsconfig.webpack.json\" npx webpack-dev-server --config webpack.client.ts",
@@ -49,6 +50,7 @@
 		"build-client": "npx cross-env TS_NODE_PROJECT=\"tsconfig.webpack.json\" npx webpack --config webpack.client.ts",
 		"build-upload": "npx cross-env TS_NODE_PROJECT=\"tsconfig.webpack.json\" npx webpack --config webpack.upload.ts",
 		"delete-build": "rm -r -f dist",
+		"kill-port": "npx kill-port 3000",
 		"sync": "git checkout . && git remote update && git pull",
 		"push": "clear && git status && git add -A && git commit -m \"Update\" && git push -u origin master",
 		"publish-common": "npx tsc --outDir src/common --project tsconfig.common.json && cd src/common && npm publish && cd ../.. && npm i -S -P @oly_op/music-app-common@latest"

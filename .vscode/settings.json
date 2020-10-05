@@ -6,7 +6,7 @@
 		"typescriptreact"
 	],
 	"files.exclude": {
-		".env": true,
+		// ".env": true,
 		"dist": true,
 		".vscode/": true,
 		"node_modules/": true
@@ -29,7 +29,6 @@
 	"workbench.tree.indent": 15,
 	"editor.glyphMargin": false,
 	"editor.fontWeight": "bold",
-	"workbench.iconTheme": null,
 	"editor.cursorStyle": "line",
 	"editor.insertSpaces": false,
 	"breadcrumbs.enabled": false,
@@ -42,6 +41,7 @@
 	"editor.minimap.enabled": false,
 	"editor.colorDecorators": false,
   "eslint.alwaysShowStatus": true,
+	"workbench.iconTheme": "vs-seti",
 	"editor.foldingHighlight": false,
 	"npm.enableRunFromFolder": false,
 	"editor.cursorBlinking": "smooth",

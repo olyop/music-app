@@ -1,4 +1,9 @@
 import {
+	IS_DEV,
+	AWS_S3_CREATE_BUCKET_CONFIG,
+} from "./globals"
+
+import {
 	SET_TIMEZONE,
 	TABLE_ARTISTS,
 	TABLE_GENRES,
@@ -27,8 +32,7 @@ import {
 	PLAYLISTS_NAME_INDEX,
 } from "./sql"
 
-import { pg } from "./services"
-import { IS_DEV } from "./globals"
+import { s3, pg } from "./services"
 
 const SQL_INIT = [
 	SET_TIMEZONE,
@@ -65,8 +69,18 @@ const initialize = async () => {
 		try {
 			await client.query("BEGIN")
 
+			try {
+				await s3.createBucket(AWS_S3_CREATE_BUCKET_CONFIG).promise()
+			} catch (err) {
+				if (err instanceof Error && err.name !== "BucketAlreadyOwnedByYou") {
+					console.error(err)
+				}
+			}
+
 			// initialize sql timezone, tables, and indexes
-			for (const query of SQL_INIT) await client.query(query)
+			for (const query of SQL_INIT) {
+				await client.query(query)
+			}
 
 			await client.query("COMMIT")
 		} catch (error) {

@@ -93,6 +93,7 @@ export const baseQuery =
 									.catch(err => {
 										console.error(sqlWithValues, params)
 										console.error(err)
+										reject(err)
 									})
 					}
 				},

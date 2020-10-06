@@ -10,6 +10,45 @@
 		padding: var(--space-half) var(--space); }
 	&__controls {
 		border-right: 1px solid var(--border-color); }
+	&__fullscreen {
+		width: 600px;
+		display: flex;
+		align-items: center;
+		flex-direction: column;
+		&-cover {
+			width: 100%;
+			margin-bottom: var(--space-double);
+			border-radius: calc(var(--border-radius) * 2); }
+		&-text {
+			text-align: center;
+			margin-bottom: var(--space-half); }
+		&-title {
+			display: flex;
+			align-items: center;
+			margin-left: var(--info-height);
+			&-text {
+				font-size: 30rem;
+				font-weight: 700; }
+			&-inLibrary {
+				margin-left: var(--space-half); } }
+		&-progress {
+			background-color: #e0e0e0; }
+		&-controls {
+			width: auto;
+			margin-top: var(--space-double);
+			&-icon {
+				--size: 50rem;
+				min-width: var(--size);
+				font-size: var(--size);
+				min-height: var(--size);
+				color: var(--text-color); } }
+		&-artists {
+			font-size: 20rem;
+			font-weight: 400; }
+		&-album {
+			font-size: 20rem;
+			font-weight: 500;
+			margin-bottom: calc(var(--space) * 2.25); } }
 	&__main {
 		width: 100%;
 		display: flex;

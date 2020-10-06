@@ -5,6 +5,7 @@ import {
 
 import typeDefs from "./typeDefs"
 import resolvers from "./resolvers"
+
 import { APOLLO_SERVER_CONFIG } from "./globals"
 
 const schema = makeExecutableSchema({ typeDefs, resolvers })

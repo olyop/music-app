@@ -23,9 +23,9 @@ import {
 	HELMET_CONFIG,
 } from "./globals"
 
-// import initialize from "./initialize"
+import initialize from "./initialize"
 
-// initialize()
+initialize().catch(console.error)
 
 const app = express()
 

@@ -6,7 +6,7 @@ INSERT INTO songs (
 	duration,
 	disc_number,
 	track_number,
-	title_vector,
+	title_vector
 ) VALUES (
 	{{ mix }},
 	{{ title }},

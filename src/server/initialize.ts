@@ -1,5 +1,6 @@
 import {
 	IS_DEV,
+	AWS_S3_BUCKET,
 	AWS_S3_CREATE_BUCKET_CONFIG,
 } from "./globals"
 
@@ -63,30 +64,32 @@ const SQL_INIT = [
 	PLAYLISTS_NAME_INDEX,
 ]
 
+const initializeDatabase = async () => {
+	const client = await pg.connect()
+	try {
+		await client.query("BEGIN")
+		for (const query of SQL_INIT) await client.query(query)
+		await client.query("COMMIT")
+	} catch (error) {
+		await client.query("ROLLBACK")
+	} finally {
+		client.release()
+	}
+}
+
+const initializeS3 = async () => {
+	await s3.headBucket({ Bucket: AWS_S3_BUCKET }).promise()
+	await s3.createBucket(AWS_S3_CREATE_BUCKET_CONFIG).promise()
+}
+
 const initialize = async () => {
+	process.env.TZ = "Australia/Sydney"
 	if (!IS_DEV) {
-		const client = await pg.connect()
 		try {
-			await client.query("BEGIN")
-
-			try {
-				await s3.createBucket(AWS_S3_CREATE_BUCKET_CONFIG).promise()
-			} catch (err) {
-				if (err instanceof Error && err.name !== "BucketAlreadyOwnedByYou") {
-					console.error(err)
-				}
-			}
-
-			// initialize sql timezone, tables, and indexes
-			for (const query of SQL_INIT) {
-				await client.query(query)
-			}
-
-			await client.query("COMMIT")
-		} catch (error) {
-			await client.query("ROLLBACK")
-		} finally {
-			client.release()
+			await initializeDatabase()
+			await initializeS3()
+		} catch (err) {
+			console.error(err)
 		}
 	}
 }

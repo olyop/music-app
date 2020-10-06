@@ -90,7 +90,10 @@ export const baseQuery =
 						client.query(sqlWithValues, isEmpty(params) ? undefined : params)
 									.then(parse)
 									.then(resolve)
-									.catch(reject)
+									.catch(err => {
+										console.error(sqlWithValues, params)
+										console.error(err)
+									})
 					}
 				},
 			)

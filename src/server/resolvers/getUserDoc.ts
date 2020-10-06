@@ -4,7 +4,6 @@ import {
 } from "../sql"
 
 import { sql } from "../helpers"
-import { UserDoc } from "../types"
 
 interface Input {
 	docId: string,
@@ -36,17 +35,10 @@ export const getUserDocInLib =
 		})
 
 export const getUserDocDateAdded =
-	<T extends UserDoc>({ docId, userId, columnName, userDocTable }: Input) =>
+	({ docId, userId, columnName, userDocTable }: Input) =>
 		sql.query<number | null>({
 			sql: SELECT_USER_DOC_ADDED,
-			parse: res => {
-				if (res.rowCount === 0) {
-					return null
-				} else {
-					const doc = sql.parseRow<T>()(res)
-					return doc.dateAdded * 1000
-				}
-			},
+			parse: sql.parseUnixField,
 			variables: [{
 				key: "userId",
 				value: userId,

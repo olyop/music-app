@@ -1,6 +1,7 @@
+import { APP } from "@oly_op/music-app-common/globals"
+
 import {
 	IS_DEV,
-	AWS_S3_BUCKET,
 	AWS_S3_CREATE_BUCKET_CONFIG,
 } from "./globals"
 
@@ -78,7 +79,7 @@ const initializeDatabase = async () => {
 }
 
 const initializeS3 = async () => {
-	await s3.headBucket({ Bucket: AWS_S3_BUCKET }).promise()
+	await s3.headBucket({ Bucket: APP }).promise()
 	await s3.createBucket(AWS_S3_CREATE_BUCKET_CONFIG).promise()
 }
 

@@ -9,7 +9,6 @@ import {
 	HOST,
 	PORT,
 	IS_DEV,
-	AWS_REGION,
 	AWS_RDS_DB,
 	AWS_RDS_PORT,
 	AWS_RDS_USER,
@@ -56,8 +55,5 @@ export const HELMET_CONFIG: HelmetOptions = {
 
 export const AWS_S3_CREATE_BUCKET_CONFIG: CreateBucketRequest = {
 	Bucket: APP,
-	ACL: "private",
-	CreateBucketConfiguration: {
-		LocationConstraint: AWS_REGION,
-	},
+	ACL: "public-read",
 }

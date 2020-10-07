@@ -112,7 +112,7 @@ const ArtistPage: FC<RouteComponentProps> = ({ match }) => {
 							/>
 						</ul>
 					</div>
-					<div className={bem("content", "Content MarginBottomOneHalf")}>
+					<div className="Content MarginBottomOneHalf">
 						<Switch>
 							<Route
 								exact

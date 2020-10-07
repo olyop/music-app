@@ -12,10 +12,6 @@ export const AWS_RDS_PASSWORD = process.env.AWS_RDS_PASSWORD!
 export const AWS_RDS_ENDPOINT = process.env.AWS_RDS_ENDPOINT!
 export const AWS_RDS_PORT = parseInt(process.env.AWS_RDS_PORT!)
 
-export const AWS_S3_ACL = process.env.AWS_S3_ACL!
-
-export const AWS_REGION = process.env.AWS_REGION!
-
 export const SERP_API_KEY = process.env.SERP_API_KEY!
 
 export const ALGOLIA_API_KEY = process.env.ALGOLIA_API_KEY!

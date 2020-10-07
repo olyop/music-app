@@ -9,6 +9,7 @@ import {
 import uniqueId from "lodash/uniqueId"
 import { Waypoint } from "react-waypoint"
 import type { DocumentNode } from "graphql"
+import { PAGINATION_NUM } from "@oly_op/music-app-common/globals"
 
 import {
 	addLoading,
@@ -17,8 +18,6 @@ import {
 } from "../../redux"
 
 import QueryApi from "../QueryApi"
-
-const PAGINATION_NUM = parseInt(process.env.PAGINATION_NUM!)
 
 const Feed = <Data, Vars>({
 	query,

@@ -1,6 +1,5 @@
+import { APP_NAME } from "@oly_op/music-app-common/globals"
 import { useEffect, createElement, FC, Fragment } from "react"
-
-const APP_NAME = process.env.APP_NAME!
 
 const Helmet: FC<PropTypes> = ({ title, children }) => {
 	useEffect(() => {

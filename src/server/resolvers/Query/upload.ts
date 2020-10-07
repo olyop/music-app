@@ -38,7 +38,7 @@ export const albumReleasedSearch =
 			const params = new URLSearchParams(serpApiBaseParams)
 			const tilte = args.title.toLowerCase()
 			const artists = args.artists.join(" ").toLowerCase()
-			params.set("q", (`${tilte} ${artists} release date`).replace(" ", "+"))
+			params.set("q", (`${tilte} ${artists}+release+date`).replace(" ", "+"))
 			const res = await fetch(`${serpApiBaseUrl}?${params.toString()}`)
 			const json = await res.json() as AlbumReleasedSearchRes
 			if (json.knowledge_graph) {
@@ -75,7 +75,7 @@ export const photoSearch =
 			const params = new URLSearchParams(serpApiBaseParams)
 			params.set("num", "10")
 			params.set("tbm", "isch")
-			params.set("q", `${args.name.toLowerCase().replace(" ", "+")}+artist`)
+			params.set("q", `${args.name.toLowerCase().replace(" ", "+")}+singer`)
 			const apiRes = await fetch(`${serpApiBaseUrl}?${params.toString()}`)
 			const apiJson = await apiRes.json() as PhotoSearchRes
 			const url = apiJson.images_results[random(0, 9)].original

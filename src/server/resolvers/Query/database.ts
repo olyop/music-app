@@ -1,3 +1,5 @@
+import { PAGINATION_NUM } from "@oly_op/music-app-common/globals"
+
 import {
 	User,
 	Song,
@@ -26,8 +28,6 @@ import {
 
 import { COLUMN_NAMES } from "../../globals"
 import { sql, createResolver } from "../../helpers"
-
-const PAGINATION_NUM = parseInt(process.env.PAGINATION_NUM!)
 
 const resolver =
 	createResolver()

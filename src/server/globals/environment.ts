@@ -13,7 +13,6 @@ export const AWS_RDS_ENDPOINT = process.env.AWS_RDS_ENDPOINT!
 export const AWS_RDS_PORT = parseInt(process.env.AWS_RDS_PORT!)
 
 export const AWS_S3_ACL = process.env.AWS_S3_ACL!
-export const AWS_S3_BUCKET = process.env.AWS_S3_BUCKET!
 
 export const AWS_REGION = process.env.AWS_REGION!
 

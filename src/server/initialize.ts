@@ -83,7 +83,6 @@ const initializeS3 = async () => {
 }
 
 const initialize = async () => {
-	process.env.TZ = "Australia/Sydney"
 	if (!IS_DEV) {
 		try {
 			await initializeDatabase()

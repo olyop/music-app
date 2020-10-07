@@ -7,7 +7,7 @@ import { Song } from "../../types"
 const FeaturingArtists: FC<PropTypes> = ({ song }) => (
 	<Fragment>
 		<DocLinks ampersand docs={song.artists}/>
-		{isEmpty(song.featuring) ?? (
+		{isEmpty(song.featuring) || (
 			<Fragment>
 				<Fragment> feat. </Fragment>
 				<DocLinks ampersand docs={song.featuring}/>

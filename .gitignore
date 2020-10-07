@@ -6,6 +6,8 @@ node_modules/
 .env
 src/common/types.js
 src/common/types.d.ts
+src/common/globals.js
+src/common/globals.d.ts
 src/common/dataUrlToBlob.js
 src/common/dataUrlToBlob.d.ts
 src/common/bufferToDataUrl.js

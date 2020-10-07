@@ -7,6 +7,7 @@
 	},
 	"files": [
 		"src/common/src/types.ts",
+		"src/common/src/globals.ts",
 		"src/common/src/dataUrlToBlob.ts",
 		"src/common/src/bufferToDataUrl.ts",
 		"src/common/src/deserializeDuration.ts"

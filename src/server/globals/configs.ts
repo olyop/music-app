@@ -1,6 +1,7 @@
 import { PoolConfig } from "pg"
 import { CorsOptions } from "cors"
 import { HelmetOptions } from "helmet"
+import { APP } from "@oly_op/music-app-common/globals"
 import { CreateBucketRequest } from "aws-sdk/clients/s3"
 import { ApolloServerExpressConfig, GetMiddlewareOptions } from "apollo-server-express"
 
@@ -8,12 +9,10 @@ import {
 	HOST,
 	PORT,
 	IS_DEV,
-	AWS_S3_ACL,
 	AWS_REGION,
 	AWS_RDS_DB,
 	AWS_RDS_PORT,
 	AWS_RDS_USER,
-	AWS_S3_BUCKET,
 	ALGOLIA_API_KEY,
 	AWS_RDS_ENDPOINT,
 	AWS_RDS_PASSWORD,
@@ -56,8 +55,8 @@ export const HELMET_CONFIG: HelmetOptions = {
 }
 
 export const AWS_S3_CREATE_BUCKET_CONFIG: CreateBucketRequest = {
-	ACL: AWS_S3_ACL,
-	Bucket: AWS_S3_BUCKET,
+	Bucket: APP,
+	ACL: "private",
 	CreateBucketConfiguration: {
 		LocationConstraint: AWS_REGION,
 	},

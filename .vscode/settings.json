@@ -6,9 +6,10 @@
 		"typescriptreact"
 	],
 	"files.exclude": {
-		// ".env": true,
-		"dist": true,
-		".vscode/": true,
+		".git": true,
+		".env": false,
+		"dist": false,
+		".vscode": false,
 		"node_modules/": true
 	},
 	"files.associations": {

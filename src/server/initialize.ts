@@ -79,8 +79,14 @@ const initializeDatabase = async () => {
 }
 
 const initializeS3 = async () => {
-	await s3.headBucket({ Bucket: APP }).promise()
-	await s3.createBucket(AWS_S3_CREATE_BUCKET_CONFIG).promise()
+	try {
+		await s3.headBucket({ Bucket: APP }).promise()
+		await s3.createBucket(AWS_S3_CREATE_BUCKET_CONFIG).promise()
+	} catch (err) {
+		if (err instanceof Error && err.name !== "BucketAlreadyOwnedByYou") {
+			console.error(err)
+		}
+	}
 }
 
 const initialize = async () => {

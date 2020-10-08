@@ -9,6 +9,9 @@ import "./index.scss"
 
 const bem = createBem("Sidebar")
 
+const HOST = process.env.HOST!
+const PORT = process.env.DEV_UPLOAD_PORT!
+
 const Sidebar: FC = () => {
 	const dispatch = useDispatch()
 	const handleRouteClick = () => dispatch(toggleSidebar())
@@ -35,7 +38,7 @@ const Sidebar: FC = () => {
 			<a
 				title="Add"
 				className={bem("route")}
-				href={`http://${process.env.HOST!}:${process.env.DEV_UPLOAD_PORT!}`}
+				href={`http://${HOST}:${PORT}`}
 			>
 				<Icon className={bem("route-icon")} icon="open_in_new"/>
 				<p className={bem("route-text")}>Add</p>

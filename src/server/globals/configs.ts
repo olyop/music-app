@@ -9,9 +9,6 @@ import {
 	HOST,
 	PORT,
 	IS_DEV,
-	AWS_RDS_DB,
-	AWS_RDS_PORT,
-	AWS_RDS_USER,
 	ALGOLIA_API_KEY,
 	AWS_RDS_ENDPOINT,
 	AWS_RDS_PASSWORD,
@@ -19,9 +16,9 @@ import {
 } from "./environment"
 
 export const PG_POOL_CONFIG: PoolConfig = {
-	port: AWS_RDS_PORT,
-	user: AWS_RDS_USER,
-	database: AWS_RDS_DB,
+	port: 5432,
+	user: "postgres",
+	database: "index",
 	host: AWS_RDS_ENDPOINT,
 	password: AWS_RDS_PASSWORD,
 	parseInputDatesAsUTC: true,
@@ -51,6 +48,7 @@ export const CORS_CONFIG: CorsOptions = {
 
 export const HELMET_CONFIG: HelmetOptions = {
 	hsts: false,
+	contentSecurityPolicy: IS_DEV ? false : undefined,
 }
 
 export const AWS_S3_CREATE_BUCKET_CONFIG: CreateBucketRequest = {

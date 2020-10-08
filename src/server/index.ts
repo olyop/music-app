@@ -10,8 +10,9 @@ import { graphqlUploadExpress } from "graphql-upload"
 
 import {
 	graphql,
-	serveIndex,
 	serveStatic,
+	serveUpload,
+	serveClient,
 	globalHeaders,
 } from "./middleware"
 
@@ -44,6 +45,7 @@ app.use(
 	serveStatic(),
 )
 
-app.use("*", serveIndex())
+app.use("/upload", serveUpload())
+app.use("*", serveClient())
 
 http.createServer(app).listen(PORT, HOST)

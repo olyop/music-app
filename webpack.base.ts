@@ -1,3 +1,4 @@
+import path from "path"
 import dotenv from "dotenv"
 import { Configuration } from "webpack"
 import WriteFilePlugin from "write-file-webpack-plugin"
@@ -9,25 +10,30 @@ import OptimizeCssAssetsPlugin from "optimize-css-assets-webpack-plugin"
 const { HOST, NODE_ENV, DEV_SERVER_PORT } = dotenv.config().parsed!
 const IS_DEV = NODE_ENV === "development"
 
+const ROOT_PATH = process.cwd()
+const BUILD_PATH = path.join(ROOT_PATH, "dist", "public")
+
 const config: Configuration = {
-	stats: "errors-only",
 	mode: IS_DEV ? "development" : "production",
 	output: {
 		publicPath: "/",
+		path: BUILD_PATH,
 		filename: "[hash].js",
 	},
 	devtool: "inline-source-map",
 	devServer: {
 		hot: true,
 		host: HOST,
-		open: true,
 		quiet: true,
 		noInfo: true,
 		stats: "none",
 		compress: true,
 		clientLogLevel: "none",
 		historyApiFallback: true,
-		proxy: { "/graphql": `http://${HOST}:${DEV_SERVER_PORT}` },
+		proxy: {
+			"/index.html": "/",
+			"*": `http://${HOST}:${DEV_SERVER_PORT}`,
+		},
 	},
 	resolve: {
 		symlinks: false,

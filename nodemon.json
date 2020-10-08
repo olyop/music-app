@@ -1,11 +1,9 @@
 {
 	"verbose": false,
 	"watch": ["dist"],
-	"ext": "js,json,sql,gql,env",
+	"ext": "js,sql,gql,env",
 	"ignore": [
 		"src",
-		".git",
-		"dist/build/**/*",
-		"node_modules/**/node_modules"
+		"dist/public/"
 	]
 }

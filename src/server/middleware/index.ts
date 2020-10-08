@@ -1,4 +1,5 @@
 export * from "./graphql"
-export * from "./serveIndex"
 export * from "./serveStatic"
+export * from "./serveUpload"
+export * from "./serveClient"
 export * from "./globalHeaders"

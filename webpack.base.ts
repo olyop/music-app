@@ -28,7 +28,6 @@ const config: Configuration = {
 		stats: "none",
 		compress: true,
 		clientLogLevel: "none",
-		historyApiFallback: true,
 		proxy: {
 			"**/index.html": "/client.html",
 			"**": `http://${HOST}:${DEV_SERVER_PORT}`,

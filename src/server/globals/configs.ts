@@ -47,8 +47,19 @@ export const CORS_CONFIG: CorsOptions = {
 }
 
 export const HELMET_CONFIG: HelmetOptions = {
-	hsts: false,
-	contentSecurityPolicy: IS_DEV ? false : undefined,
+	contentSecurityPolicy: IS_DEV ? false : {
+		directives: {
+			"img-src": ["self"],
+			"script-src": ["self"],
+			"object-src": ["none"],
+			"default-src": ["self"],
+			"script-src-attr": ["self"],
+			"block-all-mixed-content": [],
+			"upgrade-insecure-requests": [],
+			"font-src": ["fonts.gstatic.com"],
+			"style-src": ["self","fonts.googleapis.com"],
+		},
+	},
 }
 
 export const AWS_S3_CREATE_BUCKET_CONFIG: CreateBucketRequest = {

@@ -46,6 +46,6 @@ app.use(
 )
 
 app.use("/upload", serveUpload())
-app.use("*", serveClient())
+app.use(serveClient())
 
 http.createServer(app).listen(PORT, HOST)

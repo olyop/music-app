@@ -71,6 +71,7 @@
 	"terminal.integrated.confirmOnExit": true,
 	"editor.find.autoFindInSelection": "never",
 	"terminal.integrated.rendererType": "canvas",
+	"workbench.editor.pinnedTabSizing": "compact",
 	"terminal.integrated.windowsEnableConpty": false,
 	"editor.fontFamily": "Liberation Mono, monospace",
 	"typescript.tsdk": "c:\\code\\music-app\\node_modules\\typescript\\lib",

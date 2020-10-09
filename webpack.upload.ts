@@ -17,6 +17,7 @@ const UPLOAD_ENTRY_PATH = path.join(UPLOAD_PATH, "index.html")
 const config: Configuration = {
 	entry: UPLOAD_ROOT_PATH,
 	devServer: {
+		index: "upload.html",
 		port: parseInt(DEV_UPLOAD_PORT),
 	},
 	plugins: [

@@ -19,6 +19,7 @@ const config: Configuration = {
 	entry: CLIENT_ROOT_PATH,
 	devServer: {
 		open: true,
+		index: "client.html",
 		port: parseInt(DEV_CLIENT_PORT),
 	},
 	plugins: [

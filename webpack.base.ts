@@ -1,7 +1,6 @@
 import path from "path"
 import dotenv from "dotenv"
 import { Configuration } from "webpack"
-import WriteFilePlugin from "write-file-webpack-plugin"
 import CompressionPlugin from "compression-webpack-plugin"
 import MiniCssExtractPlugin from "mini-css-extract-plugin"
 import { BundleAnalyzerPlugin } from "webpack-bundle-analyzer"
@@ -31,8 +30,8 @@ const config: Configuration = {
 		clientLogLevel: "none",
 		historyApiFallback: true,
 		proxy: {
-			"/index.html": "/",
-			"*": `http://${HOST}:${DEV_SERVER_PORT}`,
+			"**/index.html": "/client.html",
+			"**": `http://${HOST}:${DEV_SERVER_PORT}`,
 		},
 	},
 	resolve: {
@@ -65,9 +64,7 @@ const config: Configuration = {
 			},
 		],
 	},
-	plugins: IS_DEV ? [
-		new WriteFilePlugin(),
-	] : [
+	plugins: IS_DEV ? undefined : [
 		new CompressionPlugin(),
 		new OptimizeCssAssetsPlugin(),
 		new MiniCssExtractPlugin({ filename: "[hash].css" }),

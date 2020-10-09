@@ -6,7 +6,7 @@ import MiniCssExtractPlugin from "mini-css-extract-plugin"
 import { BundleAnalyzerPlugin } from "webpack-bundle-analyzer"
 import OptimizeCssAssetsPlugin from "optimize-css-assets-webpack-plugin"
 
-const { HOST, NODE_ENV, DEV_SERVER_PORT } = dotenv.config().parsed!
+const { HOST, DEV_SERVER_PORT, NODE_ENV } = dotenv.config().parsed!
 const IS_DEV = NODE_ENV === "development"
 
 const ROOT_PATH = process.cwd()
@@ -28,8 +28,8 @@ const config: Configuration = {
 		stats: "none",
 		compress: true,
 		clientLogLevel: "none",
+		historyApiFallback: true,
 		proxy: {
-			"**/index.html": "/client.html",
 			"**": `http://${HOST}:${DEV_SERVER_PORT}`,
 		},
 	},

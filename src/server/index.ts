@@ -21,7 +21,6 @@ import {
 	PORT,
 	LOG_FORMAT,
 	CORS_CONFIG,
-	HELMET_CONFIG,
 } from "./globals"
 
 import initialize from "./initialize"
@@ -33,7 +32,7 @@ const app = express()
 // middleware stack
 app.use(
 	logger(LOG_FORMAT),
-	helmet(HELMET_CONFIG),
+	helmet(),
 	cors(CORS_CONFIG),
 	globalHeaders(),
 	compression(),

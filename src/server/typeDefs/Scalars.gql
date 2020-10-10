@@ -6,3 +6,5 @@ scalar Upload
 scalar Timestamp
 scalar PositiveInt
 scalar NonNegativeInt
+
+directive @cacheControl(maxAge: NonNegativeInt) on FIELD_DEFINITION

@@ -40,15 +40,6 @@ const config: Configuration = {
 	module: {
 		rules: [
 			{
-				test: /\.scss$/,
-				exclude: /node_modules/,
-				loader: [
-					IS_DEV ? "style-loader" : MiniCssExtractPlugin.loader,
-					"css-loader",
-					"sass-loader",
-				],
-			},
-			{
 				test: /\.gql$/,
 				exclude: /node_modules/,
 				loader: "graphql-tag/loader",
@@ -60,6 +51,15 @@ const config: Configuration = {
 				options: {
 					onlyCompileBundledFiles: true,
 				},
+			},
+			{
+				test: /\.scss$/,
+				exclude: /node_modules/,
+				loader: [
+					IS_DEV ? "style-loader" : MiniCssExtractPlugin.loader,
+					"css-loader",
+					"sass-loader",
+				],
 			},
 		],
 	},

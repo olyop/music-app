@@ -1,14 +1,16 @@
 type Artist {
 	name: String!
 	artistId: Uuid!
-	playsTotal: PositiveInt
-	songsTotal: NonNegativeInt!
-	albumsTotal: NonNegativeInt!
+
 	inLibrary(userId: Uuid!): Boolean!
 	userPlays(userId: Uuid!): [Play!]!
-	photo(size: ArtistPhotoSize!): Url!
 	dateAdded(userId: Uuid!): Timestamp
-	songs(orderBy: SongOrderByInput!): [Song!]!
 	userPlaysTotal(userId: Uuid!): NonNegativeInt
-	albums(orderBy: AlbumOrderByInput!): [Album!]!
+
+	playsTotal: PositiveInt @cacheControl(maxAge: 300)
+	songsTotal: NonNegativeInt! @cacheControl(maxAge: Infinity)
+	albumsTotal: NonNegativeInt! @cacheControl(maxAge: Infinity)
+	photo(size: ArtistPhotoSize!): Url! @cacheControl(maxAge: Infinity)
+	songs(orderBy: SongOrderByInput!): [Song!]! @cacheControl(maxAge: Infinity)
+	albums(orderBy: AlbumOrderByInput!): [Album!]! @cacheControl(maxAge: Infinity)
 }

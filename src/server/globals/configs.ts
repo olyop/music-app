@@ -1,6 +1,5 @@
 import { PoolConfig } from "pg"
 import { CorsOptions } from "cors"
-import { HelmetOptions } from "helmet"
 import { APP } from "@oly_op/music-app-common/globals"
 import { CreateBucketRequest } from "aws-sdk/clients/s3"
 import { ApolloServerExpressConfig, GetMiddlewareOptions } from "apollo-server-express"
@@ -44,22 +43,6 @@ export const APOLLO_SERVER_CONFIG: ApolloServerExpressConfig = {
 
 export const CORS_CONFIG: CorsOptions = {
 	origin: IS_DEV && `http://${HOST}:${PORT}/`,
-}
-
-export const HELMET_CONFIG: HelmetOptions = {
-	contentSecurityPolicy: IS_DEV ? false : {
-		directives: {
-			"img-src": ["self"],
-			"script-src": ["self"],
-			"object-src": ["none"],
-			"default-src": ["self"],
-			"script-src-attr": ["self"],
-			"block-all-mixed-content": [],
-			"upgrade-insecure-requests": [],
-			"font-src": ["fonts.gstatic.com"],
-			"style-src": ["self","fonts.googleapis.com"],
-		},
-	},
 }
 
 export const AWS_S3_CREATE_BUCKET_CONFIG: CreateBucketRequest = {

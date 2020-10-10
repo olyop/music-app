@@ -1,17 +1,19 @@
 type Song {
 	mix: String!
 	songId: Uuid!
-	album: Album!
 	title: String!
-	genres: [Genre!]!
 	size: PositiveInt!
-	artists: [Artist!]!
-	remixers: [Artist!]!
-	featuring: [Artist!]!
 	duration: PositiveInt!
 	discNumber: PositiveInt!
 	trackNumber: PositiveInt!
-	playsTotal: NonNegativeInt
+
+	album: Album! @cacheControl(maxAge: Infinity)
+	genres: [Genre!]! @cacheControl(maxAge: Infinity)
+	artists: [Artist!]! @cacheControl(maxAge: Infinity)
+	remixers: [Artist!]! @cacheControl(maxAge: Infinity)
+	featuring: [Artist!]! @cacheControl(maxAge: Infinity)
+	playsTotal: NonNegativeInt @cacheControl(maxAge: 300)
+
 	userPlays(userId: Uuid!): [Play!]!
 	inLibrary(userId: Uuid!): Boolean!
 	dateAdded(userId: Uuid!): Timestamp

@@ -15,7 +15,8 @@ import { Song, Album, Artist } from "./types"
 
 const userMerge = <T,>(): FieldMergeFunction<T[]> =>
 	(existing, incoming) =>
-		(existing && isEmpty(incoming) && existing.length !== 1 ? existing : incoming)
+		(existing && isEmpty(incoming) && existing.length !== 1 ?
+			existing : incoming)
 
 const userDocs = <T,>(): FieldPolicy<T[]> =>
 	({ merge: userMerge() })

@@ -1,49 +1,49 @@
 enum ArtistPhotoSize {
-  MINI
-  HALF
-  FULL
+	MINI
+	HALF
+	FULL
 }
 
 enum AlbumCoverSize {
-  HALF
-  FULL
+	HALF
+	FULL
 }
 
 enum OrderByDirection {
-  ASC
-  DESC
+	ASC
+	DESC
 }
 
 enum SongOrderByField {
-  TITLE
-  DURATION
+	TITLE
+	DURATION
 }
 
 enum UserSongOrderByField {
 	TITLE
-  DURATION
+	DURATION
 	DATE_ADDED
 }
 
 enum ArtistOrderByField {
-  NAME
+	NAME
 }
 
 enum UserArtistOrderByField {
-  NAME
-  DATE_ADDED
+	NAME
+	DATE_ADDED
 }
 
 enum AlbumOrderByField {
-  TITLE
-  RELEASED
+	TITLE
+	RELEASED
 }
 
 enum PlaylistOrderByField {
-  NAME
+	NAME
 }
 
 enum UserPlaylistOrderByField {
-  NAME
-  DATE_ADDED
+	NAME
+	DATE_ADDED
 }

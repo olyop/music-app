@@ -1,14 +1,16 @@
 type Album {
-	albumId: Uuid!
 	title: String!
+	albumId: Uuid!
 	released: Date!
-	songs: [Song!]!
-	genres: [Genre!]!
-	artists: [Artist!]!
 	duration: PositiveInt!
-	songsTotal: NonNegativeInt!
-	playsTotal: NonNegativeInt!
+
 	userPlays(userId: Uuid!): [Play!]!
-	cover(size: AlbumCoverSize!): Url!
 	userPlaysTotal(userId: Uuid!): NonNegativeInt!
+ 
+	songs: [Song!]! @cacheControl(maxAge: Infinity)
+	genres: [Genre!]! @cacheControl(maxAge: Infinity)
+	artists: [Artist!]! @cacheControl(maxAge: Infinity)
+	playsTotal: NonNegativeInt! @cacheControl(maxAge: 300)
+	songsTotal: NonNegativeInt! @cacheControl(maxAge: Infinity)
+	cover(size: AlbumCoverSize!): Url! @cacheControl(maxAge: Infinity)
 }

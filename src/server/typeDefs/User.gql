@@ -1,13 +1,14 @@
 type User {
 	userId: Uuid!
 	name: String!
-	current: Song
 	email: Email!
+	dateJoined: Timestamp!
+
+	current: Song
 	prev: [Song!]!
 	next: [Song!]!
 	later: [Song!]!
 	plays: [Play!]!
-	dateJoined: Timestamp!
 	playsTotal: NonNegativeInt
 	songs(orderBy: UserSongOrderByInput!): [Song!]!
 	artists(orderBy: UserArtistOrderByInput!): [Artist!]!

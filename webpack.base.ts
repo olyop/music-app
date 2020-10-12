@@ -3,13 +3,13 @@ import dotenv from "dotenv"
 import { Configuration } from "webpack"
 import CompressionPlugin from "compression-webpack-plugin"
 import MiniCssExtractPlugin from "mini-css-extract-plugin"
-import { BundleAnalyzerPlugin } from "webpack-bundle-analyzer"
+// import { BundleAnalyzerPlugin } from "webpack-bundle-analyzer"
 import OptimizeCssAssetsPlugin from "optimize-css-assets-webpack-plugin"
 
 const { HOST, DEV_SERVER_PORT, NODE_ENV } = dotenv.config().parsed!
 const IS_DEV = NODE_ENV === "development"
 
-const ROOT_PATH = process.cwd()
+const ROOT_PATH = __dirname
 const BUILD_PATH = path.join(ROOT_PATH, "dist", "public")
 
 const config: Configuration = {
@@ -25,13 +25,12 @@ const config: Configuration = {
 		host: HOST,
 		quiet: true,
 		noInfo: true,
-		stats: "none",
+		overlay: true,
+		stats: "error",
 		compress: true,
+		contentBase: false,
 		clientLogLevel: "none",
 		historyApiFallback: true,
-		proxy: {
-			"**": `http://${HOST}:${DEV_SERVER_PORT}`,
-		},
 	},
 	resolve: {
 		symlinks: false,
@@ -67,7 +66,7 @@ const config: Configuration = {
 		new CompressionPlugin(),
 		new OptimizeCssAssetsPlugin(),
 		new MiniCssExtractPlugin({ filename: "[hash].css" }),
-		new BundleAnalyzerPlugin({ analyzerMode: "static", defaultSizes: "gzip" }),
+		// new BundleAnalyzerPlugin({ analyzerMode: "static", defaultSizes: "gzip" }),
 	],
 }
 

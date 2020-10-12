@@ -6,7 +6,7 @@ import HtmlWebpackPlugin from "html-webpack-plugin"
 
 import baseConfig from "./webpack.base"
 
-const { DEV_UPLOAD_PORT } = dotenv.config().parsed!
+const { HOST, DEV_SERVER_PORT, DEV_UPLOAD_PORT } = dotenv.config().parsed!
 
 const ROOT_PATH = process.cwd()
 const SRC_PATH = path.join(ROOT_PATH, "src")
@@ -19,6 +19,10 @@ const config: Configuration = {
 	devServer: {
 		index: "upload.html",
 		port: parseInt(DEV_UPLOAD_PORT),
+		proxy: {
+			"**/*.html": "/",
+			"**": `http://${HOST}:${DEV_SERVER_PORT}`,
+		},
 	},
 	plugins: [
 		new HtmlWebpackPlugin({

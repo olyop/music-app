@@ -7,7 +7,7 @@ import HtmlWebpackPlugin from "html-webpack-plugin"
 
 import baseConfig from "./webpack.base"
 
-const { DEV_CLIENT_PORT } = dotenv.config().parsed!
+const { HOST, DEV_SERVER_PORT, DEV_CLIENT_PORT } = dotenv.config().parsed!
 
 const ROOT_PATH = process.cwd()
 const SRC_PATH = path.join(ROOT_PATH, "src")
@@ -20,7 +20,12 @@ const config: Configuration = {
 	devServer: {
 		open: true,
 		index: "client.html",
+		openPage: "/browse/songs",
 		port: parseInt(DEV_CLIENT_PORT),
+		proxy: {
+			"**/*.html": "/",
+			"**": `http://${HOST}:${DEV_SERVER_PORT}`,
+		},
 	},
 	plugins: [
 		new DotenvPlugin(),

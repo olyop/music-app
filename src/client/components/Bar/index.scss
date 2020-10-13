@@ -1,20 +1,21 @@
-.PlayerBar {
+.Bar {
 	z-index: 2;
 	display: flex;
 	flex-direction: row;
 	height: var(--player-height);
-	&__icon {
-		color: var(--text-color); }
-	&__main,
-	&__controls {
-		padding: var(--space-half) var(--space); }
-	&__controls {
-		border-right: 1px solid var(--border-color); }
 	&__fullscreen {
-		width: 600px;
-		display: flex;
-		align-items: center;
-		flex-direction: column;
+		width: 100%;
+		height: 100%;
+		background-color: var(--background-color);
+		&-main {
+			top: 50%;
+			left: 50%;
+			width: 600px;
+			display: flex;
+			position: absolute;
+			align-items: center;
+			flex-direction: column;
+			transform: translate(-50%, -50%); }
 		&-cover {
 			width: 100%;
 			margin-bottom: var(--space-double);
@@ -49,6 +50,13 @@
 			font-size: 20rem;
 			font-weight: 500;
 			margin-bottom: calc(var(--space) * 2.25); } }
+	&__icon {
+		color: var(--text-color); }
+	&__main,
+	&__controls {
+		padding: var(--space-half) var(--space); }
+	&__controls {
+		border-right: 1px solid var(--border-color); }
 	&__main {
 		width: 100%;
 		display: flex;

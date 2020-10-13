@@ -7,9 +7,9 @@ import HtmlWebpackPlugin from "html-webpack-plugin"
 
 import baseConfig from "./webpack.base"
 
-const { HOST, DEV_SERVER_PORT, DEV_CLIENT_PORT } = dotenv.config().parsed!
+const { DEV_CLIENT_PORT } = dotenv.config().parsed!
 
-const ROOT_PATH = process.cwd()
+const ROOT_PATH = __dirname
 const SRC_PATH = path.join(ROOT_PATH, "src")
 const CLIENT_PATH = path.join(SRC_PATH, "client")
 const CLIENT_ROOT_PATH = path.join(CLIENT_PATH, "index.tsx")
@@ -20,12 +20,9 @@ const config: Configuration = {
 	devServer: {
 		open: true,
 		index: "client.html",
-		openPage: "/browse/songs",
+		openPage: "browse/songs",
 		port: parseInt(DEV_CLIENT_PORT),
-		proxy: {
-			"**/*.html": "/",
-			"**": `http://${HOST}:${DEV_SERVER_PORT}`,
-		},
+		historyApiFallback: { index: "/client.html" },
 	},
 	plugins: [
 		new DotenvPlugin(),

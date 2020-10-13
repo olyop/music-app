@@ -2,6 +2,6 @@ type Play {
 	playId: Uuid!
 	dateCreated: Timestamp!
 
-	user: User! @cacheControl(maxAge: Infinity)
-	song: Song! @cacheControl(maxAge: Infinity)
+	user: User!
+	song: Song!
 }

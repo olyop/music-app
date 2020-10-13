@@ -19,10 +19,8 @@ const config: Configuration = {
 	devServer: {
 		index: "upload.html",
 		port: parseInt(DEV_UPLOAD_PORT),
-		proxy: {
-			"**/*.html": "/",
-			"**": `http://${HOST}:${DEV_SERVER_PORT}`,
-		},
+		historyApiFallback: { index: "upload.html" },
+		proxy: { "**": `http://${HOST}:${DEV_SERVER_PORT}` },
 	},
 	plugins: [
 		new HtmlWebpackPlugin({

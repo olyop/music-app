@@ -5,7 +5,7 @@ type Genre {
 	userPlays(userId: Uuid!): [Play!]
 	userPlaysTotal(userId: Uuid!): NonNegativeInt
 
-	playsTotal: NonNegativeInt! @cacheControl(maxAge: 300)
-	songsTotal: PositiveInt @cacheControl(maxAge: Infinity)
-	songs(orderBy: SongOrderByInput!): [Song!]! @cacheControl(maxAge: Infinity)
+	songsTotal: PositiveInt
+	playsTotal: NonNegativeInt!
+	songs(orderBy: SongOrderByInput!): [Song!]!
 }

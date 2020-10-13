@@ -9,8 +9,8 @@ type Playlist {
 	dateAdded(userId: Uuid!): Timestamp
 	userPlaysTotal(userId: Uuid!): NonNegativeInt
 
-	user: User! @cacheControl(maxAge: Infinity)
-	songs: [Song!]! @cacheControl(maxAge: Infinity)
-	playsTotal: NonNegativeInt @cacheControl(maxAge: 300)
-	songsTotal: NonNegativeInt @cacheControl(maxAge: Infinity)
+	user: User!
+	songs: [Song!]!
+	playsTotal: NonNegativeInt
+	songsTotal: NonNegativeInt
 }

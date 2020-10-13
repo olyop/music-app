@@ -8,10 +8,23 @@ type Query {
 	genre(genreId: Uuid!): Genre!
 	artist(artistId: Uuid!): Artist!
 	playlist(playlistId: Uuid!): Playlist!
-	songs(page: NonNegativeInt! orderBy: SongOrderByInput!): [Song!]!
-	albums(page: NonNegativeInt! orderBy: AlbumOrderByInput!): [Album!]!
-	artists(page: NonNegativeInt! orderBy: ArtistOrderByInput!): [Artist!]!
-	playlists(page: NonNegativeInt! orderBy: PlaylistOrderByInput!): [Playlist!]!
+
+	songs(
+		page: NonNegativeInt!
+		orderBy: SongOrderByInput!
+	): [Song!]!
+	albums(
+		page: NonNegativeInt!
+		orderBy: AlbumOrderByInput!
+	): [Album!]!
+	artists(
+		page: NonNegativeInt!
+		orderBy: ArtistOrderByInput!
+	): [Artist!]!
+	playlists(
+		page: NonNegativeInt!
+		orderBy: PlaylistOrderByInput!
+	): [Playlist!]!
 
 	# advanced queries
 	newAlbums: [Album!]!

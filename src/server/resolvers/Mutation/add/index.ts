@@ -34,9 +34,14 @@ import {
 import recieve from "./recieve"
 import isValid from "./isValid"
 import { Input } from "./types"
-import { pg } from "../../../services"
+import { ag, pg } from "../../../services"
 import { sql, createResolver } from "../../../helpers"
 import { populateSong, populateAlbum } from "./populate"
+
+const songsIndex = ag.initIndex("songs")
+const genresIndex = ag.initIndex("genres")
+const albumsIndex = ag.initIndex("albums")
+const artistsIndex = ag.initIndex("artists")
 
 export const add =
 	createResolver()<string, Input>(
@@ -62,7 +67,8 @@ export const add =
 							determineFailedChecks(checks, results),
 						)
 					} else {
-						await query(insertGenre(genre))
+						const { genreId } = await query(insertGenre(genre))
+						await genresIndex.saveObject({ name: genre.name, objectID: genreId })
 					}
 				}
 
@@ -77,6 +83,7 @@ export const add =
 					} else {
 						const { artistId } = await query(insertArtist(artist))
 						await uploadArtistPhotos(artistId, artist.photo)
+						await artistsIndex.saveObject({ name: artist.name, objectID: artistId })
 					}
 				}
 
@@ -93,6 +100,7 @@ export const add =
 						const { albumId } = await query(insertAlbum(albumPopulated))
 						const artistsConfig = albumPopulated.artists.map(insertAlbumArtist(albumId))
 						await Promise.all(artistsConfig.map(query))
+						await albumsIndex.saveObject({ objectID: albumId,title: album.title })
 						for (const song of album.songs) {
 							const songPopulated = await populateSong(client)(song)
 							const checkss = songChecks(client)(songPopulated, albumId)
@@ -114,6 +122,7 @@ export const add =
 								await Promise.all(remixersConfig.map(query))
 								await Promise.all(featuringConfig.map(query))
 								await uploadSong(songId, songPopulated.audio)
+								await songsIndex.saveObject({ objectID: songId, title: album.title })
 							}
 						}
 						await uploadAlbumCovers(albumId, albumPopulated.cover)

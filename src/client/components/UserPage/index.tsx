@@ -34,7 +34,7 @@ const UserPage: FC = () => {
 		<QueryApi<Data, UserVar>
 			query={GET_USER_PAGE}
 			variables={{ userId }}
-			className={bem("", "Padding", "Content")}
+			className={bem("", "Content")}
 			children={
 				({ data }) => data && (
 					<Helmet title={data.user.name}>

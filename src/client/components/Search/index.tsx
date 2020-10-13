@@ -95,7 +95,7 @@ const Search: FC = () => {
 
 	return (
 		<div className={bem("")}>
-			<div className={bem("bar", "Padding")}>
+			<div className={bem("bar", "Content")}>
 				<input
 					autoFocus
 					value={input}

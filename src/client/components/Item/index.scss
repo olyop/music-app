@@ -11,12 +11,16 @@
 	&__play {
 		--fix: -3px;
 		margin-left: var(--fix);
-		margin-right: calc(var(--gap) + var(--fix)); }
+		margin-right: calc(var(--gap) + var(--fix));
+		@media (max-width: 800px) {
+			display: none; } }
 	&__img-link {
 		margin-right: var(--gap); }
 	&__img {
 		width: var(--info-height);
-		height: var(--info-height); }
+		height: var(--info-height);
+		@media (max-width: 800px) {
+			border-radius: 100%; } }
 	&__info {
 		width: 100%;
 		overflow-x: hidden;
@@ -37,6 +41,8 @@
 			white-space: nowrap;
 			text-overflow: clip;
 			color: var(--text-color-light);
-			margin-right: var(--space-quart); } }
+			margin-right: var(--space-quart);
+			@media (max-width: 800px) {
+				display: none; } } }
 	&__more {
 		margin-right: -5px; } }

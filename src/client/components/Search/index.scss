@@ -1,7 +1,6 @@
 .Search {
 	&__bar {
-		width: 600rem;
-		margin: 0 auto;
+		padding: var(--space) 0;
 		&-input {
 			border: 0;
 			width: 100%;

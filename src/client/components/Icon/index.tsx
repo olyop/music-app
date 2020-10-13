@@ -6,7 +6,7 @@ import "./index.scss"
 const bem = createBem("Icon")
 
 const Icon: FC<PropTypes> = ({ icon, title, onClick, className }) => (
-	<i
+	<span
 		title={title}
 		children={icon}
 		onClick={onClick}

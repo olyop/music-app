@@ -1,4 +1,5 @@
 .UserPage {
+	padding: var(--space) 0;
 	&__name {
 		font-size: 30rem; }
 	&__select-option::first-letter {

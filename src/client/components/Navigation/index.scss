@@ -1,4 +1,9 @@
 .Navigation {
+	padding-bottom: var(--space-quart);
+	@media (max-width: 800px) {
+		justify-content: center; }
+	@media (max-width: 600px) {
+		justify-content: space-between; }
 	&__link {
 		--text-height: 20rem;
 		width: auto;
@@ -8,7 +13,8 @@
 		align-items: center;
 		text-decoration: none;
 		margin: 0 var(--space-half);
-		padding-bottom: var(--space-quart);
+		@media (max-width: 600px) {
+			margin: 0 var(--space-quart); }
 		&:first-child {
 			margin-left: 0; }
 		&:last-child {
@@ -26,14 +32,15 @@
 				background-color: transparent !important; } }
 		&-text {
 			font-weight: 600;
+			padding-right: 4px;
 			text-decoration: none;
 			text-transform: uppercase; } }
 	&__active {
 		&::after {
-			width: 100%;
-			height: 3px;
+			height: 2px;
 			content: "";
-			bottom: -3px;
+			bottom: -2px;
 			position: absolute;
 			border-radius: 4px;
-			background-color: #333; } } }
+			background-color: #333;
+			width: 100%; } } }

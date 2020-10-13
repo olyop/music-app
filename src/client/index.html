@@ -37,7 +37,7 @@
 				--info-height: 35rem;
 				--header-height: 60px;
 				--player-height: 96px;
-				--player-height-mobile: 120px;
+				--player-height-mobile: 125px;
 
 				--sidebar-width: 300px;
 
@@ -161,14 +161,20 @@
 				justify-content: flex-end; }
 
 			.Content {
-				margin-left: var(--space);
-				margin-right: var(--space); }
+				width: 1300px;
+				margin-left: auto;
+				margin-right: auto; }
 
-			@media (min-width: 1360px) {
+			@media (max-width: 1360px) {
 				.Content {
-					width: 1300rem;
-					margin-left: auto;
-					margin-right: auto;} }
+					width: auto;
+					margin-left: var(--space);
+					margin-right: var(--space); } }
+
+			@media (max-width: 600px) {
+				.Content {
+					margin-left: var(--space-half);
+					margin-right: var(--space-half); } }
 
 			.Card {
 				overflow: hidden;

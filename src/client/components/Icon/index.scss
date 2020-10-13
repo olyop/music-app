@@ -1,10 +1,10 @@
 .Icon {
 	padding: 3rem;
 	outline: none;
+	display: block;
 	cursor: pointer;
 	user-select: none;
 	border-radius: 100%;
-	display: block !important;
 	overflow: hidden !important;
 	min-width: var(--info-height);
 	min-height: var(--info-height);

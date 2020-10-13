@@ -42,7 +42,7 @@ export const APOLLO_SERVER_CONFIG: ApolloServerExpressConfig = {
 }
 
 export const CORS_CONFIG: CorsOptions = {
-	origin: IS_DEV && `http://${HOST}:${PORT}/`,
+	origin: IS_DEV ? `http://${HOST}:${PORT}/` : undefined,
 }
 
 export const AWS_S3_CREATE_BUCKET_CONFIG: CreateBucketRequest = {

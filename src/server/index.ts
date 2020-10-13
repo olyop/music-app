@@ -1,6 +1,5 @@
 import cors from "cors"
 import http from "http"
-import logger from "morgan"
 import helmet from "helmet"
 import express from "express"
 import bodyParser from "body-parser"
@@ -9,6 +8,7 @@ import cookieParser from "cookie-parser"
 import { graphqlUploadExpress } from "graphql-upload"
 
 import {
+	logger,
 	graphql,
 	serveStatic,
 	serveUpload,
@@ -19,7 +19,6 @@ import {
 import {
 	HOST,
 	PORT,
-	LOG_FORMAT,
 	CORS_CONFIG,
 } from "./globals"
 
@@ -31,7 +30,7 @@ const app = express()
 
 // middleware stack
 app.use(
-	logger(LOG_FORMAT),
+	logger(),
 	helmet(),
 	cors(CORS_CONFIG),
 	globalHeaders(),

@@ -1,3 +1,4 @@
+export * from "./logger"
 export * from "./graphql"
 export * from "./serveStatic"
 export * from "./serveUpload"

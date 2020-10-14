@@ -9,12 +9,12 @@ import "./index.scss"
 
 const className = "SongTitle"
 
-const SongTitle: FC<PropTypes> = ({ song, showRemixers = true }) => {
+const SongTitle: FC<PropTypes> = ({ song, onClick, showRemixers = true }) => {
 	const { mix, remixers } = song
 	if (showRemixers) {
 		return (
 			<Fragment>
-				<DocLink doc={song}/>
+				<DocLink doc={song} onClick={onClick}/>
 				{isEmpty(remixers) ? (
 					<Fragment>
 						{isEmpty(mix) ? null : (
@@ -39,7 +39,7 @@ const SongTitle: FC<PropTypes> = ({ song, showRemixers = true }) => {
 	} else {
 		return (
 			<Fragment>
-				<DocLink doc={song}/>
+				<DocLink doc={song} onClick={onClick}/>
 				{isEmpty(mix) ? null : (
 					<span className={className}>
 						<Fragment> - </Fragment>
@@ -54,6 +54,7 @@ const SongTitle: FC<PropTypes> = ({ song, showRemixers = true }) => {
 
 interface PropTypes {
 	song: Song,
+	onClick?: () => void,
 	showRemixers?: boolean,
 }
 

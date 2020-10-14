@@ -36,8 +36,8 @@ const GenrePage: FC = () => {
 						className={bem("", "Elevated")}
 					/>
 					<Songs
-						className="Margin"
 						orderByKey="songs"
+						className="Content"
 						songs={data.genre.songs}
 						orderByFields={Object.keys(SongsOrderByField)}
 					/>

@@ -93,7 +93,7 @@ const Item = <D extends Doc, I extends Doc = Doc>({
 				{showInLibrary(hideInLibrary, doc) && (
 					<InLibraryButton
 						doc={doc}
-						className={bem(iconClassName)}
+						className={bem(iconClassName, "add")}
 					/>
 				)}
 				<Icon

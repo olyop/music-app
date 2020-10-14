@@ -1,3 +1,4 @@
+import { createBem } from "@oly_op/bem"
 import { createElement, FC } from "react"
 import { Switch, Route, RouteComponentProps } from "react-router-dom"
 
@@ -5,13 +6,17 @@ import routes from "./routes"
 import Helmet from "../Helmet"
 import Navigation from "../Navigation"
 
+import "./index.scss"
+
+const bem = createBem("Browse")
+
 const Browse: FC<RouteComponentProps> = ({ match }) => (
 	<Helmet title="Browse">
-		<div className="PaddingTop PaddingBottom">
+		<div className={bem("")}>
 			<Navigation
 				routes={routes}
 				path={match.path}
-				className="MarginBottom"
+				className={bem("nav")}
 			/>
 			<Switch>
 				{routes.map(

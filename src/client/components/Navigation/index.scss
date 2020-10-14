@@ -6,6 +6,8 @@
 		justify-content: space-between; }
 	&__link {
 		--text-height: 20rem;
+		@media (max-width: 475px) {
+			--text-height: 18rem; }
 		width: auto;
 		height: 100%;
 		display: flex;
@@ -28,6 +30,8 @@
 			color: var(--text-color);
 			min-width: var(--text-height);
 			min-height: var(--text-height);
+			@media (max-width: 475px) {
+				margin-right: 0; }
 			&:hover {
 				background-color: transparent !important; } }
 		&-text {

@@ -1,6 +1,9 @@
 .GenrePage {
 	font-size: 30rem;
 	text-align: center;
+	margin-bottom: var(--space);
 	box-shadow: var(--box-shadow);
 	padding: var(--space-one-half);
-	background: linear-gradient(to right, #ada996, #f2f2f2, #dbdbdb, #eaeaea); }
+	background: linear-gradient(to right, #ada996, #f2f2f2, #dbdbdb, #eaeaea);
+	@media (max-width: 600px) {
+		margin-bottom: var(--space-half); } }

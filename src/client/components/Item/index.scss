@@ -1,5 +1,7 @@
 .Item {
 	--gap: calc(var(--space) * 0.4);
+	@media (max-width: 800px) {
+		--gap: calc(var(--space) * 0.3); }
 	&:hover &__in-lib {
 		display: block; }
 	&__left {
@@ -10,10 +12,10 @@
 		margin: 2rem var(--gap) 0 calc(var(--gap) - 5rem); }
 	&__play {
 		--fix: -3px;
-		margin-left: var(--fix);
-		margin-right: calc(var(--gap) + var(--fix));
 		@media (max-width: 800px) {
-			display: none; } }
+			--fix: -6px; }
+		margin-left: var(--fix);
+		margin-right: calc(var(--gap) + var(--fix)); }
 	&__img-link {
 		margin-right: var(--gap); }
 	&__img {
@@ -45,4 +47,6 @@
 			@media (max-width: 800px) {
 				display: none; } } }
 	&__more {
-		margin-right: -5px; } }
+		margin-right: -5px;
+		@media (max-width: 600px) {
+			margin-left: -5px; } } }

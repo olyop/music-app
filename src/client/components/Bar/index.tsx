@@ -70,6 +70,7 @@ const Bar: FC = () => {
 												<SongTitle
 													showRemixers
 													song={data.user.current}
+													onClick={fullscreen.exit}
 												/>
 											</h1>
 											<InLibraryButton
@@ -78,12 +79,21 @@ const Bar: FC = () => {
 											/>
 										</div>
 										<h3 className={bem("fullscreen-artists", "fullscreen-text")}>
-											<FeaturingArtists song={data.user.current}/>
+											<FeaturingArtists
+												song={data.user.current}
+												onClick={fullscreen.exit}
+											/>
 										</h3>
 										<h2 className={bem("fullscreen-album", "fullscreen-text")}>
-											<DocLink doc={data.user.current.album}/>
+											<DocLink
+												onClick={fullscreen.exit}
+												doc={data.user.current.album}
+											/>
 											<Fragment> - </Fragment>
-											<DocLinks docs={data.user.current.genres}/>
+											<DocLinks
+												onClick={fullscreen.exit}
+												docs={data.user.current.genres}
+											/>
 										</h2>
 										<Progress
 											className={bem("fullscreen-progreess")}

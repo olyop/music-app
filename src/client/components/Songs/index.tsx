@@ -6,6 +6,8 @@ import Song from "../Song"
 import OrderBy from "../OrderBy"
 import { OrderBySettings, Song as SongType } from "../../types"
 
+import "./index.scss"
+
 const bem = createBem("Songs")
 
 const Songs: FC<PropTypes> = ({
@@ -28,7 +30,7 @@ const Songs: FC<PropTypes> = ({
 				<Song
 					song={song}
 					key={song.songId}
-					className="PaddingHalf Hover ItemBorder"
+					className={bem("", "Hover ItemBorder")}
 				/>
 			),
 		)}

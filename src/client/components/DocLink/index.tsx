@@ -11,21 +11,23 @@ import { Doc } from "../../types"
 
 import "./index.scss"
 
-interface PropTypes<T> {
-	doc: T,
-}
-
-const DocLink = <T extends Doc,>({ doc }: PropTypes<T>) => {
+const DocLink = <T extends Doc,>({ doc, onClick }: PropTypes<T>) => {
 	const text = determineDocName(doc)
 	return (
 		<Link
 			title={text}
 			children={text}
+			onClick={onClick}
 			className="DocLink"
 			id={determineDocId(doc)}
 			to={determineDocPath(doc)}
 		/>
 	)
+}
+
+interface PropTypes<T> {
+	doc: T,
+	onClick?: () => void,
 }
 
 export default DocLink

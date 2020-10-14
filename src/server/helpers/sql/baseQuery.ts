@@ -75,9 +75,10 @@ export const baseQuery =
 		<TReturn>(input: string | SqlConfig<TReturn>) =>
 			new Promise<TReturn>(
 				(resolve, reject) => {
-					const { sql, log, parse, variables = [] } =
+					const { sql, log, logVar, parse, variables = [] } =
 						normalizeInput(input)
 					const variableKeys = getVariableKeys(sql)
+					if (logVar) console.log(variables)
 					if (!areVariablesProvided(variableKeys, variables)) {
 						// eslint-disable-next-line max-len
 						const err = new TypeError(`Invalid query arguments. ${variables.map(({ key }) => key).toString()} - ${variableKeys.toString()}`)

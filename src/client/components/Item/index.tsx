@@ -106,7 +106,6 @@ const Item = <D extends Doc, I extends Doc = Doc>({
 				<Modal
 					onClose={closeMore}
 					buttons={modalButtons}
-					className={bem("modal")}
 				/>
 			)}
 		</Fragment>

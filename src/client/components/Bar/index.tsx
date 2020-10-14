@@ -13,6 +13,7 @@ import {
 import Img from "../Img"
 import Icon from "../Icon"
 import Song from "../Song"
+import Modal from "../Modal"
 import DocLink from "../DocLink"
 import DocLinks from "../DocLinks"
 import QueryApi from "../QueryApi"
@@ -33,16 +34,27 @@ const PlayerBarVolume = () => {
 	const showVolume = useStateShowVolume()
 	const handleVolumeClick = () => dispatch(toggleShowVolume())
 	return (
-		<Icon
-			title="Volume"
-			onClick={handleVolumeClick}
-			icon={showVolume ? "close" : "volume_up"}
-			className={bem(
-				"main-controls-control",
-				"icon",
-				"IconHover",
+		<Fragment>
+			{showVolume && (
+				<Modal
+					buttons={[{
+						text: "foo",
+						handler: () => {},
+					}]}
+					onClose={handleVolumeClick}
+				/>
 			)}
-		/>
+			<Icon
+				title="Volume"
+				icon="volume_up"
+				onClick={handleVolumeClick}
+				className={bem(
+					"main-controls-control",
+					"icon",
+					"IconHover",
+				)}
+			/>
+		</Fragment>
 	)
 }
 

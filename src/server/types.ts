@@ -25,6 +25,7 @@ export type SqlParse<T> = (res: SqlQueryRes) => T
 export interface SqlConfig<Return> {
 	sql: string,
 	log?: boolean,
+	logVar?: boolean,
 	parse?: SqlParse<Return>,
 	variables?: SqlVariable[],
 }

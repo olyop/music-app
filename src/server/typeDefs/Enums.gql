@@ -16,7 +16,9 @@ enum OrderByDirection {
 
 enum SongOrderByField {
 	TITLE
+	ALBUM
 	DURATION
+	RELEASED
 }
 
 enum UserSongOrderByField {

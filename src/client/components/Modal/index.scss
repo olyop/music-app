@@ -31,17 +31,17 @@
 		overflow: hidden;
 		position: absolute;
 		transform: translate(-50%, -50%);
-		border-radius: var(--border-radius); }
-	&__button {
-		border: 0;
-		width: 100%;
-		outline: none;
-		display: block;
-		cursor: pointer;
-		background-color: transparent;
-		transition: 0.2s background-color;
-		border-bottom: 1px solid var(--border-color);
-		&:hover {
-			background-color: var(--hover-color); }
-		&:last-child {
-			border-bottom: 0; } } }
+		border-radius: var(--border-radius);
+		&-button {
+			border: 0;
+			width: 100%;
+			outline: none;
+			display: block;
+			cursor: pointer;
+			background-color: transparent;
+			transition: 0.2s background-color;
+			border-bottom: 1px solid var(--border-color);
+			&:hover {
+				background-color: var(--hover-color); }
+			&:last-child {
+				border-bottom: 0; } } } }

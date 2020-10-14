@@ -10,6 +10,8 @@ export enum OrderByDirection {
 
 export enum SongsOrderByField {
 	TITLE = "TITLE",
+	ALBUM = "ALBUM",
+	RELEASED = "RELEASED",
 	DURATION = "DURATION",
 }
 

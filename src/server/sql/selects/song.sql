@@ -1,8 +1,8 @@
 SELECT
-  {{ columnNames }}
+	{{ columnNames }}
 FROM
-  songs
+	songs
 WHERE
-  song_id = {{ songId }}
+	song_id = {{ songId }}
 LIMIT
-  1;
+	1;

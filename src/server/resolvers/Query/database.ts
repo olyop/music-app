@@ -51,6 +51,18 @@ export interface DocsArgs extends OrderByArgs {
 	page: number,
 }
 
+const determineSongOrderByField = (field: string) => {
+	if (field === "album" || field === "released") {
+		if (field === "album") {
+			return "albums.title"
+		} else {
+			return "albums.released"
+		}
+	} else {
+		return `songs.${field}`
+	}
+}
+
 export const songs =
 	resolver<Song[], DocsArgs>(
 		({ args }) => (
@@ -62,21 +74,21 @@ export const songs =
 					key: "paginationNum",
 					value: PAGINATION_NUM,
 				},{
+					string: false,
+					key: "orderByDirection",
+					value: args.orderBy.direction,
+				},{
 					key: "offset",
 					string: false,
 					value: args.page * PAGINATION_NUM,
 				},{
 					string: false,
-					key: "orderByField",
-					value: args.orderBy.field,
-				},{
-					string: false,
-					key: "orderByDirection",
-					value: args.orderBy.direction,
-				},{
-					string: false,
 					key: "columnNames",
 					value: sql.join(COLUMN_NAMES.SONG, "songs"),
+				},{
+					string: false,
+					key: "orderByField",
+					value: determineSongOrderByField(args.orderBy.field.toLowerCase()),
 				}],
 			})
 		),

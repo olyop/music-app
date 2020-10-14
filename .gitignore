@@ -4,6 +4,7 @@ node_modules/
 
 # files
 .env
+debug.log
 access.log
 src/common/types.js
 src/common/types.d.ts

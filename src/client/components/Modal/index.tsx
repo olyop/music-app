@@ -7,12 +7,17 @@ import "./index.scss"
 
 const bem = createBem("Modal")
 
-const Modal: FC<PropTypes> = ({ buttons = [], onClose, className, children }) => (
+const Modal: FC<PropTypes> = ({
+	onClose,
+	children,
+	className,
+	buttons = [],
+}) => (
 	<div className={bem("")}>
 		<div className={bem("inner")}>
 			<div
+				onClick={onClose}
 				className={bem("black")}
-				onClick={() => onClose()}
 			/>
 			<div className={bem(className, "content", "Elevated")}>
 				{buttons.map(
@@ -21,7 +26,7 @@ const Modal: FC<PropTypes> = ({ buttons = [], onClose, className, children }) =>
 							key={text}
 							type="button"
 							children={text}
-							className={bem("button", "PaddingHalf Text2")}
+							className={bem("content-button", "PaddingHalf Text2")}
 							onClick={() => {
 								handler()
 								onClose()

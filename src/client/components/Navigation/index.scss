@@ -6,8 +6,6 @@
 		justify-content: space-between; }
 	&__link {
 		--text-height: 20rem;
-		@media (max-width: 475px) {
-			--text-height: 18rem; }
 		width: auto;
 		height: 100%;
 		display: flex;
@@ -15,8 +13,8 @@
 		align-items: center;
 		text-decoration: none;
 		margin: 0 var(--space-half);
-		@media (max-width: 600px) {
-			margin: 0 var(--space-quart); }
+		@media (max-width: 450px) {
+			margin: 0; }
 		&:first-child {
 			margin-left: 0; }
 		&:last-child {
@@ -30,7 +28,7 @@
 			color: var(--text-color);
 			min-width: var(--text-height);
 			min-height: var(--text-height);
-			@media (max-width: 475px) {
+			@media (max-width: 450px) {
 				margin-right: 0; }
 			&:hover {
 				background-color: transparent !important; } }

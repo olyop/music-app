@@ -3,7 +3,4 @@
 		display: grid;
 		gap: var(--space);
 		padding: 0 var(--space);
-		grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-		@media (max-width: 600px) {
-			gap: var(--space-half);
-			padding: 0 var(--space-half); } } }
+		grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); } }

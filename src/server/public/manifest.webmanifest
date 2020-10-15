@@ -1,6 +1,7 @@
 {
 	"start_url":"/",
 	"name":"music-app",
+	"orientation": "any",
 	"display":"fullscreen",
 	"theme_color":"#000000",
 	"short_name":"music-app",

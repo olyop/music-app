@@ -35,11 +35,11 @@
 
 				--line-height: 1;
 				--info-height: 35rem;
-				--header-height: 60px;
-				--player-height: 96px;
-				--player-height-mobile: 125px;
+				--header-height: 60rem;
+				--player-height: 96rem;
+				--player-height-mobile: 125rem;
 
-				--sidebar-width: 300px;
+				--sidebar-width: 300rem;
 
 				--border-radius: 5px;
 				--border-color: #e0e0e0;
@@ -57,6 +57,14 @@
 				--content-width: 100vw;
 
 				--transition-duration: 0.2s; }
+
+			@media (max-width: 500px) {
+				:root {
+					--font-size: 0.9px; } }
+
+			@media (max-width: 400px) {
+				:root {
+					--font-size: 0.8px; } }
 
 			html {
 				box-sizing: border-box;
@@ -170,11 +178,6 @@
 					width: auto;
 					margin-left: var(--space);
 					margin-right: var(--space); } }
-
-			@media (max-width: 600px) {
-				.Content {
-					margin-left: var(--space-half);
-					margin-right: var(--space-half); } }
 
 			.Card {
 				overflow: hidden;

@@ -4,6 +4,7 @@ const importFile = importSql("inserts")
 
 export const INSERT_USER = importFile("user")
 export const INSERT_SONG = importFile("song")
+export const INSERT_PLAY = importFile("play")
 export const INSERT_ALBUM = importFile("album")
 export const INSERT_GENRE = importFile("genre")
 export const INSERT_ARTIST = importFile("artist")

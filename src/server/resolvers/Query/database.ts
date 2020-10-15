@@ -27,7 +27,7 @@ import {
 } from "../../sql"
 
 import { COLUMN_NAMES } from "../../globals"
-import { sql, createResolver } from "../../helpers"
+import { sql, songOrderByField, createResolver } from "../../helpers"
 
 const resolver =
 	createResolver()
@@ -49,18 +49,6 @@ export const genres =
 
 export interface DocsArgs extends OrderByArgs {
 	page: number,
-}
-
-const determineSongOrderByField = (field: string) => {
-	if (field === "album" || field === "released") {
-		if (field === "album") {
-			return "albums.title"
-		} else {
-			return "albums.released"
-		}
-	} else {
-		return `songs.${field}`
-	}
 }
 
 export const songs =
@@ -88,7 +76,7 @@ export const songs =
 				},{
 					string: false,
 					key: "orderByField",
-					value: determineSongOrderByField(args.orderBy.field.toLowerCase()),
+					value: songOrderByField(args.orderBy.field.toLowerCase()),
 				}],
 			})
 		),

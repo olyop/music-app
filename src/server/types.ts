@@ -26,6 +26,7 @@ export interface SqlConfig<Return> {
 	sql: string,
 	log?: boolean,
 	logVar?: boolean,
+	logRes?: boolean,
 	parse?: SqlParse<Return>,
 	variables?: SqlVariable[],
 }

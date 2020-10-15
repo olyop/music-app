@@ -30,6 +30,7 @@ import {
 	useStateUserId,
 } from "../../redux"
 
+import Icon from "../Icon"
 import Song from "../Song"
 import Genre from "../Genre"
 import Album from "../Album"
@@ -60,11 +61,17 @@ const Search: FC = () => {
 			userId,
 		} }), 500)).current
 
-	const handleChange: ChangeEventHandler<HTMLInputElement> =
-		({ target: { value } }) => {
+	const handleChange =
+		(value: string) => {
 			setInput(value)
 			delayedQuery(value)
 		}
+
+	const handleClear =
+		() => handleChange("")
+
+	const handleInput: ChangeEventHandler<HTMLInputElement> =
+		({ target: { value } }) => handleChange(value)
 
 	useEffect(() => {
 		if (!isEmpty(initQuery)) {
@@ -99,9 +106,14 @@ const Search: FC = () => {
 				<input
 					autoFocus
 					value={input}
+					onChange={handleInput}
 					placeholder="Search..."
-					onChange={handleChange}
 					className={bem("bar-input")}
+				/>
+				<Icon
+					icon="close"
+					onClick={handleClear}
+					className={bem("bar-input-close")}
 				/>
 			</div>
 			{!isEmpty(input) && data && (

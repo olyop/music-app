@@ -3,6 +3,12 @@ import { createElement, Fragment, ReactNode, useState } from "react"
 import { createBem, BemInput, BemPropTypes } from "@oly_op/bem"
 
 import {
+	Doc,
+	UserDoc,
+	ModalButton as TModalButton,
+} from "../../types"
+
+import {
 	determineDocPath,
 	determineDocName,
 	determineDocPhoto,
@@ -11,9 +17,9 @@ import {
 import Img from "../Img"
 import Icon from "../Icon"
 import Modal from "../Modal"
+import ModalButton from "../ModalButton"
 import PlayButton from "../PlayButton"
 import InLibraryButton from "../InLibraryButton"
-import { Doc, UserDoc, ModalButton } from "../../types"
 
 import "./index.scss"
 
@@ -103,10 +109,15 @@ const Item = <D extends Doc, I extends Doc = Doc>({
 				/>
 			</div>
 			{modal && modalButtons && (
-				<Modal
-					onClose={closeMore}
-					buttons={modalButtons}
-				/>
+				<Modal onClose={closeMore}>
+					{modalButtons.map(button => (
+						<ModalButton
+							button={button}
+							key={button.text}
+							onClose={closeMore}
+						/>
+					))}
+				</Modal>
 			)}
 		</Fragment>
 	)
@@ -124,7 +135,7 @@ interface PropTypes<Doc, ImgDoc> extends BemPropTypes {
 	infoClassName?: BemInput,
 	iconClassName?: BemInput,
 	rightClassName?: BemInput,
-	modalButtons?: ModalButton[],
+	modalButtons?: TModalButton[],
 }
 
 export default Item

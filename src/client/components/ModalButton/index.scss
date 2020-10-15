@@ -1,0 +1,14 @@
+.ModalButton {
+	border: 0;
+	width: 100%;
+	width: 400rem;
+	outline: none;
+	display: block;
+	cursor: pointer;
+	background-color: transparent;
+	transition: 0.2s background-color;
+	border-bottom: 1px solid var(--border-color);
+	&:hover {
+		background-color: var(--hover-color); }
+	&:last-child {
+		border-bottom: 0; } }

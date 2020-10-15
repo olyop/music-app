@@ -27,9 +27,9 @@ export const USER = [
 ]
 
 export const SONG = [
-	"song_id",
-	"title",
 	"mix",
+	"title",
+	"song_id",
 	"album_id",
 	"duration",
 	"disc_number",

@@ -6,58 +6,6 @@
 	@media (max-width: 800px) {
 		flex-direction: column-reverse;
 		height: var(--player-height-mobile); }
-	&__fullscreen {
-		width: 100%;
-		height: 100%;
-		background-color: var(--background-color);
-		&-main {
-			top: 50%;
-			display: flex;
-			position: absolute;
-			align-items: center;
-			flex-direction: column;
-			@media (min-width: 800px) {
-				left: 50%;
-				width: 600px;
-				transform: translate(-50%, -50%); }
-			@media (max-width: 800px) {
-				width: 100%;
-				padding: var(--space);
-				transform: translateY(-50%); } }
-		&-cover {
-			width: 100%;
-			margin-bottom: var(--space-double);
-			border-radius: calc(var(--border-radius) * 2); }
-		&-text {
-			text-align: center;
-			margin-bottom: var(--space-half); }
-		&-title {
-			display: flex;
-			align-items: center;
-			margin-left: var(--info-height);
-			&-text {
-				font-size: 30rem;
-				font-weight: 700; }
-			&-inLibrary {
-				margin-left: var(--space-half); } }
-		&-progress {
-			background-color: #e0e0e0; }
-		&-controls {
-			width: auto;
-			margin-top: var(--space-double);
-			&-icon {
-				--size: 50rem;
-				min-width: var(--size);
-				font-size: var(--size);
-				min-height: var(--size);
-				color: var(--text-color); } }
-		&-artists {
-			font-size: 20rem;
-			font-weight: 400; }
-		&-album {
-			font-size: 20rem;
-			font-weight: 500;
-			margin-bottom: calc(var(--space) * 2.25); } }
 	&__icon {
 		color: var(--text-color); }
 	&__main,

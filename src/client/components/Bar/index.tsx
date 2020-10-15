@@ -3,60 +3,20 @@ import { NavLink } from "react-router-dom"
 import { createElement, Fragment, FC } from "react"
 import { useFullScreenHandle, FullScreen } from "react-full-screen"
 
-import {
-	useDispatch,
-	useStateUserId,
-	toggleShowVolume,
-	useStateShowVolume,
-} from "../../redux"
-
-import Img from "../Img"
 import Icon from "../Icon"
 import Song from "../Song"
-import Modal from "../Modal"
-import DocLink from "../DocLink"
-import DocLinks from "../DocLinks"
 import QueryApi from "../QueryApi"
 import Progress from "../Progress"
 import Controls from "../Controls"
-import SongTitle from "../SongTitle"
+import BarVolume from "./BarVolume"
+import BarFullscreen from "./BarFullscreen"
 import { User, UserVar } from "../../types"
-import InLibraryButton from "../InLibraryButton"
-import FeaturingArtists from "../FeaturingArtists"
+import { useStateUserId } from "../../redux"
 import GET_USER_CURRENT from "./getUserCurrent.gql"
 
 import "./index.scss"
 
 const bem = createBem("Bar")
-
-const PlayerBarVolume = () => {
-	const dispatch = useDispatch()
-	const showVolume = useStateShowVolume()
-	const handleVolumeClick = () => dispatch(toggleShowVolume())
-	return (
-		<Fragment>
-			{showVolume && (
-				<Modal
-					buttons={[{
-						text: "foo",
-						handler: () => {},
-					}]}
-					onClose={handleVolumeClick}
-				/>
-			)}
-			<Icon
-				title="Volume"
-				icon="volume_up"
-				onClick={handleVolumeClick}
-				className={bem(
-					"main-controls-control",
-					"icon",
-					"IconHover",
-				)}
-			/>
-		</Fragment>
-	)
-}
 
 const Bar: FC = () => {
 	const userId = useStateUserId()
@@ -70,53 +30,10 @@ const Bar: FC = () => {
 					{data && data.user.current && (
 						<FullScreen handle={fullscreen}>
 							{fullscreen.active && (
-								<div className={bem("fullscreen")}>
-									<div className={bem("fullscreen-main")}>
-										<Img
-											url={data.user.current.album.cover}
-											title={data.user.current.album.title}
-											className={bem("fullscreen-cover", "Card Elevated")}
-										/>
-										<div className={bem("fullscreen-title", "fullscreen-text")}>
-											<h1 className={bem("fullscreen-title-text")}>
-												<SongTitle
-													showRemixers
-													song={data.user.current}
-													onClick={fullscreen.exit}
-												/>
-											</h1>
-											<InLibraryButton
-												doc={data.user.current}
-												className={bem("fullscreen-title-inLibrary")}
-											/>
-										</div>
-										<h3 className={bem("fullscreen-artists", "fullscreen-text")}>
-											<FeaturingArtists
-												song={data.user.current}
-												onClick={fullscreen.exit}
-											/>
-										</h3>
-										<h2 className={bem("fullscreen-album", "fullscreen-text")}>
-											<DocLink
-												onClick={fullscreen.exit}
-												doc={data.user.current.album}
-											/>
-											<Fragment> - </Fragment>
-											<DocLinks
-												onClick={fullscreen.exit}
-												docs={data.user.current.genres}
-											/>
-										</h2>
-										<Progress
-											className={bem("fullscreen-progreess")}
-											duration={data.user.current.duration}
-										/>
-										<Controls
-											className={bem("fullscreen-controls")}
-											iconClassName={bem("fullscreen-controls-icon")}
-										/>
-									</div>
-								</div>
+								<BarFullscreen
+									onExit={fullscreen.exit}
+									current={data.user.current}
+								/>
 							)}
 						</FullScreen>
 					)}
@@ -142,7 +59,7 @@ const Bar: FC = () => {
 												className={bem("icon", "IconHover")}
 											/>
 										</NavLink>
-										<PlayerBarVolume/>
+										<BarVolume/>
 									</div>
 									<Song
 										showPlay={false}

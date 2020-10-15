@@ -75,7 +75,7 @@ export const baseQuery =
 		<TReturn>(input: string | SqlConfig<TReturn>) =>
 			new Promise<TReturn>(
 				(resolve, reject) => {
-					const { sql, log, logVar, parse, variables = [] } =
+					const { sql, log, logVar, logRes, parse, variables = [] } =
 						normalizeInput(input)
 					const variableKeys = getVariableKeys(sql)
 					if (logVar) console.log(variables)
@@ -89,7 +89,11 @@ export const baseQuery =
 						const sqlWithValues = replaceSqlWithValues(sql, variables, params)
 						if (log) console.log(sqlWithValues)
 						client.query(sqlWithValues, isEmpty(params) ? undefined : params)
-									.then(parse)
+									.then(res => {
+										if (logRes) console.log(res.rows)
+										if (parse) return parse(res)
+										else return undefined
+									})
 									.then(resolve)
 									.catch(err => {
 										console.error(sqlWithValues, params)

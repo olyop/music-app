@@ -22,8 +22,8 @@ import {
 } from "../sql"
 
 import { COLUMN_NAMES } from "../globals"
-import { s3, sql, createResolver } from "../helpers"
 import { getUserDocInLib, getUserDocDateAdded } from "./getUserDoc"
+import { s3, sql, createResolver, songOrderByField } from "../helpers"
 
 const getArtistSongs =
 	<T>({ id, parse, orderBy }: DocsOrderBy<T>) =>
@@ -35,16 +35,16 @@ const getArtistSongs =
 				key: "artistId",
 			},{
 				string: false,
-				key: "orderByField",
-				value: orderBy?.field || "title",
-			},{
-				string: false,
 				key: "orderByDirection",
-				value: orderBy?.direction || "asc",
+				value: orderBy?.direction || "ASC",
 			},{
 				string: false,
 				key: "columnNames",
 				value: sql.join(COLUMN_NAMES.SONG, "songs"),
+			},{
+				string: false,
+				key: "orderByField",
+				value: songOrderByField(orderBy?.field.toLowerCase() || "title"),
 			}],
 		})
 
@@ -58,11 +58,11 @@ const getArtistAlbums = <T>({ id, parse, orderBy }: DocsOrderBy<T>) =>
 		},{
 			string: false,
 			key: "orderByField",
-			value: orderBy?.field || "released",
+			value: orderBy?.field || "title",
 		},{
 			string: false,
 			key: "orderByDirection",
-			value: orderBy?.direction || "desc",
+			value: orderBy?.direction || "ASC",
 		},{
 			string: false,
 			key: "columnNames",

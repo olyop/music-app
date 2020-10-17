@@ -8,7 +8,7 @@ import {
 	Genre,
 	Artist,
 	Playlist,
-	OrderByArgs,
+	DocsArgs,
 } from "../../types"
 
 import {
@@ -46,10 +46,6 @@ export const genres =
 			})
 		),
 	)
-
-export interface DocsArgs extends OrderByArgs {
-	page: number,
-}
 
 export const songs =
 	resolver<Song[], DocsArgs>(

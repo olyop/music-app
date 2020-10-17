@@ -7,10 +7,10 @@ import {
 	UserArtistsOrderByField,
 } from "../../types"
 
+import Feed from "../Feed"
 import Helmet from "../Helmet"
 import Artists from "../Artists"
-import QueryApi from "../QueryApi"
-import GET_USER_ARTISTS from "./getUserSongs.gql"
+import GET_USER_ARTISTS from "./getUserArtists.gql"
 import { useStateUserId, useStateOrderBy } from "../../redux"
 
 const LibraryArtists: FC = () => {
@@ -18,10 +18,21 @@ const LibraryArtists: FC = () => {
 	const orderBy = useStateOrderBy<UserArtistsOrderByField>("userArtists")
 	return (
 		<Helmet title="Library Artists">
-			<QueryApi<Res, Vars>
+			<Feed<Res, Vars>
 				query={GET_USER_ARTISTS}
 				variables={{ userId, orderBy }}
-				children={({ data }) => (
+				dataToDocsLength={({ user }) => user.artists.length}
+				updateQuery={(existing, incoming) => ({
+					...existing,
+					user: {
+						...existing.user,
+						artists: [
+							...existing.user.artists,
+							...incoming.user.artists,
+						],
+					},
+				})}
+				children={data => (
 					<Artists
 						className="Content"
 						orderByKey="userArtists"

@@ -53,8 +53,9 @@ const Feed = <Data, Vars>({
 													...variables,
 													page: page.current,
 												},
-												updateQuery: (prev: Data, { fetchMoreResult }) =>
-													updateQuery(prev, fetchMoreResult!),
+												updateQuery: (prev: Data, { fetchMoreResult }) => (
+													updateQuery(prev, fetchMoreResult!)
+												),
 											})
 										} catch (error) {
 											console.error(error)

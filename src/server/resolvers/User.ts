@@ -1,4 +1,5 @@
 import { isNull } from "lodash"
+import { PAGINATION_NUM } from "@oly_op/music-app-common/globals"
 
 import {
 	Song,
@@ -7,7 +8,7 @@ import {
 	Artist,
 	OrderBy,
 	Playlist,
-	OrderByArgs,
+	DocsArgs,
 } from "../types"
 
 import {
@@ -128,6 +129,7 @@ export const plays =
 
 interface UserDocsInput {
 	id: string,
+	page: number,
 	orderBy: OrderBy,
 	tableName: string,
 	columnName: string,
@@ -137,6 +139,7 @@ interface UserDocsInput {
 
 const userDocs = <T>({
 	id,
+	page,
 	orderBy,
 	tableName,
 	columnName,
@@ -167,8 +170,16 @@ const userDocs = <T>({
 			value: orderBy.field,
 		},{
 			string: false,
+			key: "paginationNum",
+			value: PAGINATION_NUM,
+		},{
+			string: false,
 			key: "orderByDirection",
 			value: orderBy.direction,
+		},{
+			key: "offset",
+			string: false,
+			value: page * PAGINATION_NUM,
 		},{
 			string: false,
 			key: "columnNames",
@@ -181,9 +192,10 @@ const userDocs = <T>({
 	})
 
 export const songs =
-	resolver<Song[], OrderByArgs>(
+	resolver<Song[], DocsArgs>(
 		({ parent, args }) => (
 			userDocs({
+				page: args.page,
 				id: parent.userId,
 				tableName: "songs",
 				orderBy: args.orderBy,
@@ -195,9 +207,10 @@ export const songs =
 	)
 
 export const artists =
-	resolver<Artist[], OrderByArgs>(
+	resolver<Artist[], DocsArgs>(
 		({ parent, args }) => (
 			userDocs({
+				page: args.page,
 				id: parent.userId,
 				tableName: "artists",
 				orderBy: args.orderBy,
@@ -209,9 +222,10 @@ export const artists =
 	)
 
 export const playlists =
-	resolver<Playlist[], OrderByArgs>(
+	resolver<Playlist[], DocsArgs>(
 		({ parent, args }) => (
 			userDocs({
+				page: args.page,
 				id: parent.userId,
 				orderBy: args.orderBy,
 				tableName: "playlists",

@@ -10,7 +10,17 @@ type User {
 	later: [Song!]!
 	plays: [Play!]!
 	playsTotal: NonNegativeInt
-	songs(orderBy: UserSongOrderByInput!): [Song!]!
-	artists(orderBy: UserArtistOrderByInput!): [Artist!]!
-	playlists(orderBy: UserPlaylistOrderByInput!): [Playlist!]!
+
+	songs(
+		page: NonNegativeInt!
+		orderBy: UserSongOrderByInput!
+	): [Song!]!
+	artists(
+		page: NonNegativeInt!
+		orderBy: UserArtistOrderByInput!
+	): [Artist!]!
+	playlists(
+		page: NonNegativeInt!
+		orderBy: UserPlaylistOrderByInput!
+	): [Playlist!]!
 }

@@ -58,10 +58,6 @@ export type ImgDim = [
 	number,
 ]
 
-export interface UserArgs {
-	userId: string,
-}
-
 export interface User extends UserBase {
 	current: string | null,
 }
@@ -101,6 +97,20 @@ export interface OrderBy {
 	direction: string,
 }
 
+export interface DocsOrderBy<T> {
+	id: string,
+	orderBy?: OrderBy,
+	parse: SqlParse<T>,
+}
+
+export interface UserArgs {
+	userId: string,
+}
+
+export interface PageArgs {
+	page: number,
+}
+
 export interface OrderByArgs {
 	orderBy: OrderBy,
 }
@@ -109,8 +119,4 @@ export interface UserQueuesArgs extends UserArgs {
 	songId: string,
 }
 
-export interface DocsOrderBy<T> {
-	id: string,
-	orderBy?: OrderBy,
-	parse: SqlParse<T>,
-}
+export interface DocsArgs extends OrderByArgs, PageArgs {}

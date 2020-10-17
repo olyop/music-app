@@ -9,7 +9,7 @@ import {
 } from "../types"
 
 import { COLUMN_NAMES } from "../globals"
-import { sql, createResolver } from "../helpers"
+import { sql, createResolver, songOrderByField } from "../helpers"
 import { SELECT_GENRE_SONGS, SELECT_USER_DOC_PLAYS } from "../sql"
 
 const resolver =
@@ -25,16 +25,16 @@ const getGenreSongs =
 				key: "genreId",
 			},{
 				string: false,
-				key: "orderByField",
-				value: orderBy?.field || "title",
-			},{
-				string: false,
 				key: "orderByDirection",
-				value: orderBy?.direction || "asc",
+				value: orderBy?.direction || "ASC",
 			},{
 				string: false,
 				key: "columnNames",
 				value: sql.join(COLUMN_NAMES.SONG, "songs"),
+			},{
+				string: false,
+				key: "orderByField",
+				value: songOrderByField(orderBy?.field.toLowerCase() || "title"),
 			}],
 		})
 

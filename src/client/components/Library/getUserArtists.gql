@@ -1,12 +1,16 @@
 query getUserArtists(
 	$userId: Uuid!
+	$page: NonNegativeInt!
 	$orderBy: UserArtistOrderByInput!
 ) {
 	user(userId: $userId) {
 		userId
-		artists(orderBy: $orderBy) {
-			artistId
+		artists(
+			page: $page
+			orderBy: $orderBy
+		) {
 			name
+			artistId
 			photo(size: MINI)
 			dateAdded(userId: $userId)
 			inLibrary(userId: $userId)

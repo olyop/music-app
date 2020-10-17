@@ -48,16 +48,21 @@ const AlbumPage: FC = () => {
 						<h3 className={bem("genres", "MarginBottom")}>
 							<DocLinks docs={data.album.genres}/>
 						</h3>
-						<div className={bem("discs", "MarginBottom")}>
-							{determineDiscs(data.album.songs).map(disc => (
-								<Disc
-									disc={disc}
-									key={disc.number}
-								/>
-							))}
-						</div>
 						<details open>
-							<summary className={bem("footer-sum", "Text MarginBottomHalf")}>
+							<summary className={bem("sum", "Text MarginBottomHalf")}>
+								Songs
+							</summary>
+							<div className={bem("discs", "MarginBottom")}>
+								{determineDiscs(data.album.songs).map(disc => (
+									<Disc
+										disc={disc}
+										key={disc.number}
+									/>
+								))}
+							</div>
+						</details>
+						<details open>
+							<summary className={bem("sum", "Text MarginBottomHalf")}>
 								Details
 							</summary>
 							<p className={bem("footer-text")}>

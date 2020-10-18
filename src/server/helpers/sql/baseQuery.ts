@@ -44,7 +44,7 @@ const determineReplaceValue = (
 	{ value, string = true, parameterized = false }: SqlVariable,
 	params: string[],
 ) => {
-	const val = value.toString()
+	const val = value === null ? "null" : value.toString()
 	if (parameterized) {
 		params.push(val)
 		return `$${params.length}`

@@ -49,6 +49,7 @@ const QueryApi = <Data, Vars = Record<string, unknown>>({
 
 	useEffect(() => {
 		if (error) {
+			console.error(error)
 			dispatch(addError(error))
 		}
 	}, [error, dispatch])

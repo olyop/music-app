@@ -15,7 +15,7 @@ export interface SqlVariable {
 	key: string,
 	string?: boolean,
 	parameterized?: boolean,
-	value: string | number | boolean,
+	value: string | number | boolean | null,
 }
 
 export type SqlQueryRes<T = Record<string, unknown>> = QueryResult<T>

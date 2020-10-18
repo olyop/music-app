@@ -52,6 +52,7 @@
 		"react/no-children-prop": "off",
 		"promise/catch-or-return": "off",
 		"implicit-arrow-linebreak": "off",
+		"jsx-a11y/media-has-caption": "off",
 		"react/no-unused-prop-types": "off",
 		"node/no-unpublished-import": "off",
 		"react/require-default-props": "off",

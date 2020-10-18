@@ -3,6 +3,7 @@ import {
 	DELETE_USER_PREV,
 	DELETE_USER_NEXT,
 	DELETE_USER_LATER,
+	UPDATE_USER_CURRENT,
 } from "../../sql"
 
 import { COLUMN_NAMES } from "../../globals"
@@ -34,6 +35,17 @@ export const clearUserQueue =
 			await sql.query({
 				sql: DELETE_USER_LATER,
 				variables,
+			})
+			await sql.query({
+				sql: UPDATE_USER_CURRENT,
+				variables: [{
+					key: "userId",
+					value: args.userId,
+				},{
+					value: null,
+					key: "songId",
+					string: false,
+				}],
 			})
 			return sql.query<User>({
 				sql: SELECT_USER,

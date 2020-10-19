@@ -5,6 +5,7 @@ import { useFullScreenHandle, FullScreen } from "react-full-screen"
 
 import Icon from "../Icon"
 import Song from "../Song"
+import BarAudio from "./BarAudio"
 import QueryApi from "../QueryApi"
 import Progress from "../Progress"
 import Controls from "../Controls"
@@ -28,14 +29,16 @@ const Bar: FC = () => {
 			children={({ data }) => (
 				<Fragment>
 					{data && data.user.current && (
-						<FullScreen handle={fullscreen}>
-							{fullscreen.active && (
-								<BarFullscreen
-									onExit={fullscreen.exit}
-									current={data.user.current}
-								/>
-							)}
-						</FullScreen>
+						<BarAudio songId={data.user.current.songId}>
+							<FullScreen handle={fullscreen}>
+								{fullscreen.active && (
+									<BarFullscreen
+										onExit={fullscreen.exit}
+										current={data.user.current}
+									/>
+								)}
+							</FullScreen>
+						</BarAudio>
 					)}
 					<footer className={bem("", "Elevated")}>
 						<Controls

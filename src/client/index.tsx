@@ -8,20 +8,17 @@ import Pages from "./components/Pages"
 import Header from "./components/Header"
 import Loading from "./components/Loading"
 import ApiError from "./components/ApiError"
-import AudioPlayer from "./components/AudioPlayer"
 import { Provider as ApolloClient } from "./apollo"
 
 render(
 	<ReactRedux>
 		<ReactRouter>
 			<ApolloClient>
-				<AudioPlayer>
-					<ApiError/>
-					<Loading/>
-					<Header/>
-					<Pages/>
-					<Bar/>
-				</AudioPlayer>
+				<ApiError/>
+				<Loading/>
+				<Header/>
+				<Pages/>
+				<Bar/>
 			</ApolloClient>
 		</ReactRouter>
 	</ReactRedux>,

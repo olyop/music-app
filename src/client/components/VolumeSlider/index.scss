@@ -19,7 +19,7 @@
 		appearance: none;
 		overflow: hidden;
 		height: var(--dim);
-		transform: rotateZ(90deg);
+		transform: rotateZ(-90deg);
 		&:focus {
 			outline: none; }
 		&::-webkit-slider-runnable-track {

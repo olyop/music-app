@@ -1,8 +1,0 @@
-query getUserCurrent($userId: Uuid!) {
-	user(userId: $userId) {
-		userId
-		current {
-			songId
-		}
-	}
-}

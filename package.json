@@ -79,6 +79,7 @@
 		"graphql-scalars": "^1.4.0",
 		"graphql-upload": "^11.0.0",
 		"helmet": "^4.1.1",
+		"howler": "^2.2.0",
 		"lodash": "^4.17.20",
 		"morgan": "^1.10.0",
 		"music-metadata": "^7.4.0",
@@ -91,7 +92,6 @@
 		"react-router-dom": "^5.2.0",
 		"react-waypoint": "^9.0.3",
 		"sharp": "^0.26.2",
-		"use-sound": "^1.0.2",
 		"uuid": "^8.3.0"
 	},
 	"devDependencies": {
@@ -111,6 +111,7 @@
 		"@types/express-serve-static-core": "^4.17.13",
 		"@types/graphql-upload": "^8.0.4",
 		"@types/helmet": "0.0.48",
+		"@types/howler": "^2.2.1",
 		"@types/lodash": "^4.14.162",
 		"@types/mini-css-extract-plugin": "^1.0.0",
 		"@types/morgan": "^1.9.1",

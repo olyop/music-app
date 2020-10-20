@@ -1,5 +1,7 @@
+export * from "./useSound"
 export * from "./uuidDashes"
 export * from "./artistLower"
+export * from "./useHasMounted"
 export * from "./createContext"
 export * from "./determineDiscs"
 export * from "./determineDocId"

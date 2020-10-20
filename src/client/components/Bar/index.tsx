@@ -8,8 +8,8 @@ import Song from "../Song"
 import BarAudio from "./BarAudio"
 import QueryApi from "../QueryApi"
 import Progress from "../Progress"
-import Controls from "../Controls"
 import BarVolume from "./BarVolume"
+import BarControls from "./BarControls"
 import BarFullscreen from "./BarFullscreen"
 import { User, UserVar } from "../../types"
 import { useStateUserId } from "../../redux"
@@ -29,7 +29,8 @@ const Bar: FC = () => {
 			children={({ data }) => (
 				<Fragment>
 					{data && data.user.current && (
-						<BarAudio songId={data.user.current.songId}>
+						<Fragment>
+							<BarAudio songId={data.user.current.songId}/>
 							<FullScreen handle={fullscreen}>
 								{fullscreen.active && (
 									<BarFullscreen
@@ -38,10 +39,10 @@ const Bar: FC = () => {
 									/>
 								)}
 							</FullScreen>
-						</BarAudio>
+						</Fragment>
 					)}
 					<footer className={bem("", "Elevated")}>
-						<Controls
+						<BarControls
 							className={bem("controls")}
 							iconClassName={bem("icon")}
 						/>

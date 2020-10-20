@@ -68,7 +68,7 @@ const PlayButton: FC<PropTypes> = ({ doc, className }) => {
 				dispatch(updatePlay(!play))
 			} else {
 				dispatch(updateCurrent(0))
-				dispatch(updatePlay(true))
+				// dispatch(updatePlay(true))
 				userPlay().catch(console.error)
 			}
 		}

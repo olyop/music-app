@@ -7,8 +7,8 @@ import DocLink from "../../DocLink"
 import { Song } from "../../../types"
 import DocLinks from "../../DocLinks"
 import Progress from "../../Progress"
-import Controls from "../../Controls"
 import SongTitle from "../../SongTitle"
+import BarControls from "../BarControls"
 import InLibraryButton from "../../InLibraryButton"
 import FeaturingArtists from "../../FeaturingArtists"
 
@@ -63,7 +63,7 @@ const BarFullscreen: FC<PropTypes> = ({ current, onExit }) => (
 				className={bem("progreess")}
 				duration={current.duration}
 			/>
-			<Controls
+			<BarControls
 				className={bem("controls")}
 				iconClassName={bem("icon")}
 			/>

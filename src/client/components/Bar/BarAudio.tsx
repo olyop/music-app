@@ -1,45 +1,44 @@
+import { useEffect, FC } from "react"
+
 import {
-	FC,
-	useRef,
-	Fragment,
-	useEffect,
-	createElement,
-} from "react"
+	updatePlay,
+	useDispatch,
+	useStatePlay,
+	useStateVolume,
+	useStateCurrent,
+} from "../../redux"
 
-import useSound from "use-sound"
+import getUrl from "./getUrl"
+import { useSound, useHasMounted } from "../../helpers"
 
-import { useStatePlay, useStateVolume } from "../../redux"
-
-const getUrl = (songId: string) =>
-	`https://music-app.s3-ap-southeast-2.amazonaws.com/catalog/${songId}/full.mp3`
-
-const BarAudio: FC<PropTypes> = ({ songId, children }) => {
-	const didMount = useRef(false)
+const BarAudio: FC<PropTypes> = ({ songId }) => {
+	const dispatch = useDispatch()
+	const isMount = useHasMounted()
 	const statePlay = useStatePlay()
+	const current = useStateCurrent()
 	const stateVolume = useStateVolume()
 
-	const volume = stateVolume / 10
+	const volume = stateVolume / 100
 
-	const [ play, { pause, stop } ] =
-		useSound(getUrl(songId), { volume })
+	const { play, pause, stop, isPlaying } =
+		useSound(getUrl(songId), { volume, current })
 
 	useEffect(() => {
-		if (didMount.current) {
-			if (statePlay) pause()
-			else play()
-		} else {
-			didMount.current = true
+		if (isMount) {
+			if (statePlay) play()
+			else pause()
 		}
-	// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [play])
+	}, [statePlay])
 
-	useEffect(() => () => stop())
+	useEffect(() => {
+		if (isMount && play && !isPlaying) {
+			dispatch(updatePlay(false))
+		}
+	}, [isPlaying])
 
-	return (
-		<Fragment>
-			{children}
-		</Fragment>
-	)
+	useEffect(() => () => stop(), [])
+
+	return null
 }
 
 interface PropTypes {

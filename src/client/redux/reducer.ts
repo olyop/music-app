@@ -32,7 +32,7 @@ const userId =
 	createReducer(USER_ID, {})
 
 const volume =
-	createReducer(0, builder =>
+	createReducer(50, builder =>
 		builder
 			.addCase(updateVolume, (state, { payload }) => payload))
 

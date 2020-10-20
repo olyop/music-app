@@ -7,17 +7,17 @@ import {
 	useDispatch,
 	useStatePlay,
 	useStateUserId,
-} from "../../redux"
+} from "../../../redux"
 
-import Icon from "../Icon"
+import Icon from "../../Icon"
 import USER_PREV from "./userPrev.gql"
 import USER_NEXT from "./userNext.gql"
 
 import "./index.scss"
 
-const bem = createBem("Controls")
+const bem = createBem("BarControls")
 
-const Controls: FC<PropTypes> = ({ className, iconClassName }) => {
+const BarControls: FC<PropTypes> = ({ className, iconClassName }) => {
 	const play = useStatePlay()
 	const dispatch = useDispatch()
 	const userId = useStateUserId()
@@ -55,4 +55,4 @@ interface PropTypes extends BemPropTypes {
 	iconClassName?: BemInput,
 }
 
-export default Controls
+export default BarControls

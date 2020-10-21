@@ -3,7 +3,7 @@ import dotenv from "dotenv"
 import { Configuration } from "webpack"
 import CompressionPlugin from "compression-webpack-plugin"
 import MiniCssExtractPlugin from "mini-css-extract-plugin"
-// import { BundleAnalyzerPlugin } from "webpack-bundle-analyzer"
+import { BundleAnalyzerPlugin } from "webpack-bundle-analyzer"
 import OptimizeCssAssetsPlugin from "optimize-css-assets-webpack-plugin"
 
 const { NODE_ENV, HOST, DEV_SERVER_PORT } = dotenv.config().parsed!
@@ -66,7 +66,7 @@ const config: Configuration = {
 			{
 				test: /\.scss$/,
 				exclude: /node_modules/,
-				loader: [
+				use: [
 					IS_DEV ? "style-loader" : MiniCssExtractPlugin.loader,
 					"css-loader",
 					"sass-loader",
@@ -78,7 +78,7 @@ const config: Configuration = {
 		new CompressionPlugin(),
 		new OptimizeCssAssetsPlugin(),
 		new MiniCssExtractPlugin({ filename: "[hash].css" }),
-		// new BundleAnalyzerPlugin({ analyzerMode: "static", defaultSizes: "gzip" }),
+		new BundleAnalyzerPlugin({ analyzerMode: "static", defaultSizes: "gzip" }),
 	],
 }
 

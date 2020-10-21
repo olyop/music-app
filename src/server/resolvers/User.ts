@@ -5,6 +5,7 @@ import {
 	Song,
 	Play,
 	User,
+	Album,
 	Artist,
 	OrderBy,
 	Playlist,
@@ -15,117 +16,12 @@ import {
 	SELECT_SONG,
 	SELECT_USER_DOCS,
 	SELECT_USER_PLAYS,
+	SELECT_USER_ALBUMS,
 	SELECT_USER_QUEUE_SONGS,
 } from "../sql"
 
 import { COLUMN_NAMES } from "../globals"
 import { sql, createResolver } from "../helpers"
-
-const resolver =
-	createResolver<User>()
-
-export const dateJoined =
-	resolver<number>(({ parent }) => parent.dateJoined * 1000)
-
-export const current =
-	resolver<Song | null>(
-		({ parent }) => (
-			isNull(parent.current) ? null : (
-				sql.query<Song>({
-					sql: SELECT_SONG,
-					parse: sql.parseRow(),
-					variables: [{
-						key: "songId",
-						value: parent.current,
-					},{
-						string: false,
-						key: "columnNames",
-						value: sql.join(COLUMN_NAMES.SONG),
-					}],
-				})
-			)
-		),
-	)
-
-export const prev =
-	resolver<Song[]>(
-		({ parent }) => (
-			sql.query({
-				sql: SELECT_USER_QUEUE_SONGS,
-				parse: sql.parseTable(),
-				variables: [{
-					key: "userId",
-					value: parent.userId,
-				},{
-					string: false,
-					key: "tableName",
-					value: "users_prevs",
-				},{
-					string: false,
-					key: "columnNames",
-					value: sql.join(COLUMN_NAMES.SONG, "songs"),
-				}],
-			})
-		),
-	)
-
-export const next =
-	resolver<Song[]>(
-		({ parent }) => (
-			sql.query({
-				sql: SELECT_USER_QUEUE_SONGS,
-				parse: sql.parseTable(),
-				variables: [{
-					key: "userId",
-					value: parent.userId,
-				},{
-					string: false,
-					key: "tableName",
-					value: "users_nexts",
-				},{
-					string: false,
-					key: "columnNames",
-					value: sql.join(COLUMN_NAMES.SONG, "songs"),
-				}],
-			})
-		),
-	)
-
-export const later =
-	resolver<Song[]>(
-		({ parent }) => (
-			sql.query({
-				sql: SELECT_USER_QUEUE_SONGS,
-				parse: sql.parseTable(),
-				variables: [{
-					key: "userId",
-					value: parent.userId,
-				},{
-					string: false,
-					key: "tableName",
-					value: "users_laters",
-				},{
-					string: false,
-					key: "columnNames",
-					value: sql.join(COLUMN_NAMES.SONG, "songs"),
-				}],
-			})
-		),
-	)
-
-export const plays =
-	resolver<Play[]>(
-		({ parent }) => (
-			sql.query({
-				sql: SELECT_USER_PLAYS,
-				parse: sql.parseTable(),
-				variables: [{
-					key: "userId",
-					value: parent.userId,
-				}],
-			})
-		),
-	)
 
 interface UserDocsInput {
 	id: string,
@@ -137,7 +33,7 @@ interface UserDocsInput {
 	userTableName: string,
 }
 
-const userDocs = <T>({
+const getUserDocs = <T>({
 	id,
 	page,
 	orderBy,
@@ -191,10 +87,124 @@ const userDocs = <T>({
 		}],
 	})
 
+interface UserQueueInput {
+	userId: string,
+	tableName: string,
+}
+
+const getUserQueue = <T>({
+	userId,
+	tableName,
+}: UserQueueInput) =>
+	sql.query({
+		sql: SELECT_USER_QUEUE_SONGS,
+		parse: sql.parseTable<T>(),
+		variables: [{
+			key: "userId",
+			value: userId,
+		},{
+			string: false,
+			key: "tableName",
+			value: tableName,
+		},{
+			string: false,
+			key: "columnNames",
+			value: sql.join(COLUMN_NAMES.SONG, "songs"),
+		}],
+	})
+
+const resolver =
+	createResolver<User>()
+
+export const dateJoined =
+	resolver<number>(({ parent }) => parent.dateJoined * 1000)
+
+export const current =
+	resolver<Song | null>(
+		({ parent }) => (
+			isNull(parent.current) ? null : (
+				sql.query<Song>({
+					sql: SELECT_SONG,
+					parse: sql.parseRow(),
+					variables: [{
+						key: "songId",
+						value: parent.current,
+					},{
+						string: false,
+						key: "columnNames",
+						value: sql.join(COLUMN_NAMES.SONG),
+					}],
+				})
+			)
+		),
+	)
+
+export const albums =
+	resolver<Album[]>(
+		({ parent }) => (
+			sql.query({
+				sql: SELECT_USER_ALBUMS,
+				parse: sql.parseTable(),
+				variables: [{
+					key: "userId",
+					value: parent.userId,
+				},{
+					string: false,
+					key: "columnNames",
+					value: sql.join(COLUMN_NAMES.ALBUM),
+				}],
+			})
+		),
+	)
+
+export const prev =
+	resolver<Song[]>(
+		({ parent }) => (
+			getUserQueue({
+				userId: parent.userId,
+				tableName: "users_prevs",
+			})
+		),
+	)
+
+export const next =
+	resolver<Song[]>(
+		({ parent }) => (
+			getUserQueue({
+				userId: parent.userId,
+				tableName: "users_nexts",
+			})
+		),
+	)
+
+export const later =
+	resolver<Song[]>(
+		({ parent }) => (
+			getUserQueue({
+				userId: parent.userId,
+				tableName: "users_nexts",
+			})
+		),
+	)
+
+export const plays =
+	resolver<Play[]>(
+		({ parent }) => (
+			sql.query({
+				sql: SELECT_USER_PLAYS,
+				parse: sql.parseTable(),
+				variables: [{
+					key: "userId",
+					value: parent.userId,
+				}],
+			})
+		),
+	)
+
 export const songs =
 	resolver<Song[], DocsArgs>(
 		({ parent, args }) => (
-			userDocs({
+			getUserDocs({
 				page: args.page,
 				id: parent.userId,
 				tableName: "songs",
@@ -209,7 +219,7 @@ export const songs =
 export const artists =
 	resolver<Artist[], DocsArgs>(
 		({ parent, args }) => (
-			userDocs({
+			getUserDocs({
 				page: args.page,
 				id: parent.userId,
 				tableName: "artists",
@@ -224,7 +234,7 @@ export const artists =
 export const playlists =
 	resolver<Playlist[], DocsArgs>(
 		({ parent, args }) => (
-			userDocs({
+			getUserDocs({
 				page: args.page,
 				id: parent.userId,
 				orderBy: args.orderBy,

@@ -15,6 +15,15 @@ type User {
 		page: NonNegativeInt!
 		orderBy: UserSongOrderByInput!
 	): [Song!]!
+	# genres(
+	# 	page: NonNegativeInt!
+	# 	orderBy: GenreOrderByInput!
+	# ): [Genre!]!
+	# albums(
+	# 	page: NonNegativeInt!
+	# 	orderBy: AlbumOrderByInput!
+	# ): [Album!]!
+	albums: [Album!]!
 	artists(
 		page: NonNegativeInt!
 		orderBy: UserArtistOrderByInput!

@@ -67,6 +67,7 @@ export interface User extends UserBase, Doc<"User"> {
 	next: Song[],
 	later: Song[],
 	songs: Song[],
+	albums: Album[],
 	artists: Artist[],
 	current: Song | null,
 	playlists: Playlist[],

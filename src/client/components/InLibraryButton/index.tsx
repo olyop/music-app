@@ -44,7 +44,7 @@ const InLibraryButton: FC<PropTypes> = ({ doc, className }) => {
 	const variables = { userId, [docKey]: docId }
 
 	const { data, loading: queryLoading } =
-		useQuery<Res>(QUERY, { fetchPolicy: "cache-first", variables })
+		useQuery<Data>(QUERY, { fetchPolicy: "cache-first", variables })
 
 	const inLibrary =
 		isUndefined(doc.inLibrary) ?
@@ -58,7 +58,7 @@ const InLibraryButton: FC<PropTypes> = ({ doc, className }) => {
 		dr(ADD_USER_SONG, ADD_USER_ARTIST)
 
 	const [ mutation, { error, loading: mutationLoading } ] =
-		useMutation<Res>(MUTATION, {
+		useMutation<Data>(MUTATION, {
 			variables,
 			optimisticResponse: {
 				[mutationName]: {
@@ -90,17 +90,21 @@ const InLibraryButton: FC<PropTypes> = ({ doc, className }) => {
 		}
 	}, [error, dispatch])
 
+	const icon = doc.__typename === "Song" ?
+		(inLibrary ? "done" : "add") :
+		(inLibrary ? "person" : "person_add")
+
 	return (
 		<Icon
+			icon={icon}
 			onClick={handleClick}
 			className={className}
-			icon={inLibrary ? "done" : "add"}
 			title={`${inLibrary ? "Remove from" : "Add to"} Library`}
 		/>
 	)
 }
 
-type Res = Record<string, UserDoc>
+type Data = Record<string, UserDoc>
 
 interface PropTypes {
 	doc: UserDoc,

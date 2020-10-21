@@ -15,10 +15,8 @@ export enum SongsOrderByField {
 	DURATION = "DURATION",
 }
 
-export enum UserSongsOrderByField {
-	TITLE = "TITLE",
-	DURATION = "DURATION",
-	DATE_ADDED = "DATE_ADDED",
+export enum GenresOrderByField {
+	NAME = "NAME",
 }
 
 export enum AlbumsOrderByField {
@@ -26,14 +24,20 @@ export enum AlbumsOrderByField {
 	RELEASED = "RELEASED",
 }
 
+export enum ArtistsOrderByField {
+	NAME = "NAME",
+}
+
+export enum UserSongsOrderByField {
+	TITLE = "TITLE",
+	DURATION = "DURATION",
+	DATE_ADDED = "DATE_ADDED",
+}
+
 export enum UserAlbumsOrderByField {
 	TITLE = "TITLE",
 	RELEASED = "RELEASED",
 	DATE_ADDED = "DATE_ADDED",
-}
-
-export enum ArtistsOrderByField {
-	NAME = "NAME",
 }
 
 export enum UserArtistsOrderByField {

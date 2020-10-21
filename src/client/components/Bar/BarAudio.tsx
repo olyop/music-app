@@ -13,9 +13,9 @@ import { useSound, useHasMounted } from "../../helpers"
 
 const BarAudio: FC<PropTypes> = ({ songId }) => {
 	const dispatch = useDispatch()
-	const isMount = useHasMounted()
 	const statePlay = useStatePlay()
 	const current = useStateCurrent()
+	const hasMounted = useHasMounted()
 	const stateVolume = useStateVolume()
 
 	const volume = stateVolume / 100
@@ -24,14 +24,14 @@ const BarAudio: FC<PropTypes> = ({ songId }) => {
 		useSound(getUrl(songId), { volume, current })
 
 	useEffect(() => {
-		if (isMount) {
+		if (hasMounted) {
 			if (statePlay) play()
-			else pause()
+			else if (isPlaying) pause()
 		}
 	}, [statePlay])
 
 	useEffect(() => {
-		if (isMount && play && !isPlaying) {
+		if (hasMounted && play && !isPlaying) {
 			dispatch(updatePlay(false))
 		}
 	}, [isPlaying])

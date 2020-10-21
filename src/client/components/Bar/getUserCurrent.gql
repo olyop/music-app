@@ -1,6 +1,10 @@
 query getUserCurrent($userId: Uuid!) {
 	user(userId: $userId) {
 		userId
+		albums {
+			albumId
+			title
+		}
 		current {
 			songId
 			mix

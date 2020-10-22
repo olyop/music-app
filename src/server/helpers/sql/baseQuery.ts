@@ -83,7 +83,6 @@ export const baseQuery =
 						normalizeInput(input)
 					const variableKeys = getVariableKeys(sql)
 					if (logVar) console.log(variables)
-					console.log(variableKeys, variables)
 					if (!areVariablesProvided(variableKeys, variables)) {
 						// eslint-disable-next-line max-len
 						const err = new TypeError(`Invalid query arguments. ${variables.map(({ key }) => key).toString()} - ${variableKeys.toString()}`)

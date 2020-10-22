@@ -5,12 +5,12 @@ import Item from "../Item"
 import DocLink from "../DocLink"
 import { Genre as TGenre } from "../../types"
 
-const Genre: FC<PropTypes> = ({ genre }) => (
+const Genre: FC<PropTypes> = ({ genre, className }) => (
 	<Item
 		doc={genre}
 		hideInLibrary
+		className={className}
 		upper={<DocLink doc={genre}/>}
-		className="PaddingHalf Hover ItemBorder"
 	/>
 )
 

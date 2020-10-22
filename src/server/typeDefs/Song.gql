@@ -2,10 +2,11 @@ type Song {
 	mix: String!
 	songId: Uuid!
 	title: String!
-	size: PositiveInt!
 	duration: PositiveInt!
 	discNumber: PositiveInt!
 	trackNumber: PositiveInt!
+
+	size: PositiveInt! @cacheControl(maxAge: 300)
 
 	album: Album!
 	genres: [Genre!]!

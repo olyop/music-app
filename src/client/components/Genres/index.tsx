@@ -1,18 +1,30 @@
+import isEmpty from "lodash/isEmpty"
 import { createElement, FC } from "react"
 import { createBem, BemPropTypes } from "@oly_op/bem"
 
 import Genre from "../Genre"
+import OrderBy from "../OrderBy"
 import { Genre as TGenre } from "../../types"
 
 const bem = createBem("Genre")
 
-const Genres: FC<PropTypes> = ({ genres, className }) => (
-	<div className={bem(className, "Elevated")}>
+const Genres: FC<PropTypes> = ({
+	genres,
+	className,
+	orderByFields,
+}) => (
+	<div className={bem(className, isEmpty(genres) || "Elevated")}>
+		<OrderBy
+			settingsKey="genres"
+			fieldOptions={orderByFields}
+			className="PaddingHalf ItemBorder FlexListRight"
+		/>
 		{genres.map(
 			genre => (
 				<Genre
 					genre={genre}
 					key={genre.genreId}
+					className="Hover ItemBorder PaddingHalf"
 				/>
 			),
 		)}
@@ -21,6 +33,7 @@ const Genres: FC<PropTypes> = ({ genres, className }) => (
 
 interface PropTypes extends BemPropTypes {
 	genres: TGenre[],
+	orderByFields: string[],
 }
 
 export default Genres

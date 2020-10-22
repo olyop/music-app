@@ -3,41 +3,40 @@ import { createElement, FC } from "react"
 import {
 	User,
 	UserVar,
-	AlbumsOrderBy,
-	AlbumsOrderByField,
+	GenresOrderBy,
+	GenresOrderByField,
 } from "../../types"
 
 import Feed from "../Feed"
-import Albums from "../Albums"
+import Genres from "../Genres"
 import Helmet from "../Helmet"
-import GET_USER_ALBUMS from "./getUserAlbums.gql"
+import GET_USER_GENRES from "./getUserGenres.gql"
 import { useStateUserId, useStateOrderBy } from "../../redux"
 
 const LibraryArtists: FC = () => {
 	const userId = useStateUserId()
-	const orderBy = useStateOrderBy<AlbumsOrderByField>("albums")
+	const orderBy = useStateOrderBy<GenresOrderByField>("genres")
 	return (
-		<Helmet title="Library Albums">
+		<Helmet title="Library Genres">
 			<Feed<Res, Vars>
-				query={GET_USER_ALBUMS}
+				query={GET_USER_GENRES}
 				variables={{ userId, orderBy }}
-				dataToDocsLength={({ user }) => user.albums.length}
+				dataToDocsLength={({ user }) => user.genres.length}
 				updateQuery={(existing, incoming) => ({
 					...existing,
 					user: {
 						...existing.user,
-						albums: [
-							...existing.user.albums,
-							...incoming.user.albums,
+						genres: [
+							...existing.user.genres,
+							...incoming.user.genres,
 						],
 					},
 				})}
 				children={data => (
-					<Albums
+					<Genres
 						className="Content"
-						orderByKey="albums"
-						albums={data?.user.albums || []}
-						orderByFields={Object.keys(AlbumsOrderByField)}
+						genres={data?.user.genres || []}
+						orderByFields={Object.keys(GenresOrderByField)}
 					/>
 				)}
 			/>
@@ -50,7 +49,7 @@ interface Res {
 }
 
 interface Vars extends UserVar {
-	orderBy: AlbumsOrderBy,
+	orderBy: GenresOrderBy,
 }
 
 export default LibraryArtists

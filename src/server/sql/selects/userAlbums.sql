@@ -14,4 +14,10 @@ WHERE
 		WHERE
 			in_library = true AND
 			user_id = {{ userId }}
-	);
+	)
+ORDER BY
+	albums.{{ orderByField }} {{ orderByDirection }}
+LIMIT
+	{{ paginationNum }}
+OFFSET
+	{{ page }} * {{ paginationNum }};

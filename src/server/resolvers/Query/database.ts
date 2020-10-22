@@ -33,12 +33,28 @@ const resolver =
 	createResolver()
 
 export const genres =
-	resolver<Genre[]>(
-		() => (
+	resolver<Genre[], DocsArgs>(
+		({ args }) => (
 			sql.query({
 				sql: SELECT_GENRES,
 				parse: sql.parseTable(),
 				variables: [{
+					key: "page",
+					string: false,
+					value: args.page,
+				},{
+					string: false,
+					key: "paginationNum",
+					value: PAGINATION_NUM,
+				},{
+					string: false,
+					key: "orderByField",
+					value: args.orderBy.field,
+				},{
+					string: false,
+					key: "orderByDirection",
+					value: args.orderBy.direction,
+				},{
 					string: false,
 					key: "columnNames",
 					value: sql.join(COLUMN_NAMES.GENRE),
@@ -54,6 +70,10 @@ export const songs =
 				sql: SELECT_SONGS,
 				parse: sql.parseTable(),
 				variables: [{
+					key: "page",
+					string: false,
+					value: args.page,
+				},{
 					string: false,
 					key: "paginationNum",
 					value: PAGINATION_NUM,
@@ -61,10 +81,6 @@ export const songs =
 					string: false,
 					key: "orderByDirection",
 					value: args.orderBy.direction,
-				},{
-					key: "offset",
-					string: false,
-					value: args.page * PAGINATION_NUM,
 				},{
 					string: false,
 					key: "columnNames",
@@ -85,13 +101,13 @@ export const albums =
 				sql: SELECT_ALBUMS,
 				parse: sql.parseTable(),
 				variables: [{
+					key: "page",
+					string: false,
+					value: args.page,
+				},{
 					string: false,
 					key: "paginationNum",
 					value: PAGINATION_NUM,
-				},{
-					key: "offset",
-					string: false,
-					value: args.page * PAGINATION_NUM,
 				},{
 					string: false,
 					key: "orderByField",
@@ -116,13 +132,13 @@ export const artists =
 				sql: SELECT_ARTISTS,
 				parse: sql.parseTable(),
 				variables: [{
+					key: "page",
+					string: false,
+					value: args.page,
+				},{
 					string: false,
 					key: "paginationNum",
 					value: PAGINATION_NUM,
-				},{
-					key: "offset",
-					string: false,
-					value: args.page * PAGINATION_NUM,
 				},{
 					string: false,
 					key: "orderByField",

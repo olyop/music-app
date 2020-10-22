@@ -21,9 +21,9 @@ enum SongOrderByField {
 	RELEASED
 }
 
-# enum GenreOrderByField {
-# 	NAME
-# }
+enum GenreOrderByField {
+	NAME
+}
 
 enum AlbumOrderByField {
 	TITLE

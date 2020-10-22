@@ -2,8 +2,8 @@ import {
 	ListStyle,
 	OrderByDirection,
 	SongsOrderByField,
-	AlbumsOrderByField,
 	GenresOrderByField,
+	AlbumsOrderByField,
 	ArtistsOrderByField,
 	UserSongsOrderByField,
 	UserAlbumsOrderByField,
@@ -22,7 +22,7 @@ export interface DocOrderBy<F = string> {
 }
 
 export type SongsOrderBy = DocOrderBy<SongsOrderByField>
-export type GenreOrderBy = DocOrderBy<GenresOrderByField>
+export type GenresOrderBy = DocOrderBy<GenresOrderByField>
 export type AlbumsOrderBy = DocOrderBy<AlbumsOrderByField>
 export type ArtistsOrderBy = DocOrderBy<ArtistsOrderByField>
 export type UserSongsOrderBy = DocOrderBy<UserSongsOrderByField>
@@ -31,7 +31,7 @@ export type UserArtistsOrderBy = DocOrderBy<UserArtistsOrderByField>
 
 export interface OrderBySettings {
 	songs: SongsOrderBy,
-	genres: GenreOrderBy,
+	genres: GenresOrderBy,
 	albums: AlbumsOrderBy,
 	artists: ArtistsOrderBy,
 	userSongs: UserSongsOrderBy,

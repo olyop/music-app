@@ -13,4 +13,4 @@ ORDER BY
 LIMIT
 	{{ paginationNum }}
 OFFSET
-	{{ offset }};
+	{{ page }} * {{ paginationNum }};

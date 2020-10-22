@@ -51,6 +51,11 @@ const config: Configuration = {
 	module: {
 		rules: [
 			{
+				test: /\.js$/,
+				enforce: "pre",
+				loader: "source-map-loader",
+			},
+			{
 				test: /\.gql$/,
 				exclude: /node_modules/,
 				loader: "graphql-tag/loader",

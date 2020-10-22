@@ -1,6 +1,5 @@
 type Query {
 	# database
-	genres: [Genre!]!,
 	user(userId: Uuid!): User!
 	play(playId: Uuid!): Play!
 	song(songId: Uuid!): Song!
@@ -13,6 +12,10 @@ type Query {
 		page: NonNegativeInt!
 		orderBy: SongOrderByInput!
 	): [Song!]!
+	genres(
+		page: NonNegativeInt!
+		orderBy: GenreOrderByInput!
+	): [Genre!]!,
 	albums(
 		page: NonNegativeInt!
 		orderBy: AlbumOrderByInput!

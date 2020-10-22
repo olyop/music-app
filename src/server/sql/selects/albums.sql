@@ -1,10 +1,10 @@
 SELECT
-  {{ columnNames }}
+	{{ columnNames }}
 FROM
-  albums
+	albums
 ORDER BY
-  {{ orderByField }} {{ orderByDirection }}
+	{{ orderByField }} {{ orderByDirection }}
 LIMIT
-  {{ paginationNum }}
+	{{ paginationNum }}
 OFFSET
-  {{ offset }}
+	{{ page }} * {{ paginationNum }};

@@ -26,6 +26,7 @@ import {
 	UserSongsOrderByField,
 	UserAlbumsOrderByField,
 	UserArtistsOrderByField,
+	GenresOrderByField,
 } from "../types"
 
 const userId =
@@ -78,6 +79,10 @@ const defaultSettings: Settings = {
 	orderBy: {
 		songs: {
 			field: SongsOrderByField.TITLE,
+			direction: OrderByDirection.ASC,
+		},
+		genres: {
+			field: GenresOrderByField.NAME,
 			direction: OrderByDirection.ASC,
 		},
 		albums: {

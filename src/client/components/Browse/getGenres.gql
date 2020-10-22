@@ -1,5 +1,11 @@
-query getGenres {
-	genres {
+query getGenres(
+	$page: NonNegativeInt!
+	$orderBy: GenreOrderByInput!
+) {
+	genres(
+		page: $page
+		orderBy: $orderBy
+	) {
     name
     genreId
 	}

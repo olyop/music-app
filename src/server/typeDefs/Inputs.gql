@@ -42,10 +42,10 @@ input SongOrderByInput {
 	direction: OrderByDirection!
 }
 
-# input GenreOrderByInput {
-# 	field: GenreOrderByField!
-# 	direction: OrderByDirection!
-# }
+input GenreOrderByInput {
+	field: GenreOrderByField!
+	direction: OrderByDirection!
+}
 
 input AlbumOrderByInput {
 	field: AlbumOrderByField!

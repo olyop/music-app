@@ -1,0 +1,9 @@
+enum CacheControlScope {
+  PUBLIC
+  PRIVATE
+}
+
+directive @cacheControl (
+  maxAge: NonNegativeInt
+  scope: CacheControlScope
+) on FIELD_DEFINITION | OBJECT | INTERFACE

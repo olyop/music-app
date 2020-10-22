@@ -5,6 +5,7 @@ import {
 	Song,
 	Play,
 	User,
+	Genre,
 	Album,
 	Artist,
 	OrderBy,
@@ -18,6 +19,7 @@ import {
 	SELECT_USER_PLAYS,
 	SELECT_USER_ALBUMS,
 	SELECT_USER_QUEUE_SONGS,
+	SELECT_USER_GENRES,
 } from "../sql"
 
 import { COLUMN_NAMES } from "../globals"
@@ -49,6 +51,10 @@ const getUserDocs = <T>({
 			value: id,
 			key: "userId",
 		},{
+			key: "page",
+			value: page,
+			string: false,
+		},{
 			string: false,
 			key: "tableName",
 			value: tableName,
@@ -72,10 +78,6 @@ const getUserDocs = <T>({
 			string: false,
 			key: "orderByDirection",
 			value: orderBy.direction,
-		},{
-			key: "offset",
-			string: false,
-			value: page * PAGINATION_NUM,
 		},{
 			string: false,
 			key: "columnNames",
@@ -140,18 +142,68 @@ export const current =
 	)
 
 export const albums =
-	resolver<Album[]>(
-		({ parent }) => (
+	resolver<Album[], DocsArgs>(
+		({ parent, args }) => (
 			sql.query({
 				sql: SELECT_USER_ALBUMS,
 				parse: sql.parseTable(),
 				variables: [{
+					key: "page",
+					string: false,
+					value: args.page,
+				},{
 					key: "userId",
 					value: parent.userId,
 				},{
 					string: false,
+					key: "paginationNum",
+					value: PAGINATION_NUM,
+				},{
+					string: false,
+					key: "orderByField",
+					value: args.orderBy.field,
+				},{
+					string: false,
+					key: "orderByDirection",
+					value: args.orderBy.direction,
+				},{
+					string: false,
 					key: "columnNames",
 					value: sql.join(COLUMN_NAMES.ALBUM),
+				}],
+			})
+		),
+	)
+
+export const genres =
+	resolver<Genre[], DocsArgs>(
+		({ parent, args }) => (
+			sql.query({
+				sql: SELECT_USER_GENRES,
+				parse: sql.parseTable(),
+				variables: [{
+					key: "page",
+					string: false,
+					value: args.page,
+				},{
+					key: "userId",
+					value: parent.userId,
+				},{
+					string: false,
+					key: "paginationNum",
+					value: PAGINATION_NUM,
+				},{
+					string: false,
+					key: "orderByField",
+					value: args.orderBy.field,
+				},{
+					string: false,
+					key: "orderByDirection",
+					value: args.orderBy.direction,
+				},{
+					string: false,
+					key: "columnNames",
+					value: sql.join(COLUMN_NAMES.GENRE),
 				}],
 			})
 		),

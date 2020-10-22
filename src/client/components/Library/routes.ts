@@ -2,6 +2,7 @@ import uniqueId from "lodash/uniqueId"
 
 import { Route } from "../../types"
 import LibrarySongs from "./LibrarySongs"
+import LibraryGenres from "./LibraryGenres"
 import LibraryAlbums from "./LibraryAlbums"
 import LibraryArtists from "./LibraryArtists"
 
@@ -11,6 +12,12 @@ const routes: Route[] = [{
 	path: "/songs",
 	icon: "audiotrack",
 	component: LibrarySongs,
+},{
+	icon: "list",
+	name: "Genres",
+	id: uniqueId(),
+	path: "/genres",
+	component: LibraryGenres,
 },{
 	icon: "album",
 	name: "Albums",

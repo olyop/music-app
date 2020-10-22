@@ -1,7 +1,14 @@
-query getUserCurrent($userId: Uuid!) {
+query getUserAlbums(
+	$userId: Uuid!
+	$page: NonNegativeInt!
+	$orderBy: AlbumOrderByInput!
+) {
 	user(userId: $userId) {
 		userId
-		albums {
+		albums(
+			page: $page
+			orderBy: $orderBy
+		) {
 			albumId
 			title
 			released

@@ -90,15 +90,11 @@ const InLibraryButton: FC<PropTypes> = ({ doc, className }) => {
 		}
 	}, [error, dispatch])
 
-	const icon = doc.__typename === "Song" ?
-		(inLibrary ? "done" : "add") :
-		(inLibrary ? "person" : "person_add")
-
 	return (
 		<Icon
-			icon={icon}
 			onClick={handleClick}
 			className={className}
+			icon={inLibrary ? "done" : "add"}
 			title={`${inLibrary ? "Remove from" : "Add to"} Library`}
 		/>
 	)

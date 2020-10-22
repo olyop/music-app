@@ -1,5 +1,5 @@
-mutation clearUserQueue($userId: Uuid!) {
-	clearUserQueue(userId: $userId) {
+mutation userClearQueue($userId: Uuid!) {
+	userClearQueue(userId: $userId) {
     userId
     prev {
       mix

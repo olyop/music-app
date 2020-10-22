@@ -18,34 +18,36 @@ interface Args extends UserArgs {
 
 export const updateUserCurrent =
 	resolver<User, Args>(
-		async ({ args }) => {
-			await sql.query({
-				sql: INSERT_PLAY,
-				variables: [{
-					key: "playId",
-					value: uuid(),
-				},{
-					key: "userId",
-					value: args.userId,
-				},{
-					key: "songId",
-					value: args.songId,
-				}],
-			})
-			return sql.query({
-				sql: UPDATE_USER_CURRENT,
-				parse: sql.parseRow(),
-				variables: [{
-					key: "songId",
-					value: args.songId,
-				},{
-					key: "userId",
-					value: args.userId,
-				},{
-					string: false,
-					key: "columnNames",
-					value: sql.join(COLUMN_NAMES.USER),
-				}],
-			})
-		},
+		async ({ args }) => (
+			(await Promise.all([
+				sql.query<User>({
+					sql: UPDATE_USER_CURRENT,
+					parse: sql.parseRow(),
+					variables: [{
+						key: "songId",
+						value: args.songId,
+					},{
+						key: "userId",
+						value: args.userId,
+					},{
+						string: false,
+						key: "columnNames",
+						value: sql.join(COLUMN_NAMES.USER),
+					}],
+				}),
+				sql.query({
+					sql: INSERT_PLAY,
+					variables: [{
+						key: "playId",
+						value: uuid(),
+					},{
+						key: "userId",
+						value: args.userId,
+					},{
+						key: "songId",
+						value: args.songId,
+					}],
+				}),
+			]))[0]
+		),
 	)

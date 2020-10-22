@@ -21,7 +21,7 @@ type Mutation {
     userId: Uuid!
     songId: Uuid!
   ): User!
-  clearUserQueue(
+  userClearQueue(
     userId: Uuid!
   ): User!
 

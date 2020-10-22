@@ -44,14 +44,18 @@ const determineReplaceValue = (
 	{ value, string = true, parameterized = false }: SqlVariable,
 	params: string[],
 ) => {
-	const val = value === null ? "null" : value.toString()
-	if (parameterized) {
-		params.push(val)
-		return `$${params.length}`
-	} else if (string) {
-		return `'${val}'`
+	if (value === null) {
+		return "null"
 	} else {
-		return val
+		const val = value.toString()
+		if (parameterized) {
+			params.push(val)
+			return `$${params.length}`
+		} else if (string) {
+			return `'${val}'`
+		} else {
+			return val
+		}
 	}
 }
 
@@ -79,6 +83,7 @@ export const baseQuery =
 						normalizeInput(input)
 					const variableKeys = getVariableKeys(sql)
 					if (logVar) console.log(variables)
+					console.log(variableKeys, variables)
 					if (!areVariablesProvided(variableKeys, variables)) {
 						// eslint-disable-next-line max-len
 						const err = new TypeError(`Invalid query arguments. ${variables.map(({ key }) => key).toString()} - ${variableKeys.toString()}`)

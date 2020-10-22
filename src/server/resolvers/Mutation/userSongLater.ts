@@ -16,6 +16,7 @@ const resolver =
 export const userSongLater =
 	resolver<User, UserQueuesArgs>(
 		async ({ args }) => {
+			let returnValue: User
 			const client = await pg.connect()
 			const query = sql.baseQuery(client)
 			try {
@@ -79,6 +80,19 @@ export const userSongLater =
 					}],
 				})
 
+				returnValue = await sql.query<User>({
+					sql: SELECT_USER,
+					parse: sql.parseRow(),
+					variables: [{
+						key: "userId",
+						value: args.userId,
+					},{
+						string: false,
+						key: "columnNames",
+						value: sql.join(COLUMN_NAMES.USER),
+					}],
+				})
+
 				await query("COMMIT")
 			} catch (error) {
 				await query("ROLLBACK")
@@ -87,17 +101,6 @@ export const userSongLater =
 				client.release()
 			}
 
-			return sql.query<User>({
-				sql: SELECT_USER,
-				parse: sql.parseRow(),
-				variables: [{
-					key: "userId",
-					value: args.userId,
-				},{
-					string: false,
-					key: "columnNames",
-					value: sql.join(COLUMN_NAMES.USER),
-				}],
-			})
+			return returnValue
 		},
 	)

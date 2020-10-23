@@ -162,3 +162,11 @@ export const songSearch =
 			})
 		),
 	)
+
+export const testSearch =
+	resolver<Search[], SearchArgs>(
+		({ args }) => {
+			console.log(args.query)
+			return []
+		},
+	)

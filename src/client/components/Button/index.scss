@@ -1,17 +1,20 @@
-.Icon {
+.Button {
 	border: 0;
-	padding: 3rem;
 	outline: none;
 	display: block;
 	cursor: pointer;
-	user-select: none;
-	border-radius: 100%;
 	overflow: hidden !important;
 	min-width: var(--info-height);
 	min-height: var(--info-height);
 	background-color: transparent;
 	color: var(--text-color-light);
+	border-radius: var(--border-radius);
 	font-size: calc(var(--info-height) - 6rem);
 	transition: var(--transition-duration) background-color;
 	&:hover {
-		background-color: #e0e0e0; } }
+		background-color: #e0e0e0; }
+	&__icon,
+	&__text {
+		user-select: none; }
+	&__icon {
+		font-size: var(--info-height); } }

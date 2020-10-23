@@ -40,11 +40,11 @@ export const getUserDocDateAdded =
 			sql: SELECT_USER_DOC_ADDED,
 			parse: sql.parseUnixField,
 			variables: [{
-				key: "userId",
-				value: userId,
-			},{
 				key: "docId",
 				value: docId,
+			},{
+				key: "userId",
+				value: userId,
 			},{
 				string: false,
 				key: "columnName",

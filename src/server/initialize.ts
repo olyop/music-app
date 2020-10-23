@@ -34,7 +34,7 @@ import {
 	PLAYLISTS_NAME_INDEX,
 } from "./sql"
 
-import { s3, pg } from "./services"
+import { ag, s3, pg } from "./services"
 
 const SQL_INIT = [
 	SET_TIMEZONE,
@@ -69,7 +69,9 @@ const initializeDatabase = async () => {
 	const client = await pg.connect()
 	try {
 		await client.query("BEGIN")
-		for (const query of SQL_INIT) await client.query(query)
+		for (const query of SQL_INIT) {
+			await client.query(query)
+		}
 		await client.query("COMMIT")
 	} catch (error) {
 		await client.query("ROLLBACK")

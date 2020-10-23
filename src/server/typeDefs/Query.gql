@@ -35,6 +35,7 @@ type Query {
 	
 	# searches
 	search(query: String!): [Search!]!
+	testSearch(query: String!): [Search!]!
 	songSearch(query: String!, exact: Boolean!): [Song!]!
 	albumSearch(query: String!, exact: Boolean!): [Album!]!
 	genreSearch(query: String!, exact: Boolean!): [Genre!]!

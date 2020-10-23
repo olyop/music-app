@@ -2,7 +2,7 @@ import { createBem } from "@oly_op/bem"
 import { createElement, FC } from "react"
 
 import Song from "../../Song"
-import { Disc } from "../../../types"
+import { Disc as TDisc } from "../../../types"
 
 import "./index.scss"
 
@@ -33,7 +33,7 @@ const Disc: FC<PropTypes> = ({ disc: { songs, number, hideLabel } }) => (
 )
 
 interface PropTypes {
-	disc: Disc,
+	disc: TDisc,
 }
 
 export default Disc

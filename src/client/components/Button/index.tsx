@@ -3,7 +3,7 @@ import { createBem, BemInput, BemPropTypes } from "@oly_op/bem"
 
 import "./index.scss"
 
-const bem = createBem("Icon")
+const bem = createBem("Button")
 
 const Button: FC<PropTypes> = ({
 	icon,
@@ -19,12 +19,20 @@ const Button: FC<PropTypes> = ({
 		onClick={onClick}
 		className={bem(className, "")}
 	>
-		<i className={bem("icon", "material-icons")}>
-			{icon}
-		</i>
-		<span className={bem("text", "Text")}>
-			{text}
-		</span>
+		<i
+			children={icon}
+			className={bem(
+				"icon",
+				{ ignore: true, className: "material-icons" },
+			)}
+		/>
+		{icon && text && (
+			<div className={bem("spacer")}/>
+		)}
+		<span
+			children={text}
+			className={bem("text")}
+		/>
 	</button>
 )
 
@@ -32,8 +40,8 @@ interface PropTypes extends BemPropTypes {
 	icon?: string,
 	text?: string,
 	onClick?: () => void,
-	iconClassName: BemInput,
-	textClassName: BemInput,
+	iconClassName?: BemInput,
+	textClassName?: BemInput,
 }
 
 export default Button

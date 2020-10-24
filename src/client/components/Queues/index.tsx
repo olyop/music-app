@@ -3,7 +3,7 @@ import { useMutation } from "@apollo/client"
 import { createElement, FC, Fragment } from "react"
 
 import Song from "../Song"
-import Icon from "../Icon"
+import Button from "../Button"
 import QueryApi from "../QueryApi"
 import { User } from "../../types"
 import { useStateUserId } from "../../redux"
@@ -42,11 +42,18 @@ const Queues: FC = () => {
 							)}
 						</div>
 					))}
-					<Icon
-						icon="close"
-						onClick={() => clear()}
-						className={bem("close")}
-					/>
+					<div className="FlexListGap">
+						<Button
+							icon="clear_all"
+							text="Clear Next"
+							onClick={() => clear()}
+						/>
+						<Button
+							icon="close"
+							text="Clear Queue"
+							onClick={() => clear()}
+						/>
+					</div>
 				</Fragment>
 			)}
 		/>

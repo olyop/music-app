@@ -11,6 +11,7 @@ import {
 
 import Img from "../Img"
 import Disc from "./Disc"
+import Button from "../Button"
 import Helmet from "../Helmet"
 import QueryApi from "../QueryApi"
 import DocLinks from "../DocLinks"
@@ -52,7 +53,7 @@ const AlbumPage: FC = () => {
 							<summary className={bem("sum", "Text MarginBottomHalf")}>
 								Songs
 							</summary>
-							<div className={bem("discs", "MarginBottom")}>
+							<div className={bem("discs", "MarginBottomThreeQuart")}>
 								{determineDiscs(data.album.songs).map(disc => (
 									<Disc
 										disc={disc}
@@ -60,6 +61,11 @@ const AlbumPage: FC = () => {
 									/>
 								))}
 							</div>
+							<Button
+								icon="shuffle"
+								text="Shuffle"
+								className="MarginBottom"
+							/>
 						</details>
 						<details open>
 							<summary className={bem("sum", "Text MarginBottomHalf")}>

@@ -12,13 +12,8 @@
 		position: relative;
 		align-items: center;
 		text-decoration: none;
-		margin: 0 var(--space-half);
 		@media (max-width: 450px) {
 			margin: 0; }
-		&:first-child {
-			margin-left: 0; }
-		&:last-child {
-			margin-right: 0; }
 		&-icon,
 		&-text {
 			font-size: var(--text-height); }

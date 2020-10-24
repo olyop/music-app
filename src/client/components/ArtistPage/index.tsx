@@ -10,6 +10,13 @@ import { createBem } from "@oly_op/bem"
 import { createElement, Fragment, FC } from "react"
 
 import {
+	artistLower,
+	uuidAddDashes,
+	determinePlural,
+	dataUrlToObjectUrl,
+} from "../../helpers"
+
+import {
 	Artist,
 	UserVar,
 	SongsOrderBy,
@@ -28,7 +35,6 @@ import GET_ARTIST_PAGE from "./getArtistPage.gql"
 import GET_ARTIST_PAGE_SONGS from "./getArtistPageSongs.gql"
 import { useStateUserId, useStateOrderBy } from "../../redux"
 import GET_ARTIST_PAGE_ALBUMS from "./getArtistPageAlbums.gql"
-import { artistLower, uuidAddDashes, determinePlural } from "../../helpers"
 
 import "./index.scss"
 
@@ -52,6 +58,7 @@ const ArtistPage: FC<RouteComponentProps> = ({ match }) => {
 						url={data.artist.photo}
 						className={bem("cover")}
 						imgClassName={bem("cover-img")}
+						onClick={() => window.open(dataUrlToObjectUrl(data.artist.photo))}
 					>
 						<div className={bem("cover-content", "Content MarginBottomOneHalf")}>
 							<h1 className={bem("cover-content-name")}>

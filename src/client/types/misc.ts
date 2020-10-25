@@ -34,7 +34,6 @@ export interface Queue {
 	id: string,
 	name: string,
 	songs: Song[],
-	key: "prev" | "next" | "after" | "current",
 }
 
 export interface UserVar {

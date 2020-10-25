@@ -3,11 +3,11 @@ import { v4 as uuid } from "uuid"
 import {
 	INSERT_PLAY,
 	UPDATE_USER_CURRENT,
-} from "../../sql"
+} from "../../../sql"
 
-import { COLUMN_NAMES } from "../../globals"
-import { User, UserArgs } from "../../types"
-import { sql, createResolver } from "../../helpers"
+import { COLUMN_NAMES } from "../../../globals"
+import { User, UserArgs } from "../../../types"
+import { sql, createResolver } from "../../../helpers"
 
 const resolver =
 	createResolver()

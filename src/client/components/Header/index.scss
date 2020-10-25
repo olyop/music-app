@@ -11,12 +11,11 @@
 		&:focus {
 			text-decoration: none; } }
 	&__icon {
-		font-size: 36rem;
+		--dim: 40rem;
+		width: var(--dim);
+		height: var(--dim);
 		text-decoration: none;
-		color: var(--text-color);
-		padding: var(--space-quart);
-		width: calc(var(--space-half) + 36rem);
-		height: calc(var(--space-half) + 36rem); }
+		color: var(--text-color); }
 	&__hamburger {
 		margin-left: 3px; }
 	&__search {

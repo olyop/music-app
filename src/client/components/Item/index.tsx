@@ -50,7 +50,7 @@ const Item = <D extends Doc, I extends Doc = Doc>({
 	const closeMore = () => setModal(false)
 	return (
 		<Fragment>
-			<div className={bem(className, "", "FlexList")}>
+			<div className={bem(className, "")}>
 				{left && (
 					<p
 						children={left}
@@ -76,7 +76,7 @@ const Item = <D extends Doc, I extends Doc = Doc>({
 						)}
 					/>
 				)}
-				<div className={bem(infoClassName, "info", "FlexList")}>
+				<div className={bem(infoClassName, "info")}>
 					<div className={bem("info-left")}>
 						<p
 							children={upper}

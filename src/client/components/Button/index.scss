@@ -4,10 +4,10 @@
 	display: flex;
 	cursor: pointer;
 	align-items: center;
-	background-color: #eee;
 	height: var(--info-height);
 	padding: 0 var(--space-half);
 	border-radius: var(--border-radius);
+	background-color: var(--elevated-color);
 	transition: var(--transition-duration) background-color;
 	&:hover {
 		background-color: #e0e0e0; }
@@ -24,6 +24,6 @@
 		height: 100%; }
 	&__text {
 		margin-top: 1px;
-		font-size: 15rem;
+		font-size: 16rem;
 		font-weight: 700;
 		text-transform: uppercase; } }

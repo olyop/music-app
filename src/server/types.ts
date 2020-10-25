@@ -92,6 +92,13 @@ export interface UserQueue {
 	songId: string,
 }
 
+export interface Queue {
+	prevs: UserQueue[],
+	nexts: UserQueue[],
+	laters: UserQueue[],
+	current: string | null,
+}
+
 export interface OrderBy {
 	field: string,
 	direction: string,

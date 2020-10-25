@@ -13,7 +13,6 @@ import {
 	artistLower,
 	uuidAddDashes,
 	determinePlural,
-	dataUrlToObjectUrl,
 } from "../../helpers"
 
 import {
@@ -58,7 +57,6 @@ const ArtistPage: FC<RouteComponentProps> = ({ match }) => {
 						url={data.artist.photo}
 						className={bem("cover")}
 						imgClassName={bem("cover-img")}
-						onClick={() => window.open(dataUrlToObjectUrl(data.artist.photo))}
 					>
 						<div className={bem("cover-content", "Content MarginBottomOneHalf")}>
 							<h1 className={bem("cover-content-name")}>

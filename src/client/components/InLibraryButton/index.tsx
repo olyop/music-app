@@ -5,6 +5,7 @@ import {
 	createElement,
 } from "react"
 
+import noop from "lodash/noop"
 import uniqueId from "lodash/uniqueId"
 import isUndefined from "lodash/isUndefined"
 import { useQuery, useMutation } from "@apollo/client"
@@ -92,9 +93,9 @@ const InLibraryButton: FC<PropTypes> = ({ doc, className }) => {
 
 	return (
 		<Icon
-			onClick={handleClick}
 			className={className}
 			icon={inLibrary ? "done" : "add"}
+			onClick={mutationLoading ? noop : handleClick}
 			title={`${inLibrary ? "Remove from" : "Add to"} Library`}
 		/>
 	)

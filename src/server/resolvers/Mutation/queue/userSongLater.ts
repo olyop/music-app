@@ -3,12 +3,12 @@ import {
 	SELECT_USER_QUEUE,
 	INSERT_USER_QUEUE,
 	UPDATE_USER_QUEUE_SONG,
-} from "../../sql"
+} from "../../../sql"
 
-import { pg } from "../../services"
-import { COLUMN_NAMES } from "../../globals"
-import { sql, createResolver } from "../../helpers"
-import { User, UserQueue, UserQueuesArgs } from "../../types"
+import { pg } from "../../../services"
+import { COLUMN_NAMES } from "../../../globals"
+import { sql, createResolver } from "../../../helpers"
+import { User, UserQueue, UserQueuesArgs } from "../../../types"
 
 const resolver =
 	createResolver()

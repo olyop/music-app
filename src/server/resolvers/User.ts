@@ -234,7 +234,7 @@ export const later =
 		({ parent }) => (
 			getUserQueue({
 				userId: parent.userId,
-				tableName: "users_nexts",
+				tableName: "users_laters",
 			})
 		),
 	)

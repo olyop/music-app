@@ -2,11 +2,11 @@ import {
 	SELECT_USER,
 	SELECT_USER_QUEUE,
 	INSERT_USER_QUEUE,
-} from "../../sql"
+} from "../../../sql"
 
-import { COLUMN_NAMES } from "../../globals"
-import { sql, createResolver } from "../../helpers"
-import { User, UserQueue, UserQueuesArgs } from "../../types"
+import { COLUMN_NAMES } from "../../../globals"
+import { sql, createResolver } from "../../../helpers"
+import { User, UserQueue, UserQueuesArgs } from "../../../types"
 
 const resolver =
 	createResolver()

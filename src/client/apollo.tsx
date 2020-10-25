@@ -1,25 +1,25 @@
 import {
 	HttpLink,
-	FieldPolicy,
+	// FieldPolicy,
 	ApolloClient,
 	TypePolicies,
 	InMemoryCache,
 	ApolloProvider,
-	FieldMergeFunction,
+	// FieldMergeFunction,
 } from "@apollo/client"
 
-import isEmpty from "lodash/isEmpty"
+// import isEmpty from "lodash/isEmpty"
 import { createElement, FC } from "react"
 
-import { Song, Album, Artist } from "./types"
+// import { Song, Album, Artist } from "./types"
 
-const userMerge = <T,>(): FieldMergeFunction<T[]> =>
-	(existing, incoming) =>
-		(existing && isEmpty(incoming) && existing.length !== 1 ?
-			existing : incoming)
+// const userMerge = <T,>(): FieldMergeFunction<T[]> =>
+// 	(existing, incoming) =>
+// 		(existing && isEmpty(incoming) && existing.length !== 1 ?
+// 			existing : incoming)
 
-const userDocs = <T,>(): FieldPolicy<T[]> =>
-	({ merge: userMerge() })
+// const userDocs = <T,>(): FieldPolicy<T[]> =>
+// 	({ merge: userMerge() })
 
 const typePolicies: TypePolicies = {
 	Query: {
@@ -32,14 +32,14 @@ const typePolicies: TypePolicies = {
 	},
 	User: {
 		keyFields: ["userId"],
-		fields: {
-			prevs: userDocs<Song>(),
-			nexts: userDocs<Song>(),
-			afters: userDocs<Song>(),
-			songs: userDocs<Song>(),
-			albums: userDocs<Album>(),
-			artists: userDocs<Artist>(),
-		},
+		// fields: {
+		// 	prevs: userDocs<Song>(),
+		// 	nexts: userDocs<Song>(),
+		// 	afters: userDocs<Song>(),
+		// 	songs: userDocs<Song>(),
+		// 	albums: userDocs<Album>(),
+		// 	artists: userDocs<Artist>(),
+		// },
 	},
 	Song: { keyFields: ["songId"] },
 	Play: { keyFields: ["playId"] },

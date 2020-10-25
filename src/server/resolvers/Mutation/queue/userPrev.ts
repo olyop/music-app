@@ -1,4 +1,4 @@
-import { createResolver } from "../../helpers"
+import { createResolver } from "../../../helpers"
 
 const resolver =
 	createResolver()

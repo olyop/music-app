@@ -1,5 +1,6 @@
 import { createBem } from "@oly_op/bem"
 import { useParams } from "react-router-dom"
+import { useMutation } from "@apollo/client"
 import { createElement, Fragment, FC } from "react"
 import deserializeDuration from "@oly_op/music-app-common/deserializeDuration"
 
@@ -15,9 +16,10 @@ import Button from "../Button"
 import Helmet from "../Helmet"
 import QueryApi from "../QueryApi"
 import DocLinks from "../DocLinks"
-import { Album, UserVar } from "../../types"
 import { useStateUserId } from "../../redux"
+import SHUFFLE_ALBUM from "./shuffleAlbum.gql"
 import GET_ALBUM_PAGE from "./getAlbumPage.gql"
+import { Album, User, UserVar } from "../../types"
 
 import "./index.scss"
 
@@ -27,8 +29,10 @@ const AlbumPage: FC = () => {
 	const userId = useStateUserId()
 	const params = useParams<Params>()
 	const albumId = uuidAddDashes(params.albumId)
+	const variables: MutationVars = { userId, albumId }
+	const [ shuffle ] = useMutation<User, MutationVars>(SHUFFLE_ALBUM, { variables })
 	return (
-		<QueryApi<Data, Vars>
+		<QueryApi<Data, QueryVars>
 			query={GET_ALBUM_PAGE}
 			className={bem("", "Content")}
 			variables={{ userId, albumId }}
@@ -65,6 +69,7 @@ const AlbumPage: FC = () => {
 								icon="shuffle"
 								text="Shuffle"
 								className="MarginBottom"
+								onClick={() => shuffle()}
 							/>
 						</details>
 						<details open>
@@ -95,6 +100,10 @@ interface Params {
 	albumId: string,
 }
 
-interface Vars extends Params, UserVar {}
+interface MutationVars extends UserVar {
+	albumId: string,
+}
+
+interface QueryVars extends Params, UserVar {}
 
 export default AlbumPage

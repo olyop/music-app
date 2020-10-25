@@ -6,9 +6,9 @@
 	cursor: pointer;
 	user-select: none;
 	border-radius: 100%;
+	width: var(--info-height);
+	height: var(--info-height);
 	overflow: hidden !important;
-	min-width: var(--info-height);
-	min-height: var(--info-height);
 	background-color: transparent;
 	color: var(--text-color-light);
 	font-size: calc(var(--info-height) - 6rem);

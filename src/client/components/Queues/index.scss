@@ -1,12 +1,8 @@
 .Queues {
 	&__section {
-		margin-bottom: 12px;
-		border-radius: var(--border-radius);
 		@media (max-width: 640px) {
 			width: 100%; }
 		&-text {
 			color: #757575;
 			font-size: 18rem;
-			margin-bottom: calc(var(--space) * 0.5); }
-		&-song {
-			padding: var(--space-half) 0; } } }
+			margin-bottom: calc(var(--space) * 0.5); } } }

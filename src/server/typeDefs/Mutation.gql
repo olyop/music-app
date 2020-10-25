@@ -21,8 +21,15 @@ type Mutation {
     userId: Uuid!
     songId: Uuid!
   ): User!
+  userClearNext(
+    userId: Uuid!
+  ): User!
   userClearQueue(
     userId: Uuid!
+  ): User!
+  shuffleAlbum(
+    userId: Uuid!
+    albumId: Uuid!
   ): User!
 
   addUserSong(

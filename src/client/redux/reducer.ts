@@ -1,4 +1,3 @@
-import { USER_ID } from "@oly_op/music-app-common/globals"
 import { createReducer, combineReducers } from "@reduxjs/toolkit"
 
 import {
@@ -30,7 +29,7 @@ import {
 } from "../types"
 
 const userId =
-	createReducer(USER_ID, {})
+	createReducer("fe25daae-c4c8-42a8-8189-0ee8e2208670", {})
 
 const volume =
 	createReducer(50, builder =>

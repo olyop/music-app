@@ -1,7 +1,7 @@
 import { createBem } from "@oly_op/bem"
 import { createElement, FC } from "react"
 
-import Song from "../../Song"
+import Songs from "../../Songs"
 import { Disc as TDisc } from "../../../types"
 
 import "./index.scss"
@@ -16,19 +16,12 @@ const Disc: FC<PropTypes> = ({ disc: { songs, number, hideLabel } }) => (
 				children={`Disc ${number}`}
 			/>
 		)}
-		<div className="Elevated">
-			{songs.map(
-				song => (
-					<Song
-						song={song}
-						showTrackNumber
-						key={song.songId}
-						showCover={false}
-						className="PaddingHalf Hover ItemBorder"
-					/>
-				),
-			)}
-		</div>
+		<Songs
+			hideOrderBy
+			songs={songs}
+			showTrackNumber
+			showCover={false}
+		/>
 	</div>
 )
 

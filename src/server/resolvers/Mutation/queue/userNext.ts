@@ -1,8 +1,10 @@
 /* eslint-disable no-await-in-loop, no-restricted-syntax */
 import { isEmpty } from "lodash"
+import { v4 as uuid } from "uuid"
 
 import {
 	SELECT_USER,
+	INSERT_PLAY,
 	INSERT_USER_QUEUE,
 	UPDATE_USER_CURRENT,
 	UPDATE_USER_QUEUE_SONG,
@@ -102,6 +104,19 @@ export const userNext =
 							string: false,
 							key: "columnNames",
 							value: sql.join(COLUMN_NAMES.USER),
+						}],
+					})
+					await query({
+						sql: INSERT_PLAY,
+						variables: [{
+							key: "playId",
+							value: uuid(),
+						},{
+							key: "userId",
+							value: args.userId,
+						},{
+							key: "songId",
+							value: newCurrent.songId,
 						}],
 					})
 					await query({

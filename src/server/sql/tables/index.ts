@@ -2,6 +2,7 @@ import importSql from "../importSql"
 
 const importFile = importSql("tables")
 
+export const TABLE_KEYS = importFile("keys")
 export const TABLE_PLAYS = importFile("plays")
 export const TABLE_SONGS = importFile("songs")
 export const TABLE_USERS = importFile("users")

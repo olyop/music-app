@@ -44,7 +44,7 @@ const AlbumPage: FC = () => {
 						onClick={() => window.open(dataUrlToObjectUrl(data.album.cover))}
 					/>
 					<div>
-						<h1 className={bem("title")}>
+						<h1 className={bem("title", "Heading1")}>
 							{data.album.title}
 						</h1>
 						<h2 className={bem("artists", "MarginBottomHalf")}>

@@ -46,38 +46,38 @@ const Bar: FC = () => {
 							className={bem("controls")}
 							iconClassName={bem("icon")}
 						/>
-						{data && data.user.current && (
-							<div className={bem("main")}>
-								<div className={bem("main-content")}>
-									<div className={bem("main-content-controls")}>
+						<div className={bem("main")}>
+							<div className={bem("main-content")}>
+								<div className={bem("main-content-controls")}>
+									<Icon
+										icon="fullscreen"
+										title="Fullscreen"
+										onClick={fullscreen.enter}
+										className={bem("main-content-controls-control", "icon", "IconHover")}
+									/>
+									<NavLink className={bem("main-content-controls-control")} to="/queues">
 										<Icon
-											icon="fullscreen"
-											title="Fullscreen"
-											onClick={fullscreen.enter}
-											className={bem("main-content-controls-control", "icon", "IconHover")}
+											title="Queue"
+											icon="queue_music"
+											className={bem("icon", "IconHover")}
 										/>
-										<NavLink className={bem("main-content-controls-control")} to="/queues">
-											<Icon
-												title="Queue"
-												icon="queue_music"
-												className={bem("icon", "IconHover")}
-											/>
-										</NavLink>
-										<BarVolume/>
-									</div>
+									</NavLink>
+									<BarVolume/>
+								</div>
+								{data?.user.current && (
 									<Song
 										showPlay={false}
 										showRight={false}
-										song={data.user.current}
+										song={data?.user.current}
 										iconClassName={bem("icon")}
 										className={bem("main-content-current")}
 									/>
-								</div>
-								<Progress
-									duration={data.user.current.duration}
-								/>
+								)}
 							</div>
-						)}
+							<Progress
+								duration={data?.user.current?.duration || 0}
+							/>
+						</div>
 					</footer>
 				</Fragment>
 			)}

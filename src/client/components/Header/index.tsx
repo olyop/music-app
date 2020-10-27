@@ -3,7 +3,7 @@ import { createElement, FC } from "react"
 import { NavLink } from "react-router-dom"
 
 import Icon from "../Icon"
-import { useDispatch, toggleSidebar, useStateSidebar } from "../../redux"
+import { useDispatch, toggleSidebar } from "../../redux"
 
 import "./index.scss"
 
@@ -11,14 +11,13 @@ const bem = createBem("Header")
 
 const Header: FC = () => {
 	const dispatch = useDispatch()
-	const sidebar = useStateSidebar()
 	const handleMenuClick = () => dispatch(toggleSidebar())
 	return (
 		<header className={bem("", "Elevated")}>
 			<Icon
+				icon="menu"
 				title="Menu"
 				onClick={handleMenuClick}
-				icon={sidebar ? "close" : "menu"}
 				className={bem("hamburger", "icon", "IconHover")}
 			/>
 			<div className="FlexList">

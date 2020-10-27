@@ -7,6 +7,7 @@ import { ReactRedux } from "./redux"
 import Pages from "./components/Pages"
 import Header from "./components/Header"
 import Loading from "./components/Loading"
+import Sidebar from "./components/Sidebar"
 import ApiError from "./components/ApiError"
 import { Provider as ApolloClient } from "./apollo"
 
@@ -19,6 +20,7 @@ render(
 				<Header/>
 				<Pages/>
 				<Bar/>
+				<Sidebar/>
 			</ApolloClient>
 		</ReactRouter>
 	</ReactRedux>,

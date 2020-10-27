@@ -22,6 +22,7 @@ const Button: FC<PropTypes> = ({
 		<i
 			children={icon}
 			className={bem(
+				iconClassName,
 				"icon",
 				{ ignore: true, className: "material-icons" },
 			)}
@@ -31,7 +32,7 @@ const Button: FC<PropTypes> = ({
 		)}
 		<span
 			children={text}
-			className={bem("text")}
+			className={bem(textClassName, "text")}
 		/>
 	</button>
 )

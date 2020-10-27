@@ -31,6 +31,9 @@ type Mutation {
     userId: Uuid!
     albumId: Uuid!
   ): User!
+  userShuffleLibrary(
+    userId: Uuid!
+  ): User!
 
   addUserSong(
     userId: Uuid!

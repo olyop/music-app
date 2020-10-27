@@ -9,9 +9,6 @@
 	&__cover {
 		cursor: zoom-in; }
 	&__title {
-		display: flex;
-		font-size: 33rem;
-		align-items: center;
 		margin-bottom: calc(var(--space-quart) + 3px); }
 	&__artists {
 		font-size: 19rem;

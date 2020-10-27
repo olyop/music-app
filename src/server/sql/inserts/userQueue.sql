@@ -1,12 +1,9 @@
-INSERT INTO {{ tableName }}
-	(
-		user_id,
-		song_id,
-		index
-	)
-VALUES
-	(
-		{{ userId }},
-		{{ songId }},
-		{{ index }}
-	);
+INSERT INTO {{ tableName }} (
+	index,
+	user_id,
+	song_id
+) VALUES (
+	{{ index }},
+	{{ userId }},
+	{{ songId }}
+);

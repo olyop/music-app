@@ -1,4 +1,3 @@
-import { createBem } from "@oly_op/bem"
 import { createElement, FC } from "react"
 import { Switch, Route, RouteComponentProps } from "react-router-dom"
 
@@ -6,17 +5,13 @@ import routes from "./routes"
 import Helmet from "../Helmet"
 import Navigation from "../Navigation"
 
-import "./index.scss"
-
-const bem = createBem("Browse")
-
 const Browse: FC<RouteComponentProps> = ({ match }) => (
 	<Helmet title="Browse">
-		<div className={bem("")}>
+		<section className="PaddingTopBottom">
 			<Navigation
 				routes={routes}
 				path={match.path}
-				className={bem("nav")}
+				className="MarginBottom"
 			/>
 			<Switch>
 				{routes.map(
@@ -30,7 +25,7 @@ const Browse: FC<RouteComponentProps> = ({ match }) => (
 					),
 				)}
 			</Switch>
-		</div>
+		</section>
 	</Helmet>
 )
 

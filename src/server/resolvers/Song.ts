@@ -22,7 +22,7 @@ import {
 
 import { COLUMN_NAMES } from "../globals"
 import { sql, createResolver, s3 } from "../helpers"
-import { getUserDocInLib, getUserDocDateAdded } from "./getUserDoc"
+import { getUserDocInLib, getUserDocDateAdded } from "./userDocs"
 
 const resolver =
 	createResolver<Song>()

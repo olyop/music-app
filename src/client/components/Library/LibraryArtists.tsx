@@ -3,19 +3,27 @@ import { createElement, FC } from "react"
 import {
 	User,
 	UserVar,
+	ListStyle,
 	UserArtistsOrderBy,
 	UserArtistsOrderByField,
 } from "../../types"
+
+import {
+	useStateUserId,
+	useStateOrderBy,
+	useStateListStyle,
+} from "../../redux"
 
 import Feed from "../Feed"
 import Helmet from "../Helmet"
 import Artists from "../Artists"
 import GET_USER_ARTISTS from "./getUserArtists.gql"
-import { useStateUserId, useStateOrderBy } from "../../redux"
 
 const LibraryArtists: FC = () => {
 	const userId = useStateUserId()
 	const orderBy = useStateOrderBy<UserArtistsOrderByField>("userArtists")
+	const listStyle = useStateListStyle()
+	const isList = listStyle === ListStyle.LIST
 	return (
 		<Helmet title="Library Artists">
 			<Feed<Res, Vars>
@@ -34,9 +42,9 @@ const LibraryArtists: FC = () => {
 				})}
 				children={data => (
 					<Artists
-						className="Content"
 						orderByKey="userArtists"
 						artists={data?.user.artists || []}
+						className={isList ? "Content" : undefined}
 						orderByFields={Object.keys(UserArtistsOrderByField)}
 					/>
 				)}

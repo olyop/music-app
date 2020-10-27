@@ -28,6 +28,10 @@ const BarVolume: FC = () => {
 	const volume = useStateVolume()
 	const showVolume = useStateShowVolume()
 
+	const handleVolumeMute = () =>
+		dispatch(updateVolume(0))
+	const handleVolumeFull = () =>
+		dispatch(updateVolume(100))
 	const handleVolumeClick = () =>
 		dispatch(toggleShowVolume())
 	const handleChange: HandleChange = event =>
@@ -41,6 +45,7 @@ const BarVolume: FC = () => {
 						<Icon
 							icon="volume_up"
 							className={bem("button")}
+							onClick={handleVolumeFull}
 						/>
 						<input
 							min={0}
@@ -54,6 +59,7 @@ const BarVolume: FC = () => {
 						<Icon
 							icon="volume_down"
 							className={bem("button")}
+							onClick={handleVolumeMute}
 						/>
 					</div>
 				</Modal>

@@ -1,18 +1,29 @@
 .Sidebar {
-	--margin: var(--space-three-quart);
+	top: 0;
+	left: 0;
+	z-index: 4;
+	height: 100vh;
 	display: flex;
+	position: absolute;
 	flex-direction: column;
-	margin: var(--margin) 0;
 	width: var(--sidebar-width);
-	border-right: 1px solid var(--border-color);
-	height: calc(100vh - var(--header-height) - var(--player-height) - var(--margin) * 2);
+	&__close {
+		width: 40rem;
+		height: 40rem;
+		color: var(--text-color);
+		margin: var(--space-half);
+		margin-left: calc(var(--space-half) + 4px); }
 	&__route {
 		display: flex;
 		align-items: center;
+		padding: 0 var(--space);
+		height: var(--header-height);
 		text-decoration: none !important;
-		padding: calc(var(--space) * 0.5) var(--space);
+		border-top: 1px solid var(--border-color);
 		&:hover {
 			background-color: var(--hover-color); }
+		&:last-child {
+			border-bottom: 1px solid var(--border-color); }
 		&-icon {
 			font-size: 27rem;
 			margin-right: 4px;

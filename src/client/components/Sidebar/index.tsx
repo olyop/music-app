@@ -2,8 +2,13 @@ import { createBem } from "@oly_op/bem"
 import { createElement, FC } from "react"
 import { NavLink } from "react-router-dom"
 
+import {
+	useDispatch,
+	toggleSidebar,
+	useStateSidebar,
+} from "../../redux"
+
 import Icon from "../Icon"
-import { useDispatch, toggleSidebar } from "../../redux"
 
 import "./index.scss"
 
@@ -16,14 +21,21 @@ const IS_DEV = NODE_ENV === "development"
 
 const Sidebar: FC = () => {
 	const dispatch = useDispatch()
-	const handleRouteClick = () => dispatch(toggleSidebar())
-	return (
-		<nav className={bem("")}>
+	const sidebar = useStateSidebar()
+	const handleClose = () => dispatch(toggleSidebar())
+	return sidebar ? (
+		<nav className={bem("", "Elevated")}>
+			<Icon
+				title="Menu"
+				icon="close"
+				onClick={handleClose}
+				className={bem("close")}
+			/>
 			<NavLink
 				title="Browse"
 				to="/browse/songs"
+				onClick={handleClose}
 				className={bem("route")}
-				onClick={handleRouteClick}
 			>
 				<Icon className={bem("route-icon")} icon="view_list"/>
 				<p className={bem("route-text")}>Browse</p>
@@ -31,8 +43,8 @@ const Sidebar: FC = () => {
 			<NavLink
 				title="Library"
 				to="/library/songs"
+				onClick={handleClose}
 				className={bem("route")}
-				onClick={handleRouteClick}
 			>
 				<Icon className={bem("route-icon")} icon="library_music"/>
 				<p className={bem("route-text")}>Library</p>
@@ -46,7 +58,7 @@ const Sidebar: FC = () => {
 				<p className={bem("route-text")}>Add</p>
 			</a>
 		</nav>
-	)
+	) : null
 }
 
 export default Sidebar

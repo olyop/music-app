@@ -1,5 +1,6 @@
 export * from "./userNext"
 export * from "./userPrev"
+export * from "./userShuffle"
 export * from "./shuffleAlbum"
 export * from "./userSongNext"
 export * from "./userClearNext"

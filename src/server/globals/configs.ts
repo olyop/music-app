@@ -1,7 +1,5 @@
 import { PoolConfig } from "pg"
 import { CorsOptions } from "cors"
-import { APP } from "@oly_op/music-app-common/globals"
-import { CreateBucketRequest } from "aws-sdk/clients/s3"
 import { ApolloServerExpressConfig, GetMiddlewareOptions } from "apollo-server-express"
 
 import {
@@ -43,9 +41,4 @@ export const APOLLO_SERVER_CONFIG: ApolloServerExpressConfig = {
 
 export const CORS_CONFIG: CorsOptions = {
 	origin: IS_DEV ? `http://${HOST}:${PORT}/` : undefined,
-}
-
-export const AWS_S3_CREATE_BUCKET_CONFIG: CreateBucketRequest = {
-	Bucket: APP,
-	ACL: "public-read",
 }

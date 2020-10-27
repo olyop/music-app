@@ -13,6 +13,12 @@ const routes: Route[] = [{
 	icon: "audiotrack",
 	component: LibrarySongs,
 },{
+	id: uniqueId(),
+	icon: "person",
+	name: "Artists",
+	path: "/artists",
+	component: LibraryArtists,
+},{
 	icon: "list",
 	name: "Genres",
 	id: uniqueId(),
@@ -24,12 +30,6 @@ const routes: Route[] = [{
 	id: uniqueId(),
 	path: "/albums",
 	component: LibraryAlbums,
-},{
-	id: uniqueId(),
-	icon: "person",
-	name: "Artists",
-	path: "/artists",
-	component: LibraryArtists,
 }]
 
 export default routes

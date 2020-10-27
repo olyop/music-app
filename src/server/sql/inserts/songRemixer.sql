@@ -1,12 +1,9 @@
-INSERT INTO songs_remixers
-	(
-		song_id,
-		artist_id,
-		index
-	)
-VALUES
-	(
-		{{ songId }},
-		{{ artistId }},
-		{{ index }}
-	);
+INSERT INTO songs_remixers (
+	index,
+	song_id,
+	artist_id
+) VALUES (
+	{{ index }},
+	{{ songId }},
+	{{ artistId }}
+);

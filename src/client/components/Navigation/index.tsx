@@ -1,35 +1,43 @@
-import { createElement, FC } from "react"
 import { NavLink } from "react-router-dom"
+import { createElement, FC, ReactNode } from "react"
 import { createBem, BemPropTypes } from "@oly_op/bem"
 
-import Icon from "../Icon"
+import Button from "../Button"
 import { Route } from "../../types"
 
 import "./index.scss"
 
 const bem = createBem("Navigation")
 
-const Navigation: FC<PropTypes> = ({ path, routes, className }) => (
-	<nav className={bem(className, "", "FlexListGap Content MarginBottom")}>
-		{routes.map(
-			route => route.ignore || (
-				<NavLink
-					exact
-					key={route.id}
-					to={path + route.path}
-					className={bem("link")}
-					activeClassName={bem("active")}
-				>
-					<Icon
-						icon={route.icon!}
-						className={bem("link-icon")}
+const Navigation: FC<PropTypes> = ({ path, right, routes, className }) => (
+	<nav className={bem(className, "FlexListSpaceBetween Content")}>
+		<div className={bem("links", "FlexListGap")}>
+			{routes.map(
+				route => route.ignore || (
+					<NavLink
+						exact
+						key={route.id}
+						to={path + route.path}
+						className={bem("link")}
+						activeClassName={bem("active")}
+						children={(
+							<Button
+								text={route.name}
+								icon={route.icon}
+								className={bem("link-button")}
+								iconClassName={bem("link-button-text")}
+								textClassName={bem("link-button-text")}
+							/>
+						)}
 					/>
-					<span
-						children={route.name}
-						className={bem("link-text")}
-					/>
-				</NavLink>
-			),
+				),
+			)}
+		</div>
+		{right && (
+			<div
+				children={right}
+				className="FlexList"
+			/>
 		)}
 	</nav>
 )
@@ -37,6 +45,7 @@ const Navigation: FC<PropTypes> = ({ path, routes, className }) => (
 interface PropTypes extends BemPropTypes {
 	path: string,
 	routes: Route[],
+	right?: ReactNode,
 }
 
 export default Navigation

@@ -1,12 +1,8 @@
-import { APP } from "@oly_op/music-app-common/globals"
-
-import {
-	IS_DEV,
-	AWS_S3_CREATE_BUCKET_CONFIG,
-} from "./globals"
+import { IS_DEV } from "./globals"
 
 import {
 	SET_TIMEZONE,
+	TABLE_KEYS,
 	TABLE_ARTISTS,
 	TABLE_GENRES,
 	TABLE_ALBUMS,
@@ -34,10 +30,11 @@ import {
 	PLAYLISTS_NAME_INDEX,
 } from "./sql"
 
-import { ag, s3, pg } from "./services"
+import { pg } from "./services"
 
 const SQL_INIT = [
 	SET_TIMEZONE,
+	TABLE_KEYS,
 	TABLE_ARTISTS,
 	TABLE_ALBUMS,
 	TABLE_ALBUMS_ARTISTS,
@@ -79,23 +76,10 @@ const initializeDatabase = async () => {
 		client.release()
 	}
 }
-
-const initializeS3 = async () => {
-	try {
-		await s3.headBucket({ Bucket: APP }).promise()
-		await s3.createBucket(AWS_S3_CREATE_BUCKET_CONFIG).promise()
-	} catch (err) {
-		if (err instanceof Error && err.name !== "BucketAlreadyOwnedByYou") {
-			console.error(err)
-		}
-	}
-}
-
 const initialize = async () => {
 	if (!IS_DEV) {
 		try {
 			await initializeDatabase()
-			await initializeS3()
 		} catch (err) {
 			console.error(err)
 		}

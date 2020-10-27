@@ -48,7 +48,7 @@ const PlayButton: FC<PropTypes> = ({ doc, className }) => {
 		useMutation<UserPlayRes>(UPDATE_USER_PLAY, {
 			variables: { songId, userId },
 			optimisticResponse: isSong(doc) ? {
-				userPlay: {
+				updateUserCurrent: {
 					userId,
 					current: doc,
 					__typename: "User",
@@ -68,18 +68,15 @@ const PlayButton: FC<PropTypes> = ({ doc, className }) => {
 				dispatch(updatePlay(!play))
 			} else {
 				dispatch(updateCurrent(0))
-				// dispatch(updatePlay(true))
+				dispatch(updatePlay(false))
 				userPlay().catch(console.error)
 			}
 		}
 	}
 
 	useEffect(() => {
-		if (loading) {
-			dispatch(addLoading(queryId.current))
-		} else {
-			dispatch(removeLoading(queryId.current))
-		}
+		if (loading) dispatch(addLoading(queryId.current))
+		else dispatch(removeLoading(queryId.current))
 	}, [dispatch, loading])
 
 	useEffect(() => {
@@ -99,7 +96,7 @@ const PlayButton: FC<PropTypes> = ({ doc, className }) => {
 }
 
 interface UserPlayRes {
-	userPlay: Pick<User, "userId" | "current" | "__typename">,
+	updateUserCurrent: Pick<User, "userId" | "current" | "__typename">,
 }
 
 interface UserCurrentRes {

@@ -73,6 +73,14 @@ const InLibraryButton: FC<PropTypes> = ({ doc, className }) => {
 
 	const handleClick = () => {
 		if (!queryLoading && !mutationLoading) {
+			console.log({
+				[mutationName]: {
+					...doc,
+					[docKey]: docId,
+					__typename: docName,
+					inLibrary: !inLibrary,
+				},
+			})
 			mutation().catch(console.error)
 		}
 	}

@@ -8,112 +8,20 @@ import {
 	Genre,
 	Album,
 	Artist,
-	OrderBy,
 	Playlist,
 	DocsArgs,
 } from "../types"
 
 import {
 	SELECT_SONG,
-	SELECT_USER_DOCS,
 	SELECT_USER_PLAYS,
 	SELECT_USER_ALBUMS,
-	SELECT_USER_QUEUE_SONGS,
 	SELECT_USER_GENRES,
 } from "../sql"
 
 import { COLUMN_NAMES } from "../globals"
 import { sql, createResolver } from "../helpers"
-
-interface UserDocsInput {
-	id: string,
-	page: number,
-	orderBy: OrderBy,
-	tableName: string,
-	columnName: string,
-	columnNames: string[],
-	userTableName: string,
-}
-
-const getUserDocs = <T>({
-	id,
-	page,
-	orderBy,
-	tableName,
-	columnName,
-	columnNames,
-	userTableName,
-}: UserDocsInput) =>
-	sql.query<T[]>({
-		sql: SELECT_USER_DOCS,
-		parse: sql.parseTable(),
-		variables: [{
-			value: id,
-			key: "userId",
-		},{
-			key: "page",
-			value: page,
-			string: false,
-		},{
-			string: false,
-			key: "tableName",
-			value: tableName,
-		},{
-			string: false,
-			key: "columnName",
-			value: columnName,
-		},{
-			string: false,
-			key: "userTableName",
-			value: userTableName,
-		},{
-			string: false,
-			key: "orderByField",
-			value: orderBy.field,
-		},{
-			string: false,
-			key: "paginationNum",
-			value: PAGINATION_NUM,
-		},{
-			string: false,
-			key: "orderByDirection",
-			value: orderBy.direction,
-		},{
-			string: false,
-			key: "columnNames",
-			value: sql.join(columnNames, tableName),
-		},{
-			string: false,
-			key: "orderByTableName",
-			value: orderBy.field === "DATE_ADDED" ? userTableName : tableName,
-		}],
-	})
-
-interface UserQueueInput {
-	userId: string,
-	tableName: string,
-}
-
-const getUserQueue = <T>({
-	userId,
-	tableName,
-}: UserQueueInput) =>
-	sql.query({
-		sql: SELECT_USER_QUEUE_SONGS,
-		parse: sql.parseTable<T>(),
-		variables: [{
-			key: "userId",
-			value: userId,
-		},{
-			string: false,
-			key: "tableName",
-			value: tableName,
-		},{
-			string: false,
-			key: "columnNames",
-			value: sql.join(COLUMN_NAMES.SONG, "songs"),
-		}],
-	})
+import { getUserDocs, getUserQueue } from "./userDocs"
 
 const resolver =
 	createResolver<User>()
@@ -258,10 +166,10 @@ export const songs =
 		({ parent, args }) => (
 			getUserDocs({
 				page: args.page,
-				id: parent.userId,
 				tableName: "songs",
-				orderBy: args.orderBy,
 				columnName: "song_id",
+				orderBy: args.orderBy,
+				userId: parent.userId,
 				userTableName: "users_songs",
 				columnNames: COLUMN_NAMES.SONG,
 			})
@@ -273,8 +181,8 @@ export const artists =
 		({ parent, args }) => (
 			getUserDocs({
 				page: args.page,
-				id: parent.userId,
 				tableName: "artists",
+				userId: parent.userId,
 				orderBy: args.orderBy,
 				columnName: "artist_id",
 				userTableName: "users_artists",
@@ -288,7 +196,7 @@ export const playlists =
 		({ parent, args }) => (
 			getUserDocs({
 				page: args.page,
-				id: parent.userId,
+				userId: parent.userId,
 				orderBy: args.orderBy,
 				tableName: "playlists",
 				columnName: "playlist_id",

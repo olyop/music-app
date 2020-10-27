@@ -101,7 +101,7 @@ const Search: FC = () => {
 	const docClassName = "PaddingHalf Hover ItemBorder"
 
 	return (
-		<div className={bem("")}>
+		<section className={bem("")}>
 			<div className={bem("bar", "Content")}>
 				<input
 					autoFocus
@@ -160,7 +160,7 @@ const Search: FC = () => {
 					})}
 				</div>
 			)}
-		</div>
+		</section>
 	)
 }
 

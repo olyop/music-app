@@ -1,4 +1,4 @@
-export const songOrderByField = (field: string) => {
+export const getSongsOrderByField = (field: string) => {
 	if (field === "album" || field === "released") {
 		if (field === "album") {
 			return "albums.title"

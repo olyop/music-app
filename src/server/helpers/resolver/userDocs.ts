@@ -5,11 +5,11 @@ import {
 	SELECT_USER_DOC_ADDED,
 	SELECT_USER_DOC_IN_LIB,
 	SELECT_USER_QUEUE_SONGS,
-} from "../sql"
+} from "../../sql"
 
-import { sql } from "../helpers"
-import { OrderBy } from "../types"
-import { COLUMN_NAMES } from "../globals"
+import { query } from "../sql/query"
+import { OrderBy } from "../../types"
+import { COLUMN_NAMES } from "../../globals"
 
 interface GetUserDocInput {
 	docId: string,
@@ -18,49 +18,57 @@ interface GetUserDocInput {
 	userDocTable: string,
 }
 
-export const getUserDocInLib =
-	({ docId, userId, columnName, userDocTable }: GetUserDocInput) =>
-		sql.query<boolean>({
-			sql: SELECT_USER_DOC_IN_LIB,
-			parse: sql.resExists,
-			variables: [{
-				key: "userId",
-				value: userId,
-			},{
-				key: "docId",
-				value: docId,
-			},{
-				string: false,
-				key: "columnName",
-				value: columnName,
-			},{
-				string: false,
-				key: "tableName",
-				value: userDocTable,
-			}],
-		})
+export const getUserDocInLib = ({
+	docId,
+	userId,
+	columnName,
+	userDocTable,
+}: GetUserDocInput) =>
+	query<boolean>({
+		sql: SELECT_USER_DOC_IN_LIB,
+		parse: sql.resExists,
+		variables: [{
+			key: "userId",
+			value: userId,
+		},{
+			key: "docId",
+			value: docId,
+		},{
+			string: false,
+			key: "columnName",
+			value: columnName,
+		},{
+			string: false,
+			key: "tableName",
+			value: userDocTable,
+		}],
+	})
 
-export const getUserDocDateAdded =
-	({ docId, userId, columnName, userDocTable }: GetUserDocInput) =>
-		sql.query<number | null>({
-			sql: SELECT_USER_DOC_ADDED,
-			parse: sql.parseUnixField,
-			variables: [{
-				key: "docId",
-				value: docId,
-			},{
-				key: "userId",
-				value: userId,
-			},{
-				string: false,
-				key: "columnName",
-				value: columnName,
-			},{
-				string: false,
-				key: "tableName",
-				value: userDocTable,
-			}],
-		})
+export const getUserDocDateAdded = ({
+	docId,
+	userId,
+	columnName,
+	userDocTable,
+}: GetUserDocInput) =>
+	query<number | null>({
+		sql: SELECT_USER_DOC_ADDED,
+		parse: sql.parseUnixField,
+		variables: [{
+			key: "docId",
+			value: docId,
+		},{
+			key: "userId",
+			value: userId,
+		},{
+			string: false,
+			key: "columnName",
+			value: columnName,
+		},{
+			string: false,
+			key: "tableName",
+			value: userDocTable,
+		}],
+	})
 
 interface GetUserDocsInput {
 	page: number,
@@ -81,7 +89,7 @@ export const getUserDocs = <T>({
 	columnNames,
 	userTableName,
 }: GetUserDocsInput) =>
-	sql.query<T[]>({
+	query<T[]>({
 		sql: SELECT_USER_DOCS,
 		parse: sql.parseTable(),
 		variables: [{
@@ -135,7 +143,7 @@ export const getUserQueue = <T>({
 	userId,
 	tableName,
 }: UserQueueInput) =>
-	sql.query({
+	query({
 		sql: SELECT_USER_QUEUE_SONGS,
 		parse: sql.parseTable<T>(),
 		variables: [{

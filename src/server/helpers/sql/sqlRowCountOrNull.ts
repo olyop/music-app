@@ -1,4 +1,4 @@
 import { SqlQueryRes } from "../../types"
 
-export const rowCountOrNull =
+export const sqlRowCountOrNull =
 	({ rowCount }: SqlQueryRes) => (rowCount === 0 ? null : rowCount)

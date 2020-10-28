@@ -1,5 +1,5 @@
 import { Client } from "../../types"
-import { baseQuery } from "./baseQuery"
+import { sqlQuery } from "./sqlQuery"
 import { resExists } from "./resExists"
 import { EXISTS_COLUMN } from "../../sql"
 
@@ -16,7 +16,7 @@ interface ExistsQueryInput extends Omit<ExistsInput, "value"> {
 const query =
 	(client: Client) =>
 		({ table, column, value }: ExistsQueryInput) =>
-			baseQuery(client)<boolean>({
+			sqlQuery(client)<boolean>({
 				sql: EXISTS_COLUMN,
 				parse: resExists,
 				variables: [{
@@ -34,7 +34,7 @@ const query =
 				}],
 			})
 
-export const exists =
+export const sqlExists =
 	(client: Client) =>
 		async ({ value, ...input }: ExistsInput) => {
 			if (Array.isArray(value)) {

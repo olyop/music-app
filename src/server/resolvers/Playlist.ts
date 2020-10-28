@@ -19,7 +19,7 @@ import {
 
 import { COLUMN_NAMES } from "../globals"
 import { sql, createResolver } from "../helpers"
-import { getUserDocInLib, getUserDocDateAdded } from "./userDocs"
+import { getUserDocInLib, getUserDocDateAdded } from "../helpers/resolver/userDocs"
 
 const getPlaylistSongs =
 	<T>(playlistId: string, parse: SqlParse<T>) =>

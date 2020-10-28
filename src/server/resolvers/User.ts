@@ -21,7 +21,7 @@ import {
 
 import { COLUMN_NAMES } from "../globals"
 import { sql, createResolver } from "../helpers"
-import { getUserDocs, getUserQueue } from "./userDocs"
+import { getUserDocs, getUserQueue } from "../helpers/resolver/userDocs"
 
 const resolver =
 	createResolver<User>()

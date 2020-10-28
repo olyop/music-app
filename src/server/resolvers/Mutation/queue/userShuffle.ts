@@ -7,11 +7,10 @@ import {
 } from "../../../sql"
 
 import { pg } from "../../../services"
-import { getUserDocs } from "../../userDocs"
 import clearUserQueue from "./clearUserQueue"
 import { COLUMN_NAMES } from "../../../globals"
 import { Song, User, UserArgs } from "../../../types"
-import { sql, createResolver } from "../../../helpers"
+import { sql, getUserDocs, createResolver } from "../../../helpers"
 
 const resolver =
 	createResolver()

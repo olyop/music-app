@@ -20,9 +20,9 @@ export const updateUserCurrent =
 	resolver<User, Args>(
 		async ({ args }) => (
 			(await Promise.all([
-				sql.query<User>({
+				sqlPoolQuery<User>({
 					sql: UPDATE_USER_CURRENT,
-					parse: sql.parseRow(),
+					parse: parseSqlRow(),
 					variables: [{
 						key: "songId",
 						value: args.songId,
@@ -32,10 +32,10 @@ export const updateUserCurrent =
 					},{
 						string: false,
 						key: "columnNames",
-						value: sql.join(COLUMN_NAMES.USER),
+						value: sqlJoin(COLUMN_NAMES.USER),
 					}],
 				}),
-				sql.query({
+				sqlPoolQuery({
 					sql: INSERT_PLAY,
 					variables: [{
 						key: "playId",

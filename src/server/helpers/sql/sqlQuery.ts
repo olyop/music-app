@@ -1,5 +1,5 @@
 import { uniq, isNull, identity, isString, isEmpty } from "lodash"
-import { Client, SqlConfig, SqlParse, SqlVariable } from "../../types"
+import { Client, SqlQueryInput, SqlParse, SqlVariable } from "../../types"
 
 export const getVariableKeys = (sql: string) => {
 	const keys: string[] = []
@@ -76,15 +76,15 @@ const determineSqlAndParams = (sql: string, variables: SqlVariable[]) => {
 	}
 }
 
-const normalizeInput = <TReturn>(input: string | SqlConfig<TReturn>) =>
+const normalizeInput = <T>(input: string | SqlQueryInput<T>) =>
 	(isString(input) ? {
 		sql: input,
-		parse: identity as SqlParse<TReturn>,
-	} : input)
+		parse: identity as SqlParse<T>,
+	} as SqlQueryInput<T> : input)
 
 export const sqlQuery =
 	(client: Client) =>
-		async <TReturn>(input: string | SqlConfig<TReturn>) => {
+		async <T>(input: string | SqlQueryInput<T>) => {
 			const {
 				sql,
 				parse,
@@ -105,7 +105,7 @@ export const sqlQuery =
 					const res = await client.query(sqlWithValues, isEmpty(params) ? undefined : params)
 					if (logRes) console.log(res.rows)
 					if (parse) return parse(res)
-					else return undefined
+					else return (res as unknown) as T
 				} catch (error) {
 					console.error(sqlWithValues, params)
 					console.error(error)

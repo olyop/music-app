@@ -26,8 +26,16 @@ import {
 	SELECT_PLAYLISTS,
 } from "../../sql"
 
+import {
+	sqlJoin,
+	parseSqlRow,
+	sqlPoolQuery,
+	parseSqlTable,
+	createResolver,
+	getSongsOrderByField,
+} from "../../helpers"
+
 import { COLUMN_NAMES } from "../../globals"
-import { sql, songOrderByField, createResolver } from "../../helpers"
 
 const resolver =
 	createResolver()
@@ -35,9 +43,9 @@ const resolver =
 export const genres =
 	resolver<Genre[], DocsArgs>(
 		({ args }) => (
-			sql.query({
+			sqlPoolQuery({
 				sql: SELECT_GENRES,
-				parse: sql.parseTable(),
+				parse: parseSqlTable(),
 				variables: [{
 					key: "page",
 					string: false,
@@ -57,7 +65,7 @@ export const genres =
 				},{
 					string: false,
 					key: "columnNames",
-					value: sql.join(COLUMN_NAMES.GENRE),
+					value: sqlJoin(COLUMN_NAMES.GENRE),
 				}],
 			})
 		),
@@ -66,9 +74,9 @@ export const genres =
 export const songs =
 	resolver<Song[], DocsArgs>(
 		({ args }) => (
-			sql.query({
+			sqlPoolQuery({
 				sql: SELECT_SONGS,
-				parse: sql.parseTable(),
+				parse: parseSqlTable(),
 				variables: [{
 					key: "page",
 					string: false,
@@ -84,11 +92,11 @@ export const songs =
 				},{
 					string: false,
 					key: "columnNames",
-					value: sql.join(COLUMN_NAMES.SONG, "songs"),
+					value: sqlJoin(COLUMN_NAMES.SONG, "songs"),
 				},{
 					string: false,
 					key: "orderByField",
-					value: songOrderByField(args.orderBy.field.toLowerCase()),
+					value: getSongsOrderByField(args.orderBy.field.toLowerCase()),
 				}],
 			})
 		),
@@ -97,9 +105,9 @@ export const songs =
 export const albums =
 	resolver<Album[], DocsArgs>(
 		({ args }) => (
-			sql.query({
+			sqlPoolQuery({
 				sql: SELECT_ALBUMS,
-				parse: sql.parseTable(),
+				parse: parseSqlTable(),
 				variables: [{
 					key: "page",
 					string: false,
@@ -119,7 +127,7 @@ export const albums =
 				},{
 					string: false,
 					key: "columnNames",
-					value: sql.join(COLUMN_NAMES.ALBUM),
+					value: sqlJoin(COLUMN_NAMES.ALBUM),
 				}],
 			})
 		),
@@ -128,9 +136,9 @@ export const albums =
 export const artists =
 	resolver<Artist[], DocsArgs>(
 		({ args }) => (
-			sql.query({
+			sqlPoolQuery({
 				sql: SELECT_ARTISTS,
-				parse: sql.parseTable(),
+				parse: parseSqlTable(),
 				variables: [{
 					key: "page",
 					string: false,
@@ -150,7 +158,7 @@ export const artists =
 				},{
 					string: false,
 					key: "columnNames",
-					value: sql.join(COLUMN_NAMES.ARTIST),
+					value: sqlJoin(COLUMN_NAMES.ARTIST),
 				}],
 			})
 		),
@@ -159,13 +167,13 @@ export const artists =
 export const playlists =
 	resolver<Playlist[]>(
 		() => (
-			sql.query({
+			sqlPoolQuery({
 				sql: SELECT_PLAYLISTS,
-				parse: sql.parseTable(),
+				parse: parseSqlTable(),
 				variables: [{
 					string: false,
 					key: "columnNames",
-					value: sql.join(COLUMN_NAMES.PLAYLIST),
+					value: sqlJoin(COLUMN_NAMES.PLAYLIST),
 				}],
 			})
 		),
@@ -174,16 +182,16 @@ export const playlists =
 export const user =
 	resolver<User, { userId: string }>(
 		({ args }) => (
-			sql.query({
+			sqlPoolQuery({
 				sql: SELECT_USER,
-				parse: sql.parseRow(),
+				parse: parseSqlRow(),
 				variables: [{
 					key: "userId",
 					value: args.userId,
 				},{
 					string: false,
 					key: "columnNames",
-					value: sql.join(COLUMN_NAMES.USER),
+					value: sqlJoin(COLUMN_NAMES.USER),
 				}],
 			})
 		),
@@ -192,16 +200,16 @@ export const user =
 export const play =
 	resolver<Play, { playId: string }>(
 		({ args }) => (
-			sql.query({
+			sqlPoolQuery({
 				sql: SELECT_PLAY,
-				parse: sql.parseRow(),
+				parse: parseSqlRow(),
 				variables: [{
 					key: "playId",
 					value: args.playId,
 				},{
 					string: false,
 					key: "columnNames",
-					value: sql.join(COLUMN_NAMES.PLAY),
+					value: sqlJoin(COLUMN_NAMES.PLAY),
 				}],
 			})
 		),
@@ -210,16 +218,16 @@ export const play =
 export const album =
 	resolver<Album, { albumId: string }>(
 		({ args }) => (
-			sql.query({
+			sqlPoolQuery({
 				sql: SELECT_ALBUM,
-				parse: sql.parseRow(),
+				parse: parseSqlRow(),
 				variables: [{
 					key: "albumId",
 					value: args.albumId,
 				},{
 					string: false,
 					key: "columnNames",
-					value: sql.join(COLUMN_NAMES.ALBUM),
+					value: sqlJoin(COLUMN_NAMES.ALBUM),
 				}],
 			})
 		),
@@ -228,16 +236,16 @@ export const album =
 export const genre =
 	resolver<Genre, { genreId: string }>(
 		({ args }) => (
-			sql.query({
+			sqlPoolQuery({
 				sql: SELECT_GENRE,
-				parse: sql.parseRow(),
+				parse: parseSqlRow(),
 				variables: [{
 					key: "genreId",
 					value: args.genreId,
 				},{
 					string: false,
 					key: "columnNames",
-					value: sql.join(COLUMN_NAMES.GENRE),
+					value: sqlJoin(COLUMN_NAMES.GENRE),
 				}],
 			})
 		),
@@ -246,16 +254,16 @@ export const genre =
 export const artist =
 	resolver<Artist, { artistId: string }>(
 		({ args }) => (
-			sql.query({
+			sqlPoolQuery({
 				sql: SELECT_ARTIST,
-				parse: sql.parseRow(),
+				parse: parseSqlRow(),
 				variables: [{
 					key: "artistId",
 					value: args.artistId,
 				},{
 					string: false,
 					key: "columnNames",
-					value: sql.join(COLUMN_NAMES.ARTIST),
+					value: sqlJoin(COLUMN_NAMES.ARTIST),
 				}],
 			})
 		),
@@ -264,16 +272,16 @@ export const artist =
 export const playlist =
 	resolver<Playlist, { playlistId: string }>(
 		({ args }) => (
-			sql.query({
+			sqlPoolQuery({
 				sql: SELECT_PLAYLIST,
-				parse: sql.parseRow(),
+				parse: parseSqlRow(),
 				variables: [{
 					key: "playlistId",
 					value: args.playlistId,
 				},{
 					string: false,
 					key: "columnNames",
-					value: sql.join(COLUMN_NAMES.PLAYLIST),
+					value: sqlJoin(COLUMN_NAMES.PLAYLIST),
 				}],
 			})
 		),
@@ -282,16 +290,16 @@ export const playlist =
 export const song =
 	resolver<Song, { songId: string }>(
 		({ args }) => (
-			sql.query({
+			sqlPoolQuery({
 				sql: SELECT_SONG,
-				parse: sql.parseRow(),
+				parse: parseSqlRow(),
 				variables: [{
 					key: "songId",
 					value: args.songId,
 				},{
 					string: false,
 					key: "columnNames",
-					value: sql.join(COLUMN_NAMES.SONG),
+					value: sqlJoin(COLUMN_NAMES.SONG),
 				}],
 			})
 		),

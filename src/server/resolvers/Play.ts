@@ -11,9 +11,9 @@ export const dateCreated =
 export const user =
 	resolver<User>(
 		({ parent }) => (
-			sql.query({
+			sqlPoolQuery({
 				sql: SELECT_USER,
-				parse: sql.parseRow(),
+				parse: parseSqlRow(),
 				variables: [{
 					key: "userId",
 					value: parent.userId,
@@ -25,9 +25,9 @@ export const user =
 export const song =
 	resolver<Song>(
 		({ parent }) => (
-			sql.query({
+			sqlPoolQuery({
 				sql: SELECT_SONG,
-				parse: sql.parseRow(),
+				parse: parseSqlRow(),
 				variables: [{
 					key: "songId",
 					value: parent.songId,

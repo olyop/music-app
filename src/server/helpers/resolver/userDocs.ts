@@ -7,16 +7,13 @@ import {
 	SELECT_USER_QUEUE_SONGS,
 } from "../../sql"
 
-import { query } from "../sql/query"
-import { OrderBy } from "../../types"
+import { sqlJoin } from "../sql/sqlJoin"
 import { COLUMN_NAMES } from "../../globals"
-
-interface GetUserDocInput {
-	docId: string,
-	userId: string,
-	columnName: string,
-	userDocTable: string,
-}
+import { sqlPoolQuery } from "../sql/sqlPoolQuery"
+import { parseSqlTable } from "../sql/parseSqlTable"
+import { getSqlResExists } from "../sql/getSqlResExists"
+import { parseSqlUnixField } from "../sql/parseSqlUnixField"
+import { GetUserDocInput, GetUserDocsInput } from "../../types"
 
 export const getUserDocInLib = ({
 	docId,
@@ -24,9 +21,9 @@ export const getUserDocInLib = ({
 	columnName,
 	userDocTable,
 }: GetUserDocInput) =>
-	query<boolean>({
+	sqlPoolQuery<boolean>({
 		sql: SELECT_USER_DOC_IN_LIB,
-		parse: sql.resExists,
+		parse: getSqlResExists,
 		variables: [{
 			key: "userId",
 			value: userId,
@@ -50,9 +47,9 @@ export const getUserDocDateAdded = ({
 	columnName,
 	userDocTable,
 }: GetUserDocInput) =>
-	query<number | null>({
+	sqlPoolQuery<number | null>({
 		sql: SELECT_USER_DOC_ADDED,
-		parse: sql.parseUnixField,
+		parse: parseSqlUnixField,
 		variables: [{
 			key: "docId",
 			value: docId,
@@ -70,16 +67,6 @@ export const getUserDocDateAdded = ({
 		}],
 	})
 
-interface GetUserDocsInput {
-	page: number,
-	userId: string,
-	orderBy: OrderBy,
-	tableName: string,
-	columnName: string,
-	columnNames: string[],
-	userTableName: string,
-}
-
 export const getUserDocs = <T>({
 	page,
 	userId,
@@ -89,9 +76,9 @@ export const getUserDocs = <T>({
 	columnNames,
 	userTableName,
 }: GetUserDocsInput) =>
-	query<T[]>({
+	sqlPoolQuery<T[]>({
 		sql: SELECT_USER_DOCS,
-		parse: sql.parseTable(),
+		parse: parseSqlTable(),
 		variables: [{
 			key: "userId",
 			value: userId,
@@ -126,7 +113,7 @@ export const getUserDocs = <T>({
 		},{
 			string: false,
 			key: "columnNames",
-			value: sql.join(columnNames, tableName),
+			value: sqlJoin(columnNames, tableName),
 		},{
 			string: false,
 			key: "orderByTableName",
@@ -143,9 +130,9 @@ export const getUserQueue = <T>({
 	userId,
 	tableName,
 }: UserQueueInput) =>
-	query({
+	sqlPoolQuery({
 		sql: SELECT_USER_QUEUE_SONGS,
-		parse: sql.parseTable<T>(),
+		parse: parseSqlTable<T>(),
 		variables: [{
 			key: "userId",
 			value: userId,
@@ -156,6 +143,6 @@ export const getUserQueue = <T>({
 		},{
 			string: false,
 			key: "columnNames",
-			value: sql.join(COLUMN_NAMES.SONG, "songs"),
+			value: sqlJoin(COLUMN_NAMES.SONG, "songs"),
 		}],
 	})

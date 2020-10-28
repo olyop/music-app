@@ -1,13 +1,14 @@
 import pipe from "@oly_op/pipe"
 import { map } from "lodash/fp"
-import { resRows } from "./resRows"
-import { SqlQueryRes } from "../../types"
-import { convertToCamelCase } from "../resolver"
 
-export const parseTable =
+import { SqlQueryRes } from "../../types"
+import { getSqlResRows } from "./getSqlResRows"
+import { convertToCamelCase } from "../resolver/convertToCamelCase"
+
+export const parseSqlTable =
 	<T>(log = false) =>
 		(res: SqlQueryRes): T[] =>
 			pipe(
-				resRows,
+				getSqlResRows,
 				map(convertToCamelCase<T>()),
 			)(res)

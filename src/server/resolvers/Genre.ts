@@ -17,7 +17,7 @@ const resolver =
 
 const getGenreSongs =
 	<T>({ id, parse, orderBy }: DocsOrderBy<T>) =>
-		sql.query({
+		sqlPoolQuery({
 			sql: SELECT_GENRE_SONGS,
 			parse,
 			variables: [{
@@ -30,7 +30,7 @@ const getGenreSongs =
 			},{
 				string: false,
 				key: "columnNames",
-				value: sql.join(COLUMN_NAMES.SONG, "songs"),
+				value: sqlJoin(COLUMN_NAMES.SONG, "songs"),
 			},{
 				string: false,
 				key: "orderByField",
@@ -44,7 +44,7 @@ export const songs =
 			getGenreSongs({
 				id: parent.genreId,
 				orderBy: args.orderBy,
-				parse: sql.parseTable(),
+				parse: parseSqlTable(),
 			})
 		),
 	)
@@ -54,14 +54,14 @@ export const songsTotal =
 		({ parent }) => (
 			getGenreSongs({
 				id: parent.genreId,
-				parse: sql.rowCountOrNull,
+				parse: getSqlRowCountOrNull,
 			})
 		),
 	)
 
 const getUserGenrePlays =
 	<T>(userId: string, genreId: string, parse: SqlParse<T>) =>
-		sql.query({
+		sqlPoolQuery({
 			sql: SELECT_USER_DOC_PLAYS,
 			parse,
 			variables: [{
@@ -73,7 +73,7 @@ const getUserGenrePlays =
 			},{
 				string: false,
 				key: "columnNames",
-				value: sql.join(COLUMN_NAMES.PLAY),
+				value: sqlJoin(COLUMN_NAMES.PLAY),
 			}],
 		})
 
@@ -83,7 +83,7 @@ export const userPlays =
 			getUserGenrePlays(
 				args.userId,
 				parent.genreId,
-				sql.parseTable(),
+				parseSqlTable(),
 			)
 		),
 	)
@@ -94,7 +94,7 @@ export const userPlaysTotal =
 			getUserGenrePlays(
 				args.userId,
 				parent.genreId,
-				sql.rowCountOrNull,
+				getSqlRowCountOrNull,
 			)
 		),
 	)

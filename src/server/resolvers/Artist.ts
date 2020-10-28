@@ -21,13 +21,23 @@ import {
 	SELECT_USER_DOC_PLAYS,
 } from "../sql"
 
+import {
+	sqlJoin,
+	sqlPoolQuery,
+	parseSqlTable,
+	getSqlRowCount,
+	createResolver,
+	getUserDocInLib,
+	getUserDocDateAdded,
+	getSongsOrderByField,
+	getSqlRowCountOrNull,
+} from "../helpers"
+
 import { COLUMN_NAMES } from "../globals"
-import { getUserDocInLib, getUserDocDateAdded } from "../helpers/resolver/userDocs"
-import { s3, sql, createResolver, songOrderByField } from "../helpers"
 
 const getArtistSongs =
 	<T>({ id, parse, orderBy }: DocsOrderBy<T>) =>
-		sql.query({
+		sqlPoolQuery({
 			sql: SELECT_ARTIST_SONGS,
 			parse,
 			variables: [{
@@ -40,16 +50,16 @@ const getArtistSongs =
 			},{
 				string: false,
 				key: "columnNames",
-				value: sql.join(COLUMN_NAMES.SONG, "songs"),
+				value: sqlJoin(COLUMN_NAMES.SONG, "songs"),
 			},{
 				string: false,
 				key: "orderByField",
-				value: songOrderByField(orderBy?.field.toLowerCase() || "title"),
+				value: getSongsOrderByField(orderBy?.field.toLowerCase() || "title"),
 			}],
 		})
 
 const getArtistAlbums = <T>({ id, parse, orderBy }: DocsOrderBy<T>) =>
-	sql.query({
+	sqlPoolQuery({
 		parse,
 		sql: SELECT_ARTIST_ALBUMS,
 		variables: [{
@@ -66,13 +76,13 @@ const getArtistAlbums = <T>({ id, parse, orderBy }: DocsOrderBy<T>) =>
 		},{
 			string: false,
 			key: "columnNames",
-			value: sql.join(COLUMN_NAMES.ALBUM, "albums"),
+			value: sqlJoin(COLUMN_NAMES.ALBUM, "albums"),
 		}],
 	})
 
 const getUserArtistPlays =
 	<T>(userId: string, artistId: string, parse: SqlParse<T>) =>
-		sql.query({
+		sqlPoolQuery({
 			sql: SELECT_USER_DOC_PLAYS,
 			parse,
 			variables: [{
@@ -84,7 +94,7 @@ const getUserArtistPlays =
 			},{
 				string: false,
 				key: "columnNames",
-				value: sql.join(COLUMN_NAMES.PLAY),
+				value: sqlJoin(COLUMN_NAMES.PLAY),
 			}],
 		})
 
@@ -94,9 +104,9 @@ const resolver =
 export const playsTotal =
 	resolver<number | null>(
 		({ parent }) => (
-			sql.query({
+			sqlPoolQuery({
 				sql: SELECT_ARTIST_PLAYS,
-				parse: sql.rowCountOrNull,
+				parse: getSqlRowCountOrNull,
 				variables: [{
 					key: "artistId",
 					value: parent.artistId,
@@ -111,7 +121,7 @@ export const songs =
 			getArtistSongs({
 				id: parent.artistId,
 				orderBy: args.orderBy,
-				parse: sql.parseTable(),
+				parse: parseSqlTable(),
 			})
 		),
 	)
@@ -121,7 +131,7 @@ export const songsTotal =
 		({ parent }) => (
 			getArtistSongs({
 				id: parent.artistId,
-				parse: sql.rowCount,
+				parse: getSqlRowCount,
 			})
 		),
 	)
@@ -132,7 +142,7 @@ export const albums =
 			getArtistAlbums({
 				id: parent.artistId,
 				orderBy: args.orderBy,
-				parse: sql.parseTable(),
+				parse: parseSqlTable(),
 			})
 		),
 	)
@@ -142,7 +152,7 @@ export const albumsTotal =
 		({ parent }) => (
 			getArtistAlbums({
 				id: parent.artistId,
-				parse: sql.rowCount,
+				parse: getSqlRowCount,
 			})
 		),
 	)
@@ -153,7 +163,7 @@ export const userPlays =
 			getUserArtistPlays(
 				args.userId,
 				parent.artistId,
-				sql.parseTable(),
+				parseSqlTable(),
 			)
 		),
 	)
@@ -164,7 +174,7 @@ export const userPlaysTotal =
 			getUserArtistPlays(
 				args.userId,
 				parent.artistId,
-				sql.rowCountOrNull,
+				getSqlRowCountOrNull,
 			)
 		),
 	)
@@ -172,9 +182,9 @@ export const userPlaysTotal =
 export const photo =
 	resolver<string, S3FileArgs>(
 		({ parent, args }) => (
-			s3.getObject({
+			getS3Object({
 				parse: bufferToDataUrl,
-				key: s3.catalogObjectKey(
+				key: getS3CatalogKey(
 					parent.artistId,
 					args.size,
 					S3FileExt.JPG,

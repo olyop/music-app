@@ -1,8 +1,8 @@
 import { pg } from "../../services"
 import { sqlQuery } from "./sqlQuery"
-import { SqlConfig } from "../../types"
+import { SqlQueryInput } from "../../types"
 
-export const sqlTransaction = async (configs: (string | SqlConfig<unknown>)[]) => {
+export const sqlTransaction = async (configs: (string | SqlQueryInput<unknown>)[]) => {
 	const client = await pg.connect()
 	try {
 		await client.query("BEGIN")

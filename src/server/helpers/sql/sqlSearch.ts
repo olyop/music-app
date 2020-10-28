@@ -1,35 +1,27 @@
-import { join } from "./join"
-import { Client } from "../../types"
-import { baseQuery } from "./baseQuery"
-import { parseTable } from "./parseTable"
+import { sqlJoin } from "./sqlJoin"
+import { sqlQuery } from "./sqlQuery"
 import { SELECT_DOC_SEARCH } from "../../sql"
+import { parseSqlTable } from "./parseSqlTable"
+import { Client, SqlSearchInput } from "../../types"
 
-interface SearchInput {
-	query: string,
-	exact: boolean,
-	tableName: string,
-	columnName: string,
-	columnNames: string[],
-}
-
-export const search =
+export const sqlSearch =
 	(client: Client) =>
-		<T>({ query, exact, tableName, columnName, columnNames }: SearchInput) =>
-			baseQuery(client)({
+		<T>({ query, exact, tableName, columnName, columnNames }: SqlSearchInput) =>
+			sqlQuery(client)({
 				sql: SELECT_DOC_SEARCH,
-				parse: parseTable<T>(),
+				parse: parseSqlTable<T>(),
 				variables: [{
 					string: false,
 					key: "tableName",
 					value: tableName,
 				},{
-					string: false,
-					key: "columnNames",
-					value: join(columnNames),
-				},{
 					key: "limit",
 					string: false,
 					value: exact ? "1" : "10",
+				},{
+					string: false,
+					key: "columnNames",
+					value: sqlJoin(columnNames),
 				},{
 					string: false,
 					key: "sqlSearchType",

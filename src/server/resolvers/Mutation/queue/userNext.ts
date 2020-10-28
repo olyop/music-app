@@ -35,7 +35,7 @@ export const userNext =
 				if (!isEmpty(nexts) || !isEmpty(laters)) {
 					const newCurrent = await query<UserQueue>({
 						sql: SELECT_USER_QUEUE_SONG,
-						parse: sql.parseRow(),
+						parse: parseSqlRow(),
 						variables: [{
 							value: 0,
 							key: "index",
@@ -51,7 +51,7 @@ export const userNext =
 						},{
 							string: false,
 							key: "columnNames",
-							value: sql.join(COLUMN_NAMES.USER_QUEUE),
+							value: sqlJoin(COLUMN_NAMES.USER_QUEUE),
 						}],
 					})
 					await query({
@@ -103,7 +103,7 @@ export const userNext =
 						},{
 							string: false,
 							key: "columnNames",
-							value: sql.join(COLUMN_NAMES.USER),
+							value: sqlJoin(COLUMN_NAMES.USER),
 						}],
 					})
 					await query({
@@ -147,16 +147,16 @@ export const userNext =
 				client.release()
 			}
 
-			return sql.query<User>({
+			return sqlPoolQuery<User>({
 				sql: SELECT_USER,
-				parse: sql.parseRow(),
+				parse: parseSqlRow(),
 				variables: [{
 					key: "userId",
 					value: args.userId,
 				},{
 					string: false,
 					key: "columnNames",
-					value: sql.join(COLUMN_NAMES.USER),
+					value: sqlJoin(COLUMN_NAMES.USER),
 				}],
 			})
 		},

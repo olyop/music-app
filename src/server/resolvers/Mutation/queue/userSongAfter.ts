@@ -14,9 +14,9 @@ const resolver =
 export const userSongAfter =
 	resolver<User, UserQueuesArgs>(
 		async ({ args }) => {
-			const nexts = await sql.query<UserQueue[]>({
+			const nexts = await sqlPoolQuery<UserQueue[]>({
 				sql: SELECT_USER_QUEUE,
-				parse: sql.parseTable(),
+				parse: parseSqlTable(),
 				variables: [{
 					key: "userId",
 					value: args.userId,
@@ -27,10 +27,10 @@ export const userSongAfter =
 				},{
 					string: false,
 					key: "columnNames",
-					value: sql.join(COLUMN_NAMES.USER_QUEUE),
+					value: sqlJoin(COLUMN_NAMES.USER_QUEUE),
 				}],
 			})
-			await sql.query({
+			await sqlPoolQuery({
 				sql: INSERT_USER_QUEUE,
 				variables: [{
 					key: "userId",
@@ -48,16 +48,16 @@ export const userSongAfter =
 					value: nexts.length,
 				}],
 			})
-			return sql.query<User>({
+			return sqlPoolQuery<User>({
 				sql: SELECT_USER,
-				parse: sql.parseRow(),
+				parse: parseSqlRow(),
 				variables: [{
 					key: "userId",
 					value: args.userId,
 				},{
 					string: false,
 					key: "columnNames",
-					value: sql.join(COLUMN_NAMES.USER),
+					value: sqlJoin(COLUMN_NAMES.USER),
 				}],
 			})
 		},

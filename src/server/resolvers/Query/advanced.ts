@@ -1,6 +1,6 @@
 import { Song, Album } from "../../types"
-import { sql, createResolver } from "../../helpers"
 import { SELECT_NEW_ALBUMS, SELECT_TOP_TEN_SONGS } from "../../sql"
+import { sqlPoolQuery, parseSqlTable, createResolver } from "../../helpers"
 
 const resolver =
 	createResolver()
@@ -8,9 +8,9 @@ const resolver =
 export const newAlbums =
 	resolver<Album[]>(
 		() => (
-			sql.query({
+			sqlPoolQuery({
 				sql: SELECT_NEW_ALBUMS,
-				parse: sql.parseTable(),
+				parse: parseSqlTable(),
 			})
 		),
 	)
@@ -18,9 +18,9 @@ export const newAlbums =
 export const topTenSongs =
 	resolver<Song[]>(
 		() => (
-			sql.query({
+			sqlPoolQuery({
 				sql: SELECT_TOP_TEN_SONGS,
-				parse: sql.parseTable(),
+				parse: parseSqlTable(),
 			})
 		),
 	)

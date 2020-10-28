@@ -1,24 +1,18 @@
-import { Client } from "../../types"
 import { sqlQuery } from "./sqlQuery"
-import { resExists } from "./resExists"
 import { EXISTS_COLUMN } from "../../sql"
+import { getSqlResExists } from "./getSqlResExists"
+import { Client, SqlExistsInput } from "../../types"
 
-interface ExistsInput {
-	table: string,
-	column: string,
-	value: string | string[],
-}
-
-interface ExistsQueryInput extends Omit<ExistsInput, "value"> {
+interface SqlExistsQueryInput extends SqlExistsInput {
 	value: string,
 }
 
 const query =
 	(client: Client) =>
-		({ table, column, value }: ExistsQueryInput) =>
+		({ table, column, value }: SqlExistsQueryInput) =>
 			sqlQuery(client)<boolean>({
 				sql: EXISTS_COLUMN,
-				parse: resExists,
+				parse: getSqlResExists,
 				variables: [{
 					value,
 					key: "value",
@@ -36,7 +30,7 @@ const query =
 
 export const sqlExists =
 	(client: Client) =>
-		async ({ value, ...input }: ExistsInput) => {
+		async ({ value, ...input }: SqlExistsInput) => {
 			if (Array.isArray(value)) {
 				const res = await Promise.all(value.map(val => query(client)({ ...input, value: val })))
 				return res.every(Boolean)

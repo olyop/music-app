@@ -1,3 +1,6 @@
+import { OrderBy } from "./misc"
+import { S3FileType } from "./enums"
+
 export interface S3FileArgs {
 	size: S3FileType,
 }

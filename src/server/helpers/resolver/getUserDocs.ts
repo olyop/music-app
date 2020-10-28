@@ -25,7 +25,7 @@ export const getUserDocs = <T>({
 }: GetUserDocsInput) =>
 	query<T[]>({
 		sql: SELECT_USER_DOCS,
-		parse: sql.parseTable(),
+		parse: parseSqlTable(),
 		variables: [{
 			key: "userId",
 			value: userId,
@@ -60,7 +60,7 @@ export const getUserDocs = <T>({
 		},{
 			string: false,
 			key: "columnNames",
-			value: sql.join(columnNames, tableName),
+			value: sqlJoin(columnNames, tableName),
 		},{
 			string: false,
 			key: "orderByTableName",

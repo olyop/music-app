@@ -1,6 +1,12 @@
-import { Pool, PoolClient } from "pg"
+import { Pool, PoolClient, QueryResult } from "pg"
+
+import { Song, Genre, Album, Artist } from "./docs"
 
 export type Client = Pool | PoolClient
+
+export type SqlQueryRes<T = Record<string, unknown>> = QueryResult<T>
+
+export type SqlParse<T> = (res: SqlQueryRes) => T
 
 export interface UserQueue {
 	index: number,
@@ -30,3 +36,5 @@ export type ImgDim = [
 	number,
 	number,
 ]
+
+export type Search = Song | Genre | Album | Artist

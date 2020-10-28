@@ -32,14 +32,14 @@ export const shuffleAlbum =
 
 				const songs = await query<Song[]>({
 					sql: SELECT_ALBUM_SONGS,
-					parse: sql.parseTable(),
+					parse: parseSqlTable(),
 					variables: [{
 						key: "albumId",
 						value: args.albumId,
 					},{
 						string: false,
 						key: "columnNames",
-						value: sql.join(COLUMN_NAMES.SONG),
+						value: sqlJoin(COLUMN_NAMES.SONG),
 					}],
 				})
 
@@ -85,14 +85,14 @@ export const shuffleAlbum =
 
 				returnValue = await query<User>({
 					sql: SELECT_USER,
-					parse: sql.parseRow(),
+					parse: parseSqlRow(),
 					variables: [{
 						key: "userId",
 						value: args.userId,
 					},{
 						string: false,
 						key: "columnNames",
-						value: sql.join(COLUMN_NAMES.USER),
+						value: sqlJoin(COLUMN_NAMES.USER),
 					}],
 				})
 

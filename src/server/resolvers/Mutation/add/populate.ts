@@ -23,7 +23,7 @@ const getDoc =
 	(client: Client) =>
 		async <T>({ key, ...input }: GetDocInput<T>): Promise<string> =>
 			// @ts-ignore
-			(await sql.search(client)<T>({ ...input, exact: true }))[0][key] || ""
+			(await sqlSearch(client)<T>({ ...input, exact: true }))[0][key] || ""
 
 const getDocs =
 	(client: Client) =>

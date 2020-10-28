@@ -20,9 +20,20 @@ import {
 	SELECT_USER_DOC_PLAYS,
 } from "../sql"
 
+import {
+	sqlJoin,
+	getS3Object,
+	parseSqlRow,
+	sqlPoolQuery,
+	parseSqlTable,
+	createResolver,
+	getUserDocInLib,
+	getS3CatalogKey,
+	getUserDocDateAdded,
+	getSqlRowCountOrNull,
+} from "../helpers"
+
 import { COLUMN_NAMES } from "../globals"
-import { sql, createResolver, s3 } from "../helpers"
-import { getUserDocInLib, getUserDocDateAdded } from "../helpers/resolver/userDocs"
 
 const resolver =
 	createResolver<Song>()
@@ -30,16 +41,16 @@ const resolver =
 export const album =
 	resolver<Album>(
 		({ parent }) => (
-			sql.query({
+			sqlPoolQuery({
 				sql: SELECT_ALBUM,
-				parse: sql.parseRow(),
+				parse: parseSqlRow(),
 				variables: [{
 					key: "albumId",
 					value: parent.albumId,
 				},{
 					string: false,
 					key: "columnNames",
-					value: sql.join(COLUMN_NAMES.ALBUM),
+					value: sqlJoin(COLUMN_NAMES.ALBUM),
 				}],
 			})
 		),
@@ -48,16 +59,16 @@ export const album =
 export const genres =
 	resolver<Genre[]>(
 		({ parent }) => (
-			sql.query({
+			sqlPoolQuery({
 				sql: SELECT_SONG_GENRES,
-				parse: sql.parseTable(),
+				parse: parseSqlTable(),
 				variables: [{
 					key: "songId",
 					value: parent.songId,
 				},{
 					string: false,
 					key: "columnNames",
-					value: sql.join(COLUMN_NAMES.GENRE, "genres"),
+					value: sqlJoin(COLUMN_NAMES.GENRE, "genres"),
 				}],
 			})
 		),
@@ -66,16 +77,16 @@ export const genres =
 export const artists =
 	resolver<Artist[]>(
 		({ parent }) => (
-			sql.query({
+			sqlPoolQuery({
 				sql: SELECT_SONG_ARTISTS,
-				parse: sql.parseTable(),
+				parse: parseSqlTable(),
 				variables: [{
 					key: "songId",
 					value: parent.songId,
 				},{
 					string: false,
 					key: "columnNames",
-					value: sql.join(COLUMN_NAMES.ARTIST, "artists"),
+					value: sqlJoin(COLUMN_NAMES.ARTIST, "artists"),
 				}],
 			})
 		),
@@ -84,16 +95,16 @@ export const artists =
 export const remixers =
 	resolver<Artist[]>(
 		({ parent }) => (
-			sql.query({
+			sqlPoolQuery({
 				sql: SELECT_SONG_REMIXERS,
-				parse: sql.parseTable(),
+				parse: parseSqlTable(),
 				variables: [{
 					key: "songId",
 					value: parent.songId,
 				},{
 					string: false,
 					key: "columnNames",
-					value: sql.join(COLUMN_NAMES.ARTIST, "artists"),
+					value: sqlJoin(COLUMN_NAMES.ARTIST, "artists"),
 				}],
 			})
 		),
@@ -102,16 +113,16 @@ export const remixers =
 export const featuring =
 	resolver<Artist[]>(
 		({ parent }) => (
-			sql.query({
+			sqlPoolQuery({
 				sql: SELECT_SONG_FEATURING,
-				parse: sql.parseTable(),
+				parse: parseSqlTable(),
 				variables: [{
 					key: "songId",
 					value: parent.songId,
 				},{
 					string: false,
 					key: "columnNames",
-					value: sql.join(COLUMN_NAMES.ARTIST, "artists"),
+					value: sqlJoin(COLUMN_NAMES.ARTIST, "artists"),
 				}],
 			})
 		),
@@ -120,9 +131,9 @@ export const featuring =
 export const size =
 	resolver<number>(
 		({ parent }) => (
-			s3.getObject({
+			getS3Object({
 				parse: ({ length }) => length,
-				key: s3.catalogObjectKey(
+				key: getS3CatalogKey(
 					parent.songId,
 					S3FileType.FULL,
 					S3FileExt.MP3,
@@ -134,16 +145,16 @@ export const size =
 export const playsTotal =
 	resolver<number | null>(
 		({ parent }) => (
-			sql.query({
+			sqlPoolQuery({
 				sql: SELECT_SONG_PLAYS,
-				parse: sql.rowCountOrNull,
+				parse: getSqlRowCountOrNull,
 				variables: [{
 					key: "songId",
 					value: parent.songId,
 				},{
 					string: false,
 					key: "columnNames",
-					value: sql.join(COLUMN_NAMES.PLAY),
+					value: sqlJoin(COLUMN_NAMES.PLAY),
 				}],
 			})
 		),
@@ -151,7 +162,7 @@ export const playsTotal =
 
 const getUserSongPlays =
 	<T>(userId: string, songId: string, parse: SqlParse<T>) =>
-		sql.query({
+		sqlPoolQuery({
 			sql: SELECT_USER_DOC_PLAYS,
 			parse,
 			variables: [{
@@ -163,7 +174,7 @@ const getUserSongPlays =
 			},{
 				string: false,
 				key: "columnNames",
-				value: sql.join(COLUMN_NAMES.PLAY),
+				value: sqlJoin(COLUMN_NAMES.PLAY),
 			}],
 		})
 
@@ -173,7 +184,7 @@ export const userPlays =
 			getUserSongPlays(
 				args.userId,
 				parent.songId,
-				sql.parseTable(),
+				parseSqlTable(),
 			)
 		),
 	)
@@ -184,7 +195,7 @@ export const userPlaysTotal =
 			getUserSongPlays(
 				args.userId,
 				parent.songId,
-				sql.rowCountOrNull,
+				getSqlRowCountOrNull,
 			)
 		),
 	)

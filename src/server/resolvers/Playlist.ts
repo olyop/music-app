@@ -23,7 +23,7 @@ import { getUserDocInLib, getUserDocDateAdded } from "../helpers/resolver/userDo
 
 const getPlaylistSongs =
 	<T>(playlistId: string, parse: SqlParse<T>) =>
-		sql.query({
+		sqlPoolQuery({
 			sql: SELECT_PLAYLIST_SONGS,
 			parse,
 			variables: [{
@@ -32,13 +32,13 @@ const getPlaylistSongs =
 			},{
 				string: false,
 				key: "columnNames",
-				value: sql.join(COLUMN_NAMES.SONG),
+				value: sqlJoin(COLUMN_NAMES.SONG),
 			}],
 		})
 
 const getUserPlaylistPlays =
 	<T>(userId: string, playlistId: string, parse: SqlParse<T>) =>
-		sql.query({
+		sqlPoolQuery({
 			sql: SELECT_USER_DOC_PLAYS,
 			parse,
 			variables: [{
@@ -50,7 +50,7 @@ const getUserPlaylistPlays =
 			},{
 				string: false,
 				key: "columnNames",
-				value: sql.join(COLUMN_NAMES.PLAY),
+				value: sqlJoin(COLUMN_NAMES.PLAY),
 			}],
 		})
 
@@ -63,16 +63,16 @@ export const dateCreated =
 export const user =
 	resolver<User>(
 		({ parent }) => (
-			sql.query({
+			sqlPoolQuery({
 				sql: SELECT_USER,
-				parse: sql.parseRow(),
+				parse: parseSqlRow(),
 				variables: [{
 					key: "userId",
 					value: parent.userId,
 				},{
 					string: false,
 					key: "columnNames",
-					value: sql.join(COLUMN_NAMES.USER),
+					value: sqlJoin(COLUMN_NAMES.USER),
 				}],
 			})
 		),
@@ -83,7 +83,7 @@ export const songs =
 		({ parent }) => (
 			getPlaylistSongs(
 				parent.playlistId,
-				sql.parseTable(),
+				parseSqlTable(),
 			)
 		),
 	)
@@ -93,7 +93,7 @@ export const songsTotal =
 		({ parent }) => (
 			getPlaylistSongs(
 				parent.playlistId,
-				sql.rowCountOrNull,
+				getSqlRowCountOrNull,
 			)
 		),
 	)
@@ -104,7 +104,7 @@ export const duration =
 			getPlaylistSongs(
 				parent.playlistId,
 				pipe(
-					sql.parseTable<Song>(),
+					parseSqlTable<Song>(),
 					map(song => song.duration),
 					sum,
 				),
@@ -118,7 +118,7 @@ export const userPlays =
 			getUserPlaylistPlays(
 				args.userId,
 				parent.userId,
-				sql.parseTable(),
+				parseSqlTable(),
 			)
 		),
 	)
@@ -129,7 +129,7 @@ export const userPlaysTotal =
 			getUserPlaylistPlays(
 				args.userId,
 				parent.userId,
-				sql.rowCountOrNull,
+				getSqlRowCountOrNull,
 			)
 		),
 	)

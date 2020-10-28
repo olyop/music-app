@@ -75,7 +75,7 @@ const addUserDoc = async <T>({
 		if (doesUserDocExist) {
 			await query({
 				sql: UPDATE_USER_DOC_IN_LIB,
-				parse: sql.parseRow(),
+				parse: parseSqlRow(),
 				variables,
 			})
 		} else {
@@ -92,14 +92,14 @@ const addUserDoc = async <T>({
 		returnResult =
 			await query<T>({
 				sql: returnQuery,
-				parse: sql.parseRow(),
+				parse: parseSqlRow(),
 				variables: [{
 					value: docId,
 					key: camelCase(columnName),
 				},{
 					string: false,
 					key: "columnNames",
-					value: sql.join(columnNames),
+					value: sqlJoin(columnNames),
 				}],
 			})
 
@@ -155,7 +155,7 @@ const rmUserDoc = async <T>({
 		if (doesUserDocExist) {
 			await query({
 				sql: UPDATE_USER_DOC_IN_LIB,
-				parse: sql.parseRow(),
+				parse: parseSqlRow(),
 				variables,
 			})
 		} else {
@@ -172,14 +172,14 @@ const rmUserDoc = async <T>({
 		returnResult =
 			await query<T>({
 				sql: returnQuery,
-				parse: sql.parseRow(),
+				parse: parseSqlRow(),
 				variables: [{
 					value: docId,
 					key: camelCase(columnName),
 				},{
 					string: false,
 					key: "columnNames",
-					value: sql.join(columnNames),
+					value: sqlJoin(columnNames),
 				}],
 			})
 

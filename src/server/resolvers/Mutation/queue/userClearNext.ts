@@ -23,16 +23,16 @@ export const userClearNext =
 
 				await clearUserNext(client)(args.userId)
 
-				returnValue = await sql.query<User>({
+				returnValue = await sqlPoolQuery<User>({
 					sql: SELECT_USER,
-					parse: sql.parseRow(),
+					parse: parseSqlRow(),
 					variables: [{
 						key: "userId",
 						value: args.userId,
 					},{
 						string: false,
 						key: "columnNames",
-						value: sql.join(COLUMN_NAMES.USER),
+						value: sqlJoin(COLUMN_NAMES.USER),
 					}],
 				})
 

@@ -1,10 +1,17 @@
 import { orderBy } from "lodash"
 
+import {
+	sqlJoin,
+	sqlSearch,
+	sqlPoolQuery,
+	parseSqlTable,
+	createResolver,
+} from "../../helpers"
+
 import { pg } from "../../services"
 import { COLUMN_NAMES } from "../../globals"
 import { SELECT_DOC_TEXT_SEARCH } from "../../sql"
-import { sql, createResolver } from "../../helpers"
-import { Song, Album, Genre, Artist } from "../../types"
+import { Search, Song, Album, Genre, Artist } from "../../types"
 
 const resolver =
 	createResolver()
@@ -17,16 +24,14 @@ interface DocSearchArgs extends SearchArgs {
 	exact: boolean,
 }
 
-type Search = Song | Genre | Album | Artist
-
 export const search =
 	resolver<Search[], SearchArgs>(
 		async ({ args }) => (
 			orderBy(
 				(await Promise.all([
-					sql.query<Song[]>({
+					sqlPoolQuery<Song[]>({
 						sql: SELECT_DOC_TEXT_SEARCH,
-						parse: sql.parseTable(),
+						parse: parseSqlTable(),
 						variables: [{
 							string: false,
 							value: "songs",
@@ -42,12 +47,12 @@ export const search =
 						},{
 							string: false,
 							key: "columnNames",
-							value: sql.join(COLUMN_NAMES.SONG),
+							value: sqlJoin(COLUMN_NAMES.SONG),
 						}],
 					}),
-					sql.query<Genre[]>({
+					sqlPoolQuery<Genre[]>({
 						sql: SELECT_DOC_TEXT_SEARCH,
-						parse: sql.parseTable(),
+						parse: parseSqlTable(),
 						variables: [{
 							string: false,
 							value: "genres",
@@ -63,12 +68,12 @@ export const search =
 						},{
 							string: false,
 							key: "columnNames",
-							value: sql.join(COLUMN_NAMES.GENRE),
+							value: sqlJoin(COLUMN_NAMES.GENRE),
 						}],
 					}),
-					sql.query<Album[]>({
+					sqlPoolQuery<Album[]>({
 						sql: SELECT_DOC_TEXT_SEARCH,
-						parse: sql.parseTable(),
+						parse: parseSqlTable(),
 						variables: [{
 							string: false,
 							value: "albums",
@@ -84,12 +89,12 @@ export const search =
 						},{
 							string: false,
 							key: "columnNames",
-							value: sql.join(COLUMN_NAMES.ALBUM),
+							value: sqlJoin(COLUMN_NAMES.ALBUM),
 						}],
 					}),
-					sql.query<Artist[]>({
+					sqlPoolQuery<Artist[]>({
 						sql: SELECT_DOC_TEXT_SEARCH,
-						parse: sql.parseTable(),
+						parse: parseSqlTable(),
 						variables: [{
 							string: false,
 							key: "tableName",
@@ -105,7 +110,7 @@ export const search =
 						},{
 							string: false,
 							key: "columnNames",
-							value: sql.join(COLUMN_NAMES.ARTIST),
+							value: sqlJoin(COLUMN_NAMES.ARTIST),
 						}],
 					}),
 				])).flat(),
@@ -118,7 +123,7 @@ export const search =
 export const artistSearch =
 	resolver<Artist[], DocSearchArgs>(
 		({ args }) => (
-			sql.search(pg)({
+			sqlSearch(pg)({
 				...args,
 				columnName: "name",
 				tableName: "artists",
@@ -130,7 +135,7 @@ export const artistSearch =
 export const albumSearch =
 	resolver<Album[], DocSearchArgs>(
 		({ args }) => (
-			sql.search(pg)({
+			sqlSearch(pg)({
 				...args,
 				tableName: "albums",
 				columnName: "title",
@@ -142,7 +147,7 @@ export const albumSearch =
 export const genreSearch =
 	resolver<Genre[], DocSearchArgs>(
 		({ args }) => (
-			sql.search(pg)({
+			sqlSearch(pg)({
 				...args,
 				columnName: "name",
 				tableName: "genres",
@@ -154,7 +159,7 @@ export const genreSearch =
 export const songSearch =
 	resolver<Song[], DocSearchArgs>(
 		({ args }) => (
-			sql.search(pg)({
+			sqlSearch(pg)({
 				...args,
 				tableName: "songs",
 				columnName: "title",

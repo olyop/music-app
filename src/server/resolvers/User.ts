@@ -19,9 +19,17 @@ import {
 	SELECT_USER_GENRES,
 } from "../sql"
 
+import {
+	sqlJoin,
+	getUserDocs,
+	parseSqlRow,
+	sqlPoolQuery,
+	getUserQueue,
+	parseSqlTable,
+	createResolver,
+} from "../helpers"
+
 import { COLUMN_NAMES } from "../globals"
-import { sql, createResolver } from "../helpers"
-import { getUserDocs, getUserQueue } from "../helpers/resolver/userDocs"
 
 const resolver =
 	createResolver<User>()
@@ -33,16 +41,16 @@ export const current =
 	resolver<Song | null>(
 		({ parent }) => (
 			isNull(parent.current) ? null : (
-				sql.query<Song>({
+				sqlPoolQuery<Song>({
 					sql: SELECT_SONG,
-					parse: sql.parseRow(),
+					parse: parseSqlRow(),
 					variables: [{
 						key: "songId",
 						value: parent.current,
 					},{
 						string: false,
 						key: "columnNames",
-						value: sql.join(COLUMN_NAMES.SONG),
+						value: sqlJoin(COLUMN_NAMES.SONG),
 					}],
 				})
 			)
@@ -52,9 +60,9 @@ export const current =
 export const albums =
 	resolver<Album[], DocsArgs>(
 		({ parent, args }) => (
-			sql.query({
+			sqlPoolQuery({
 				sql: SELECT_USER_ALBUMS,
-				parse: sql.parseTable(),
+				parse: parseSqlTable(),
 				variables: [{
 					key: "page",
 					string: false,
@@ -77,7 +85,7 @@ export const albums =
 				},{
 					string: false,
 					key: "columnNames",
-					value: sql.join(COLUMN_NAMES.ALBUM),
+					value: sqlJoin(COLUMN_NAMES.ALBUM),
 				}],
 			})
 		),
@@ -86,9 +94,9 @@ export const albums =
 export const genres =
 	resolver<Genre[], DocsArgs>(
 		({ parent, args }) => (
-			sql.query({
+			sqlPoolQuery({
 				sql: SELECT_USER_GENRES,
-				parse: sql.parseTable(),
+				parse: parseSqlTable(),
 				variables: [{
 					key: "page",
 					string: false,
@@ -111,7 +119,7 @@ export const genres =
 				},{
 					string: false,
 					key: "columnNames",
-					value: sql.join(COLUMN_NAMES.GENRE),
+					value: sqlJoin(COLUMN_NAMES.GENRE),
 				}],
 			})
 		),
@@ -150,9 +158,9 @@ export const later =
 export const plays =
 	resolver<Play[]>(
 		({ parent }) => (
-			sql.query({
+			sqlPoolQuery({
 				sql: SELECT_USER_PLAYS,
-				parse: sql.parseTable(),
+				parse: parseSqlTable(),
 				variables: [{
 					key: "userId",
 					value: parent.userId,

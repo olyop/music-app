@@ -1,8 +1,8 @@
 import pipe from "@oly_op/pipe"
 import { isEmpty } from "lodash"
 
-import { resRows } from "./resRows"
 import { SqlQueryRes } from "../../types"
+import { getSqlResRows } from "./getSqlResRows"
 
 export const isSqlResEmpty = (res: SqlQueryRes) =>
-	pipe(resRows, isEmpty)(res)
+	pipe(getSqlResRows, isEmpty)(res)

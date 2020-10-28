@@ -1,16 +1,16 @@
 import pipe from "@oly_op/pipe"
 import { isUndefined } from "lodash"
 
-import { resRows } from "./resRows"
 import { SqlQueryRes } from "../../types"
-import { convertToCamelCase } from "../resolver"
+import { getSqlResRows } from "./getSqlResRows"
+import { convertToCamelCase } from "../resolver/convertToCamelCase"
 
 const checkForNullResult = (res: Record<string, unknown>[]) =>
 	(isUndefined(res) ? [] : res)
 
-export const parseRow = <T>() => (res: SqlQueryRes) =>
+export const parseSqlRow = <T>() => (res: SqlQueryRes) =>
 	pipe(
-		resRows,
+		getSqlResRows,
 		checkForNullResult,
 		obj => obj[0],
 		convertToCamelCase<T>(),

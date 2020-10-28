@@ -65,7 +65,7 @@ const determineSqlAndParams = (sql: string, variables: SqlVariable[]) => {
 	const params: string[] = []
 	const sqlWithValues = variables.reduce(
 		(query, variable) => query.replace(
-			/{{ ${variable.key} }}gi/,
+			new RegExp(`{{ ${variable.key} }}`, "gi"),
 			determineReplaceValue(variable, params),
 		),
 		sql,
@@ -107,7 +107,6 @@ export const sqlQuery =
 					if (parse) return parse(res)
 					else return (res as unknown) as T
 				} catch (error) {
-					console.error(sqlWithValues, params)
 					console.error(error)
 					throw error
 				}

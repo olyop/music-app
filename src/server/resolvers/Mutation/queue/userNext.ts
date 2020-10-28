@@ -1,6 +1,12 @@
-/* eslint-disable no-await-in-loop, no-restricted-syntax */
 import { isEmpty } from "lodash"
 import { v4 as uuid } from "uuid"
+
+import {
+	sqlJoin,
+	sqlQuery,
+	parseSqlRow,
+	createResolver,
+} from "../../../helpers"
 
 import {
 	SELECT_USER,
@@ -15,7 +21,6 @@ import {
 import { pg } from "../../../services"
 import getUserQueue from "./getUserQueue"
 import { COLUMN_NAMES } from "../../../globals"
-import { createResolver, sql } from "../../../helpers"
 import { User, UserArgs, UserQueue } from "../../../types"
 
 const resolver =
@@ -24,8 +29,9 @@ const resolver =
 export const userNext =
 	resolver<User, UserArgs>(
 		async ({ args }) => {
+			let returnValue: User
 			const client = await pg.connect()
-			const query = sql.baseQuery(client)
+			const query = sqlQuery(client)
 			try {
 				await client.query("BEGIN")
 
@@ -139,6 +145,19 @@ export const userNext =
 					})
 				}
 
+				returnValue = await query<User>({
+					sql: SELECT_USER,
+					parse: parseSqlRow(),
+					variables: [{
+						key: "userId",
+						value: args.userId,
+					},{
+						string: false,
+						key: "columnNames",
+						value: sqlJoin(COLUMN_NAMES.USER),
+					}],
+				})
+
 				await client.query("COMMIT")
 			} catch (error) {
 				await client.query("ROLLBACK")
@@ -147,17 +166,6 @@ export const userNext =
 				client.release()
 			}
 
-			return sqlPoolQuery<User>({
-				sql: SELECT_USER,
-				parse: parseSqlRow(),
-				variables: [{
-					key: "userId",
-					value: args.userId,
-				},{
-					string: false,
-					key: "columnNames",
-					value: sqlJoin(COLUMN_NAMES.USER),
-				}],
-			})
+			return returnValue
 		},
 	)

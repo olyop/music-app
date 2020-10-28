@@ -4,4 +4,4 @@ const resolver =
 	createResolver()
 
 export const userPrev =
-	resolver<string>(() => "userPrev")
+	resolver<string>(() => Promise.resolve("userPrev"))

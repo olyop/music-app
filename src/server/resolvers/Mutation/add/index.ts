@@ -42,8 +42,8 @@ import recieve from "./recieve"
 import isValid from "./isValid"
 import { Input } from "./types"
 import { pg } from "../../../services"
-import { sql, createResolver } from "../../../helpers"
 import { populateSong, populateAlbum } from "./populate"
+import { sqlQuery, createResolver } from "../../../helpers"
 
 export const add =
 	createResolver()<string, Input>(
@@ -55,7 +55,7 @@ export const add =
 			const { genres, albums, artists } = upload
 
 			const client = await pg.connect()
-			const query = sql.baseQuery(client)
+			const query = sqlQuery(client)
 
 			try {
 				await client.query("BEGIN")

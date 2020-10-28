@@ -22,3 +22,11 @@ export interface UserQueuesArgs extends UserArgs {
 }
 
 export interface DocsArgs extends OrderByArgs, PageArgs {}
+
+export interface AddRemoveSongArgs extends UserArgs {
+	songId: string,
+}
+
+export interface AddRemoveArtistArgs extends UserArgs {
+	artistId: string,
+}

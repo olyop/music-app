@@ -42,3 +42,10 @@ export interface PlaylistBase {
 	playlistId: string,
 	dateCreated: number,
 }
+
+export interface KeyBase {
+	keyId: string,
+	flatName: string,
+	sharpName: string,
+	camelotName: string,
+}

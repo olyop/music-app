@@ -1,4 +1,5 @@
 import {
+	KeyBase,
 	UserBase,
 	PlayBase,
 	SongBase,
@@ -12,6 +13,8 @@ import {
 export interface User extends UserBase {
 	current: string | null,
 }
+
+export type Key = KeyBase
 
 export type UserDoc = UserDocBase
 

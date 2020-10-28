@@ -23,11 +23,13 @@ import {
 
 import {
 	sqlJoin,
+	getS3Object,
 	sqlPoolQuery,
 	parseSqlTable,
 	getSqlRowCount,
 	createResolver,
 	getUserDocInLib,
+	getS3CatalogKey,
 	getUserDocDateAdded,
 	getSongsOrderByField,
 	getSqlRowCountOrNull,

@@ -1,6 +1,14 @@
 import shuffle from "lodash/shuffle"
 
 import {
+	sqlJoin,
+	sqlQuery,
+	parseSqlRow,
+	parseSqlTable,
+	createResolver,
+} from "../../../helpers"
+
+import {
 	SELECT_USER,
 	INSERT_USER_QUEUE,
 	SELECT_ALBUM_SONGS,
@@ -11,7 +19,6 @@ import { pg } from "../../../services"
 import clearUserQueue from "./clearUserQueue"
 import { COLUMN_NAMES } from "../../../globals"
 import { User, Song, UserArgs } from "../../../types"
-import { sql, createResolver } from "../../../helpers"
 
 const resolver = createResolver()
 
@@ -24,7 +31,7 @@ export const shuffleAlbum =
 		async ({ args }) => {
 			let returnValue: User
 			const client = await pg.connect()
-			const query = sql.baseQuery(client)
+			const query = sqlQuery(client)
 			try {
 				await query("BEGIN")
 

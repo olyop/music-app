@@ -68,7 +68,7 @@ const Bar: FC = () => {
 									<Song
 										showPlay={false}
 										showRight={false}
-										song={data?.user.current}
+										song={data.user.current}
 										iconClassName={bem("icon")}
 										className={bem("main-content-current")}
 									/>

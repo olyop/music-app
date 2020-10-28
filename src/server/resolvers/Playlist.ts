@@ -12,13 +12,21 @@ import {
 } from "../types"
 
 import {
+	sqlJoin,
+	parseSqlRow,
+	sqlPoolQuery,
+	parseSqlTable,
+	createResolver,
+	getSqlRowCountOrNull,
+} from "../helpers"
+
+import {
 	SELECT_USER,
 	SELECT_PLAYLIST_SONGS,
 	SELECT_USER_DOC_PLAYS,
 } from "../sql"
 
 import { COLUMN_NAMES } from "../globals"
-import { sql, createResolver } from "../helpers"
 import { getUserDocInLib, getUserDocDateAdded } from "../helpers/resolver/userDocs"
 
 const getPlaylistSongs =
@@ -58,7 +66,9 @@ const resolver =
 	createResolver<Playlist>()
 
 export const dateCreated =
-	resolver<number>(({ parent }) => parent.dateCreated * 1000)
+	resolver<number>(({ parent }) => Promise.resolve(
+		parent.dateCreated * 1000,
+	))
 
 export const user =
 	resolver<User>(

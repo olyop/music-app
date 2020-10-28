@@ -1,9 +1,15 @@
+import {
+	sqlJoin,
+	sqlQuery,
+	parseSqlRow,
+	createResolver,
+} from "../../../helpers"
+
 import { pg } from "../../../services"
 import { SELECT_USER } from "../../../sql"
 import clearUserQueue from "./clearUserQueue"
 import { COLUMN_NAMES } from "../../../globals"
 import { User, UserArgs } from "../../../types"
-import { sql, createResolver } from "../../../helpers"
 
 const resolver =
 	createResolver()
@@ -17,13 +23,13 @@ export const userClearQueue =
 		async ({ args }) => {
 			let returnValue: User
 			const client = await pg.connect()
-			const query = sql.baseQuery(client)
+			const query = sqlQuery(client)
 			try {
 				await query("BEGIN")
 
 				await clearUserQueue(client)(args.userId)
 
-				returnValue = await sqlPoolQuery<User>({
+				returnValue = await query<User>({
 					sql: SELECT_USER,
 					parse: parseSqlRow(),
 					variables: [{

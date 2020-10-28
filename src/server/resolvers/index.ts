@@ -1,3 +1,5 @@
+import { IResolvers } from "apollo-server-express"
+
 import {
 	URLResolver as Url,
 	GUIDResolver as Uuid,
@@ -22,7 +24,7 @@ import * as Playlist from "./Playlist"
 import * as Query from "./Query"
 import * as Mutation from "./Mutation"
 
-const resolvers = {
+const resolvers: IResolvers = {
 	Url,
 	Date,
 	Uuid,

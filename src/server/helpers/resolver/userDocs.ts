@@ -1,6 +1,12 @@
 import { PAGINATION_NUM } from "@oly_op/music-app-common/globals"
 
 import {
+	GetUserDocInput,
+	GetUserDocsInput,
+	GetUserQueueInput,
+} from "../../types"
+
+import {
 	SELECT_USER_DOCS,
 	SELECT_USER_DOC_ADDED,
 	SELECT_USER_DOC_IN_LIB,
@@ -13,7 +19,6 @@ import { sqlPoolQuery } from "../sql/sqlPoolQuery"
 import { parseSqlTable } from "../sql/parseSqlTable"
 import { getSqlResExists } from "../sql/getSqlResExists"
 import { parseSqlUnixField } from "../sql/parseSqlUnixField"
-import { GetUserDocInput, GetUserDocsInput } from "../../types"
 
 export const getUserDocInLib = ({
 	docId,
@@ -121,15 +126,10 @@ export const getUserDocs = <T>({
 		}],
 	})
 
-interface UserQueueInput {
-	userId: string,
-	tableName: string,
-}
-
 export const getUserQueue = <T>({
 	userId,
 	tableName,
-}: UserQueueInput) =>
+}: GetUserQueueInput) =>
 	sqlPoolQuery({
 		sql: SELECT_USER_QUEUE_SONGS,
 		parse: parseSqlTable<T>(),

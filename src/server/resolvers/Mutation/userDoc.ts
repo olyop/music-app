@@ -1,6 +1,23 @@
 import { camelCase } from "lodash"
 
 import {
+	sqlJoin,
+	sqlQuery,
+	parseSqlRow,
+	createResolver,
+	getSqlResExists,
+} from "../../helpers"
+
+import {
+	Song,
+	Artist,
+	SqlVariable,
+	AddRemoveInput,
+	AddRemoveSongArgs,
+	AddRemoveArtistArgs,
+} from "../../types"
+
+import {
 	SELECT_SONG,
 	SELECT_ARTIST,
 	EXISTS_USER_DOC,
@@ -10,28 +27,6 @@ import {
 
 import { pg } from "../../services"
 import { COLUMN_NAMES } from "../../globals"
-import { sql, createResolver } from "../../helpers"
-import { Song, Artist, UserArgs, SqlVariable } from "../../types"
-
-interface AddRemove {
-	docId: string,
-	userId: string,
-	columnName: string,
-	returnQuery: string,
-	columnNames: string[],
-	userTableName: string,
-}
-
-interface SongArgs extends UserArgs {
-	songId: string,
-}
-
-interface ArtistArgs extends UserArgs {
-	artistId: string,
-}
-
-type AddRemoveFunc =
-	(docId: string, userId: string) => AddRemove
 
 const addUserDoc = async <T>({
 	docId,
@@ -40,9 +35,9 @@ const addUserDoc = async <T>({
 	columnNames,
 	returnQuery,
 	userTableName,
-}: AddRemove) => {
+}: AddRemoveInput) => {
 	const client = await pg.connect()
-	const query = sql.baseQuery(client)
+	const query = sqlQuery(client)
 
 	let returnResult: T
 
@@ -67,9 +62,9 @@ const addUserDoc = async <T>({
 
 		const doesUserDocExist =
 			await query({
-				sql: EXISTS_USER_DOC,
-				parse: sql.resExists,
 				variables,
+				sql: EXISTS_USER_DOC,
+				parse: getSqlResExists,
 			})
 
 		if (doesUserDocExist) {
@@ -121,9 +116,9 @@ const rmUserDoc = async <T>({
 	columnNames,
 	returnQuery,
 	userTableName,
-}: AddRemove) => {
+}: AddRemoveInput) => {
 	const client = await pg.connect()
-	const query = sql.baseQuery(client)
+	const query = sqlQuery(client)
 
 	let returnResult: T
 
@@ -147,9 +142,9 @@ const rmUserDoc = async <T>({
 
 		const doesUserDocExist =
 			await query({
-				sql: EXISTS_USER_DOC,
-				parse: sql.resExists,
 				variables,
+				sql: EXISTS_USER_DOC,
+				parse: getSqlResExists,
 			})
 
 		if (doesUserDocExist) {
@@ -194,6 +189,9 @@ const rmUserDoc = async <T>({
 	return returnResult
 }
 
+type AddRemoveFunc =
+	(docId: string, userId: string) => AddRemoveInput
+
 const songConfig: AddRemoveFunc =
 	(docId, userId) => ({
 		docId,
@@ -218,21 +216,21 @@ const resolver =
 	createResolver()
 
 export const rmUserSong =
-	resolver<Song, SongArgs>(
+	resolver<Song, AddRemoveSongArgs>(
 		({ args }) => rmUserDoc(songConfig(args.songId, args.userId)),
 	)
 
 export const addUserSong =
-	resolver<Song, SongArgs>(
+	resolver<Song, AddRemoveSongArgs>(
 		({ args }) => addUserDoc(songConfig(args.songId, args.userId)),
 	)
 
 export const rmUserArtist =
-	resolver<Artist, ArtistArgs>(
+	resolver<Artist, AddRemoveArtistArgs>(
 		({ args }) => rmUserDoc(artistConfig(args.artistId, args.userId)),
 	)
 
 export const addUserArtist =
-	resolver<Artist, ArtistArgs>(
+	resolver<Artist, AddRemoveArtistArgs>(
 		({ args }) => addUserDoc(artistConfig(args.artistId, args.userId)),
 	)

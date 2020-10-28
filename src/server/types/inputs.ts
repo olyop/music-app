@@ -51,3 +51,17 @@ export interface GetUserDocsInput {
 	columnNames: string[],
 	userTableName: string,
 }
+
+export interface GetUserQueueInput {
+	userId: string,
+	tableName: string,
+}
+
+export interface AddRemoveInput {
+	docId: string,
+	userId: string,
+	columnName: string,
+	returnQuery: string,
+	columnNames: string[],
+	userTableName: string,
+}

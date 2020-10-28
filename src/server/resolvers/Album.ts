@@ -108,7 +108,9 @@ export const duration =
 	)
 
 export const released =
-	resolver<Date>(({ parent }) => fixDateType(parent.released))
+	resolver<Date>(({ parent }) => Promise.resolve(
+		fixDateType(parent.released),
+	))
 
 export const cover =
 	resolver<string, S3FileArgs>(

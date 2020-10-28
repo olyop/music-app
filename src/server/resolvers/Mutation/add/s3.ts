@@ -1,7 +1,7 @@
 import { resize } from "./helpers"
-import { s3 } from "../../../helpers"
 import { IMAGE_SIZES } from "../../../globals"
 import { S3FileExt, S3FileType } from "../../../types"
+import { uploadS3Object, getS3CatalogKey } from "../../../helpers"
 
 type UploadFunction = (id: string, file: Buffer) => Promise<unknown>
 
@@ -36,7 +36,7 @@ export const uploadArtistPhotos: UploadFunction =
 			image: photo,
 			dim: IMAGE_SIZES.ARTIST.FULL,
 		}),
-	}].map(s3.upload))
+	}].map(uploadS3Object))
 
 export const uploadAlbumCovers: UploadFunction =
 	async (albumId, cover) => Promise.all([{
@@ -59,10 +59,10 @@ export const uploadAlbumCovers: UploadFunction =
 			image: cover,
 			dim: IMAGE_SIZES.ALBUM.FULL,
 		}),
-	}].map(s3.upload))
+	}].map(uploadS3Object))
 
 export const uploadSong: UploadFunction = async (songId, audio) =>
-	s3.upload({
+	uploadS3Object({
 		data: audio,
 		key: getS3CatalogKey(
 			songId,

@@ -6,9 +6,9 @@ const resolver =
 export const __resolveType =
 	resolver<string>(
 		({ parent }) => {
-			if (parent.songId) return "Song"
-			else if (parent.genreId) return "Genre"
-			else if (parent.albumId) return "Album"
-			else return "Artist"
+			if (parent.songId) return Promise.resolve("Song")
+			else if (parent.genreId) return Promise.resolve("Genre")
+			else if (parent.albumId) return Promise.resolve("Album")
+			else return Promise.resolve("Artist")
 		},
 	)

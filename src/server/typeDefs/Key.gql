@@ -1,0 +1,6 @@
+type Key {
+	keyId: Uuid!
+	flatName: String!
+	sharpName: String!
+	camelotName: String!
+}

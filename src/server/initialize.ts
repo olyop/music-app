@@ -31,6 +31,7 @@ import {
 } from "./sql"
 
 import { pg } from "./services"
+import temp from "./temp"
 
 const SQL_INIT = [
 	SET_TIMEZONE,
@@ -80,6 +81,7 @@ const initialize = async () => {
 	if (!IS_DEV) {
 		try {
 			await initializeDatabase()
+			await temp()
 		} catch (err) {
 			console.error(err)
 		}

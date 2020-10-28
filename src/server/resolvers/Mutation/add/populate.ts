@@ -1,5 +1,5 @@
 /* eslint-disable no-await-in-loop, no-restricted-syntax */
-import { sql } from "../../../helpers"
+import { sqlSearch } from "../../../helpers"
 import { COLUMN_NAMES } from "../../../globals"
 import { AlbumUpload, SongUpload } from "./types"
 import { Client, Genre, Artist } from "../../../types"

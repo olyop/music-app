@@ -1,3 +1,5 @@
+import { v4 as uuid } from "uuid"
+
 import {
 	Song,
 	Play,
@@ -8,17 +10,8 @@ import {
 	S3FileExt,
 	S3FileType,
 	SqlParse,
+	Key,
 } from "../types"
-
-import {
-	SELECT_ALBUM,
-	SELECT_SONG_PLAYS,
-	SELECT_SONG_GENRES,
-	SELECT_SONG_ARTISTS,
-	SELECT_SONG_REMIXERS,
-	SELECT_SONG_FEATURING,
-	SELECT_USER_DOC_PLAYS,
-} from "../sql"
 
 import {
 	sqlJoin,
@@ -32,6 +25,16 @@ import {
 	getUserDocDateAdded,
 	getSqlRowCountOrNull,
 } from "../helpers"
+
+import {
+	SELECT_ALBUM,
+	SELECT_SONG_PLAYS,
+	SELECT_SONG_GENRES,
+	SELECT_SONG_ARTISTS,
+	SELECT_SONG_REMIXERS,
+	SELECT_SONG_FEATURING,
+	SELECT_USER_DOC_PLAYS,
+} from "../sql"
 
 import { COLUMN_NAMES } from "../globals"
 
@@ -140,6 +143,21 @@ export const size =
 				),
 			})
 		),
+	)
+
+export const key =
+	resolver<Key>(
+		() => Promise.resolve({
+			keyId: uuid(),
+			flatName: "Bb",
+			sharpName: "A#",
+			camelotName: "6B",
+		}),
+	)
+
+export const bpm =
+	resolver<number>(
+		() => Promise.resolve(120),
 	)
 
 export const playsTotal =

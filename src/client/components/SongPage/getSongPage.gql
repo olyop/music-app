@@ -3,12 +3,19 @@ query getSongPage(
   $songId: Uuid!
 ) {
   song(songId: $songId) {
+    bpm
     size
     title
     songId
     duration
     playsTotal
     inLibrary(userId: $userId)
+    key {
+      keyId
+      flatName
+      sharpName
+      camelotName
+    }
     featuring {
       name
       artistId

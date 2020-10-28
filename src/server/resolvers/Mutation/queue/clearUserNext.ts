@@ -4,7 +4,7 @@ import {
 	DELETE_USER_LATER,
 } from "../../../sql"
 
-import { sql } from "../../../helpers"
+import { sqlQuery } from "../../../helpers"
 import { SqlVariable, Client } from "../../../types"
 
 const clearUserNext =
@@ -13,15 +13,15 @@ const clearUserNext =
 			key: "userId",
 			value: userId,
 		}]
-		await sql.baseQuery(client)({
+		await sqlQuery(client)({
 			sql: DELETE_USER_PREV,
 			variables,
 		})
-		await sql.baseQuery(client)({
+		await sqlQuery(client)({
 			sql: DELETE_USER_NEXT,
 			variables,
 		})
-		await sql.baseQuery(client)({
+		await sqlQuery(client)({
 			sql: DELETE_USER_LATER,
 			variables,
 		})

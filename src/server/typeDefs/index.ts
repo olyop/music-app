@@ -13,6 +13,7 @@ const typeDefs = `
 	${importSchema("Unions")}
 	${importSchema("Query")}
 	${importSchema("Mutation")}
+	${importSchema("Key")}
 	${importSchema("User")}
 	${importSchema("Play")}
 	${importSchema("Song")}

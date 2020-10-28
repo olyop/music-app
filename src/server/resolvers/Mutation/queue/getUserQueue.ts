@@ -1,17 +1,23 @@
 import pipe from "@oly_op/pipe"
 
 import {
+	sqlJoin,
+	sqlQuery,
+	parseSqlRow,
+	parseSqlTable,
+} from "../../../helpers"
+
+import {
 	SELECT_USER,
 	SELECT_USER_QUEUE,
 } from "../../../sql"
 
-import { sql } from "../../../helpers"
 import { COLUMN_NAMES } from "../../../globals"
 import { Queue, Client, User, UserQueue } from "../../../types"
 
 const getUserQueue = (client: Client) => async (userId: string) => {
 	const [ prevs, current, nexts, laters ] = await Promise.all([
-		sql.baseQuery(client)<UserQueue[]>({
+		sqlQuery(client)<UserQueue[]>({
 			sql: SELECT_USER_QUEUE,
 			parse: parseSqlTable(),
 			variables: [{
@@ -27,7 +33,7 @@ const getUserQueue = (client: Client) => async (userId: string) => {
 				value: sqlJoin(COLUMN_NAMES.USER_QUEUE),
 			}],
 		}),
-		sql.baseQuery(client)({
+		sqlQuery(client)({
 			sql: SELECT_USER,
 			parse: pipe(parseSqlRow<User>(), user => user.current),
 			variables: [{
@@ -39,7 +45,7 @@ const getUserQueue = (client: Client) => async (userId: string) => {
 				value: sqlJoin(COLUMN_NAMES.USER),
 			}],
 		}),
-		sql.baseQuery(client)<UserQueue[]>({
+		sqlQuery(client)<UserQueue[]>({
 			sql: SELECT_USER_QUEUE,
 			parse: parseSqlTable(),
 			variables: [{
@@ -55,7 +61,7 @@ const getUserQueue = (client: Client) => async (userId: string) => {
 				value: sqlJoin(COLUMN_NAMES.USER_QUEUE),
 			}],
 		}),
-		sql.baseQuery(client)<UserQueue[]>({
+		sqlQuery(client)<UserQueue[]>({
 			sql: SELECT_USER_QUEUE,
 			parse: parseSqlTable(),
 			variables: [{

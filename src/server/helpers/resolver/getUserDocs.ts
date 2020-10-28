@@ -1,8 +1,10 @@
 import { PAGINATION_NUM } from "@oly_op/music-app-common/globals"
 
-import { query } from "../sql/query"
 import { OrderBy } from "../../types"
+import { sqlJoin } from "../sql/sqlJoin"
 import { SELECT_USER_DOCS } from "../../sql"
+import { sqlPoolQuery } from "../sql/sqlPoolQuery"
+import { parseSqlTable } from "../sql/parseSqlTable"
 
 interface GetUserDocsInput {
 	page: number,
@@ -23,7 +25,7 @@ export const getUserDocs = <T>({
 	columnNames,
 	userTableName,
 }: GetUserDocsInput) =>
-	query<T[]>({
+	sqlPoolQuery<T[]>({
 		sql: SELECT_USER_DOCS,
 		parse: parseSqlTable(),
 		variables: [{

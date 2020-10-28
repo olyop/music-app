@@ -13,13 +13,6 @@ import {
 } from "../types"
 
 import {
-	SELECT_SONG,
-	SELECT_USER_PLAYS,
-	SELECT_USER_ALBUMS,
-	SELECT_USER_GENRES,
-} from "../sql"
-
-import {
 	sqlJoin,
 	getUserDocs,
 	parseSqlRow,
@@ -29,18 +22,27 @@ import {
 	createResolver,
 } from "../helpers"
 
+import {
+	SELECT_SONG,
+	SELECT_USER_PLAYS,
+	SELECT_USER_ALBUMS,
+	SELECT_USER_GENRES,
+} from "../sql"
+
 import { COLUMN_NAMES } from "../globals"
 
 const resolver =
 	createResolver<User>()
 
 export const dateJoined =
-	resolver<number>(({ parent }) => parent.dateJoined * 1000)
+	resolver<number>(({ parent }) => Promise.resolve(parent.dateJoined * 1000))
 
 export const current =
 	resolver<Song | null>(
 		({ parent }) => (
-			isNull(parent.current) ? null : (
+			isNull(parent.current) ? (
+				Promise.resolve(null)
+			) : (
 				sqlPoolQuery<Song>({
 					sql: SELECT_SONG,
 					parse: parseSqlRow(),

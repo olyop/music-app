@@ -8,8 +8,16 @@ import {
 	SqlParse,
 } from "../types"
 
+import {
+	sqlJoin,
+	sqlPoolQuery,
+	parseSqlTable,
+	createResolver,
+	getSqlRowCountOrNull,
+	getSongsOrderByField,
+} from "../helpers"
+
 import { COLUMN_NAMES } from "../globals"
-import { sql, createResolver, songOrderByField } from "../helpers"
 import { SELECT_GENRE_SONGS, SELECT_USER_DOC_PLAYS } from "../sql"
 
 const resolver =
@@ -34,7 +42,7 @@ const getGenreSongs =
 			},{
 				string: false,
 				key: "orderByField",
-				value: songOrderByField(orderBy?.field.toLowerCase() || "title"),
+				value: getSongsOrderByField(orderBy?.field.toLowerCase() || "title"),
 			}],
 		})
 

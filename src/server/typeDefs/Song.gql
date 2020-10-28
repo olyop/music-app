@@ -1,7 +1,9 @@
 type Song {
+	key: Key!
 	mix: String!
 	songId: Uuid!
 	title: String!
+	bpm: PositiveInt!
 	duration: PositiveInt!
 	discNumber: PositiveInt!
 	trackNumber: PositiveInt!

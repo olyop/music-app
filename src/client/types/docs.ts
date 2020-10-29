@@ -1,4 +1,5 @@
 import {
+	KeyBase,
 	UserBase,
 	PlayBase,
 	SongBase,
@@ -17,6 +18,8 @@ export interface LibraryDoc<T = string> extends Doc<T> {
 	playsTotal: number | null,
 	userPlaysTotal: number | null,
 }
+
+export interface Key extends KeyBase, Doc<"Key"> {}
 
 export interface UserDoc<T = string> extends LibraryDoc<T> {
 	inLibrary: boolean,
@@ -48,6 +51,7 @@ export interface Genre extends GenreBase, LibraryDoc<"Genre"> {
 }
 
 export interface Song extends SongBase, UserDoc<"Song"> {
+	key: Key,
 	size: number,
 	album: Album,
 	genres: Genre[],

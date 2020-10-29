@@ -63,6 +63,17 @@ const SongPage: FC = () => {
 							{(data.song.size * 1e-6).toFixed(2)}
 							<Fragment> MB</Fragment>
 						</h4>
+						<h4 className="Text">
+							BPM:
+							<Fragment> </Fragment>
+							{data.song.bpm}
+							<Fragment> BPM</Fragment>
+						</h4>
+						<h4 className="Text">
+							Key:
+							<Fragment> </Fragment>
+							{data.song.key.sharp}
+						</h4>
 					</div>
 				</Helmet>
 			)}

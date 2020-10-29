@@ -11,10 +11,10 @@ query getSongPage(
     playsTotal
     inLibrary(userId: $userId)
     key {
+      flat
       keyId
-      flatName
-      sharpName
-      camelotName
+      sharp
+      camelot
     }
     featuring {
       name

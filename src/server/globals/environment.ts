@@ -13,3 +13,5 @@ export const SERP_API_KEY = process.env.SERP_API_KEY!
 
 export const ALGOLIA_API_KEY = process.env.ALGOLIA_API_KEY!
 export const ALGOLIA_APPLICATION_ID = process.env.ALGOLIA_APPLICATION_ID!
+
+export const SONIC_API_KEY = process.env.SONIC_API_KEY!

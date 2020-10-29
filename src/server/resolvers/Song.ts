@@ -148,10 +148,10 @@ export const size =
 export const key =
 	resolver<Key>(
 		() => Promise.resolve({
+			flat: "Bb",
+			sharp: "A#",
 			keyId: uuid(),
-			flatName: "Bb",
-			sharpName: "A#",
-			camelotName: "6B",
+			camelot: "6B",
 		}),
 	)
 

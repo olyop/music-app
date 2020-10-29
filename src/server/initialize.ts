@@ -30,8 +30,8 @@ import {
 	PLAYLISTS_NAME_INDEX,
 } from "./sql"
 
+import test from "./test"
 import { pg } from "./services"
-import temp from "./temp"
 
 const SQL_INIT = [
 	SET_TIMEZONE,
@@ -78,10 +78,10 @@ const initializeDatabase = async () => {
 	}
 }
 const initialize = async () => {
+	// await test()
 	if (!IS_DEV) {
 		try {
 			await initializeDatabase()
-			await temp()
 		} catch (err) {
 			console.error(err)
 		}

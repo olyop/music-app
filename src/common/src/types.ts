@@ -30,6 +30,7 @@ export interface GenreBase {
 
 export interface SongBase {
 	mix: string,
+	bpm: string,
 	title: string,
 	songId: string,
 	duration: number,
@@ -44,8 +45,8 @@ export interface PlaylistBase {
 }
 
 export interface KeyBase {
+	flat: string,
 	keyId: string,
-	flatName: string,
-	sharpName: string,
-	camelotName: string,
+	sharp: string,
+	camelot: string,
 }

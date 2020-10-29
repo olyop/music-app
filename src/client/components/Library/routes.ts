@@ -7,17 +7,17 @@ import LibraryAlbums from "./LibraryAlbums"
 import LibraryArtists from "./LibraryArtists"
 
 const routes: Route[] = [{
-	name: "Songs",
-	id: uniqueId(),
-	path: "/songs",
-	icon: "audiotrack",
-	component: LibrarySongs,
-},{
 	id: uniqueId(),
 	icon: "person",
 	name: "Artists",
 	path: "/artists",
 	component: LibraryArtists,
+},{
+	name: "Songs",
+	id: uniqueId(),
+	path: "/songs",
+	icon: "audiotrack",
+	component: LibrarySongs,
 },{
 	icon: "list",
 	name: "Genres",

@@ -15,25 +15,28 @@
 			transform: translateX(-50%);
 			@media (max-width: 1360px) {
 				width: 100%; }
-			&-add,
-			&-name,
-			&-text {
-				color: var(--text-color-white); }
 			&-name {
 				display: flex;
 				font-weight: 700;
 				align-items: center;
 				margin-bottom: var(--space-quart);
+				&-add,
+				&-text,
+				&-text:hover,
+				&-text:focus,
+				&-text:active {
+					text-decoration: none;
+					color: var(--text-color-white); }
 				&-text {
 					font-size: 60rem; }
 				&-add {
 					margin-top: 7rem;
-					color: var(--text-color-white);
 					margin-left: var(--space-half);
 					&:hover {
 						background-color: rgba(#000, 0.3); } } }
 			&-text {
-				font-size: 17rem; } }
+				font-size: 17rem;
+				color: var(--text-color-white); } }
 		&-black {
 			top: 0;
 			left: 0;

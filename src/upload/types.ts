@@ -20,7 +20,7 @@ export interface Album extends AlbumBase {
 
 export type Genre = GenreBase
 
-export interface Song extends SongBase {
+export interface Song extends Omit<SongBase, "key" | "bpm"> {
 	audio: File,
 	genres: string[],
 	artists: string[],

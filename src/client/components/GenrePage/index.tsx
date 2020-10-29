@@ -1,6 +1,6 @@
 import { createBem } from "@oly_op/bem"
-import { createElement, FC } from "react"
 import { useParams } from "react-router-dom"
+import { createElement, FC, Fragment } from "react"
 
 import {
 	Genre,
@@ -11,9 +11,8 @@ import {
 
 import Songs from "../Songs"
 import Helmet from "../Helmet"
-import QueryApi from "../QueryApi"
-import { uuidAddDashes } from "../../helpers"
 import GET_GENRE_PAGE from "./getGenrePage.gql"
+import { useQuery, uuidAddDashes } from "../../helpers"
 import { useStateUserId, useStateOrderBy } from "../../redux"
 
 import "./index.scss"
@@ -25,11 +24,11 @@ const GenrePage: FC = () => {
 	const params = useParams<Params>()
 	const genreId = uuidAddDashes(params.genreId)
 	const songsOrderBy = useStateOrderBy<SongsOrderByField>("songs")
+	const variables: Vars = { userId, songsOrderBy, genreId }
+	const { data } = useQuery<Data, Vars>(GET_GENRE_PAGE, { variables })
 	return (
-		<QueryApi<Data, Vars>
-			variables={{ userId, songsOrderBy, genreId }}
-			query={GET_GENRE_PAGE}
-			children={({ data }) => data && (
+		<Fragment>
+			{data && (
 				<Helmet title={data.genre.name}>
 					<h1
 						children={data.genre.name}
@@ -43,7 +42,7 @@ const GenrePage: FC = () => {
 					/>
 				</Helmet>
 			)}
-		/>
+		</Fragment>
 	)
 }
 

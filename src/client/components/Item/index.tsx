@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom"
-import { createElement, Fragment, ReactNode, useState } from "react"
+import { createElement, ReactNode, useState } from "react"
 import { createBem, BemInput, BemPropTypes } from "@oly_op/bem"
 
 import {
@@ -27,6 +27,7 @@ const bem = createBem("Item")
 
 const showInLibrary =
 	(hideInLibrary: boolean, doc: Doc): doc is UserDoc => !hideInLibrary
+
 const determineShowPlay =
 	(showPlay: boolean, doc: Doc): doc is UserDoc => showPlay
 
@@ -49,8 +50,8 @@ const Item = <D extends Doc, I extends Doc = Doc>({
 	const openMore = () => setModal(true)
 	const closeMore = () => setModal(false)
 	return (
-		<Fragment>
-			<div className={bem(className, "")}>
+		<div className={bem(className)}>
+			<div className={bem("")}>
 				{left && (
 					<p
 						children={left}
@@ -119,7 +120,7 @@ const Item = <D extends Doc, I extends Doc = Doc>({
 					))}
 				</Modal>
 			)}
-		</Fragment>
+		</div>
 	)
 }
 

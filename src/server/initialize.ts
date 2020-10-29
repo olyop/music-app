@@ -30,7 +30,6 @@ import {
 	PLAYLISTS_NAME_INDEX,
 } from "./sql"
 
-import test from "./test"
 import { pg } from "./services"
 
 const SQL_INIT = [
@@ -78,7 +77,6 @@ const initializeDatabase = async () => {
 	}
 }
 const initialize = async () => {
-	// await test()
 	if (!IS_DEV) {
 		try {
 			await initializeDatabase()

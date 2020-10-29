@@ -1,5 +1,7 @@
+export * from "./useQuery"
 export * from "./useSound"
 export * from "./uuidDashes"
+export * from "./useMutation"
 export * from "./artistLower"
 export * from "./useHasMounted"
 export * from "./createContext"

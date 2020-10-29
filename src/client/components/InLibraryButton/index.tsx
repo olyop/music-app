@@ -1,22 +1,13 @@
-import {
-	FC,
-	useRef,
-	useEffect,
-	createElement,
-} from "react"
-
 import noop from "lodash/noop"
-import uniqueId from "lodash/uniqueId"
+import { createElement, FC } from "react"
 import isUndefined from "lodash/isUndefined"
-import { useQuery, useMutation } from "@apollo/client"
 
 import {
-	addError,
-	addLoading,
-	useDispatch,
-	removeLoading,
-	useStateUserId,
-} from "../../redux"
+	useQuery,
+	useMutation,
+	determineDocId,
+	determineDocReturn,
+} from "../../helpers"
 
 import RM_USER_SONG from "./rmUserSong.gql"
 import RM_USER_ARTIST from "./rmUserArtist.gql"
@@ -29,11 +20,9 @@ import GET_ARTIST_IN_LIBRARY from "./getArtistInLibrary.gql"
 
 import Icon from "../Icon"
 import { UserDoc } from "../../types"
-import { determineDocReturn, determineDocId } from "../../helpers"
+import { useStateUserId } from "../../redux"
 
 const InLibraryButton: FC<PropTypes> = ({ doc, className }) => {
-	const dispatch = useDispatch()
-	const queryId = useRef(uniqueId())
 	const dr = determineDocReturn(doc)
 	const docName = dr("Song", "Artist")
 	const docKey = dr("songId", "artistId")
@@ -44,7 +33,7 @@ const InLibraryButton: FC<PropTypes> = ({ doc, className }) => {
 
 	const variables = { userId, [docKey]: docId }
 
-	const { data, loading: queryLoading } =
+	const { data } =
 		useQuery<Data>(QUERY, { fetchPolicy: "cache-first", variables })
 
 	const inLibrary =
@@ -58,7 +47,7 @@ const InLibraryButton: FC<PropTypes> = ({ doc, className }) => {
 		dr(RM_USER_SONG, RM_USER_ARTIST) :
 		dr(ADD_USER_SONG, ADD_USER_ARTIST)
 
-	const [ mutation, { error, loading: mutationLoading } ] =
+	const [ mutation, { loading } ] =
 		useMutation<Data>(MUTATION, {
 			variables,
 			optimisticResponse: {
@@ -71,39 +60,13 @@ const InLibraryButton: FC<PropTypes> = ({ doc, className }) => {
 			},
 		})
 
-	const handleClick = () => {
-		if (!queryLoading && !mutationLoading) {
-			console.log({
-				[mutationName]: {
-					...doc,
-					[docKey]: docId,
-					__typename: docName,
-					inLibrary: !inLibrary,
-				},
-			})
-			mutation().catch(console.error)
-		}
-	}
-
-	useEffect(() => {
-		if (mutationLoading) {
-			dispatch(addLoading(queryId.current))
-		} else {
-			dispatch(removeLoading(queryId.current))
-		}
-	}, [dispatch, mutationLoading])
-
-	useEffect(() => {
-		if (error) {
-			dispatch(addError(error))
-		}
-	}, [error, dispatch])
+	const handleClick = async () => mutation()
 
 	return (
 		<Icon
 			className={className}
 			icon={inLibrary ? "done" : "add"}
-			onClick={mutationLoading ? noop : handleClick}
+			onClick={loading ? noop : handleClick}
 			title={`${inLibrary ? "Remove from" : "Add to"} Library`}
 		/>
 	)

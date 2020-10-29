@@ -1,10 +1,11 @@
 import { createBem } from "@oly_op/bem"
 import { useParams } from "react-router-dom"
-import { useMutation } from "@apollo/client"
 import { createElement, Fragment, FC } from "react"
 import deserializeDuration from "@oly_op/music-app-common/deserializeDuration"
 
 import {
+	useQuery,
+	useMutation,
 	uuidAddDashes,
 	determineDiscs,
 	dataUrlToObjectUrl,
@@ -14,7 +15,6 @@ import Img from "../Img"
 import Disc from "./Disc"
 import Button from "../Button"
 import Helmet from "../Helmet"
-import QueryApi from "../QueryApi"
 import DocLinks from "../DocLinks"
 import { useStateUserId } from "../../redux"
 import SHUFFLE_ALBUM from "./shuffleAlbum.gql"
@@ -29,14 +29,12 @@ const AlbumPage: FC = () => {
 	const userId = useStateUserId()
 	const params = useParams<Params>()
 	const albumId = uuidAddDashes(params.albumId)
-	const variables: MutationVars = { userId, albumId }
-	const [ shuffle ] = useMutation<User, MutationVars>(SHUFFLE_ALBUM, { variables })
+	const variables: Vars = { userId, albumId }
+	const { data } = useQuery<Data, Vars>(GET_ALBUM_PAGE, { variables })
+	const [ shuffle ] = useMutation<User, Vars>(SHUFFLE_ALBUM, { variables })
 	return (
-		<QueryApi<Data, QueryVars>
-			query={GET_ALBUM_PAGE}
-			className={bem("", "Content")}
-			variables={{ userId, albumId }}
-			children={({ data }) => data && (
+		<div className={bem("", "Content")}>
+			{data && (
 				<Helmet title={data.album.title}>
 					<Img
 						url={data.album.cover}
@@ -88,7 +86,7 @@ const AlbumPage: FC = () => {
 					</div>
 				</Helmet>
 			)}
-		/>
+		</div>
 	)
 }
 
@@ -100,10 +98,6 @@ interface Params {
 	albumId: string,
 }
 
-interface MutationVars extends UserVar {
-	albumId: string,
-}
-
-interface QueryVars extends Params, UserVar {}
+interface Vars extends Params, UserVar {}
 
 export default AlbumPage

@@ -1,27 +1,21 @@
-import {
-	FC,
-	useRef,
-	useEffect,
-	createElement,
-} from "react"
-
-import uniqueId from "lodash/uniqueId"
+import { createElement, FC } from "react"
 import { createBem, BemPropTypes } from "@oly_op/bem"
-import { useQuery, useMutation } from "@apollo/client"
 
 import {
-	addError,
 	updatePlay,
-	addLoading,
 	useDispatch,
 	useStatePlay,
 	updateCurrent,
-	removeLoading,
 	useStateUserId,
 } from "../../redux"
 
+import {
+	useQuery,
+	useMutation,
+	determineDocId,
+} from "../../helpers"
+
 import Icon from "../Icon"
-import { determineDocId } from "../../helpers"
 import { User, UserDoc, Song } from "../../types"
 import GET_USER_CURRENT from "./getUserCurrent.gql"
 import UPDATE_USER_PLAY from "./updateUserCurrent.gql"
@@ -36,7 +30,6 @@ const PlayButton: FC<PropTypes> = ({ doc, className }) => {
 	const dispatch = useDispatch()
 	const userId = useStateUserId()
 	const songId = determineDocId(doc)
-	const queryId = useRef(uniqueId())
 
 	const { data } =
 		useQuery<UserCurrentRes>(GET_USER_CURRENT, {
@@ -44,7 +37,7 @@ const PlayButton: FC<PropTypes> = ({ doc, className }) => {
 			fetchPolicy: "cache-first",
 		})
 
-	const [ userPlay, { error, loading } ] =
+	const [ userPlay ] =
 		useMutation<UserPlayRes>(UPDATE_USER_PLAY, {
 			variables: { songId, userId },
 			optimisticResponse: isSong(doc) ? {
@@ -62,28 +55,17 @@ const PlayButton: FC<PropTypes> = ({ doc, className }) => {
 		data.user.current.songId === songId
 	)
 
-	const handleClick = () => {
+	const handleClick = async () => {
 		if (isSong(doc)) {
 			if (isCurrent) {
 				dispatch(updatePlay(!play))
 			} else {
 				dispatch(updateCurrent(0))
 				dispatch(updatePlay(false))
-				userPlay().catch(console.error)
+				await userPlay()
 			}
 		}
 	}
-
-	useEffect(() => {
-		if (loading) dispatch(addLoading(queryId.current))
-		else dispatch(removeLoading(queryId.current))
-	}, [dispatch, loading])
-
-	useEffect(() => {
-		if (error) {
-			dispatch(addError(error))
-		}
-	}, [error, dispatch])
 
 	return (
 		<Icon

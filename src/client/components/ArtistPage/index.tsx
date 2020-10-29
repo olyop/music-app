@@ -10,6 +10,7 @@ import { createBem } from "@oly_op/bem"
 import { createElement, Fragment, FC } from "react"
 
 import {
+	useQuery,
 	artistLower,
 	uuidAddDashes,
 	determinePlural,
@@ -28,7 +29,7 @@ import Img from "../Img"
 import Songs from "../Songs"
 import Albums from "../Albums"
 import Helmet from "../Helmet"
-import QueryApi from "../QueryApi"
+import DocLink from "../DocLink"
 import InLibraryButton from "../InLibraryButton"
 import GET_ARTIST_PAGE from "./getArtistPage.gql"
 import GET_ARTIST_PAGE_SONGS from "./getArtistPageSongs.gql"
@@ -39,19 +40,48 @@ import "./index.scss"
 
 const bem = createBem("ArtistPage")
 
+const getArtistIdFromUrl = (url: string) => uuidAddDashes(url.slice(8, 40))
+
+const ArtistPageSongs: FC<RouteComponentProps> = ({ match }) => {
+	const userId = useStateUserId()
+	const artistId = getArtistIdFromUrl(match.path)
+	const songsOrderBy = useStateOrderBy<SongsOrderByField>("songs")
+	const variables: SongsVars = { userId, artistId, songsOrderBy }
+	const { data } = useQuery<Data, SongsVars>(GET_ARTIST_PAGE_SONGS, { variables })
+	return (
+		<Songs
+			orderByKey="songs"
+			className="Content"
+			songs={data?.artist.songs || []}
+			orderByFields={Object.keys(SongsOrderByField)}
+		/>
+	)
+}
+
+const ArtistPageAlbums: FC<RouteComponentProps> = ({ match }) => {
+	const userId = useStateUserId()
+	const artistId = getArtistIdFromUrl(match.path)
+	const albumsOrderBy = useStateOrderBy<AlbumsOrderByField>("albums")
+	const variables: AlbumsVars = { userId, artistId, albumsOrderBy }
+	const { data } = useQuery<Data, AlbumsVars>(GET_ARTIST_PAGE_ALBUMS, { variables })
+	return (
+		<Albums
+			orderByKey="albums"
+			albums={data?.artist.albums || []}
+			orderByFields={Object.keys(AlbumsOrderByField)}
+		/>
+	)
+}
+
 const ArtistPage: FC<RouteComponentProps> = ({ match }) => {
 	const userId = useStateUserId()
 	const params = useParams<Params>()
-	const songsOrderBy = useStateOrderBy<SongsOrderByField>("songs")
-	const albumsOrderBy = useStateOrderBy<AlbumsOrderByField>("albums")
 	const artistId = uuidAddDashes(params.artistId)
 	const variables: Vars = { userId, artistId }
+	const { data } = useQuery<Data, Vars>(GET_ARTIST_PAGE, { variables })
 	return (
-		<QueryApi<Data, Vars>
-			className={bem("")}
-			variables={variables}
-			query={GET_ARTIST_PAGE}
-			children={({ data }) => data && (
+		<div className={bem("")}>
+			{data && (
 				<Helmet title={data.artist.name}>
 					<Img
 						url={data.artist.photo}
@@ -60,9 +90,10 @@ const ArtistPage: FC<RouteComponentProps> = ({ match }) => {
 					>
 						<div className={bem("cover-content", "Content MarginBottomOneHalf")}>
 							<h1 className={bem("cover-content-name")}>
-								<span className={bem("cover-content-name-text")}>
-									{data.artist.name}
-								</span>
+								<DocLink
+									doc={data.artist}
+									className={bem("cover-content-name-text")}
+								/>
 								<InLibraryButton
 									doc={data.artist}
 									className={bem("cover-content-name-add")}
@@ -87,16 +118,6 @@ const ArtistPage: FC<RouteComponentProps> = ({ match }) => {
 						<ul className={bem("nav", "FlexList Content")}>
 							<NavLink
 								exact
-								to={match.url}
-								activeClassName={bem("nav-item-active")}
-								children={(
-									<li className={bem("nav-item", "Text2 Hover")}>
-										Featured
-									</li>
-								)}
-							/>
-							<NavLink
-								exact
 								to={`${match.url}/songs`}
 								activeClassName={bem("nav-item-active")}
 								children={(
@@ -117,56 +138,23 @@ const ArtistPage: FC<RouteComponentProps> = ({ match }) => {
 							/>
 						</ul>
 					</div>
-					<div className="Content MarginBottomOneHalf">
+					<div className="MarginBottomOneHalf">
 						<Switch>
 							<Route
 								exact
-								path={match.url}
-								render={() => (
-									<p className="Text2">
-										Featured
-									</p>
-								)}
-							/>
-							<Route
-								exact
 								path={`${match.url}/albums`}
-								render={() => (
-									<QueryApi<Data, AlbumsVars>
-										query={GET_ARTIST_PAGE_ALBUMS}
-										variables={{ ...variables, albumsOrderBy }}
-										children={res => (
-											<Albums
-												orderByKey="albums"
-												albums={res.data?.artist.albums || []}
-												orderByFields={Object.keys(AlbumsOrderByField)}
-											/>
-										)}
-									/>
-								)}
+								component={ArtistPageAlbums}
 							/>
 							<Route
 								exact
 								path={`${match.url}/songs`}
-								render={() => (
-									<QueryApi<Data, SongsVars>
-										query={GET_ARTIST_PAGE_SONGS}
-										variables={{ ...variables, songsOrderBy }}
-										children={res => (
-											<Songs
-												orderByKey="songs"
-												songs={res.data?.artist.songs || []}
-												orderByFields={Object.keys(SongsOrderByField)}
-											/>
-										)}
-									/>
-								)}
+								component={ArtistPageSongs}
 							/>
 						</Switch>
 					</div>
 				</Helmet>
 			)}
-		/>
+		</div>
 	)
 }
 

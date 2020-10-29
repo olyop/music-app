@@ -5,14 +5,13 @@ import deserializeDuration from "@oly_op/music-app-common/deserializeDuration"
 
 import Cover from "../Cover"
 import Helmet from "../Helmet"
-import QueryApi from "../QueryApi"
 import DocLinks from "../DocLinks"
 import SongTitle from "../SongTitle"
 import { Song, UserVar } from "../../types"
 import { useStateUserId } from "../../redux"
 import GET_SONG_PAGE from "./getSongPage.gql"
 import FeaturingArtists from "../FeaturingArtists"
-import { uuidAddDashes, uuidRemoveDashes } from "../../helpers"
+import { useQuery, uuidAddDashes, uuidRemoveDashes } from "../../helpers"
 
 import "./index.scss"
 
@@ -22,12 +21,11 @@ const SongPage: FC = () => {
 	const userId = useStateUserId()
 	const params = useParams<Params>()
 	const songId = uuidAddDashes(params.songId)
+	const variables: Vars = { songId, userId }
+	const { data } = useQuery<Data, Vars>(GET_SONG_PAGE, { variables })
 	return (
-		<QueryApi<Data, Vars>
-			query={GET_SONG_PAGE}
-			variables={{ songId, userId }}
-			className={bem("", "Padding")}
-			children={({ data }) => data && (
+		<div className={bem("", "Padding")}>
+			{data && (
 				<Helmet title={data.song.title}>
 					<Cover
 						className="Card Elevated"
@@ -77,7 +75,7 @@ const SongPage: FC = () => {
 					</div>
 				</Helmet>
 			)}
-		/>
+		</div>
 	)
 }
 

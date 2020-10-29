@@ -1,16 +1,15 @@
 import { createBem } from "@oly_op/bem"
-import { useMutation } from "@apollo/client"
 import { createElement, FC, Fragment } from "react"
 
 import Songs from "../Songs"
 import Button from "../Button"
-import QueryApi from "../QueryApi"
 import { User, UserVar } from "../../types"
 import { useStateUserId } from "../../redux"
 import CLEAR_USER_NEXT from "./userClearNext.gql"
 import GET_USER_QUEUES from "./getUserQueues.gql"
 import createQueuesArray from "./createQueuesArray"
 import CLEAR_USER_QUEUES from "./userClearQueue.gql"
+import { useQuery, useMutation } from "../../helpers"
 
 import "./index.scss"
 
@@ -19,6 +18,9 @@ const bem = createBem("Queues")
 const Queues: FC = () => {
 	const userId = useStateUserId()
 	const variables: UserVar = { userId }
+
+	const { data } =
+		useQuery<QueryData, Vars>(GET_USER_QUEUES, { variables })
 
 	const [ clearNext ] =
 		useMutation<ClearNextData, UserVar>(CLEAR_USER_NEXT, {
@@ -50,11 +52,8 @@ const Queues: FC = () => {
 		})
 
 	return (
-		<QueryApi<QueryData, Vars>
-			variables={variables}
-			query={GET_USER_QUEUES}
-			className={bem("", "Content PaddingTop PaddingBottom")}
-			children={({ data }) => data && (
+		<div className={bem("", "Content PaddingTop PaddingBottom")}>
+			{data && (
 				<Fragment>
 					{createQueuesArray(data.user).map(queue => (
 						<div
@@ -87,7 +86,7 @@ const Queues: FC = () => {
 					)}
 				</Fragment>
 			)}
-		/>
+		</div>
 	)
 }
 

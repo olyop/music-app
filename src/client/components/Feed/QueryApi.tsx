@@ -30,10 +30,9 @@ const QueryApi = <Data, Vars = Record<string, unknown>>({
 	hideLoading = false,
 	variables = {} as Vars,
 }: PropTypes<Data, Vars>) => {
-	const queryId =
-		useRef(uniqueId())
-	const dispatch =
-		useDispatch()
+	const dispatch = useDispatch()
+	const queryId = useRef(uniqueId())
+
 	const { error, loading, data, ...res } =
 		useQuery<Data, Vars>(query, { variables, fetchPolicy })
 

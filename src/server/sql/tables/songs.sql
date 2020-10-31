@@ -1,9 +1,9 @@
 CREATE TABLE IF NOT EXISTS songs (
-	bpm smallint,
 	song_id uuid,
 	mix text NOT NULL,
 	title text NOT NULL,
 	key_id uuid NOT NULL,
+	bpm smallint NOT NULL,
 	album_id uuid NOT NULL,
 	duration smallint NOT NULL,
 	disc_number smallint NOT NULL,

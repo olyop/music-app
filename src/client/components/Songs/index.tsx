@@ -13,7 +13,9 @@ const Songs: FC<PropTypes> = ({
 	className,
 	orderByKey,
 	orderByFields,
-	showCover = true,
+	showRight = true,
+	showIndex = false,
+	hideCover = false,
 	hideOrderBy = false,
 	showTrackNumber = false,
 	includeIndexInKey = false,
@@ -30,9 +32,11 @@ const Songs: FC<PropTypes> = ({
 			(song, index) => (
 				<Song
 					song={song}
-					showCover={showCover}
+					showRight={showRight}
+					hideCover={hideCover}
 					showTrackNumber={showTrackNumber}
 					className="Hover ItemBorder PaddingHalf"
+					index={showIndex ? index + 1 : undefined}
 					key={includeIndexInKey ? `${song.songId}${index}` : song.songId}
 				/>
 			),
@@ -42,7 +46,9 @@ const Songs: FC<PropTypes> = ({
 
 interface PropTypes extends BemPropTypes {
 	songs: SongType[],
-	showCover?: boolean,
+	showRight?: boolean,
+	hideCover?: boolean,
+	showIndex?: boolean,
 	hideOrderBy?: boolean,
 	orderByFields?: string[],
 	showTrackNumber?: boolean,

@@ -37,7 +37,7 @@ const PlayButton: FC<PropTypes> = ({ doc, className }) => {
 			fetchPolicy: "cache-first",
 		})
 
-	const [ userPlay ] =
+	const [ userPlay, { loading } ] =
 		useMutation<UserPlayRes>(UPDATE_USER_PLAY, {
 			variables: { songId, userId },
 			optimisticResponse: isSong(doc) ? {
@@ -70,8 +70,8 @@ const PlayButton: FC<PropTypes> = ({ doc, className }) => {
 	return (
 		<Icon
 			title="Play"
-			onClick={handleClick}
 			className={bem(className, "Hover")}
+			onClick={loading ? undefined : handleClick}
 			icon={isCurrent && play ? "pause" : "play_arrow"}
 		/>
 	)

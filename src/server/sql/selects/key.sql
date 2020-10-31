@@ -1,6 +1,6 @@
 SELECT
 	{{ columnNames }}
 FROM
-	artists
+	keys
 WHERE
-	artist_id = {{ artistId }};
+	key_id = {{ keyId }};

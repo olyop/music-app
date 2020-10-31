@@ -29,7 +29,7 @@ const showInLibrary =
 	(hideInLibrary: boolean, doc: Doc): doc is UserDoc => !hideInLibrary
 
 const determineShowPlay =
-	(showPlay: boolean, doc: Doc): doc is UserDoc => showPlay
+	(hidePlay: boolean, doc: Doc): doc is UserDoc => !hidePlay
 
 const Item = <D extends Doc, I extends Doc = Doc>({
 	doc,
@@ -43,7 +43,7 @@ const Item = <D extends Doc, I extends Doc = Doc>({
 	infoClassName,
 	iconClassName,
 	rightClassName,
-	showPlay = true,
+	hidePlay = false,
 	hideInLibrary = false,
 }: PropTypes<D, I>) => {
 	const [ modal, setModal ] = useState(false)
@@ -58,7 +58,7 @@ const Item = <D extends Doc, I extends Doc = Doc>({
 						className={bem("left", "Text")}
 					/>
 				)}
-				{determineShowPlay(showPlay, doc) && (
+				{determineShowPlay(hidePlay, doc) && (
 					<PlayButton
 						doc={doc}
 						className={bem(iconClassName, "play")}
@@ -131,7 +131,7 @@ interface PropTypes<Doc, ImgDoc> extends BemPropTypes {
 	upper: ReactNode,
 	lower?: ReactNode,
 	right?: ReactNode,
-	showPlay?: boolean,
+	hidePlay?: boolean,
 	hideInLibrary?: boolean,
 	infoClassName?: BemInput,
 	iconClassName?: BemInput,

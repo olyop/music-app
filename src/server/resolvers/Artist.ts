@@ -19,6 +19,7 @@ import {
 	SELECT_ARTIST_SONGS,
 	SELECT_ARTIST_ALBUMS,
 	SELECT_USER_DOC_PLAYS,
+	SELECT_ARTIST_TOP_TEN_SONGS,
 } from "../sql"
 
 import {
@@ -215,6 +216,24 @@ export const inLibrary =
 				docId: parent.artistId,
 				columnName: "artist_id",
 				userDocTable: "users_artists",
+			})
+		),
+	)
+
+export const topTenSongs =
+	resolver<Song[]>(
+		({ parent }) => (
+			sqlPoolQuery({
+				sql: SELECT_ARTIST_TOP_TEN_SONGS,
+				parse: parseSqlTable(),
+				variables: [{
+					key: "artistId",
+					value: parent.artistId,
+				},{
+					string: false,
+					key: "columnNames",
+					value: sqlJoin(COLUMN_NAMES.SONG, "songs"),
+				}],
 			})
 		),
 	)

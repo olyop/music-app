@@ -1,5 +1,3 @@
-import { v4 as uuid } from "uuid"
-
 import {
 	Key,
 	Song,
@@ -7,10 +5,10 @@ import {
 	Album,
 	Genre,
 	Artist,
+	SqlParse,
 	UserArgs,
 	S3FileExt,
 	S3FileType,
-	SqlParse,
 } from "../types"
 
 import {
@@ -27,6 +25,7 @@ import {
 } from "../helpers"
 
 import {
+	SELECT_KEY,
 	SELECT_ALBUM,
 	SELECT_SONG_PLAYS,
 	SELECT_SONG_GENRES,
@@ -147,17 +146,20 @@ export const size =
 
 export const key =
 	resolver<Key>(
-		() => Promise.resolve({
-			flat: "Bb",
-			sharp: "A#",
-			keyId: uuid(),
-			camelot: "6B",
-		}),
-	)
-
-export const bpm =
-	resolver<number>(
-		() => Promise.resolve(120),
+		({ parent }) => (
+			sqlPoolQuery({
+				sql: SELECT_KEY,
+				parse: parseSqlRow(),
+				variables: [{
+					key: "keyId",
+					value: parent.keyId,
+				},{
+					string: false,
+					key: "columnNames",
+					value: sqlJoin(COLUMN_NAMES.KEY),
+				}],
+			})
+		),
 	)
 
 export const playsTotal =

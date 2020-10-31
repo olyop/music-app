@@ -15,11 +15,12 @@ import { useStateShowGenres, useStateUserId } from "../../redux"
 
 const Song: FC<PropTypes> = ({
 	song,
+	index,
 	className,
 	iconClassName,
-	showPlay = true,
-	showCover = true,
+	hidePlay = false,
 	showRight = true,
+	hideCover = false,
 	showTrackNumber = false,
 }) => {
 	const { songId } = song
@@ -32,17 +33,17 @@ const Song: FC<PropTypes> = ({
 	return (
 		<Item
 			doc={song}
-			showPlay={showPlay}
+			hidePlay={hidePlay}
 			className={className}
 			iconClassName={iconClassName}
 			upper={<SongTitle song={song}/>}
-			imgDoc={showCover ? song.album : undefined}
-			left={showTrackNumber ? song.trackNumber : null}
+			imgDoc={hideCover ? undefined : song.album}
+			left={index || (showTrackNumber ? song.trackNumber : null)}
 			right={showRight ? deserializeDuration(song.duration) : null}
 			modalButtons={[
-				{ text: "Next", handler: next },
-				{ text: "After", handler: after },
-				{ text: "Later", handler: later },
+				{ icon: "playlist_add", text: "Next", handler: next },
+				{ icon: "queue_music", text: "After", handler: after },
+				{ icon: "queue", text: "Later", handler: later },
 			]}
 			lower={(
 				<Fragment>
@@ -69,8 +70,9 @@ interface Vars extends UserVar {
 
 interface PropTypes extends BemPropTypes {
 	song: TSong,
-	showPlay?: boolean,
-	showCover?: boolean,
+	index?: number,
+	hidePlay?: boolean,
+	hideCover?: boolean,
 	showRight?: boolean,
 	iconClassName?: BemInput,
 	showTrackNumber?: boolean,

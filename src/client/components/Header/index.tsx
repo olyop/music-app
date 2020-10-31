@@ -18,7 +18,7 @@ const Header: FC = () => {
 				icon="menu"
 				title="Menu"
 				onClick={handleMenuClick}
-				className={bem("hamburger", "icon", "IconHover")}
+				className={bem("hamburger", "icon")}
 			/>
 			<div className="FlexList">
 				<NavLink
@@ -28,7 +28,7 @@ const Header: FC = () => {
 						<Icon
 							icon="search"
 							title="Search"
-							className={bem("search", "icon", "IconHover")}
+							className={bem("search", "icon")}
 						/>
 					)}
 				/>
@@ -39,7 +39,7 @@ const Header: FC = () => {
 						<Icon
 							title="Account"
 							icon="account_circle"
-							className={bem("icon", "IconHover")}
+							className={bem("icon")}
 						/>
 					)}
 				/>

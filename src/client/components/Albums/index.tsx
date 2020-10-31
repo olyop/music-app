@@ -21,7 +21,7 @@ const Albums: FC<PropTypes> = ({
 	const isList = listStyle === ListStyle.LIST
 	const empty = isEmpty(albums)
 	return (
-		<div className={bem(className, isList && !empty && "Elevated")}>
+		<div className={bem(className, isList && !empty && "Elevated Content")}>
 			{hideOrderBy || (
 				<OrderBy
 					settingsKey={orderByKey!}

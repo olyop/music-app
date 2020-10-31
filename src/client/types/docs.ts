@@ -32,6 +32,7 @@ export interface Artist extends ArtistBase, UserDoc<"Artist"> {
 	albums: Album[],
 	songsTotal: number,
 	albumsTotal: number,
+	topTenSongs: Song[],
 }
 
 export interface Album extends AlbumBase, LibraryDoc<"Album"> {

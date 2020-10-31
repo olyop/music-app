@@ -31,6 +31,10 @@ type Mutation {
     userId: Uuid!
     albumId: Uuid!
   ): User!
+  shuffleArtist(
+    userId: Uuid!
+    artistId: Uuid!
+  ): User!
   userShuffleLibrary(
     userId: Uuid!
   ): User!

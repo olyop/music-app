@@ -28,10 +28,6 @@ type Query {
 		page: NonNegativeInt!
 		orderBy: PlaylistOrderByInput!
 	): [Playlist!]!
-
-	# advanced queries
-	newAlbums: [Album!]!
-	topTenSongs: [Song!]!
 	
 	# searches
 	search(query: String!): [Search!]!

@@ -1,4 +1,3 @@
-import noop from "lodash/noop"
 import { createElement, FC } from "react"
 import isUndefined from "lodash/isUndefined"
 
@@ -19,8 +18,16 @@ import GET_SONG_IN_LIBRARY from "./getSongInLibrary.gql"
 import GET_ARTIST_IN_LIBRARY from "./getArtistInLibrary.gql"
 
 import Icon from "../Icon"
-import { UserDoc } from "../../types"
 import { useStateUserId } from "../../redux"
+import { Song, UserDoc } from "../../types"
+
+interface TempData {
+	addUserSong: Song,
+}
+
+// @ts-ignore
+const isSong = (data: Data): data is TempData =>
+	data.addUserSong.__typename === "Song"
 
 const InLibraryButton: FC<PropTypes> = ({ doc, className }) => {
 	const dr = determineDocReturn(doc)
@@ -58,6 +65,17 @@ const InLibraryButton: FC<PropTypes> = ({ doc, className }) => {
 					inLibrary: !inLibrary,
 				},
 			},
+			update: (cache, res) => {
+				const tempData = res.data
+				if (isSong(tempData!) && !inLibrary) {
+					cache.modify({
+						fields: {
+							songs: (songs: Song[] = [], { readField }) =>
+								[ ...songs, tempData.addUserSong ],
+						},
+					})
+				}
+			},
 		})
 
 	const handleClick = async () => mutation()
@@ -66,7 +84,7 @@ const InLibraryButton: FC<PropTypes> = ({ doc, className }) => {
 		<Icon
 			className={className}
 			icon={inLibrary ? "done" : "add"}
-			onClick={loading ? noop : handleClick}
+			onClick={loading ? undefined : handleClick}
 			title={`${inLibrary ? "Remove from" : "Add to"} Library`}
 		/>
 	)

@@ -17,10 +17,10 @@ const Disc: FC<PropTypes> = ({ disc: { songs, number, hideLabel } }) => (
 			/>
 		)}
 		<Songs
+			hideCover
 			hideOrderBy
 			songs={songs}
 			showTrackNumber
-			showCover={false}
 		/>
 	</div>
 )

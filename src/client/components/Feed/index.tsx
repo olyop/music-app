@@ -17,7 +17,7 @@ import {
 	removeLoading,
 } from "../../redux"
 
-import QueryApi from "../QueryApi"
+import QueryApi from "./QueryApi"
 
 const Feed = <Data, Vars>({
 	query,

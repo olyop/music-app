@@ -19,6 +19,13 @@ export const ALBUM = [
 	"released",
 ]
 
+export const KEY = [
+	"flat",
+	"sharp",
+	"key_id",
+	"camelot",
+]
+
 export const USER = [
 	"user_id",
 	"name",
@@ -28,7 +35,9 @@ export const USER = [
 
 export const SONG = [
 	"mix",
+	"bpm",
 	"title",
+	"key_id",
 	"song_id",
 	"album_id",
 	"duration",

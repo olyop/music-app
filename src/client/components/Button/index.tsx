@@ -10,6 +10,7 @@ const Button: FC<PropTypes> = ({
 	text,
 	onClick,
 	className,
+	spanClassName,
 	iconClassName,
 	textClassName,
 }) => (
@@ -23,6 +24,7 @@ const Button: FC<PropTypes> = ({
 			children={icon}
 			className={bem(
 				iconClassName,
+				spanClassName,
 				"icon",
 				{ ignore: true, className: "material-icons" },
 			)}
@@ -32,7 +34,11 @@ const Button: FC<PropTypes> = ({
 		)}
 		<span
 			children={text}
-			className={bem(textClassName, "text")}
+			className={bem(
+				textClassName,
+				spanClassName,
+				"text",
+			)}
 		/>
 	</button>
 )
@@ -41,6 +47,7 @@ interface PropTypes extends BemPropTypes {
 	icon?: string,
 	text?: string,
 	onClick?: () => void,
+	spanClassName?: BemInput,
 	iconClassName?: BemInput,
 	textClassName?: BemInput,
 }

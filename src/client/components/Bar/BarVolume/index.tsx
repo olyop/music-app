@@ -68,11 +68,7 @@ const BarVolume: FC = () => {
 				title="Volume"
 				icon="volume_up"
 				onClick={handleVolumeClick}
-				className={bemBar(
-					"main-controls-control",
-					"icon",
-					"IconHover",
-				)}
+				className={bemBar("main-controls-control", "icon")}
 			/>
 		</Fragment>
 	)

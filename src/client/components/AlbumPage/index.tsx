@@ -45,7 +45,7 @@ const AlbumPage: FC = () => {
 						<h1 className={bem("title", "Heading1")}>
 							{data.album.title}
 						</h1>
-						<h2 className={bem("artists", "MarginBottomHalf")}>
+						<h2 className="Heading2 MarginBottomHalf">
 							<DocLinks docs={data.album.artists}/>
 						</h2>
 						<h3 className={bem("genres", "MarginBottom")}>

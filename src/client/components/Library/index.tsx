@@ -14,8 +14,10 @@ const Library: FC<RouteComponentProps> = ({ match }) => {
 	const userId = useStateUserId()
 	const variables: UserVar = { userId }
 
-	const [ shuffle ] =
+	const [ shuffle, { loading } ] =
 		useMutation<User, UserVar>(SHUFFLE_USER_LIBRARY, { variables })
+
+	const handleShuffle = () => shuffle()
 
 	return (
 		<Helmet title="Library">
@@ -32,7 +34,7 @@ const Library: FC<RouteComponentProps> = ({ match }) => {
 						<Button
 							icon="shuffle"
 							text="Shuffle"
-							onClick={() => shuffle()}
+							onClick={loading ? undefined : handleShuffle}
 						/>
 					)}
 				/>

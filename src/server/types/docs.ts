@@ -25,6 +25,7 @@ export interface Play extends PlayBase {
 }
 
 export interface Song extends UserDocBase, SongBase {
+	keyId: string,
 	albumId: string,
 }
 

@@ -26,7 +26,7 @@ const Bar: FC = () => {
 	const { data } = useQuery<Data, UserVar>(GET_USER_CURRENT, { variables })
 	return (
 		<Fragment>
-			{data && data.user.current && (
+			{data?.user.current && (
 				<Fragment>
 					<BarAudio songId={data.user.current.songId}/>
 					<FullScreen handle={fullscreen}>
@@ -44,38 +44,38 @@ const Bar: FC = () => {
 					className={bem("controls")}
 					iconClassName={bem("icon")}
 				/>
-				<div className={bem("main")}>
-					<div className={bem("main-content")}>
-						<div className={bem("main-content-controls")}>
-							<Icon
-								icon="fullscreen"
-								title="Fullscreen"
-								onClick={fullscreen.enter}
-								className={bem("main-content-controls-control", "icon", "IconHover")}
-							/>
-							<NavLink className={bem("main-content-controls-control")} to="/queues">
+				{data?.user.current && (
+					<div className={bem("main")}>
+						<div className={bem("main-content")}>
+							<div className={bem("main-content-controls")}>
 								<Icon
-									title="Queue"
-									icon="queue_music"
-									className={bem("icon", "IconHover")}
+									icon="fullscreen"
+									title="Fullscreen"
+									onClick={fullscreen.enter}
+									className={bem("main-content-controls-control", "icon")}
 								/>
-							</NavLink>
-							<BarVolume/>
-						</div>
-						{data?.user.current && (
+								<NavLink className={bem("main-content-controls-control")} to="/queues">
+									<Icon
+										title="Queue"
+										icon="queue_music"
+										className={bem("icon")}
+									/>
+								</NavLink>
+								<BarVolume/>
+							</div>
 							<Song
-								showPlay={false}
+								hidePlay
 								showRight={false}
 								song={data.user.current}
 								iconClassName={bem("icon")}
 								className={bem("main-content-current")}
 							/>
-						)}
+						</div>
+						<Progress
+							duration={data.user.current.duration}
+						/>
 					</div>
-					<Progress
-						duration={data?.user.current?.duration || 0}
-					/>
-				</div>
+				)}
 			</footer>
 		</Fragment>
 	)

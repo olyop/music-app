@@ -43,9 +43,5 @@ export const useMutation = <Data, Vars = Record<string, unknown>>(
 		}
 	}, [error])
 
-	useEffect(() => () => {
-		dispatch(removeLoading(queryId.current))
-	})
-
 	return [ mutate, { error, loading, ...res } ]
 }

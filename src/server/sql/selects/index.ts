@@ -2,6 +2,7 @@ import importSql from "../importSql"
 
 const importFile = importSql("selects")
 
+export const SELECT_KEY = importFile("key")
 export const SELECT_PLAY = importFile("play")
 export const SELECT_SONG = importFile("song")
 export const SELECT_USER = importFile("user")
@@ -43,3 +44,4 @@ export const SELECT_USER_QUEUE_SONG = importFile("userQueueSong")
 export const SELECT_DOC_TEXT_SEARCH = importFile("docTextSearch")
 export const SELECT_USER_ALBUM_PLAYS = importFile("userAlbumPlays")
 export const SELECT_USER_QUEUE_SONGS = importFile("userQueueSongs")
+export const SELECT_ARTIST_TOP_TEN_SONGS = importFile("artistTopTenSongs")

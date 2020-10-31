@@ -22,7 +22,7 @@ const Queues: FC = () => {
 	const { data } =
 		useQuery<QueryData, Vars>(GET_USER_QUEUES, { variables })
 
-	const [ clearNext ] =
+	const [ clearNext, { loading } ] =
 		useMutation<ClearNextData, UserVar>(CLEAR_USER_NEXT, {
 			variables,
 			optimisticResponse: {
@@ -51,6 +51,9 @@ const Queues: FC = () => {
 			},
 		})
 
+	const handleNext = () => clearNext()
+	const handleQueue = () => clearQueue()
+
 	return (
 		<div className={bem("", "Content PaddingTop PaddingBottom")}>
 			{data && (
@@ -75,12 +78,12 @@ const Queues: FC = () => {
 							<Button
 								icon="clear_all"
 								text="Clear Next"
-								onClick={() => clearNext()}
+								onClick={loading ? undefined : handleNext}
 							/>
 							<Button
 								icon="close"
 								text="Clear Queue"
-								onClick={() => clearQueue()}
+								onClick={handleQueue}
 							/>
 						</div>
 					)}

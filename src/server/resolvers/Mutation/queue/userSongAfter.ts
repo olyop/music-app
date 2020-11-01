@@ -1,7 +1,7 @@
 import {
 	sqlJoin,
+	sqlQuery,
 	parseSqlRow,
-	sqlPoolQuery,
 	parseSqlTable,
 	createResolver,
 } from "../../../helpers"
@@ -20,10 +20,10 @@ const resolver =
 
 export const userSongAfter =
 	resolver<User, UserQueuesArgs>(
-		async ({ args }) => {
-			const nexts = await sqlPoolQuery<UserQueue[]>({
+		async ({ args, context }) => {
+			const nexts = await sqlQuery(context.pg)({
 				sql: SELECT_USER_QUEUE,
-				parse: parseSqlTable(),
+				parse: parseSqlTable<UserQueue>(),
 				variables: [{
 					key: "userId",
 					value: args.userId,
@@ -37,7 +37,7 @@ export const userSongAfter =
 					value: sqlJoin(COLUMN_NAMES.USER_QUEUE),
 				}],
 			})
-			await sqlPoolQuery({
+			await sqlQuery(context.pg)({
 				sql: INSERT_USER_QUEUE,
 				variables: [{
 					key: "userId",
@@ -55,7 +55,7 @@ export const userSongAfter =
 					value: nexts.length,
 				}],
 			})
-			return sqlPoolQuery<User>({
+			return sqlQuery(context.pg)<User>({
 				sql: SELECT_USER,
 				parse: parseSqlRow(),
 				variables: [{

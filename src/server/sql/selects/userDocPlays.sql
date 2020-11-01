@@ -1,7 +1,7 @@
 SELECT
-  {{ columnNames }}
+	{{ columnNames }}
 FROM
-  plays
+	plays
 WHERE
-  user_id = {{ userId }} AND
-  song_id = {{ songId }};
+	user_id = {{ userId }} AND
+	song_id = {{ songId }};

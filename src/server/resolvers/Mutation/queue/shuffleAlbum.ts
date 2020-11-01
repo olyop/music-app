@@ -20,11 +20,8 @@ import clearUserQueue from "./clearUserQueue"
 import { COLUMN_NAMES } from "../../../globals"
 import { User, Song, UserArgs } from "../../../types"
 
-const resolver = createResolver()
-
-interface Args extends UserArgs {
-	albumId: string,
-}
+const resolver =
+	createResolver()
 
 export const shuffleAlbum =
 	resolver<User, Args>(
@@ -37,9 +34,9 @@ export const shuffleAlbum =
 
 				await clearUserQueue(client)(args.userId)
 
-				const songs = await query<Song[]>({
+				const songs = await query({
 					sql: SELECT_ALBUM_SONGS,
-					parse: parseSqlTable(),
+					parse: parseSqlTable<Song>(),
 					variables: [{
 						key: "albumId",
 						value: args.albumId,
@@ -90,9 +87,9 @@ export const shuffleAlbum =
 					),
 				))
 
-				returnValue = await query<User>({
+				returnValue = await query({
 					sql: SELECT_USER,
-					parse: parseSqlRow(),
+					parse: parseSqlRow<User>(),
 					variables: [{
 						key: "userId",
 						value: args.userId,
@@ -114,3 +111,7 @@ export const shuffleAlbum =
 			return returnValue
 		},
 	)
+
+interface Args extends UserArgs {
+	albumId: string,
+}

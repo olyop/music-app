@@ -53,11 +53,6 @@ export interface GetUserDocsInput {
 	userTableName: string,
 }
 
-export interface GetUserQueueInput {
-	userId: string,
-	tableName: string,
-}
-
 export interface AddRemoveInput {
 	docId: string,
 	userId: string,

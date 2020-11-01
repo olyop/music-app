@@ -5,7 +5,6 @@ import {
 	createResolver,
 } from "../../../helpers"
 
-import { pg } from "../../../services"
 import { SELECT_USER } from "../../../sql"
 import clearUserQueue from "./clearUserQueue"
 import { COLUMN_NAMES } from "../../../globals"
@@ -20,18 +19,18 @@ interface Args extends UserArgs {
 
 export const userClearQueue =
 	resolver<User, Args>(
-		async ({ args }) => {
+		async ({ args, context }) => {
 			let returnValue: User
-			const client = await pg.connect()
+			const client = await context.pg.connect()
 			const query = sqlQuery(client)
 			try {
 				await query("BEGIN")
 
 				await clearUserQueue(client)(args.userId)
 
-				returnValue = await query<User>({
+				returnValue = await query({
 					sql: SELECT_USER,
-					parse: parseSqlRow(),
+					parse: parseSqlRow<User>(),
 					variables: [{
 						key: "userId",
 						value: args.userId,

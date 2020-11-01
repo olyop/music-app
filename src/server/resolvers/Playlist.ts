@@ -9,12 +9,13 @@ import {
 	Playlist,
 	UserArgs,
 	SqlParse,
+	PGClient,
 } from "../types"
 
 import {
 	sqlJoin,
+	sqlQuery,
 	parseSqlRow,
-	sqlPoolQuery,
 	parseSqlTable,
 	createResolver,
 	getSqlRowCountOrNull,
@@ -30,50 +31,54 @@ import { COLUMN_NAMES } from "../globals"
 import { getUserDocInLib, getUserDocDateAdded } from "../helpers/resolver/userDocs"
 
 const getPlaylistSongs =
-	<T>(playlistId: string, parse: SqlParse<T>) =>
-		sqlPoolQuery({
-			sql: SELECT_PLAYLIST_SONGS,
-			parse,
-			variables: [{
-				key: "playlistId",
-				value: playlistId,
-			},{
-				string: false,
-				key: "columnNames",
-				value: sqlJoin(COLUMN_NAMES.SONG),
-			}],
-		})
+	(client: PGClient) =>
+		<T>(playlistId: string, parse: SqlParse<T>) =>
+			sqlQuery(client)({
+				sql: SELECT_PLAYLIST_SONGS,
+				parse,
+				variables: [{
+					key: "playlistId",
+					value: playlistId,
+				},{
+					string: false,
+					key: "columnNames",
+					value: sqlJoin(COLUMN_NAMES.SONG),
+				}],
+			})
 
 const getUserPlaylistPlays =
-	<T>(userId: string, playlistId: string, parse: SqlParse<T>) =>
-		sqlPoolQuery({
-			sql: SELECT_USER_DOC_PLAYS,
-			parse,
-			variables: [{
-				key: "userId",
-				value: userId,
-			},{
-				key: "playlistId",
-				value: playlistId,
-			},{
-				string: false,
-				key: "columnNames",
-				value: sqlJoin(COLUMN_NAMES.PLAY),
-			}],
-		})
+	(client: PGClient) =>
+		<T>(userId: string, playlistId: string, parse: SqlParse<T>) =>
+			sqlQuery(client)({
+				sql: SELECT_USER_DOC_PLAYS,
+				parse,
+				variables: [{
+					key: "userId",
+					value: userId,
+				},{
+					key: "playlistId",
+					value: playlistId,
+				},{
+					string: false,
+					key: "columnNames",
+					value: sqlJoin(COLUMN_NAMES.PLAY),
+				}],
+			})
 
 const resolver =
 	createResolver<Playlist>()
 
 export const dateCreated =
-	resolver<number>(({ parent }) => Promise.resolve(
-		parent.dateCreated * 1000,
-	))
+	resolver<number>(
+		({ parent }) => (
+			Promise.resolve(parent.dateCreated * 1000)
+		),
+	)
 
 export const user =
 	resolver<User>(
-		({ parent }) => (
-			sqlPoolQuery({
+		({ parent, context }) => (
+			sqlQuery(context.pg)({
 				sql: SELECT_USER,
 				parse: parseSqlRow(),
 				variables: [{
@@ -90,8 +95,8 @@ export const user =
 
 export const songs =
 	resolver<Song[]>(
-		({ parent }) => (
-			getPlaylistSongs(
+		({ parent, context }) => (
+			getPlaylistSongs(context.pg)(
 				parent.playlistId,
 				parseSqlTable(),
 			)
@@ -100,8 +105,8 @@ export const songs =
 
 export const songsTotal =
 	resolver<number | null>(
-		({ parent }) => (
-			getPlaylistSongs(
+		({ parent, context }) => (
+			getPlaylistSongs(context.pg)(
 				parent.playlistId,
 				getSqlRowCountOrNull,
 			)
@@ -110,8 +115,8 @@ export const songsTotal =
 
 export const duration =
 	resolver<number | null>(
-		({ parent }) => (
-			getPlaylistSongs(
+		({ parent, context }) => (
+			getPlaylistSongs(context.pg)(
 				parent.playlistId,
 				pipe(
 					parseSqlTable<Song>(),
@@ -124,8 +129,8 @@ export const duration =
 
 export const userPlays =
 	resolver<Play[], UserArgs>(
-		({ parent, args }) => (
-			getUserPlaylistPlays(
+		({ parent, args, context }) => (
+			getUserPlaylistPlays(context.pg)(
 				args.userId,
 				parent.userId,
 				parseSqlTable(),
@@ -135,8 +140,8 @@ export const userPlays =
 
 export const userPlaysTotal =
 	resolver<number | null, UserArgs>(
-		({ parent, args }) => (
-			getUserPlaylistPlays(
+		({ parent, args, context }) => (
+			getUserPlaylistPlays(context.pg)(
 				args.userId,
 				parent.userId,
 				getSqlRowCountOrNull,
@@ -146,8 +151,8 @@ export const userPlaysTotal =
 
 export const dateAdded =
 	resolver<number | null, UserArgs>(
-		({ parent, args }) => (
-			getUserDocDateAdded({
+		({ parent, args, context }) => (
+			getUserDocDateAdded(context.pg)({
 				userId: args.userId,
 				docId: parent.playlistId,
 				columnName: "playlist_id",
@@ -158,8 +163,8 @@ export const dateAdded =
 
 export const inLibrary =
 	resolver<boolean, UserArgs>(
-		({ parent, args }) => (
-			getUserDocInLib({
+		({ parent, args, context }) => (
+			getUserDocInLib(context.pg)({
 				userId: args.userId,
 				docId: parent.playlistId,
 				columnName: "playlist_id",

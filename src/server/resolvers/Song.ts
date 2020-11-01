@@ -9,13 +9,14 @@ import {
 	UserArgs,
 	S3FileExt,
 	S3FileType,
+	PGClient,
 } from "../types"
 
 import {
 	sqlJoin,
+	sqlQuery,
 	getS3Object,
 	parseSqlRow,
-	sqlPoolQuery,
 	parseSqlTable,
 	createResolver,
 	getUserDocInLib,
@@ -40,10 +41,42 @@ import { COLUMN_NAMES } from "../globals"
 const resolver =
 	createResolver<Song>()
 
+export const size =
+	resolver<number>(
+		({ parent, context }) => (
+			getS3Object(context.s3)({
+				parse: ({ length }) => length,
+				key: getS3CatalogKey(
+					parent.songId,
+					S3FileType.FULL,
+					S3FileExt.MP3,
+				),
+			})
+		),
+	)
+
+export const key =
+	resolver<Key>(
+		({ parent, context }) => (
+			sqlQuery(context.pg)({
+				sql: SELECT_KEY,
+				parse: parseSqlRow(),
+				variables: [{
+					key: "keyId",
+					value: parent.keyId,
+				},{
+					string: false,
+					key: "columnNames",
+					value: sqlJoin(COLUMN_NAMES.KEY),
+				}],
+			})
+		),
+	)
+
 export const album =
 	resolver<Album>(
-		({ parent }) => (
-			sqlPoolQuery({
+		({ parent, context }) => (
+			sqlQuery(context.pg)({
 				sql: SELECT_ALBUM,
 				parse: parseSqlRow(),
 				variables: [{
@@ -60,8 +93,8 @@ export const album =
 
 export const genres =
 	resolver<Genre[]>(
-		({ parent }) => (
-			sqlPoolQuery({
+		({ parent, context }) => (
+			sqlQuery(context.pg)({
 				sql: SELECT_SONG_GENRES,
 				parse: parseSqlTable(),
 				variables: [{
@@ -78,8 +111,8 @@ export const genres =
 
 export const artists =
 	resolver<Artist[]>(
-		({ parent }) => (
-			sqlPoolQuery({
+		({ parent, context }) => (
+			sqlQuery(context.pg)({
 				sql: SELECT_SONG_ARTISTS,
 				parse: parseSqlTable(),
 				variables: [{
@@ -96,8 +129,8 @@ export const artists =
 
 export const remixers =
 	resolver<Artist[]>(
-		({ parent }) => (
-			sqlPoolQuery({
+		({ parent, context }) => (
+			sqlQuery(context.pg)({
 				sql: SELECT_SONG_REMIXERS,
 				parse: parseSqlTable(),
 				variables: [{
@@ -114,8 +147,8 @@ export const remixers =
 
 export const featuring =
 	resolver<Artist[]>(
-		({ parent }) => (
-			sqlPoolQuery({
+		({ parent, context }) => (
+			sqlQuery(context.pg)({
 				sql: SELECT_SONG_FEATURING,
 				parse: parseSqlTable(),
 				variables: [{
@@ -130,42 +163,10 @@ export const featuring =
 		),
 	)
 
-export const size =
-	resolver<number>(
-		({ parent }) => (
-			getS3Object({
-				parse: ({ length }) => length,
-				key: getS3CatalogKey(
-					parent.songId,
-					S3FileType.FULL,
-					S3FileExt.MP3,
-				),
-			})
-		),
-	)
-
-export const key =
-	resolver<Key>(
-		({ parent }) => (
-			sqlPoolQuery({
-				sql: SELECT_KEY,
-				parse: parseSqlRow(),
-				variables: [{
-					key: "keyId",
-					value: parent.keyId,
-				},{
-					string: false,
-					key: "columnNames",
-					value: sqlJoin(COLUMN_NAMES.KEY),
-				}],
-			})
-		),
-	)
-
 export const playsTotal =
 	resolver<number | null>(
-		({ parent }) => (
-			sqlPoolQuery({
+		({ parent, context }) => (
+			sqlQuery(context.pg)({
 				sql: SELECT_SONG_PLAYS,
 				parse: getSqlRowCountOrNull,
 				variables: [{
@@ -181,27 +182,28 @@ export const playsTotal =
 	)
 
 const getUserSongPlays =
-	<T>(userId: string, songId: string, parse: SqlParse<T>) =>
-		sqlPoolQuery({
-			sql: SELECT_USER_DOC_PLAYS,
-			parse,
-			variables: [{
-				key: "userId",
-				value: userId,
-			},{
-				key: "songId",
-				value: songId,
-			},{
-				string: false,
-				key: "columnNames",
-				value: sqlJoin(COLUMN_NAMES.PLAY),
-			}],
-		})
+	(client: PGClient) =>
+		<T>(userId: string, songId: string, parse: SqlParse<T>) =>
+			sqlQuery(client)({
+				sql: SELECT_USER_DOC_PLAYS,
+				parse,
+				variables: [{
+					key: "userId",
+					value: userId,
+				},{
+					key: "songId",
+					value: songId,
+				},{
+					string: false,
+					key: "columnNames",
+					value: sqlJoin(COLUMN_NAMES.PLAY),
+				}],
+			})
 
 export const userPlays =
 	resolver<Play[], UserArgs>(
-		({ parent, args }) => (
-			getUserSongPlays(
+		({ parent, args, context }) => (
+			getUserSongPlays(context.pg)(
 				args.userId,
 				parent.songId,
 				parseSqlTable(),
@@ -211,8 +213,8 @@ export const userPlays =
 
 export const userPlaysTotal =
 	resolver<number | null, UserArgs>(
-		({ parent, args }) => (
-			getUserSongPlays(
+		({ parent, args, context }) => (
+			getUserSongPlays(context.pg)(
 				args.userId,
 				parent.songId,
 				getSqlRowCountOrNull,
@@ -222,8 +224,8 @@ export const userPlaysTotal =
 
 export const dateAdded =
 	resolver<number | null, UserArgs>(
-		({ parent, args }) => (
-			getUserDocDateAdded({
+		({ parent, args, context }) => (
+			getUserDocDateAdded(context.pg)({
 				userId: args.userId,
 				docId: parent.songId,
 				columnName: "song_id",
@@ -234,8 +236,8 @@ export const dateAdded =
 
 export const inLibrary =
 	resolver<boolean, UserArgs>(
-		({ parent, args }) => (
-			getUserDocInLib({
+		({ parent, args, context }) => (
+			getUserDocInLib(context.pg)({
 				userId: args.userId,
 				docId: parent.songId,
 				columnName: "song_id",

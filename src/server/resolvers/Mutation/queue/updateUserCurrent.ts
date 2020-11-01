@@ -2,8 +2,8 @@ import { v4 as uuid } from "uuid"
 
 import {
 	sqlJoin,
+	sqlQuery,
 	parseSqlRow,
-	sqlPoolQuery,
 	createResolver,
 } from "../../../helpers"
 
@@ -24,11 +24,11 @@ interface Args extends UserArgs {
 
 export const updateUserCurrent =
 	resolver<User, Args>(
-		async ({ args }) => (
+		async ({ args, context }) => (
 			(await Promise.all([
-				sqlPoolQuery<User>({
+				sqlQuery(context.pg)({
 					sql: UPDATE_USER_CURRENT,
-					parse: parseSqlRow(),
+					parse: parseSqlRow<User>(),
 					variables: [{
 						key: "songId",
 						value: args.songId,
@@ -41,7 +41,7 @@ export const updateUserCurrent =
 						value: sqlJoin(COLUMN_NAMES.USER),
 					}],
 				}),
-				sqlPoolQuery({
+				sqlQuery(context.pg)({
 					sql: INSERT_PLAY,
 					variables: [{
 						key: "playId",

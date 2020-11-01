@@ -2,7 +2,7 @@
 import { sqlSearch } from "../../../helpers"
 import { COLUMN_NAMES } from "../../../globals"
 import { AlbumUpload, SongUpload } from "./types"
-import { Client, Genre, Artist } from "../../../types"
+import { PGClient, Genre, Artist } from "../../../types"
 
 interface GetDocInputBase<T> {
 	key: keyof T,
@@ -20,13 +20,13 @@ interface GetDocsInput<T> extends GetDocInputBase<T> {
 }
 
 const getDoc =
-	(client: Client) =>
+	(client: PGClient) =>
 		async <T>({ key, ...input }: GetDocInput<T>): Promise<string> =>
 			// @ts-ignore
 			(await sqlSearch(client)<T>({ ...input, exact: true }))[0][key] || ""
 
 const getDocs =
-	(client: Client) =>
+	(client: PGClient) =>
 		async <T>({ docs, ...input }: GetDocsInput<T>) => {
 			const artists: string[] = []
 			for (const query of docs) {
@@ -36,7 +36,7 @@ const getDocs =
 		}
 
 export const populateAlbum =
-	(client: Client) => async (album: AlbumUpload): Promise<AlbumUpload> => ({
+	(client: PGClient) => async (album: AlbumUpload): Promise<AlbumUpload> => ({
 		...album,
 		artists: await getDocs(client)<Artist>({
 			key: "artistId",
@@ -48,7 +48,7 @@ export const populateAlbum =
 	})
 
 export const populateSong =
-	(client: Client) => async (song: SongUpload): Promise<SongUpload> => ({
+	(client: PGClient) => async (song: SongUpload): Promise<SongUpload> => ({
 		...song,
 		genres: await getDocs(client)<Genre>({
 			key: "genreId",

@@ -1,15 +1,17 @@
 import shuffle from "lodash/shuffle"
+import { PAGINATION_NUM } from "@oly_op/music-app-common/globals"
 
 import {
 	sqlJoin,
 	sqlQuery,
 	parseSqlRow,
-	getUserDocs,
+	parseSqlTable,
 	createResolver,
 } from "../../../helpers"
 
 import {
 	SELECT_USER,
+	SELECT_USER_SONGS,
 	INSERT_USER_QUEUE,
 	UPDATE_USER_CURRENT,
 } from "../../../sql"
@@ -34,14 +36,37 @@ export const userShuffleLibrary =
 
 				await clearUserQueue(client)(args.userId)
 
-				const songs = await getUserDocs<Song>({
-					page: 0,
-					tableName: "songs",
-					userId: args.userId,
-					columnName: "song_id",
-					userTableName: "users_songs",
-					columnNames: COLUMN_NAMES.SONG,
-					orderBy: { field: "title", direction: "asc" },
+				const songs = await query({
+					sql: SELECT_USER_SONGS,
+					parse: parseSqlTable<Song>(),
+					variables: [{
+						value: 0,
+						key: "page",
+						string: false,
+					},{
+						key: "userId",
+						value: args.userId,
+					},{
+						string: false,
+						key: "paginationNum",
+						value: PAGINATION_NUM,
+					},{
+						string: false,
+						value: "title",
+						key: "orderByField",
+					},{
+						value: "ASC",
+						string: false,
+						key: "orderByDirection",
+					},{
+						string: false,
+						value: "songs",
+						key: "orderByTableName",
+					},{
+						string: false,
+						key: "columnNames",
+						value: sqlJoin(COLUMN_NAMES.SONG, "songs"),
+					}],
 				})
 
 				const [ current, ...shuffled ] = shuffle(songs)

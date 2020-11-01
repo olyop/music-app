@@ -1,6 +1,6 @@
 import {
+	sqlQuery,
 	parseSqlRow,
-	sqlPoolQuery,
 	createResolver,
 } from "../helpers"
 
@@ -11,14 +11,16 @@ const resolver =
 	createResolver<Play>()
 
 export const dateCreated =
-	resolver<number>(({ parent }) => Promise.resolve(
-		parent.dateCreated * 1000,
-	))
+	resolver<number>(
+		({ parent }) => (
+			Promise.resolve(parent.dateCreated * 1000)
+		),
+	)
 
 export const user =
 	resolver<User>(
-		({ parent }) => (
-			sqlPoolQuery({
+		({ parent, context }) => (
+			sqlQuery(context.pg)({
 				sql: SELECT_USER,
 				parse: parseSqlRow(),
 				variables: [{
@@ -31,8 +33,8 @@ export const user =
 
 export const song =
 	resolver<Song>(
-		({ parent }) => (
-			sqlPoolQuery({
+		({ parent, context }) => (
+			sqlQuery(context.pg)({
 				sql: SELECT_SONG,
 				parse: parseSqlRow(),
 				variables: [{

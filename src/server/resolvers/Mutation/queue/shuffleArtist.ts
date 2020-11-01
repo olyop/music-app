@@ -37,9 +37,9 @@ export const shuffleArtist =
 
 				await clearUserQueue(client)(args.userId)
 
-				const songs = await query<Song[]>({
+				const songs = await query({
 					sql: SELECT_ARTIST_SONGS,
-					parse: parseSqlTable(),
+					parse: parseSqlTable<Song>(),
 					variables: [{
 						key: "artistId",
 						value: args.artistId,
@@ -98,9 +98,9 @@ export const shuffleArtist =
 					),
 				))
 
-				returnValue = await query<User>({
+				returnValue = await query({
 					sql: SELECT_USER,
-					parse: parseSqlRow(),
+					parse: parseSqlRow<User>(),
 					variables: [{
 						key: "userId",
 						value: args.userId,

@@ -19,7 +19,6 @@ import {
 	DELETE_USER_QUEUE_SONG,
 } from "../../../sql"
 
-import { pg } from "../../../services"
 import { COLUMN_NAMES } from "../../../globals"
 import { User, UserArgs, UserQueue } from "../../../types"
 
@@ -28,9 +27,9 @@ const resolver =
 
 export const userNext =
 	resolver<User, UserArgs>(
-		async ({ args }) => {
+		async ({ args, context }) => {
 			let returnValue: User
-			const client = await pg.connect()
+			const client = await context.pg.connect()
 			const query = sqlQuery(client)
 			try {
 				await client.query("BEGIN")

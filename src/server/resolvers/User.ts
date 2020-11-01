@@ -14,19 +14,21 @@ import {
 
 import {
 	sqlJoin,
-	getUserDocs,
+	sqlQuery,
 	parseSqlRow,
-	sqlPoolQuery,
-	getUserQueue,
 	parseSqlTable,
 	createResolver,
+	getUserQueueSongs,
+	getSongsOrderByField,
 } from "../helpers"
 
 import {
 	SELECT_SONG,
 	SELECT_USER_PLAYS,
+	SELECT_USER_SONGS,
 	SELECT_USER_ALBUMS,
 	SELECT_USER_GENRES,
+	SELECT_USER_ARTISTS,
 } from "../sql"
 
 import { COLUMN_NAMES } from "../globals"
@@ -43,7 +45,7 @@ export const current =
 			isNull(parent.current) ? (
 				Promise.resolve(null)
 			) : (
-				sqlPoolQuery<Song>({
+				sqlQuery(context.pg)<Song>({
 					sql: SELECT_SONG,
 					parse: parseSqlRow(),
 					variables: [{
@@ -61,8 +63,8 @@ export const current =
 
 export const albums =
 	resolver<Album[], DocsArgs>(
-		({ parent, args }) => (
-			sqlPoolQuery({
+		({ parent, args, context }) => (
+			sqlQuery(context.pg)({
 				sql: SELECT_USER_ALBUMS,
 				parse: parseSqlTable(),
 				variables: [{
@@ -95,8 +97,8 @@ export const albums =
 
 export const genres =
 	resolver<Genre[], DocsArgs>(
-		({ parent, args }) => (
-			sqlPoolQuery({
+		({ parent, args, context }) => (
+			sqlQuery(context.pg)({
 				sql: SELECT_USER_GENRES,
 				parse: parseSqlTable(),
 				variables: [{
@@ -129,38 +131,38 @@ export const genres =
 
 export const prev =
 	resolver<Song[]>(
-		({ parent }) => (
-			getUserQueue({
-				userId: parent.userId,
-				tableName: "users_prevs",
-			})
+		({ parent, context }) => (
+			getUserQueueSongs(context.pg)(
+				parent.userId,
+				"users_prevs",
+			)
 		),
 	)
 
 export const next =
 	resolver<Song[]>(
-		({ parent }) => (
-			getUserQueue({
-				userId: parent.userId,
-				tableName: "users_nexts",
-			})
+		({ parent, context }) => (
+			getUserQueueSongs(context.pg)(
+				parent.userId,
+				"users_nexts",
+			)
 		),
 	)
 
 export const later =
 	resolver<Song[]>(
-		({ parent }) => (
-			getUserQueue({
-				userId: parent.userId,
-				tableName: "users_laters",
-			})
+		({ parent, context }) => (
+			getUserQueueSongs(context.pg)(
+				parent.userId,
+				"users_laters",
+			)
 		),
 	)
 
 export const plays =
 	resolver<Play[]>(
-		({ parent }) => (
-			sqlPoolQuery({
+		({ parent, context }) => (
+			sqlQuery(context.pg)({
 				sql: SELECT_USER_PLAYS,
 				parse: parseSqlTable(),
 				variables: [{
@@ -173,45 +175,79 @@ export const plays =
 
 export const songs =
 	resolver<Song[], DocsArgs>(
-		({ parent, args }) => (
-			getUserDocs({
-				page: args.page,
-				tableName: "songs",
-				columnName: "song_id",
-				orderBy: args.orderBy,
-				userId: parent.userId,
-				userTableName: "users_songs",
-				columnNames: COLUMN_NAMES.SONG,
+		({ parent, args, context }) => (
+			sqlQuery(context.pg)({
+				sql: SELECT_USER_SONGS,
+				parse: parseSqlTable(),
+				variables: [{
+					key: "page",
+					string: false,
+					value: args.page,
+				},{
+					key: "userId",
+					value: parent.userId,
+				},{
+					string: false,
+					key: "paginationNum",
+					value: PAGINATION_NUM,
+				},{
+					string: false,
+					key: "orderByDirection",
+					value: args.orderBy.direction,
+				},{
+					string: false,
+					key: "columnNames",
+					value: sqlJoin(COLUMN_NAMES.SONG, "songs"),
+				},{
+					string: false,
+					key: "orderByField",
+					value: getSongsOrderByField(args.orderBy.field.toLowerCase()),
+				}],
 			})
 		),
 	)
 
 export const artists =
 	resolver<Artist[], DocsArgs>(
-		({ parent, args }) => (
-			getUserDocs({
-				page: args.page,
-				tableName: "artists",
-				userId: parent.userId,
-				orderBy: args.orderBy,
-				columnName: "artist_id",
-				userTableName: "users_artists",
-				columnNames: COLUMN_NAMES.ARTIST,
+		({ parent, args, context }) => (
+			sqlQuery(context.pg)({
+				sql: SELECT_USER_ARTISTS,
+				parse: parseSqlTable(),
+				variables: [{
+					key: "page",
+					string: false,
+					value: args.page,
+				},{
+					key: "userId",
+					value: parent.userId,
+				},{
+					string: false,
+					key: "paginationNum",
+					value: PAGINATION_NUM,
+				},{
+					string: false,
+					key: "orderByField",
+					value: args.orderBy.field,
+				},{
+					string: false,
+					key: "orderByDirection",
+					value: args.orderBy.direction,
+				},{
+					string: false,
+					key: "columnNames",
+					value: sqlJoin(COLUMN_NAMES.SONG, "artists"),
+				},{
+					string: false,
+					key: "orderByTableName",
+					value: args.orderBy.field === "DATE_ADDED" ? "users_artists" : "artists",
+				}],
 			})
 		),
 	)
 
 export const playlists =
 	resolver<Playlist[], DocsArgs>(
-		({ parent, args }) => (
-			getUserDocs({
-				page: args.page,
-				userId: parent.userId,
-				orderBy: args.orderBy,
-				tableName: "playlists",
-				columnName: "playlist_id",
-				columnNames: COLUMN_NAMES.SONG,
-				userTableName: "users_playlists",
-			})
+		({ parent, args, context }) => (
+			Promise.resolve([])
 		),
 	)

@@ -1,9 +1,9 @@
 SELECT
-  {{ columnNames }}
+	{{ columnNames }}
 FROM
-  songs
+	songs
 WHERE
-  album_id = {{ albumId }}
+	album_id = {{ albumId }}
 ORDER BY
-  disc_number ASC,
-  track_number ASC;
+	disc_number ASC,
+	track_number ASC;

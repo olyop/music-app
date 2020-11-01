@@ -8,8 +8,8 @@ import {
 	Play,
 	Album,
 	Genre,
-	Client,
 	Artist,
+	PGClient,
 	SqlParse,
 	UserArgs,
 	S3FileExt,
@@ -39,7 +39,7 @@ import {
 import { COLUMN_NAMES } from "../globals"
 
 const getAlbumSongs =
-	(client: Client) => <T>(albumId: string, parse: SqlParse<T>) =>
+	(client: PGClient) => <T>(albumId: string, parse: SqlParse<T>) =>
 		sqlQuery(client)({
 			sql: SELECT_ALBUM_SONGS,
 			parse,
@@ -54,7 +54,7 @@ const getAlbumSongs =
 		})
 
 const getUserAlbumPlays =
-	(client: Client) => <T>(userId: string, albumId: string, parse: SqlParse<T>) =>
+	(client: PGClient) => <T>(userId: string, albumId: string, parse: SqlParse<T>) =>
 		sqlQuery(client)({
 			sql: SELECT_USER_ALBUM_PLAYS,
 			parse,

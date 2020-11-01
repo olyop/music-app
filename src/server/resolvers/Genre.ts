@@ -3,9 +3,10 @@ import {
 	Play,
 	Genre,
 	UserArgs,
+	SqlParse,
+	PGClient,
 	DocsOrderBy,
 	OrderByArgs,
-	SqlParse,
 } from "../types"
 
 import {
@@ -24,32 +25,33 @@ const resolver =
 	createResolver<Genre>()
 
 const getGenreSongs =
-	<T>({ id, parse, orderBy }: DocsOrderBy<T>) =>
-		sqlPoolQuery({
-			sql: SELECT_GENRE_SONGS,
-			parse,
-			variables: [{
-				value: id,
-				key: "genreId",
-			},{
-				string: false,
-				key: "orderByDirection",
-				value: orderBy?.direction || "ASC",
-			},{
-				string: false,
-				key: "columnNames",
-				value: sqlJoin(COLUMN_NAMES.SONG, "songs"),
-			},{
-				string: false,
-				key: "orderByField",
-				value: getSongsOrderByField(orderBy?.field.toLowerCase() || "title"),
-			}],
-		})
+	(client: PGClient) =>
+		<T>({ id, parse, orderBy }: DocsOrderBy<T>) =>
+			sqlQuery(client)({
+				sql: SELECT_GENRE_SONGS,
+				parse,
+				variables: [{
+					value: id,
+					key: "genreId",
+				},{
+					string: false,
+					key: "orderByDirection",
+					value: orderBy?.direction || "ASC",
+				},{
+					string: false,
+					key: "columnNames",
+					value: sqlJoin(COLUMN_NAMES.SONG, "songs"),
+				},{
+					string: false,
+					key: "orderByField",
+					value: getSongsOrderByField(orderBy?.field.toLowerCase() || "title"),
+				}],
+			})
 
 export const songs =
 	resolver<Song[], OrderByArgs>(
-		({ parent, args }) => (
-			getGenreSongs({
+		({ parent, args, context }) => (
+			getGenreSongs(context.pg)({
 				id: parent.genreId,
 				orderBy: args.orderBy,
 				parse: parseSqlTable(),
@@ -59,8 +61,8 @@ export const songs =
 
 export const songsTotal =
 	resolver<number | null>(
-		({ parent }) => (
-			getGenreSongs({
+		({ parent, context }) => (
+			getGenreSongs(context.pg)({
 				id: parent.genreId,
 				parse: getSqlRowCountOrNull,
 			})
@@ -68,27 +70,28 @@ export const songsTotal =
 	)
 
 const getUserGenrePlays =
-	<T>(userId: string, genreId: string, parse: SqlParse<T>) =>
-		sqlPoolQuery({
-			sql: SELECT_USER_DOC_PLAYS,
-			parse,
-			variables: [{
-				key: "userId",
-				value: userId,
-			},{
-				key: "genreId",
-				value: genreId,
-			},{
-				string: false,
-				key: "columnNames",
-				value: sqlJoin(COLUMN_NAMES.PLAY),
-			}],
-		})
+	(client: PGClient) =>
+		<T>(userId: string, genreId: string, parse: SqlParse<T>) =>
+			sqlQuery(client)({
+				sql: SELECT_USER_DOC_PLAYS,
+				parse,
+				variables: [{
+					key: "userId",
+					value: userId,
+				},{
+					key: "genreId",
+					value: genreId,
+				},{
+					string: false,
+					key: "columnNames",
+					value: sqlJoin(COLUMN_NAMES.PLAY),
+				}],
+			})
 
 export const userPlays =
 	resolver<Play[], UserArgs>(
-		({ parent, args }) => (
-			getUserGenrePlays(
+		({ parent, args, context }) => (
+			getUserGenrePlays(context.pg)(
 				args.userId,
 				parent.genreId,
 				parseSqlTable(),
@@ -98,8 +101,8 @@ export const userPlays =
 
 export const userPlaysTotal =
 	resolver<number | null, UserArgs>(
-		({ parent, args }) => (
-			getUserGenrePlays(
+		({ parent, args, context }) => (
+			getUserGenrePlays(context.pg)(
 				args.userId,
 				parent.genreId,
 				getSqlRowCountOrNull,

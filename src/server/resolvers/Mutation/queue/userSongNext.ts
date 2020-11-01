@@ -2,7 +2,6 @@ import {
 	sqlJoin,
 	sqlQuery,
 	parseSqlRow,
-	sqlPoolQuery,
 	parseSqlTable,
 	createResolver,
 } from "../../../helpers"
@@ -88,7 +87,7 @@ export const userSongNext =
 					}],
 				})
 
-				returnValue = await sqlPoolQuery<User>({
+				returnValue = await query<User>({
 					sql: SELECT_USER,
 					parse: parseSqlRow(),
 					variables: [{

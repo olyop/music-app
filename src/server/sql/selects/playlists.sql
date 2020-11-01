@@ -1,4 +1,0 @@
-SELECT
-  {{ columnNames }}
-FROM
-  playlists;

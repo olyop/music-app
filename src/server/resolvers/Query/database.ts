@@ -23,13 +23,12 @@ import {
 	SELECT_ARTIST,
 	SELECT_ARTISTS,
 	SELECT_PLAYLIST,
-	SELECT_PLAYLISTS,
 } from "../../sql"
 
 import {
 	sqlJoin,
+	sqlQuery,
 	parseSqlRow,
-	sqlPoolQuery,
 	parseSqlTable,
 	createResolver,
 	getSongsOrderByField,
@@ -42,8 +41,8 @@ const resolver =
 
 export const genres =
 	resolver<Genre[], DocsArgs>(
-		({ args }) => (
-			sqlPoolQuery({
+		({ args, context }) => (
+			sqlQuery(context.pg)({
 				sql: SELECT_GENRES,
 				parse: parseSqlTable(),
 				variables: [{
@@ -73,8 +72,8 @@ export const genres =
 
 export const songs =
 	resolver<Song[], DocsArgs>(
-		({ args }) => (
-			sqlPoolQuery({
+		({ args, context }) => (
+			sqlQuery(context.pg)({
 				sql: SELECT_SONGS,
 				parse: parseSqlTable(),
 				variables: [{
@@ -104,8 +103,8 @@ export const songs =
 
 export const albums =
 	resolver<Album[], DocsArgs>(
-		({ args }) => (
-			sqlPoolQuery({
+		({ args, context }) => (
+			sqlQuery(context.pg)({
 				sql: SELECT_ALBUMS,
 				parse: parseSqlTable(),
 				variables: [{
@@ -135,8 +134,8 @@ export const albums =
 
 export const artists =
 	resolver<Artist[], DocsArgs>(
-		({ args }) => (
-			sqlPoolQuery({
+		({ args, context }) => (
+			sqlQuery(context.pg)({
 				sql: SELECT_ARTISTS,
 				parse: parseSqlTable(),
 				variables: [{
@@ -164,25 +163,10 @@ export const artists =
 		),
 	)
 
-export const playlists =
-	resolver<Playlist[]>(
-		() => (
-			sqlPoolQuery({
-				sql: SELECT_PLAYLISTS,
-				parse: parseSqlTable(),
-				variables: [{
-					string: false,
-					key: "columnNames",
-					value: sqlJoin(COLUMN_NAMES.PLAYLIST),
-				}],
-			})
-		),
-	)
-
 export const user =
 	resolver<User, { userId: string }>(
-		({ args }) => (
-			sqlPoolQuery({
+		({ args, context }) => (
+			sqlQuery(context.pg)({
 				sql: SELECT_USER,
 				parse: parseSqlRow(),
 				variables: [{
@@ -199,8 +183,8 @@ export const user =
 
 export const play =
 	resolver<Play, { playId: string }>(
-		({ args }) => (
-			sqlPoolQuery({
+		({ args, context }) => (
+			sqlQuery(context.pg)({
 				sql: SELECT_PLAY,
 				parse: parseSqlRow(),
 				variables: [{
@@ -217,8 +201,8 @@ export const play =
 
 export const album =
 	resolver<Album, { albumId: string }>(
-		({ args }) => (
-			sqlPoolQuery({
+		({ args, context }) => (
+			sqlQuery(context.pg)({
 				sql: SELECT_ALBUM,
 				parse: parseSqlRow(),
 				variables: [{
@@ -235,8 +219,8 @@ export const album =
 
 export const genre =
 	resolver<Genre, { genreId: string }>(
-		({ args }) => (
-			sqlPoolQuery({
+		({ args, context }) => (
+			sqlQuery(context.pg)({
 				sql: SELECT_GENRE,
 				parse: parseSqlRow(),
 				variables: [{
@@ -253,8 +237,8 @@ export const genre =
 
 export const artist =
 	resolver<Artist, { artistId: string }>(
-		({ args }) => (
-			sqlPoolQuery({
+		({ args, context }) => (
+			sqlQuery(context.pg)({
 				sql: SELECT_ARTIST,
 				parse: parseSqlRow(),
 				variables: [{
@@ -271,8 +255,8 @@ export const artist =
 
 export const playlist =
 	resolver<Playlist, { playlistId: string }>(
-		({ args }) => (
-			sqlPoolQuery({
+		({ args, context }) => (
+			sqlQuery(context.pg)({
 				sql: SELECT_PLAYLIST,
 				parse: parseSqlRow(),
 				variables: [{
@@ -289,8 +273,8 @@ export const playlist =
 
 export const song =
 	resolver<Song, { songId: string }>(
-		({ args }) => (
-			sqlPoolQuery({
+		({ args, context }) => (
+			sqlQuery(context.pg)({
 				sql: SELECT_SONG,
 				parse: parseSqlRow(),
 				variables: [{

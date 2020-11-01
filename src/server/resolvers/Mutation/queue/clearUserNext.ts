@@ -5,10 +5,10 @@ import {
 } from "../../../sql"
 
 import { sqlQuery } from "../../../helpers"
-import { SqlVariable, Client } from "../../../types"
+import { SqlVariable, PGClient } from "../../../types"
 
 const clearUserNext =
-	(client: Client) => async (userId: string) => {
+	(client: PGClient) => async (userId: string) => {
 		const variables: SqlVariable[] = [{
 			key: "userId",
 			value: userId,

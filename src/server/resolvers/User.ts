@@ -39,7 +39,7 @@ export const dateJoined =
 
 export const current =
 	resolver<Song | null>(
-		({ parent }) => (
+		({ parent, context }) => (
 			isNull(parent.current) ? (
 				Promise.resolve(null)
 			) : (

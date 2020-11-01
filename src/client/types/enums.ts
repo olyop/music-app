@@ -30,7 +30,9 @@ export enum ArtistsOrderByField {
 
 export enum UserSongsOrderByField {
 	TITLE = "TITLE",
+	ALBUM = "ALBUM",
 	DURATION = "DURATION",
+	RELEASED = "RELEASED",
 	DATE_ADDED = "DATE_ADDED",
 }
 

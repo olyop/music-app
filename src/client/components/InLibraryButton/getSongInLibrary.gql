@@ -1,9 +1,9 @@
 query getSongInLibrary(
-  $userId: Uuid!
-  $songId: Uuid!
+	$userId: Uuid!
+	$songId: Uuid!
 ) {
-  song(songId: $songId) {
-    songId
-    inLibrary(userId: $userId)
-  }
+	song(songId: $songId) {
+		songId
+		inLibrary(userId: $userId)
+	}
 }

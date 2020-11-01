@@ -2,7 +2,6 @@ import importSql from "../importSql"
 
 const importFile = importSql("inserts")
 
-export const INSERT_USER = importFile("user")
 export const INSERT_SONG = importFile("song")
 export const INSERT_PLAY = importFile("play")
 export const INSERT_ALBUM = importFile("album")

@@ -1,5 +1,6 @@
 .Icon {
 	border: 0;
+	outline: none;
 	padding: 3rem;
 	display: block;
 	cursor: pointer;
@@ -12,7 +13,7 @@
 	color: var(--text-color-light);
 	font-size: calc(var(--info-height) - 6rem);
 	transition: var(--transition-duration) background-color;
-	&:hover {
-		background-color: #e0e0e0; }
+	&:hover,
+	&:focus,
 	&:active {
-		outline: none; } }
+		background-color: #e0e0e0; } }

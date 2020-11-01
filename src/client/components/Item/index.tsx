@@ -5,6 +5,7 @@ import { createBem, BemInput, BemPropTypes } from "@oly_op/bem"
 import {
 	Doc,
 	UserDoc,
+	InLibraryDoc,
 	ModalButton as TModalButton,
 } from "../../types"
 
@@ -26,7 +27,7 @@ import "./index.scss"
 const bem = createBem("Item")
 
 const showInLibrary =
-	(hideInLibrary: boolean, doc: Doc): doc is UserDoc => !hideInLibrary
+	(hideInLibrary: boolean, doc: Doc): doc is InLibraryDoc => !hideInLibrary
 
 const determineShowPlay =
 	(hidePlay: boolean, doc: Doc): doc is UserDoc => !hidePlay

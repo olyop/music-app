@@ -1,7 +1,6 @@
 import { IS_DEV } from "./globals"
 
 import {
-	SET_TIMEZONE,
 	TABLE_KEYS,
 	TABLE_ARTISTS,
 	TABLE_GENRES,
@@ -33,7 +32,6 @@ import {
 import { pg } from "./services"
 
 const SQL_INIT = [
-	SET_TIMEZONE,
 	TABLE_KEYS,
 	TABLE_ARTISTS,
 	TABLE_ALBUMS,

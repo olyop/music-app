@@ -40,7 +40,9 @@ enum PlaylistOrderByField {
 
 enum UserSongOrderByField {
 	TITLE
+	ALBUM
 	DURATION
+	RELEASED
 	DATE_ADDED
 }
 

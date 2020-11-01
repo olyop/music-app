@@ -1,4 +1,3 @@
-// import random from "lodash/random"
 import bufferToDataUrl from "@oly_op/music-app-common/bufferToDataUrl"
 
 import {
@@ -7,6 +6,7 @@ import {
 	Album,
 	Artist,
 	UserArgs,
+	PGClient,
 	SqlParse,
 	S3FileExt,
 	S3FileArgs,
@@ -15,17 +15,9 @@ import {
 } from "../types"
 
 import {
-	SELECT_ARTIST_PLAYS,
-	SELECT_ARTIST_SONGS,
-	SELECT_ARTIST_ALBUMS,
-	SELECT_USER_DOC_PLAYS,
-	SELECT_ARTIST_TOP_TEN_SONGS,
-} from "../sql"
-
-import {
 	sqlJoin,
+	sqlQuery,
 	getS3Object,
-	sqlPoolQuery,
 	parseSqlTable,
 	getSqlRowCount,
 	createResolver,
@@ -36,78 +28,90 @@ import {
 	getSqlRowCountOrNull,
 } from "../helpers"
 
+import {
+	SELECT_ARTIST_PLAYS,
+	SELECT_ARTIST_SONGS,
+	SELECT_ARTIST_ALBUMS,
+	SELECT_USER_DOC_PLAYS,
+	SELECT_ARTIST_TOP_TEN_SONGS,
+} from "../sql"
+
 import { COLUMN_NAMES } from "../globals"
 
 const getArtistSongs =
-	<T>({ id, parse, orderBy }: DocsOrderBy<T>) =>
-		sqlPoolQuery({
-			sql: SELECT_ARTIST_SONGS,
-			parse,
-			variables: [{
-				value: id,
-				key: "artistId",
-			},{
-				string: false,
-				key: "orderByDirection",
-				value: orderBy?.direction || "ASC",
-			},{
-				string: false,
-				key: "columnNames",
-				value: sqlJoin(COLUMN_NAMES.SONG, "songs"),
-			},{
-				string: false,
-				key: "orderByField",
-				value: getSongsOrderByField(orderBy?.field.toLowerCase() || "title"),
-			}],
-		})
+	(client: PGClient) =>
+		<T>({ id, parse, orderBy }: DocsOrderBy<T>) =>
+			sqlQuery(client)({
+				sql: SELECT_ARTIST_SONGS,
+				parse,
+				variables: [{
+					value: id,
+					key: "artistId",
+				},{
+					string: false,
+					key: "orderByDirection",
+					value: orderBy?.direction || "ASC",
+				},{
+					string: false,
+					key: "columnNames",
+					value: sqlJoin(COLUMN_NAMES.SONG, "songs"),
+				},{
+					string: false,
+					key: "orderByField",
+					value: getSongsOrderByField(orderBy?.field.toLowerCase() || "title"),
+				}],
+			})
 
-const getArtistAlbums = <T>({ id, parse, orderBy }: DocsOrderBy<T>) =>
-	sqlPoolQuery({
-		parse,
-		sql: SELECT_ARTIST_ALBUMS,
-		variables: [{
-			value: id,
-			key: "artistId",
-		},{
-			string: false,
-			key: "orderByField",
-			value: orderBy?.field || "title",
-		},{
-			string: false,
-			key: "orderByDirection",
-			value: orderBy?.direction || "ASC",
-		},{
-			string: false,
-			key: "columnNames",
-			value: sqlJoin(COLUMN_NAMES.ALBUM, "albums"),
-		}],
-	})
+const getArtistAlbums =
+	(client: PGClient) =>
+		<T>({ id, parse, orderBy }: DocsOrderBy<T>) =>
+			sqlQuery(client)({
+				parse,
+				sql: SELECT_ARTIST_ALBUMS,
+				variables: [{
+					value: id,
+					key: "artistId",
+				},{
+					string: false,
+					key: "orderByField",
+					value: orderBy?.field || "title",
+				},{
+					string: false,
+					key: "orderByDirection",
+					value: orderBy?.direction || "ASC",
+				},{
+					string: false,
+					key: "columnNames",
+					value: sqlJoin(COLUMN_NAMES.ALBUM, "albums"),
+				}],
+			})
 
 const getUserArtistPlays =
-	<T>(userId: string, artistId: string, parse: SqlParse<T>) =>
-		sqlPoolQuery({
-			sql: SELECT_USER_DOC_PLAYS,
-			parse,
-			variables: [{
-				key: "userId",
-				value: userId,
-			},{
-				key: "artistId",
-				value: artistId,
-			},{
-				string: false,
-				key: "columnNames",
-				value: sqlJoin(COLUMN_NAMES.PLAY),
-			}],
-		})
+	(client: PGClient) =>
+		<T>(userId: string, artistId: string, parse: SqlParse<T>) =>
+			sqlQuery(client)({
+				sql: SELECT_USER_DOC_PLAYS,
+				parse,
+				variables: [{
+					key: "userId",
+					value: userId,
+				},{
+					key: "artistId",
+					value: artistId,
+				},{
+					string: false,
+					key: "columnNames",
+					value: sqlJoin(COLUMN_NAMES.PLAY),
+				}],
+			})
 
 const resolver =
 	createResolver<Artist>()
 
 export const playsTotal =
 	resolver<number | null>(
-		({ parent }) => (
-			sqlPoolQuery({
+		({ parent, context }) => (
+			sqlQuery(context.pg)({
 				sql: SELECT_ARTIST_PLAYS,
 				parse: getSqlRowCountOrNull,
 				variables: [{
@@ -120,8 +124,8 @@ export const playsTotal =
 
 export const songs =
 	resolver<Song[], OrderByArgs>(
-		({ parent, args }) => (
-			getArtistSongs({
+		({ parent, args, context }) => (
+			getArtistSongs(context.pg)({
 				id: parent.artistId,
 				orderBy: args.orderBy,
 				parse: parseSqlTable(),
@@ -131,8 +135,8 @@ export const songs =
 
 export const songsTotal =
 	resolver<number>(
-		({ parent }) => (
-			getArtistSongs({
+		({ parent, context }) => (
+			getArtistSongs(context.pg)({
 				id: parent.artistId,
 				parse: getSqlRowCount,
 			})
@@ -141,8 +145,8 @@ export const songsTotal =
 
 export const albums =
 	resolver<Album[], OrderByArgs>(
-		({ parent, args }) => (
-			getArtistAlbums({
+		({ parent, args, context }) => (
+			getArtistAlbums(context.pg)({
 				id: parent.artistId,
 				orderBy: args.orderBy,
 				parse: parseSqlTable(),
@@ -152,8 +156,8 @@ export const albums =
 
 export const albumsTotal =
 	resolver<number>(
-		({ parent }) => (
-			getArtistAlbums({
+		({ parent, context }) => (
+			getArtistAlbums(context.pg)({
 				id: parent.artistId,
 				parse: getSqlRowCount,
 			})
@@ -162,8 +166,8 @@ export const albumsTotal =
 
 export const userPlays =
 	resolver<Play[], UserArgs>(
-		({ parent, args }) => (
-			getUserArtistPlays(
+		({ parent, args, context }) => (
+			getUserArtistPlays(context.pg)(
 				args.userId,
 				parent.artistId,
 				parseSqlTable(),
@@ -173,8 +177,8 @@ export const userPlays =
 
 export const userPlaysTotal =
 	resolver<number | null, UserArgs>(
-		({ parent, args }) => (
-			getUserArtistPlays(
+		({ parent, args, context }) => (
+			getUserArtistPlays(context.pg)(
 				args.userId,
 				parent.artistId,
 				getSqlRowCountOrNull,
@@ -184,8 +188,8 @@ export const userPlaysTotal =
 
 export const photo =
 	resolver<string, S3FileArgs>(
-		({ parent, args }) => (
-			getS3Object({
+		({ parent, args, context }) => (
+			getS3Object(context.s3)({
 				parse: bufferToDataUrl,
 				key: getS3CatalogKey(
 					parent.artistId,
@@ -198,8 +202,8 @@ export const photo =
 
 export const dateAdded =
 	resolver<number | null, UserArgs>(
-		({ parent, args }) => (
-			getUserDocDateAdded({
+		({ parent, args, context }) => (
+			getUserDocDateAdded(context.pg)({
 				userId: args.userId,
 				docId: parent.artistId,
 				columnName: "artist_id",
@@ -210,8 +214,8 @@ export const dateAdded =
 
 export const inLibrary =
 	resolver<boolean, UserArgs>(
-		({ parent, args }) => (
-			getUserDocInLib({
+		({ parent, args, context }) => (
+			getUserDocInLib(context.pg)({
 				userId: args.userId,
 				docId: parent.artistId,
 				columnName: "artist_id",
@@ -222,8 +226,8 @@ export const inLibrary =
 
 export const topTenSongs =
 	resolver<Song[]>(
-		({ parent }) => (
-			sqlPoolQuery({
+		({ parent, context }) => (
+			sqlQuery(context.pg)({
 				sql: SELECT_ARTIST_TOP_TEN_SONGS,
 				parse: parseSqlTable(),
 				variables: [{

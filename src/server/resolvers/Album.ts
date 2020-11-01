@@ -8,6 +8,7 @@ import {
 	Play,
 	Album,
 	Genre,
+	Client,
 	Artist,
 	SqlParse,
 	UserArgs,
@@ -25,9 +26,9 @@ import {
 
 import {
 	sqlJoin,
+	sqlQuery,
 	getS3Object,
 	fixDateType,
-	sqlPoolQuery,
 	parseSqlTable,
 	getSqlRowCount,
 	createResolver,
@@ -38,8 +39,8 @@ import {
 import { COLUMN_NAMES } from "../globals"
 
 const getAlbumSongs =
-	<T>(albumId: string, parse: SqlParse<T>) =>
-		sqlPoolQuery({
+	(client: Client) => <T>(albumId: string, parse: SqlParse<T>) =>
+		sqlQuery(client)({
 			sql: SELECT_ALBUM_SONGS,
 			parse,
 			variables: [{
@@ -53,8 +54,8 @@ const getAlbumSongs =
 		})
 
 const getUserAlbumPlays =
-	<T>(userId: string, albumId: string, parse: SqlParse<T>) =>
-		sqlPoolQuery({
+	(client: Client) => <T>(userId: string, albumId: string, parse: SqlParse<T>) =>
+		sqlQuery(client)({
 			sql: SELECT_USER_ALBUM_PLAYS,
 			parse,
 			variables: [{
@@ -75,8 +76,8 @@ const resolver =
 
 export const songs =
 	resolver<Song[]>(
-		({ parent }) => (
-			getAlbumSongs(
+		({ parent, context }) => (
+			getAlbumSongs(context.pg)(
 				parent.albumId,
 				parseSqlTable(),
 			)
@@ -85,8 +86,8 @@ export const songs =
 
 export const songsTotal =
 	resolver<number>(
-		({ parent }) => (
-			getAlbumSongs(
+		({ parent, context }) => (
+			getAlbumSongs(context.pg)(
 				parent.albumId,
 				getSqlRowCount,
 			)
@@ -95,8 +96,8 @@ export const songsTotal =
 
 export const duration =
 	resolver<number>(
-		({ parent }) => (
-			getAlbumSongs<number>(
+		({ parent, context }) => (
+			getAlbumSongs(context.pg)<number>(
 				parent.albumId,
 				pipe(
 					parseSqlTable<Song>(),
@@ -114,8 +115,8 @@ export const released =
 
 export const cover =
 	resolver<string, S3FileArgs>(
-		({ parent, args }) => (
-			getS3Object({
+		({ parent, args, context }) => (
+			getS3Object(context.s3)({
 				parse: bufferToDataUrl,
 				key: getS3CatalogKey(
 					parent.albumId,
@@ -128,8 +129,8 @@ export const cover =
 
 export const artists =
 	resolver<Artist[]>(
-		({ parent }) => (
-			sqlPoolQuery({
+		({ parent, context }) => (
+			sqlQuery(context.pg)({
 				sql: SELECT_ALBUM_ARTISTS,
 				parse: parseSqlTable(),
 				variables: [{
@@ -146,8 +147,8 @@ export const artists =
 
 export const genres =
 	resolver<Genre[]>(
-		({ parent }) => (
-			sqlPoolQuery({
+		({ parent, context }) => (
+			sqlQuery(context.pg)({
 				sql: SELECT_ALBUM_GENRES,
 				parse: parseSqlTable(),
 				variables: [{
@@ -164,8 +165,8 @@ export const genres =
 
 export const playsTotal =
 	resolver<number | null>(
-		({ parent }) => (
-			sqlPoolQuery({
+		({ parent, context }) => (
+			sqlQuery(context.pg)({
 				sql: SELECT_ALBUM_PLAYS,
 				parse: getSqlRowCountOrNull,
 				variables: [{
@@ -178,8 +179,8 @@ export const playsTotal =
 
 export const userPlays =
 	resolver<Play[], UserArgs>(
-		({ parent, args }) => (
-			getUserAlbumPlays(
+		({ parent, args, context }) => (
+			getUserAlbumPlays(context.pg)(
 				args.userId,
 				parent.albumId,
 				parseSqlTable(),
@@ -189,8 +190,8 @@ export const userPlays =
 
 export const userPlaysTotal =
 	resolver<number, UserArgs>(
-		({ parent, args }) => (
-			getUserAlbumPlays(
+		({ parent, args, context }) => (
+			getUserAlbumPlays(context.pg)(
 				args.userId,
 				parent.albumId,
 				getSqlRowCount,

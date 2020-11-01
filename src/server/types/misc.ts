@@ -1,8 +1,11 @@
+import S3 from "aws-sdk/clients/s3"
+import { SearchClient } from "algoliasearch"
 import { Pool, PoolClient, QueryResult } from "pg"
 
 import { Song, Genre, Album, Artist } from "./docs"
 
-export type Client = Pool | PoolClient
+export type S3Client = S3
+export type PGClient = Pool | PoolClient
 
 export type SqlQueryRes<T = Record<string, unknown>> = QueryResult<T>
 
@@ -14,7 +17,7 @@ export interface UserQueue {
 	songId: string,
 }
 
-export interface Queue {
+export interface UserQueues {
 	prevs: UserQueue[],
 	nexts: UserQueue[],
 	laters: UserQueue[],
@@ -38,3 +41,9 @@ export type ImgDim = [
 ]
 
 export type Search = Song | Genre | Album | Artist
+
+export interface Context {
+	s3: S3,
+	pg: Pool,
+	ag: SearchClient,
+}

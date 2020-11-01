@@ -1,5 +1,5 @@
 import { uniq, isNull, identity, isString, isEmpty } from "lodash"
-import { Client, SqlQueryInput, SqlParse, SqlVariable } from "../../types"
+import { PGClient, SqlQueryInput, SqlParse, SqlVariable } from "../../types"
 
 export const getVariableKeys = (sql: string) => {
 	const keys: string[] = []
@@ -83,7 +83,7 @@ const normalizeInput = <T>(input: string | SqlQueryInput<T>) =>
 	} as SqlQueryInput<T> : input)
 
 export const sqlQuery =
-	(client: Client) =>
+	(client: PGClient) =>
 		async <T>(input: string | SqlQueryInput<T>) => {
 			const {
 				sql,

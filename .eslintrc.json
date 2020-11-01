@@ -132,16 +132,7 @@
 		],
 		"@typescript-eslint/comma-dangle": [
 			"error",
-			{
-				"generics": "ignore",
-				"enums": "only-multiline",
-				"tuples": "only-multiline",
-				"arrays": "only-multiline",
-				"objects": "only-multiline",
-				"imports": "only-multiline",
-				"exports": "only-multiline",
-				"functions": "only-multiline"
-			}
+			"only-multiline"
 		],
 		"@typescript-eslint/naming-convention": [
 			"error",

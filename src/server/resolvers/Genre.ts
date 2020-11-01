@@ -10,7 +10,7 @@ import {
 
 import {
 	sqlJoin,
-	sqlPoolQuery,
+	sqlQuery,
 	parseSqlTable,
 	createResolver,
 	getSqlRowCountOrNull,

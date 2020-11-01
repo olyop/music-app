@@ -16,11 +16,6 @@ export interface SqlQueryInput<Return> {
 	variables?: SqlVariable[],
 }
 
-export interface S3UploadObjectInput {
-	key: string,
-	data: Buffer,
-}
-
 export interface SqlSearchInput {
 	query: string,
 	exact: boolean,
@@ -33,6 +28,12 @@ export interface SqlExistsInput {
 	table: string,
 	column: string,
 	value: string | string[],
+}
+
+export interface SqlIsUniqueInput {
+	value: string,
+	table: string,
+	column: string,
 }
 
 export interface GetUserDocInput {
@@ -64,4 +65,14 @@ export interface AddRemoveInput {
 	returnQuery: string,
 	columnNames: string[],
 	userTableName: string,
+}
+
+export interface GetS3ObjectInput<T> {
+	key: string,
+	parse: (res: Buffer) => T,
+}
+
+export interface S3UploadObjectInput {
+	key: string,
+	data: Buffer,
 }

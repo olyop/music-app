@@ -1,17 +1,14 @@
-INSERT INTO users
-  (
-		name,
-		email,
-    user_id
-  )
-VALUES
-  (
-    'Oliver',
-		'oliver.plummer@outlook.com',
-		''
-  )
-RETURNING
+INSERT INTO users (
 	name,
 	email,
-  user_id,
-  date_joined
+	user_id
+) VALUES (
+	'Oliver',
+	'oliver.plummer@outlook.com',
+	''
+) RETURNING
+	name,
+	email,
+	user_id,
+	current,
+	date_joined;

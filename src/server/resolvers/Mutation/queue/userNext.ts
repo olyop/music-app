@@ -5,6 +5,7 @@ import {
 	sqlJoin,
 	sqlQuery,
 	parseSqlRow,
+	getUserQueues,
 	createResolver,
 } from "../../../helpers"
 
@@ -19,7 +20,6 @@ import {
 } from "../../../sql"
 
 import { pg } from "../../../services"
-import getUserQueue from "./getUserQueue"
 import { COLUMN_NAMES } from "../../../globals"
 import { User, UserArgs, UserQueue } from "../../../types"
 
@@ -36,7 +36,7 @@ export const userNext =
 				await client.query("BEGIN")
 
 				const { prevs, nexts, laters, current } =
-					await getUserQueue(client)(args.userId)
+					await getUserQueues(client)(args.userId)
 
 				if (!isEmpty(nexts) || !isEmpty(laters)) {
 					const newCurrent = await query<UserQueue>({

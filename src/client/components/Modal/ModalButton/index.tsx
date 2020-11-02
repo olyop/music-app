@@ -1,8 +1,8 @@
 import { createBem } from "@oly_op/bem"
 import { createElement, FC } from "react"
 
-import Button from "../Button"
-import { ModalButton as TModalButton } from "../../types"
+import Button from "../../Button"
+import { ModalButton as TModalButton } from "../../../types"
 
 import "./index.scss"
 

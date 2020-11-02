@@ -1,12 +1,12 @@
 import { Link } from "react-router-dom"
-import { createElement, ReactNode, useState } from "react"
+import { createElement, ReactNode } from "react"
 import { createBem, BemInput, BemPropTypes } from "@oly_op/bem"
 
 import {
 	Doc,
+	Modal,
 	UserDoc,
 	InLibraryDoc,
-	ModalButton as TModalButton,
 } from "../../types"
 
 import {
@@ -17,10 +17,9 @@ import {
 
 import Img from "../Img"
 import Icon from "../Icon"
-import Modal from "../Modal"
-import ModalButton from "../ModalButton"
 import PlayButton from "../PlayButton"
 import InLibraryButton from "../InLibraryButton"
+import { useDispatch, changeModal } from "../../redux"
 
 import "./index.scss"
 
@@ -38,18 +37,17 @@ const Item = <D extends Doc, I extends Doc = Doc>({
 	lower,
 	right,
 	upper,
+	modal,
 	imgDoc,
 	className,
-	modalButtons,
 	infoClassName,
 	iconClassName,
 	rightClassName,
 	hidePlay = false,
 	hideInLibrary = false,
 }: PropTypes<D, I>) => {
-	const [ modal, setModal ] = useState(false)
-	const openMore = () => setModal(true)
-	const closeMore = () => setModal(false)
+	const dispatch = useDispatch()
+	const handleMore = () => modal && dispatch(changeModal(modal))
 	return (
 		<div className={bem(className)}>
 			<div className={bem("")}>
@@ -106,27 +104,17 @@ const Item = <D extends Doc, I extends Doc = Doc>({
 				)}
 				<Icon
 					icon="more_vert"
-					onClick={openMore}
+					onClick={handleMore}
 					className={bem(iconClassName, "more")}
 				/>
 			</div>
-			{modal && modalButtons && (
-				<Modal onClose={closeMore}>
-					{modalButtons.map(button => (
-						<ModalButton
-							button={button}
-							key={button.text}
-							onClose={closeMore}
-						/>
-					))}
-				</Modal>
-			)}
 		</div>
 	)
 }
 
 interface PropTypes<Doc, ImgDoc> extends BemPropTypes {
 	doc: Doc,
+	modal?: Modal,
 	imgDoc?: ImgDoc,
 	left?: ReactNode,
 	upper: ReactNode,
@@ -137,7 +125,6 @@ interface PropTypes<Doc, ImgDoc> extends BemPropTypes {
 	infoClassName?: BemInput,
 	iconClassName?: BemInput,
 	rightClassName?: BemInput,
-	modalButtons?: TModalButton[],
 }
 
 export default Item

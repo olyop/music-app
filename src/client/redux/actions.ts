@@ -1,8 +1,14 @@
 import { createAction } from "@reduxjs/toolkit"
 
-import { ListStyle, Settings, UpdateOrderByPayload } from "../types"
+import {
+	Modal,
+	Settings,
+	ListStyle,
+	UpdateOrderByPayload,
+} from "../types"
 
-const withPayloadType = <T>() => (payload: T) => ({ payload })
+const withPayloadType =
+	<T>() => (payload: T) => ({ payload })
 
 export const togglePlay =
 	createAction("TOGGLE_PLAY")
@@ -13,11 +19,14 @@ export const toggleSidebar =
 export const toggleShowGenres =
 	createAction("TOGGLE_SHOW_GENRES")
 
-export const toggleShowVolume =
-	createAction("TOGGLE_SHOW_VOLUME")
-
 export const addError =
 	createAction("ADD_ERROR", withPayloadType<Error>())
+
+export const clearModal =
+	createAction("CLEAR_MODAL")
+
+export const changeModal =
+	createAction("CHANGE_MODAL", withPayloadType<Modal>())
 
 export const addLoading =
 	createAction("ADD_LOADING", withPayloadType<string>())

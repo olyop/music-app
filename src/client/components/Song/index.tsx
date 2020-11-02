@@ -40,11 +40,14 @@ const Song: FC<PropTypes> = ({
 			imgDoc={hideCover ? undefined : song.album}
 			left={index || (showTrackNumber ? song.trackNumber : null)}
 			right={showRight ? deserializeDuration(song.duration) : null}
-			modalButtons={[
-				{ icon: "playlist_add", text: "Next", handler: next },
-				{ icon: "queue_music", text: "After", handler: after },
-				{ icon: "queue", text: "Later", handler: later },
-			]}
+			modal={{
+				title: song.title,
+				buttons: [
+					{ icon: "playlist_add", text: "Next", handler: next },
+					{ icon: "queue_music", text: "After", handler: after },
+					{ icon: "queue", text: "Later", handler: later },
+				],
+			}}
 			lower={(
 				<Fragment>
 					<FeaturingArtists song={song}/>

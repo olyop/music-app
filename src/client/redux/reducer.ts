@@ -5,6 +5,8 @@ import {
 	addLoading,
 	updatePlay,
 	togglePlay,
+	clearModal,
+	changeModal,
 	updateVolume,
 	removeLoading,
 	updateCurrent,
@@ -12,10 +14,10 @@ import {
 	toggleSidebar,
 	updateListStyle,
 	toggleShowGenres,
-	toggleShowVolume,
 } from "./actions"
 
 import {
+	Modal,
 	Settings,
 	ListStyle,
 	OrderByDirection,
@@ -57,6 +59,12 @@ const errors =
 		builder
 			.addCase(addError, (state, { payload }) => [...state, payload]))
 
+const modal =
+	createReducer<Modal | null>(null, builder =>
+		builder
+			.addCase(clearModal, state => null)
+			.addCase(changeModal, (state, { payload }) => payload))
+
 const loading =
 	createReducer<string[]>([], builder =>
 		builder
@@ -67,10 +75,6 @@ const loading =
 			.addCase(removeLoading, (state, { payload }) => (
 				state.filter(x => x !== payload)
 			)))
-
-const showVolume =
-	createReducer(false, builder =>
-		builder.addCase(toggleShowVolume, (state: boolean) => !state))
 
 const defaultSettings: Settings = {
 	showGenres: false,
@@ -131,6 +135,7 @@ const settings =
 
 const reducer = combineReducers({
 	play,
+	modal,
 	userId,
 	volume,
 	errors,
@@ -138,7 +143,6 @@ const reducer = combineReducers({
 	sidebar,
 	loading,
 	settings,
-	showVolume,
 })
 
 export default reducer

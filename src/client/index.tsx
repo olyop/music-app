@@ -4,6 +4,7 @@ import { BrowserRouter as ReactRouter } from "react-router-dom"
 
 import Bar from "./components/Bar"
 import { ReactRedux } from "./redux"
+import Modal from "./components/Modal"
 import Pages from "./components/Pages"
 import Header from "./components/Header"
 import Loading from "./components/Loading"
@@ -20,6 +21,7 @@ render(
 				<Header/>
 				<Pages/>
 				<Bar/>
+				<Modal/>
 				<Sidebar/>
 			</ApolloClient>
 		</ReactRouter>

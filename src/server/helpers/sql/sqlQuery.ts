@@ -96,8 +96,8 @@ export const sqlQuery =
 			const variableKeys = getVariableKeys(sql)
 			if (logVar) console.log(variables)
 			if (!areVariablesProvided(variableKeys, variables)) {
-				const errorVariables = variables.map(({ key }) => key).toString()
-				throw new TypeError(`Invalid query arguments. ${errorVariables} - ${variableKeys.toString()}`)
+				console.log(sql)
+				throw new TypeError("Invalid query arguments")
 			} else {
 				const { sqlWithValues, params } = determineSqlAndParams(sql, variables)
 				if (logSql) console.log(sqlWithValues)

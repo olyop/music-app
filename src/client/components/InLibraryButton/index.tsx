@@ -43,6 +43,7 @@ const InLibraryButton: FC<PropTypes> = ({ doc, className }) => {
 	const { data } =
 		useQuery<QyeryData>(QUERY, {
 			variables,
+			hideLoading: true,
 			fetchPolicy: "cache-first",
 		})
 

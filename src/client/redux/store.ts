@@ -1,5 +1,5 @@
-import { configureStore } from "@reduxjs/toolkit"
 import { useDispatch as _useDispatch } from "react-redux"
+import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit"
 
 import reducer from "./reducer"
 import { Settings } from "../types"
@@ -12,7 +12,15 @@ const loadState = () => {
 
 const preloadedState = { settings: loadState() }
 
-export const store = configureStore({ reducer, preloadedState })
+export const store = configureStore({
+	reducer,
+	preloadedState,
+	middleware: getDefaultMiddleware({
+		serializableCheck: {
+			ignoredActions: ["CHANGE_MODAL"],
+		},
+	}),
+})
 
 store.subscribe(() => {
 	const { settings } = store.getState()

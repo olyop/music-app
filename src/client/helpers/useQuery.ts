@@ -21,7 +21,7 @@ import {
 
 export const useQuery = <Data, Vars = BaseVars>(
 	query: DocumentNode,
-	options: QueryHookOptions<Data, Vars>,
+	{ hideLoading = false, ...options }: Options<Data, Vars>,
 ): QueryResult<Data> => {
 	const dispatch = useDispatch()
 	const queryId = useRef(uniqueId())
@@ -30,10 +30,12 @@ export const useQuery = <Data, Vars = BaseVars>(
 		useBaseQuery<Data, Vars>(query, options)
 
 	useEffect(() => {
-		if (!data && loading) {
-			dispatch(addLoading(queryId.current))
-		} else {
-			dispatch(removeLoading(queryId.current))
+		if (!hideLoading) {
+			if (!data && loading) {
+				dispatch(addLoading(queryId.current))
+			} else {
+				dispatch(removeLoading(queryId.current))
+			}
 		}
 	}, [data, loading])
 
@@ -45,10 +47,16 @@ export const useQuery = <Data, Vars = BaseVars>(
 	}, [error, dispatch])
 
 	useEffect(() => () => {
-		dispatch(removeLoading(queryId.current))
+		if (!hideLoading) {
+			dispatch(removeLoading(queryId.current))
+		}
 	})
 
 	return { error, loading, data, ...res }
 }
 
 type BaseVars = Record<string, unknown>
+
+interface Options<Data, Vars> extends QueryHookOptions<Data, Vars> {
+	hideLoading?: boolean,
+}

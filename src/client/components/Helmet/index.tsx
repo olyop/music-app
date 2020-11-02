@@ -3,13 +3,13 @@ import { useEffect, createElement, FC, Fragment } from "react"
 
 const Helmet: FC<PropTypes> = ({ title, children }) => {
 	useEffect(() => {
-		document.title = `${title} - ${APP_NAME}`
+		if (title) document.title = `${title} - ${APP_NAME}`
 	}, [title, children])
 	return <Fragment>{children}</Fragment>
 }
 
 interface PropTypes {
-	title: string,
+	title?: string,
 }
 
 export default Helmet

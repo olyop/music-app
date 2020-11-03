@@ -12,10 +12,11 @@ const Pages: FC = () => (
 	<main className={bem("")}>
 		<Switch>
 			{routes.map(
-				({ id, path, component }) => (
+				({ id, path, exact, component }) => (
 					<Route
 						key={id}
 						path={path}
+						exact={exact}
 						component={component}
 					/>
 				),

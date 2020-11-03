@@ -8,4 +8,6 @@ JOIN
 WHERE
 	{{ tableName }}.user_id = {{ userId }}
 ORDER BY
-	{{ tableName }}.index ASC;
+	{{ tableName }}.index ASC
+LIMIT
+	{{ paginationNum }};

@@ -2,5 +2,17 @@
 	padding: var(--space) 0;
 	&__name {
 		font-size: 30rem; }
+	&__details {
+		cursor: pointer;
+		margin-left: calc(var(--space-half) * -1);
+		&:hover,
+		&:focus,
+		&:active {
+			background-color: var(--hover-color); } }
+	&__summary,
+	&__content {
+		padding: var(--space-half); }
+	&__summary {
+		outline: none;}
 	&__select-option::first-letter {
 		text-transform: uppercase; } }

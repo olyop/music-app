@@ -21,23 +21,22 @@
 		position: absolute;
 		flex-direction: column;
 		width: var(--sidebar-width); }
+	&__section {
+		height: var(--header-height);
+		padding: 0 var(--space-half); }
 	&__close {
 		width: 40rem;
 		height: 40rem;
-		color: var(--text-color);
-		margin: var(--space-half);
-		margin-left: calc(var(--space-half) + 4px); }
+		margin-left: 3rem;
+		color: var(--text-color); }
 	&__route {
-		display: flex;
-		align-items: center;
-		padding: 0 var(--space);
-		height: var(--header-height);
 		text-decoration: none !important;
 		&:hover {
 			background-color: var(--hover-color); }
 		&-icon {
 			font-size: 27rem;
-			margin-right: 4px;
+			margin-left: 5rem;
+			margin-right: 5rem;
 			color: var(--text-color);
 			&:hover {
 				background-color: unset; } }

@@ -11,6 +11,9 @@ type User {
 	plays: [Play!]!
 	playsTotal: NonNegativeInt
 
+	songsTotal: NonNegativeInt
+	artistsTotal: NonNegativeInt
+
 	songs(
 		page: NonNegativeInt!
 		orderBy: UserSongOrderByInput!

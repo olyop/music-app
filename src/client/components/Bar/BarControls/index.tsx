@@ -1,5 +1,4 @@
 import { createElement, FC } from "react"
-import { useMutation } from "@apollo/client"
 import { createBem, BemInput, BemPropTypes } from "@oly_op/bem"
 
 import {
@@ -12,6 +11,7 @@ import {
 import Icon from "../../Icon"
 import USER_PREV from "./userPrev.gql"
 import USER_NEXT from "./userNext.gql"
+import { useMutation } from "../../../helpers"
 
 import "./index.scss"
 
@@ -35,17 +35,17 @@ const BarControls: FC<PropTypes> = ({ className, iconClassName }) => {
 			<Icon
 				icon="skip_previous"
 				onClick={handlePrevClick}
-				className={bem(iconClassName, "icon")}
+				className={bem(iconClassName)}
 			/>
 			<Icon
 				onClick={handlePlayClick}
 				icon={play ? "pause" : "play_arrow"}
-				className={bem(iconClassName, "icon")}
+				className={bem(iconClassName)}
 			/>
 			<Icon
 				icon="skip_next"
 				onClick={handleNextClick}
-				className={bem(iconClassName, "icon")}
+				className={bem(iconClassName)}
 			/>
 		</div>
 	)

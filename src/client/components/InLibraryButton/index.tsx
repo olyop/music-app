@@ -21,7 +21,7 @@ import GET_SONG_IN_LIBRARY from "./getSongInLibrary.gql"
 import GET_ARTIST_IN_LIBRARY from "./getArtistInLibrary.gql"
 
 import Icon from "../Icon"
-import { InLibraryDoc } from "../../types"
+import { InLibraryDoc, UserSongsOrderBy } from "../../types"
 import { useStateUserId, useStateOrderBy } from "../../redux"
 
 const InLibraryButton: FC<PropTypes> = ({ doc, className }) => {
@@ -36,7 +36,7 @@ const InLibraryButton: FC<PropTypes> = ({ doc, className }) => {
 
 	const userId = useStateUserId()
 	const docId = determineDocId(doc)
-	const orderBy = useStateOrderBy(orderByKey)
+	const orderBy = useStateOrderBy<UserSongsOrderBy>(orderByKey)
 
 	const variables = { userId, [docKey]: docId }
 

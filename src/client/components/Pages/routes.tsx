@@ -1,5 +1,6 @@
 import uniqueId from "lodash/uniqueId"
 
+import Home from "../Home"
 import Queues from "../Queues"
 import Search from "../Search"
 import Browse from "../Browse"
@@ -13,6 +14,11 @@ import ArtistPage from "../ArtistPage"
 import { Route } from "../../types"
 
 const routes: Route[] = [{
+	path: "/",
+	exact: true,
+	id: uniqueId(),
+	component: Home,
+},{
 	id: uniqueId(),
 	path: "/browse",
 	component: Browse,

@@ -31,17 +31,30 @@ const Sidebar: FC = () => {
 				className={bem("background")}
 			/>
 			<nav className={bem("bar", "Elevated")}>
-				<Icon
-					title="Menu"
-					icon="close"
-					onClick={handleClose}
-					className={bem("close")}
-				/>
+				<div className={bem("section", "FlexList")}>
+					<Icon
+						title="Menu"
+						icon="close"
+						onClick={handleClose}
+						className={bem("close")}
+					/>
+					<NavLink
+						to="/"
+						title="Library"
+						onClick={handleClose}
+					>
+						<Icon
+							icon="home"
+							title="Home"
+							className={bem("close")}
+						/>
+					</NavLink>
+				</div>
 				<NavLink
 					title="Browse"
 					to="/browse/songs"
 					onClick={handleClose}
-					className={bem("route")}
+					className={bem("section", "route", "FlexList")}
 				>
 					<Icon
 						icon="view_list"
@@ -56,7 +69,7 @@ const Sidebar: FC = () => {
 					title="Library"
 					to="/library/songs"
 					onClick={handleClose}
-					className={bem("route")}
+					className={bem("section", "route", "FlexList")}
 				>
 					<Icon
 						icon="library_music"
@@ -70,7 +83,7 @@ const Sidebar: FC = () => {
 				<a
 					title="Add"
 					href={ADD_URL}
-					className={bem("route")}
+					className={bem("section", "route", "FlexList")}
 				>
 					<Icon
 						icon="open_in_new"

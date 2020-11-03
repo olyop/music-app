@@ -77,6 +77,8 @@ export interface User extends UserBase, Doc<"User"> {
 	artists: Artist[],
 	current: Song | null,
 	playlists: Playlist[],
+	songsTotal: number | null,
+	artistsTotal: number | null,
 }
 
 export interface Play extends PlayBase, Doc<"Play"> {

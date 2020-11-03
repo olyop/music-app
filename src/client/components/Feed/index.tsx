@@ -32,6 +32,7 @@ const Feed = <Data, Vars>({
 	return (
 		<QueryApi<Data, BaseVars & Vars>
 			query={query}
+			fetchPolicy="cache-and-network"
 			variables={{
 				...variables,
 				page: page.current,

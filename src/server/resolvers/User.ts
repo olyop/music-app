@@ -1,4 +1,4 @@
-import { isNull } from "lodash"
+import { isNull, toLower } from "lodash"
 import { PAGINATION_NUM } from "@oly_op/music-app-common/globals"
 
 import {
@@ -19,6 +19,7 @@ import {
 	parseSqlTable,
 	createResolver,
 	getUserQueueSongs,
+	getSqlRowCountOrNull,
 	getSongsOrderByField,
 } from "../helpers"
 
@@ -29,6 +30,8 @@ import {
 	SELECT_USER_ALBUMS,
 	SELECT_USER_GENRES,
 	SELECT_USER_ARTISTS,
+	SELECT_USER_SONGS_TOTAL,
+	SELECT_USER_ARTISTS_TOTAL,
 } from "../sql"
 
 import { COLUMN_NAMES } from "../globals"
@@ -201,7 +204,21 @@ export const songs =
 				},{
 					string: false,
 					key: "orderByField",
-					value: getSongsOrderByField(args.orderBy.field.toLowerCase()),
+					value: getSongsOrderByField(toLower(args.orderBy.field)),
+				}],
+			})
+		),
+	)
+
+export const songsTotal =
+	resolver<number | null>(
+		({ parent, args, context }) => (
+			sqlQuery(context.pg)({
+				sql: SELECT_USER_SONGS_TOTAL,
+				parse: getSqlRowCountOrNull,
+				variables: [{
+					key: "userId",
+					value: parent.userId,
 				}],
 			})
 		),
@@ -211,8 +228,8 @@ export const artists =
 	resolver<Artist[], DocsArgs>(
 		({ parent, args, context }) => (
 			sqlQuery(context.pg)({
-				sql: SELECT_USER_ARTISTS,
 				parse: parseSqlTable(),
+				sql: SELECT_USER_ARTISTS,
 				variables: [{
 					key: "page",
 					string: false,
@@ -235,11 +252,25 @@ export const artists =
 				},{
 					string: false,
 					key: "columnNames",
-					value: sqlJoin(COLUMN_NAMES.SONG, "artists"),
+					value: sqlJoin(COLUMN_NAMES.ARTIST, "artists"),
 				},{
 					string: false,
 					key: "orderByTableName",
 					value: args.orderBy.field === "DATE_ADDED" ? "users_artists" : "artists",
+				}],
+			})
+		),
+	)
+
+export const artistsTotal =
+	resolver<number | null>(
+		({ parent, args, context }) => (
+			sqlQuery(context.pg)({
+				sql: SELECT_USER_ARTISTS_TOTAL,
+				parse: getSqlRowCountOrNull,
+				variables: [{
+					key: "userId",
+					value: parent.userId,
 				}],
 			})
 		),

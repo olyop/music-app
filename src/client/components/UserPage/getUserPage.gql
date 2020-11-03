@@ -1,6 +1,8 @@
 query getUserPage($userId: Uuid!) {
   user(userId: $userId) {
-    userId
     name
+    userId
+    songsTotal
+    artistsTotal
   }
 }

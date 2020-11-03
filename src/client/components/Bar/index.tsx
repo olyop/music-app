@@ -42,7 +42,7 @@ const Bar: FC = () => {
 			<footer className={bem("", "Elevated")}>
 				<BarControls
 					className={bem("controls")}
-					iconClassName={bem("icon")}
+					iconClassName={bem("controls-icon", "icon")}
 				/>
 				{data?.user.current && (
 					<div className={bem("main")}>

@@ -14,6 +14,7 @@ export interface Route {
 	path: string,
 	icon?: string,
 	name?: string,
+	exact?: boolean,
 	ignore?: boolean,
 	component: FC<RouteComponentProps>,
 }

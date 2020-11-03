@@ -17,8 +17,13 @@
 			border-right: 1px solid var(--border-color); }
 		@media (max-width: 800px) {
 			justify-content: center;
-			padding: var(--space-quart);
-			border-top: 1px solid var(--border-color); } }
+			border-top: 1px solid var(--border-color);
+			&-icon {
+				--dim: 45rem;
+				width: 33.3%;
+				border-radius: 0;
+				height: var(--dim);
+				font-size: calc(var(--dim) - 6rem); } } }
 	&__main {
 		width: 100%;
 		height: 100%;

@@ -1,3 +1,5 @@
+import { PAGINATION_NUM } from "@oly_op/music-app-common/globals"
+
 import {
 	Song,
 	PGClient,
@@ -61,6 +63,10 @@ export const getUserQueueSongs =
 					string: false,
 					key: "tableName",
 					value: tableName,
+				},{
+					string: false,
+					key: "paginationNum",
+					value: PAGINATION_NUM,
 				},{
 					string: false,
 					key: "columnNames",

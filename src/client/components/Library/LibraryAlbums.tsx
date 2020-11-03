@@ -17,7 +17,7 @@ const LibraryArtists: FC = () => {
 	const userId = useStateUserId()
 	const orderBy = useStateOrderBy<AlbumsOrderByField>("albums")
 	return (
-		<Helmet title="Library Albums">
+		<Helmet title="Library Artists">
 			<Feed<Res, Vars>
 				query={GET_USER_ALBUMS}
 				variables={{ userId, orderBy }}

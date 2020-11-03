@@ -63,7 +63,7 @@
 		"@material-ui/icons": "^4.9.1",
 		"@material-ui/pickers": "^3.2.10",
 		"@oly_op/bem": "^2.10.0",
-		"@oly_op/music-app-common": "^6.4.4",
+		"@oly_op/music-app-common": "^6.4.5",
 		"@oly_op/pipe": "^3.1.0",
 		"@reduxjs/toolkit": "^1.4.0",
 		"algoliasearch": "^4.6.0",

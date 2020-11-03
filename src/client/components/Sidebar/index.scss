@@ -17,9 +17,7 @@
 		left: 0;
 		z-index: 4;
 		height: 100vh;
-		display: flex;
 		position: absolute;
-		flex-direction: column;
 		width: var(--sidebar-width); }
 	&__section {
 		height: var(--header-height);

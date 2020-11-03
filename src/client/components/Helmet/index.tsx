@@ -1,10 +1,21 @@
 import { APP_NAME } from "@oly_op/music-app-common/globals"
 import { useEffect, createElement, FC, Fragment } from "react"
 
+const setMetaTag =
+	(type: string, text: string) =>
+		document.querySelector<HTMLElement>(`meta[name="${type}"]`)!
+			.setAttribute("content", text)
+
+const setMetadata = (title: string) => {
+	const text = `${title} - ${APP_NAME}`
+	document.title = text
+	setMetaTag("description", text)
+}
+
 const Helmet: FC<PropTypes> = ({ title, children }) => {
 	useEffect(() => {
-		if (title) document.title = `${title} - ${APP_NAME}`
-	}, [title, children])
+		if (title) setMetadata(title)
+	}, [title])
 	return <Fragment>{children}</Fragment>
 }
 

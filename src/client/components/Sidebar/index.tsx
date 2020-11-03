@@ -31,7 +31,7 @@ const Sidebar: FC = () => {
 				className={bem("background")}
 			/>
 			<nav className={bem("bar", "Elevated")}>
-				<div className={bem("section", "FlexList")}>
+				<div className={bem("section", "FlexList MarginBottomHalf")}>
 					<Icon
 						title="Menu"
 						icon="close"

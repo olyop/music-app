@@ -2,7 +2,6 @@ import { createElement, FC } from "react"
 import { Switch, Route, RouteComponentProps } from "react-router-dom"
 
 import routes from "./routes"
-import Helmet from "../Helmet"
 import Button from "../Button"
 import Navigation from "../Navigation"
 import { useMutation } from "../../helpers"
@@ -20,37 +19,35 @@ const Library: FC<RouteComponentProps> = ({ match }) => {
 	const handleShuffle = () => shuffle()
 
 	return (
-		<Helmet title="Library">
-			<section className="PaddingTopBottom">
-				<h1
-					children="Library"
-					className="Heading1 Content PaddingBottomHalf"
-				/>
-				<Navigation
-					routes={routes}
-					path={match.path}
-					className="MarginBottom"
-					right={(
-						<Button
-							icon="shuffle"
-							text="Shuffle"
-							onClick={loading ? undefined : handleShuffle}
+		<section className="PaddingTopBottom">
+			<h1
+				children="Library"
+				className="Heading1 Content PaddingBottomHalf"
+			/>
+			<Navigation
+				routes={routes}
+				path={match.path}
+				className="MarginBottom"
+				right={(
+					<Button
+						icon="shuffle"
+						text="Shuffle"
+						onClick={loading ? undefined : handleShuffle}
+					/>
+				)}
+			/>
+			<Switch>
+				{routes.map(
+					route => (
+						<Route
+							key={route.id}
+							component={route.component}
+							path={match.path + route.path}
 						/>
-					)}
-				/>
-				<Switch>
-					{routes.map(
-						route => (
-							<Route
-								key={route.id}
-								component={route.component}
-								path={match.path + route.path}
-							/>
-						),
-					)}
-				</Switch>
-			</section>
-		</Helmet>
+					),
+				)}
+			</Switch>
+		</section>
 	)
 }
 

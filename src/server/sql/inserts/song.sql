@@ -1,20 +1,22 @@
 INSERT INTO songs (
+	bpm,
 	mix,
 	title,
+	key_id,
 	song_id,
 	album_id,
 	duration,
 	disc_number,
-	track_number,
-	title_vector
+	track_number
 ) VALUES (
+	{{ bpm }},
 	{{ mix }},
 	{{ title }},
+	{{ keyId }},
 	{{ songId }},
 	{{ albumId }},
 	{{ duration }},
 	{{ discNumber }},
-	{{ trackNumber }},
-	to_tsvector({{ title }})
+	{{ trackNumber }}
 ) RETURNING
 	{{ columnNames }};

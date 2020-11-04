@@ -1,3 +1,4 @@
+import { random } from "lodash"
 import { v4 as uuid } from "uuid"
 
 import {
@@ -109,14 +110,6 @@ export const insertSong =
 		sql: INSERT_SONG,
 		parse: parseSqlRow(),
 		variables: [{
-			key: "mix",
-			value: song.mix,
-			parameterized: true,
-		},{
-			key: "title",
-			value: song.title,
-			parameterized: true,
-		},{
 			key: "songId",
 			value: uuid(),
 		},{
@@ -126,6 +119,18 @@ export const insertSong =
 			string: false,
 			key: "duration",
 			value: duration,
+		},{
+			key: "mix",
+			value: song.mix,
+			parameterized: true,
+		},{
+			key: "title",
+			value: song.title,
+			parameterized: true,
+		},{
+			key: "bpm",
+			string: false,
+			value: random(90, 150),
 		},{
 			string: false,
 			key: "discNumber",
@@ -138,6 +143,9 @@ export const insertSong =
 			string: false,
 			key: "columnNames",
 			value: sqlJoin(COLUMN_NAMES.SONG),
+		},{
+			key: "keyId",
+			value: "b1a4eca4-7159-4f5a-b69a-2a3cebcd1929",
 		}],
 	})
 

@@ -1,12 +1,10 @@
 INSERT INTO albums (
 	title,
 	album_id,
-	released,
-	title_vector
+	released
 ) VALUES (
 	{{ title }},
 	{{ albumId }},
-	{{ released }},
-	to_tsvector({{ title }})
+	{{ released }}
 ) RETURNING
 	{{ columnNames }};

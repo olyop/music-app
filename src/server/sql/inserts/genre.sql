@@ -1,10 +1,8 @@
 INSERT INTO genres (
 	name,
-	genre_id,
-	name_vector
+	genre_id
 ) VALUES (
 	{{ name }},
-	{{ genreId }},
-	to_tsvector({{ name }})
+	{{ genreId }}
 ) RETURNING
 	{{ columnNames }};

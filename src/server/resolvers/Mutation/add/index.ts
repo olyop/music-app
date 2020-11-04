@@ -31,30 +31,22 @@ import {
 	determineChecksResults,
 } from "./helpers"
 
-import {
-	addSongIndexRecord,
-	addGenreIndexRecord,
-	addAlbumIndexRecord,
-	addArtistIndexRecord,
-} from "./addIndexRecord"
-
 import recieve from "./recieve"
 import isValid from "./isValid"
 import { Input } from "./types"
-import { pg } from "../../../services"
 import { populateSong, populateAlbum } from "./populate"
 import { sqlQuery, createResolver } from "../../../helpers"
 
 export const add =
 	createResolver()<string, Input>(
-		async ({ args }) => {
+		async ({ args, context }) => {
 			const upload = await recieve(args)
 
 			if (isValid(upload)) throw new UserInputError("Invalid input.")
 
 			const { genres, albums, artists } = upload
 
-			const client = await pg.connect()
+			const client = await context.pg.connect()
 			const query = sqlQuery(client)
 
 			try {
@@ -70,7 +62,11 @@ export const add =
 						)
 					} else {
 						const { genreId } = await query(insertGenre(genre))
-						await addGenreIndexRecord(genreId, genre.name)
+						await context.ag.saveObject({
+							type: "Genre",
+							text: genre.name,
+							objectID: genreId,
+						})
 					}
 				}
 
@@ -85,7 +81,11 @@ export const add =
 					} else {
 						const { artistId } = await query(insertArtist(artist))
 						await uploadArtistPhotos(artistId, artist.photo)
-						await addArtistIndexRecord(artistId, artist.name)
+						await context.ag.saveObject({
+							type: "Artist",
+							text: artist.name,
+							objectID: artistId,
+						})
 					}
 				}
 
@@ -102,7 +102,11 @@ export const add =
 						const { albumId } = await query(insertAlbum(albumPopulated))
 						const artistsConfig = albumPopulated.artists.map(insertAlbumArtist(albumId))
 						await Promise.all(artistsConfig.map(query))
-						await addAlbumIndexRecord(albumId, album.title)
+						await context.ag.saveObject({
+							type: "Album",
+							text: album.title,
+							objectID: albumId,
+						})
 						for (const song of album.songs) {
 							const songPopulated = await populateSong(client)(song)
 							const checkss = songChecks(client)(songPopulated, albumId)
@@ -124,7 +128,11 @@ export const add =
 								await Promise.all(remixersConfig.map(query))
 								await Promise.all(featuringConfig.map(query))
 								await uploadSong(songId, songPopulated.audio)
-								await addSongIndexRecord(songId, song.title)
+								await context.ag.saveObject({
+									type: "Song",
+									text: song.title,
+									objectID: songId,
+								})
 							}
 						}
 						await uploadAlbumCovers(albumId, albumPopulated.cover)

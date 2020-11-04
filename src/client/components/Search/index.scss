@@ -16,6 +16,8 @@
 				position: absolute;
 				top: calc(50% - 1px);
 				transform: translateY(-50%); } } }
-	&__content {
-		height: 100%;
-		margin-bottom: var(--space-double); } }
+	&__logo {
+		width: 168rem;
+		display: block;
+		margin-left: auto;
+		margin-right: auto; } }

@@ -3,7 +3,6 @@ CREATE TABLE IF NOT EXISTS users (
 	current uuid,
 	name text NOT NULL,
 	email text NOT NULL,
-	name_vector tsvector NOT_NULL,
 	date_joined bigint NOT NULL DEFAULT cast(extract(epoch from now()) as bigint),
 	CONSTRAINT users_pk
 		PRIMARY KEY (user_id),

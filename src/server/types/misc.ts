@@ -1,5 +1,5 @@
 import S3 from "aws-sdk/clients/s3"
-import { SearchClient } from "algoliasearch"
+import { SearchIndex } from "algoliasearch"
 import { Pool, PoolClient, QueryResult } from "pg"
 
 import { Song, Genre, Album, Artist } from "./docs"
@@ -40,10 +40,16 @@ export type ImgDim = [
 	number,
 ]
 
+export interface SearchResult {
+	text: string,
+	objectID: string,
+	type: "Song" | "Genre" | "Album" | "Artist",
+}
+
 export type Search = Song | Genre | Album | Artist
 
 export interface Context {
 	s3: S3,
 	pg: Pool,
-	ag: SearchClient,
+	ag: SearchIndex,
 }

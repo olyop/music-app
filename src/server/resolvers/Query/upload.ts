@@ -76,7 +76,7 @@ export const photoSearch =
 			params.set("num", "10")
 			params.set("tbm", "isch")
 			params.set("q", `${args.name.toLowerCase().replace(" ", "+")}`)
-			const apiRes = await fetch(`${serpApiBaseUrl}?${params.toString()}`)
+			const apiRes = await fetch(`${serpApiBaseUrl}?${params.toString()}+dj`)
 			const apiJson = await apiRes.json() as PhotoSearchRes
 			const url = apiJson.images_results[random(0, 9)].original
 			const imgRes = await fetch(url)

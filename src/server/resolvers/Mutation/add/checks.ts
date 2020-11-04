@@ -1,4 +1,5 @@
 import { PoolClient } from "pg"
+import DateFnsUtils from "@date-io/date-fns"
 
 import {
 	sqlQuery,
@@ -15,7 +16,9 @@ import {
 	ArtistUpload,
 } from "./types"
 
-import { EXISTS_ALBUM_SONG } from "../../../sql"
+import { EXISTS_ALBUM, EXISTS_ALBUM_SONG } from "../../../sql"
+
+const dateUtils = new DateFnsUtils()
 
 type CheckFunc<T> =
 	(client: PoolClient) => (doc: T, albumId?: string) => Check[]
@@ -49,6 +52,23 @@ export const albumChecks: CheckFunc<AlbumUpload> = client => album => [
 			table: "artists",
 			column: "artist_id",
 			value: album.artists,
+		}),
+	},
+	{
+		name: "isUniqueAlbum",
+		check: sqlQuery(client)({
+			logSql: true,
+			sql: EXISTS_ALBUM,
+			parse: res => !getSqlResExists(res),
+			variables: [{
+				key: "title",
+				value: album.title,
+				parameterized: true,
+			},{
+				key: "released",
+				parameterized: true,
+				value: dateUtils.format(album.released, "yyyy-MM-dd"),
+			}],
 		}),
 	},
 ]

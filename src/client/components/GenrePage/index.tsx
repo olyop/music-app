@@ -36,8 +36,8 @@ const GenrePage: FC = () => {
 					/>
 					<Songs
 						orderByKey="songs"
-						className="Content"
 						songs={data.genre.songs}
+						className="Content MarginBottom"
 						orderByFields={Object.keys(SongsOrderByField)}
 					/>
 				</Helmet>

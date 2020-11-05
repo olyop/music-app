@@ -44,17 +44,17 @@ const UserPage: FC = () => {
 		({ target: { value } }) => dispatch(updateListStyle(value as ListStyle))
 
 	return (
-		<div className={bem("", "Content")}>
+		<div className={bem("", "Content PaddingTopBottom")}>
 			{data && (
 				<Helmet title={data.user.name}>
 					<h1 className={bem("name", "MarginBottom")}>
 						{data.user.name}
 					</h1>
-					<details open className={bem("details")}>
-						<summary className={bem("summary", "Text2")}>
+					<details className={bem("details", "MarginBottomHalf")}>
+						<summary className={bem("summary", "Text2 MarginBottomHalf")}>
 							Settings
 						</summary>
-						<div className={bem("content")}>
+						<div className={bem("content", "PaddingBottom")}>
 							<h3 className="Text2 MarginBottomFifth">
 								List Style
 							</h3>
@@ -85,11 +85,11 @@ const UserPage: FC = () => {
 							/>
 						</div>
 					</details>
-					<details open className={bem("details")}>
-						<summary className={bem("summary", "Text2")}>
+					<details className={bem("details", "MarginBottomHalf")}>
+						<summary className={bem("summary", "Text2 MarginBottomHalf")}>
 							Stats
 						</summary>
-						<div className={bem("content")}>
+						<div className={bem("content", "PaddingBottom")}>
 							<h3 className="Text2 MarginBottomFifth">
 								<Fragment>Songs: </Fragment>
 								{data.user.songsTotal || "none"}
@@ -100,15 +100,19 @@ const UserPage: FC = () => {
 							</h3>
 						</div>
 					</details>
-					<details open className={bem("details", "MarginBottomHalf")}>
-						<summary className={bem("summary", "Text2")}>
+					<details className={bem("details")}>
+						<summary className={bem("summary", "Text2 MarginBottomHalf")}>
 							Controls
 						</summary>
-						<div className={bem("content")}>
+						<div className={bem("content", "FlexListGap")}>
 							<Button
 								icon="delete"
 								text="Delete Library"
 								onClick={mutationLoading ? undefined : handleLibraryDelete}
+							/>
+							<Button
+								text="Sign Out"
+								icon="exit_to_app"
 							/>
 						</div>
 					</details>

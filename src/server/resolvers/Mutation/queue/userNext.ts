@@ -34,7 +34,7 @@ export const userNext =
 			try {
 				await client.query("BEGIN")
 
-				const { prevs, nexts, laters, current } =
+				const { prevs, current, nexts, laters } =
 					await getUserQueues(client)(args.userId)
 
 				if (!isEmpty(nexts) || !isEmpty(laters)) {
@@ -98,6 +98,24 @@ export const userNext =
 						})
 					}
 					await query({
+						sql: INSERT_USER_QUEUE,
+						variables: [{
+							key: "userId",
+							value: args.userId,
+						},{
+							key: "songId",
+							value: current!,
+						},{
+							string: false,
+							key: "tableName",
+							value: "users_prevs",
+						},{
+							key: "index",
+							string: false,
+							value: prevs.length,
+						}],
+					})
+					await query({
 						sql: UPDATE_USER_CURRENT,
 						variables: [{
 							key: "userId",
@@ -122,24 +140,6 @@ export const userNext =
 						},{
 							key: "songId",
 							value: newCurrent.songId,
-						}],
-					})
-					await query({
-						sql: INSERT_USER_QUEUE,
-						variables: [{
-							key: "userId",
-							value: args.userId,
-						},{
-							key: "songId",
-							value: current!,
-						},{
-							string: false,
-							key: "tableName",
-							value: "users_prevs",
-						},{
-							key: "index",
-							string: false,
-							value: prevs.length + 1,
 						}],
 					})
 				}

@@ -89,11 +89,10 @@ const AlbumPage: FC = () => {
 									/>
 								))}
 							</div>
-							<div className="FlexList MarginBottom">
+							<div className="FlexListGap MarginBottom">
 								<Button
 									icon="add"
 									text="Add"
-									className="MarginRightHalf"
 									onClick={addLoading ? undefined : handleAdd}
 								/>
 								<Button

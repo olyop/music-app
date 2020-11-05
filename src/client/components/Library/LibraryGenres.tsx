@@ -1,3 +1,4 @@
+import isEmpty from "lodash/isEmpty"
 import { createElement, FC } from "react"
 
 import {
@@ -10,6 +11,7 @@ import {
 import Feed from "../Feed"
 import Genres from "../Genres"
 import Helmet from "../Helmet"
+import LibraryEmpty from "./LibraryEmpty"
 import GET_USER_GENRES from "./getUserGenres.gql"
 import { useStateUserId, useStateOrderBy } from "../../redux"
 
@@ -32,13 +34,16 @@ const LibraryArtists: FC = () => {
 						],
 					},
 				})}
-				children={data => (
+				children={data => (data && isEmpty(data.user.genres) ? (
+					<LibraryEmpty/>
+				) : (
 					<Genres
 						className="Content"
 						genres={data?.user.genres || []}
+						hideOrderBy={isEmpty(data?.user.genres)}
 						orderByFields={Object.keys(GenresOrderByField)}
 					/>
-				)}
+				))}
 			/>
 		</Helmet>
 	)

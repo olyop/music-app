@@ -35,11 +35,12 @@ import Song from "../Song"
 import Genre from "../Genre"
 import Album from "../Album"
 import Artist from "../Artist"
+import Helmet from "../Helmet"
 import GET_SEARCH from "./getSearch.gql"
+import { useHasMounted } from "../../helpers"
 import { isSong, isGenre, isAlbum, isArtist } from "./isDoc"
 
 import "./index.scss"
-import Helmet from "../Helmet"
 
 const bem = createBem("Search")
 
@@ -48,6 +49,7 @@ const Search: FC = () => {
 	const location = useLocation()
 	const dispatch = useDispatch()
 	const userId = useStateUserId()
+	const hasMounted = useHasMounted()
 	const queryId = useRef(uniqueId())
 
 	const params = new URLSearchParams(location.search)
@@ -82,8 +84,10 @@ const Search: FC = () => {
 	}, [delayedQuery, initQuery])
 
 	useEffect(() => {
-		const newParams = new URLSearchParams({ query: input })
-		history.push({ search: newParams.toString() })
+		if (hasMounted) {
+			const newParams = new URLSearchParams({ query: input })
+			history.push({ search: newParams.toString() })
+		}
 	}, [input, history])
 
 	useEffect(() => {

@@ -1,10 +1,10 @@
 {
 	"start_url":"/",
-	"name":"music-app",
+	"name":"Musicloud",
 	"orientation": "any",
 	"display":"fullscreen",
 	"theme_color":"#000000",
-	"short_name":"music-app",
+	"short_name":"Musicloud",
 	"background_color":"#ffffff",
 	"icons":[
 		{

@@ -11,6 +11,7 @@ import {
 import Feed from "../Feed"
 import Songs from "../Songs"
 import Helmet from "../Helmet"
+import LibraryEmpty from "./LibraryEmpty"
 import GET_USER_SONGS from "./getUserSongs.gql"
 import { useStateUserId, useStateOrderBy } from "../../redux"
 
@@ -33,7 +34,9 @@ const LibrarySongs: FC = () => {
 						],
 					},
 				})}
-				children={data => (
+				children={data => (data && isEmpty(data.user.songs) ? (
+					<LibraryEmpty/>
+				) : (
 					<Songs
 						className="Content"
 						orderByKey="userSongs"
@@ -41,7 +44,7 @@ const LibrarySongs: FC = () => {
 						hideOrderBy={isEmpty(data?.user.songs)}
 						orderByFields={Object.keys(UserSongsOrderByField)}
 					/>
-				)}
+				))}
 			/>
 		</Helmet>
 	)

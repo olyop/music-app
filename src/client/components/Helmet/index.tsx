@@ -9,7 +9,10 @@ const setMetaTag =
 const setMetadata = (title: string) => {
 	const text = `${title} - ${APP_NAME}`
 	document.title = text
+	setMetaTag("keywords", text)
+	setMetaTag("og:title", text)
 	setMetaTag("description", text)
+	setMetaTag("og:description", text)
 }
 
 const Helmet: FC<PropTypes> = ({ title, children }) => {

@@ -31,7 +31,6 @@ const BrowseAlbums: FC = () => {
 				})}
 				children={data => (
 					<Albums
-						orderByKey="albums"
 						albums={data?.albums || []}
 						orderByFields={Object.keys(AlbumsOrderByField)}
 					/>

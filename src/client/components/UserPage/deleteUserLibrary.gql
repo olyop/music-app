@@ -1,0 +1,5 @@
+mutation deleteUserLibrary($userId: Uuid!) {
+	deleteUserLibrary(userId: $userId) {
+		userId
+	}
+}

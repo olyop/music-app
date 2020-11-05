@@ -6,7 +6,6 @@ import {
 	AlbumsOrderByField,
 	ArtistsOrderByField,
 	UserSongsOrderByField,
-	UserAlbumsOrderByField,
 	UserArtistsOrderByField,
 } from "./enums"
 
@@ -26,7 +25,6 @@ export type GenresOrderBy = DocOrderBy<GenresOrderByField>
 export type AlbumsOrderBy = DocOrderBy<AlbumsOrderByField>
 export type ArtistsOrderBy = DocOrderBy<ArtistsOrderByField>
 export type UserSongsOrderBy = DocOrderBy<UserSongsOrderByField>
-export type UserAlbumsOrderBy = DocOrderBy<UserAlbumsOrderByField>
 export type UserArtistsOrderBy = DocOrderBy<UserArtistsOrderByField>
 
 export interface OrderBySettings {
@@ -35,7 +33,6 @@ export interface OrderBySettings {
 	albums: AlbumsOrderBy,
 	artists: ArtistsOrderBy,
 	userSongs: UserSongsOrderBy,
-	userAlbums: UserAlbumsOrderBy,
 	userArtists: UserArtistsOrderBy,
 }
 

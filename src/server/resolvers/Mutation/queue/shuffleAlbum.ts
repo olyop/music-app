@@ -15,7 +15,6 @@ import {
 	UPDATE_USER_CURRENT,
 } from "../../../sql"
 
-import { pg } from "../../../services"
 import clearUserQueue from "./clearUserQueue"
 import { COLUMN_NAMES } from "../../../globals"
 import { User, Song, UserArgs } from "../../../types"
@@ -25,9 +24,9 @@ const resolver =
 
 export const shuffleAlbum =
 	resolver<User, Args>(
-		async ({ args }) => {
+		async ({ args, context }) => {
 			let returnValue: User
-			const client = await pg.connect()
+			const client = await context.pg.connect()
 			const query = sqlQuery(client)
 			try {
 				await query("BEGIN")

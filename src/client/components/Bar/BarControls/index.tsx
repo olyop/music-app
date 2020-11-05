@@ -11,6 +11,7 @@ import {
 import Icon from "../../Icon"
 import USER_PREV from "./userPrev.gql"
 import USER_NEXT from "./userNext.gql"
+import { User, UserVar } from "../../../types"
 import { useMutation } from "../../../helpers"
 
 import "./index.scss"
@@ -22,9 +23,13 @@ const BarControls: FC<PropTypes> = ({ className, iconClassName }) => {
 	const dispatch = useDispatch()
 	const userId = useStateUserId()
 
-	const variables = { userId }
-	const [ userPrev ] = useMutation(USER_PREV, { variables })
-	const [ userNext ] = useMutation(USER_NEXT, { variables })
+	const variables: UserVar = { userId }
+
+	const [ userPrev, { loading: prevLoading } ] =
+		useMutation<UserPrevData, UserVar>(USER_PREV, { variables })
+
+	const [ userNext, { loading: nextLoading } ] =
+		useMutation<UserNextData, UserVar>(USER_NEXT, { variables })
 
 	const handlePrevClick = () => userPrev()
 	const handlePlayClick = () => dispatch(togglePlay())
@@ -34,21 +39,29 @@ const BarControls: FC<PropTypes> = ({ className, iconClassName }) => {
 		<div className={bem(className, "")}>
 			<Icon
 				icon="skip_previous"
-				onClick={handlePrevClick}
 				className={bem(iconClassName)}
+				onClick={prevLoading ? undefined : handlePrevClick}
 			/>
 			<Icon
 				onClick={handlePlayClick}
-				icon={play ? "pause" : "play_arrow"}
 				className={bem(iconClassName)}
+				icon={play ? "pause" : "play_arrow"}
 			/>
 			<Icon
 				icon="skip_next"
-				onClick={handleNextClick}
 				className={bem(iconClassName)}
+				onClick={nextLoading ? undefined : handleNextClick}
 			/>
 		</div>
 	)
+}
+
+interface UserPrevData {
+	userPrev: User,
+}
+
+interface UserNextData {
+	userNext: User,
 }
 
 interface PropTypes extends BemPropTypes {

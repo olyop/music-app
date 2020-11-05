@@ -12,13 +12,16 @@ const Genres: FC<PropTypes> = ({
 	genres,
 	className,
 	orderByFields,
+	hideOrderBy = false,
 }) => (
 	<div className={bem(className, isEmpty(genres) || "Elevated")}>
-		<OrderBy
-			settingsKey="genres"
-			fieldOptions={orderByFields}
-			className="PaddingHalf ItemBorder FlexListRight"
-		/>
+		{hideOrderBy || (
+			<OrderBy
+				settingsKey="genres"
+				fieldOptions={orderByFields}
+				className="PaddingHalf ItemBorder FlexListRight"
+			/>
+		)}
 		{genres.map(
 			genre => (
 				<Genre
@@ -33,6 +36,7 @@ const Genres: FC<PropTypes> = ({
 
 interface PropTypes extends BemPropTypes {
 	genres: TGenre[],
+	hideOrderBy?: boolean,
 	orderByFields: string[],
 }
 

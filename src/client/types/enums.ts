@@ -36,12 +36,6 @@ export enum UserSongsOrderByField {
 	DATE_ADDED = "DATE_ADDED",
 }
 
-export enum UserAlbumsOrderByField {
-	TITLE = "TITLE",
-	RELEASED = "RELEASED",
-	DATE_ADDED = "DATE_ADDED",
-}
-
 export enum UserArtistsOrderByField {
 	NAME = "NAME",
 	DATE_ADDED = "DATE_ADDED",

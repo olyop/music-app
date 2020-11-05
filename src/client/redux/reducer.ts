@@ -23,11 +23,10 @@ import {
 	OrderByDirection,
 	SongsOrderByField,
 	AlbumsOrderByField,
+	GenresOrderByField,
 	ArtistsOrderByField,
 	UserSongsOrderByField,
-	UserAlbumsOrderByField,
 	UserArtistsOrderByField,
-	GenresOrderByField,
 } from "../types"
 
 const userId =
@@ -99,10 +98,6 @@ const defaultSettings: Settings = {
 		userSongs: {
 			direction: OrderByDirection.DESC,
 			field: UserSongsOrderByField.DATE_ADDED,
-		},
-		userAlbums: {
-			direction: OrderByDirection.DESC,
-			field: UserAlbumsOrderByField.DATE_ADDED,
 		},
 		userArtists: {
 			direction: OrderByDirection.DESC,

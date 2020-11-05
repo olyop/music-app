@@ -95,7 +95,6 @@ const ArtistPageAlbums: FC<RouteComponentProps> = ({ match }) => {
 	const { data } = useQuery<Data, AlbumsVars>(GET_ARTIST_PAGE_ALBUMS, { variables })
 	return (
 		<Albums
-			orderByKey="albums"
 			albums={data?.artist.albums || []}
 			orderByFields={Object.keys(AlbumsOrderByField)}
 		/>

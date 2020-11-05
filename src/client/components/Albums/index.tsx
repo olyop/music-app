@@ -6,14 +6,13 @@ import List from "../List"
 import Album from "../Album"
 import OrderBy from "../OrderBy"
 import { useStateListStyle } from "../../redux"
-import { OrderBySettings, ListStyle, Album as TAlbum } from "../../types"
+import { ListStyle, Album as TAlbum } from "../../types"
 
 const bem = createBem("")
 
 const Albums: FC<PropTypes> = ({
 	albums,
 	className,
-	orderByKey,
 	orderByFields,
 	hideOrderBy = false,
 }) => {
@@ -30,7 +29,7 @@ const Albums: FC<PropTypes> = ({
 		>
 			{hideOrderBy || (
 				<OrderBy
-					settingsKey={orderByKey!}
+					settingsKey="albums"
 					fieldOptions={orderByFields!}
 					className={bem(
 						isList && !empty && "ItemBorder",
@@ -57,7 +56,6 @@ interface PropTypes {
 	className?: string,
 	hideOrderBy?: boolean,
 	orderByFields?: string[],
-	orderByKey?: keyof Pick<OrderBySettings, "albums" | "userAlbums">,
 }
 
 export default Albums

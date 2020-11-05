@@ -1,3 +1,4 @@
+import isEmpty from "lodash/isEmpty"
 import { createElement, FC } from "react"
 
 import {
@@ -10,6 +11,7 @@ import {
 import Feed from "../Feed"
 import Albums from "../Albums"
 import Helmet from "../Helmet"
+import LibraryEmpty from "./LibraryEmpty"
 import GET_USER_ALBUMS from "./getUserAlbums.gql"
 import { useStateUserId, useStateOrderBy } from "../../redux"
 
@@ -32,13 +34,15 @@ const LibraryArtists: FC = () => {
 						],
 					},
 				})}
-				children={data => (
+				children={data => (data && isEmpty(data.user.albums) ? (
+					<LibraryEmpty/>
+				) : (
 					<Albums
-						orderByKey="albums"
 						albums={data?.user.albums || []}
+						hideOrderBy={isEmpty(data?.user.albums)}
 						orderByFields={Object.keys(AlbumsOrderByField)}
 					/>
-				)}
+				))}
 			/>
 		</Helmet>
 	)

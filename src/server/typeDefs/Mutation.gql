@@ -56,6 +56,15 @@ type Mutation {
     artistId: Uuid!
   ): Artist!
 
+  addUserSongsAlbum(
+    userId: Uuid!
+    albumId: Uuid!
+  ): Album!
+
+  deleteUserLibrary(
+    userId: Uuid!
+  ): User!
+
   addUser(
     user: UserInput!
   ): User!

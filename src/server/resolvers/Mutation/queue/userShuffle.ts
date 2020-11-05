@@ -17,7 +17,6 @@ import {
 	UPDATE_USER_CURRENT,
 } from "../../../sql"
 
-import { pg } from "../../../services"
 import clearUserQueue from "./clearUserQueue"
 import { COLUMN_NAMES } from "../../../globals"
 import { Song, User, UserArgs } from "../../../types"
@@ -30,9 +29,9 @@ const resolver =
 
 export const userShuffleLibrary =
 	resolver<User, UserArgs>(
-		async ({ args }) => {
+		async ({ args, context }) => {
 			let returnValue: User
-			const client = await pg.connect()
+			const client = await context.pg.connect()
 			const query = sqlQuery(client)
 
 			try {
@@ -69,43 +68,44 @@ export const userShuffleLibrary =
 					}],
 				})
 
-				await query({
-					sql: UPDATE_USER_CURRENT,
-					variables: [{
-						key: "userId",
-						value: args.userId,
-					},{
-						value: "*",
-						string: false,
-						key: "columnNames",
-					},{
-						key: "songId",
-						value: current.songId,
-					}],
-				})
-
-				await Promise.all(shuffled.map(
-					({ songId }, index) => (
-						query({
-							sql: INSERT_USER_QUEUE,
-							variables: [{
-								key: "songId",
-								value: songId,
-							},{
-								key: "index",
-								value: index,
-								string: false,
-							},{
-								key: "userId",
-								value: args.userId,
-							},{
-								string: false,
-								key: "tableName",
-								value: "users_laters",
-							}],
-						})
-					),
-				))
+				if (current !== undefined) {
+					await query({
+						sql: UPDATE_USER_CURRENT,
+						variables: [{
+							key: "userId",
+							value: args.userId,
+						},{
+							value: "*",
+							string: false,
+							key: "columnNames",
+						},{
+							key: "songId",
+							value: current.songId,
+						}],
+					})
+					await Promise.all(shuffled.map(
+						({ songId }, index) => (
+							query({
+								sql: INSERT_USER_QUEUE,
+								variables: [{
+									key: "songId",
+									value: songId,
+								},{
+									key: "index",
+									value: index,
+									string: false,
+								},{
+									key: "userId",
+									value: args.userId,
+								},{
+									string: false,
+									key: "tableName",
+									value: "users_laters",
+								}],
+							})
+						),
+					))
+				}
 
 				returnValue = await query<User>({
 					sql: SELECT_USER,

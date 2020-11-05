@@ -20,7 +20,7 @@ const config: Configuration = {
 	devServer: {
 		open: true,
 		index: "client.html",
-		openPage: "browse/songs",
+		openPage: "library/songs",
 		port: parseInt(DEV_CLIENT_PORT),
 		historyApiFallback: { index: "/client.html" },
 	},

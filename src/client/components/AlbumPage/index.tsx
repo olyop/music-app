@@ -19,7 +19,8 @@ import DocLinks from "../DocLinks"
 import { useStateUserId } from "../../redux"
 import SHUFFLE_ALBUM from "./shuffleAlbum.gql"
 import GET_ALBUM_PAGE from "./getAlbumPage.gql"
-import { Album, User, UserVar } from "../../types"
+import { Song, Album, User, UserVar } from "../../types"
+import ADD_USER_SONG from "../InLibraryButton/addUserSong.gql"
 
 import "./index.scss"
 
@@ -28,10 +29,35 @@ const bem = createBem("AlbumPage")
 const AlbumPage: FC = () => {
 	const userId = useStateUserId()
 	const params = useParams<Params>()
+
 	const albumId = uuidAddDashes(params.albumId)
 	const variables: Vars = { userId, albumId }
-	const { data } = useQuery<Data, Vars>(GET_ALBUM_PAGE, { variables })
-	const [ shuffle ] = useMutation<User, Vars>(SHUFFLE_ALBUM, { variables })
+
+	const { data } =
+		useQuery<Data, Vars>(GET_ALBUM_PAGE, { variables })
+
+	const [ add, { loading: addLoading } ] =
+		useMutation<Song, AddVars>(ADD_USER_SONG)
+
+	const [ shuffle, { loading: shuffleLoading } ] =
+		useMutation<User, Vars>(SHUFFLE_ALBUM, { variables })
+
+	const handleShuffle = async () => {
+		await shuffle()
+	}
+
+	const handleAdd = async () => {
+		if (data) {
+			await Promise.all(
+				data.album.songs
+					.filter(({ inLibrary }) => !inLibrary)
+					.map(({ songId }) => add({
+						variables: { userId, songId },
+					})),
+			)
+		}
+	}
+
 	return (
 		<div className={bem("", "Content")}>
 			{data && (
@@ -63,12 +89,19 @@ const AlbumPage: FC = () => {
 									/>
 								))}
 							</div>
-							<Button
-								icon="shuffle"
-								text="Shuffle"
-								className="MarginBottom"
-								onClick={() => shuffle()}
-							/>
+							<div className="FlexList MarginBottom">
+								<Button
+									icon="add"
+									text="Add"
+									className="MarginRightHalf"
+									onClick={addLoading ? undefined : handleAdd}
+								/>
+								<Button
+									icon="shuffle"
+									text="Shuffle"
+									onClick={shuffleLoading ? undefined : handleShuffle}
+								/>
+							</div>
 						</details>
 						<details open>
 							<summary className={bem("sum", "Text MarginBottomHalf")}>
@@ -96,6 +129,10 @@ interface Data {
 
 interface Params {
 	albumId: string,
+}
+
+interface AddVars extends UserVar {
+	songId: string,
 }
 
 interface Vars extends Params, UserVar {}

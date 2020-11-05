@@ -1,3 +1,4 @@
+import isEmpty from "lodash/isEmpty"
 import { createElement, FC } from "react"
 
 import {
@@ -17,6 +18,7 @@ import {
 import Feed from "../Feed"
 import Helmet from "../Helmet"
 import Artists from "../Artists"
+import LibraryEmpty from "./LibraryEmpty"
 import GET_USER_ARTISTS from "./getUserArtists.gql"
 
 const LibraryArtists: FC = () => {
@@ -40,14 +42,17 @@ const LibraryArtists: FC = () => {
 						],
 					},
 				})}
-				children={data => (
+				children={data => (data && isEmpty(data.user.artists) ? (
+					<LibraryEmpty/>
+				) : (
 					<Artists
 						orderByKey="userArtists"
 						artists={data?.user.artists || []}
+						hideOrderBy={isEmpty(data?.user.artists)}
 						className={isList ? "Content" : undefined}
 						orderByFields={Object.keys(UserArtistsOrderByField)}
 					/>
-				)}
+				))}
 			/>
 		</Helmet>
 	)

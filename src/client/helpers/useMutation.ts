@@ -21,7 +21,7 @@ import {
 
 export const useMutation = <Data, Vars = Record<string, unknown>>(
 	mutation: DocumentNode,
-	options: MutationHookOptions<Data, Vars>,
+	options: MutationHookOptions<Data, Vars> = {},
 ): MutationTuple<Data, Vars> => {
 	const dispatch = useDispatch()
 	const queryId = useRef(uniqueId())

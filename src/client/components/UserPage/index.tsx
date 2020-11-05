@@ -11,9 +11,11 @@ import {
 } from "../../redux"
 
 import Helmet from "../Helmet"
-import { useQuery } from "../../helpers"
+import Button from "../Button"
 import GET_USER_PAGE from "./getUserPage.gql"
+import { useMutation, useQuery } from "../../helpers"
 import { ListStyle, User, UserVar } from "../../types"
+import DELETE_USER_LIBRARY from "./deleteUserLibrary.gql"
 
 import "./index.scss"
 
@@ -24,10 +26,19 @@ const UserPage: FC = () => {
 	const userId = useStateUserId()
 	const variables: UserVar = { userId }
 	const { showGenres, listStyle } = useStateSettings()
-	const { data } = useQuery<Data, UserVar>(GET_USER_PAGE, { variables })
+
+	const { data } =
+		useQuery<Data, UserVar>(GET_USER_PAGE, { variables })
+
+	const [ deleteLibrary, { loading: mutationLoading } ] =
+		useMutation<MutationData, UserVar>(DELETE_USER_LIBRARY, { variables })
 
 	const handleShowGenres = () =>
 		dispatch(toggleShowGenres())
+
+	const handleLibraryDelete = async () => {
+		await deleteLibrary()
+	}
 
 	const handleListStyle: ChangeEventHandler<HTMLSelectElement> =
 		({ target: { value } }) => dispatch(updateListStyle(value as ListStyle))
@@ -39,7 +50,7 @@ const UserPage: FC = () => {
 					<h1 className={bem("name", "MarginBottom")}>
 						{data.user.name}
 					</h1>
-					<details className={bem("details")}>
+					<details open className={bem("details")}>
 						<summary className={bem("summary", "Text2")}>
 							Settings
 						</summary>
@@ -74,7 +85,7 @@ const UserPage: FC = () => {
 							/>
 						</div>
 					</details>
-					<details className={bem("details", "MarginBottomHalf")}>
+					<details open className={bem("details")}>
 						<summary className={bem("summary", "Text2")}>
 							Stats
 						</summary>
@@ -89,6 +100,18 @@ const UserPage: FC = () => {
 							</h3>
 						</div>
 					</details>
+					<details open className={bem("details", "MarginBottomHalf")}>
+						<summary className={bem("summary", "Text2")}>
+							Controls
+						</summary>
+						<div className={bem("content")}>
+							<Button
+								icon="delete"
+								text="Delete Library"
+								onClick={mutationLoading ? undefined : handleLibraryDelete}
+							/>
+						</div>
+					</details>
 				</Helmet>
 			)}
 		</div>
@@ -97,6 +120,10 @@ const UserPage: FC = () => {
 
 interface Data {
 	user: User,
+}
+
+interface MutationData {
+	deleteUserLibrary: User,
 }
 
 export default UserPage

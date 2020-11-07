@@ -3,5 +3,5 @@ SELECT
 FROM
 	{{ tableName }}
 WHERE
-	user_id = {{ userId }} AND
-	index = {{ index }};
+	index = {{ index }} AND
+	user_id = {{ userId }};

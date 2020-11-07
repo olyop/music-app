@@ -1,4 +1,4 @@
-import { isNull, toLower } from "lodash"
+import { join, isNull, isEmpty, toLower } from "lodash"
 import { PAGINATION_NUM } from "@oly_op/music-app-common/globals"
 
 import {
@@ -25,6 +25,7 @@ import {
 
 import {
 	SELECT_SONG,
+	SELECT_SONGS_IN,
 	SELECT_USER_PLAYS,
 	SELECT_USER_SONGS,
 	SELECT_USER_ALBUMS,
@@ -134,32 +135,82 @@ export const genres =
 
 export const prev =
 	resolver<Song[]>(
-		({ parent, context }) => (
-			getUserQueueSongs(context.pg)(
-				parent.userId,
-				"users_prevs",
-			)
-		),
+		({ parent, context }) => {
+			if (parent.prev && !isEmpty(parent.prev)) {
+				return sqlQuery(context.pg)({
+					sql: SELECT_SONGS_IN,
+					parse: parseSqlTable<Song>(),
+					variables: [{
+						key: "songIds",
+						value: join(parent.prev, "', '"),
+					},{
+						string: false,
+						key: "columnNames",
+						value: sqlJoin(COLUMN_NAMES.SONG),
+					}],
+				})
+			} else {
+				return getUserQueueSongs(context.pg)(
+					parent.userId,
+					"users_prevs",
+				)
+			}
+		},
 	)
 
 export const next =
 	resolver<Song[]>(
-		({ parent, context }) => (
-			getUserQueueSongs(context.pg)(
-				parent.userId,
-				"users_nexts",
-			)
-		),
+		({ parent, context }) => {
+			if (parent.next && !isEmpty(parent.next)) {
+				return sqlQuery(context.pg)({
+					log: { sql: true },
+					sql: SELECT_SONGS_IN,
+					parse: parseSqlTable<Song>(),
+					variables: [{
+						key: "songIds",
+						value: join(parent.next, "', '"),
+					},{
+						string: false,
+						key: "columnNames",
+						value: sqlJoin(COLUMN_NAMES.SONG),
+					}],
+				})
+			} else {
+				return (
+					getUserQueueSongs(context.pg)(
+						parent.userId,
+						"users_nexts",
+					)
+				)
+			}
+		},
 	)
 
 export const later =
 	resolver<Song[]>(
-		({ parent, context }) => (
-			getUserQueueSongs(context.pg)(
-				parent.userId,
-				"users_laters",
-			)
-		),
+		({ parent, context }) => {
+			if (parent.later && !isEmpty(parent.later)) {
+				return sqlQuery(context.pg)({
+					sql: SELECT_SONGS_IN,
+					parse: parseSqlTable<Song>(),
+					variables: [{
+						key: "songIds",
+						value: join(parent.later, "', '"),
+					},{
+						string: false,
+						key: "columnNames",
+						value: sqlJoin(COLUMN_NAMES.SONG),
+					}],
+				})
+			} else {
+				return (
+					getUserQueueSongs(context.pg)(
+						parent.userId,
+						"users_laters",
+					)
+				)
+			}
+		},
 	)
 
 export const plays =

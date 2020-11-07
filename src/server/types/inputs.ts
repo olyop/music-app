@@ -7,11 +7,16 @@ export interface SqlVariable {
 	value: string | number | boolean | null,
 }
 
+interface SqlQueryInputLog {
+	var?: boolean,
+	sql?: boolean,
+	res?: boolean,
+	err?: boolean,
+}
+
 export interface SqlQueryInput<Return> {
 	sql: string,
-	logSql?: boolean,
-	logVar?: boolean,
-	logRes?: boolean,
+	log?: SqlQueryInputLog,
 	parse?: SqlParse<Return>,
 	variables?: SqlVariable[],
 }

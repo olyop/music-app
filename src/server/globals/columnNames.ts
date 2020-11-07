@@ -81,7 +81,7 @@ export const USER_ARTIST = [
 ]
 
 export const USER_QUEUE = [
+	"index",
 	"user_id",
 	"song_id",
-	"index",
 ]

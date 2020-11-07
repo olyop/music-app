@@ -57,7 +57,6 @@ export const albumChecks: CheckFunc<AlbumUpload> = client => album => [
 	{
 		name: "isUniqueAlbum",
 		check: sqlQuery(client)({
-			logSql: true,
 			sql: EXISTS_ALBUM,
 			parse: res => !getSqlResExists(res),
 			variables: [{

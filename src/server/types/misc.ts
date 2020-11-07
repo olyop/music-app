@@ -18,9 +18,9 @@ export interface UserQueue {
 }
 
 export interface UserQueues {
-	prevs: UserQueue[],
-	nexts: UserQueue[],
-	laters: UserQueue[],
+	prev: UserQueue[],
+	next: UserQueue[],
+	later: UserQueue[],
 	current: string | null,
 }
 

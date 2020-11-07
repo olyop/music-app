@@ -1,19 +1,14 @@
 import {
 	sqlJoin,
 	sqlQuery,
-	parseSqlRow,
 	parseSqlTable,
 	createResolver,
+	getUserWithQueue,
 } from "../../../helpers"
-
-import {
-	SELECT_USER,
-	SELECT_USER_QUEUE,
-	INSERT_USER_QUEUE,
-} from "../../../sql"
 
 import { COLUMN_NAMES } from "../../../globals"
 import { User, UserQueue, UserQueuesArgs } from "../../../types"
+import { SELECT_USER_QUEUE, INSERT_USER_QUEUE } from "../../../sql"
 
 const resolver =
 	createResolver()
@@ -55,17 +50,6 @@ export const userSongAfter =
 					value: nexts.length,
 				}],
 			})
-			return sqlQuery(context.pg)<User>({
-				sql: SELECT_USER,
-				parse: parseSqlRow(),
-				variables: [{
-					key: "userId",
-					value: args.userId,
-				},{
-					string: false,
-					key: "columnNames",
-					value: sqlJoin(COLUMN_NAMES.USER),
-				}],
-			})
+			return getUserWithQueue(context.pg)(args.userId)
 		},
 	)

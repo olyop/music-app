@@ -7,6 +7,7 @@ import {
 	parseSqlRow,
 	getUserQueues,
 	createResolver,
+	getUserWithQueue,
 } from "../../../helpers"
 
 import {
@@ -28,19 +29,17 @@ const resolver =
 export const userPrev =
 	resolver<User, UserArgs>(
 		async ({ args, context }) => {
-			let returnValue: User
+			let user: User
 			const client = await context.pg.connect()
 			const query = sqlQuery(client)
 			try {
 				await query("BEGIN")
 
-				const { prevs, current, nexts, laters } =
+				const { prev, current, next, later } =
 					await getUserQueues(client)(args.userId)
 
-				if (!isEmpty(prevs)) {
+				if (!isEmpty(prev)) {
 					const newCurrent = await query({
-						logSql: true,
-						logRes: true,
 						sql: SELECT_USER_QUEUE_SONG,
 						parse: parseSqlRow<UserQueue>(),
 						variables: [{
@@ -53,7 +52,7 @@ export const userPrev =
 						},{
 							key: "index",
 							string: false,
-							value: prevs.length - 1,
+							value: prev.length - 1,
 						},{
 							string: false,
 							key: "columnNames",
@@ -72,30 +71,35 @@ export const userPrev =
 						},{
 							key: "index",
 							string: false,
-							value: prevs.length - 1,
+							value: prev.length - 1,
 						}],
 					})
-					for (const queue of isEmpty(nexts) ? laters : nexts) {
-						await query({
-							sql: UPDATE_USER_QUEUE_SONG,
-							variables: [{
-								value: "+",
-								string: false,
-								key: "addSubtract",
-							},{
-								key: "userId",
-								value: args.userId,
-							},{
-								key: "index",
-								string: false,
-								value: queue.index,
-							},{
-								string: false,
-								key: "tableName",
-								value: isEmpty(nexts) ?
-									"users_laters" : "users_nexts",
-							}],
-						})
+					if (!isEmpty(next) || !isEmpty(later)) {
+						for (const queue of isEmpty(next) ? later : next) {
+							await query({
+								sql: UPDATE_USER_QUEUE_SONG,
+								variables: [{
+									value: "+",
+									string: false,
+									key: "addSubtract",
+								},{
+									key: "userId",
+									value: args.userId,
+								},{
+									key: "songId",
+									value: queue.songId,
+								},{
+									key: "index",
+									string: false,
+									value: queue.index,
+								},{
+									string: false,
+									key: "tableName",
+									value: isEmpty(next) ?
+										"users_laters" : "users_nexts",
+								}],
+							})
+						}
 					}
 					await query({
 						sql: INSERT_USER_QUEUE,
@@ -112,8 +116,21 @@ export const userPrev =
 						},{
 							string: false,
 							key: "tableName",
-							value: isEmpty(nexts) ?
+							value: isEmpty(next) ?
 								"users_laters" : "users_nexts",
+						}],
+					})
+					await query({
+						sql: INSERT_PLAY,
+						variables: [{
+							key: "playId",
+							value: uuid(),
+						},{
+							key: "userId",
+							value: args.userId,
+						},{
+							key: "songId",
+							value: newCurrent.songId,
 						}],
 					})
 					await query({
@@ -130,33 +147,21 @@ export const userPrev =
 							value: sqlJoin(COLUMN_NAMES.USER),
 						}],
 					})
-					await query({
-						sql: INSERT_PLAY,
+					user = await getUserWithQueue(client)(args.userId)
+				} else {
+					user = await query({
+						sql: SELECT_USER,
+						parse: parseSqlRow<User>(),
 						variables: [{
-							key: "playId",
-							value: uuid(),
-						},{
 							key: "userId",
 							value: args.userId,
 						},{
-							key: "songId",
-							value: newCurrent.songId,
+							string: false,
+							key: "columnNames",
+							value: sqlJoin(COLUMN_NAMES.USER),
 						}],
 					})
 				}
-
-				returnValue = await query({
-					sql: SELECT_USER,
-					parse: parseSqlRow<User>(),
-					variables: [{
-						key: "userId",
-						value: args.userId,
-					},{
-						string: false,
-						key: "columnNames",
-						value: sqlJoin(COLUMN_NAMES.USER),
-					}],
-				})
 
 				await query("COMMIT")
 			} catch (error) {
@@ -166,6 +171,6 @@ export const userPrev =
 				client.release()
 			}
 
-			return returnValue
+			return user
 		},
 	)

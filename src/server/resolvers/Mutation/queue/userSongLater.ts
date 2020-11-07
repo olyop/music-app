@@ -1,13 +1,12 @@
 import {
 	sqlJoin,
 	sqlQuery,
-	parseSqlRow,
 	parseSqlTable,
 	createResolver,
+	getUserWithQueue,
 } from "../../../helpers"
 
 import {
-	SELECT_USER,
 	SELECT_USER_QUEUE,
 	INSERT_USER_QUEUE,
 	UPDATE_USER_QUEUE_SONG,
@@ -23,7 +22,7 @@ const resolver =
 export const userSongLater =
 	resolver<User, UserQueuesArgs>(
 		async ({ args }) => {
-			let returnValue: User
+			let user: User
 			const client = await pg.connect()
 			const query = sqlQuery(client)
 			try {
@@ -87,18 +86,7 @@ export const userSongLater =
 					}],
 				})
 
-				returnValue = await query<User>({
-					sql: SELECT_USER,
-					parse: parseSqlRow(),
-					variables: [{
-						key: "userId",
-						value: args.userId,
-					},{
-						string: false,
-						key: "columnNames",
-						value: sqlJoin(COLUMN_NAMES.USER),
-					}],
-				})
+				user = await getUserWithQueue(client)(args.userId)
 
 				await query("COMMIT")
 			} catch (error) {
@@ -108,6 +96,6 @@ export const userSongLater =
 				client.release()
 			}
 
-			return returnValue
+			return user
 		},
 	)

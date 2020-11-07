@@ -11,6 +11,9 @@ import {
 } from "@oly_op/music-app-common/types"
 
 export interface User extends UserBase {
+	prev?: string[],
+	next?: string[],
+	later?: string[],
 	current: string | null,
 }
 

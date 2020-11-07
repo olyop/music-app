@@ -3,13 +3,12 @@ import shuffle from "lodash/shuffle"
 import {
 	sqlJoin,
 	sqlQuery,
-	parseSqlRow,
 	parseSqlTable,
 	createResolver,
+	getUserWithQueue,
 } from "../../../helpers"
 
 import {
-	SELECT_USER,
 	INSERT_USER_QUEUE,
 	SELECT_ALBUM_SONGS,
 	UPDATE_USER_CURRENT,
@@ -25,7 +24,7 @@ const resolver =
 export const shuffleAlbum =
 	resolver<User, Args>(
 		async ({ args, context }) => {
-			let returnValue: User
+			let user: User
 			const client = await context.pg.connect()
 			const query = sqlQuery(client)
 			try {
@@ -86,18 +85,7 @@ export const shuffleAlbum =
 					),
 				))
 
-				returnValue = await query({
-					sql: SELECT_USER,
-					parse: parseSqlRow<User>(),
-					variables: [{
-						key: "userId",
-						value: args.userId,
-					},{
-						string: false,
-						key: "columnNames",
-						value: sqlJoin(COLUMN_NAMES.USER),
-					}],
-				})
+				user = await getUserWithQueue(client)(args.userId)
 
 				await query("COMMIT")
 			} catch (error) {
@@ -107,7 +95,7 @@ export const shuffleAlbum =
 				client.release()
 			}
 
-			return returnValue
+			return user
 		},
 	)
 

@@ -5,13 +5,12 @@ import { PAGINATION_NUM } from "@oly_op/music-app-common/globals"
 import {
 	sqlJoin,
 	sqlQuery,
-	parseSqlRow,
 	parseSqlTable,
 	createResolver,
+	getUserWithQueue,
 } from "../../../helpers"
 
 import {
-	SELECT_USER,
 	SELECT_USER_SONGS,
 	INSERT_USER_QUEUE,
 	UPDATE_USER_CURRENT,
@@ -30,7 +29,7 @@ const resolver =
 export const userShuffleLibrary =
 	resolver<User, UserArgs>(
 		async ({ args, context }) => {
-			let returnValue: User
+			let user: User
 			const client = await context.pg.connect()
 			const query = sqlQuery(client)
 
@@ -107,18 +106,7 @@ export const userShuffleLibrary =
 					))
 				}
 
-				returnValue = await query<User>({
-					sql: SELECT_USER,
-					parse: parseSqlRow(),
-					variables: [{
-						key: "userId",
-						value: args.userId,
-					},{
-						string: false,
-						key: "columnNames",
-						value: sqlJoin(COLUMN_NAMES.USER),
-					}],
-				})
+				user = await getUserWithQueue(client)(args.userId)
 
 				await query("COMMIT")
 			} catch (error) {
@@ -128,6 +116,6 @@ export const userShuffleLibrary =
 				client.release()
 			}
 
-			return returnValue
+			return user
 		},
 	)

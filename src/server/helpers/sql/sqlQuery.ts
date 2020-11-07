@@ -33,48 +33,40 @@ export const getVariableKeys = (sql: string) => {
 	return uniq(keys)
 }
 
-const areVariablesProvided = (keys: string[], variables: SqlVariable[]) =>
+const variablesAreProvided = (keys: string[], variables: SqlVariable[]) =>
 	variables
-		.map(({ key }) => keys.includes(key))
+		.map(({ key, value }) => keys.includes(key) && value !== undefined)
 		.every(Boolean)
 
-const determineReplaceValue = (
-	{
-		value,
-		string = true,
-		parameterized = false,
-	}: SqlVariable,
-	params: string[],
-) => {
-	if (isNull(value)) {
-		return "null"
-	} else {
-		const val = value.toString()
-		if (parameterized) {
-			params.push(val)
-			return `$${params.length}`
-		} else if (string) {
-			return `'${val}'`
-		} else {
-			return val
+const determineReplaceValue =
+	(params: string[]) =>
+		({ value, string = true, parameterized = false }: SqlVariable) => {
+			const val = isNull(value) ? "null" : value.toString()
+			if (parameterized) {
+				params.push(val)
+				return `$${params.length}`
+			} else if (string) {
+				return `'${val}'`
+			} else {
+				return val
+			}
+		}
+
+const determineSqlAndParams =
+	(sql: string, variables: SqlVariable[]) => {
+		const params: string[] = []
+		const sqlWithValues = variables.reduce(
+			(query, variable) => query.replace(
+				new RegExp(`{{ ${variable.key} }}`, "gi"),
+				determineReplaceValue(params)(variable),
+			),
+			sql,
+		)
+		return {
+			params,
+			sqlWithValues,
 		}
 	}
-}
-
-const determineSqlAndParams = (sql: string, variables: SqlVariable[]) => {
-	const params: string[] = []
-	const sqlWithValues = variables.reduce(
-		(query, variable) => query.replace(
-			new RegExp(`{{ ${variable.key} }}`, "gi"),
-			determineReplaceValue(variable, params),
-		),
-		sql,
-	)
-	return {
-		params,
-		sqlWithValues,
-	}
-}
 
 const normalizeInput = <T>(input: string | SqlQueryInput<T>) =>
 	(isString(input) ? {
@@ -85,30 +77,22 @@ const normalizeInput = <T>(input: string | SqlQueryInput<T>) =>
 export const sqlQuery =
 	(client: PGClient) =>
 		async <T>(input: string | SqlQueryInput<T>) => {
-			const {
-				sql,
-				parse,
-				logSql = false,
-				logVar = false,
-				logRes = false,
-				variables = [],
-			} = normalizeInput(input)
+			const { sql, parse, log, variables = [] } = normalizeInput(input)
+			if (log?.var) console.log(variables)
 			const variableKeys = getVariableKeys(sql)
-			if (logVar) console.log(variables)
-			if (!areVariablesProvided(variableKeys, variables)) {
-				console.log(sql)
-				throw new TypeError("Invalid query arguments")
-			} else {
+			if (variablesAreProvided(variableKeys, variables)) {
 				const { sqlWithValues, params } = determineSqlAndParams(sql, variables)
-				if (logSql) console.log(sqlWithValues)
+				if (log?.sql) console.log(sqlWithValues)
 				try {
 					const res = await client.query(sqlWithValues, isEmpty(params) ? undefined : params)
-					if (logRes) console.log(res.rows)
+					if (log?.res) console.log(res.rows)
 					if (parse) return parse(res)
 					else return (res as unknown) as T
-				} catch (error) {
-					console.error(error)
-					throw error
+				} catch (err) {
+					if (log?.err) console.error(err)
+					throw err
 				}
+			} else {
+				throw new TypeError("Invalid query arguments")
 			}
 		}

@@ -20,9 +20,11 @@ const Queues: FC = () => {
 	const variables: UserVar = { userId }
 
 	const { data } =
-		useQuery<QueryData, Vars>(GET_USER_QUEUES, { variables })
+		useQuery<QueryData, Vars>(GET_USER_QUEUES, {
+			variables,
+		})
 
-	const [ clearNext, { loading } ] =
+	const [ clearNext, { loading: nextLoading } ] =
 		useMutation<ClearNextData, UserVar>(CLEAR_USER_NEXT, {
 			variables,
 			optimisticResponse: {
@@ -36,7 +38,7 @@ const Queues: FC = () => {
 			},
 		})
 
-	const [ clearQueue ] =
+	const [ clearQueue, { loading: clearLoading } ] =
 		useMutation<ClearQueueData, UserVar>(CLEAR_USER_QUEUES, {
 			variables,
 			optimisticResponse: {
@@ -59,31 +61,33 @@ const Queues: FC = () => {
 			{data && (
 				<Fragment>
 					{createQueuesArray(data.user).map(queue => (
-						<div
+						<details
 							key={queue.id}
-							className={bem("section", "ItemBorder MarginBottomHalf")}
+							className="MarginBottom"
+							open={queue.name !== "Previous"}
 						>
-							<p className={bem("section-text")}>
+							<summary className="Text2 MarginBottomHalf">
 								{queue.name}
-							</p>
+							</summary>
 							<Songs
 								hideOrderBy
 								includeIndexInKey
 								songs={queue.songs}
+								className={bem("section", "ItemBorder MarginBottomHalf")}
 							/>
-						</div>
+						</details>
 					))}
 					{data.user.current && (
-						<div className="FlexListGap MarginTop">
+						<div className="FlexListGap">
 							<Button
 								icon="clear_all"
 								text="Clear Next"
-								onClick={loading ? undefined : handleNext}
+								onClick={nextLoading ? undefined : handleNext}
 							/>
 							<Button
 								icon="close"
 								text="Clear Queue"
-								onClick={handleQueue}
+								onClick={clearLoading ? undefined : handleQueue}
 							/>
 						</div>
 					)}

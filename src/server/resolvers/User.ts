@@ -163,7 +163,6 @@ export const next =
 		({ parent, context }) => {
 			if (parent.next && !isEmpty(parent.next)) {
 				return sqlQuery(context.pg)({
-					log: { sql: true },
 					sql: SELECT_SONGS_IN,
 					parse: parseSqlTable<Song>(),
 					variables: [{
@@ -191,6 +190,7 @@ export const later =
 		({ parent, context }) => {
 			if (parent.later && !isEmpty(parent.later)) {
 				return sqlQuery(context.pg)({
+					log: { sql: true },
 					sql: SELECT_SONGS_IN,
 					parse: parseSqlTable<Song>(),
 					variables: [{

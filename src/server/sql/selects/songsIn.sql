@@ -3,4 +3,4 @@ SELECT
 FROM
 	songs
 WHERE
-	song_id IN ({{ songIds }});
+	song_id in({{ songIds }});

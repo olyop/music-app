@@ -9,7 +9,6 @@ import DocLinks from "../../DocLinks"
 import Progress from "../../Progress"
 import SongTitle from "../../SongTitle"
 import BarControls from "../BarControls"
-import InLibraryButton from "../../InLibraryButton"
 import FeaturingArtists from "../../FeaturingArtists"
 
 import "./index.scss"
@@ -29,19 +28,13 @@ const BarFullscreen: FC<PropTypes> = ({ current, onExit }) => (
 				title={current.album.title}
 				className={bem("cover", "Card Elevated")}
 			/>
-			<div className={bem("title", "text")}>
-				<h1 className={bem("title-text")}>
-					<SongTitle
-						showRemixers
-						song={current}
-						onClick={onExit}
-					/>
-				</h1>
-				<InLibraryButton
-					doc={current}
-					className={bem("title-inLibrary")}
+			<h1 className={bem("title", "text")}>
+				<SongTitle
+					showRemixers
+					song={current}
+					onClick={onExit}
 				/>
-			</div>
+			</h1>
 			<h3 className={bem("artists", "text")}>
 				<FeaturingArtists
 					song={current}

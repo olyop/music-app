@@ -5,11 +5,11 @@ import deserializeDuration from "@oly_op/music-app-common/deserializeDuration"
 import Item from "../Item"
 import DocLinks from "../DocLinks"
 import SongTitle from "../SongTitle"
-import { useMutation } from "../../helpers"
 import USER_SONG_NEXT from "./userSongNext.gql"
 import USER_SONG_AFTER from "./userSongAfter.gql"
 import USER_SONG_LATER from "./userSongLater.gql"
 import FeaturingArtists from "../FeaturingArtists"
+import { useMutation, useInLibrary } from "../../helpers"
 import { Song as TSong, User, UserVar } from "../../types"
 import { useStateShowGenres, useStateUserId } from "../../redux"
 
@@ -27,9 +27,19 @@ const Song: FC<PropTypes> = ({
 	const userId = useStateUserId()
 	const variables = { userId, songId }
 	const showGenres = useStateShowGenres()
-	const [ next ] = useMutation<Data, Vars>(USER_SONG_NEXT, { variables })
-	const [ after ] = useMutation<Data, Vars>(USER_SONG_AFTER, { variables })
-	const [ later ] = useMutation<Data, Vars>(USER_SONG_LATER, { variables })
+
+	const [ toggleInLibrary, { inLibrary, loading: inLibraryLoading } ] =
+		useInLibrary(song)
+
+	const [ next, { loading: nextLoading } ] =
+		useMutation<Data, Vars>(USER_SONG_NEXT, { variables })
+
+	const [ after, { loading: afterLoading } ] =
+		useMutation<Data, Vars>(USER_SONG_AFTER, { variables })
+
+	const [ later, { loading: laterLoading } ] =
+		useMutation<Data, Vars>(USER_SONG_LATER, { variables })
+
 	return (
 		<Item
 			doc={song}
@@ -42,11 +52,23 @@ const Song: FC<PropTypes> = ({
 			right={showRight ? deserializeDuration(song.duration) : null}
 			modal={{
 				title: song.title,
-				buttons: [
-					{ icon: "playlist_add", text: "Next", handler: next },
-					{ icon: "queue_music", text: "After", handler: after },
-					{ icon: "queue", text: "Later", handler: later },
-				],
+				buttons: [{
+					text: "Next",
+					icon: "playlist_add",
+					handler: nextLoading ? undefined : next,
+				},{
+					text: "After",
+					icon: "queue_music",
+					handler: afterLoading ? undefined : after,
+				},{
+					icon: "queue",
+					text: "Later",
+					handler: laterLoading ? undefined : later,
+				},{
+					icon: inLibrary ? "done" : "add",
+					text: inLibrary ? "Remove" : "Add",
+					handler: inLibraryLoading ? undefined : toggleInLibrary,
+				}],
 			}}
 			lower={(
 				<Fragment>

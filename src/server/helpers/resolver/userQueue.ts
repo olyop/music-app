@@ -1,5 +1,5 @@
+import { map } from "lodash/fp"
 import pipe from "@oly_op/pipe"
-import { orderBy } from "lodash"
 import { PAGINATION_NUM } from "@oly_op/music-app-common/globals"
 
 import {
@@ -50,8 +50,7 @@ export const getUserQueueIds =
 				sql: SELECT_USER_QUEUE,
 				parse: pipe(
 					parseSqlTable<UserQueue>(),
-					songs => orderBy(songs, "index", "asc"),
-					songs => songs.map(({ songId }) => songId),
+					map(({ songId }) => songId),
 				),
 				variables: [{
 					key: "userId",

@@ -1,11 +1,6 @@
-import {
-	DELETE_USER_PREV,
-	DELETE_USER_NEXT,
-	DELETE_USER_LATER,
-} from "../../../sql"
-
 import { sqlQuery } from "../../../helpers"
 import { SqlVariable, PGClient } from "../../../types"
+import { DELETE_USER_NEXT, DELETE_USER_LATER } from "../../../sql"
 
 const clearUserNext =
 	(client: PGClient) => async (userId: string) => {
@@ -13,10 +8,6 @@ const clearUserNext =
 			key: "userId",
 			value: userId,
 		}]
-		await sqlQuery(client)({
-			sql: DELETE_USER_PREV,
-			variables,
-		})
 		await sqlQuery(client)({
 			sql: DELETE_USER_NEXT,
 			variables,

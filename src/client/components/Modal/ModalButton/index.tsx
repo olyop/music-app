@@ -8,19 +8,22 @@ import "./index.scss"
 
 const bem = createBem("ModalButton")
 
-const ModalButton: FC<PropTypes> = ({ button, onClose }) => (
-	<Button
-		key={button.text}
-		icon={button.icon}
-		text={button.text}
-		className={bem("", "PaddingHalf")}
-		spanClassName={bem("span")}
-		onClick={() => {
-			button.handler()
-			onClose()
-		}}
-	/>
-)
+const ModalButton: FC<PropTypes> = ({ button, onClose }) => {
+	const handleClick = () => {
+		button.handler!()
+		onClose()
+	}
+	return (
+		<Button
+			key={button.text}
+			icon={button.icon}
+			text={button.text}
+			spanClassName={bem("span")}
+			className={bem("", "PaddingHalf")}
+			onClick={button.handler ? handleClick : undefined}
+		/>
+	)
+}
 
 interface PropTypes {
 	onClose: () => void,

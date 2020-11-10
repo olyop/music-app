@@ -33,10 +33,12 @@ export const getVariableKeys = (sql: string) => {
 	return uniq(keys)
 }
 
-const variablesAreProvided = (keys: string[], variables: SqlVariable[]) =>
-	variables
+const variablesAreProvided = (sql: string, variables: SqlVariable[]) => {
+	const keys = getVariableKeys(sql)
+	return variables
 		.map(({ key, value }) => keys.includes(key) && value !== undefined)
 		.every(Boolean)
+}
 
 const determineReplaceValue =
 	(params: string[]) =>
@@ -78,16 +80,27 @@ export const sqlQuery =
 	(client: PGClient) =>
 		async <T>(input: string | SqlQueryInput<T>) => {
 			const { sql, parse, log, variables = [] } = normalizeInput(input)
-			if (log?.var) console.log(variables)
-			const variableKeys = getVariableKeys(sql)
-			if (variablesAreProvided(variableKeys, variables)) {
+			if (log?.var) {
+				console.log(variables)
+			}
+			if (variablesAreProvided(sql, variables)) {
 				const { sqlWithValues, params } = determineSqlAndParams(sql, variables)
-				if (log?.sql) console.log(sqlWithValues)
+				if (log?.sql) {
+					console.log(sqlWithValues)
+				}
 				try {
-					const res = await client.query(sqlWithValues, isEmpty(params) ? undefined : params)
-					if (log?.res) console.log(res.rows)
-					if (parse) return parse(res)
-					else return (res as unknown) as T
+					const res = await client.query(
+						sqlWithValues,
+						isEmpty(params) ? undefined : params,
+					)
+					if (log?.res) {
+						console.log(res.rows)
+					}
+					if (parse) {
+						return parse(res)
+					} else {
+						return (res as unknown) as T
+					}
 				} catch (err) {
 					if (log?.err) console.error(err)
 					throw err

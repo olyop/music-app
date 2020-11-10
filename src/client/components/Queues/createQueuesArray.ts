@@ -3,8 +3,8 @@ import uniqueId from "lodash/uniqueId"
 
 import { User, Queue } from "../../types"
 
-const createQueuesArray =
-	({ prev, current, next, later }: User) => ([{
+const createQueuesArray = ({ prev, current, next, later }: User) => {
+	const queues: Queue[] = [{
 		songs: prev,
 		id: uniqueId(),
 		name: "Previous",
@@ -20,6 +20,13 @@ const createQueuesArray =
 		songs: later,
 		name: "After",
 		id: uniqueId(),
-	}] as Queue[]).filter(({ songs }) => !isEmpty(songs))
+	}]
+
+	const filtered = queues.filter(({ name, songs }) => (
+		name === "Previous" || !isEmpty(songs)
+	))
+
+	return filtered.length === 1 ? [] : filtered
+}
 
 export default createQueuesArray

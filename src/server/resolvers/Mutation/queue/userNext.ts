@@ -33,7 +33,7 @@ export const userNext =
 			const client = await context.pg.connect()
 			const query = sqlQuery(client)
 			try {
-				await client.query("BEGIN")
+				await query("BEGIN")
 
 				const { prev, current, next, later } =
 					await getUserQueues(client)(args.userId)
@@ -112,13 +112,13 @@ export const userNext =
 							key: "songId",
 							value: current!,
 						},{
-							string: false,
-							key: "tableName",
-							value: "users_prevs",
-						},{
 							key: "index",
 							string: false,
 							value: prev.length,
+						},{
+							string: false,
+							key: "tableName",
+							value: "users_prevs",
 						}],
 					})
 					await query({
@@ -164,9 +164,9 @@ export const userNext =
 					})
 				}
 
-				await client.query("COMMIT")
+				await query("COMMIT")
 			} catch (error) {
-				await client.query("ROLLBACK")
+				await query("ROLLBACK")
 				throw error
 			} finally {
 				client.release()

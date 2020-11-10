@@ -13,18 +13,19 @@ import {
 	useQuery,
 	useMutation,
 	artistLower,
+	useInLibrary,
 	uuidAddDashes,
 	determinePlural,
 } from "../../helpers"
 
 import {
+	User,
 	Artist,
 	UserVar,
 	SongsOrderBy,
 	AlbumsOrderBy,
 	SongsOrderByField,
 	AlbumsOrderByField,
-	User,
 } from "../../types"
 
 import Img from "../Img"
@@ -34,7 +35,6 @@ import Button from "../Button"
 import Helmet from "../Helmet"
 import DocLink from "../DocLink"
 import SHUFFLE_ARTIST from "./shuffleArtist.gql"
-import InLibraryButton from "../InLibraryButton"
 import GET_ARTIST_PAGE from "./getArtistPage.gql"
 import GET_ARTIST_PAGE_HOME from "./getArtistPageHome.gql"
 import GET_ARTIST_PAGE_SONGS from "./getArtistPageSongs.gql"
@@ -101,6 +101,22 @@ const ArtistPageAlbums: FC<RouteComponentProps> = ({ match }) => {
 	)
 }
 
+const ArtistFollowButton: FC<ArtistFollowButtonPropTypes> = ({ artist }) => {
+	const [ onInLibrary, { loading, inLibrary } ] = useInLibrary(artist)
+	const handleClick = async () => onInLibrary()
+	return (
+		<Button
+			text="Follow"
+			onClick={loading ? undefined : handleClick}
+			icon={inLibrary ? "library_add_check" : "library_add"}
+		/>
+	)
+}
+
+interface ArtistFollowButtonPropTypes {
+	artist: Artist,
+}
+
 const ArtistPage: FC<RouteComponentProps> = ({ match }) => {
 	const userId = useStateUserId()
 	const params = useParams<Params>()
@@ -130,10 +146,6 @@ const ArtistPage: FC<RouteComponentProps> = ({ match }) => {
 									doc={data.artist}
 									className={bem("cover-content-name-text")}
 								/>
-								<InLibraryButton
-									doc={data.artist}
-									className={bem("cover-content-name-add")}
-								/>
 							</h1>
 							<p className={bem("cover-content-text")}>
 								{artistLower(data.artist)}
@@ -145,12 +157,16 @@ const ArtistPage: FC<RouteComponentProps> = ({ match }) => {
 									{determinePlural(data.artist.playsTotal)}
 								</p>
 							)}
-							<Button
-								icon="shuffle"
-								text="Shuffle"
-								className="MarginTop"
-								onClick={handleShuffle}
-							/>
+							<div className="MarginTop FlexListGap">
+								<Button
+									icon="shuffle"
+									text="Shuffle"
+									onClick={handleShuffle}
+								/>
+								<ArtistFollowButton
+									artist={data.artist}
+								/>
+							</div>
 						</div>
 						<div
 							className={bem("cover-black")}

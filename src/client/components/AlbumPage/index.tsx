@@ -20,7 +20,7 @@ import { useStateUserId } from "../../redux"
 import SHUFFLE_ALBUM from "./shuffleAlbum.gql"
 import GET_ALBUM_PAGE from "./getAlbumPage.gql"
 import { Song, Album, User, UserVar } from "../../types"
-import ADD_USER_SONG from "../InLibraryButton/addUserSong.gql"
+import ADD_USER_SONG from "../../helpers/useInLibrary/addUserSong.gql"
 
 import "./index.scss"
 

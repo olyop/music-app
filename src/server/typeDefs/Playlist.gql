@@ -1,5 +1,5 @@
 type Playlist {
-	name: String!
+	title: String!
 	playlistId: Uuid!
 	duration: PositiveInt
 	dateCreated: Timestamp!

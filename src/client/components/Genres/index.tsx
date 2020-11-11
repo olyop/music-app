@@ -9,8 +9,8 @@ import { Genre as TGenre } from "../../types"
 const bem = createBem("Genre")
 
 const Genres: FC<PropTypes> = ({
-	genres,
 	className,
+	genres = [],
 	orderByFields,
 	hideOrderBy = false,
 }) => (
@@ -35,7 +35,7 @@ const Genres: FC<PropTypes> = ({
 )
 
 interface PropTypes extends BemPropTypes {
-	genres: TGenre[],
+	genres?: TGenre[],
 	hideOrderBy?: boolean,
 	orderByFields: string[],
 }

@@ -47,7 +47,7 @@ const LibraryArtists: FC = () => {
 				) : (
 					<Artists
 						orderByKey="userArtists"
-						artists={data?.user.artists || []}
+						artists={data?.user.artists}
 						hideOrderBy={isEmpty(data?.user.artists)}
 						className={isList ? "Content" : undefined}
 						orderByFields={Object.keys(UserArtistsOrderByField)}

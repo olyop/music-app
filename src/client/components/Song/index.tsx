@@ -21,6 +21,7 @@ const Song: FC<PropTypes> = ({
 	hidePlay = false,
 	showRight = true,
 	hideCover = false,
+	hideInLibrary = false,
 	showTrackNumber = false,
 }) => {
 	const { songId } = song
@@ -45,6 +46,7 @@ const Song: FC<PropTypes> = ({
 			doc={song}
 			hidePlay={hidePlay}
 			className={className}
+			hideInLibrary={hideInLibrary}
 			iconClassName={iconClassName}
 			upper={<SongTitle song={song}/>}
 			imgDoc={hideCover ? undefined : song.album}
@@ -99,6 +101,7 @@ interface PropTypes extends BemPropTypes {
 	hidePlay?: boolean,
 	hideCover?: boolean,
 	showRight?: boolean,
+	hideInLibrary?: boolean,
 	iconClassName?: BemInput,
 	showTrackNumber?: boolean,
 }

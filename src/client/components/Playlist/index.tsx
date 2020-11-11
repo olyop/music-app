@@ -9,10 +9,10 @@ import "./index.scss"
 const bem = createBem("Playlist")
 
 const Playlist: FC<PropTypes> = ({ playlist }) => (
-	<div className={bem("")}>
-		<div className={bem("info")}>
+	<div className={bem("", "Content")}>
+		<h1 className="Heading2">
 			<DocLink doc={playlist}/>
-		</div>
+		</h1>
 	</div>
 )
 

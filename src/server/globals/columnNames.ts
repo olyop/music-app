@@ -46,9 +46,9 @@ export const SONG = [
 ]
 
 export const PLAYLIST = [
-	"playlist_id",
-	"name",
+	"title",
 	"user_id",
+	"playlist_id",
 	"date_created",
 ]
 

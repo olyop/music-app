@@ -4,5 +4,15 @@ query getUserPage($userId: Uuid!) {
     userId
     songsTotal
     artistsTotal
+    playlists(
+      page: 1
+      orderBy: {
+        field: TITLE
+        direction: ASC
+      }
+    ) {
+      playlistId
+      title
+    }
   }
 }

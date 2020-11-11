@@ -30,8 +30,5 @@ type User {
 		page: NonNegativeInt!
 		orderBy: UserArtistOrderByInput!
 	): [Artist!]!
-	playlists(
-		page: NonNegativeInt!
-		orderBy: UserPlaylistOrderByInput!
-	): [Playlist!]!
+	playlists: [Playlist!]!
 }

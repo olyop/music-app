@@ -31,6 +31,7 @@ import {
 	SELECT_USER_ALBUMS,
 	SELECT_USER_GENRES,
 	SELECT_USER_ARTISTS,
+	SELECT_USER_PLAYLISTS,
 	SELECT_USER_SONGS_TOTAL,
 	SELECT_USER_ARTISTS_TOTAL,
 } from "../sql"
@@ -138,15 +139,21 @@ export const prev =
 		({ parent, context }) => {
 			if (parent.prev && !isEmpty(parent.prev)) {
 				return sqlQuery(context.pg)({
+					log: { sql: true },
 					sql: SELECT_SONGS_IN,
 					parse: parseSqlTable<Song>(),
 					variables: [{
-						key: "songIds",
-						value: join(parent.prev, "', '"),
-					},{
 						string: false,
 						key: "columnNames",
 						value: sqlJoin(COLUMN_NAMES.SONG),
+					},{
+						string: false,
+						key: "songIds",
+						value: `'${join(parent.prev, "', '")}'`,
+					},{
+						string: false,
+						key: "orderBy",
+						value: `song_id='${join(parent.prev, "' DESC, song_id='")}' DESC`,
 					}],
 				})
 			} else {
@@ -166,12 +173,17 @@ export const next =
 					sql: SELECT_SONGS_IN,
 					parse: parseSqlTable<Song>(),
 					variables: [{
+						string: false,
 						key: "songIds",
-						value: join(parent.next, "', '"),
+						value: `'${join(parent.next, "', '")}'`,
 					},{
 						string: false,
 						key: "columnNames",
 						value: sqlJoin(COLUMN_NAMES.SONG),
+					},{
+						string: false,
+						key: "orderBy",
+						value: `song_id='${join(parent.next, "' DESC, song_id='")}' DESC`,
 					}],
 				})
 			} else {
@@ -190,16 +202,20 @@ export const later =
 		({ parent, context }) => {
 			if (parent.later && !isEmpty(parent.later)) {
 				return sqlQuery(context.pg)({
-					log: { sql: true },
 					sql: SELECT_SONGS_IN,
 					parse: parseSqlTable<Song>(),
 					variables: [{
-						key: "songIds",
-						value: join(parent.later, "', '"),
-					},{
 						string: false,
 						key: "columnNames",
 						value: sqlJoin(COLUMN_NAMES.SONG),
+					},{
+						string: false,
+						key: "songIds",
+						value: `'${join(parent.later, "', '")}'`,
+					},{
+						string: false,
+						key: "orderBy",
+						value: `song_id='${join(parent.later, "' DESC, song_id='")}' DESC`,
 					}],
 				})
 			} else {
@@ -330,6 +346,18 @@ export const artistsTotal =
 export const playlists =
 	resolver<Playlist[], DocsArgs>(
 		({ parent, args, context }) => (
-			Promise.resolve([])
+			sqlQuery(context.pg)({
+				log: { sql: true },
+				parse: parseSqlTable(),
+				sql: SELECT_USER_PLAYLISTS,
+				variables: [{
+					key: "userId",
+					value: parent.userId,
+				},{
+					string: false,
+					key: "columnNames",
+					value: sqlJoin(COLUMN_NAMES.PLAYLIST, "playlists"),
+				}],
+			})
 		),
 	)

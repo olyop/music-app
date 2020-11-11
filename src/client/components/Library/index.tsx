@@ -14,7 +14,7 @@ const Library: FC<RouteComponentProps> = ({ match }) => {
 	const variables: UserVar = { userId }
 
 	const [ shuffle, { loading } ] =
-		useMutation<User, UserVar>(SHUFFLE_USER_LIBRARY, { variables })
+		useMutation<Data, UserVar>(SHUFFLE_USER_LIBRARY, { variables })
 
 	const handleShuffle = () => shuffle()
 
@@ -31,7 +31,7 @@ const Library: FC<RouteComponentProps> = ({ match }) => {
 				right={(
 					<Button
 						icon="shuffle"
-						text="Shuffle"
+						text="Shuffle Library"
 						onClick={loading ? undefined : handleShuffle}
 					/>
 				)}
@@ -49,6 +49,10 @@ const Library: FC<RouteComponentProps> = ({ match }) => {
 			</Switch>
 		</section>
 	)
+}
+
+interface Data {
+	userShuffleLibrary: User,
 }
 
 export default Library

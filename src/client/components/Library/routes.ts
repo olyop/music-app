@@ -5,19 +5,26 @@ import LibrarySongs from "./LibrarySongs"
 import LibraryGenres from "./LibraryGenres"
 import LibraryAlbums from "./LibraryAlbums"
 import LibraryArtists from "./LibraryArtists"
+import LibraryPlaylists from "./LibraryPlaylists"
 
 const routes: Route[] = [{
+	name: "Songs",
+	id: uniqueId(),
+	path: "/songs",
+	icon: "audiotrack",
+	component: LibrarySongs,
+},{
 	id: uniqueId(),
 	icon: "person",
 	name: "Artists",
 	path: "/artists",
 	component: LibraryArtists,
 },{
-	name: "Songs",
 	id: uniqueId(),
-	path: "/songs",
-	icon: "audiotrack",
-	component: LibrarySongs,
+	name: "Playlists",
+	path: "/playlists",
+	icon: "queue_music",
+	component: LibraryPlaylists,
 },{
 	icon: "list",
 	name: "Genres",

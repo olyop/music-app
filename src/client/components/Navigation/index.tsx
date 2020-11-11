@@ -10,7 +10,7 @@ import "./index.scss"
 const bem = createBem("Navigation")
 
 const Navigation: FC<PropTypes> = ({ path, right, routes, className }) => (
-	<nav className={bem(className, "FlexListSpaceBetween Content")}>
+	<nav className={bem(className, "", "Content")}>
 		<div className={bem("links", "FlexListGap")}>
 			{routes.map(
 				route => route.ignore || (

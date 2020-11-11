@@ -1,4 +1,10 @@
 .Navigation {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	@media (max-width: 650px) {
+		gap: var(--space-half);
+		flex-direction: column; }
 	&__links {
 		@media (max-width: 800px) {
 			justify-content: center; }

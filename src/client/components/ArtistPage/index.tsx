@@ -65,7 +65,7 @@ const ArtistPageHome: FC<RouteComponentProps> = ({ match }) => {
 				showRight={false}
 				orderByKey="songs"
 				className="Content"
-				songs={data?.artist.topTenSongs || []}
+				songs={data?.artist.topTenSongs}
 			/>
 		</Fragment>
 	)

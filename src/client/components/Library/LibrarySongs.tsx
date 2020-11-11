@@ -40,7 +40,7 @@ const LibrarySongs: FC = () => {
 					<Songs
 						className="Content"
 						orderByKey="userSongs"
-						songs={data?.user.songs || []}
+						songs={data?.user.songs}
 						hideOrderBy={isEmpty(data?.user.songs)}
 						orderByFields={Object.keys(UserSongsOrderByField)}
 					/>

@@ -28,7 +28,7 @@ const BrowseSongs: FC = () => {
 						<Songs
 							orderByKey="songs"
 							className="Content"
-							songs={data?.songs || []}
+							songs={data?.songs}
 							orderByFields={Object.keys(SongsOrderByField)}
 						/>
 					)

@@ -50,8 +50,3 @@ enum UserArtistOrderByField {
 	NAME
 	DATE_ADDED
 }
-
-enum UserPlaylistOrderByField {
-	NAME
-	DATE_ADDED
-}

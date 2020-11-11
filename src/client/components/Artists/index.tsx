@@ -11,9 +11,9 @@ import { OrderBySettings, ListStyle, Artist as TArtist } from "../../types"
 const bem = createBem("")
 
 const Artists: FC<PropTypes> = ({
-	artists,
 	className,
 	orderByKey,
+	artists = [],
 	orderByFields,
 	hideOrderBy = false,
 }) => {
@@ -47,8 +47,8 @@ const Artists: FC<PropTypes> = ({
 }
 
 interface PropTypes {
-	artists: TArtist[],
 	className?: string,
+	artists?: TArtist[],
 	hideOrderBy?: boolean,
 	orderByFields?: string[],
 	orderByKey?: keyof Pick<OrderBySettings, "artists" | "userArtists">,

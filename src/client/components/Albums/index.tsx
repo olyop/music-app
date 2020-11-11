@@ -11,8 +11,8 @@ import { ListStyle, Album as TAlbum } from "../../types"
 const bem = createBem("")
 
 const Albums: FC<PropTypes> = ({
-	albums,
 	className,
+	albums = [],
 	orderByFields,
 	hideOrderBy = false,
 }) => {
@@ -52,7 +52,7 @@ const Albums: FC<PropTypes> = ({
 }
 
 interface PropTypes {
-	albums: TAlbum[],
+	albums?: TAlbum[],
 	className?: string,
 	hideOrderBy?: boolean,
 	orderByFields?: string[],

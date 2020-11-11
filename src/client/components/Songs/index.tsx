@@ -9,18 +9,25 @@ import { OrderBySettings, Song as SongType } from "../../types"
 const bem = createBem("Songs")
 
 const Songs: FC<PropTypes> = ({
-	songs,
 	className,
 	orderByKey,
+	songs = [],
 	orderByFields,
 	showRight = true,
 	showIndex = false,
 	hideCover = false,
 	hideOrderBy = false,
+	hideElevated = false,
+	hideInLibrary = false,
 	showTrackNumber = false,
 	includeIndexInKey = false,
 }) => (
-	<div className={bem(className, isEmpty(songs) || "Elevated")}>
+	<div
+		className={bem(
+			className,
+			(isEmpty(songs) || hideElevated) || "Elevated",
+		)}
+	>
 		{hideOrderBy || (
 			<OrderBy
 				settingsKey={orderByKey!}
@@ -34,6 +41,7 @@ const Songs: FC<PropTypes> = ({
 					song={song}
 					showRight={showRight}
 					hideCover={hideCover}
+					hideInLibrary={hideInLibrary}
 					showTrackNumber={showTrackNumber}
 					className="Hover ItemBorder PaddingHalf"
 					index={showIndex ? index + 1 : undefined}
@@ -45,11 +53,13 @@ const Songs: FC<PropTypes> = ({
 )
 
 interface PropTypes extends BemPropTypes {
-	songs: SongType[],
+	songs?: SongType[],
 	showRight?: boolean,
 	hideCover?: boolean,
 	showIndex?: boolean,
 	hideOrderBy?: boolean,
+	hideElevated?: boolean,
+	hideInLibrary?: boolean,
 	orderByFields?: string[],
 	showTrackNumber?: boolean,
 	includeIndexInKey?: boolean,

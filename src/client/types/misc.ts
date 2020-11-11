@@ -32,7 +32,7 @@ export interface DataUserPlay {
 }
 
 export interface Queue {
-	id: string,
+	id: QueueKey,
 	name: string,
 	songs: Song[],
 }
@@ -52,3 +52,5 @@ export interface ModalButton {
 	icon: string,
 	handler?: () => void,
 }
+
+export type QueueKey = "prev" | "current" | "next" | "later"

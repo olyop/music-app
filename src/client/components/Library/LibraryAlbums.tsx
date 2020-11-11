@@ -38,7 +38,7 @@ const LibraryArtists: FC = () => {
 					<LibraryEmpty/>
 				) : (
 					<Albums
-						albums={data?.user.albums || []}
+						albums={data?.user.albums}
 						hideOrderBy={isEmpty(data?.user.albums)}
 						orderByFields={Object.keys(AlbumsOrderByField)}
 					/>

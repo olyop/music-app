@@ -39,7 +39,7 @@ const LibraryArtists: FC = () => {
 				) : (
 					<Genres
 						className="Content"
-						genres={data?.user.genres || []}
+						genres={data?.user.genres}
 						hideOrderBy={isEmpty(data?.user.genres)}
 						orderByFields={Object.keys(GenresOrderByField)}
 					/>

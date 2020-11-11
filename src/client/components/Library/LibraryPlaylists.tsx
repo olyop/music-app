@@ -1,10 +1,8 @@
-import orderBy from "lodash/orderBy"
 import { createElement, FC } from "react"
 
-import List from "../List"
 import Feed from "../Feed"
 import Helmet from "../Helmet"
-import Playlist from "../Playlist"
+import Playlists from "../Playlists"
 import { User, UserVar } from "../../types"
 import { useStateUserId } from "../../redux"
 import GET_USER_PLAYLISTS from "./getUserPlaylists.gql"
@@ -26,16 +24,10 @@ const LibraryPlaylists: FC = () => (
 				},
 			})}
 			children={data => (
-				<List>
-					{orderBy(data?.user.playlists || [], "dateAdded", "desc").map(
-						playlist => (
-							<Playlist
-								playlist={playlist}
-								key={playlist.playlistId}
-							/>
-						),
-					)}
-				</List>
+				<Playlists
+					className="Content"
+					playlists={data?.user.playlists}
+				/>
 			)}
 		/>
 	</Helmet>

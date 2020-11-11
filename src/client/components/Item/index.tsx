@@ -82,12 +82,12 @@ const Item = <D extends Doc, I extends Doc = Doc>({
 							children={upper}
 							className={bem("info-left-upper", "Text2")}
 						/>
-						{lower ? (
+						{lower && (
 							<p
 								children={lower}
 								className={bem("info-left-lower", "Text")}
 							/>
-						) : null}
+						)}
 					</div>
 					{right && (
 						<p

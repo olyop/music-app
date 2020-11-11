@@ -29,11 +29,17 @@ const Library: FC<RouteComponentProps> = ({ match }) => {
 				path={match.path}
 				className="MarginBottom"
 				right={(
-					<Button
-						icon="shuffle"
-						text="Shuffle Library"
-						onClick={loading ? undefined : handleShuffle}
-					/>
+					<div className="FlexListGap">
+						<Button
+							text="Playlist"
+							icon="playlist_add"
+						/>
+						<Button
+							icon="shuffle"
+							text="Shuffle"
+							onClick={loading ? undefined : handleShuffle}
+						/>
+					</div>
 				)}
 			/>
 			<Switch>

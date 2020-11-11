@@ -1,22 +1,26 @@
-import { createBem } from "@oly_op/bem"
 import { createElement, FC } from "react"
+import { createBem, BemPropTypes } from "@oly_op/bem"
 
-import DocLink from "../DocLink"
+import Item from "../Item"
 import { Playlist as TPlaylist } from "../../types"
 
 import "./index.scss"
+import DocLink from "../DocLink"
 
 const bem = createBem("Playlist")
 
-const Playlist: FC<PropTypes> = ({ playlist }) => (
-	<div className={bem("", "Content")}>
-		<h1 className="Heading2">
-			<DocLink doc={playlist}/>
-		</h1>
-	</div>
+const Playlist: FC<PropTypes> = ({ playlist, className }) => (
+	<Item
+		hidePlay
+		hideInLibrary
+		doc={playlist}
+		lower={playlist.songsTotal}
+		className={bem(className, "")}
+		upper={<DocLink doc={playlist}/>}
+	/>
 )
 
-interface PropTypes {
+interface PropTypes extends BemPropTypes {
 	playlist: TPlaylist,
 }
 

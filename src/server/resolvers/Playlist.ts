@@ -96,20 +96,22 @@ export const user =
 export const songs =
 	resolver<Song[]>(
 		({ parent, context }) => (
-			getPlaylistSongs(context.pg)(
-				parent.playlistId,
-				parseSqlTable(),
-			)
+			// getPlaylistSongs(context.pg)(
+			// 	parent.playlistId,
+			// 	parseSqlTable(),
+			// )
+			Promise.resolve([])
 		),
 	)
 
 export const songsTotal =
 	resolver<number | null>(
 		({ parent, context }) => (
-			getPlaylistSongs(context.pg)(
-				parent.playlistId,
-				getSqlRowCountOrNull,
-			)
+			// getPlaylistSongs(context.pg)(
+			// 	parent.playlistId,
+			// 	getSqlRowCountOrNull,
+			// )
+			Promise.resolve(10)
 		),
 	)
 

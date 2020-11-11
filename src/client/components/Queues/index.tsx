@@ -95,7 +95,6 @@ const Queues: FC = () => {
 									hideOrderBy
 									hideElevated
 									hideInLibrary
-									includeIndexInKey
 									songs={queue.songs}
 									className={bem("section")}
 								/>

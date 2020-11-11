@@ -20,7 +20,6 @@ const Songs: FC<PropTypes> = ({
 	hideElevated = false,
 	hideInLibrary = false,
 	showTrackNumber = false,
-	includeIndexInKey = false,
 }) => (
 	<div
 		className={bem(
@@ -43,9 +42,9 @@ const Songs: FC<PropTypes> = ({
 					hideCover={hideCover}
 					hideInLibrary={hideInLibrary}
 					showTrackNumber={showTrackNumber}
+					key={song.songId + index.toString()}
 					className="Hover ItemBorder PaddingHalf"
 					index={showIndex ? index + 1 : undefined}
-					key={includeIndexInKey ? `${song.songId}${index}` : song.songId}
 				/>
 			),
 		)}
@@ -62,7 +61,6 @@ interface PropTypes extends BemPropTypes {
 	hideInLibrary?: boolean,
 	orderByFields?: string[],
 	showTrackNumber?: boolean,
-	includeIndexInKey?: boolean,
 	orderByKey?: keyof Pick<OrderBySettings, "songs" | "userSongs">,
 }
 

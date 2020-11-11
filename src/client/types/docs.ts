@@ -65,6 +65,7 @@ export interface Song extends SongBase, UserDoc<"Song"> {
 export interface Playlist extends PlaylistBase, UserDoc<"Playlist"> {
 	user: User,
 	songs: Song[],
+	songsTotal: number | null,
 }
 
 export interface User extends UserBase, Doc<"User"> {

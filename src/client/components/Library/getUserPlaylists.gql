@@ -4,6 +4,7 @@ query getUserPlaylists($userId: Uuid!) {
 		playlists {
 			title
 			playlistId
+			songsTotal
 			dateAdded(userId: $userId)
 			inLibrary(userId: $userId)
 		}

@@ -14,19 +14,16 @@ import "./index.scss"
 
 const bem = createBem("DocLink")
 
-const DocLink = <T extends Doc,>({ doc, onClick, className }: PropTypes<T>) => {
-	const text = determineDocName(doc)
-	return (
-		<Link
-			title={text}
-			children={text}
-			onClick={onClick}
-			id={determineDocId(doc)}
-			to={determineDocPath(doc)}
-			className={bem("", className)}
-		/>
-	)
-}
+const DocLink = <T extends Doc>({ doc, onClick, className }: PropTypes<T>) => (
+	<Link
+		onClick={onClick}
+		id={determineDocId(doc)}
+		to={determineDocPath(doc)}
+		title={determineDocName(doc)}
+		className={bem("", className)}
+		children={determineDocName(doc)}
+	/>
+)
 
 interface PropTypes<T> extends BemPropTypes {
 	doc: T,

@@ -21,7 +21,7 @@ const createQueuesArray = ({ prev, current, next, later }: User) => {
 		name: "After",
 	}]
 
-	const filtered = queues.filter(({ name, songs }) => !isEmpty(songs))
+	const filtered = queues.filter(({ name, songs }) => name === "Previous" || !isEmpty(songs))
 
 	return filtered.length === 1 ? [] : filtered
 }

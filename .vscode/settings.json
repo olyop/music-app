@@ -9,10 +9,10 @@
 		".git": true,
 		".env": false,
 		"dist": true,
-		".vscode": false,
+		".vscode": true,
 		"debug.log": true,
 		"access.log": true,
-		"node_modules/": false
+		"node_modules/": true
 	},
 	"files.associations": {
     "*.env.*": "dotenv"

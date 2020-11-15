@@ -87,9 +87,13 @@ const Queues: FC = () => {
 							>
 								<summary className={bem("summary", "Text2 PaddingHalf")}>
 									{queue.name}
-									<Fragment> (</Fragment>
-									{queue.songs.length}
-									<Fragment>)</Fragment>
+									{queue.name === "Playing" || (
+										<Fragment>
+											<Fragment> (</Fragment>
+											{queue.songs.length}
+											<Fragment>)</Fragment>
+										</Fragment>
+									)}
 								</summary>
 								<Songs
 									hideOrderBy

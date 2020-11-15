@@ -83,6 +83,10 @@ const defaultSettings: Settings = {
 			field: SongsOrderByField.TITLE,
 			direction: OrderByDirection.ASC,
 		},
+		artists: {
+			field: ArtistsOrderByField.NAME,
+			direction: OrderByDirection.ASC,
+		},
 		genres: {
 			field: GenresOrderByField.NAME,
 			direction: OrderByDirection.ASC,
@@ -90,10 +94,6 @@ const defaultSettings: Settings = {
 		albums: {
 			direction: OrderByDirection.DESC,
 			field: AlbumsOrderByField.RELEASED,
-		},
-		artists: {
-			field: ArtistsOrderByField.NAME,
-			direction: OrderByDirection.ASC,
 		},
 		userSongs: {
 			direction: OrderByDirection.DESC,

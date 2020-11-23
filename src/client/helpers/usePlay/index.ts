@@ -1,6 +1,3 @@
-import { createElement, FC } from "react"
-import { createBem, BemPropTypes } from "@oly_op/bem"
-
 import {
 	updatePlay,
 	useDispatch,
@@ -9,23 +6,17 @@ import {
 	useStateUserId,
 } from "../../redux"
 
-import {
-	useQuery,
-	useMutation,
-	determineDocId,
-} from "../../helpers"
-
-import Icon from "../Icon"
+import { useQuery } from "../useQuery"
+import { useMutation } from "../useMutation"
 import { User, UserDoc, Song } from "../../types"
+import { determineDocId } from "../determineDocId"
 import GET_USER_CURRENT from "./getUserCurrent.gql"
 import UPDATE_USER_PLAY from "./updateUserCurrent.gql"
 
 const isSong = (doc: UserDoc): doc is Song =>
 	doc.__typename === "Song"
 
-const bem = createBem("PlayButton")
-
-const PlayButton: FC<PropTypes> = ({ doc, className }) => {
+export const usePlay = (doc: UserDoc): ReturnType => {
 	const play = useStatePlay()
 	const dispatch = useDispatch()
 	const userId = useStateUserId()
@@ -56,7 +47,7 @@ const PlayButton: FC<PropTypes> = ({ doc, className }) => {
 	)
 
 	const handleClick = async () => {
-		if (isSong(doc)) {
+		if (!loading || isSong(doc)) {
 			if (isCurrent) {
 				dispatch(updatePlay(!play))
 			} else {
@@ -67,15 +58,10 @@ const PlayButton: FC<PropTypes> = ({ doc, className }) => {
 		}
 	}
 
-	return (
-		<Icon
-			title="Play"
-			className={bem(className, "Hover")}
-			onClick={loading ? undefined : handleClick}
-			icon={isCurrent && play ? "pause" : "play_arrow"}
-		/>
-	)
+	return [ !!isCurrent && play, handleClick ]
 }
+
+type ReturnType = [ boolean, () => Promise<void> ]
 
 interface UserPlayRes {
 	updateUserCurrent: Pick<User, "userId" | "current" | "__typename">,
@@ -84,9 +70,3 @@ interface UserPlayRes {
 interface UserCurrentRes {
 	user: User,
 }
-
-interface PropTypes extends BemPropTypes {
-	doc: UserDoc,
-}
-
-export default PlayButton

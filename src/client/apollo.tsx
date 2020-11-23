@@ -1,25 +1,12 @@
 import {
 	HttpLink,
-	// FieldPolicy,
 	ApolloClient,
 	TypePolicies,
 	InMemoryCache,
 	ApolloProvider,
-	// FieldMergeFunction,
 } from "@apollo/client"
 
-// import isEmpty from "lodash/isEmpty"
 import { createElement, FC } from "react"
-
-// import { Song, Album, Artist } from "./types"
-
-// const userMerge = <T,>(): FieldMergeFunction<T[]> =>
-// 	(existing, incoming) =>
-// 		(existing && isEmpty(incoming) && existing.length !== 1 ?
-// 			existing : incoming)
-
-// const userDocs = <T,>(): FieldPolicy<T[]> =>
-// 	({ merge: userMerge() })
 
 const typePolicies: TypePolicies = {
 	Query: {
@@ -30,17 +17,7 @@ const typePolicies: TypePolicies = {
 			artists: { keyArgs: ["orderBy"] },
 		},
 	},
-	User: {
-		keyFields: ["userId"],
-		// fields: {
-		// 	prevs: userDocs<Song>(),
-		// 	nexts: userDocs<Song>(),
-		// 	afters: userDocs<Song>(),
-		// 	songs: userDocs<Song>(),
-		// 	albums: userDocs<Album>(),
-		// 	artists: userDocs<Artist>(),
-		// },
-	},
+	User: { keyFields: ["userId"] },
 	Song: { keyFields: ["songId"] },
 	Play: { keyFields: ["playId"] },
 	Album: { keyFields: ["albumId"] },

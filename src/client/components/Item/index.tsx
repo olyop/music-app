@@ -17,7 +17,7 @@ import {
 
 import Img from "../Img"
 import Icon from "../Icon"
-import PlayButton from "../PlayButton"
+import PlayButton from "./PlayButton"
 import InLibraryButton from "./InLibraryButton"
 import { useDispatch, changeModal } from "../../redux"
 

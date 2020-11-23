@@ -12,6 +12,7 @@ import {
 
 import Helmet from "../Helmet"
 import Button from "../Button"
+import Select from "../Select"
 import GET_USER_PAGE from "./getUserPage.gql"
 import { useMutation, useQuery } from "../../helpers"
 import { ListStyle, User, UserVar } from "../../types"
@@ -40,8 +41,8 @@ const UserPage: FC = () => {
 		await deleteLibrary()
 	}
 
-	const handleListStyle: ChangeEventHandler<HTMLSelectElement> =
-		({ target: { value } }) => dispatch(updateListStyle(value as ListStyle))
+	const handleListStyle = (val: string) =>
+		dispatch(updateListStyle(val as ListStyle))
 
 	return (
 		<div className={bem("", "Content PaddingTopBottom")}>
@@ -58,22 +59,12 @@ const UserPage: FC = () => {
 							<h3 className="Text2 MarginBottomFifth">
 								List Style
 							</h3>
-							<select
+							<Select
 								value={listStyle}
 								onChange={handleListStyle}
+								options={Object.keys(ListStyle)}
 								className="Text MarginBottomHalf"
-							>
-								<option
-									value={ListStyle.GRID}
-									className={bem("select-option")}
-									children={upperFirst(ListStyle.GRID.toLowerCase())}
-								/>
-								<option
-									value={ListStyle.LIST}
-									className={bem("select-option")}
-									children={upperFirst(ListStyle.LIST.toLowerCase())}
-								/>
-							</select>
+							/>
 							<h3 className="Text2 MarginBottomFifth">
 								Show Genres
 							</h3>

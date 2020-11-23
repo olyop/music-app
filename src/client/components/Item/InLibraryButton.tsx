@@ -1,8 +1,8 @@
 import { createElement, FC } from "react"
 
-import Icon from "../../Icon"
-import { InLibraryDoc } from "../../../types"
-import { useInLibrary } from "../../../helpers"
+import Icon from "../Icon"
+import { InLibraryDoc } from "../../types"
+import { useInLibrary } from "../../helpers"
 
 const InLibraryButton: FC<PropTypes> = ({ doc, className }) => {
 	const [ handleClick, { loading, inLibrary } ] = useInLibrary(doc)

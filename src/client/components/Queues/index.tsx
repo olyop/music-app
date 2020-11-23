@@ -1,3 +1,4 @@
+import isEmpty from "lodash/isEmpty"
 import { createBem } from "@oly_op/bem"
 import { useState, createElement, FC, Fragment } from "react"
 
@@ -95,13 +96,15 @@ const Queues: FC = () => {
 										</Fragment>
 									)}
 								</summary>
-								<Songs
-									hideOrderBy
-									hideElevated
-									hideInLibrary
-									songs={queue.songs}
-									className={bem("section")}
-								/>
+								{!isEmpty(queue.songs) && (
+									<Songs
+										hideOrderBy
+										hideElevated
+										hideInLibrary
+										songs={queue.songs}
+										className={bem("section")}
+									/>
+								)}
 							</details>
 						))}
 					</div>

@@ -1,3 +1,4 @@
+export * from "./usePlay"
 export * from "./useQuery"
 export * from "./useSound"
 export * from "./uuidDashes"

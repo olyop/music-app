@@ -9,9 +9,9 @@ import USER_SONG_NEXT from "./userSongNext.gql"
 import USER_SONG_AFTER from "./userSongAfter.gql"
 import USER_SONG_LATER from "./userSongLater.gql"
 import FeaturingArtists from "../FeaturingArtists"
-import { useMutation, useInLibrary } from "../../helpers"
 import { Song as TSong, User, UserVar } from "../../types"
 import { useStateShowGenres, useStateUserId } from "../../redux"
+import { usePlay, useMutation, useInLibrary } from "../../helpers"
 
 const Song: FC<PropTypes> = ({
 	song,
@@ -28,6 +28,9 @@ const Song: FC<PropTypes> = ({
 	const userId = useStateUserId()
 	const variables = { userId, songId }
 	const showGenres = useStateShowGenres()
+
+	const [ play, handlePlayClick ] =
+		usePlay(song)
 
 	const [ toggleInLibrary, { inLibrary, loading: inLibraryLoading } ] =
 		useInLibrary(song)
@@ -55,6 +58,14 @@ const Song: FC<PropTypes> = ({
 			modal={{
 				title: song.title,
 				buttons: [{
+					handler: handlePlayClick,
+					text: play ? "Pause" : "Play",
+					icon: play ? "pause" : "play_arrow",
+				},{
+					icon: inLibrary ? "done" : "add",
+					text: inLibrary ? "In Library" : "Add",
+					handler: inLibraryLoading ? undefined : toggleInLibrary,
+				},{
 					text: "Next",
 					icon: "playlist_add",
 					handler: nextLoading ? undefined : next,
@@ -66,10 +77,6 @@ const Song: FC<PropTypes> = ({
 					icon: "queue",
 					text: "Later",
 					handler: laterLoading ? undefined : later,
-				},{
-					icon: inLibrary ? "done" : "add",
-					text: inLibrary ? "Remove" : "Add",
-					handler: inLibraryLoading ? undefined : toggleInLibrary,
 				}],
 			}}
 			lower={(

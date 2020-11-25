@@ -18,7 +18,7 @@ const CLIENT_ENTRY_PATH = path.join(CLIENT_PATH, "index.html")
 const config: Configuration = {
 	entry: CLIENT_ROOT_PATH,
 	devServer: {
-		open: true,
+		open: false,
 		index: "client.html",
 		openPage: "library/songs",
 		port: parseInt(DEV_CLIENT_PORT),

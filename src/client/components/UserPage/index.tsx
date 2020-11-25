@@ -1,6 +1,5 @@
 import { createBem } from "@oly_op/bem"
-import upperFirst from "lodash/upperFirst"
-import { createElement, FC, ChangeEventHandler, Fragment } from "react"
+import { createElement, FC, Fragment } from "react"
 
 import {
 	useDispatch,

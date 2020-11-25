@@ -21,7 +21,6 @@ const Artist: FC<PropTypes> = ({ artist, className, alwaysList = false }) => {
 	const lower = artistLower(artist)
 
 	const modal: Modal = {
-		title: artist.name,
 		buttons: [{
 			icon: inLibrary ? "done" : "add",
 			text: inLibrary ? "Remove" : "Add",

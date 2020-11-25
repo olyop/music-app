@@ -101,7 +101,7 @@ const ArtistPageAlbums: FC<RouteComponentProps> = ({ match }) => {
 	)
 }
 
-const ArtistFollowButton: FC<ArtistFollowButtonPropTypes> = ({ artist }) => {
+const ArtistFollowButton: FC<{ artist: Artist }> = ({ artist }) => {
 	const [ onInLibrary, { loading, inLibrary } ] = useInLibrary(artist)
 	const handleClick = async () => onInLibrary()
 	return (
@@ -111,10 +111,6 @@ const ArtistFollowButton: FC<ArtistFollowButtonPropTypes> = ({ artist }) => {
 			icon={inLibrary ? "library_add_check" : "library_add"}
 		/>
 	)
-}
-
-interface ArtistFollowButtonPropTypes {
-	artist: Artist,
 }
 
 const ArtistPage: FC<RouteComponentProps> = ({ match }) => {

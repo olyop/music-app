@@ -10,17 +10,19 @@ const bem = createBem("ModalButton")
 
 const ModalButton: FC<PropTypes> = ({ button, onClose }) => {
 	const handleClick = () => {
-		button.handler!()
-		onClose()
+		if (button.handler) {
+			button.handler()
+			onClose()
+		}
 	}
 	return (
 		<Button
 			key={button.text}
 			icon={button.icon}
 			text={button.text}
+			onClick={handleClick}
 			spanClassName={bem("span")}
 			className={bem("", "PaddingHalf")}
-			onClick={button.handler ? handleClick : undefined}
 		/>
 	)
 }

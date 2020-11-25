@@ -56,7 +56,6 @@ const Song: FC<PropTypes> = ({
 			left={index || (showTrackNumber ? song.trackNumber : null)}
 			right={showRight ? deserializeDuration(song.duration) : null}
 			modal={{
-				title: song.title,
 				buttons: [{
 					handler: handlePlayClick,
 					text: play ? "Pause" : "Play",

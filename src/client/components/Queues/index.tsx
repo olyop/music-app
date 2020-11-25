@@ -4,6 +4,7 @@ import { useState, createElement, FC, Fragment } from "react"
 
 import Songs from "../Songs"
 import Button from "../Button"
+import Helmet from "../Helmet"
 import { useStateUserId } from "../../redux"
 import CLEAR_USER_NEXT from "./userClearNext.gql"
 import GET_USER_QUEUES from "./getUserQueues.gql"
@@ -72,59 +73,60 @@ const Queues: FC = () => {
 			}))
 
 	return (
-		<div className={bem("", "Content PaddingTop PaddingBottom")}>
-			{data && (
-				<Fragment>
-					<h1 className="Heading1 MarginBottom">
-						Queues
-					</h1>
-					<div className="Elevated MarginBottom">
-						{createQueuesArray(data.user).map(queue => (
-							<details
-								key={queue.id}
-								open={open[queue.id]}
-								className="ItemBorder"
-								onChange={handleDetailsToggle(queue.id)}
-							>
-								<summary className={bem("summary", "Text2 PaddingHalf")}>
-									{queue.name}
-									{queue.name === "Playing" || (
-										<Fragment>
-											<Fragment> (</Fragment>
-											{queue.songs.length}
-											<Fragment>)</Fragment>
-										</Fragment>
-									)}
-								</summary>
-								{!isEmpty(queue.songs) && (
-									<Songs
-										hideOrderBy
-										hideElevated
-										hideInLibrary
-										songs={queue.songs}
-										className={bem("section")}
-									/>
-								)}
-							</details>
-						))}
-					</div>
-					{data.user.current && (
-						<div className="FlexListGap">
-							<Button
-								icon="clear_all"
-								text="Clear Next"
-								onClick={nextLoading ? undefined : handleNext}
-							/>
-							<Button
-								icon="close"
-								text="Clear Queue"
-								onClick={clearLoading ? undefined : handleQueue}
-							/>
+		<Helmet title="Queue">
+			<div className={bem("", "Content PaddingTop PaddingBottom")}>
+				{data && (
+					<Fragment>
+						<div className="Elevated MarginBottom">
+							{createQueuesArray(data.user).map(
+								({ id, name, songs }) => (
+									<details
+										key={id}
+										open={open[id]}
+										className="ItemBorder"
+										onChange={handleDetailsToggle(id)}
+									>
+										<summary className={bem("summary", "Text2 PaddingHalf")}>
+											{name}
+											{name === "Playing" || (
+												<Fragment>
+													<Fragment> (</Fragment>
+													{songs.length}
+													<Fragment>)</Fragment>
+												</Fragment>
+											)}
+										</summary>
+										{!isEmpty(songs) && (
+											<Songs
+												hideOrderBy
+												hideElevated
+												hideInLibrary
+												songs={songs}
+												className={bem("section")}
+											/>
+										)}
+									</details>
+								),
+							)}
 						</div>
-					)}
-				</Fragment>
-			)}
-		</div>
+						{data.user.current && (
+							<div className="FlexListGap">
+								<Button
+									icon="clear_all"
+									text="Clear Next"
+									onClick={nextLoading ? undefined : handleNext}
+								/>
+								<Button
+									icon="close"
+									text="Clear Queue"
+									onClick={clearLoading ? undefined : handleQueue}
+								/>
+							</div>
+						)}
+					</Fragment>
+				)}
+			</div>
+		</Helmet>
 	)
 }
 

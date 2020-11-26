@@ -6,6 +6,7 @@
 	cursor: pointer;
 	user-select: none;
 	border-radius: 100%;
+	box-sizing: border-box;
 	width: var(--info-height);
 	height: var(--info-height);
 	overflow: hidden !important;

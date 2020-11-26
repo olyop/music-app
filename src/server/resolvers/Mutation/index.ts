@@ -1,4 +1,5 @@
 export * from "./add"
 export * from "./queue"
 export * from "./userDoc"
+export * from "./addPlaylist"
 export * from "./deleteUserLibrary"

@@ -43,6 +43,7 @@ export interface UserVar {
 
 export interface Modal {
 	volume?: boolean,
+	addPlaylist?: boolean,
 	buttons?: ModalButton[],
 }
 

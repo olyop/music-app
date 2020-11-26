@@ -21,7 +21,7 @@ import {
 
 export const useQuery = <Data, Vars = BaseVars>(
 	query: DocumentNode,
-	{ hideLoading = false, ...options }: Options<Data, Vars>,
+	{ hideLoading = false, ...options }: Options<Data, Vars> = {},
 ): QueryResult<Data> => {
 	const dispatch = useDispatch()
 	const queryId = useRef(uniqueId())

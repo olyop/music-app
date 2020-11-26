@@ -1,0 +1,12 @@
+mutation addPlaylist(
+	$userId: Uuid!
+	$playlist: PlaylistInput!
+) {
+	addPlaylist(
+		userId: $userId
+		playlist: $playlist
+	) {
+		title
+		playlistId
+	}
+}

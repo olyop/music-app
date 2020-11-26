@@ -27,14 +27,12 @@ input SongInput {
 	trackNumber: PositiveInt!
 }
 
-input UserInput {
-	name: String!
+input PlaylistInput {
+	title: String!
 }
 
-input PlaylistInput {
-	user: Uuid!
-  name: String!
-  songs: [Uuid!]!
+input UserInput {
+	name: String!
 }
 
 input SongOrderByInput {

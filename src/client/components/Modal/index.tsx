@@ -3,6 +3,7 @@ import { createElement, FC } from "react"
 
 import ModalVolume from "./ModalVolume"
 import ModalButton from "./ModalButton"
+import ModalAddPlaylist from "./ModalAddPlaylist"
 import { clearModal, useDispatch, useStateModal } from "../../redux"
 
 import "./index.scss"
@@ -21,6 +22,11 @@ const Modal: FC = () => {
 			/>
 			<div className={bem("content", "Elevated")}>
 				{modal.volume && <ModalVolume/>}
+				{modal.addPlaylist && (
+					<ModalAddPlaylist
+						onClose={handleClose}
+					/>
+				)}
 				{modal.buttons && modal.buttons.map(
 					button => (
 						<ModalButton

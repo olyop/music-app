@@ -37,6 +37,7 @@ type Query {
 	artistSearch(query: String!, exact: Boolean!): [Artist!]!
 
 	# misc queries
+	login: Uuid!
 	photoSearch(name: String!): Url!
 	albumReleasedSearch(title: String!, artists: [String!]!): Date
 }

@@ -39,6 +39,13 @@ import { COLUMN_NAMES } from "../../globals"
 const resolver =
 	createResolver()
 
+export const login =
+	resolver<string>(
+		() => (
+			Promise.resolve("fe25daae-c4c8-42a8-8189-0ee8e2208670")
+		),
+	)
+
 export const genres =
 	resolver<Genre[], DocsArgs>(
 		({ args, context }) => (

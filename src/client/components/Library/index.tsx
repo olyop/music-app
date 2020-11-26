@@ -6,17 +6,23 @@ import Button from "../Button"
 import Navigation from "../Navigation"
 import { useMutation } from "../../helpers"
 import { User, UserVar } from "../../types"
-import { useStateUserId } from "../../redux"
 import SHUFFLE_USER_LIBRARY from "./userShuffleLibrary.gql"
+import { useDispatch, changeModal, useStateUserId } from "../../redux"
 
 const Library: FC<RouteComponentProps> = ({ match }) => {
+	const dispatch = useDispatch()
 	const userId = useStateUserId()
+
 	const variables: UserVar = { userId }
 
 	const [ shuffle, { loading } ] =
 		useMutation<Data, UserVar>(SHUFFLE_USER_LIBRARY, { variables })
 
-	const handleShuffle = () => shuffle()
+	const handleShuffle = () =>
+		shuffle()
+
+	const handleAddPlaylist = () =>
+		dispatch(changeModal({ addPlaylist: true }))
 
 	return (
 		<section className="PaddingTopBottom">
@@ -33,6 +39,7 @@ const Library: FC<RouteComponentProps> = ({ match }) => {
 						<Button
 							text="Playlist"
 							icon="playlist_add"
+							onClick={handleAddPlaylist}
 						/>
 						<Button
 							icon="shuffle"

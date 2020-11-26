@@ -10,11 +10,11 @@ const loadState = () => {
 		undefined : JSON.parse(serializedState) as Settings
 }
 
-const preloadedState = { settings: loadState() }
-
 export const store = configureStore({
 	reducer,
-	preloadedState,
+	preloadedState: {
+		settings: loadState(),
+	},
 	middleware: getDefaultMiddleware({
 		serializableCheck: {
 			ignoredActions: ["CHANGE_MODAL"],

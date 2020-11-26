@@ -56,10 +56,10 @@ type Mutation {
     artistId: Uuid!
   ): Artist!
 
-  addUserSongsAlbum(
+  addPlaylist(
     userId: Uuid!
-    albumId: Uuid!
-  ): Album!
+    playlist: PlaylistInput!
+  ): Playlist!
 
   deleteUserLibrary(
     userId: Uuid!
@@ -73,7 +73,4 @@ type Mutation {
     albums: [AlbumInput!]!
     artists: [ArtistInput!]!
   ): String!
-  addPlaylist(
-    playlist: PlaylistInput!
-  ): Playlist!
 }

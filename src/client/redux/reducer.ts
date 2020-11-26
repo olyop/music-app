@@ -7,6 +7,7 @@ import {
 	togglePlay,
 	clearModal,
 	changeModal,
+	updateUserId,
 	updateVolume,
 	removeLoading,
 	updateCurrent,
@@ -30,7 +31,9 @@ import {
 } from "../types"
 
 const userId =
-	createReducer("fe25daae-c4c8-42a8-8189-0ee8e2208670", {})
+	createReducer<string>("", builder =>
+		builder
+			.addCase(updateUserId, (state, { payload }) => payload))
 
 const volume =
 	createReducer(50, builder =>

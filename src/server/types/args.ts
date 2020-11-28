@@ -30,3 +30,7 @@ export interface AddRemoveSongArgs extends UserArgs {
 export interface AddRemoveArtistArgs extends UserArgs {
 	artistId: string,
 }
+
+export interface AddRemovePlaylistArgs extends UserArgs {
+	playlistId: string,
+}

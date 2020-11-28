@@ -13,9 +13,11 @@ import {
 	Song,
 	Artist,
 	SqlVariable,
+	Playlist,
 	AddRemoveInput,
 	AddRemoveSongArgs,
 	AddRemoveArtistArgs,
+	AddRemovePlaylistArgs,
 } from "../../types"
 
 import {
@@ -214,6 +216,16 @@ const artistConfig: AddRemoveFunc =
 		columnNames: COLUMN_NAMES.ARTIST,
 	})
 
+const playlistConfig: AddRemoveFunc =
+	(docId, userId) => ({
+		docId,
+		userId,
+		columnName: "playlist_id",
+		returnQuery: SELECT_ARTIST,
+		userTableName: "users_playlists",
+		columnNames: COLUMN_NAMES.PLAYLIST,
+	})
+
 const resolver =
 	createResolver()
 
@@ -242,5 +254,19 @@ export const addUserArtist =
 	resolver<Artist, AddRemoveArtistArgs>(
 		({ args, context }) => (
 			addUserDoc(context.pg)(artistConfig(args.artistId, args.userId))
+		),
+	)
+
+export const rmUserPlaylist =
+	resolver<Playlist, AddRemovePlaylistArgs>(
+		({ args, context }) => (
+			rmUserDoc(context.pg)(playlistConfig(args.playlistId, args.userId))
+		),
+	)
+
+export const addUserPlaylist =
+	resolver<Playlist, AddRemovePlaylistArgs>(
+		({ args, context }) => (
+			addUserDoc(context.pg)(playlistConfig(args.playlistId, args.userId))
 		),
 	)

@@ -21,8 +21,6 @@ const Album: FC<PropTypes> = ({
 	return (
 		listStyle === ListStyle.LIST || alwaysList ? (
 			<Item
-				doc={album}
-				hideInLibrary
 				imgDoc={album}
 				upper={<DocLink doc={album}/>}
 				lower={<DocLinks docs={album.artists}/>}
@@ -37,8 +35,6 @@ const Album: FC<PropTypes> = ({
 					link={`/album/${uuidRemoveDashes(album.albumId)}`}
 				/>
 				<Item
-					doc={album}
-					hideInLibrary
 					className="PaddingHalf"
 					upper={<DocLink doc={album}/>}
 					lower={<DocLinks ampersand docs={album.artists}/>}

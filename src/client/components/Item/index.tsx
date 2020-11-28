@@ -1,12 +1,10 @@
 import { Link } from "react-router-dom"
-import { createElement, ReactNode } from "react"
+import { createElement, FC, ReactNode } from "react"
 import { createBem, BemInput, BemPropTypes } from "@oly_op/bem"
 
 import {
 	Doc,
 	Modal,
-	UserDoc,
-	InLibraryDoc,
 } from "../../types"
 
 import {
@@ -25,27 +23,20 @@ import "./index.scss"
 
 const bem = createBem("Item")
 
-const showInLibrary =
-	(hideInLibrary: boolean, doc: Doc): doc is InLibraryDoc => !hideInLibrary
-
-const determineShowPlay =
-	(hidePlay: boolean, doc: Doc): doc is UserDoc => !hidePlay
-
-const Item = <D extends Doc, I extends Doc = Doc>({
-	doc,
+const Item: FC<PropTypes> = ({
 	left,
-	lower,
+	play,
 	right,
+	lower,
 	upper,
 	modal,
 	imgDoc,
 	className,
+	inLibrary,
 	infoClassName,
 	iconClassName,
 	rightClassName,
-	hidePlay = false,
-	hideInLibrary = false,
-}: PropTypes<D, I>) => {
+}) => {
 	const dispatch = useDispatch()
 	const handleMore = () => modal && dispatch(changeModal(modal))
 	return (
@@ -57,9 +48,10 @@ const Item = <D extends Doc, I extends Doc = Doc>({
 						className={bem("left", "Text")}
 					/>
 				)}
-				{determineShowPlay(hidePlay, doc) && (
+				{play && (
 					<PlayButton
-						doc={doc}
+						play={false}
+						onClick={() => {}}
 						className={bem(iconClassName, "play")}
 					/>
 				)}
@@ -96,9 +88,10 @@ const Item = <D extends Doc, I extends Doc = Doc>({
 						/>
 					)}
 				</div>
-				{showInLibrary(hideInLibrary, doc) && (
+				{inLibrary && (
 					<InLibraryButton
-						doc={doc}
+						inLibrary={false}
+						onClick={() => {}}
 						className={bem(iconClassName, "add")}
 					/>
 				)}
@@ -112,19 +105,28 @@ const Item = <D extends Doc, I extends Doc = Doc>({
 	)
 }
 
-interface PropTypes<Doc, ImgDoc> extends BemPropTypes {
-	doc: Doc,
+interface PlayInput {
+	play: boolean,
+	onClick: () => void,
+}
+
+interface InLibraryInput {
+	inLibrary: boolean,
+	onClick: () => void,
+}
+
+interface PropTypes extends BemPropTypes {
+	imgDoc?: Doc,
 	modal?: Modal,
-	imgDoc?: ImgDoc,
+	play?: PlayInput,
 	left?: ReactNode,
 	upper: ReactNode,
 	lower?: ReactNode,
 	right?: ReactNode,
-	hidePlay?: boolean,
-	hideInLibrary?: boolean,
 	infoClassName?: BemInput,
 	iconClassName?: BemInput,
 	rightClassName?: BemInput,
+	inLibrary?: InLibraryInput,
 }
 
 export default Item

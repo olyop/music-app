@@ -75,9 +75,13 @@ export const useInLibrary = (doc: InLibraryDoc): ReturnType => {
 			},
 		})
 
-	const handleClick = async () => mutate()
+	const handleClick = async () => {
+		if (!loading) {
+			await mutate()
+		}
+	}
 
-	return [ handleClick, { loading, inLibrary } ]
+	return [ handleClick, inLibrary ]
 }
 
 enum VarKeyEnum {
@@ -104,9 +108,4 @@ type Vars = {
 type QueryData = { [key in QueryNameEnum]?: InLibraryDoc }
 type MutationData = { [key in MutationNameEnum]?: InLibraryDoc }
 
-interface ReturnInfo {
-	loading: boolean,
-	inLibrary: boolean,
-}
-
-type ReturnType = [ mutate: () => Promise<unknown>, info: ReturnInfo ]
+type ReturnType = [ mutate: () => Promise<unknown>, inLibrary: boolean ]

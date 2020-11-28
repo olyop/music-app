@@ -9,7 +9,7 @@ import {
 
 import {
 	INSERT_PLAYLIST,
-	// INSERT_USER_DOC,
+	INSERT_USER_DOC,
 } from "../../sql"
 
 import { Playlist } from "../../types"
@@ -44,6 +44,24 @@ export const addPlaylist =
 					string: false,
 					key: "columnNames",
 					value: sqlJoin(COLUMN_NAMES.PLAYLIST),
+				}],
+			})
+			await sqlQuery(context.pg)({
+				sql: INSERT_USER_DOC,
+				variables: [{
+					key: "userId",
+					value: args.userId,
+				},{
+					string: false,
+					key: "columnName",
+					value: "playlist_id",
+				},{
+					string: false,
+					key: "tableName",
+					value: "users_playlists",
+				},{
+					key: "docId",
+					value: playlist.playlistId,
 				}],
 			})
 			return playlist

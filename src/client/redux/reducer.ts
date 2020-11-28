@@ -36,7 +36,7 @@ const userId =
 			.addCase(updateUserId, (state, { payload }) => payload))
 
 const volume =
-	createReducer(50, builder =>
+	createReducer(0, builder =>
 		builder
 			.addCase(updateVolume, (state, { payload }) => payload))
 

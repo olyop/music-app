@@ -1,3 +1,4 @@
+import noop from "lodash/noop"
 import { createBem } from "@oly_op/bem"
 import { createElement, FC } from "react"
 
@@ -13,28 +14,30 @@ const bem = createBem("Artist")
 const Artist: FC<PropTypes> = ({ artist, className, alwaysList = false }) => {
 	const listStyle = useStateListStyle()
 
-	const [ toggleInLibrary, { inLibrary, loading: inLibraryLoading } ] =
+	const [ toggleInLibrary, inLibrary ] =
 		useInLibrary(artist)
 
-	const upper = <DocLink doc={artist}/>
-
 	const lower = artistLower(artist)
+	const upper = <DocLink doc={artist}/>
+	const playConfig = { play: false, onClick: noop }
+	const inLibraryConfig = { inLibrary, onClick: toggleInLibrary }
 
 	const modal: Modal = {
 		buttons: [{
+			handler: toggleInLibrary,
 			icon: inLibrary ? "done" : "add",
 			text: inLibrary ? "Remove" : "Add",
-			handler: inLibraryLoading ? undefined : toggleInLibrary,
 		}],
 	}
 
 	return listStyle === ListStyle.LIST || alwaysList ? (
 		<Item
-			doc={artist}
 			upper={upper}
 			lower={lower}
 			modal={modal}
 			imgDoc={artist}
+			play={playConfig}
+			inLibrary={inLibraryConfig}
 			className={bem(className, "PaddingHalf ItemBorder Hover")}
 		/>
 	) : (
@@ -45,11 +48,12 @@ const Artist: FC<PropTypes> = ({ artist, className, alwaysList = false }) => {
 				link={`/artist/${uuidRemoveDashes(artist.artistId)}`}
 			/>
 			<Item
-				doc={artist}
 				upper={upper}
 				lower={lower}
 				modal={modal}
+				play={playConfig}
 				className="PaddingHalf"
+				inLibrary={inLibraryConfig}
 			/>
 		</div>
 	)

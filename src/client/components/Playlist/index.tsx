@@ -9,9 +9,6 @@ const bem = createBem("Playlist")
 
 const Playlist: FC<PropTypes> = ({ playlist, className }) => (
 	<Item
-		hidePlay
-		hideInLibrary
-		doc={playlist}
 		className={bem(className)}
 		lower={playlist.songsTotal}
 		upper={<DocLink doc={playlist}/>}

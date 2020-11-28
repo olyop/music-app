@@ -1,24 +1,20 @@
 import { createElement, FC } from "react"
 
 import Icon from "../Icon"
-import { InLibraryDoc } from "../../types"
-import { useInLibrary } from "../../helpers"
 
-const InLibraryButton: FC<PropTypes> = ({ doc, className }) => {
-	const [ handleClick, { loading, inLibrary } ] = useInLibrary(doc)
-	return (
-		<Icon
-			className={className}
-			icon={inLibrary ? "done" : "add"}
-			onClick={loading ? undefined : handleClick}
-			title={`${inLibrary ? "Remove from" : "Add to"} Library`}
-		/>
-	)
-}
+const InLibraryButton: FC<PropTypes> = ({ inLibrary, onClick, className }) => (
+	<Icon
+		onClick={onClick}
+		className={className}
+		icon={inLibrary ? "done" : "add"}
+		title={`${inLibrary ? "Remove from" : "Add to"} Library`}
+	/>
+)
 
 interface PropTypes {
-	doc: InLibraryDoc,
+	inLibrary: boolean,
 	className?: string,
+	onClick: () => void,
 }
 
 export default InLibraryButton

@@ -29,10 +29,10 @@ const Song: FC<PropTypes> = ({
 	const variables = { userId, songId }
 	const showGenres = useStateShowGenres()
 
-	const [ play, handlePlayClick ] =
+	const [ handlePlayClick, play ] =
 		usePlay(song)
 
-	const [ toggleInLibrary, { inLibrary, loading: inLibraryLoading } ] =
+	const [ toggleInLibrary, inLibrary ] =
 		useInLibrary(song)
 
 	const [ next, { loading: nextLoading } ] =
@@ -46,24 +46,29 @@ const Song: FC<PropTypes> = ({
 
 	return (
 		<Item
-			doc={song}
-			hidePlay={hidePlay}
 			className={className}
-			hideInLibrary={hideInLibrary}
 			iconClassName={iconClassName}
 			upper={<SongTitle song={song}/>}
 			imgDoc={hideCover ? undefined : song.album}
 			left={index || (showTrackNumber ? song.trackNumber : null)}
 			right={showRight ? deserializeDuration(song.duration) : null}
+			play={hidePlay ? undefined : {
+				play,
+				onClick: handlePlayClick,
+			}}
+			inLibrary={hideInLibrary ? undefined : {
+				inLibrary,
+				onClick: toggleInLibrary,
+			}}
 			modal={{
 				buttons: [{
 					handler: handlePlayClick,
 					text: play ? "Pause" : "Play",
 					icon: play ? "pause" : "play_arrow",
 				},{
+					handler: toggleInLibrary,
 					icon: inLibrary ? "done" : "add",
 					text: inLibrary ? "In Library" : "Add",
-					handler: inLibraryLoading ? undefined : toggleInLibrary,
 				},{
 					text: "Next",
 					icon: "playlist_add",

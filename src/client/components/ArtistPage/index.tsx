@@ -102,12 +102,11 @@ const ArtistPageAlbums: FC<RouteComponentProps> = ({ match }) => {
 }
 
 const ArtistFollowButton: FC<{ artist: Artist }> = ({ artist }) => {
-	const [ onInLibrary, { loading, inLibrary } ] = useInLibrary(artist)
-	const handleClick = async () => onInLibrary()
+	const [ toggleInLibrary, inLibrary ] = useInLibrary(artist)
 	return (
 		<Button
 			text="Follow"
-			onClick={loading ? undefined : handleClick}
+			onClick={toggleInLibrary}
 			icon={inLibrary ? "library_add_check" : "library_add"}
 		/>
 	)

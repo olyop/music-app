@@ -58,10 +58,10 @@ export const usePlay = (doc: UserDoc): ReturnType => {
 		}
 	}
 
-	return [ !!isCurrent && play, handleClick ]
+	return [ handleClick, !!isCurrent && play ]
 }
 
-type ReturnType = [ boolean, () => Promise<void> ]
+type ReturnType = [ mutate: () => Promise<void>, play: boolean ]
 
 interface UserPlayRes {
 	updateUserCurrent: Pick<User, "userId" | "current" | "__typename">,

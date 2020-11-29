@@ -50,8 +50,8 @@ const Item: FC<PropTypes> = ({
 				)}
 				{play && (
 					<PlayButton
-						play={false}
-						onClick={() => {}}
+						play={play.play}
+						onClick={play.onClick}
 						className={bem(iconClassName, "play")}
 					/>
 				)}
@@ -90,8 +90,8 @@ const Item: FC<PropTypes> = ({
 				</div>
 				{inLibrary && (
 					<InLibraryButton
-						inLibrary={false}
-						onClick={() => {}}
+						onClick={inLibrary.onClick}
+						inLibrary={inLibrary.inLibrary}
 						className={bem(iconClassName, "add")}
 					/>
 				)}

@@ -28,6 +28,10 @@ export enum ArtistsOrderByField {
 	NAME = "NAME",
 }
 
+export enum PlaylistOrderByField {
+	TITLE = "TITLE",
+}
+
 export enum UserSongsOrderByField {
 	TITLE = "TITLE",
 	ALBUM = "ALBUM",

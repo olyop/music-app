@@ -58,11 +58,11 @@ type Mutation {
   addUserPlaylist(
     userId: Uuid!
     playlistId: Uuid!
-  ): Artist!
+  ): Playlist!
   rmUserPlaylist(
     userId: Uuid!
     playlistId: Uuid!
-  ): Artist!
+  ): Playlist!
 
   addPlaylist(
     userId: Uuid!

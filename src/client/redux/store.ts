@@ -17,7 +17,7 @@ export const store = configureStore({
 	},
 	middleware: getDefaultMiddleware({
 		serializableCheck: {
-			ignoredActions: ["CHANGE_MODAL"],
+			ignoredActions: ["CHANGE_MODAL", "CLEAR_MODAL"],
 		},
 	}),
 })

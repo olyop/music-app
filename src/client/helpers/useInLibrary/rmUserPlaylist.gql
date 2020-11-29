@@ -1,0 +1,12 @@
+mutation rmUserPlaylist(
+	$userId: Uuid!
+	$playlistId: Uuid!
+) {
+	rmUserPlaylist(
+		userId: $userId
+		playlistId: $playlistId
+	) {
+		title
+		playlistId
+	}
+}

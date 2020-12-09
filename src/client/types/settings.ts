@@ -8,6 +8,7 @@ import {
 	PlaylistOrderByField,
 	UserSongsOrderByField,
 	UserArtistsOrderByField,
+	UserPlaylistsOrderByField,
 } from "./enums"
 
 export interface Settings {
@@ -28,6 +29,7 @@ export type ArtistsOrderBy = DocOrderBy<ArtistsOrderByField>
 export type PlaylistOrderBy = DocOrderBy<PlaylistOrderByField>
 export type UserSongsOrderBy = DocOrderBy<UserSongsOrderByField>
 export type UserArtistsOrderBy = DocOrderBy<UserArtistsOrderByField>
+export type UserPlaylistsOrderBy = DocOrderBy<UserPlaylistsOrderByField>
 
 export interface OrderBySettings {
 	songs: SongsOrderBy,
@@ -37,6 +39,7 @@ export interface OrderBySettings {
 	playlists: PlaylistOrderBy,
 	userSongs: UserSongsOrderBy,
 	userArtists: UserArtistsOrderBy,
+	userPlaylists: UserPlaylistsOrderBy,
 }
 
 export interface UpdateOrderByPayload {

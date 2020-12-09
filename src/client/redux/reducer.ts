@@ -28,6 +28,8 @@ import {
 	ArtistsOrderByField,
 	UserSongsOrderByField,
 	UserArtistsOrderByField,
+	PlaylistOrderByField,
+	UserPlaylistsOrderByField,
 } from "../types"
 
 const userId =
@@ -98,6 +100,10 @@ const defaultSettings: Settings = {
 			direction: OrderByDirection.DESC,
 			field: AlbumsOrderByField.RELEASED,
 		},
+		playlists: {
+			direction: OrderByDirection.ASC,
+			field: PlaylistOrderByField.TITLE,
+		},
 		userSongs: {
 			direction: OrderByDirection.DESC,
 			field: UserSongsOrderByField.DATE_ADDED,
@@ -105,6 +111,10 @@ const defaultSettings: Settings = {
 		userArtists: {
 			direction: OrderByDirection.DESC,
 			field: UserArtistsOrderByField.DATE_ADDED,
+		},
+		userPlaylists: {
+			direction: OrderByDirection.DESC,
+			field: UserPlaylistsOrderByField.DATE_ADDED,
 		},
 	},
 }

@@ -139,7 +139,6 @@ export const prev =
 		({ parent, context }) => {
 			if (parent.prev && !isEmpty(parent.prev)) {
 				return sqlQuery(context.pg)({
-					log: { sql: true },
 					sql: SELECT_SONGS_IN,
 					parse: parseSqlTable<Song>(),
 					variables: [{
@@ -347,7 +346,6 @@ export const playlists =
 	resolver<Playlist[], DocsArgs>(
 		({ parent, args, context }) => (
 			sqlQuery(context.pg)({
-				log: { sql: true },
 				parse: parseSqlTable(),
 				sql: SELECT_USER_PLAYLISTS,
 				variables: [{

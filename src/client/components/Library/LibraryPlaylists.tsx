@@ -3,9 +3,9 @@ import { createElement, FC } from "react"
 import Feed from "../Feed"
 import Helmet from "../Helmet"
 import Playlists from "../Playlists"
-import { User, UserVar } from "../../types"
 import { useStateUserId } from "../../redux"
 import GET_USER_PLAYLISTS from "./getUserPlaylists.gql"
+import { User, UserVar, UserPlaylistsOrderByField } from "../../types"
 
 const LibraryPlaylists: FC = () => (
 	<Helmet title="Library Playlists">
@@ -26,7 +26,9 @@ const LibraryPlaylists: FC = () => (
 			children={data => (
 				<Playlists
 					className="Content"
+					orderByKey="userPlaylists"
 					playlists={data?.user.playlists}
+					orderByFields={Object.keys(UserPlaylistsOrderByField)}
 				/>
 			)}
 		/>

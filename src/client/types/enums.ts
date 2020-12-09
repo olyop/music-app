@@ -32,6 +32,7 @@ export enum PlaylistOrderByField {
 	TITLE = "TITLE",
 }
 
+// user order by fields
 export enum UserSongsOrderByField {
 	TITLE = "TITLE",
 	ALBUM = "ALBUM",
@@ -42,5 +43,10 @@ export enum UserSongsOrderByField {
 
 export enum UserArtistsOrderByField {
 	NAME = "NAME",
+	DATE_ADDED = "DATE_ADDED",
+}
+
+export enum UserPlaylistsOrderByField {
+	TITLE = "TITLE",
 	DATE_ADDED = "DATE_ADDED",
 }

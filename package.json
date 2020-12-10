@@ -96,8 +96,8 @@
 		"uuid": "^8.3.2"
 	},
 	"devDependencies": {
-		"@babel/cli": "^7.12.8",
-		"@babel/core": "^7.12.9",
+		"@babel/cli": "^7.12.10",
+		"@babel/core": "^7.12.10",
 		"@playlyfe/gql": "^2.6.2",
 		"@types/apollo-upload-client": "^14.1.0",
 		"@types/body-parser": "^1.19.0",

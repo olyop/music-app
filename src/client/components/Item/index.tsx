@@ -3,11 +3,6 @@ import { createElement, FC, ReactNode } from "react"
 import { createBem, BemInput, BemPropTypes } from "@oly_op/bem"
 
 import {
-	Doc,
-	Modal,
-} from "../../types"
-
-import {
 	determineDocPath,
 	determineDocName,
 	determineDocPhoto,
@@ -15,9 +10,10 @@ import {
 
 import Img from "../Img"
 import Icon from "../Icon"
+import { Doc } from "../../types"
 import PlayButton from "./PlayButton"
+import { useDispatch } from "../../redux"
 import InLibraryButton from "./InLibraryButton"
-import { useDispatch, changeModal } from "../../redux"
 
 import "./index.scss"
 
@@ -38,7 +34,6 @@ const Item: FC<PropTypes> = ({
 	rightClassName,
 }) => {
 	const dispatch = useDispatch()
-	const handleMore = () => modal && dispatch(changeModal(modal))
 	return (
 		<div className={bem(className)}>
 			<div className={bem("")}>
@@ -117,7 +112,6 @@ interface InLibraryInput {
 
 interface PropTypes extends BemPropTypes {
 	imgDoc?: Doc,
-	modal?: Modal,
 	play?: PlayInput,
 	left?: ReactNode,
 	upper: ReactNode,

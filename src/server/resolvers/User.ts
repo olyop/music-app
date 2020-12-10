@@ -349,12 +349,33 @@ export const playlists =
 				parse: parseSqlTable(),
 				sql: SELECT_USER_PLAYLISTS,
 				variables: [{
+					key: "page",
+					string: false,
+					value: args.page,
+				},{
 					key: "userId",
 					value: parent.userId,
 				},{
 					string: false,
+					key: "paginationNum",
+					value: PAGINATION_NUM,
+				},{
+					string: false,
+					key: "orderByField",
+					value: args.orderBy.field,
+				},{
+					string: false,
+					key: "orderByDirection",
+					value: args.orderBy.direction,
+				},{
+					string: false,
 					key: "columnNames",
 					value: sqlJoin(COLUMN_NAMES.PLAYLIST, "playlists"),
+				},{
+					string: false,
+					key: "orderByTableName",
+					value: args.orderBy.field === "DATE_ADDED" ?
+						"users_playlists" : "playlists",
 				}],
 			})
 		),

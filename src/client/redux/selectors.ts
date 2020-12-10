@@ -1,7 +1,6 @@
 import { useSelector } from "react-redux"
 
 import {
-	Modal,
 	Settings,
 	ListStyle,
 	DocOrderBy,
@@ -30,9 +29,6 @@ export const useStateCurrent =
 
 export const useStateVolume =
 	() => useSelector<State, number>(state => state.volume)
-
-export const useStateModal =
-	() => useSelector<State, Modal | null>(state => state.modal)
 
 export const useStateSettings =
 	() => useSelector<State, Settings>(state => state.settings)

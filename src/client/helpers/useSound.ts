@@ -6,17 +6,23 @@ import {
 
 import { Howl } from "howler"
 
+import { useHasMounted } from "./useHasMounted"
+
 interface Options {
 	volume: number,
 	current: number,
 }
 
 export const useSound = (src: string, { volume, current }: Options) => {
+	const hasMounted = useHasMounted()
 	const [ isPlaying, setIsPlaying ] = useState(false)
 	const [ sound, setSound ] = useState(new Howl({ src, volume }))
 
 	useEffect(() => {
-		setSound(new Howl({ src, volume }))
+		if (hasMounted) {
+			console.log("src")
+			setSound(new Howl({ src, volume }))
+		}
 	}, [src])
 
 	useEffect(() => {

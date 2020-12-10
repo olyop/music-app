@@ -20,7 +20,7 @@ const Playlists: FC<PropTypes> = ({
 			<OrderBy
 				settingsKey={orderByKey!}
 				fieldOptions={orderByFields!}
-				className="Content MarginBottomThreeQuart ItemBorder"
+				className="PaddingHalf ItemBorder FlexListRight"
 			/>
 		)}
 		{playlists.map(

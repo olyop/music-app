@@ -68,6 +68,11 @@ type Mutation {
     userId: Uuid!
     playlist: PlaylistInput!
   ): Playlist!
+  addSongToPlaylist(
+    userId: Uuid!
+    songId: Uuid!
+    playlistId: Uuid!
+  ): Song!
 
   deleteUserLibrary(
     userId: Uuid!

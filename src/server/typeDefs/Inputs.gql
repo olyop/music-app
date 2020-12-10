@@ -69,3 +69,8 @@ input UserArtistOrderByInput {
 	direction: OrderByDirection!
 	field: UserArtistOrderByField!
 }
+
+input UserPlaylistOrderByInput {
+	direction: OrderByDirection!
+	field: UserPlaylistOrderByField!
+}

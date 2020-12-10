@@ -5,8 +5,6 @@ import {
 	addLoading,
 	updatePlay,
 	togglePlay,
-	clearModal,
-	changeModal,
 	updateUserId,
 	updateVolume,
 	removeLoading,
@@ -18,7 +16,6 @@ import {
 } from "./actions"
 
 import {
-	Modal,
 	Settings,
 	ListStyle,
 	OrderByDirection,
@@ -62,12 +59,6 @@ const errors =
 	createReducer<Error[]>([], builder =>
 		builder
 			.addCase(addError, (state, { payload }) => [...state, payload]))
-
-const modal =
-	createReducer<Modal | null>(null, builder =>
-		builder
-			.addCase(clearModal, state => null)
-			.addCase(changeModal, (state, { payload }) => payload))
 
 const loading =
 	createReducer<string[]>([], builder =>
@@ -143,7 +134,6 @@ const settings =
 
 const reducer = combineReducers({
 	play,
-	modal,
 	userId,
 	volume,
 	errors,

@@ -41,12 +41,6 @@ export interface UserVar {
 	userId: string,
 }
 
-export interface Modal {
-	volume?: boolean,
-	addPlaylist?: boolean,
-	buttons?: ModalButton[],
-}
-
 export interface ModalButton {
 	text: string,
 	icon: string,

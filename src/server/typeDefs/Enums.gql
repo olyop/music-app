@@ -35,7 +35,7 @@ enum ArtistOrderByField {
 }
 
 enum PlaylistOrderByField {
-	NAME
+	TITLE
 }
 
 enum UserSongOrderByField {
@@ -48,5 +48,10 @@ enum UserSongOrderByField {
 
 enum UserArtistOrderByField {
 	NAME
+	DATE_ADDED
+}
+
+enum UserPlaylistOrderByField {
+	TITLE
 	DATE_ADDED
 }

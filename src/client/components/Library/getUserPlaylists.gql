@@ -1,7 +1,14 @@
-query getUserPlaylists($userId: Uuid!) {
+query getUserPlaylists(
+	$userId: Uuid!
+	$page: NonNegativeInt!
+	$orderBy: UserPlaylistOrderByInput!
+) {
 	user(userId: $userId) {
 		userId
-		playlists {
+		playlists(
+			page: $page
+			orderBy: $orderBy
+		) {
 			title
 			playlistId
 			songsTotal

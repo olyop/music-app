@@ -60,29 +60,27 @@ const Song: FC<PropTypes> = ({
 				inLibrary,
 				onClick: toggleInLibrary,
 			}}
-			modal={{
-				buttons: [{
-					handler: handlePlayClick,
-					text: play ? "Pause" : "Play",
-					icon: play ? "pause" : "play_arrow",
-				},{
-					handler: toggleInLibrary,
-					icon: inLibrary ? "done" : "add",
-					text: inLibrary ? "In Library" : "Add",
-				},{
-					text: "Next",
-					icon: "playlist_add",
-					handler: nextLoading ? undefined : next,
-				},{
-					text: "After",
-					icon: "queue_music",
-					handler: afterLoading ? undefined : after,
-				},{
-					icon: "queue",
-					text: "Later",
-					handler: laterLoading ? undefined : later,
-				}],
-			}}
+			modalButtons={[{
+				handler: handlePlayClick,
+				text: play ? "Pause" : "Play",
+				icon: play ? "pause" : "play_arrow",
+			},{
+				handler: toggleInLibrary,
+				icon: inLibrary ? "done" : "add",
+				text: inLibrary ? "In Library" : "Add",
+			},{
+				text: "Next",
+				icon: "playlist_add",
+				handler: nextLoading ? undefined : next,
+			},{
+				text: "After",
+				icon: "queue_music",
+				handler: afterLoading ? undefined : after,
+			},{
+				icon: "queue",
+				text: "Later",
+				handler: laterLoading ? undefined : later,
+			}]}
 			lower={(
 				<Fragment>
 					<FeaturingArtists song={song}/>

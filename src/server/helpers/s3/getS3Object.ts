@@ -1,12 +1,14 @@
 import pipe from "@oly_op/pipe"
 import { APP } from "@oly_op/music-app-common/globals"
+import { S3Client, GetObjectCommand } from "@aws-sdk/client-s3"
 
 import { getBodyFromS3Res } from "./getBodyFromS3Res"
-import { S3Client, GetS3ObjectInput } from "../../types"
+import { GetS3ObjectInput } from "../../types"
 
 export const getS3Object =
 	(s3: S3Client) =>
 		async <T>({ key, parse }: GetS3ObjectInput<T>) => {
-			const res = await s3.getObject({ Bucket: APP, Key: key }).promise()
+			const command = new GetObjectCommand({ Bucket: APP, Key: key })
+			const res = await s3.send(command)
 			return pipe(getBodyFromS3Res, parse)(res)
 		}

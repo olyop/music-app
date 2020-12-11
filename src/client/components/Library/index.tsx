@@ -7,10 +7,10 @@ import Navigation from "../Navigation"
 import { useMutation } from "../../helpers"
 import { User, UserVar } from "../../types"
 import SHUFFLE_USER_LIBRARY from "./userShuffleLibrary.gql"
-import { useDispatch, changeModal, useStateUserId } from "../../redux"
+import { useStateUserId } from "../../redux"
 
 const Library: FC<RouteComponentProps> = ({ match }) => {
-	const dispatch = useDispatch()
+	// const dispatch = useDispatch()
 	const userId = useStateUserId()
 
 	const variables: UserVar = { userId }
@@ -21,8 +21,7 @@ const Library: FC<RouteComponentProps> = ({ match }) => {
 	const handleShuffle = () =>
 		shuffle()
 
-	const handleAddPlaylist = () =>
-		dispatch(changeModal({ addPlaylist: true }))
+	const handleAddPlaylist = () => {}
 
 	return (
 		<section className="PaddingTopBottom">

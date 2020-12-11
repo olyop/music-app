@@ -1,4 +1,7 @@
-import { GetObjectOutput, Body } from "aws-sdk/clients/s3"
+import { GetObjectCommandOutput } from "@aws-sdk/client-s3"
 
-export const getBodyFromS3Res = (res: GetObjectOutput) =>
-	(res.Body!) as Extract<Body, Buffer>
+export const getBodyFromS3Res = (res: GetObjectCommandOutput) => {
+	const body = res.Body! as ReadableStream
+	const reader = body.getReader()
+	reader.read()
+}

@@ -10,9 +10,9 @@ import {
 
 import Img from "../Img"
 import Icon from "../Icon"
-import { Doc } from "../../types"
 import PlayButton from "./PlayButton"
-import { useDispatch } from "../../redux"
+// import { useDispatch } from "../../redux"
+import { Doc, ModalButton } from "../../types"
 import InLibraryButton from "./InLibraryButton"
 
 import "./index.scss"
@@ -25,80 +25,77 @@ const Item: FC<PropTypes> = ({
 	right,
 	lower,
 	upper,
-	modal,
 	imgDoc,
 	className,
 	inLibrary,
+	modalButtons,
 	infoClassName,
 	iconClassName,
 	rightClassName,
-}) => {
-	const dispatch = useDispatch()
-	return (
-		<div className={bem(className)}>
-			<div className={bem("")}>
-				{left && (
-					<p
-						children={left}
-						className={bem("left", "Text")}
-					/>
-				)}
-				{play && (
-					<PlayButton
-						play={play.play}
-						onClick={play.onClick}
-						className={bem(iconClassName, "play")}
-					/>
-				)}
-				{imgDoc && (
-					<Link
-						className={bem("img-link")}
-						to={determineDocPath(imgDoc)}
-						title={determineDocName(imgDoc)}
-						children={(
-							<Img
-								url={determineDocPhoto(imgDoc)}
-								className={bem("img", "Card", "Elevated")}
-							/>
-						)}
-					/>
-				)}
-				<div className={bem(infoClassName, "info")}>
-					<div className={bem("info-left")}>
-						<p
-							children={upper}
-							className={bem("info-left-upper", "Text2")}
+}) => (
+	<div className={bem(className)}>
+		<div className={bem("")}>
+			{left && (
+				<p
+					children={left}
+					className={bem("left", "Text")}
+				/>
+			)}
+			{play && (
+				<PlayButton
+					play={play.play}
+					onClick={play.onClick}
+					className={bem(iconClassName, "play")}
+				/>
+			)}
+			{imgDoc && (
+				<Link
+					className={bem("img-link")}
+					to={determineDocPath(imgDoc)}
+					title={determineDocName(imgDoc)}
+					children={(
+						<Img
+							url={determineDocPhoto(imgDoc)}
+							className={bem("img", "Card", "Elevated")}
 						/>
-						{lower && (
-							<p
-								children={lower}
-								className={bem("info-left-lower", "Text")}
-							/>
-						)}
-					</div>
-					{right && (
+					)}
+				/>
+			)}
+			<div className={bem(infoClassName, "info")}>
+				<div className={bem("info-left")}>
+					<p
+						children={upper}
+						className={bem("info-left-upper", "Text2")}
+					/>
+					{lower && (
 						<p
-							children={right}
-							className={bem(rightClassName, "info-right", "Text")}
+							children={lower}
+							className={bem("info-left-lower", "Text")}
 						/>
 					)}
 				</div>
-				{inLibrary && (
-					<InLibraryButton
-						onClick={inLibrary.onClick}
-						inLibrary={inLibrary.inLibrary}
-						className={bem(iconClassName, "add")}
+				{right && (
+					<p
+						children={right}
+						className={bem(rightClassName, "info-right", "Text")}
 					/>
 				)}
-				<Icon
-					icon="more_vert"
-					onClick={handleMore}
-					className={bem(iconClassName, "more")}
-				/>
 			</div>
+			{inLibrary && (
+				<InLibraryButton
+					onClick={inLibrary.onClick}
+					inLibrary={inLibrary.inLibrary}
+					className={bem(iconClassName, "add")}
+				/>
+			)}
+			<Icon
+				icon="more_vert"
+				// onClick={handleMore}
+				className={bem(iconClassName, "more")}
+			/>
 		</div>
-	)
-}
+	</div>
+)
 
 interface PlayInput {
 	play: boolean,
@@ -121,6 +118,7 @@ interface PropTypes extends BemPropTypes {
 	iconClassName?: BemInput,
 	rightClassName?: BemInput,
 	inLibrary?: InLibraryInput,
+	modalButtons?: ModalButton[],
 }
 
 export default Item

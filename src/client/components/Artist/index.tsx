@@ -6,7 +6,7 @@ import Item from "../Item"
 import Cover from "../Cover"
 import DocLink from "../DocLink"
 import { useStateListStyle } from "../../redux"
-import { Artist as ArtistType, ListStyle, Modal } from "../../types"
+import { Artist as ArtistType, ListStyle, ModalButton } from "../../types"
 import { artistLower, uuidRemoveDashes, useInLibrary } from "../../helpers"
 
 const bem = createBem("Artist")
@@ -22,21 +22,19 @@ const Artist: FC<PropTypes> = ({ artist, className, alwaysList = false }) => {
 	const playConfig = { play: false, onClick: noop }
 	const inLibraryConfig = { inLibrary, onClick: toggleInLibrary }
 
-	const modal: Modal = {
-		buttons: [{
-			handler: toggleInLibrary,
-			icon: inLibrary ? "done" : "add",
-			text: inLibrary ? "Remove" : "Add",
-		}],
-	}
+	const modalButtons: ModalButton[] = [{
+		handler: toggleInLibrary,
+		icon: inLibrary ? "done" : "add",
+		text: inLibrary ? "Remove" : "Add",
+	}]
 
 	return listStyle === ListStyle.LIST || alwaysList ? (
 		<Item
 			upper={upper}
 			lower={lower}
-			modal={modal}
 			imgDoc={artist}
 			play={playConfig}
+			modalButtons={modalButtons}
 			inLibrary={inLibraryConfig}
 			className={bem(className, "PaddingHalf ItemBorder Hover")}
 		/>
@@ -50,9 +48,9 @@ const Artist: FC<PropTypes> = ({ artist, className, alwaysList = false }) => {
 			<Item
 				upper={upper}
 				lower={lower}
-				modal={modal}
 				play={playConfig}
 				className="PaddingHalf"
+				modalButtons={modalButtons}
 				inLibrary={inLibraryConfig}
 			/>
 		</div>

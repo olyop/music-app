@@ -1,10 +1,9 @@
-import S3 from "aws-sdk/clients/s3"
 import { SearchIndex } from "algoliasearch"
+import { S3Client } from "@aws-sdk/client-s3"
 import { Pool, PoolClient, QueryResult } from "pg"
 
 import { Song, Genre, Album, Artist } from "./docs"
 
-export type S3Client = S3
 export type PGClient = Pool | PoolClient
 
 export type SqlQueryRes<T = Record<string, unknown>> = QueryResult<T>
@@ -49,7 +48,7 @@ export interface SearchResult {
 export type Search = Song | Genre | Album | Artist
 
 export interface Context {
-	s3: S3,
 	pg: Pool,
+	s3: S3Client,
 	ag: SearchIndex,
 }

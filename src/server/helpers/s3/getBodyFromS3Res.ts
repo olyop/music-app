@@ -1,7 +1,7 @@
+import { Readable } from "stream"
 import { GetObjectCommandOutput } from "@aws-sdk/client-s3"
 
-export const getBodyFromS3Res = (res: GetObjectCommandOutput) => {
-	const body = res.Body! as ReadableStream
-	const reader = body.getReader()
-	reader.read()
-}
+import { concatStream } from "../utils/concatStream"
+
+export const getBodyFromS3Res = async (res: GetObjectCommandOutput) =>
+	concatStream(res.Body! as Readable)

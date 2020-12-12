@@ -1,6 +1,7 @@
 import { ReadStream } from "fs"
+import { Readable } from "stream"
 
-export const concatStream = (stream: ReadStream) =>
+export const concatStream = (stream: ReadStream | Readable) =>
 	new Promise<Buffer>(
 		(resolve, reject) => {
 			const data: Buffer[] = []

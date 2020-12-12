@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom"
 import { createBem } from "@oly_op/bem"
 import { createElement, FC } from "react"
 
@@ -15,7 +16,8 @@ const ModalButton: FC<PropTypes> = ({ button, onClose }) => {
 			onClose()
 		}
 	}
-	return (
+
+	const jsx = (
 		<Button
 			key={button.text}
 			icon={button.icon}
@@ -25,6 +27,14 @@ const ModalButton: FC<PropTypes> = ({ button, onClose }) => {
 			className={bem("", "PaddingHalf")}
 		/>
 	)
+
+	return button.link ? (
+		<Link
+			children={jsx}
+			to={button.link}
+			onClick={onClose}
+		/>
+	) : jsx
 }
 
 interface PropTypes {

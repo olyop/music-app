@@ -28,9 +28,9 @@ export const userSongLater =
 			try {
 				await query("BEGIN")
 
-				const nexts = await query<UserQueue[]>({
+				const nexts = await query({
 					sql: SELECT_USER_QUEUE,
-					parse: parseSqlTable(),
+					parse: parseSqlTable<UserQueue>(),
 					variables: [{
 						key: "userId",
 						value: args.userId,
@@ -49,6 +49,10 @@ export const userSongLater =
 					await query({
 						sql: UPDATE_USER_QUEUE_SONG,
 						variables: [{
+							key: "index",
+							string: false,
+							value: next.index,
+						},{
 							value: "+",
 							string: false,
 							key: "addSubtract",
@@ -56,9 +60,8 @@ export const userSongLater =
 							key: "userId",
 							value: args.userId,
 						},{
-							key: "index",
-							string: false,
-							value: next.index,
+							key: "songId",
+							value: next.songId,
 						},{
 							string: false,
 							key: "tableName",

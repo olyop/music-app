@@ -2,6 +2,13 @@ import { createElement, FC, Fragment } from "react"
 import { BemInput, BemPropTypes } from "@oly_op/bem"
 import deserializeDuration from "@oly_op/music-app-common/deserializeDuration"
 
+import {
+	usePlay,
+	useMutation,
+	useInLibrary,
+	determineDocPath,
+} from "../../helpers"
+
 import Item from "../Item"
 import DocLinks from "../DocLinks"
 import SongTitle from "../SongTitle"
@@ -9,9 +16,8 @@ import USER_SONG_NEXT from "./userSongNext.gql"
 import USER_SONG_AFTER from "./userSongAfter.gql"
 import USER_SONG_LATER from "./userSongLater.gql"
 import FeaturingArtists from "../FeaturingArtists"
-import { Song as TSong, User, UserVar } from "../../types"
+import { User, UserVar, Song as TSong } from "../../types"
 import { useStateShowGenres, useStateUserId } from "../../redux"
-import { usePlay, useMutation, useInLibrary } from "../../helpers"
 
 const Song: FC<PropTypes> = ({
 	song,
@@ -36,13 +42,13 @@ const Song: FC<PropTypes> = ({
 		useInLibrary(song)
 
 	const [ next, { loading: nextLoading } ] =
-		useMutation<Data, Vars>(USER_SONG_NEXT, { variables })
+		useMutation<QueueData, QueueVars>(USER_SONG_NEXT, { variables })
 
 	const [ after, { loading: afterLoading } ] =
-		useMutation<Data, Vars>(USER_SONG_AFTER, { variables })
+		useMutation<QueueData, QueueVars>(USER_SONG_AFTER, { variables })
 
 	const [ later, { loading: laterLoading } ] =
-		useMutation<Data, Vars>(USER_SONG_LATER, { variables })
+		useMutation<QueueData, QueueVars>(USER_SONG_LATER, { variables })
 
 	return (
 		<Item
@@ -65,10 +71,6 @@ const Song: FC<PropTypes> = ({
 				text: play ? "Pause" : "Play",
 				icon: play ? "pause" : "play_arrow",
 			},{
-				handler: toggleInLibrary,
-				icon: inLibrary ? "done" : "add",
-				text: inLibrary ? "In Library" : "Add",
-			},{
 				text: "Next",
 				icon: "playlist_add",
 				handler: nextLoading ? undefined : next,
@@ -80,6 +82,14 @@ const Song: FC<PropTypes> = ({
 				icon: "queue",
 				text: "Later",
 				handler: laterLoading ? undefined : later,
+			},{
+				handler: toggleInLibrary,
+				icon: inLibrary ? "done" : "add",
+				text: inLibrary ? "In Library" : "Add",
+			},{
+				text: "Playlist",
+				icon: "playlist_add",
+				link: `${determineDocPath(song)}/addToPlaylist`,
 			}]}
 			lower={(
 				<Fragment>
@@ -96,11 +106,11 @@ const Song: FC<PropTypes> = ({
 	)
 }
 
-interface Data {
+interface QueueData {
 	user: User,
 }
 
-interface Vars extends UserVar {
+interface QueueVars extends UserVar {
 	songId: string,
 }
 

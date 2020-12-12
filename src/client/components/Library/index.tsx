@@ -1,27 +1,27 @@
-import { createElement, FC } from "react"
+import { useState, createElement, FC } from "react"
 import { Switch, Route, RouteComponentProps } from "react-router-dom"
 
+import Modal from "../Modal"
 import routes from "./routes"
 import Button from "../Button"
 import Navigation from "../Navigation"
 import { useMutation } from "../../helpers"
 import { User, UserVar } from "../../types"
-import SHUFFLE_USER_LIBRARY from "./userShuffleLibrary.gql"
 import { useStateUserId } from "../../redux"
+import ModalAddPlaylist from "../Modal/ModalAddPlaylist"
+import SHUFFLE_USER_LIBRARY from "./userShuffleLibrary.gql"
 
 const Library: FC<RouteComponentProps> = ({ match }) => {
-	// const dispatch = useDispatch()
 	const userId = useStateUserId()
-
 	const variables: UserVar = { userId }
+	const [ modal, setModal ] = useState(false)
 
 	const [ shuffle, { loading } ] =
 		useMutation<Data, UserVar>(SHUFFLE_USER_LIBRARY, { variables })
 
-	const handleShuffle = () =>
-		shuffle()
-
-	const handleAddPlaylist = () => {}
+	const handleShuffle = () => shuffle()
+	const handleAddPlaylistOpen = () => setModal(true)
+	const handleAddPlaylistClose = () => setModal(false)
 
 	return (
 		<section className="PaddingTopBottom">
@@ -38,7 +38,7 @@ const Library: FC<RouteComponentProps> = ({ match }) => {
 						<Button
 							text="Playlist"
 							icon="playlist_add"
-							onClick={handleAddPlaylist}
+							onClick={handleAddPlaylistOpen}
 						/>
 						<Button
 							icon="shuffle"
@@ -59,6 +59,13 @@ const Library: FC<RouteComponentProps> = ({ match }) => {
 					),
 				)}
 			</Switch>
+			{modal && (
+				<Modal onClose={handleAddPlaylistClose}>
+					<ModalAddPlaylist
+						onClose={handleAddPlaylistClose}
+					/>
+				</Modal>
+			)}
 		</section>
 	)
 }

@@ -10,6 +10,7 @@ import SongsPage from "../SongPage"
 import GenrePage from "../GenrePage"
 import AlbumPage from "../AlbumPage"
 import ArtistPage from "../ArtistPage"
+import AddSongToPlaylist from "../AddSongToPlaylist"
 
 import { Route } from "../../types"
 
@@ -28,13 +29,10 @@ const routes: Route[] = [{
 	component: Library,
 },{
 	id: uniqueId(),
-	name: "Search",
 	path: "/search",
 	component: Search,
 },{
-	ignore: true,
 	id: uniqueId(),
-	name: "Queues",
 	path: "/queues",
 	component: Queues,
 },{
@@ -46,20 +44,21 @@ const routes: Route[] = [{
 	component: SongsPage,
 	path: "/song/:songId",
 },{
-	ignore: true,
 	id: uniqueId(),
 	component: AlbumPage,
 	path: "/album/:albumId",
 },{
-	ignore: true,
 	id: uniqueId(),
 	component: ArtistPage,
 	path: "/artist/:artistId",
 },{
-	ignore: true,
 	id: uniqueId(),
 	component: GenrePage,
 	path: "/genre/:genreId",
+},{
+	id: uniqueId(),
+	component: AddSongToPlaylist,
+	path: "/addSongToPlaylist/:songId",
 }]
 
 export default routes

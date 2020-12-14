@@ -41,9 +41,7 @@ const SongPage: FC = () => {
 							<FeaturingArtists song={data.song}/>
 						</h3>
 						<h3 className="Text2 MarginBottomHalf">
-							<DocLinks
-								docs={data.song.genres}
-							/>
+							<DocLinks docs={data.song.genres}/>
 						</h3>
 						<h4 className="Text">
 							Released:

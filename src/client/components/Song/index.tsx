@@ -6,7 +6,8 @@ import {
 	usePlay,
 	useMutation,
 	useInLibrary,
-	determineDocPath,
+	determineDocId,
+	uuidRemoveDashes,
 } from "../../helpers"
 
 import Item from "../Item"
@@ -89,7 +90,7 @@ const Song: FC<PropTypes> = ({
 			},{
 				text: "Playlist",
 				icon: "playlist_add",
-				link: `${determineDocPath(song)}/addToPlaylist`,
+				link: `/addToPlaylist/${uuidRemoveDashes(determineDocId(song))}`,
 			}]}
 			lower={(
 				<Fragment>

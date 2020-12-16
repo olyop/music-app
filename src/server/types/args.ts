@@ -10,7 +10,7 @@ export interface UserArgs {
 }
 
 export interface PageArgs {
-	page: number,
+	page: number | null,
 }
 
 export interface OrderByArgs {

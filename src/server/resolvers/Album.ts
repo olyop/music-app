@@ -17,14 +17,6 @@ import {
 } from "../types"
 
 import {
-	SELECT_ALBUM_PLAYS,
-	SELECT_ALBUM_SONGS,
-	SELECT_ALBUM_GENRES,
-	SELECT_ALBUM_ARTISTS,
-	SELECT_USER_ALBUM_PLAYS,
-} from "../sql"
-
-import {
 	sqlJoin,
 	sqlQuery,
 	getS3Object,
@@ -35,6 +27,14 @@ import {
 	getS3CatalogKey,
 	getSqlRowCountOrNull,
 } from "../helpers"
+
+import {
+	SELECT_ALBUM_PLAYS,
+	SELECT_ALBUM_SONGS,
+	SELECT_ALBUM_GENRES,
+	SELECT_ALBUM_ARTISTS,
+	SELECT_USER_ALBUM_PLAYS,
+} from "../sql"
 
 import { COLUMN_NAMES } from "../globals"
 

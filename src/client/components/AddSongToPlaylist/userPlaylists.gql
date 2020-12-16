@@ -1,0 +1,8 @@
+query userPlaylists($userId: Uuid!) {
+	user(userId: $userId) {
+		userId
+		playlists(
+			
+		)
+	}
+}

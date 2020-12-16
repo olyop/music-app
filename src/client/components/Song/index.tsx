@@ -90,7 +90,7 @@ const Song: FC<PropTypes> = ({
 			},{
 				text: "Playlist",
 				icon: "playlist_add",
-				link: `/addToPlaylist/${uuidRemoveDashes(determineDocId(song))}`,
+				link: `/addSongToPlaylist/${uuidRemoveDashes(determineDocId(song))}`,
 			}]}
 			lower={(
 				<Fragment>

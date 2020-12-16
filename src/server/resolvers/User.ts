@@ -346,15 +346,16 @@ export const playlists =
 	resolver<Playlist[], DocsArgs>(
 		({ parent, args, context }) => (
 			sqlQuery(context.pg)({
-				parse: parseSqlTable(),
+				log: { sql: true },
 				sql: SELECT_USER_PLAYLISTS,
+				parse: parseSqlTable(),
 				variables: [{
+					key: "userId",
+					value: parent.userId,
+				},{
 					key: "page",
 					string: false,
 					value: args.page,
-				},{
-					key: "userId",
-					value: parent.userId,
 				},{
 					string: false,
 					key: "paginationNum",

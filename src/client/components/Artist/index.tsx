@@ -1,4 +1,3 @@
-import noop from "lodash/noop"
 import { createBem } from "@oly_op/bem"
 import { createElement, FC } from "react"
 
@@ -19,7 +18,6 @@ const Artist: FC<PropTypes> = ({ artist, className, alwaysList = false }) => {
 
 	const lower = artistLower(artist)
 	const upper = <DocLink doc={artist}/>
-	const playConfig = { play: false, onClick: noop }
 	const inLibraryConfig = { inLibrary, onClick: toggleInLibrary }
 
 	const modalButtons: ModalButton[] = [{
@@ -33,7 +31,6 @@ const Artist: FC<PropTypes> = ({ artist, className, alwaysList = false }) => {
 			upper={upper}
 			lower={lower}
 			imgDoc={artist}
-			play={playConfig}
 			modalButtons={modalButtons}
 			inLibrary={inLibraryConfig}
 			className={bem(className, "PaddingHalf ItemBorder Hover")}
@@ -48,7 +45,6 @@ const Artist: FC<PropTypes> = ({ artist, className, alwaysList = false }) => {
 			<Item
 				upper={upper}
 				lower={lower}
-				play={playConfig}
 				className="PaddingHalf"
 				modalButtons={modalButtons}
 				inLibrary={inLibraryConfig}

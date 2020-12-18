@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom"
-import { createBem } from "@oly_op/bem"
 import { createElement, FC } from "react"
+import { createBem, BemPropTypes } from "@oly_op/bem"
 
 import Button from "../../Button"
 import { ModalButton as TModalButton } from "../../../types"
@@ -9,7 +9,7 @@ import "./index.scss"
 
 const bem = createBem("ModalButton")
 
-const ModalButton: FC<PropTypes> = ({ button, onClose }) => {
+const ModalButton: FC<PropTypes> = ({ button, onClose, className }) => {
 	const handleClick = () => {
 		if (button.handler) {
 			button.handler()
@@ -24,7 +24,7 @@ const ModalButton: FC<PropTypes> = ({ button, onClose }) => {
 			text={button.text}
 			onClick={handleClick}
 			spanClassName={bem("span")}
-			className={bem("", "PaddingHalf")}
+			className={bem(className, "", "PaddingHalf")}
 		/>
 	)
 
@@ -37,7 +37,7 @@ const ModalButton: FC<PropTypes> = ({ button, onClose }) => {
 	) : jsx
 }
 
-interface PropTypes {
+interface PropTypes extends BemPropTypes {
 	onClose: () => void,
 	button: TModalButton,
 }

@@ -20,8 +20,10 @@ const bem = createBem("OrderBy")
 const OrderBy: FC<PropTypes> = ({ className, settingsKey, fieldOptions }) => {
 	const dispatch = useDispatch()
 	const state = useStateOrderBy(settingsKey)
+
 	const handleChange = (key: keyof DocOrderBy) => (val: string) =>
 		dispatch(updateOrderBy({ key, val, settingsKey }))
+
 	return (
 		<div className={bem(className, "FlexListGapHalf")}>
 			<h1

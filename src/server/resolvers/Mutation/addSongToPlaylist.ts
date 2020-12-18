@@ -35,6 +35,7 @@ export const addSongToPlaylist =
 					key: "songId",
 					value: args.songId,
 				},{
+					string: false,
 					key: "columnNames",
 					value: sqlJoin(COLUMN_NAMES.SONG),
 				}],

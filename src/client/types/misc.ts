@@ -43,7 +43,7 @@ export interface UserVar {
 
 export interface ModalButton {
 	text: string,
-	icon: string,
+	icon?: string,
 	link?: string,
 	handler?: () => void,
 }

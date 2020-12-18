@@ -1,8 +1,15 @@
-query userPlaylists($userId: Uuid!) {
+query userPlaylists(
+	$userId: Uuid!
+	$orderBy: UserPlaylistOrderByInput!
+) {
 	user(userId: $userId) {
 		userId
 		playlists(
-			
-		)
+			page: 0
+			orderBy: $orderBy
+		) {
+			title
+			playlistId
+		}
 	}
 }

@@ -346,7 +346,6 @@ export const playlists =
 	resolver<Playlist[], DocsArgs>(
 		({ parent, args, context }) => (
 			sqlQuery(context.pg)({
-				log: { sql: true },
 				sql: SELECT_USER_PLAYLISTS,
 				parse: parseSqlTable(),
 				variables: [{
@@ -370,13 +369,13 @@ export const playlists =
 					value: args.orderBy.direction,
 				},{
 					string: false,
-					key: "columnNames",
-					value: sqlJoin(COLUMN_NAMES.PLAYLIST, "playlists"),
-				},{
-					string: false,
 					key: "orderByTableName",
 					value: args.orderBy.field === "DATE_ADDED" ?
 						"users_playlists" : "playlists",
+				},{
+					string: false,
+					key: "columnNames",
+					value: sqlJoin(COLUMN_NAMES.PLAYLIST, "playlists"),
 				}],
 			})
 		),

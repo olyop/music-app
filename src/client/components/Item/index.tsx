@@ -93,11 +93,13 @@ const Item: FC<PropTypes> = ({
 						className={bem(iconClassName, "add")}
 					/>
 				)}
-				<Icon
-					icon="more_vert"
-					onClick={handleModalOpen}
-					className={bem(iconClassName, "more")}
-				/>
+				{modalButtons && (
+					<Icon
+						icon="more_vert"
+						onClick={handleModalOpen}
+						className={bem(iconClassName, "more")}
+					/>
+				)}
 				{modalButtons && modal && (
 					<Modal onClose={handleModalClose}>
 						{modalButtons.map(

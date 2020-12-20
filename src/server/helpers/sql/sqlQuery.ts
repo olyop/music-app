@@ -80,22 +80,16 @@ export const sqlQuery =
 	(client: PGClient) =>
 		async <T>(input: string | SqlQueryInput<T>) => {
 			const { sql, parse, log, variables = [] } = normalizeInput(input)
-			if (log?.var) {
-				console.log(variables)
-			}
+			if (log?.var) console.log(variables)
 			if (variablesAreProvided(sql, variables)) {
 				const { sqlWithValues, params } = determineSqlAndParams(sql, variables)
-				if (log?.sql) {
-					console.log(sqlWithValues)
-				}
+				if (log?.sql) console.log(sqlWithValues)
 				try {
 					const res = await client.query(
 						sqlWithValues,
 						isEmpty(params) ? undefined : params,
 					)
-					if (log?.res) {
-						console.log(res.rows)
-					}
+					if (log?.res) console.log(res.rows)
 					if (parse) {
 						return parse(res)
 					} else {

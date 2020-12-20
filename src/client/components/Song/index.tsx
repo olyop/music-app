@@ -65,7 +65,7 @@ const Song: FC<PropTypes> = ({
 			}}
 			inLibrary={hideInLibrary ? undefined : {
 				inLibrary,
-				onClick: toggleInLibrary,
+				toggleInLibrary,
 			}}
 			modalButtons={[{
 				handler: handlePlayClick,
@@ -91,6 +91,10 @@ const Song: FC<PropTypes> = ({
 				text: "Playlist",
 				icon: "playlist_add",
 				link: `/addSongToPlaylist/${uuidRemoveDashes(determineDocId(song))}`,
+			},{
+				text: "info",
+				icon: "info",
+				link: `/song/${uuidRemoveDashes(determineDocId(song))}`,
 			}]}
 			lower={(
 				<Fragment>

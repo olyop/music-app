@@ -1,29 +1,39 @@
 import { createBem } from "@oly_op/bem"
 import { createElement, FC } from "react"
 
+import {
+	artistLower,
+	useInLibrary,
+	useArtistShuffle,
+	uuidRemoveDashes,
+} from "../../helpers"
+
 import Item from "../Item"
 import Cover from "../Cover"
 import DocLink from "../DocLink"
 import { useStateListStyle } from "../../redux"
 import { Artist as ArtistType, ListStyle, ModalButton } from "../../types"
-import { artistLower, uuidRemoveDashes, useInLibrary } from "../../helpers"
 
 const bem = createBem("Artist")
 
 const Artist: FC<PropTypes> = ({ artist, className, alwaysList = false }) => {
 	const listStyle = useStateListStyle()
 
-	const [ toggleInLibrary, inLibrary ] =
-		useInLibrary(artist)
+	const [ shuffle ] = useArtistShuffle(artist.artistId)
+	const [ toggleInLibrary, inLibrary ] = useInLibrary(artist)
 
 	const lower = artistLower(artist)
 	const upper = <DocLink doc={artist}/>
-	const inLibraryConfig = { inLibrary, onClick: toggleInLibrary }
+	const inLibraryConfig = { inLibrary, toggleInLibrary }
 
 	const modalButtons: ModalButton[] = [{
 		handler: toggleInLibrary,
 		icon: inLibrary ? "done" : "add",
 		text: inLibrary ? "Remove" : "Add",
+	},{
+		icon: "shuffle",
+		text: "Shuffle",
+		handler: shuffle,
 	}]
 
 	return listStyle === ListStyle.LIST || alwaysList ? (

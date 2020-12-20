@@ -5,5 +5,5 @@ INSERT INTO {{ tableName }} (
 ) VALUES (
 	{{ userId }},
 	{{ docId }},
-	true
+	{{ inLibrary }}
 );

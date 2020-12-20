@@ -1,0 +1,15 @@
+query getPlaylists(
+	$userId: Uuid!
+  $page: NonNegativeInt!
+  $orderBy: PlaylistOrderByInput!
+) {
+	playlists(
+		page: $page
+		orderBy: $orderBy
+	) {
+		title
+		playlistId
+		songsTotal
+		inLibrary(userId: $userId)
+	}
+}

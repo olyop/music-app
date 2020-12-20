@@ -9,6 +9,7 @@ import {
 	SELECT_USER,
 	DELETE_USER_SONGS,
 	DELETE_USER_ARTISTS,
+	DELETE_USER_PLAYLISTS,
 } from "../../sql"
 
 import { User, UserArgs } from "../../types"
@@ -20,14 +21,10 @@ const resolver =
 export const deleteUserLibrary =
 	resolver<User, UserArgs>(
 		async ({ args, context }) => {
-			await sqlQuery(context.pg)({
-				sql: DELETE_USER_SONGS,
-				variables: [{ key: "userId", value: args.userId }],
-			})
-			await sqlQuery(context.pg)({
-				sql: DELETE_USER_ARTISTS,
-				variables: [{ key: "userId", value: args.userId }],
-			})
+			const variables = [{ key: "userId", value: args.userId }]
+			await sqlQuery(context.pg)({ sql: DELETE_USER_SONGS, variables })
+			await sqlQuery(context.pg)({ sql: DELETE_USER_ARTISTS, variables })
+			await sqlQuery(context.pg)({ sql: DELETE_USER_PLAYLISTS, variables })
 			return sqlQuery(context.pg)({
 				sql: SELECT_USER,
 				parse: parseSqlRow<User>(),

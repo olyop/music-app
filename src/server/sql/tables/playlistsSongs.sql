@@ -1,7 +1,6 @@
 CREATE TABLE IF NOT EXISTS playlists_songs (
 	song_id uuid,
 	playlist_id uuid,
-	in_playlist boolean NOT NULL,
 	date_added bigint NOT NULL DEFAULT cast(extract(epoch from now()) as bigint),
 	CONSTRAINT playlists_songs_pk
 		PRIMARY KEY (playlist_id, song_id),

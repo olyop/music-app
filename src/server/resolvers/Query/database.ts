@@ -23,6 +23,7 @@ import {
 	SELECT_ARTIST,
 	SELECT_ARTISTS,
 	SELECT_PLAYLIST,
+	SELECT_PLAYLISTS,
 } from "../../sql"
 
 import {
@@ -165,6 +166,21 @@ export const artists =
 					string: false,
 					key: "columnNames",
 					value: sqlJoin(COLUMN_NAMES.ARTIST),
+				}],
+			})
+		),
+	)
+
+export const playlists =
+	resolver<Playlist[]>(
+		({ context }) => (
+			sqlQuery(context.pg)({
+				sql: SELECT_PLAYLISTS,
+				parse: parseSqlTable(),
+				variables: [{
+					string: false,
+					key: "columnNames",
+					value: sqlJoin(COLUMN_NAMES.PLAYLIST),
 				}],
 			})
 		),

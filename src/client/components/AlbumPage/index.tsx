@@ -59,7 +59,7 @@ const AlbumPage: FC = () => {
 	}
 
 	return (
-		<div className={bem("", "Content")}>
+		<div className={bem("", "Content PaddingTopBottom")}>
 			{data && (
 				<Helmet title={data.album.title}>
 					<Img

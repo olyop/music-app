@@ -24,7 +24,7 @@ const SongPage: FC = () => {
 	const variables: Vars = { songId, userId }
 	const { data } = useQuery<Data, Vars>(GET_SONG_PAGE, { variables })
 	return (
-		<div className={bem("", "Padding")}>
+		<div className={bem("", "Content PaddingTopBottom")}>
 			{data && (
 				<Helmet title={data.song.title}>
 					<Cover
@@ -33,43 +33,47 @@ const SongPage: FC = () => {
 						title={data.song.album.title}
 						link={`/album/${uuidRemoveDashes(data.song.album.albumId)}`}
 					/>
-					<div className={bem("content")}>
-						<h1 className={bem("content-title", "MarginBottomHalf")}>
-							<SongTitle song={data.song}/>
-						</h1>
-						<h3 className="Text2 MarginBottomHalf">
-							<FeaturingArtists song={data.song}/>
-						</h3>
-						<h3 className="Text2 MarginBottomHalf">
-							<DocLinks docs={data.song.genres}/>
-						</h3>
-						<h4 className="Text">
-							Released:
-							<Fragment> </Fragment>
-							{data.song.album.released}
-						</h4>
-						<h4 className="Text">
-							Duration:
-							<Fragment> </Fragment>
-							{deserializeDuration(data.song.duration)}
-						</h4>
-						<h4 className="Text">
-							Size:
-							<Fragment> </Fragment>
-							{(data.song.size * 1e-6).toFixed(2)}
-							<Fragment> MB</Fragment>
-						</h4>
-						<h4 className="Text">
-							BPM:
-							<Fragment> </Fragment>
-							{data.song.bpm}
-							<Fragment> BPM</Fragment>
-						</h4>
-						<h4 className="Text">
-							Key:
-							<Fragment> </Fragment>
-							{data.song.key.sharp}
-						</h4>
+					<div>
+						<div className={bem("section")}>
+							<h1 className={bem("title", "MarginBottomHalf")}>
+								<SongTitle song={data.song}/>
+							</h1>
+							<h2 className={bem("artists", "MarginBottomHalf")}>
+								<FeaturingArtists song={data.song}/>
+							</h2>
+							<h3 className={bem("genres")}>
+								<DocLinks docs={data.song.genres}/>
+							</h3>
+						</div>
+						<div>
+							<h4 className="Text MarginBottomQuart">
+								Released:
+								<Fragment> </Fragment>
+								{data.song.album.released}
+							</h4>
+							<h4 className="Text MarginBottomQuart">
+								Duration:
+								<Fragment> </Fragment>
+								{deserializeDuration(data.song.duration)}
+							</h4>
+							<h4 className="Text MarginBottomQuart">
+								Size:
+								<Fragment> </Fragment>
+								{(data.song.size * 1e-6).toFixed(2)}
+								<Fragment> MB</Fragment>
+							</h4>
+							<h4 className="Text MarginBottomQuart">
+								BPM:
+								<Fragment> </Fragment>
+								{data.song.bpm}
+								<Fragment> BPM</Fragment>
+							</h4>
+							<h4 className="Text">
+								Key:
+								<Fragment> </Fragment>
+								{data.song.key.sharp}
+							</h4>
+						</div>
 					</div>
 				</Helmet>
 			)}

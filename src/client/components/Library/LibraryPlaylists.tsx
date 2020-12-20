@@ -34,16 +34,14 @@ const LibraryPlaylists: FC = () => {
 						},
 					})
 				}
-				children={
-					data => (
-						<Playlists
-							className="Content"
-							orderByKey="userPlaylists"
-							playlists={data?.user.playlists}
-							orderByFields={Object.keys(UserPlaylistsOrderByField)}
-						/>
-					)
-				}
+				children={data => (
+					<Playlists
+						className="Content"
+						orderByKey="userPlaylists"
+						playlists={data?.user.playlists}
+						orderByFields={Object.keys(UserPlaylistsOrderByField)}
+					/>
+				)}
 			/>
 		</Helmet>
 	)

@@ -11,7 +11,7 @@ const Select: FC<PropTypes> = ({ value, options, onChange, className }) => {
 		<select
 			value={value}
 			onChange={handleChange}
-			className={bem(className, "Text")}
+			className={bem(className, "Text BorderRadius")}
 		>
 			{options.map(
 				option => (

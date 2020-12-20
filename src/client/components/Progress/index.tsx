@@ -18,8 +18,11 @@ const Progress: FC<PropTypes> = ({ duration, className }) => {
 	const dispatch = useDispatch()
 	const current = useStateCurrent()
 
-	const handleChange: HandleChange = event =>
-		dispatch(updateCurrent(parseInt(event.target.value)))
+	const handleChange: HandleChange = event => {
+		if (!play) {
+			dispatch(updateCurrent(parseInt(event.target.value)))
+		}
+	}
 
 	useEffect(() => {
 		const interval = setInterval(() => {

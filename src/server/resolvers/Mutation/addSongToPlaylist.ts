@@ -5,15 +5,16 @@ import {
 	sqlQuery,
 	parseSqlRow,
 	createResolver,
+	getSqlResExists,
 } from "../../helpers"
 
-// import {
-// 	INSERT_PLAYLIST,
-// 	INSERT_USER_DOC,
-// } from "../../sql"
+import {
+	SELECT_SONG,
+	EXISTS_PLAYLIST_SONG,
+	INSERT_PLAYLIST_SONG,
+} from "../../sql"
 
 import { Song } from "../../types"
-import { SELECT_SONG } from "../../sql"
 import { COLUMN_NAMES } from "../../globals"
 
 interface Args {
@@ -27,8 +28,31 @@ const resolver =
 
 export const addSongToPlaylist =
 	resolver<Song, Args>(
-		({ args, context }) => (
-			sqlQuery(context.pg)({
+		async ({ args, context }) => {
+			const inPlaylist = await sqlQuery(context.pg)({
+				sql: EXISTS_PLAYLIST_SONG,
+				parse: getSqlResExists,
+				variables: [{
+					key: "songId",
+					value: args.songId,
+				},{
+					key: "playlistId",
+					value: args.playlistId,
+				}],
+			})
+			if (!inPlaylist) {
+				await sqlQuery(context.pg)({
+					sql: INSERT_PLAYLIST_SONG,
+					variables: [{
+						key: "songId",
+						value: args.songId,
+					},{
+						key: "playlistId",
+						value: args.playlistId,
+					}],
+				})
+			}
+			return sqlQuery(context.pg)({
 				sql: SELECT_SONG,
 				parse: parseSqlRow(),
 				variables: [{
@@ -40,5 +64,5 @@ export const addSongToPlaylist =
 					value: sqlJoin(COLUMN_NAMES.SONG),
 				}],
 			})
-		),
+		},
 	)

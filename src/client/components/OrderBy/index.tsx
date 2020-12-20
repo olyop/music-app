@@ -26,10 +26,6 @@ const OrderBy: FC<PropTypes> = ({ className, settingsKey, fieldOptions }) => {
 
 	return (
 		<div className={bem(className, "FlexListGapHalf")}>
-			<h1
-				className="Text2"
-				children="Order By:"
-			/>
 			<Select
 				value={state.field}
 				options={fieldOptions}

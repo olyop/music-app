@@ -88,8 +88,8 @@ const Item: FC<PropTypes> = ({
 				</div>
 				{inLibrary && (
 					<InLibraryButton
-						onClick={inLibrary.onClick}
 						inLibrary={inLibrary.inLibrary}
+						onClick={inLibrary.toggleInLibrary}
 						className={bem(iconClassName, "add")}
 					/>
 				)}
@@ -125,7 +125,7 @@ interface PlayInput {
 
 interface InLibraryInput {
 	inLibrary: boolean,
-	onClick: () => void,
+	toggleInLibrary: () => void,
 }
 
 interface PropTypes extends BemPropTypes {

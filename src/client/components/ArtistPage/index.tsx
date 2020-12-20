@@ -11,15 +11,14 @@ import { createElement, Fragment, FC } from "react"
 
 import {
 	useQuery,
-	useMutation,
 	artistLower,
 	useInLibrary,
 	uuidAddDashes,
 	determinePlural,
+	useArtistShuffle,
 } from "../../helpers"
 
 import {
-	User,
 	Artist,
 	UserVar,
 	SongsOrderBy,
@@ -34,7 +33,6 @@ import Albums from "../Albums"
 import Button from "../Button"
 import Helmet from "../Helmet"
 import DocLink from "../DocLink"
-import SHUFFLE_ARTIST from "./shuffleArtist.gql"
 import GET_ARTIST_PAGE from "./getArtistPage.gql"
 import GET_ARTIST_PAGE_HOME from "./getArtistPageHome.gql"
 import GET_ARTIST_PAGE_SONGS from "./getArtistPageSongs.gql"
@@ -105,8 +103,8 @@ const ArtistFollowButton: FC<{ artist: Artist }> = ({ artist }) => {
 	const [ toggleInLibrary, inLibrary ] = useInLibrary(artist)
 	return (
 		<Button
-			text="Follow"
 			onClick={toggleInLibrary}
+			text={inLibrary ? "Following" : "Follow"}
 			icon={inLibrary ? "library_add_check" : "library_add"}
 		/>
 	)
@@ -121,8 +119,7 @@ const ArtistPage: FC<RouteComponentProps> = ({ match }) => {
 	const { data } =
 		useQuery<Data, Vars>(GET_ARTIST_PAGE, { variables })
 
-	const [ shuffle ] =
-		useMutation<ShuffleData, Vars>(SHUFFLE_ARTIST, { variables })
+	const [ shuffle ] = useArtistShuffle(artistId)
 
 	const handleShuffle = () => shuffle()
 
@@ -153,13 +150,13 @@ const ArtistPage: FC<RouteComponentProps> = ({ match }) => {
 								</p>
 							)}
 							<div className="MarginTop FlexListGap">
+								<ArtistFollowButton
+									artist={data.artist}
+								/>
 								<Button
 									icon="shuffle"
 									text="Shuffle"
 									onClick={handleShuffle}
-								/>
-								<ArtistFollowButton
-									artist={data.artist}
 								/>
 							</div>
 						</div>
@@ -222,10 +219,6 @@ interface Data {
 
 interface Params {
 	artistId: string,
-}
-
-interface ShuffleData {
-	shuffleArtist: User,
 }
 
 interface Vars extends UserVar, Params {}

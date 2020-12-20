@@ -2,6 +2,13 @@
 	display: grid;
 	gap: var(--space);
 	grid-template-columns: 200rem 1fr;
-	&__content {
-		&-title {
-			font-size: 25rem; } } }
+	&__section {
+		margin-bottom: var(--space-three-quart);
+		padding-bottom: var(--space-three-quart);
+		border-bottom: 1px solid var(--border-color); }
+	&__title {
+		font-size: 27rem; }
+	&__artists {
+		font-size: 22rem; }
+	&__genres {
+		font-size: 20rem; } }

@@ -1,0 +1,123 @@
+mutation shuffleArtist(
+	$userId: Uuid!
+	$artistId: Uuid!
+) {
+	shuffleArtist(
+		userId: $userId
+		artistId: $artistId
+	) {
+    userId
+    prev {
+      mix
+      title
+      songId
+      duration
+			inLibrary(userId: $userId)
+      featuring {
+        artistId
+        name
+      }
+      remixers {
+        artistId
+        name
+      }
+      artists {
+        artistId
+        name
+      }
+      genres {
+        genreId
+        name
+      }
+      album {
+        albumId
+        title
+        cover(size: HALF)
+      }
+    }
+    current {
+      mix
+      title
+      songId
+      duration
+			inLibrary(userId: $userId)
+      featuring {
+        artistId
+        name
+      }
+      remixers {
+        artistId
+        name
+      }
+      artists {
+        artistId
+        name
+      }
+      genres {
+        genreId
+        name
+      }
+      album {
+        albumId
+        title
+        cover(size: HALF)
+      }
+    }
+    next {
+      mix
+      title
+      songId
+      duration
+			inLibrary(userId: $userId)
+      featuring {
+        artistId
+        name
+      }
+      remixers {
+        artistId
+        name
+      }
+      artists {
+        artistId
+        name
+      }
+      genres {
+        genreId
+        name
+      }
+      album {
+        albumId
+        title
+        cover(size: HALF)
+      }
+    }
+    later {
+      mix
+      title
+      songId
+      duration
+			inLibrary(userId: $userId)
+      featuring {
+        artistId
+        name
+      }
+      remixers {
+        artistId
+        name
+      }
+      artists {
+        artistId
+        name
+      }
+      genres {
+        genreId
+        name
+      }
+      album {
+        albumId
+        title
+        cover(size: HALF)
+      }
+    }
+	}
+}

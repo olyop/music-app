@@ -87,4 +87,4 @@ export interface Play extends PlayBase, Doc<"Play"> {
 	song: Song,
 }
 
-export type InLibraryDoc = Song | Artist
+export type InLibraryDoc = Song | Artist | Playlist

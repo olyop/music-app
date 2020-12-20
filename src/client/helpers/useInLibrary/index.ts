@@ -27,7 +27,7 @@ import GET_USER_PLAYLISTS from "../../components/Library/getUserPlaylists.gql"
 export const useInLibrary = (doc: InLibraryDoc): ReturnType => {
 	const dr = determineDocReturn(doc)
 	const docTypeName = dr("Song", "Artist", "Playlist")
-	const orderByKey = dr("userSongs", "userArtists", "playlists")
+	const orderByKey = dr("userSongs", "userArtists", "userPlaylists")
 	const docKey = dr("songId", "artistId", "playlistId") as VarKeyEnum
 	const docQueryName = dr("song", "artist", "playlist") as QueryNameEnum
 
@@ -53,9 +53,7 @@ export const useInLibrary = (doc: InLibraryDoc): ReturnType => {
 
 	const inLibrary =
 		isUndefined(doc.inLibrary) ?
-			(data ?
-				data[docQueryName]!.inLibrary :
-				false) :
+			(data ? data[docQueryName]!.inLibrary : false) :
 			doc.inLibrary
 
 	const mutationName =
@@ -70,7 +68,7 @@ export const useInLibrary = (doc: InLibraryDoc): ReturnType => {
 			variables,
 			refetchQueries: [{
 				query: REFETCH_QUERY,
-				variables: { userId, page: 0, orderBy },
+				variables: { userId, orderBy, page: 0 },
 			}],
 			optimisticResponse: {
 				[mutationName]: {
@@ -83,9 +81,7 @@ export const useInLibrary = (doc: InLibraryDoc): ReturnType => {
 		})
 
 	const handleClick = async () => {
-		if (!loading) {
-			await mutate()
-		}
+		if (!loading) await mutate()
 	}
 
 	return [ handleClick, inLibrary ]

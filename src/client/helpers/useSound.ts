@@ -20,7 +20,6 @@ export const useSound = (src: string, { volume, current }: Options) => {
 
 	useEffect(() => {
 		if (hasMounted) {
-			console.log("src")
 			setSound(new Howl({ src, volume }))
 		}
 	}, [src])
@@ -30,13 +29,17 @@ export const useSound = (src: string, { volume, current }: Options) => {
 	}, [volume])
 
 	useEffect(() => {
-		sound.seek(current)
+		if (!isPlaying) {
+			sound.seek(current)
+		}
 	}, [current])
 
 	const play = useCallback(
 		() => {
 			sound.play()
-			sound.once("end", () => setIsPlaying(false))
+			sound.once("end", () => {
+				setIsPlaying(false)
+			})
 			setIsPlaying(true)
 		},
 		[sound],

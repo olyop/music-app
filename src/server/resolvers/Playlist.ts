@@ -22,13 +22,17 @@ import {
 } from "../helpers"
 
 import {
+	getUserDocInLib,
+	getUserDocDateAdded,
+} from "../helpers/resolver/userDocs"
+
+import {
 	SELECT_USER,
 	SELECT_PLAYLIST_SONGS,
 	SELECT_USER_DOC_PLAYS,
 } from "../sql"
 
 import { COLUMN_NAMES } from "../globals"
-import { getUserDocInLib, getUserDocDateAdded } from "../helpers/resolver/userDocs"
 
 const getPlaylistSongs =
 	(client: PGClient) =>
@@ -42,7 +46,7 @@ const getPlaylistSongs =
 				},{
 					string: false,
 					key: "columnNames",
-					value: sqlJoin(COLUMN_NAMES.SONG),
+					value: sqlJoin(COLUMN_NAMES.SONG, "songs"),
 				}],
 			})
 
@@ -96,22 +100,20 @@ export const user =
 export const songs =
 	resolver<Song[]>(
 		({ parent, context }) => (
-			// getPlaylistSongs(context.pg)(
-			// 	parent.playlistId,
-			// 	parseSqlTable(),
-			// )
-			Promise.resolve([])
+			getPlaylistSongs(context.pg)(
+				parent.playlistId,
+				parseSqlTable(),
+			)
 		),
 	)
 
 export const songsTotal =
 	resolver<number | null>(
 		({ parent, context }) => (
-			// getPlaylistSongs(context.pg)(
-			// 	parent.playlistId,
-			// 	getSqlRowCountOrNull,
-			// )
-			Promise.resolve(10)
+			getPlaylistSongs(context.pg)(
+				parent.playlistId,
+				getSqlRowCountOrNull,
+			)
 		),
 	)
 

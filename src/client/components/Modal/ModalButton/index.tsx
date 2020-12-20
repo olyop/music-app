@@ -17,6 +17,13 @@ const ModalButton: FC<PropTypes> = ({ button, onClose, className }) => {
 		}
 	}
 
+	const classNamee = bem(
+		className,
+		"",
+		button.link ? "Button" : undefined,
+		"PaddingHalf",
+	)
+
 	const jsx = (
 		<Button
 			key={button.text}
@@ -24,7 +31,7 @@ const ModalButton: FC<PropTypes> = ({ button, onClose, className }) => {
 			text={button.text}
 			onClick={handleClick}
 			spanClassName={bem("span")}
-			className={bem(className, "", "PaddingHalf")}
+			className={button.link ? bem("none") : classNamee}
 		/>
 	)
 
@@ -33,6 +40,7 @@ const ModalButton: FC<PropTypes> = ({ button, onClose, className }) => {
 			children={jsx}
 			to={button.link}
 			onClick={onClose}
+			className={classNamee}
 		/>
 	) : jsx
 }

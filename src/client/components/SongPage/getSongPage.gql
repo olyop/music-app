@@ -4,7 +4,6 @@ query getSongPage(
 ) {
   song(songId: $songId) {
     bpm
-    size
     title
     songId
     duration

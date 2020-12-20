@@ -26,6 +26,7 @@ import {
 	EXISTS_USER_DOC,
 	INSERT_USER_DOC,
 	UPDATE_USER_DOC_IN_LIB,
+	SELECT_PLAYLIST,
 } from "../../sql"
 
 import { COLUMN_NAMES } from "../../globals"
@@ -221,7 +222,7 @@ const playlistConfig: AddRemoveFunc =
 		docId,
 		userId,
 		columnName: "playlist_id",
-		returnQuery: SELECT_ARTIST,
+		returnQuery: SELECT_PLAYLIST,
 		userTableName: "users_playlists",
 		columnNames: COLUMN_NAMES.PLAYLIST,
 	})

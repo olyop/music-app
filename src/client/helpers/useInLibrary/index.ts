@@ -87,16 +87,16 @@ export const useInLibrary = (doc: InLibraryDoc): ReturnType => {
 	return [ handleClick, inLibrary ]
 }
 
-enum VarKeyEnum {
-	songId = "songId",
-	artistId = "artistId",
-	playlistId = "playlistId"
-}
-
 enum QueryNameEnum {
 	song = "song",
 	artist = "artist",
 	playlist = "playlist",
+}
+
+enum VarKeyEnum {
+	songId = "songId",
+	artistId = "artistId",
+	playlistId = "playlistId"
 }
 
 enum MutationNameEnum {

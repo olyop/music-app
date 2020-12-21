@@ -9,7 +9,7 @@ const bem = createBem("LibraryEmpty")
 const LibraryEmpty: FC = () => (
 	<div className={bem("", "Content PaddingBottom")}>
 		<h2 className={bem("heading", "MarginBottomHalf")}>
-			Empty
+			No Music.
 		</h2>
 		<h3 className={bem("text")}>
 			<NavLink

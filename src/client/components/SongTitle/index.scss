@@ -1,3 +1,12 @@
 .SongTitle {
-	color: #757575;
-	font-weight: 400; }
+	&__title {
+		border: 0;
+		outline: none;
+		cursor: pointer;
+		display: inline;
+		background-color: transparent;
+		&:hover {
+			text-decoration: underline; } }
+	&__mix {
+		color: #757575;
+		font-weight: 400; } }

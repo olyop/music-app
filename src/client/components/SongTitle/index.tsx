@@ -1,24 +1,29 @@
 import isEmpty from "lodash/isEmpty"
+import { createBem } from "@oly_op/bem"
 import { createElement, Fragment, FC } from "react"
 
-import DocLink from "../DocLink"
 import DocLinks from "../DocLinks"
 import { Song } from "../../types"
 
 import "./index.scss"
 
-const className = "SongTitle"
+const bem = createBem("SongTitle")
 
 const SongTitle: FC<PropTypes> = ({ song, onClick, showRemixers = true }) => {
 	const { mix, remixers } = song
 	if (showRemixers) {
 		return (
 			<Fragment>
-				<DocLink doc={song} onClick={onClick}/>
+				<button
+					type="button"
+					onClick={onClick}
+					children={song.title}
+					className={bem("title", "Text2")}
+				/>
 				{isEmpty(remixers) ? (
 					<Fragment>
 						{isEmpty(mix) || (
-							<span className={className}>
+							<span className={bem("mix")}>
 								<Fragment> </Fragment>
 								{mix}
 								<Fragment> Mix</Fragment>
@@ -26,7 +31,7 @@ const SongTitle: FC<PropTypes> = ({ song, onClick, showRemixers = true }) => {
 						)}
 					</Fragment>
 				) : (
-					<span className={className}>
+					<span className={bem("mix")}>
 						<Fragment> </Fragment>
 						<DocLinks
 							ampersand
@@ -43,12 +48,14 @@ const SongTitle: FC<PropTypes> = ({ song, onClick, showRemixers = true }) => {
 	} else {
 		return (
 			<Fragment>
-				<DocLink
-					doc={song}
+				<button
+					type="button"
 					onClick={onClick}
+					children={song.title}
+					className={bem("title", "Text2")}
 				/>
 				{isEmpty(mix) || (
-					<span className={className}>
+					<span className={bem("mix")}>
 						<Fragment> - </Fragment>
 						{mix}
 						<Fragment> Mix</Fragment>

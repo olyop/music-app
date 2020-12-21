@@ -55,10 +55,15 @@ const Song: FC<PropTypes> = ({
 		<Item
 			className={className}
 			iconClassName={iconClassName}
-			upper={<SongTitle song={song}/>}
 			imgDoc={hideCover ? undefined : song.album}
 			left={index || (showTrackNumber ? song.trackNumber : null)}
 			right={showRight ? deserializeDuration(song.duration) : null}
+			upper={(
+				<SongTitle
+					song={song}
+					onClick={handlePlayClick}
+				/>
+			)}
 			play={hidePlay ? undefined : {
 				play,
 				onClick: handlePlayClick,
@@ -83,6 +88,10 @@ const Song: FC<PropTypes> = ({
 				icon: "queue",
 				text: "Later",
 				handler: laterLoading ? undefined : later,
+			},{
+				icon: "get_app",
+				text: "Download",
+				handler: () => {},
 			},{
 				handler: toggleInLibrary,
 				icon: inLibrary ? "done" : "add",

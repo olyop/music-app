@@ -1,3 +1,9 @@
-query login {
-	login
+mutation login(
+	$userId: Uuid!
+	$password: String!
+) {
+	login(
+		userId: $userId
+		password: $password
+	)
 }

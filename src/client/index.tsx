@@ -18,9 +18,9 @@ render(
 			<ApolloClient>
 				<ApiError/>
 				<Loading/>
-				<Sidebar/>
-				<Header/>
 				<Authenticate>
+					<Sidebar/>
+					<Header/>
 					<Pages/>
 					<Bar/>
 				</Authenticate>

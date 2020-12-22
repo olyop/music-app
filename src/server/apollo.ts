@@ -10,6 +10,7 @@ import { APOLLO_SERVER_CONFIG } from "./globals"
 const context: Context = {
 	pg,
 	s3,
+	tokens: [],
 	ag: ag.initIndex("search"),
 }
 

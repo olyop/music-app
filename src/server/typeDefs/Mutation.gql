@@ -1,4 +1,15 @@
 type Mutation {
+	# authentication
+	login(
+		userId: Uuid!
+		password: String!
+	): String!
+  createAccount(
+    name: String!
+    email: Email!
+    password: String!
+  ): String!
+
   userPrev(
     userId: Uuid!
   ): User!

@@ -14,6 +14,7 @@ export interface User extends UserBase {
 	prev?: string[],
 	next?: string[],
 	later?: string[],
+	password: string,
 	current: string | null,
 }
 

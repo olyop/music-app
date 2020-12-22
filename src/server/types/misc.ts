@@ -51,4 +51,5 @@ export interface Context {
 	pg: Pool,
 	s3: S3Client,
 	ag: SearchIndex,
+	tokens: string[],
 }

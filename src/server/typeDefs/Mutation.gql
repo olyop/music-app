@@ -3,7 +3,7 @@ type Mutation {
 	login(
 		userId: Uuid!
 		password: String!
-	): String!
+	): String
   createAccount(
     name: String!
     email: Email!

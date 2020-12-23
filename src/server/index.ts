@@ -39,8 +39,8 @@ app.use(
 	bodyParser.urlencoded({ extended: false }),
 	cookieParser(),
 	graphqlUploadExpress(),
-	graphql(),
 	serveStatic(),
+	graphql(),
 )
 
 app.use("/upload", serveUpload())

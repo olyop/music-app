@@ -1,7 +1,9 @@
+import jwt from "jsonwebtoken"
 import { v4 as uuid } from "uuid"
 
 import {
 	sqlQuery,
+	sqlExists,
 	parseSqlRow,
 	compareHash,
 	generateHash,
@@ -20,19 +22,37 @@ interface LoginArgs extends UserArgs {
 }
 
 export const login =
-	resolver<string, LoginArgs>(
+	resolver<string | null, LoginArgs>(
 		async ({ args, context }) => {
-			const { password } = await sqlQuery(context.pg)({
-				sql: SELECT_USER_PASSWORD,
-				parse: parseSqlRow<User>(),
-				variables: [{
-					key: "userId",
-					value: args.userId,
-				}],
+			const exists = await sqlExists(context.pg)({
+				table: "users",
+				column: "user_id",
+				value: args.userId,
 			})
-			const isValid = await compareHash(args.password, password)
-			return isValid ? "success" : "invalid"
+			if (exists) {
+				const user = await sqlQuery(context.pg)({
+					sql: SELECT_USER_PASSWORD,
+					parse: parseSqlRow<User>(),
+					variables: [{
+						key: "userId",
+						value: args.userId,
+					}],
+				})
+				const isValid = await compareHash(args.password, user.password)
+				if (isValid) {
+					return jwt.sign(
+						{ userId: user.userId },
+						process.env.TOKEN_SECRET!,
+						{ expiresIn: "5m" },
+					)
+				} else {
+					return null
+				}
+			} else {
+				return null
+			}
 		},
+		false,
 	)
 
 interface CreateAccountArgs {

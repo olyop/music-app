@@ -1,3 +1,5 @@
+import { AuthenticationError } from "apollo-server-express"
+
 import { Context } from "../../types"
 
 type Callback<P, R, A> =
@@ -5,6 +7,14 @@ type Callback<P, R, A> =
 
 export const createResolver =
 	<P = undefined>() =>
-		<R, A = undefined>(callback: Callback<P, R, A>) =>
-			(parent: P, args: A, context: Context) =>
-				callback({ parent, args, context })
+		<R, A = undefined>(
+			callback: Callback<P, R, A>,
+			authenticate = true,
+		) =>
+			(parent: P, args: A, context: Context) => {
+				if (authenticate && context.authorization === "null") {
+					throw new AuthenticationError("JWT missing.")
+				} else {
+					return callback({ parent, args, context })
+				}
+			}

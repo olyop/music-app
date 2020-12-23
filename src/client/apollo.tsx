@@ -1,4 +1,5 @@
 import {
+	from,
 	HttpLink,
 	ApolloClient,
 	TypePolicies,
@@ -7,6 +8,7 @@ import {
 } from "@apollo/client"
 
 import { createElement, FC } from "react"
+import { setContext } from "@apollo/client/link/context"
 
 const typePolicies: TypePolicies = {
 	Query: {
@@ -26,9 +28,22 @@ const typePolicies: TypePolicies = {
 	Playlist: { keyFields: ["playlistId"] },
 }
 
-export const link = new HttpLink({ uri: "/graphql" })
-export const cache = new InMemoryCache({ typePolicies })
-export const client = new ApolloClient({ link, cache })
+const httpLink = new HttpLink({
+	uri: "/graphql",
+	headers: { authorization: localStorage.getItem("authorization") },
+})
+
+const authLink = setContext(() => ({
+	headers: {
+		authorization: localStorage.getItem("authorization"),
+	},
+}))
+
+const link = from([ authLink, httpLink ])
+
+const cache = new InMemoryCache({ typePolicies })
+
+const client = new ApolloClient({ link, cache })
 
 export const Provider: FC = ({ children }) => (
 	<ApolloProvider client={client}>

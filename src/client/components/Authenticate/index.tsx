@@ -2,6 +2,7 @@ import {
 	FC,
 	useState,
 	Fragment,
+	useEffect,
 	createElement,
 	ChangeEventHandler,
 	FormEventHandler,
@@ -9,6 +10,7 @@ import {
 
 import isEmpty from "lodash/isEmpty"
 import { createBem } from "@oly_op/bem"
+import { useApolloClient } from "@apollo/client"
 
 import Button from "../Button"
 import LOGIN from "./login.gql"
@@ -50,6 +52,31 @@ const Authenticate: FC = ({ children }) => {
 	const [ createAccount ] =
 		useMutation<CreateAccountData, CreateAccountVars>(CREATE_ACCOUNT)
 
+	const submitForm = async () => {
+		const form = forms[toggle ? "login" : "createAccount"]
+		if (isLoginForm(form)) {
+			const { password } = form
+			const userId = uuidAddDashes(form.userId)
+
+			const { data, errors } =
+				await login({ variables: { userId, password } })
+
+			if (data && data.login !== null && isEmpty(errors)) {
+				localStorage.setItem("authorization", data.login)
+				dispatch(updateUserId(userId))
+			}
+		} else {
+			const { name, email, password } = form
+
+			const { data, errors } =
+				await createAccount({ variables: { name, email, password } })
+
+			if (data!.createAccount === "success" && isEmpty(errors)) {
+				setToggle(true)
+			}
+		}
+	}
+
 	const handleToggle = () => {
 		setForms(defaultFormState)
 		setToggle(prevState => !prevState)
@@ -66,30 +93,16 @@ const Authenticate: FC = ({ children }) => {
 			}))
 
 	const handleFormSubmut: FormSubmit =
-		async event => {
+		event => {
 			event.preventDefault()
-			const form = forms[toggle ? "login" : "createAccount"]
-			if (isLoginForm(form)) {
-				const { password } = form
-				const userId = uuidAddDashes(form.userId)
-
-				const { data, errors } =
-					await login({ variables: { userId, password } })
-
-				if (data!.login === "success" && isEmpty(errors)) {
-					dispatch(updateUserId(userId))
-				}
-			} else {
-				const { name, email, password } = form
-
-				const { data, errors } =
-					await createAccount({ variables: { name, email, password } })
-
-				if (data!.createAccount === "success" && isEmpty(errors)) {
-					setToggle(true)
-				}
-			}
+			submitForm()
 		}
+
+	useEffect(() => {
+		if (localStorage.getItem("authorization")) {
+			
+		}
+	})
 
 	return isEmpty(userIdState) ? (
 		<div className={bem("")}>
@@ -111,6 +124,7 @@ const Authenticate: FC = ({ children }) => {
 							/>
 							<input
 								maxLength={32}
+								id="loginUserIdField"
 								value={forms.login.userId}
 								className={bem("input", "Text")}
 								onChange={handleFormChange("login", "userId")}
@@ -120,6 +134,8 @@ const Authenticate: FC = ({ children }) => {
 								className={bem("label", "Text2 MarginBottomQuart MarginTopHalf")}
 							/>
 							<input
+								type="password"
+								id="loginPasswordField"
 								value={forms.login.password}
 								className={bem("input", "Text")}
 								onChange={handleFormChange("login", "password")}
@@ -136,15 +152,18 @@ const Authenticate: FC = ({ children }) => {
 								className={bem("label", "Text2 MarginBottomQuart")}
 							/>
 							<input
+								id="createAccountNameField"
 								value={forms.createAccount.name}
 								className={bem("input", "Text")}
 								onChange={handleFormChange("createAccount", "name")}
 							/>
 							<label
 								children="Email"
-								className={bem("label", "Text2 MarginBottomQuart MarginTop")}
+								className={bem("label", "Text2 MarginBottomQuart MarginTopHalf")}
 							/>
 							<input
+								type="email"
+								id="createAccountEmailField"
 								className={bem("input", "Text")}
 								value={forms.createAccount.email}
 								onChange={handleFormChange("createAccount", "email")}
@@ -154,6 +173,8 @@ const Authenticate: FC = ({ children }) => {
 								className={bem("label", "Text2 MarginBottomQuart MarginTopHalf")}
 							/>
 							<input
+								type="password"
+								id="createAccountPasswordField"
 								className={bem("input", "Text")}
 								value={forms.createAccount.password}
 								onChange={handleFormChange("createAccount", "password")}

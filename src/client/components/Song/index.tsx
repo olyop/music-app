@@ -4,6 +4,7 @@ import deserializeDuration from "@oly_op/music-app-common/deserializeDuration"
 
 import {
 	usePlay,
+	getSongMp3,
 	useMutation,
 	useInLibrary,
 	determineDocId,
@@ -91,7 +92,8 @@ const Song: FC<PropTypes> = ({
 			},{
 				icon: "get_app",
 				text: "Download",
-				handler: () => {},
+				externalLink: true,
+				link: getSongMp3(song.songId),
 			},{
 				handler: toggleInLibrary,
 				icon: inLibrary ? "done" : "add",

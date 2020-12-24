@@ -8,4 +8,5 @@ INSERT INTO users (
 	{{ email }},
 	{{ userId }},
 	{{ password }}
-);
+) RETURNING
+	{{ columnNames }};

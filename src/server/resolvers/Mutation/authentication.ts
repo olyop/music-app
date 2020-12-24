@@ -1,7 +1,9 @@
 import jwt from "jsonwebtoken"
 import { v4 as uuid } from "uuid"
+import { ValidationError } from "apollo-server-express"
 
 import {
+	sqlJoin,
 	sqlQuery,
 	sqlExists,
 	parseSqlRow,
@@ -11,6 +13,7 @@ import {
 	validatePassword,
 } from "../../helpers"
 
+import { COLUMN_NAMES } from "../../globals"
 import { User, UserArgs } from "../../types"
 import { INSERT_USER, SELECT_USER_PASSWORD } from "../../sql"
 
@@ -66,11 +69,15 @@ export const createAccount =
 		async ({ args, context }) => {
 			const validation = validatePassword(args.password)
 			if (!validation.isValid) {
-				return validation.message!
+				throw new ValidationError(validation.message!)
 			} else {
-				await sqlQuery(context.pg)({
+				const { userId } = await sqlQuery(context.pg)({
 					sql: INSERT_USER,
+					parse: parseSqlRow<User>(),
 					variables: [{
+						key: "userId",
+						value: uuid(),
+					},{
 						key: "name",
 						value: args.name,
 						parameterized: true,
@@ -79,16 +86,21 @@ export const createAccount =
 						value: args.name,
 						parameterized: true,
 					},{
-						key: "userId",
-						value: uuid(),
-						parameterized: true,
+						string: false,
+						key: "columnNames",
+						value: sqlJoin(COLUMN_NAMES.USER),
 					},{
 						key: "password",
 						parameterized: true,
 						value: await generateHash(args.password),
 					}],
 				})
-				return "success"
+				return jwt.sign(
+					{ userId },
+					process.env.TOKEN_SECRET!,
+					{ expiresIn: "5m" },
+				)
 			}
 		},
+		false,
 	)

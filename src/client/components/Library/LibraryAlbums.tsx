@@ -15,7 +15,7 @@ import LibraryEmpty from "./LibraryEmpty"
 import GET_USER_ALBUMS from "./getUserAlbums.gql"
 import { useStateUserId, useStateOrderBy } from "../../redux"
 
-const LibraryArtists: FC = () => {
+const LibraryAlbums: FC = () => {
 	const userId = useStateUserId()
 	const orderBy = useStateOrderBy<AlbumsOrderByField>("albums")
 	return (
@@ -35,7 +35,7 @@ const LibraryArtists: FC = () => {
 					},
 				})}
 				children={data => (data && isEmpty(data.user.albums) ? (
-					<LibraryEmpty/>
+					<LibraryEmpty name="albums"/>
 				) : (
 					<Albums
 						albums={data?.user.albums}
@@ -56,4 +56,4 @@ interface Vars extends UserVar {
 	orderBy: AlbumsOrderBy,
 }
 
-export default LibraryArtists
+export default LibraryAlbums

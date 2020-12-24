@@ -43,7 +43,7 @@ const LibraryArtists: FC = () => {
 					},
 				})}
 				children={data => (data && isEmpty(data.user.artists) ? (
-					<LibraryEmpty/>
+					<LibraryEmpty name="artists"/>
 				) : (
 					<Artists
 						orderByKey="userArtists"

@@ -107,6 +107,7 @@ const Album: FC<PropTypes> = ({ album, className }) => {
 				onChange={handleCoverChange}
 			/>
 			<Box>
+				{/* @ts-ignore */}
 				<Title
 					value={title}
 					onChange={handleTitleChange}

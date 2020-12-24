@@ -50,7 +50,7 @@ const Sidebar: FC = () => {
 						/>
 					</NavLink>
 				</div>
-				<NavLink
+				{/* <NavLink
 					title="Browse"
 					to="/browse/songs"
 					onClick={handleClose}
@@ -64,7 +64,7 @@ const Sidebar: FC = () => {
 						children="Browse"
 						className={bem("route-text")}
 					/>
-				</NavLink>
+				</NavLink> */}
 				<NavLink
 					title="Library"
 					to="/library/songs"

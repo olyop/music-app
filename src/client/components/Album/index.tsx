@@ -5,9 +5,9 @@ import Item from "../Item"
 import Cover from "../Cover"
 import DocLink from "../DocLink"
 import DocLinks from "../DocLinks"
-import { useStateListStyle } from "../../redux"
 import { uuidRemoveDashes } from "../../helpers"
 import { Album as AlbumType, ListStyle } from "../../types"
+import { useStateListStyle, useStateShowReleased } from "../../redux"
 
 const bem = createBem("Album")
 
@@ -18,14 +18,15 @@ const Album: FC<PropTypes> = ({
 	hideReleased = false,
 }) => {
 	const listStyle = useStateListStyle()
+	const showReleased = useStateShowReleased()
 	return (
 		listStyle === ListStyle.LIST || alwaysList ? (
 			<Item
 				imgDoc={album}
 				upper={<DocLink doc={album}/>}
 				lower={<DocLinks docs={album.artists}/>}
-				right={hideReleased ? undefined : album.released}
 				className={bem(className, "PaddingHalf ItemBorder Hover")}
+				right={hideReleased || !showReleased ? undefined : album.released}
 			/>
 		) : (
 			<div className={bem(className, "Card Elevated")}>

@@ -24,7 +24,7 @@ export const getSearchResults =
 						const variables = { exact, query: text }
 						client
 							.query<Res, Vars>({ query, variables })
-							.then(({ data }) => data!)
+							.then(({ data }) => data)
 							.then(parseRes)
 							.then(map(parseDoc))
 							.then(resolve)

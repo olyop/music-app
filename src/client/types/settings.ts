@@ -14,6 +14,7 @@ import {
 export interface Settings {
 	showGenres: boolean,
 	listStyle: ListStyle,
+	showReleased: boolean,
 	orderBy: OrderBySettings,
 }
 

@@ -2,7 +2,7 @@ import { IResolvers } from "apollo-server-express"
 
 import {
 	URLResolver as Url,
-	GUIDResolver as Uuid,
+	UUIDResolver as Uuid,
 	DateResolver as Date,
 	EmailAddressResolver as Email,
 	TimestampResolver as Timestamp,

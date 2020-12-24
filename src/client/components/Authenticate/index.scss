@@ -4,7 +4,7 @@
 	align-items: center;
 	justify-content: center;
 	&__content {
-		width: 307rem;
+		width: 308rem;
 		background-color: #fff; }
 	&__toggle {
 		width: 100%;
@@ -14,4 +14,6 @@
 	&__input,
 	&__submit {
 		width: 100%;
-		display: block; } }
+		display: block; }
+	&__input {
+		font-family: monospace; } }

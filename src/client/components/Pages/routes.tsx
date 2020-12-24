@@ -3,7 +3,7 @@ import uniqueId from "lodash/uniqueId"
 import Home from "../Home"
 import Queues from "../Queues"
 import Search from "../Search"
-import Browse from "../Browse"
+// import Browse from "../Browse"
 import Library from "../Library"
 import UserPage from "../UserPage"
 import SongsPage from "../SongPage"
@@ -21,10 +21,10 @@ const routes: Route[] = [{
 	id: uniqueId(),
 	component: Home,
 },{
-	id: uniqueId(),
-	path: "/browse",
-	component: Browse,
-},{
+// 	id: uniqueId(),
+// 	path: "/browse",
+// 	component: Browse,
+// },{
 	id: uniqueId(),
 	path: "/library",
 	component: Library,

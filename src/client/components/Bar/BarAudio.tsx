@@ -8,8 +8,7 @@ import {
 	useStateCurrent,
 } from "../../redux"
 
-import getUrl from "./getUrl"
-import { useSound, useHasMounted } from "../../helpers"
+import { getSongMp3, useSound, useHasMounted } from "../../helpers"
 
 const BarAudio: FC<PropTypes> = ({ songId }) => {
 	const dispatch = useDispatch()
@@ -21,7 +20,7 @@ const BarAudio: FC<PropTypes> = ({ songId }) => {
 	const volume = stateVolume / 100
 
 	const { play, pause, stop, isPlaying } =
-		useSound(getUrl(songId), { volume, current })
+		useSound(getSongMp3(songId), { volume, current })
 
 	useEffect(() => {
 		if (hasMounted) {

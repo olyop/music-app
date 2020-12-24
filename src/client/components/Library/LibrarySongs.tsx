@@ -35,7 +35,7 @@ const LibrarySongs: FC = () => {
 					},
 				})}
 				children={data => (data && isEmpty(data.user.songs) ? (
-					<LibraryEmpty/>
+					<LibraryEmpty name="songs"/>
 				) : (
 					<Songs
 						className="Content"

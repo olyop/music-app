@@ -2,6 +2,7 @@ import { createElement, FC } from "react"
 import { createBem, BemInput, BemPropTypes } from "@oly_op/bem"
 
 import {
+	updatePlay,
 	togglePlay,
 	useDispatch,
 	useStatePlay,
@@ -31,16 +32,31 @@ const BarControls: FC<PropTypes> = ({ className, iconClassName }) => {
 	const [ userNext, { loading: nextLoading } ] =
 		useMutation<UserNextData, UserVar>(USER_NEXT, { variables })
 
-	const handlePrevClick = () => userPrev()
-	const handlePlayClick = () => dispatch(togglePlay())
-	const handleNextClick = () => userNext()
+	const handlePrevClick =
+		() => {
+			if (!prevLoading || !nextLoading) {
+				dispatch(updatePlay(false))
+				userPrev()
+			}
+		}
+
+	const handlePlayClick =
+		() => dispatch(togglePlay())
+
+	const handleNextClick =
+		async () => {
+			if (!nextLoading || !prevLoading) {
+				dispatch(updatePlay(false))
+				await userNext()
+			}
+		}
 
 	return (
 		<div className={bem(className, "")}>
 			<Icon
 				icon="skip_previous"
+				onClick={handlePrevClick}
 				className={bem(iconClassName)}
-				onClick={prevLoading ? undefined : handlePrevClick}
 			/>
 			<Icon
 				onClick={handlePlayClick}
@@ -50,7 +66,7 @@ const BarControls: FC<PropTypes> = ({ className, iconClassName }) => {
 			<Icon
 				icon="skip_next"
 				className={bem(iconClassName)}
-				onClick={nextLoading ? undefined : handleNextClick}
+				onClick={handleNextClick}
 			/>
 		</div>
 	)

@@ -13,6 +13,7 @@ import {
 	toggleSidebar,
 	updateListStyle,
 	toggleShowGenres,
+	toggleShowReleased,
 } from "./actions"
 
 import {
@@ -23,9 +24,9 @@ import {
 	AlbumsOrderByField,
 	GenresOrderByField,
 	ArtistsOrderByField,
+	PlaylistOrderByField,
 	UserSongsOrderByField,
 	UserArtistsOrderByField,
-	PlaylistOrderByField,
 	UserPlaylistsOrderByField,
 } from "../types"
 
@@ -35,7 +36,7 @@ const userId =
 			.addCase(updateUserId, (state, { payload }) => payload))
 
 const volume =
-	createReducer(0, builder =>
+	createReducer(50, builder =>
 		builder
 			.addCase(updateVolume, (state, { payload }) => payload))
 
@@ -73,6 +74,7 @@ const loading =
 
 const defaultSettings: Settings = {
 	showGenres: false,
+	showReleased: false,
 	listStyle: ListStyle.GRID,
 	orderBy: {
 		songs: {
@@ -116,6 +118,10 @@ const settings =
 			.addCase(toggleShowGenres, state => ({
 				...state,
 				showGenres: !state.showGenres,
+			}))
+			.addCase(toggleShowReleased, state => ({
+				...state,
+				showReleased: !state.showReleased,
 			}))
 			.addCase(updateListStyle, (state, { payload }) => ({
 				...state,

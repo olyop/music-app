@@ -10,10 +10,11 @@ import {
 
 import isEmpty from "lodash/isEmpty"
 import { createBem } from "@oly_op/bem"
-import { useApolloClient } from "@apollo/client"
+import jwtDecode, { JwtPayload } from "jwt-decode"
 
 import Button from "../Button"
 import LOGIN from "./login.gql"
+import { UserVar } from "../../types"
 import CREATE_ACCOUNT from "./createAccount.gql"
 import { useMutation, uuidAddDashes } from "../../helpers"
 import { useStateUserId, updateUserId, useDispatch } from "../../redux"
@@ -24,7 +25,7 @@ const bem = createBem("Authenticate")
 
 const defaultFormState: FormState = {
 	login: {
-		userId: "fe25daaec4c842a881890ee8e2208670",
+		userId: "",
 		password: "",
 	},
 	createAccount: {
@@ -35,16 +36,18 @@ const defaultFormState: FormState = {
 }
 
 const isLoginForm =
-	(form: FormStateLogin | FormStateCreateAccount): form is FormStateLogin => {
-		if ("userId" in form) return true
-		else return false
-	}
+	(form: FormStateLogin | FormStateCreateAccount): form is FormStateLogin =>
+		"userId" in form
 
 const Authenticate: FC = ({ children }) => {
 	const dispatch = useDispatch()
 	const userIdState = useStateUserId()
-	const [ toggle, setToggle ] = useState(true)
-	const [ forms, setForms ] = useState<FormState>(defaultFormState)
+
+	const [ toggle, setToggle ] =
+		useState(true)
+
+	const [ forms, setForms ] =
+		useState<FormState>(defaultFormState)
 
 	const [ login ] =
 		useMutation<LoginData, LoginVars>(LOGIN)
@@ -52,35 +55,42 @@ const Authenticate: FC = ({ children }) => {
 	const [ createAccount ] =
 		useMutation<CreateAccountData, CreateAccountVars>(CREATE_ACCOUNT)
 
-	const submitForm = async () => {
-		const form = forms[toggle ? "login" : "createAccount"]
-		if (isLoginForm(form)) {
+	const loginWithJwt =
+		(jwt: string) => dispatch(updateUserId(jwtDecode<Jwt>(jwt).userId))
+
+	const handleLogin =
+		async (form: FormStateLogin) => {
 			const { password } = form
 			const userId = uuidAddDashes(form.userId)
 
-			const { data, errors } =
+			const { data } =
 				await login({ variables: { userId, password } })
 
-			if (data && data.login !== null && isEmpty(errors)) {
+			if (data && data.login !== null) {
 				localStorage.setItem("authorization", data.login)
-				dispatch(updateUserId(userId))
-			}
-		} else {
-			const { name, email, password } = form
-
-			const { data, errors } =
-				await createAccount({ variables: { name, email, password } })
-
-			if (data!.createAccount === "success" && isEmpty(errors)) {
-				setToggle(true)
+				loginWithJwt(data.login)
 			}
 		}
-	}
 
-	const handleToggle = () => {
-		setForms(defaultFormState)
-		setToggle(prevState => !prevState)
-	}
+	const handleCreateAccount =
+		async (form: FormStateCreateAccount) => {
+			const { name, email, password } = form
+
+			const { data } =
+				await createAccount({ variables: { name, email, password } })
+
+			if (data && data.createAccount !== null) {
+				localStorage.setItem("authorization", data.createAccount)
+				loginWithJwt(data.createAccount)
+				setForms(defaultFormState)
+			}
+		}
+
+	const handleToggle =
+		() => {
+			setForms(defaultFormState)
+			setToggle(prevState => !prevState)
+		}
 
 	const handleFormChange: FormChange =
 		(formKey, fieldKey) => event =>
@@ -92,17 +102,19 @@ const Authenticate: FC = ({ children }) => {
 				},
 			}))
 
-	const handleFormSubmut: FormSubmit =
-		event => {
+	const handleFormSubmit: FormEventHandler =
+		async event => {
 			event.preventDefault()
-			submitForm()
+			const form = forms[toggle ? "login" : "createAccount"]
+			if (isLoginForm(form)) await handleLogin(form)
+			else await handleCreateAccount(form)
 		}
 
 	useEffect(() => {
-		if (localStorage.getItem("authorization")) {
-			
-		}
-	})
+		const token = localStorage.getItem("authorization")
+		if (token) loginWithJwt(token)
+		return setForms(defaultFormState)
+	}, [])
 
 	return isEmpty(userIdState) ? (
 		<div className={bem("")}>
@@ -117,7 +129,7 @@ const Authenticate: FC = ({ children }) => {
 				/>
 				<div className={bem("form")}>
 					{toggle ? (
-						<form onSubmit={handleFormSubmut}>
+						<form onSubmit={handleFormSubmit}>
 							<label
 								children="User Identification"
 								className={bem("label", "Text2 MarginBottomQuart")}
@@ -146,7 +158,7 @@ const Authenticate: FC = ({ children }) => {
 							/>
 						</form>
 					) : (
-						<form onSubmit={handleFormSubmut}>
+						<form onSubmit={handleFormSubmit}>
 							<label
 								children="Name"
 								className={bem("label", "Text2 MarginBottomQuart")}
@@ -214,11 +226,6 @@ interface CreateAccountVars {
 	password: string,
 }
 
-interface FormState {
-	login: FormStateLogin,
-	createAccount: FormStateCreateAccount,
-}
-
 interface FormStateLogin {
 	userId: string,
 	password: string,
@@ -230,11 +237,16 @@ interface FormStateCreateAccount {
 	password: string,
 }
 
+interface FormState {
+	login: FormStateLogin,
+	createAccount: FormStateCreateAccount,
+}
+
+interface Jwt extends JwtPayload, UserVar {}
+
 type FormChange = (
 	formKey: keyof FormState,
 	fieldKey: keyof (FormStateLogin & FormStateCreateAccount)
 ) => ChangeEventHandler<HTMLInputElement>
-
-type FormSubmit = FormEventHandler
 
 export default Authenticate

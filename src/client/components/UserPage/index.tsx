@@ -3,10 +3,12 @@ import { createElement, FC, Fragment } from "react"
 
 import {
 	useDispatch,
+	updateUserId,
 	useStateUserId,
 	updateListStyle,
 	toggleShowGenres,
 	useStateSettings,
+	toggleShowReleased,
 } from "../../redux"
 
 import Helmet from "../Helmet"
@@ -25,10 +27,12 @@ const UserPage: FC = () => {
 	const dispatch = useDispatch()
 	const userId = useStateUserId()
 	const variables: UserVar = { userId }
-	const { showGenres, listStyle } = useStateSettings()
+
+	const { listStyle, showGenres, showReleased } =
+		useStateSettings()
 
 	const { data } =
-		useQuery<Data, UserVar>(GET_USER_PAGE, { variables })
+		useQuery<QueryData, UserVar>(GET_USER_PAGE, { variables })
 
 	const [ deleteLibrary, { loading: mutationLoading } ] =
 		useMutation<MutationData, UserVar>(DELETE_USER_LIBRARY, { variables })
@@ -36,12 +40,21 @@ const UserPage: FC = () => {
 	const handleShowGenres = () =>
 		dispatch(toggleShowGenres())
 
-	const handleLibraryDelete = async () => {
-		await deleteLibrary()
-	}
+	const handleShowReleased = () =>
+		dispatch(toggleShowReleased())
 
-	const handleListStyle = (val: string) =>
-		dispatch(updateListStyle(val as ListStyle))
+	const handleLibraryDelete =
+		async () => deleteLibrary()
+
+	const handleListStyle =
+		(val: string) =>
+			dispatch(updateListStyle(val as ListStyle))
+
+	const handleSignOut =
+		() => {
+			localStorage.removeItem("authorization")
+			dispatch(updateUserId(""))
+		}
 
 	return (
 		<div className={bem("", "Content PaddingTopBottom")}>
@@ -50,59 +63,70 @@ const UserPage: FC = () => {
 					<h1 className={bem("name", "MarginBottom")}>
 						{data.user.name}
 					</h1>
-					<details className={bem("details", "MarginBottomHalf")}>
-						<summary className={bem("summary", "Text2 MarginBottomHalf")}>
+					<details open className={bem("details", "MarginBottomHalf")}>
+						<summary className={bem("summary", "Heading2 MarginBottomHalf")}>
 							Settings
 						</summary>
-						<div className={bem("content", "PaddingBottom")}>
-							<h3 className="Text2 MarginBottomFifth">
+						<div className="PaddingLeft PaddingBottomHalf">
+							<p className="Text MarginBottomFifth">
 								List Style
-							</h3>
+							</p>
 							<Select
 								value={listStyle}
 								onChange={handleListStyle}
 								options={Object.keys(ListStyle)}
 								className="Text MarginBottomHalf"
 							/>
-							<h3 className="Text2 MarginBottomFifth">
-								Show Genres
-							</h3>
+							<p className="Text MarginBottomFifth">
+								Song Genres
+							</p>
+							<input
+								type="checkbox"
+								checked={showGenres}
+								onChange={handleShowGenres}
+								className="Text MarginBottomHalf"
+							/>
+							<p className="Text MarginBottomFifth">
+								Album Released
+							</p>
 							<input
 								type="checkbox"
 								className="Text"
-								checked={showGenres}
-								onChange={handleShowGenres}
+								checked={showReleased}
+								onChange={handleShowReleased}
 							/>
 						</div>
 					</details>
-					<details className={bem("details", "MarginBottomHalf")}>
-						<summary className={bem("summary", "Text2 MarginBottomHalf")}>
+					<details open className={bem("details", "MarginBottomHalf")}>
+						<summary className={bem("summary", "Heading2 MarginBottomHalf")}>
 							Stats
 						</summary>
-						<div className={bem("content", "PaddingBottom")}>
-							<h3 className="Text2 MarginBottomFifth">
+						<div className="PaddingLeft PaddingBottomHalf">
+							<p className="Text MarginBottomFifth">
 								<Fragment>Songs: </Fragment>
 								{data.user.songsTotal || "none"}
-							</h3>
-							<h3 className="Text2">
+							</p>
+							<p className="Text">
 								<Fragment>Artists: </Fragment>
 								{data.user.artistsTotal || "none"}
-							</h3>
+							</p>
 						</div>
 					</details>
-					<details className={bem("details")}>
-						<summary className={bem("summary", "Text2 MarginBottomHalf")}>
+					<details open className={bem("details")}>
+						<summary className={bem("summary", "Heading2 MarginBottomHalf")}>
 							Controls
 						</summary>
-						<div className={bem("content", "FlexListGap")}>
+						<div className="PaddingLeft">
 							<Button
 								icon="delete"
 								text="Delete Library"
+								className="MarginBottomHalf"
 								onClick={mutationLoading ? undefined : handleLibraryDelete}
 							/>
 							<Button
 								text="Sign Out"
 								icon="exit_to_app"
+								onClick={handleSignOut}
 							/>
 						</div>
 					</details>
@@ -112,7 +136,7 @@ const UserPage: FC = () => {
 	)
 }
 
-interface Data {
+interface QueryData {
 	user: User,
 }
 

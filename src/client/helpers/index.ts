@@ -1,6 +1,7 @@
 export * from "./usePlay"
 export * from "./useQuery"
 export * from "./useSound"
+export * from "./getSongMp3"
 export * from "./uuidDashes"
 export * from "./useMutation"
 export * from "./artistLower"

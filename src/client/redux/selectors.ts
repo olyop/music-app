@@ -15,9 +15,6 @@ export const useStatePlay =
 export const useStateError =
 	() => useSelector<State, Error[]>(state => state.errors)
 
-export const useStateLoading =
-	() => useSelector<State, string[]>(state => state.loading)
-
 export const useStateSidebar =
 	() => useSelector<State, boolean>(state => state.sidebar)
 
@@ -30,14 +27,20 @@ export const useStateCurrent =
 export const useStateVolume =
 	() => useSelector<State, number>(state => state.volume)
 
+export const useStateLoading =
+	() => useSelector<State, string[]>(state => state.loading)
+
 export const useStateSettings =
 	() => useSelector<State, Settings>(state => state.settings)
+
+export const useStateShowGenres =
+	() => useSelector<State, boolean>(state => state.settings.showGenres)
 
 export const useStateListStyle =
 	() => useSelector<State, ListStyle>(state => state.settings.listStyle)
 
-export const useStateShowGenres =
-	() => useSelector<State, boolean>(state => state.settings.showGenres)
+export const useStateShowReleased =
+	() => useSelector<State, boolean>(state => state.settings.showReleased)
 
 export const useStateOrderBy =
 	<T = string>(key: keyof OrderBySettings) =>

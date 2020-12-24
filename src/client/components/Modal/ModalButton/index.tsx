@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom"
-import { createElement, FC } from "react"
+import { createElement, FC, Fragment } from "react"
 import { createBem, BemPropTypes } from "@oly_op/bem"
 
 import Button from "../../Button"
@@ -36,12 +36,23 @@ const ModalButton: FC<PropTypes> = ({ button, onClose, className }) => {
 	)
 
 	return button.link ? (
-		<Link
-			children={jsx}
-			to={button.link}
-			onClick={onClose}
-			className={classNamee}
-		/>
+		<Fragment>
+			{button.externalLink ? (
+				<a
+					download
+					children={jsx}
+					href={button.link}
+					className={classNamee}
+				/>
+			) : (
+				<Link
+					children={jsx}
+					to={button.link}
+					onClick={onClose}
+					className={classNamee}
+				/>
+			)}
+		</Fragment>
 	) : jsx
 }
 

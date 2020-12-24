@@ -14,6 +14,9 @@ export const toggleSidebar =
 export const toggleShowGenres =
 	createAction("TOGGLE_SHOW_GENRES")
 
+export const toggleShowReleased =
+	createAction("TOGGLE_SHOW_RELEASED")
+
 export const addError =
 	createAction("ADD_ERROR", withPayloadType<Error>())
 

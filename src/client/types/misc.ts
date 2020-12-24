@@ -46,6 +46,7 @@ export interface ModalButton {
 	icon?: string,
 	link?: string,
 	handler?: () => void,
+	externalLink?: boolean,
 }
 
 export type QueueKey = "prev" | "current" | "next" | "later"

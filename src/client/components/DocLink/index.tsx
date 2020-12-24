@@ -20,7 +20,7 @@ const DocLink = <T extends Doc>({ doc, onClick, className }: PropTypes<T>) => (
 		id={determineDocId(doc)}
 		to={determineDocPath(doc)}
 		title={determineDocName(doc)}
-		className={bem("", className)}
+		className={bem(className, "")}
 		children={determineDocName(doc)}
 	/>
 )

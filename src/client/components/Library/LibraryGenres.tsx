@@ -15,7 +15,7 @@ import LibraryEmpty from "./LibraryEmpty"
 import GET_USER_GENRES from "./getUserGenres.gql"
 import { useStateUserId, useStateOrderBy } from "../../redux"
 
-const LibraryArtists: FC = () => {
+const LibraryGenres: FC = () => {
 	const userId = useStateUserId()
 	const orderBy = useStateOrderBy<GenresOrderByField>("genres")
 	return (
@@ -35,7 +35,7 @@ const LibraryArtists: FC = () => {
 					},
 				})}
 				children={data => (data && isEmpty(data.user.genres) ? (
-					<LibraryEmpty/>
+					<LibraryEmpty name="genres"/>
 				) : (
 					<Genres
 						className="Content"
@@ -57,4 +57,4 @@ interface Vars extends UserVar {
 	orderBy: GenresOrderBy,
 }
 
-export default LibraryArtists
+export default LibraryGenres

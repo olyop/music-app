@@ -70,6 +70,7 @@ const Artists: FC<StyledProps> = ({ className }) => {
 									onChange={handleArtistPhotoChange(artist.artistId)}
 								/>
 							</CardActionArea>
+							{/* @ts-ignore */}
 							<ArtistName>
 								{artist.name}
 							</ArtistName>

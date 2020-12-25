@@ -18,7 +18,7 @@ const SongTitle: FC<PropTypes> = ({ song, onClick, showRemixers = true }) => {
 					type="button"
 					onClick={onClick}
 					children={song.title}
-					className={bem("title", "Text2")}
+					className={bem("title")}
 				/>
 				{isEmpty(remixers) ? (
 					<Fragment>
@@ -52,7 +52,7 @@ const SongTitle: FC<PropTypes> = ({ song, onClick, showRemixers = true }) => {
 					type="button"
 					onClick={onClick}
 					children={song.title}
-					className={bem("title", "Text2")}
+					className={bem("title")}
 				/>
 				{isEmpty(mix) || (
 					<span className={bem("mix")}>

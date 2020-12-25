@@ -83,7 +83,7 @@ export const createAccount =
 						parameterized: true,
 					},{
 						key: "email",
-						value: args.name,
+						value: args.email,
 						parameterized: true,
 					},{
 						string: false,

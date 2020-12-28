@@ -4,12 +4,14 @@ import { createElement, Fragment, FC } from "react"
 
 import DocLinks from "../DocLinks"
 import { Song } from "../../types"
+import { useStatePlay } from "../../redux"
 
 import "./index.scss"
 
 const bem = createBem("SongTitle")
 
 const SongTitle: FC<PropTypes> = ({ song, onClick, showRemixers = true }) => {
+	const play = useStatePlay()
 	const { mix, remixers } = song
 	if (showRemixers) {
 		return (
@@ -19,6 +21,7 @@ const SongTitle: FC<PropTypes> = ({ song, onClick, showRemixers = true }) => {
 					onClick={onClick}
 					children={song.title}
 					className={bem("title")}
+					title={play ? "Pause" : "Play"}
 				/>
 				{isEmpty(remixers) ? (
 					<Fragment>

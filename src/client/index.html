@@ -39,6 +39,7 @@
 				--text-color-white: #fff;
 				--text-color-light: #757575;
 				--background-color: #fafafa;
+				--border-color: #e0e0e0;
 
 				--font-size: 1px;
 				--font-family: "Roboto";
@@ -52,7 +53,6 @@
 				--sidebar-width: 300rem;
 
 				--border-radius: 5px;
-				--border-color: #e0e0e0;
 
 				--space: 20rem;
 
@@ -68,6 +68,30 @@
 				--content-width: 100vw;
 
 				--transition-duration: 0.2s; }
+
+			@media (prefers-color-scheme: light) {
+				:root {
+					--text-color: #333;
+					--elevated-color: #fff;
+					--hover-color: #eee;
+					--text-color-white: #fff;
+					--text-color-light: #757575;
+					--background-color: #fafafa;
+					--border-color: #e0e0e0;
+				}
+			}
+
+			@media (prefers-color-scheme: dark) {
+				:root {
+					--text-color: #fafafa;
+					--elevated-color: #212121;
+					--hover-color: #424242;
+					--text-color-white: #333;
+					--text-color-light: #757575;
+					--background-color: #424242;
+					--border-color: #424242;
+				}
+			}
 
 			@media (max-width: 500px) {
 				:root {
@@ -247,7 +271,7 @@
 				cursor: pointer;
 				transition: var(--transition-duration) background-color; }
 			.Hover:hover {
-				background-color: #eee; }
+				background-color: var(--hover-color); }
 
 			.ItemBorder {
 				border-bottom: 1px solid var(--border-color); }

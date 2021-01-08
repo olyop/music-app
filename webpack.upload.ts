@@ -3,8 +3,9 @@ import dotenv from "dotenv"
 import { merge } from "webpack-merge"
 import { Configuration } from "webpack"
 import HtmlWebpackPlugin from "html-webpack-plugin"
+import { TITLE } from "@oly_op/music-app-common/metadata"
 
-import baseConfig from "./webpack.base"
+import { baseConfig, metaTags } from "./webpack.base"
 
 const { HOST, DEV_SERVER_PORT, DEV_UPLOAD_PORT } = dotenv.config().parsed!
 
@@ -24,6 +25,10 @@ const config: Configuration = {
 	},
 	plugins: [
 		new HtmlWebpackPlugin({
+			title: TITLE,
+			minify: true,
+			meta: metaTags,
+			scriptLoading: "defer",
 			filename: "upload.html",
 			template: UPLOAD_ENTRY_PATH,
 		}),

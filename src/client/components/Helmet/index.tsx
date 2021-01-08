@@ -1,4 +1,4 @@
-import { APP_NAME } from "@oly_op/music-app-common/globals"
+import { TITLE } from "@oly_op/music-app-common/metadata"
 import { useEffect, createElement, FC, Fragment } from "react"
 
 const setMetaTag =
@@ -7,7 +7,7 @@ const setMetaTag =
 			.setAttribute("content", text)
 
 const setMetadata = (title: string) => {
-	const text = `${title} - ${APP_NAME}`
+	const text = `${title} - ${TITLE}`
 	document.title = text
 	setMetaTag("keywords", text)
 	setMetaTag("og:title", text)

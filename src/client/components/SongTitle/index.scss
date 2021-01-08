@@ -11,3 +11,8 @@
 	&__mix {
 		color: #757575;
 		font-weight: 400; } }
+
+@media (prefers-color-scheme: dark) {
+	.SongTitle {
+		&__mix {
+			color: var(--text-color); } } }

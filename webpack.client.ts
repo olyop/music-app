@@ -4,8 +4,9 @@ import { merge } from "webpack-merge"
 import { Configuration } from "webpack"
 import DotenvPlugin from "dotenv-webpack"
 import HtmlWebpackPlugin from "html-webpack-plugin"
+import { TITLE } from "@oly_op/music-app-common/metadata"
 
-import baseConfig from "./webpack.base"
+import { baseConfig, metaTags } from "./webpack.base"
 
 const { DEV_CLIENT_PORT } = dotenv.config().parsed!
 
@@ -27,6 +28,10 @@ const config: Configuration = {
 	plugins: [
 		new DotenvPlugin(),
 		new HtmlWebpackPlugin({
+			title: TITLE,
+			minify: true,
+			meta: metaTags,
+			scriptLoading: "defer",
 			filename: "client.html",
 			template: CLIENT_ENTRY_PATH,
 		}),

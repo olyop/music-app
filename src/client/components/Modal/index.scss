@@ -23,3 +23,9 @@
 		position: absolute;
 		transform: translate(-50%, -50%);
 		border-radius: var(--border-radius); } }
+
+@media (prefers-color-scheme: dark) {
+	.Modal {
+		&__black {
+			opacity: 0.8;
+			background-color: #333; } } }

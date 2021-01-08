@@ -1,14 +1,12 @@
 FROM node:current-alpine
 
-ENV NODE_ENV=production
+LABEL maintainer="oliver.plummer@outlook.com"
 
-RUN mkdir -p /app
+COPY .env .
+COPY .npmrc .
+COPY dist dist
+COPY package.json .
 
-COPY . /app
-
-WORKDIR /app
-
-RUN npm i --legacy-peer-deps
-RUN npm run build
+RUN npm i --production --legacy-peer-deps
 
 ENTRYPOINT npm run host

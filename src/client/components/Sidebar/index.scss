@@ -43,3 +43,9 @@
 			font-weight: 600;
 			margin-bottom: 2rem;
 			text-transform: uppercase; } } }
+
+@media (prefers-color-scheme: dark) {
+	.Sidebar {
+		&__background {
+			opacity: 0.8;
+			background-color: #333; } } }

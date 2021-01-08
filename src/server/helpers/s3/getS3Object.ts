@@ -1,5 +1,5 @@
 import { S3Client, GetObjectCommand } from "@aws-sdk/client-s3"
-import { APP as Bucket } from "@oly_op/music-app-common/globals"
+import { NAME as Bucket } from "@oly_op/music-app-common/metadata"
 
 import { getBodyFromS3Res } from "./getBodyFromS3Res"
 import { GetS3ObjectInput } from "../../types"

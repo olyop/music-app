@@ -17,7 +17,6 @@ import {
 } from "./middleware"
 
 import {
-	HOST,
 	PORT,
 	// CORS_CONFIG,
 } from "./globals"
@@ -46,4 +45,4 @@ app.use(
 app.use("/upload", serveUpload())
 app.use(serveClient())
 
-http.createServer(app).listen(PORT, HOST)
+http.createServer(app).listen(PORT)

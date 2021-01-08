@@ -7,7 +7,7 @@
 	],
 	"files.exclude": {
 		".git": true,
-		".env": false,
+		".env": true,
 		"dist": true,
 		".vscode": true,
 		"debug.log": true,

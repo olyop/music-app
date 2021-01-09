@@ -3,7 +3,6 @@ import { CorsOptions } from "cors"
 import { ApolloServerExpressConfig, GetMiddlewareOptions } from "apollo-server-express"
 
 import {
-	HOST,
 	PORT,
 	IS_DEV,
 	ALGOLIA_API_KEY,
@@ -40,5 +39,5 @@ export const APOLLO_SERVER_CONFIG: ApolloServerExpressConfig = {
 }
 
 export const CORS_CONFIG: CorsOptions = {
-	origin: IS_DEV ? `http://${HOST}:${PORT}/` : undefined,
+	origin: IS_DEV ? `http://localhost:${PORT}/` : undefined,
 }

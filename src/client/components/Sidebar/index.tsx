@@ -14,11 +14,10 @@ import "./index.scss"
 
 const bem = createBem("Sidebar")
 
-const HOST = process.env.HOST!
 const NODE_ENV = process.env.NODE_ENV!
 const PORT = process.env.DEV_UPLOAD_PORT!
 const IS_DEV = NODE_ENV === "development"
-const ADD_URL = IS_DEV ? `http://${HOST}:${PORT}` : "/upload"
+const ADD_URL = IS_DEV ? `http://localhost:${PORT}` : "/upload"
 
 const Sidebar: FC = () => {
 	const dispatch = useDispatch()

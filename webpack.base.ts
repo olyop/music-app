@@ -14,7 +14,7 @@ import MiniCssExtractPlugin from "mini-css-extract-plugin"
 import { BundleAnalyzerPlugin } from "webpack-bundle-analyzer"
 import OptimizeCssAssetsPlugin from "optimize-css-assets-webpack-plugin"
 
-const { NODE_ENV, HOST, DEV_SERVER_PORT } = dotenv.config().parsed!
+const { NODE_ENV, DEV_SERVER_PORT } = dotenv.config().parsed!
 const IS_DEV = NODE_ENV === "development"
 
 const ROOT_PATH = __dirname
@@ -57,11 +57,11 @@ export const baseConfig: Configuration = {
 	],
 	devServer: {
 		hot: true,
-		host: HOST,
 		quiet: true,
 		noInfo: true,
 		overlay: true,
 		compress: true,
+		host: "localhost",
 		contentBase: false,
 		stats: "errors-only",
 		clientLogLevel: "none",
@@ -76,7 +76,7 @@ export const baseConfig: Configuration = {
 				"/icons/512.png",
 				"/manifest.webmanifest",
 			],
-			target: `http://${HOST}:${DEV_SERVER_PORT}`,
+			target: `http://localhost:${DEV_SERVER_PORT}`,
 		}],
 	},
 	resolve: {

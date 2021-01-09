@@ -7,7 +7,7 @@ import { TITLE } from "@oly_op/music-app-common/metadata"
 
 import { baseConfig, metaTags } from "./webpack.base"
 
-const { HOST, DEV_SERVER_PORT, DEV_UPLOAD_PORT } = dotenv.config().parsed!
+const { DEV_SERVER_PORT, DEV_UPLOAD_PORT } = dotenv.config().parsed!
 
 const ROOT_PATH = process.cwd()
 const SRC_PATH = path.join(ROOT_PATH, "src")
@@ -21,7 +21,7 @@ const config: Configuration = {
 		index: "upload.html",
 		port: parseInt(DEV_UPLOAD_PORT),
 		historyApiFallback: { index: "upload.html" },
-		proxy: { "**": `http://${HOST}:${DEV_SERVER_PORT}` },
+		proxy: { "**": `http://localhost:${DEV_SERVER_PORT}` },
 	},
 	plugins: [
 		new HtmlWebpackPlugin({

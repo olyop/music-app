@@ -53,9 +53,7 @@
 					--text-color-white: #fff;
 					--text-color-light: #757575;
 					--background-color: #fafafa;
-					--border-color: #e0e0e0;
-				}
-			}
+					--border-color: #e0e0e0; } }
 
 			@media (prefers-color-scheme: dark) {
 				:root {
@@ -66,8 +64,11 @@
 					--text-color-light: #757575;
 					--background-color: #424242;
 					--border-color: #424242;
-				}
-			}
+					--webkitscrollbar-face-color: #646464; }
+				::-webkit-scrollbar {
+					background-color: var(--background-color); }
+				::-webkit-scrollbar-thumb {
+					background-color: var(--elevated-color); } }
 
 			@media (max-width: 500px) {
 				:root {
@@ -223,14 +224,14 @@
 				margin-left: auto;
 				margin-right: auto; }
 
-			.BorderRadius {
-				border-radius: var(--border-radius); }
-
 			@media (max-width: 1360px) {
 				.Content {
 					width: auto;
 					margin-left: var(--space);
 					margin-right: var(--space); } }
+
+			.BorderRadius {
+				border-radius: var(--border-radius); }
 
 			.Card {
 				overflow: hidden;

@@ -1,7 +1,5 @@
 export const IS_DEV = process.env.NODE_ENV! === "development"
 
-export const HOST = process.env.HOST!
-
 export const PORT = parseInt(IS_DEV ? process.env.DEV_SERVER_PORT! : process.env.SERVER_PORT!)
 
 export const APP_NAME = process.env.APP_NAME!

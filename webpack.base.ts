@@ -18,7 +18,6 @@ const { NODE_ENV, DEV_SERVER_PORT } = dotenv.config().parsed!
 const IS_DEV = NODE_ENV === "development"
 
 const ROOT_PATH = __dirname
-
 const BUILD_PATH = path.join(ROOT_PATH, "dist", "public")
 
 export const metaTags = {

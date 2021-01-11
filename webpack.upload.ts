@@ -1,8 +1,8 @@
 import path from "path"
 import dotenv from "dotenv"
 import { merge } from "webpack-merge"
-import { Configuration } from "webpack"
 import HtmlWebpackPlugin from "html-webpack-plugin"
+import { Configuration, ProvidePlugin } from "webpack"
 import { TITLE } from "@oly_op/music-app-common/metadata"
 
 import { baseConfig, metaTags } from "./webpack.base"
@@ -24,6 +24,9 @@ const config: Configuration = {
 		proxy: { "**": `http://localhost:${DEV_SERVER_PORT}` },
 	},
 	plugins: [
+		new ProvidePlugin({
+			Buffer: ["buffer", "Buffer"],
+		}),
 		new HtmlWebpackPlugin({
 			title: TITLE,
 			minify: true,

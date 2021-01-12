@@ -4,7 +4,11 @@ import DocLink from "../DocLink"
 import { Doc } from "../../types"
 import { determineConcat, determineDocId } from "../../helpers"
 
-const DocLinks = <T extends Doc>({ docs, onClick, ampersand = true }: PropTypes<T>) => (
+const DocLinks = <T extends Doc>({
+	docs,
+	onClick,
+	ampersand = true,
+}: PropTypes<T>) => (
 	<Fragment>
 		{docs.map(
 			(doc, index) => (

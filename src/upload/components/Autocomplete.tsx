@@ -11,7 +11,7 @@ import { useState, useEffect, ReactElement } from "react"
 
 const { stateChangeTypes } = useCombobox
 
-const AutoComplete = ({ val, onChange, render, getResults }: PropTypes) => {
+const Autocomplete = ({ val, onChange, render, getResults }: PropTypes) => {
 	const [ input, setInput ] =
 		useState("")
 	const [ results, setResults ] =
@@ -97,4 +97,4 @@ interface PropTypes {
 	getResults: (val: string) => string[] | Promise<string[]>,
 }
 
-export default AutoComplete
+export default Autocomplete

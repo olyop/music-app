@@ -32,12 +32,12 @@ const BarControls: FC<PropTypes> = ({ className, iconClassName }) => {
 	const [ userNext, { loading: nextLoading } ] =
 		useMutation<UserNextData, UserVar>(USER_NEXT, { variables })
 
+	const loading = prevLoading || nextLoading
+
 	const handlePrevClick =
-		() => {
-			if (!prevLoading || !nextLoading) {
-				dispatch(updatePlay(false))
-				userPrev()
-			}
+		async () => {
+			dispatch(updatePlay(false))
+			await userPrev()
 		}
 
 	const handlePlayClick =
@@ -45,18 +45,17 @@ const BarControls: FC<PropTypes> = ({ className, iconClassName }) => {
 
 	const handleNextClick =
 		async () => {
-			if (!nextLoading || !prevLoading) {
-				dispatch(updatePlay(false))
-				await userNext()
-			}
+			console.log("dispatch")
+			dispatch(updatePlay(false))
+			await userNext()
 		}
 
 	return (
 		<div className={bem(className, "")}>
 			<Icon
 				icon="skip_previous"
-				onClick={handlePrevClick}
 				className={bem(iconClassName)}
+				onClick={loading ? undefined : handlePrevClick}
 			/>
 			<Icon
 				onClick={handlePlayClick}
@@ -66,7 +65,7 @@ const BarControls: FC<PropTypes> = ({ className, iconClassName }) => {
 			<Icon
 				icon="skip_next"
 				className={bem(iconClassName)}
-				onClick={handleNextClick}
+				onClick={loading ? undefined : handleNextClick}
 			/>
 		</div>
 	)

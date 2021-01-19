@@ -70,6 +70,7 @@ export const baseConfig: Configuration = {
 				"/graphql",
 				"/robots.txt",
 				"/favicon.ico",
+				"/algolia.png",
 				"/security.txt",
 				"/icons/192.png",
 				"/icons/512.png",

@@ -168,8 +168,8 @@ const Search: FC = () => {
 				)}
 				<img
 					alt="algolia"
+					src="/algolia.png"
 					className={bem("logo", "MarginTop MarginBottom")}
-					src="https://music-app.s3-ap-southeast-2.amazonaws.com/logos/algolia.png"
 				/>
 			</section>
 		</Helmet>

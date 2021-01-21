@@ -8,19 +8,19 @@ import {
 } from "react"
 
 import camelCase from "lodash/camelCase"
-import { useApolloClient, QueryOptions } from "@apollo/client"
+import { useApolloClient } from "@apollo/client"
 
 import Box from "@material-ui/core/Box"
-import styled from "@material-ui/core/styles/styled"
 import Button from "@material-ui/core/Button"
 import Dialog from "@material-ui/core/Dialog"
+import styled from "@material-ui/core/styles/styled"
+import DialogTitle from "@material-ui/core/DialogTitle"
 import DialogActions from "@material-ui/core/DialogActions"
 import DialogContent from "@material-ui/core/DialogContent"
 import DialogContentText from "@material-ui/core/DialogContentText"
-import DialogTitle from "@material-ui/core/DialogTitle"
 
-import { dataUrlToBlob, blobToDataUrl } from "../helpers"
 import PHOTO_SEARCH from "../graphql/photoSearch.gql"
+import { dataUrlToBlob, blobToDataUrl } from "../helpers"
 
 const Root =
 	styled(Box)({
@@ -57,22 +57,24 @@ const Img: FC<PropTypes> = ({ img, onChange, title, children, className }) => {
 	const handleOpenDialog = () => setDialog(true)
 	const handleCloseDialog = () => setDialog(false)
 
-	const handleFileClick: ChangeEventHandler<HTMLInputElement> = async event => {
-		onChange(dataUrlToBlob(await blobToDataUrl(Array.from(event.target.files!)[0])))
-		handleCloseDialog()
-	}
+	const handleFileClick: ChangeEventHandler<HTMLInputElement> =
+		async event => {
+			const file = Array.from(event.target.files!)[0]
+			onChange(dataUrlToBlob(await blobToDataUrl(file)))
+			handleCloseDialog()
+		}
 
-	const searchOptions: QueryOptions = {
-		query: PHOTO_SEARCH,
-		fetchPolicy: "no-cache",
-		variables: { name: title },
-	}
-
-	const handleSearchClick = async () => {
-		const res = await client.query<PhotoSearchRes>(searchOptions)
-		onChange(dataUrlToBlob(res.data.photoSearch))
-		handleCloseDialog()
-	}
+	const handleSearchClick =
+		async () => {
+			const res = await client.query<PhotoSearchRes>({
+				query: PHOTO_SEARCH,
+				fetchPolicy: "no-cache",
+				variables: { name: title },
+			})
+			const photo = res.data.photoSearch
+			onChange(dataUrlToBlob(photo))
+			handleCloseDialog()
+		}
 
 	useEffect(() => {
 		const element = document.querySelector<HTMLDivElement>(`#${id}`)!

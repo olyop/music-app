@@ -1,6 +1,6 @@
-// import cors from "cors"
+import cors from "cors"
 import http from "http"
-// import helmet from "helmet"
+import helmet from "helmet"
 import express from "express"
 import bodyParser from "body-parser"
 import compression from "compression"
@@ -16,12 +16,8 @@ import {
 	globalHeaders,
 } from "./middleware"
 
-import {
-	PORT,
-	// CORS_CONFIG,
-} from "./globals"
-
 import initialize from "./initialize"
+import { PORT, CORS_CONFIG } from "./globals"
 
 initialize().catch(console.error)
 
@@ -30,8 +26,8 @@ const app = express()
 // middleware stack
 app.use(
 	logger(),
-	// helmet(),
-	// cors(CORS_CONFIG),
+	helmet(),
+	cors(CORS_CONFIG),
 	globalHeaders(),
 	compression(),
 	bodyParser.json(),

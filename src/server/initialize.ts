@@ -48,26 +48,20 @@ const SQL_INIT = [
 	TABLE_PLAYS,
 ]
 
-const initializeDatabase = async () => {
-	const client = await pg.connect()
-	try {
-		await client.query("BEGIN")
-		for (const query of SQL_INIT) {
-			await client.query(query)
-		}
-		await client.query("COMMIT")
-	} catch (error) {
-		await client.query("ROLLBACK")
-	} finally {
-		client.release()
-	}
-}
 const initialize = async () => {
 	if (!IS_DEV) {
+		const client = await pg.connect()
 		try {
-			await initializeDatabase()
-		} catch (err) {
-			console.error(err)
+			await client.query("BEGIN")
+			for (const query of SQL_INIT) {
+				await client.query(query)
+			}
+			await client.query("COMMIT")
+		} catch (error) {
+			await client.query("ROLLBACK")
+			throw error
+		} finally {
+			client.release()
 		}
 	}
 }

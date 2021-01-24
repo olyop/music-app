@@ -1,3 +1,0 @@
-query photoSearch($name: String!) {
-	photoSearch(name: $name)
-}

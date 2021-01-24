@@ -3,11 +3,10 @@ import dotenv from "dotenv"
 import { merge } from "webpack-merge"
 import HtmlWebpackPlugin from "html-webpack-plugin"
 import { Configuration, ProvidePlugin } from "webpack"
-import { TITLE } from "@oly_op/music-app-common/metadata"
 
-import { baseConfig, metaTags } from "./webpack.base"
+import { baseConfig, htmlWebpackPluginConfig } from "./webpack.base"
 
-const { DEV_SERVER_PORT, DEV_UPLOAD_PORT } = dotenv.config().parsed!
+const { DEV_SERVER_PORT, DEV_UPLOAD_CLIENT_PORT } = dotenv.config().parsed!
 
 const ROOT_PATH = process.cwd()
 const SRC_PATH = path.join(ROOT_PATH, "src")
@@ -19,7 +18,7 @@ const config: Configuration = {
 	entry: UPLOAD_ROOT_PATH,
 	devServer: {
 		index: "upload.html",
-		port: parseInt(DEV_UPLOAD_PORT),
+		port: parseInt(DEV_UPLOAD_CLIENT_PORT),
 		historyApiFallback: { index: "upload.html" },
 		proxy: { "**": `http://localhost:${DEV_SERVER_PORT}` },
 	},
@@ -28,11 +27,7 @@ const config: Configuration = {
 			Buffer: ["buffer", "Buffer"],
 		}),
 		new HtmlWebpackPlugin({
-			title: TITLE,
-			minify: true,
-			meta: metaTags,
-			scriptLoading: "defer",
-			filename: "upload.html",
+			...htmlWebpackPluginConfig,
 			template: UPLOAD_ENTRY_PATH,
 		}),
 	],

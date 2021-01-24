@@ -1,0 +1,11 @@
+{
+	"extends": "./tsconfig.json",
+	"compilerOptions": {
+		"sourceMap": false,
+		"module": "CommonJS",
+		"outDir": "dist-upload-server"
+	},
+	"include": [
+		"src/upload-server"
+	]
+}

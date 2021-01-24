@@ -13,6 +13,7 @@ import CompressionPlugin from "compression-webpack-plugin"
 import MiniCssExtractPlugin from "mini-css-extract-plugin"
 import { BundleAnalyzerPlugin } from "webpack-bundle-analyzer"
 import OptimizeCssAssetsPlugin from "optimize-css-assets-webpack-plugin"
+import { Options as HtmlWebpackPluginOptions } from "html-webpack-plugin"
 
 const { NODE_ENV, DEV_SERVER_PORT } = dotenv.config().parsed!
 const IS_DEV = NODE_ENV === "development"
@@ -20,7 +21,7 @@ const IS_DEV = NODE_ENV === "development"
 const ROOT_PATH = __dirname
 const BUILD_PATH = path.join(ROOT_PATH, "dist", "public")
 
-export const metaTags = {
+const metaTags: Record<string, string> = {
 	"og:type": "PWA",
 	"og:title": TITLE,
 	"twitter:dnt": "on",
@@ -43,12 +44,19 @@ export const metaTags = {
 	`,
 }
 
+export const htmlWebpackPluginConfig: HtmlWebpackPluginOptions = {
+	title: TITLE,
+	minify: true,
+	meta: metaTags,
+	filename: "index.html",
+	scriptLoading: "defer",
+}
+
 export const baseConfig: Configuration = {
 	devtool: "inline-source-map",
 	mode: IS_DEV ? "development" : "production",
 	output: {
 		publicPath: "/",
-		path: BUILD_PATH,
 		filename: "[hash].js",
 	},
 	ignoreWarnings: [

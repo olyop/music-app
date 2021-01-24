@@ -1,23 +1,26 @@
 import cors from "cors"
 import http from "http"
+import morgan from "morgan"
 import helmet from "helmet"
 import express from "express"
 import bodyParser from "body-parser"
 import compression from "compression"
 import cookieParser from "cookie-parser"
-import { graphqlUploadExpress } from "graphql-upload"
 
 import {
-	logger,
+	PORT,
+	LOG_FORMAT,
+	CORS_CONFIG,
+	PUBLIC_PATH,
+} from "./globals"
+
+import {
 	graphql,
-	serveStatic,
-	serveUpload,
 	serveClient,
 	globalHeaders,
 } from "./middleware"
 
 import initialize from "./initialize"
-import { PORT, CORS_CONFIG } from "./globals"
 
 initialize().catch(console.error)
 
@@ -25,7 +28,7 @@ const app = express()
 
 // middleware stack
 app.use(
-	logger(),
+	morgan(LOG_FORMAT),
 	helmet(),
 	cors(CORS_CONFIG),
 	globalHeaders(),
@@ -33,12 +36,9 @@ app.use(
 	bodyParser.json(),
 	bodyParser.urlencoded({ extended: false }),
 	cookieParser(),
-	graphqlUploadExpress(),
-	serveStatic(),
+	express.static(PUBLIC_PATH, { index: false }),
 	graphql(),
+	serveClient(),
 )
-
-app.use("/upload", serveUpload())
-app.use(serveClient())
 
 http.createServer(app).listen(PORT)

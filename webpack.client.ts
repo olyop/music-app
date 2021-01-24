@@ -4,35 +4,34 @@ import { merge } from "webpack-merge"
 import { Configuration } from "webpack"
 import DotenvPlugin from "dotenv-webpack"
 import HtmlWebpackPlugin from "html-webpack-plugin"
-import { TITLE } from "@oly_op/music-app-common/metadata"
 
-import { baseConfig, metaTags } from "./webpack.base"
+import { baseConfig, htmlWebpackPluginConfig } from "./webpack.base"
 
 const { DEV_CLIENT_PORT } = dotenv.config().parsed!
 
 const ROOT_PATH = __dirname
 const SRC_PATH = path.join(ROOT_PATH, "src")
 const CLIENT_PATH = path.join(SRC_PATH, "client")
+const BUILD_PATH = path.join(ROOT_PATH, "dist", "public")
 const CLIENT_ROOT_PATH = path.join(CLIENT_PATH, "index.tsx")
 const CLIENT_ENTRY_PATH = path.join(CLIENT_PATH, "index.html")
 
 const config: Configuration = {
 	entry: CLIENT_ROOT_PATH,
+	output: {
+		path: BUILD_PATH,
+	},
 	devServer: {
 		open: false,
-		index: "client.html",
+		index: "index.html",
 		openPage: "library/songs",
 		port: parseInt(DEV_CLIENT_PORT),
-		historyApiFallback: { index: "/client.html" },
+		historyApiFallback: { index: "/index.html" },
 	},
 	plugins: [
 		new DotenvPlugin(),
 		new HtmlWebpackPlugin({
-			title: TITLE,
-			minify: true,
-			meta: metaTags,
-			scriptLoading: "defer",
-			filename: "client.html",
+			...htmlWebpackPluginConfig,
 			template: CLIENT_ENTRY_PATH,
 		}),
 	],

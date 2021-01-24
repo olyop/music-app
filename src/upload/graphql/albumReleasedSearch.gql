@@ -1,9 +1,0 @@
-query albumReleasedSearch(
-	$title: String!
-	$artists: [String!]!
-) {
-	albumReleasedSearch(
-		title: $title
-		artists: $artists
-	)
-}

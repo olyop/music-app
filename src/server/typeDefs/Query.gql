@@ -35,8 +35,4 @@ type Query {
 	albumSearch(query: String!, exact: Boolean!): [Album!]!
 	genreSearch(query: String!, exact: Boolean!): [Genre!]!
 	artistSearch(query: String!, exact: Boolean!): [Artist!]!
-
-	# misc queries
-	photoSearch(name: String!): Url!
-	albumReleasedSearch(title: String!, artists: [String!]!): Date
 }

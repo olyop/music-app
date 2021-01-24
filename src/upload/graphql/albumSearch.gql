@@ -1,9 +1,0 @@
-query albumSearch(
-	$query: String!,
-	$exact: Boolean!,
-) {
-	albumSearch(query: $query, exact: $exact) {
-		title
-		albumId
-	}
-}

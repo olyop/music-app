@@ -1,7 +1,6 @@
 {
 	"compilerOptions": {
 		"jsx": "react",
-		"outDir": "dist",
 		"sourceMap": true,
 		"module": "ESNext",
 		"target": "ES2019",

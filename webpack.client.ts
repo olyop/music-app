@@ -25,10 +25,8 @@ const config: Configuration = {
 	},
 	devServer: {
 		open: false,
-		index: "index.html",
 		openPage: "library/songs",
 		port: parseInt(DEV_CLIENT_PORT),
-		historyApiFallback: { index: "/index.html" },
 		proxy: [{
 			context: proxy,
 			logLevel: "silent",

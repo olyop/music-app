@@ -29,7 +29,7 @@ const albumsToGenres =
 		)(albums)
 
 export const getGenresToAdd =
-	(client: ApolloClient<unknown>) => (albums: Album[]): Promise<Genre[]> => {
+	(albums: Album[]): Promise<Genre[]> => {
 		const query = getSearchResults(client)
 		const genres = albumsToGenres(albums)
 		return (

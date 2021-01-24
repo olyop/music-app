@@ -24,9 +24,7 @@ const config: Configuration = {
 	},
 	devServer: {
 		open: false,
-		index: "index.html",
 		port: parseInt(DEV_UPLOAD_CLIENT_PORT),
-		historyApiFallback: { index: "/index.html" },
 		proxy: [{
 			context: proxy,
 			logLevel: "silent",

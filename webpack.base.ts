@@ -77,8 +77,10 @@ export const baseConfig: Configuration = {
 		compress: true,
 		host: "localhost",
 		contentBase: false,
+		index: "index.html",
 		stats: "errors-only",
 		clientLogLevel: "none",
+		historyApiFallback: { index: "/index.html" },
 	},
 	resolve: {
 		symlinks: false,

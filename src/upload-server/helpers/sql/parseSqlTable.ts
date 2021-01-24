@@ -3,7 +3,7 @@ import { map } from "lodash/fp"
 
 import { SqlQueryRes } from "../../types"
 import { getSqlResRows } from "./getSqlResRows"
-import { convertToCamelCase } from "../resolver/convertToCamelCase"
+import { convertToCamelCase } from "../utils/convertToCamelCase"
 
 export const parseSqlTable =
 	<T>(log = false) =>

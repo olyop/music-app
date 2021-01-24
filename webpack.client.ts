@@ -5,14 +5,16 @@ import { Configuration } from "webpack"
 import DotenvPlugin from "dotenv-webpack"
 import HtmlWebpackPlugin from "html-webpack-plugin"
 
-import { baseConfig, htmlWebpackPluginConfig } from "./webpack.base"
+import { proxy, baseConfig, htmlWebpackPluginConfig } from "./webpack.base"
 
-const { DEV_CLIENT_PORT } = dotenv.config().parsed!
+const { DEV_CLIENT_PORT, DEV_SERVER_PORT } = dotenv.config().parsed!
 
 const ROOT_PATH = __dirname
+
+const BUILD_PATH = path.join(ROOT_PATH, "dist-server", "public")
+
 const SRC_PATH = path.join(ROOT_PATH, "src")
 const CLIENT_PATH = path.join(SRC_PATH, "client")
-const BUILD_PATH = path.join(ROOT_PATH, "dist", "public")
 const CLIENT_ROOT_PATH = path.join(CLIENT_PATH, "index.tsx")
 const CLIENT_ENTRY_PATH = path.join(CLIENT_PATH, "index.html")
 
@@ -27,6 +29,11 @@ const config: Configuration = {
 		openPage: "library/songs",
 		port: parseInt(DEV_CLIENT_PORT),
 		historyApiFallback: { index: "/index.html" },
+		proxy: [{
+			context: proxy,
+			logLevel: "silent",
+			target: `http://localhost:${DEV_SERVER_PORT}`,
+		}],
 	},
 	plugins: [
 		new DotenvPlugin(),

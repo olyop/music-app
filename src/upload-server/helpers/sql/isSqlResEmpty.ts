@@ -4,5 +4,6 @@ import { isEmpty } from "lodash"
 import { SqlQueryRes } from "../../types"
 import { getSqlResRows } from "./getSqlResRows"
 
-export const isSqlResEmpty = (res: SqlQueryRes) =>
-	pipe(getSqlResRows, isEmpty)(res)
+export const isSqlResEmpty =
+	(res: SqlQueryRes) =>
+		pipe(getSqlResRows, isEmpty)(res)

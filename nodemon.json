@@ -1,9 +1,9 @@
 {
 	"verbose": false,
-	"watch": ["dist"],
 	"ext": "js,sql,gql,env",
 	"ignore": [
 		"src",
-		"dist/public/"
+		"dist-server/public/",
+		"dist-upload-server/public"
 	]
 }

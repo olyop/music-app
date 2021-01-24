@@ -8,11 +8,12 @@
 	"files.exclude": {
 		".git": true,
 		".env": true,
-		"dist": true,
 		".vscode": true,
 		"debug.log": true,
 		"access.log": true,
-		"node_modules/": true
+		"dist-server": true,
+		"node_modules/": true,
+		"dist-upload-server": true
 	},
 	"files.associations": {
     "*.env.*": "dotenv"

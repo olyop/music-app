@@ -1,7 +1,6 @@
 export const IS_DEV = process.env.NODE_ENV! === "development"
 
-export const PORT = process.env.DEV_SERVER_PORT ?
-	parseInt(process.env.DEV_SERVER_PORT) : 80
+export const PORT = parseInt(process.env.DEV_SERVER_PORT!)
 
 export const APP_NAME = process.env.APP_NAME!
 

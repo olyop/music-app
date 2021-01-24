@@ -6,7 +6,6 @@ import {
 	DESCRIPTION,
 } from "@oly_op/music-app-common/metadata"
 
-import path from "path"
 import dotenv from "dotenv"
 import { Configuration } from "webpack"
 import CompressionPlugin from "compression-webpack-plugin"
@@ -15,11 +14,8 @@ import { BundleAnalyzerPlugin } from "webpack-bundle-analyzer"
 import OptimizeCssAssetsPlugin from "optimize-css-assets-webpack-plugin"
 import { Options as HtmlWebpackPluginOptions } from "html-webpack-plugin"
 
-const { NODE_ENV, DEV_SERVER_PORT } = dotenv.config().parsed!
+const { NODE_ENV } = dotenv.config().parsed!
 const IS_DEV = NODE_ENV === "development"
-
-const ROOT_PATH = __dirname
-const BUILD_PATH = path.join(ROOT_PATH, "dist", "public")
 
 const metaTags: Record<string, string> = {
 	"og:type": "PWA",
@@ -52,6 +48,17 @@ export const htmlWebpackPluginConfig: HtmlWebpackPluginOptions = {
 	scriptLoading: "defer",
 }
 
+export const proxy = [
+	"/graphql",
+	"/robots.txt",
+	"/favicon.ico",
+	"/algolia.png",
+	"/security.txt",
+	"/icons/192.png",
+	"/icons/512.png",
+	"/manifest.webmanifest",
+]
+
 export const baseConfig: Configuration = {
 	devtool: "inline-source-map",
 	mode: IS_DEV ? "development" : "production",
@@ -72,20 +79,6 @@ export const baseConfig: Configuration = {
 		contentBase: false,
 		stats: "errors-only",
 		clientLogLevel: "none",
-		proxy: [{
-			logLevel: "silent",
-			context: [
-				"/graphql",
-				"/robots.txt",
-				"/favicon.ico",
-				"/algolia.png",
-				"/security.txt",
-				"/icons/192.png",
-				"/icons/512.png",
-				"/manifest.webmanifest",
-			],
-			target: `http://localhost:${DEV_SERVER_PORT}`,
-		}],
 	},
 	resolve: {
 		symlinks: false,

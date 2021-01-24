@@ -4,11 +4,9 @@ import flatten from "lodash/flatten"
 import reduce from "lodash/fp/reduce"
 import uniqueId from "lodash/uniqueId"
 import includes from "lodash/includes"
-import type { ApolloClient } from "@apollo/client"
 
 import { Album, Genre } from "../types"
 import { getSearchResults } from "./getSearchResults"
-import GENRE_SEARCH from "../graphql/genreSearch.gql"
 
 const stringsToGenres =
 	(arr: string[]): Genre[] =>

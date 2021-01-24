@@ -1,6 +1,7 @@
-dist/
 **/*.js
+dist-server/
 node_modules/
+dist-upload-server/
 src/client/public
 src/upload/public
 src/client/graphql

@@ -102,6 +102,7 @@
 	"devDependencies": {
 		"@babel/cli": "^7.12.10",
 		"@babel/core": "^7.12.10",
+		"@oly_op/eslint-config": "^1.0.0",
 		"@playlyfe/gql": "^2.6.2",
 		"@types/bcrypt": "^3.0.0",
 		"@types/body-parser": "^1.19.0",

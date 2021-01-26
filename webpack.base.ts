@@ -92,9 +92,6 @@ export const baseConfig: Configuration = {
 			enforce: "pre",
 			loader: "source-map-loader",
 		},{
-			test: /\.hbs$/,
-			loader: "handlebars-loader",
-		},{
 			test: /\.gql$/,
 			exclude: /node_modules/,
 			loader: "graphql-tag/loader",

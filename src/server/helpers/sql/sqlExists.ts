@@ -1,7 +1,17 @@
 import { sqlQuery } from "./sqlQuery"
-import { EXISTS_COLUMN } from "../../sql"
 import { getSqlResExists } from "./getSqlResExists"
 import { PGClient, SqlExistsInput } from "../../types"
+
+const EXISTS_COLUMN = `
+	SELECT EXISTS (
+		SELECT
+			*
+		FROM
+			{{ table }}
+		WHERE
+			{{ column }} = {{ value }}
+	);
+`
 
 interface SqlExistsQueryInput extends SqlExistsInput {
 	value: string,

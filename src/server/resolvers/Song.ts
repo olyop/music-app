@@ -1,4 +1,12 @@
 import {
+	join,
+	query,
+	parseRow,
+	parseTable,
+	getRowCountOrNull,
+} from "@oly_op/pg-helpers"
+
+import {
 	Key,
 	Song,
 	Play,
@@ -13,16 +21,11 @@ import {
 } from "../types"
 
 import {
-	sqlJoin,
-	sqlQuery,
 	getS3Object,
-	parseSqlRow,
-	parseSqlTable,
 	createResolver,
 	getUserDocInLib,
 	getS3CatalogKey,
 	getUserDocDateAdded,
-	getSqlRowCountOrNull,
 } from "../helpers"
 
 import {
@@ -58,16 +61,16 @@ export const size =
 export const key =
 	resolver<Key>(
 		({ parent, context }) => (
-			sqlQuery(context.pg)({
+			query(context.pg)({
 				sql: SELECT_KEY,
-				parse: parseSqlRow(),
+				parse: parseRow(),
 				variables: [{
 					key: "keyId",
 					value: parent.keyId,
 				},{
 					string: false,
 					key: "columnNames",
-					value: sqlJoin(COLUMN_NAMES.KEY),
+					value: join(COLUMN_NAMES.KEY),
 				}],
 			})
 		),
@@ -76,16 +79,16 @@ export const key =
 export const album =
 	resolver<Album>(
 		({ parent, context }) => (
-			sqlQuery(context.pg)({
+			query(context.pg)({
 				sql: SELECT_ALBUM,
-				parse: parseSqlRow(),
+				parse: parseRow(),
 				variables: [{
 					key: "albumId",
 					value: parent.albumId,
 				},{
 					string: false,
 					key: "columnNames",
-					value: sqlJoin(COLUMN_NAMES.ALBUM),
+					value: join(COLUMN_NAMES.ALBUM),
 				}],
 			})
 		),
@@ -94,16 +97,16 @@ export const album =
 export const genres =
 	resolver<Genre[]>(
 		({ parent, context }) => (
-			sqlQuery(context.pg)({
+			query(context.pg)({
 				sql: SELECT_SONG_GENRES,
-				parse: parseSqlTable(),
+				parse: parseTable(),
 				variables: [{
 					key: "songId",
 					value: parent.songId,
 				},{
 					string: false,
 					key: "columnNames",
-					value: sqlJoin(COLUMN_NAMES.GENRE, "genres"),
+					value: join(COLUMN_NAMES.GENRE, "genres"),
 				}],
 			})
 		),
@@ -112,16 +115,16 @@ export const genres =
 export const artists =
 	resolver<Artist[]>(
 		({ parent, context }) => (
-			sqlQuery(context.pg)({
+			query(context.pg)({
 				sql: SELECT_SONG_ARTISTS,
-				parse: parseSqlTable(),
+				parse: parseTable(),
 				variables: [{
 					key: "songId",
 					value: parent.songId,
 				},{
 					string: false,
 					key: "columnNames",
-					value: sqlJoin(COLUMN_NAMES.ARTIST, "artists"),
+					value: join(COLUMN_NAMES.ARTIST, "artists"),
 				}],
 			})
 		),
@@ -130,16 +133,16 @@ export const artists =
 export const remixers =
 	resolver<Artist[]>(
 		({ parent, context }) => (
-			sqlQuery(context.pg)({
+			query(context.pg)({
 				sql: SELECT_SONG_REMIXERS,
-				parse: parseSqlTable(),
+				parse: parseTable(),
 				variables: [{
 					key: "songId",
 					value: parent.songId,
 				},{
 					string: false,
 					key: "columnNames",
-					value: sqlJoin(COLUMN_NAMES.ARTIST, "artists"),
+					value: join(COLUMN_NAMES.ARTIST, "artists"),
 				}],
 			})
 		),
@@ -148,16 +151,16 @@ export const remixers =
 export const featuring =
 	resolver<Artist[]>(
 		({ parent, context }) => (
-			sqlQuery(context.pg)({
+			query(context.pg)({
 				sql: SELECT_SONG_FEATURING,
-				parse: parseSqlTable(),
+				parse: parseTable(),
 				variables: [{
 					key: "songId",
 					value: parent.songId,
 				},{
 					string: false,
 					key: "columnNames",
-					value: sqlJoin(COLUMN_NAMES.ARTIST, "artists"),
+					value: join(COLUMN_NAMES.ARTIST, "artists"),
 				}],
 			})
 		),
@@ -166,16 +169,16 @@ export const featuring =
 export const playsTotal =
 	resolver<number | null>(
 		({ parent, context }) => (
-			sqlQuery(context.pg)({
+			query(context.pg)({
 				sql: SELECT_SONG_PLAYS,
-				parse: getSqlRowCountOrNull,
+				parse: getRowCountOrNull,
 				variables: [{
 					key: "songId",
 					value: parent.songId,
 				},{
 					string: false,
 					key: "columnNames",
-					value: sqlJoin(COLUMN_NAMES.PLAY),
+					value: join(COLUMN_NAMES.PLAY),
 				}],
 			})
 		),
@@ -184,7 +187,7 @@ export const playsTotal =
 const getUserSongPlays =
 	(client: PGClient) =>
 		<T>(userId: string, songId: string, parse: SqlParse<T>) =>
-			sqlQuery(client)({
+			query(client)({
 				sql: SELECT_USER_DOC_PLAYS,
 				parse,
 				variables: [{
@@ -196,7 +199,7 @@ const getUserSongPlays =
 				},{
 					string: false,
 					key: "columnNames",
-					value: sqlJoin(COLUMN_NAMES.PLAY),
+					value: join(COLUMN_NAMES.PLAY),
 				}],
 			})
 
@@ -206,7 +209,7 @@ export const userPlays =
 			getUserSongPlays(context.pg)(
 				args.userId,
 				parent.songId,
-				parseSqlTable(),
+				parseTable(),
 			)
 		),
 	)
@@ -217,7 +220,7 @@ export const userPlaysTotal =
 			getUserSongPlays(context.pg)(
 				args.userId,
 				parent.songId,
-				getSqlRowCountOrNull,
+				getRowCountOrNull,
 			)
 		),
 	)

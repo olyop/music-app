@@ -1,3 +1,12 @@
+import {
+	join,
+	query,
+	Client,
+	parseTable,
+	getRowCount,
+	getRowCountOrNull,
+} from "@oly_op/pg-helpers"
+
 import bufferToDataUrl from "@oly_op/music-app-common/bufferToDataUrl"
 
 import {
@@ -6,7 +15,6 @@ import {
 	Album,
 	Artist,
 	UserArgs,
-	PGClient,
 	SqlParse,
 	S3FileExt,
 	S3FileArgs,
@@ -15,17 +23,12 @@ import {
 } from "../types"
 
 import {
-	sqlJoin,
-	sqlQuery,
 	getS3Object,
-	parseSqlTable,
-	getSqlRowCount,
 	createResolver,
 	getUserDocInLib,
 	getS3CatalogKey,
 	getUserDocDateAdded,
 	getSongsOrderByField,
-	getSqlRowCountOrNull,
 } from "../helpers"
 
 import {
@@ -39,9 +42,9 @@ import {
 import { COLUMN_NAMES } from "../globals"
 
 const getArtistSongs =
-	(client: PGClient) =>
+	(client: Client) =>
 		<T>({ id, parse, orderBy }: DocsOrderBy<T>) =>
-			sqlQuery(client)({
+			query(client)({
 				sql: SELECT_ARTIST_SONGS,
 				parse,
 				variables: [{
@@ -54,7 +57,7 @@ const getArtistSongs =
 				},{
 					string: false,
 					key: "columnNames",
-					value: sqlJoin(COLUMN_NAMES.SONG, "songs"),
+					value: join(COLUMN_NAMES.SONG, "songs"),
 				},{
 					string: false,
 					key: "orderByField",
@@ -63,9 +66,9 @@ const getArtistSongs =
 			})
 
 const getArtistAlbums =
-	(client: PGClient) =>
+	(client: Client) =>
 		<T>({ id, parse, orderBy }: DocsOrderBy<T>) =>
-			sqlQuery(client)({
+			query(client)({
 				parse,
 				sql: SELECT_ARTIST_ALBUMS,
 				variables: [{
@@ -82,14 +85,14 @@ const getArtistAlbums =
 				},{
 					string: false,
 					key: "columnNames",
-					value: sqlJoin(COLUMN_NAMES.ALBUM, "albums"),
+					value: join(COLUMN_NAMES.ALBUM, "albums"),
 				}],
 			})
 
 const getUserArtistPlays =
-	(client: PGClient) =>
+	(client: Client) =>
 		<T>(userId: string, artistId: string, parse: SqlParse<T>) =>
-			sqlQuery(client)({
+			query(client)({
 				sql: SELECT_USER_DOC_PLAYS,
 				parse,
 				variables: [{
@@ -101,7 +104,7 @@ const getUserArtistPlays =
 				},{
 					string: false,
 					key: "columnNames",
-					value: sqlJoin(COLUMN_NAMES.PLAY),
+					value: join(COLUMN_NAMES.PLAY),
 				}],
 			})
 
@@ -111,9 +114,9 @@ const resolver =
 export const playsTotal =
 	resolver<number | null>(
 		({ parent, context }) => (
-			sqlQuery(context.pg)({
+			query(context.pg)({
 				sql: SELECT_ARTIST_PLAYS,
-				parse: getSqlRowCountOrNull,
+				parse: getRowCountOrNull,
 				variables: [{
 					key: "artistId",
 					value: parent.artistId,
@@ -128,7 +131,7 @@ export const songs =
 			getArtistSongs(context.pg)({
 				id: parent.artistId,
 				orderBy: args.orderBy,
-				parse: parseSqlTable(),
+				parse: parseTable(),
 			})
 		),
 	)
@@ -138,7 +141,7 @@ export const songsTotal =
 		({ parent, context }) => (
 			getArtistSongs(context.pg)({
 				id: parent.artistId,
-				parse: getSqlRowCount,
+				parse: getRowCount,
 			})
 		),
 	)
@@ -149,7 +152,7 @@ export const albums =
 			getArtistAlbums(context.pg)({
 				id: parent.artistId,
 				orderBy: args.orderBy,
-				parse: parseSqlTable(),
+				parse: parseTable(),
 			})
 		),
 	)
@@ -159,7 +162,7 @@ export const albumsTotal =
 		({ parent, context }) => (
 			getArtistAlbums(context.pg)({
 				id: parent.artistId,
-				parse: getSqlRowCount,
+				parse: getRowCount,
 			})
 		),
 	)
@@ -170,7 +173,7 @@ export const userPlays =
 			getUserArtistPlays(context.pg)(
 				args.userId,
 				parent.artistId,
-				parseSqlTable(),
+				parseTable(),
 			)
 		),
 	)
@@ -181,7 +184,7 @@ export const userPlaysTotal =
 			getUserArtistPlays(context.pg)(
 				args.userId,
 				parent.artistId,
-				getSqlRowCountOrNull,
+				getRowCountOrNull,
 			)
 		),
 	)
@@ -227,16 +230,16 @@ export const inLibrary =
 export const topTenSongs =
 	resolver<Song[]>(
 		({ parent, context }) => (
-			sqlQuery(context.pg)({
+			query(context.pg)({
 				sql: SELECT_ARTIST_TOP_TEN_SONGS,
-				parse: parseSqlTable(),
+				parse: parseTable(),
 				variables: [{
 					key: "artistId",
 					value: parent.artistId,
 				},{
 					string: false,
 					key: "columnNames",
-					value: sqlJoin(COLUMN_NAMES.SONG, "songs"),
+					value: join(COLUMN_NAMES.SONG, "songs"),
 				}],
 			})
 		),

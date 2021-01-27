@@ -1,9 +1,6 @@
-import {
-	sqlQuery,
-	parseSqlRow,
-	createResolver,
-} from "../helpers"
+import { query, parseRow } from "@oly_op/pg-helpers"
 
+import { createResolver } from "../helpers"
 import { Play, User, Song } from "../types"
 import { SELECT_USER, SELECT_SONG } from "../sql"
 
@@ -20,9 +17,9 @@ export const dateCreated =
 export const user =
 	resolver<User>(
 		({ parent, context }) => (
-			sqlQuery(context.pg)({
+			query(context.pg)({
 				sql: SELECT_USER,
-				parse: parseSqlRow(),
+				parse: parseRow(),
 				variables: [{
 					key: "userId",
 					value: parent.userId,
@@ -34,9 +31,9 @@ export const user =
 export const song =
 	resolver<Song>(
 		({ parent, context }) => (
-			sqlQuery(context.pg)({
+			query(context.pg)({
 				sql: SELECT_SONG,
-				parse: parseSqlRow(),
+				parse: parseRow(),
 				variables: [{
 					key: "songId",
 					value: parent.songId,

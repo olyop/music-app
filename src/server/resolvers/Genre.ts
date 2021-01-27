@@ -1,33 +1,32 @@
 import {
+	join,
+	query,
+	Client,
+	parseTable,
+	getRowCountOrNull,
+} from "@oly_op/pg-helpers"
+
+import {
 	Song,
 	Play,
 	Genre,
 	UserArgs,
 	SqlParse,
-	PGClient,
 	DocsOrderBy,
 	OrderByArgs,
 } from "../types"
 
-import {
-	sqlJoin,
-	sqlQuery,
-	parseSqlTable,
-	createResolver,
-	getSqlRowCountOrNull,
-	getSongsOrderByField,
-} from "../helpers"
-
 import { COLUMN_NAMES } from "../globals"
+import { createResolver, getSongsOrderByField } from "../helpers"
 import { SELECT_GENRE_SONGS, SELECT_USER_DOC_PLAYS } from "../sql"
 
 const resolver =
 	createResolver<Genre>()
 
 const getGenreSongs =
-	(client: PGClient) =>
+	(client: Client) =>
 		<T>({ id, parse, orderBy }: DocsOrderBy<T>) =>
-			sqlQuery(client)({
+			query(client)({
 				sql: SELECT_GENRE_SONGS,
 				parse,
 				variables: [{
@@ -40,7 +39,7 @@ const getGenreSongs =
 				},{
 					string: false,
 					key: "columnNames",
-					value: sqlJoin(COLUMN_NAMES.SONG, "songs"),
+					value: join(COLUMN_NAMES.SONG, "songs"),
 				},{
 					string: false,
 					key: "orderByField",
@@ -54,7 +53,7 @@ export const songs =
 			getGenreSongs(context.pg)({
 				id: parent.genreId,
 				orderBy: args.orderBy,
-				parse: parseSqlTable(),
+				parse: parseTable(),
 			})
 		),
 	)
@@ -64,15 +63,15 @@ export const songsTotal =
 		({ parent, context }) => (
 			getGenreSongs(context.pg)({
 				id: parent.genreId,
-				parse: getSqlRowCountOrNull,
+				parse: getRowCountOrNull,
 			})
 		),
 	)
 
 const getUserGenrePlays =
-	(client: PGClient) =>
+	(client: Client) =>
 		<T>(userId: string, genreId: string, parse: SqlParse<T>) =>
-			sqlQuery(client)({
+			query(client)({
 				sql: SELECT_USER_DOC_PLAYS,
 				parse,
 				variables: [{
@@ -84,7 +83,7 @@ const getUserGenrePlays =
 				},{
 					string: false,
 					key: "columnNames",
-					value: sqlJoin(COLUMN_NAMES.PLAY),
+					value: join(COLUMN_NAMES.PLAY),
 				}],
 			})
 
@@ -94,7 +93,7 @@ export const userPlays =
 			getUserGenrePlays(context.pg)(
 				args.userId,
 				parent.genreId,
-				parseSqlTable(),
+				parseTable(),
 			)
 		),
 	)
@@ -105,7 +104,7 @@ export const userPlaysTotal =
 			getUserGenrePlays(context.pg)(
 				args.userId,
 				parent.genreId,
-				getSqlRowCountOrNull,
+				getRowCountOrNull,
 			)
 		),
 	)

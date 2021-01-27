@@ -1,3 +1,11 @@
+import {
+	query,
+	parseRow,
+	parseTable,
+	join as sqlJoin,
+	getRowCountOrNull,
+} from "@oly_op/pg-helpers"
+
 import { join, isNull, isEmpty, toLower } from "lodash"
 import { PAGINATION_NUM } from "@oly_op/music-app-common/globals"
 
@@ -13,13 +21,8 @@ import {
 } from "../types"
 
 import {
-	sqlJoin,
-	sqlQuery,
-	parseSqlRow,
-	parseSqlTable,
 	createResolver,
 	getUserQueueSongs,
-	getSqlRowCountOrNull,
 	getSongsOrderByField,
 } from "../helpers"
 
@@ -50,9 +53,9 @@ export const current =
 			isNull(parent.current) ? (
 				Promise.resolve(null)
 			) : (
-				sqlQuery(context.pg)<Song>({
+				query(context.pg)<Song>({
 					sql: SELECT_SONG,
-					parse: parseSqlRow(),
+					parse: parseRow(),
 					variables: [{
 						key: "songId",
 						value: parent.current,
@@ -69,9 +72,9 @@ export const current =
 export const albums =
 	resolver<Album[], DocsArgs>(
 		({ parent, args, context }) => (
-			sqlQuery(context.pg)({
+			query(context.pg)({
 				sql: SELECT_USER_ALBUMS,
-				parse: parseSqlTable(),
+				parse: parseTable(),
 				variables: [{
 					key: "page",
 					string: false,
@@ -103,9 +106,9 @@ export const albums =
 export const genres =
 	resolver<Genre[], DocsArgs>(
 		({ parent, args, context }) => (
-			sqlQuery(context.pg)({
+			query(context.pg)({
 				sql: SELECT_USER_GENRES,
-				parse: parseSqlTable(),
+				parse: parseTable(),
 				variables: [{
 					key: "page",
 					string: false,
@@ -138,9 +141,9 @@ export const prev =
 	resolver<Song[]>(
 		({ parent, context }) => {
 			if (parent.prev && !isEmpty(parent.prev)) {
-				return sqlQuery(context.pg)({
+				return query(context.pg)({
 					sql: SELECT_SONGS_IN,
-					parse: parseSqlTable<Song>(),
+					parse: parseTable<Song>(),
 					variables: [{
 						string: false,
 						key: "columnNames",
@@ -168,9 +171,9 @@ export const next =
 	resolver<Song[]>(
 		({ parent, context }) => {
 			if (parent.next && !isEmpty(parent.next)) {
-				return sqlQuery(context.pg)({
+				return query(context.pg)({
 					sql: SELECT_SONGS_IN,
-					parse: parseSqlTable<Song>(),
+					parse: parseTable<Song>(),
 					variables: [{
 						string: false,
 						key: "songIds",
@@ -200,9 +203,9 @@ export const later =
 	resolver<Song[]>(
 		({ parent, context }) => {
 			if (parent.later && !isEmpty(parent.later)) {
-				return sqlQuery(context.pg)({
+				return query(context.pg)({
 					sql: SELECT_SONGS_IN,
-					parse: parseSqlTable<Song>(),
+					parse: parseTable<Song>(),
 					variables: [{
 						string: false,
 						key: "columnNames",
@@ -231,9 +234,9 @@ export const later =
 export const plays =
 	resolver<Play[]>(
 		({ parent, context }) => (
-			sqlQuery(context.pg)({
+			query(context.pg)({
 				sql: SELECT_USER_PLAYS,
-				parse: parseSqlTable(),
+				parse: parseTable(),
 				variables: [{
 					key: "userId",
 					value: parent.userId,
@@ -245,9 +248,9 @@ export const plays =
 export const songs =
 	resolver<Song[], DocsArgs>(
 		({ parent, args, context }) => (
-			sqlQuery(context.pg)({
+			query(context.pg)({
 				sql: SELECT_USER_SONGS,
-				parse: parseSqlTable(),
+				parse: parseTable(),
 				variables: [{
 					key: "page",
 					string: false,
@@ -279,9 +282,9 @@ export const songs =
 export const songsTotal =
 	resolver<number | null>(
 		({ parent, args, context }) => (
-			sqlQuery(context.pg)({
+			query(context.pg)({
 				sql: SELECT_USER_SONGS_TOTAL,
-				parse: getSqlRowCountOrNull,
+				parse: getRowCountOrNull,
 				variables: [{
 					key: "userId",
 					value: parent.userId,
@@ -293,8 +296,8 @@ export const songsTotal =
 export const artists =
 	resolver<Artist[], DocsArgs>(
 		({ parent, args, context }) => (
-			sqlQuery(context.pg)({
-				parse: parseSqlTable(),
+			query(context.pg)({
+				parse: parseTable(),
 				sql: SELECT_USER_ARTISTS,
 				variables: [{
 					key: "page",
@@ -331,9 +334,9 @@ export const artists =
 export const artistsTotal =
 	resolver<number | null>(
 		({ parent, args, context }) => (
-			sqlQuery(context.pg)({
+			query(context.pg)({
 				sql: SELECT_USER_ARTISTS_TOTAL,
-				parse: getSqlRowCountOrNull,
+				parse: getRowCountOrNull,
 				variables: [{
 					key: "userId",
 					value: parent.userId,
@@ -345,9 +348,9 @@ export const artistsTotal =
 export const playlists =
 	resolver<Playlist[], DocsArgs>(
 		({ parent, args, context }) => (
-			sqlQuery(context.pg)({
+			query(context.pg)({
 				sql: SELECT_USER_PLAYLISTS,
-				parse: parseSqlTable(),
+				parse: parseTable(),
 				variables: [{
 					key: "userId",
 					value: parent.userId,

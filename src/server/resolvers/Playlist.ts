@@ -1,3 +1,12 @@
+import {
+	join,
+	query,
+	Client,
+	parseRow,
+	parseTable,
+	getRowCountOrNull,
+} from "@oly_op/pg-helpers"
+
 import { sum } from "lodash"
 import pipe from "@oly_op/pipe"
 import { map } from "lodash/fp"
@@ -9,22 +18,13 @@ import {
 	Playlist,
 	UserArgs,
 	SqlParse,
-	PGClient,
 } from "../types"
 
 import {
-	sqlJoin,
-	sqlQuery,
-	parseSqlRow,
-	parseSqlTable,
 	createResolver,
-	getSqlRowCountOrNull,
-} from "../helpers"
-
-import {
 	getUserDocInLib,
 	getUserDocDateAdded,
-} from "../helpers/resolver/userDocs"
+} from "../helpers"
 
 import {
 	SELECT_USER,
@@ -35,9 +35,9 @@ import {
 import { COLUMN_NAMES } from "../globals"
 
 const getPlaylistSongs =
-	(client: PGClient) =>
+	(client: Client) =>
 		<T>(playlistId: string, parse: SqlParse<T>) =>
-			sqlQuery(client)({
+			query(client)({
 				sql: SELECT_PLAYLIST_SONGS,
 				parse,
 				variables: [{
@@ -46,14 +46,14 @@ const getPlaylistSongs =
 				},{
 					string: false,
 					key: "columnNames",
-					value: sqlJoin(COLUMN_NAMES.SONG, "songs"),
+					value: join(COLUMN_NAMES.SONG, "songs"),
 				}],
 			})
 
 const getUserPlaylistPlays =
-	(client: PGClient) =>
+	(client: Client) =>
 		<T>(userId: string, playlistId: string, parse: SqlParse<T>) =>
-			sqlQuery(client)({
+			query(client)({
 				sql: SELECT_USER_DOC_PLAYS,
 				parse,
 				variables: [{
@@ -65,7 +65,7 @@ const getUserPlaylistPlays =
 				},{
 					string: false,
 					key: "columnNames",
-					value: sqlJoin(COLUMN_NAMES.PLAY),
+					value: join(COLUMN_NAMES.PLAY),
 				}],
 			})
 
@@ -82,16 +82,16 @@ export const dateCreated =
 export const user =
 	resolver<User>(
 		({ parent, context }) => (
-			sqlQuery(context.pg)({
+			query(context.pg)({
 				sql: SELECT_USER,
-				parse: parseSqlRow(),
+				parse: parseRow(),
 				variables: [{
 					key: "userId",
 					value: parent.userId,
 				},{
 					string: false,
 					key: "columnNames",
-					value: sqlJoin(COLUMN_NAMES.USER),
+					value: join(COLUMN_NAMES.USER),
 				}],
 			})
 		),
@@ -102,7 +102,7 @@ export const songs =
 		({ parent, context }) => (
 			getPlaylistSongs(context.pg)(
 				parent.playlistId,
-				parseSqlTable(),
+				parseTable(),
 			)
 		),
 	)
@@ -112,7 +112,7 @@ export const songsTotal =
 		({ parent, context }) => (
 			getPlaylistSongs(context.pg)(
 				parent.playlistId,
-				getSqlRowCountOrNull,
+				getRowCountOrNull,
 			)
 		),
 	)
@@ -123,7 +123,7 @@ export const duration =
 			getPlaylistSongs(context.pg)(
 				parent.playlistId,
 				pipe(
-					parseSqlTable<Song>(),
+					parseTable<Song>(),
 					map(song => song.duration),
 					sum,
 				),
@@ -137,7 +137,7 @@ export const userPlays =
 			getUserPlaylistPlays(context.pg)(
 				args.userId,
 				parent.userId,
-				parseSqlTable(),
+				parseTable(),
 			)
 		),
 	)
@@ -148,7 +148,7 @@ export const userPlaysTotal =
 			getUserPlaylistPlays(context.pg)(
 				args.userId,
 				parent.userId,
-				getSqlRowCountOrNull,
+				getRowCountOrNull,
 			)
 		),
 	)

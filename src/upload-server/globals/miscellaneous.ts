@@ -1,15 +1,4 @@
-/* eslint-disable quote-props */
 import { ImgDim } from "../types"
-
-export const GLOBAL_HTTP_HEADERS = {
-	"Server": "Node.js",
-	"Accept-Encoding": "gzip",
-	"X-Powered-By": "Express",
-	"X-Frame-Options": "deny",
-}
-
-export const LOG_FORMAT =
-	":status :url :total-time[0] ms"
 
 export const IMAGE_SIZES: Record<string, Record<string, ImgDim>> = {
 	ALBUM: {

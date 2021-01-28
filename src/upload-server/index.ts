@@ -1,33 +1,31 @@
 import cors from "cors"
-import http from "http"
 import morgan from "morgan"
 import helmet from "helmet"
 import express from "express"
 import bodyParser from "body-parser"
 import compression from "compression"
 import cookieParser from "cookie-parser"
+import { LOG_FORMAT } from "@oly_op/music-app-common/globals"
 
 import {
 	PORT,
-	LOG_FORMAT,
 	CORS_CONFIG,
 	PUBLIC_PATH,
 } from "./globals"
 
 import {
 	serveClient,
-	globalHeaders,
+	genreSearch,
+	artistSearch,
 	artistPhotoSearch,
 } from "./middleware"
 
 const app = express()
 
-// middleware stack
 app.use(
 	morgan(LOG_FORMAT),
 	helmet(),
 	cors(CORS_CONFIG),
-	globalHeaders(),
 	compression(),
 	bodyParser.json(),
 	bodyParser.urlencoded({ extended: false }),
@@ -36,6 +34,8 @@ app.use(
 	serveClient(),
 )
 
+app.get("/genreSearch/:query", genreSearch)
+app.get("/artistSearch/:query", artistSearch)
 app.get("/artistPhotoSearch/:name", artistPhotoSearch)
 
-http.createServer(app).listen(PORT)
+app.listen(PORT)

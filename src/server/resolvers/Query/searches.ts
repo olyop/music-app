@@ -1,12 +1,11 @@
-import { isEmpty, orderBy } from "lodash"
-
 import {
-	sqlJoin,
-	sqlQuery,
-	sqlSearch,
-	parseSqlRow,
-	createResolver,
-} from "../../helpers"
+	join,
+	query,
+	parseRow,
+	search as sqlSearch,
+} from "@oly_op/pg-helpers"
+
+import { isEmpty, orderBy } from "lodash"
 
 import {
 	SELECT_SONG,
@@ -16,13 +15,14 @@ import {
 } from "../../sql"
 
 import { COLUMN_NAMES } from "../../globals"
+import { createResolver } from "../../helpers"
 import { Search, Song, Album, Genre, Artist, SearchResult } from "../../types"
 
 const resolver =
 	createResolver()
 
 interface SearchArgs {
-	query: string,
+	value: string,
 }
 
 interface DocSearchArgs extends SearchArgs {
@@ -82,62 +82,62 @@ export const search =
 		async ({ args, context }) => {
 			const { hits } =
 				await context.ag.search<SearchResult>(
-					args.query,
+					args.value,
 					{ getRankingInfo: true },
 				)
 			const results =
 				await Promise.all<Search>(
 					orderBy(hits, "_rankingInfo.userScore", "asc").map(hit => {
 						if (hit.type === "Song") {
-							return sqlQuery(context.pg)({
+							return query(context.pg)({
 								sql: SELECT_SONG,
-								parse: parseSqlRow<Song>(),
+								parse: parseRow<Song>(),
 								variables: [{
 									key: "songId",
 									value: hit.objectID,
 								},{
 									string: false,
 									key: "columnNames",
-									value: sqlJoin(COLUMN_NAMES.SONG),
+									value: join(COLUMN_NAMES.SONG),
 								}],
 							})
 						} else if (hit.type === "Genre") {
-							return sqlQuery(context.pg)({
+							return query(context.pg)({
 								sql: SELECT_GENRE,
-								parse: parseSqlRow<Genre>(),
+								parse: parseRow<Genre>(),
 								variables: [{
 									key: "genreId",
 									value: hit.objectID,
 								},{
 									string: false,
 									key: "columnNames",
-									value: sqlJoin(COLUMN_NAMES.GENRE),
+									value: join(COLUMN_NAMES.GENRE),
 								}],
 							})
 						} else if (hit.type === "Album") {
-							return sqlQuery(context.pg)({
+							return query(context.pg)({
 								sql: SELECT_ALBUM,
-								parse: parseSqlRow<Album>(),
+								parse: parseRow<Album>(),
 								variables: [{
 									key: "albumId",
 									value: hit.objectID,
 								},{
 									string: false,
 									key: "columnNames",
-									value: sqlJoin(COLUMN_NAMES.ALBUM),
+									value: join(COLUMN_NAMES.ALBUM),
 								}],
 							})
 						} else {
-							return sqlQuery(context.pg)({
+							return query(context.pg)({
 								sql: SELECT_ARTIST,
-								parse: parseSqlRow<Artist>(),
+								parse: parseRow<Artist>(),
 								variables: [{
 									key: "artistId",
 									value: hit.objectID,
 								},{
 									string: false,
 									key: "columnNames",
-									value: sqlJoin(COLUMN_NAMES.ARTIST),
+									value: join(COLUMN_NAMES.ARTIST),
 								}],
 							})
 						}

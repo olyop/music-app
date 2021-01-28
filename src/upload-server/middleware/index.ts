@@ -1,3 +1,4 @@
 export * from "./serveClient"
-export * from "./globalHeaders"
+export * from "./genreSearch"
+export * from "./artistSearch"
 export * from "./artistPhotoSearch"

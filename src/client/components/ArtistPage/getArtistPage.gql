@@ -1,0 +1,10 @@
+query getArtistPage($artistId: Uuid!) {
+	artist(artistId: $artistId) {
+		name
+		artistId
+		inLibrary
+		playsTotal
+		songsTotal
+		albumsTotal
+	}
+}

@@ -1,0 +1,22 @@
+.Header {
+	z-index: 2;
+	display: flex;
+	align-items: center;
+	height: var(--header-height);
+	padding: 0 var(--space-half);
+	justify-content: space-between;
+	&__link {
+		text-decoration: none;
+		&:hover,
+		&:focus {
+			text-decoration: none; } }
+	&__icons {
+		margin-right: -3rem; }
+	&__icon {
+		--dim: 40rem;
+		width: var(--dim);
+		height: var(--dim);
+		text-decoration: none;
+		color: var(--text-color); }
+	&__hamburger {
+		margin-left: 3rem; } }

@@ -1,0 +1,20 @@
+query getUserAlbums(
+	$page: NonNegativeInt!
+	$orderBy: AlbumOrderByInput!
+) {
+	user {
+		userId
+		albums(
+			page: $page
+			orderBy: $orderBy
+		) {
+			albumId
+			title
+			released
+			artists {
+				artistId
+				name
+			}
+		}
+	}
+}

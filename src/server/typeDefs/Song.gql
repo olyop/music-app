@@ -1,0 +1,22 @@
+type Song {
+	key: Key!
+	mix: String!
+	songId: Uuid!
+	album: Album!
+	title: String!
+	bpm: PositiveInt!
+	genres: [Genre!]!
+	size: PositiveInt!
+	artists: [Artist!]!
+	userPlays: [Play!]!
+	inLibrary: Boolean!
+	remixers: [Artist!]!
+	dateAdded: Timestamp
+	featuring: [Artist!]!
+	duration: PositiveInt!
+	discNumber: PositiveInt!
+	trackNumber: PositiveInt!
+	playsTotal: NonNegativeInt
+	userPlaysTotal: NonNegativeInt
+	dateAddedToPlaylist(playlistId: Uuid!): Timestamp
+}

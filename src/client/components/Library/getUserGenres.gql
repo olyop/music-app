@@ -1,0 +1,15 @@
+query getUserGenres(
+	$page: NonNegativeInt!
+	$orderBy: GenreOrderByInput!
+) {
+	user {
+		userId
+		genres(
+			page: $page
+			orderBy: $orderBy
+		) {
+			name
+			genreId
+		}
+	}
+}

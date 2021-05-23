@@ -1,0 +1,9 @@
+.SettingsPage {
+	&__name {
+		font-size: 30rem; }
+	&__details {
+		cursor: pointer; }
+	&__summary {
+		outline: none; }
+	&__select-option::first-letter {
+		text-transform: uppercase; } }

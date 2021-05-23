@@ -1,0 +1,17 @@
+query getUserArtists(
+	$page: NonNegativeInt!
+	$orderBy: UserArtistOrderByInput!
+) {
+	user {
+		userId
+		artists(
+			page: $page
+			orderBy: $orderBy
+		) {
+			name
+			artistId
+			dateAdded
+			inLibrary
+		}
+	}
+}

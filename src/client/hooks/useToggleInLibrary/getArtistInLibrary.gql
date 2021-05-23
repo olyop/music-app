@@ -1,0 +1,6 @@
+query getArtistInLib($artistId: Uuid!) {
+	artist(artistId: $artistId) {
+		artistId
+		inLibrary
+	}
+}

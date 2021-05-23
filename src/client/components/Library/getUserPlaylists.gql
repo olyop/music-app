@@ -1,0 +1,18 @@
+query getUserPlaylists(
+	$page: NonNegativeInt!
+	$orderBy: UserPlaylistOrderByInput!
+) {
+	user {
+		userId
+		playlists(
+			page: $page
+			orderBy: $orderBy
+		) {
+			title
+			dateAdded
+			inLibrary
+			playlistId
+			songsTotal
+		}
+	}
+}

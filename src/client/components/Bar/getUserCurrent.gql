@@ -1,0 +1,33 @@
+query getUserCurrent {
+	user {
+		name
+		userId
+		current {
+			songId
+			mix
+			title
+			duration
+			inLibrary
+			featuring {
+				artistId
+				name
+			}
+			remixers {
+				artistId
+				name
+			}
+			artists {
+				artistId
+				name
+			}
+			genres {
+				genreId
+				name
+			}
+			album {
+				albumId
+				title
+			}
+		}
+	}
+}

@@ -1,0 +1,6 @@
+scalar Uuid
+scalar Date
+scalar Email
+scalar Timestamp
+scalar PositiveInt
+scalar NonNegativeInt

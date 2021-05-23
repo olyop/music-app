@@ -1,0 +1,43 @@
+query getUserSongs(
+	$page: NonNegativeInt!
+	$orderBy: UserSongOrderByInput!
+) {
+	user {
+		userId
+		songs(
+			page: $page
+			orderBy: $orderBy
+		) {
+			songId
+			title
+			mix
+			duration
+			dateAdded
+			inLibrary
+			featuring {
+				artistId
+				name
+			}
+			remixers {
+				artistId
+				name
+			}
+			artists {
+				artistId
+				name
+			}
+			genres {
+				genreId
+				name
+			}
+			album {
+				title
+				albumId
+			}
+			userPlays {
+				playId
+				dateCreated
+			}
+		}
+	}
+}

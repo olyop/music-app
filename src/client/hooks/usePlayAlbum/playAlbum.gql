@@ -1,0 +1,32 @@
+mutation playAlbum($albumId: Uuid!) {
+	userPlayAlbum(albumId: $albumId) {
+    userId
+    current {
+      mix
+      title
+      songId
+      duration
+			inLibrary
+      featuring {
+        artistId
+        name
+      }
+      remixers {
+        artistId
+        name
+      }
+      artists {
+        artistId
+        name
+      }
+      genres {
+        genreId
+        name
+      }
+      album {
+        albumId
+        title
+      }
+    }
+	}
+}

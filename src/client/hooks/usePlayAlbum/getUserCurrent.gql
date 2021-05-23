@@ -1,0 +1,11 @@
+query getUserCurrent {
+  user {
+    userId
+    current {
+      songId
+      album {
+        albumId
+      }
+    }
+  }
+}

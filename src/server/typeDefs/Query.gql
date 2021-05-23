@@ -1,0 +1,19 @@
+type Query {
+	user(userId: Uuid): User!
+	play(playId: Uuid!): Play!
+	song(songId: Uuid!): Song!
+	album(albumId: Uuid!): Album!
+	genre(genreId: Uuid!): Genre!
+	artist(artistId: Uuid!): Artist!
+	search(value: String!): [Search!]!
+	playlist(playlistId: Uuid!): Playlist!
+	songSearch(value: String!, exact: Boolean!): [Song!]!
+	albumSearch(value: String!, exact: Boolean!): [Album!]!
+	genreSearch(value: String!, exact: Boolean!): [Genre!]!
+	artistSearch(value: String!, exact: Boolean!): [Artist!]!
+	songs(page: NonNegativeInt!, orderBy: SongOrderByInput!): [Song!]!
+	genres(page: NonNegativeInt!,orderBy: GenreOrderByInput!): [Genre!]!
+	albums(page: NonNegativeInt!, orderBy: AlbumOrderByInput!): [Album!]!
+	artists(page: NonNegativeInt!, orderBy: ArtistOrderByInput!): [Artist!]!
+	playlists(page: NonNegativeInt!, orderBy: PlaylistOrderByInput!): [Playlist!]!
+}

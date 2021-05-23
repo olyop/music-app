@@ -1,0 +1,17 @@
+query userPlaylistsFiltered(
+	$filterBySong: Uuid!
+	$orderBy: UserPlaylistOrderByInput!
+) {
+	user {
+		userId
+		playlists(
+			page: 0
+			orderBy: $orderBy
+			filterBySong: $filterBySong
+		) {
+			title
+			playlistId
+			songsTotal
+		}
+	}
+}

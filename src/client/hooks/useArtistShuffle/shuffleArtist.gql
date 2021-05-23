@@ -1,0 +1,113 @@
+mutation shuffleArtist($artistId: Uuid!) {
+	shuffleArtist(artistId: $artistId) {
+    userId
+    prev {
+      mix
+      title
+      songId
+      duration
+			inLibrary
+      featuring {
+        artistId
+        name
+      }
+      remixers {
+        artistId
+        name
+      }
+      artists {
+        artistId
+        name
+      }
+      genres {
+        genreId
+        name
+      }
+      album {
+        albumId
+        title
+      }
+    }
+    current {
+      mix
+      title
+      songId
+      duration
+			inLibrary
+      featuring {
+        artistId
+        name
+      }
+      remixers {
+        artistId
+        name
+      }
+      artists {
+        artistId
+        name
+      }
+      genres {
+        genreId
+        name
+      }
+      album {
+        albumId
+        title
+      }
+    }
+    next {
+      mix
+      title
+      songId
+      duration
+			inLibrary
+      featuring {
+        artistId
+        name
+      }
+      remixers {
+        artistId
+        name
+      }
+      artists {
+        artistId
+        name
+      }
+      genres {
+        genreId
+        name
+      }
+      album {
+        albumId
+        title
+      }
+    }
+    later {
+      mix
+      title
+      songId
+      duration
+			inLibrary
+      featuring {
+        artistId
+        name
+      }
+      remixers {
+        artistId
+        name
+      }
+      artists {
+        artistId
+        name
+      }
+      genres {
+        genreId
+        name
+      }
+      album {
+        albumId
+        title
+      }
+    }
+	}
+}

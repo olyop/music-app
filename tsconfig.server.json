@@ -1,0 +1,13 @@
+{
+	"extends": "./tsconfig.json",
+	"compilerOptions": {
+		"module": "CommonJS",
+		"outDir": "build/server"
+	},
+	"include": [
+		"src/server"
+	],
+	"exclude": [
+		"src/server/resolvers/Mutation/add"
+	]
+}

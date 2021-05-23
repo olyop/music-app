@@ -1,0 +1,46 @@
+query getAlbumPage($albumId: Uuid!) {
+  album(albumId: $albumId) {
+    albumId
+    title
+    released
+    duration
+    genres {
+      name
+      genreId
+    }
+    artists {
+      name
+      artistId
+    }
+    songs {
+      mix
+      title
+      songId
+      duration
+      inLibrary
+      playsTotal
+      discNumber
+      trackNumber
+      featuring {
+        artistId
+        name
+      }
+      remixers {
+        artistId
+        name
+      }
+      artists {
+        artistId
+        name
+      }
+      genres {
+        genreId
+        name
+      }
+      album {
+        albumId
+        title
+      }
+    }
+  }
+}

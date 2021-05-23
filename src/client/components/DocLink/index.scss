@@ -1,0 +1,6 @@
+.DocLink {
+	text-decoration: none;
+	&:hover,
+	&:focus {
+		color: #ff5722;
+		text-shadow: 0 0 1px #c41c00; } }

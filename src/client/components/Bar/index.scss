@@ -1,0 +1,51 @@
+.Bar {
+	z-index: 2;
+	display: flex;
+	flex-direction: row;
+	height: var(--player-height);
+	@media (max-width: 800px) {
+		flex-direction: column-reverse;
+		height: var(--player-height-mobile); }
+	&__icon {
+		color: var(--text-color); }
+	&__main,
+	&__controls {
+		@media (min-width: 800px) {
+			padding: var(--space-half) var(--space); } }
+	&__controls {
+		@media (min-width: 800px) {
+			border-right: 1px solid var(--border-color); }
+		@media (max-width: 800px) {
+			justify-content: center;
+			border-top: 1px solid var(--border-color);
+			&-icon {
+				--dim: 45rem;
+				width: 33.3%;
+				border-radius: 0;
+				height: var(--dim);
+				font-size: calc(var(--dim) - 6rem); } } }
+	&__volume {
+		width: auto; }
+	&__main {
+		width: 100%;
+		height: 100%;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-around;
+		@media (max-width: 800px) {
+			padding: var(--space-half);
+			justify-content: space-between; }
+		&-content {
+			display: flex;
+			height: var(--info-height);
+			flex-direction: row-reverse;
+			justify-content: space-between;
+			&-current {
+				width: 100%;
+				margin-right: calc(var(--space) * 0.25); }
+			&-controls {
+				display: flex;
+				align-items: center;
+				margin-right: -7rem;
+				&-control {
+					margin-right: calc(var(--space) * 0.25); } } } } }

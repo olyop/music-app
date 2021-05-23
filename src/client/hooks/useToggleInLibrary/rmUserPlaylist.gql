@@ -1,0 +1,6 @@
+mutation rmUserPlaylist($playlistId: Uuid!) {
+	rmUserPlaylist(playlistId: $playlistId) {
+		title
+		playlistId
+	}
+}

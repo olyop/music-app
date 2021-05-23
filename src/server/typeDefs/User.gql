@@ -1,0 +1,36 @@
+type User {
+	userId: Uuid!
+	name: String!
+	email: Email!
+	current: Song
+	prev: [Song!]!
+	next: [Song!]!
+	later: [Song!]!
+	plays: [Play!]!
+	dateJoined: Timestamp!
+	playsTotal: NonNegativeInt
+	songsTotal: NonNegativeInt
+	artistsTotal: NonNegativeInt
+
+	songs(
+		page: NonNegativeInt!
+		orderBy: UserSongOrderByInput!
+	): [Song!]!
+	genres(
+		page: NonNegativeInt!
+		orderBy: GenreOrderByInput!
+	): [Genre!]!
+	albums(
+		page: NonNegativeInt!
+		orderBy: AlbumOrderByInput!
+	): [Album!]!
+	artists(
+		page: NonNegativeInt!
+		orderBy: UserArtistOrderByInput!
+	): [Artist!]!
+	playlists(
+		filterBySong: Uuid
+		page: NonNegativeInt
+		orderBy: UserPlaylistOrderByInput!
+	): [Playlist!]!
+}

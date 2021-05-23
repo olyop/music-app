@@ -1,0 +1,8 @@
+query getUserCurrent {
+  user {
+    userId
+    current {
+      songId
+    }
+  }
+}

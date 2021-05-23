@@ -1,0 +1,14 @@
+type Artist {
+	name: String!
+	artistId: Uuid!
+	inLibrary: Boolean!
+	userPlays: [Play!]!
+	dateAdded: Timestamp
+	topTenSongs: [Song!]!
+	playsTotal: PositiveInt
+	songsTotal: NonNegativeInt!
+	albumsTotal: NonNegativeInt!
+	userPlaysTotal: NonNegativeInt
+	songs(orderBy: SongOrderByInput!): [Song!]!
+	albums(orderBy: AlbumOrderByInput!): [Album!]!
+}

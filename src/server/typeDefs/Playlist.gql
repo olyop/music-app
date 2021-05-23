@@ -1,0 +1,14 @@
+type Playlist {
+	user: User!
+	title: String!
+	songs: [Song!]!
+	playlistId: Uuid!
+	userPlays: [Play!]!
+	inLibrary: Boolean!
+	dateAdded: Timestamp
+	duration: PositiveInt
+	dateCreated: Timestamp!
+	playsTotal: NonNegativeInt
+	songsTotal: NonNegativeInt
+	userPlaysTotal: NonNegativeInt
+}

@@ -1,0 +1,12 @@
+.ModalAddPlaylist {
+	border: 0;
+	width: 100%;
+	outline: none;
+	font-size: 18rem;
+	font-weight: 400;
+	padding: var(--space-three-quart);
+	border-radius: var(--border-radius);
+	border: 1px solid rgba(0, 0, 0, 0.23);
+	&__submit {
+		width: 100%;
+		background-color: #eee; } }

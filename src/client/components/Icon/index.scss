@@ -1,0 +1,20 @@
+.Icon {
+	border: 0;
+	outline: none;
+	padding: 3rem;
+	display: block;
+	cursor: pointer;
+	user-select: none;
+	border-radius: 100%;
+	box-sizing: border-box;
+	width: var(--info-height);
+	height: var(--info-height);
+	overflow: hidden !important;
+	background-color: transparent;
+	color: var(--text-color-light);
+	font-size: calc(var(--info-height) - 6rem);
+	transition: var(--transition-duration) background-color;
+	&:hover,
+	&:focus,
+	&:active {
+		background-color: var(--hover-color); } }

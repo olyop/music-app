@@ -1,0 +1,41 @@
+query getSongPage($songId: Uuid!) {
+  song(songId: $songId) {
+    bpm
+    title
+    songId
+    duration
+    inLibrary
+    playsTotal
+    key {
+      flat
+      keyId
+      sharp
+      camelot
+    }
+    featuring {
+      name
+      artistId
+    }
+    remixers {
+      name
+      artistId
+    }
+    artists {
+      name
+      artistId
+    }
+    genres {
+      name
+      genreId
+    }
+    album {
+      title
+      albumId
+      released
+    }
+    userPlays {
+      playId
+      dateCreated
+    }
+  }
+}

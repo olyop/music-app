@@ -1,0 +1,5 @@
+mutation userSongNext($songId: Uuid!) {
+  userSongNext(songId: $songId) {
+    userId
+  }
+}

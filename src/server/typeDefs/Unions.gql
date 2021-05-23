@@ -1,0 +1,1 @@
+union Search = Song | Genre | Album | Artist

@@ -1,0 +1,15 @@
+{
+	"extends": "./tsconfig.json",
+	"include": [
+		"src",
+		"jest.config.ts",
+		"webpack.base.ts",
+		"webpack.client.ts",
+		"webpack.upload.ts",
+		"webpack.worker.ts"
+	],
+	"exclude": [
+		"build",
+		"node_modules"
+	]
+}

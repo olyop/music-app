@@ -1,0 +1,26 @@
+{
+	"compilerOptions": {
+		"jsx": "react",
+		"sourceMap": false,
+		"module": "ESNext",
+		"target": "ES2020",
+		"alwaysStrict": true,
+		"noImplicitAny": true,
+		"noImplicitThis": true,
+		"removeComments": true,
+		"esModuleInterop": true,
+		"strictNullChecks": true,
+		"noImplicitReturns": true,
+		"moduleResolution": "Node",
+		"noUnusedParameters": true,
+		"strictBindCallApply": true,
+		"strictFunctionTypes": true,
+		"jsxFactory": "createElement",
+		"noFallthroughCasesInSwitch": true,
+		"strictPropertyInitialization": true,
+		"forceConsistentCasingInFileNames": true
+	},
+	"exclude": [
+		"build"
+	]
+}

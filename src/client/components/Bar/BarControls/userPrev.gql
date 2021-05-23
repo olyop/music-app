@@ -1,0 +1,109 @@
+mutation userPrev {
+	userPrev {
+		userId
+		prev {
+			songId
+			mix
+			title
+			duration
+			featuring {
+				artistId
+				name
+			}
+			remixers {
+				artistId
+				name
+			}
+			artists {
+				artistId
+				name
+			}
+			genres {
+				genreId
+				name
+			}
+			album {
+				albumId
+				title
+			}
+		}
+		current {
+			songId
+			title
+			mix
+			duration
+			featuring {
+				artistId
+				name
+			}
+			remixers {
+				artistId
+				name
+			}
+			artists {
+				artistId
+				name
+			}
+			genres {
+				genreId
+				name
+			}
+			album {
+				albumId
+				title
+			}
+		}
+		next {
+			songId
+			title
+			mix
+			duration
+			featuring {
+				artistId
+				name
+			}
+			remixers {
+				artistId
+				name
+			}
+			artists {
+				artistId
+				name
+			}
+			genres {
+				genreId
+				name
+			}
+			album {
+				albumId
+				title
+			}
+		}
+		later {
+			songId
+			title
+			mix
+			duration
+			featuring {
+				artistId
+				name
+			}
+			remixers {
+				artistId
+				name
+			}
+			artists {
+				artistId
+				name
+			}
+			genres {
+				genreId
+				name
+			}
+			album {
+				albumId
+				title
+			}
+		}
+	}
+}

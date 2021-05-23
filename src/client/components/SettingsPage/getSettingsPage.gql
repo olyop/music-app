@@ -1,0 +1,7 @@
+query getSettingsPage {
+  user {
+    userId
+    songsTotal
+    artistsTotal
+  }
+}

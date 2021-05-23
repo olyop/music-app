@@ -1,0 +1,47 @@
+input PlaylistInput {
+	title: String!
+}
+
+input UserInput {
+	name: String!
+}
+
+input SongOrderByInput {
+	field: SongOrderByField!
+	direction: OrderByDirection!
+}
+
+input GenreOrderByInput {
+	field: GenreOrderByField!
+	direction: OrderByDirection!
+}
+
+input AlbumOrderByInput {
+	field: AlbumOrderByField!
+	direction: OrderByDirection!
+}
+
+input ArtistOrderByInput {
+	field: ArtistOrderByField!
+	direction: OrderByDirection!
+}
+
+input PlaylistOrderByInput {
+	field: PlaylistOrderByField!
+	direction: OrderByDirection!
+}
+
+input UserSongOrderByInput {
+	field: UserSongOrderByField!
+	direction: OrderByDirection!
+}
+
+input UserArtistOrderByInput {
+	direction: OrderByDirection!
+	field: UserArtistOrderByField!
+}
+
+input UserPlaylistOrderByInput {
+	direction: OrderByDirection!
+	field: UserPlaylistOrderByField!
+}

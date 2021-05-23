@@ -1,0 +1,9 @@
+query getSongData($songId: Uuid!) {
+  song(songId: $songId) {
+    title
+    songId
+    album {
+      albumId
+    }
+  }
+}

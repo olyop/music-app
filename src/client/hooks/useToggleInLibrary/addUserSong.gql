@@ -1,0 +1,30 @@
+mutation addUserSong($songId: Uuid!) {
+  addUserSong(songId: $songId) {
+    mix
+    title
+    songId
+    duration
+    dateAdded
+    inLibrary
+    featuring {
+      artistId
+      name
+    }
+    remixers {
+      artistId
+      name
+    }
+    artists {
+      artistId
+      name
+    }
+    genres {
+      genreId
+      name
+    }
+    album {
+      albumId
+      title
+    }
+  }
+}

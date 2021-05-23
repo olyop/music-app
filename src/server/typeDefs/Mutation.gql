@@ -1,0 +1,28 @@
+type Mutation {
+  userPrev: User!
+  userNext: User!
+  userClearNext: User!
+  userClearQueue: User!
+  deleteUserLibrary: User!
+  userShuffleLibrary: User!
+  rmUserSong(songId: Uuid!): Song!
+  addUser(user: UserInput!): User!
+  addUserSong(songId: Uuid!): Song!
+  userSongNext(songId: Uuid!): User!
+  userSongAfter(songId: Uuid!): User!
+  userSongLater(songId: Uuid!): User!
+  shuffleAlbum(albumId: Uuid!): User!
+  userPlayAlbum(albumId: Uuid!): User!
+  shuffleArtist(artistId: Uuid!): User!
+  rmUserArtist(artistId: Uuid!): Artist!
+  updateUserCurrent(songId: Uuid!): User!
+  addUserArtist(artistId: Uuid!): Artist!
+  deletePlaylist(playlistId: Uuid!): User!
+  shufflePlaylist(playlistId: Uuid!): User!
+  rmUserPlaylist(playlistId: Uuid!): Playlist!
+  addUserPlaylist(playlistId: Uuid!): Playlist!
+	login(userId: Uuid!, password: String!): String
+  addPlaylist(playlist: PlaylistInput!): Playlist!
+  addSongToPlaylist(songId: Uuid!, playlistId: Uuid!): Song!
+  createAccount(name: String!, email: Email!, password: String!): String!
+}

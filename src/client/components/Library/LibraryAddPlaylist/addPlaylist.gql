@@ -1,0 +1,6 @@
+mutation addPlaylist($playlist: PlaylistInput!) {
+	addPlaylist(playlist: $playlist) {
+		title
+		playlistId
+	}
+}

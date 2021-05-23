@@ -1,0 +1,10 @@
+mutation rmUserArtist($artistId: Uuid!) {
+  rmUserArtist(artistId: $artistId) {
+    artistId
+    name
+    dateAdded
+    inLibrary
+    songsTotal
+    albumsTotal
+  }
+}
